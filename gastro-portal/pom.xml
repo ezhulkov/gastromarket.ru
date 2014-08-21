@@ -11,7 +11,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>portal</artifactId>
-
+    <artifactId>gastro-portal</artifactId>
+    <name>gastromarket.ru - portal</name>
 
 </project>
