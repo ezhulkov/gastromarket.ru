@@ -3,11 +3,16 @@
 <head>
     <title>gastromarket.ru - еда под рукой</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <link href="css/custom.css" rel="stylesheet"/>
 </head>
 <body>
 <t:headerlayout/>
 <t:body/>
 <t:footerlayout/>
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/custom.js"></script>
 </body>
 </html>
