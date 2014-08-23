@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+<head>
+    <title>gastromarket.ru - еда под рукой</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+</head>
+<body>
+<t:headerlayout/>
+<t:body/>
+<t:footerlayout/>
+</body>
+</html>

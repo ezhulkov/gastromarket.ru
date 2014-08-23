@@ -1,4 +1,4 @@
-package org.ohm.gastro.model;
+package org.ohm.gastro.domain;
 
 /**
  * Created by ezhulkov on 21.08.14.

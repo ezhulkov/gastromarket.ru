@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+        xmlns:beans="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+    <http pattern="/favicon.ico" security="none"/>
+    <http pattern="/robots.txt" security="none"/>
+    <http pattern="/assets/**" security="none"/>
+    <http pattern="/css/**" security="none"/>
+    <http pattern="/js/**" security="none"/>
+    <http pattern="/img/**" security="none"/>
+
+    <http access-denied-page="/error403" use-expressions="true" auto-config="true">
+        <intercept-url pattern="/" access="hasRole('ROLE_ANONYMOUS')"/>
+        <intercept-url pattern="/**" access="hasRole('ROLE_ANONYMOUS')"/>
+        <intercept-url pattern="/office/**" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+        <form-login login-page="/login" default-target-url="/index" always-use-default-target="true" authentication-failure-url="/login/error" login-processing-url="/j_security_check"/>
+        <logout logout-url="/logout" logout-success-url="/" invalidate-session="true"/>
+        <remember-me user-service-ref="userDetailsService" key="b6cNMFz1W8BFNDQPmPg2cuXJamNgCmOc"/>
+    </http>
+
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider user-service-ref="userDetailsService"/>
+    </authentication-manager>
+
+    <user-service id="userDetailsService">
+        <user name="admin" password="admin" authorities="ROLE_ADMIN"/>
+        <user name="user" password="user" authorities="ROLE_USER"/>
+    </user-service>
+
+</beans:beans>
