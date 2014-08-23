@@ -1,0 +1,23 @@
+---
+  - name: make sure that nessesary directories exists
+    file: path={{ item }} state=directory mode=0777 group=root owner=root
+    with_items:
+      - "/var/log/gastro"
+
+  - name: cleanup tomcat7 work files
+    shell: rm -fr /var/lib/tomcat7/work/*
+
+  - name: cleanup tomcat7 war file
+    shell: rm -fr /var/lib/tomcat7/webapps/gastromarket.war
+
+  - name: cleanup tomcat7 logs
+    shell: rm -fr /var/lib/tomcat7/logs/*
+
+  - name: cleanup manager logs
+    shell: rm -fr /var/log/gastro/vikings-manager*
+
+  - name: download artifacts
+    copy: src=gastro-portal/target/gastromarket.war dest=/var/lib/tomcat7/webapps owner=tomcat7 group=tomcat7 mode=0644
+
+  - name: restart tomcat7
+    service: name=tomcat7 state=restarted
