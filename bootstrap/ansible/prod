@@ -1,2 +1,2 @@
 [portal]
-gastromarket.com
+gastromarket.ru ansible_ssh_port=6022 ansible_ssh_user=ezhulkov

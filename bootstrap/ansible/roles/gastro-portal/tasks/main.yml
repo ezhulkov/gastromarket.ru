@@ -16,8 +16,8 @@
   - name: cleanup manager logs
     shell: rm -fr /var/log/gastro/vikings-manager*
 
-  - name: download artifacts
-    copy: src=gastro-portal/target/gastromarket.war dest=/var/lib/tomcat7/webapps owner=tomcat7 group=tomcat7 mode=0644
+  - name: upload application
+    copy: src=../../gastro-portal/target/gastromarket.war dest=/var/lib/tomcat7/webapps owner=tomcat7 group=tomcat7 mode=0644
 
   - name: restart tomcat7
     service: name=tomcat7 state=restarted
