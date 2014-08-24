@@ -8,7 +8,7 @@
     shell: rm -fr /var/lib/tomcat7/work/*
 
   - name: cleanup tomcat7 war file
-    shell: rm -fr /var/lib/tomcat7/webapps/gastromarket.war
+    shell: rm -fr /var/lib/tomcat7/webapps/ROOT.war
 
   - name: cleanup tomcat7 logs
     shell: rm -fr /var/lib/tomcat7/logs/*
@@ -17,7 +17,7 @@
     shell: rm -fr /var/log/gastro/vikings-manager*
 
   - name: upload application
-    copy: src=../../gastro-portal/target/gastromarket.war dest=/var/lib/tomcat7/webapps owner=tomcat7 group=tomcat7 mode=0644
+    copy: src=../../gastro-portal/target/gastromarket.war dest=/var/lib/tomcat7/webapps/ROOT.war owner=tomcat7 group=tomcat7 mode=0644
 
   - name: restart tomcat7
     service: name=tomcat7 state=restarted
