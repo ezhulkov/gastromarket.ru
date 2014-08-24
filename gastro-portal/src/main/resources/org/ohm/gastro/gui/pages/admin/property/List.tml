@@ -1,0 +1,40 @@
+<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="starter-template">
+
+    <div class="main-body">
+        <h1>Properties</h1>
+
+        <button class="btn btn-default pull-right" data-toggle="modal" data-target="#create">
+            Create new property
+        </button>
+
+        <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <t:editObject t:id="editObject" showAdd="literal:true" autoFocus="literal:true">
+                        <div class="form-group form-group">
+                            <div class="col-sm-10">
+                                <input t:id="name" class="form-control" type="text" placeholder="Property name"/>
+                            </div>
+                        </div>
+                        <div class="form-group form-group">
+                            <div class="col-sm-10">
+                                <input t:id="type" class="form-control"/>
+                            </div>
+                        </div>
+                    </t:editObject>
+                </div>
+            </div>
+        </div>
+
+        <br/>
+        <br/>
+        <t:grid source="properties" row="property" exclude="id" t:mixins="GridSortingDisabled">
+            <t:parameter name="nameCell">
+                <t:actionlink t:id="delete" context="property.id" class="pull-right"><span class="glyphicon glyphicon-remove"/></t:actionlink>
+                <t:pagelink page="admin/property/index" context="['UPDATE',property.id]">${property.name}</t:pagelink>
+            </t:parameter>
+        </t:grid>
+
+    </div>
+
+</t:htmllayout>

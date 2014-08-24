@@ -40,9 +40,6 @@ public class PropertyEntity implements BaseEntity {
     private String name;
 
     @Column
-    private String value;
-
-    @Column
     @Enumerated(EnumType.STRING)
     private Type type = Type.STRING;
 
@@ -53,7 +50,7 @@ public class PropertyEntity implements BaseEntity {
                inverseJoinColumns = {@JoinColumn(name = "category_id")})
     private List<CategoryEntity> categories = Lists.newArrayList();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "property")
     private List<PropertyValueEntity> values = Lists.newArrayList();
 
     @Override
@@ -97,11 +94,4 @@ public class PropertyEntity implements BaseEntity {
         this.values = values;
     }
 
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 }

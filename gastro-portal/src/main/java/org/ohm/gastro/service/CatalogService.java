@@ -19,8 +19,20 @@ public interface CatalogService {
 
     public CategoryEntity findCategory(Long id);
 
-    public CategoryEntity saveCategory(CategoryEntity categoryEntity);
+    public PropertyEntity findProperty(Long id);
+
+    public PropertyValueEntity findPropertyValue(Long id);
+
+    public CategoryEntity saveCategory(CategoryEntity category);
+
+    public PropertyEntity saveProperty(PropertyEntity property);
+
+    public PropertyValueEntity savePropertyValue(PropertyValueEntity value);
 
     public void deleteCategory(Long id);
+
+    public void deleteProperty(Long id);
+
+    public void deletePropertyValue(Long id);
 
 }

@@ -17,7 +17,6 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="java.sql.Types.VARCHAR(64)"/>
-            <column name="value" type="java.sql.Types.VARCHAR(64)"/>
             <column name="type" type="java.sql.Types.VARCHAR(64)"/>
         </createTable>
         <createTable tableName="property_value">

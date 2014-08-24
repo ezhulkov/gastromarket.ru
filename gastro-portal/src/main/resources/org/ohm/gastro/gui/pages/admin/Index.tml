@@ -4,7 +4,7 @@
 
         <ul>
             <li>
-                <t:pagelink page="admin/property/index">Properties</t:pagelink>
+                <t:pagelink page="admin/property/list">Properties</t:pagelink>
             </li>
             <li>
                 <t:pagelink page="admin/category/list">Categories</t:pagelink>
