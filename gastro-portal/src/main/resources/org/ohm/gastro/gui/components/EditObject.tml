@@ -1,0 +1,27 @@
+<t:form xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd"
+        t:id="form"
+        t:autofocus="${autoFocus}"
+        t:clientValidation="none"
+        class="form-horizontal well" role="form">
+
+    <t:if test="object">
+
+        <t:errors/>
+        <t:body/>
+
+        <t:if test="showControls">
+            <t:if test="addControls">
+                <t:delegate to="addControls"/>
+            </t:if>
+            <t:if test="showAdd">
+                <input t:id="add" class="btn btn-default" type="button" value="Create"/>
+            </t:if>
+            <t:if test="showUpdate">
+                <input t:id="save" class="btn btn-default" type="button" value="Update"/>
+            </t:if>
+            <t:if test="showDelete">
+                <input t:id="delete" class="btn btn-default" type="button" value="Delete"/>
+            </t:if>
+        </t:if>
+    </t:if>
+</t:form>

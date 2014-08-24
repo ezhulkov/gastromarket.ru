@@ -3,5 +3,9 @@ body {
 }
 
 .main-body {
-    padding: 40px 15px;
+    padding: 20px 0px;
+}
+
+.modal-content {
+    padding: 30px;
 }

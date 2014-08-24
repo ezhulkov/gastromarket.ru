@@ -1,0 +1,35 @@
+<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="starter-template">
+
+    <div class="main-body">
+        <h1>Categories</h1>
+
+        <button class="btn btn-default pull-right" data-toggle="modal" data-target="#create">
+            Create new category
+        </button>
+
+        <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <t:editObject t:id="editObject" showAdd="literal:true" autoFocus="literal:true">
+                        <div class="form-group form-group">
+                            <div class="col-sm-10">
+                                <input t:id="name" class="form-control" type="text" placeholder="Category name"/>
+                            </div>
+                        </div>
+                    </t:editObject>
+                </div>
+            </div>
+        </div>
+
+        <br/>
+        <br/>
+        <t:grid source="categories" row="category" exclude="id" t:mixins="GridSortingDisabled">
+            <t:parameter name="nameCell">
+                <t:pagelink page="admin/category/index" context="['UPDATE',category.id]">${category.name}</t:pagelink>
+                <t:actionlink t:id="delete" context="category.id" class="pull-right"><span class="glyphicon glyphicon-remove"/></t:actionlink>
+            </t:parameter>
+        </t:grid>
+
+    </div>
+
+</t:htmllayout>

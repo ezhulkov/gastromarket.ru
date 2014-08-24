@@ -4,5 +4,39 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
+    <changeSet author="ezhulkov" id="1">
+        <createTable tableName="hibernate_sequences">
+            <column name="sequence_name" type="java.sql.Types.VARCHAR(255)"/>
+            <column name="sequence_next_hi_value" type="java.sql.Types.INTEGER"/>
+        </createTable>
+        <createIndex tableName="hibernate_sequences" indexName="hs_name">
+            <column name="sequence_name"/>
+        </createIndex>
+        <createTable tableName="property">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="java.sql.Types.VARCHAR(64)"/>
+            <column name="value" type="java.sql.Types.VARCHAR(64)"/>
+            <column name="type" type="java.sql.Types.VARCHAR(64)"/>
+        </createTable>
+        <createTable tableName="property_value">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="property_id" type="java.sql.Types.BIGINT"/>
+            <column name="value" type="java.sql.Types.VARCHAR(64)"/>
+        </createTable>
+        <createTable tableName="category">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="java.sql.Types.VARCHAR(64)"/>
+        </createTable>
+        <createTable tableName="category_property">
+            <column name="category_id" type="java.sql.Types.BIGINT"/>
+            <column name="property_id" type="java.sql.Types.BIGINT"/>
+        </createTable>
+    </changeSet>
 
 </databaseChangeLog>

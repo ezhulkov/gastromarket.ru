@@ -1,0 +1,10 @@
+<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="starter-template">
+
+    <div class="main-body">
+        <h1>Properties</h1>
+
+        <t:grid source="properties" row="property"/>
+
+    </div>
+
+</t:htmllayout>

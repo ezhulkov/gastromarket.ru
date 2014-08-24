@@ -2,7 +2,6 @@ package org.ohm.gastro.gui.mixins;
 
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.ioc.annotations.InjectService;
 import org.apache.tapestry5.ioc.services.PropertyAccess;
 import org.apache.tapestry5.services.ApplicationGlobals;
 import org.apache.tapestry5.services.Request;
@@ -15,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Properties;
 
 public abstract class BaseComponent {
 
@@ -48,9 +46,6 @@ public abstract class BaseComponent {
 
     @Inject
     private ApplicationGlobals globals;
-
-    @InjectService("properties")
-    private Properties properties;
 
     public UserDetails getAuthenticatedUser() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -99,10 +94,6 @@ public abstract class BaseComponent {
 
     public PropertyAccess getAccess() {
         return access;
-    }
-
-    public Properties getProperties() {
-        return properties;
     }
 
 }

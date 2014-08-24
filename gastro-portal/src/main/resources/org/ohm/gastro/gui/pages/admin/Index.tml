@@ -1,7 +1,18 @@
 <t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="starter-template">
 
     <div class="main-body">
-        <h1>Admin page</h1>
+
+        <ul>
+            <li>
+                <t:pagelink page="admin/property/index">Properties</t:pagelink>
+            </li>
+            <li>
+                <t:pagelink page="admin/category/list">Categories</t:pagelink>
+            </li>
+            <li>
+                <t:pagelink page="admin/order/index">Orders</t:pagelink>
+            </li>
+        </ul>
 
     </div>
 
