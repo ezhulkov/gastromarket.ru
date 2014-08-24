@@ -1,9 +1,8 @@
 <t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="starter-template">
 
     <div class="main-body">
-        <h1>Under construction</h1>
+        <h1>Personal page</h1>
 
-        <p class="lead">soon</p>
     </div>
 
 </t:htmllayout>

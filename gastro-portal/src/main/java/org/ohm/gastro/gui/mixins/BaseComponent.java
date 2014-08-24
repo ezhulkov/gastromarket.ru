@@ -71,6 +71,16 @@ public abstract class BaseComponent {
         return getAuthenticatedUser() != null;
     }
 
+    public boolean isAdmin() {
+        UserDetails authenticatedUser = getAuthenticatedUser();
+        return authenticatedUser != null && authenticatedUser.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
+    }
+
+    public boolean isUser() {
+        UserDetails authenticatedUser = getAuthenticatedUser();
+        return authenticatedUser != null && authenticatedUser.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER"));
+    }
+
     public String getContextPath() {
         return globals.getServletContext().getContextPath();
     }

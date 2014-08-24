@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+        version="2.5">
 
     <display-name>Gastromarket.ru :: Portal</display-name>
 
@@ -51,7 +52,7 @@
     </context-param>
     <context-param>
         <param-name>tapestry.production-mode</param-name>
-        <param-value>${mvn.prod.mode}</param-value>
+        <param-value>false</param-value>
     </context-param>
     <context-param>
         <param-name>tapestry.use-external-spring-context</param-name>
@@ -110,31 +111,29 @@
     <filter-mapping>
         <filter-name>app</filter-name>
         <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>ERROR</dispatcher>
     </filter-mapping>
 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
+    <error-page>
+        <error-code>403</error-code>
+        <location>/E403</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/E404</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/E500</location>
+    </error-page>
+
     <session-config>
         <session-timeout>60</session-timeout>
     </session-config>
-
-    <mime-mapping>
-        <extension>woff</extension>
-        <mime-type>font/woff</mime-type>
-    </mime-mapping>
-    <mime-mapping>
-        <extension>eot</extension>
-        <mime-type>application/vnd.ms-fontobject</mime-type>
-    </mime-mapping>
-    <mime-mapping>
-        <extension>svg</extension>
-        <mime-type>image/svg+xml</mime-type>
-    </mime-mapping>
-    <mime-mapping>
-        <extension>ttf</extension>
-        <mime-type>application/x-font-ttf</mime-type>
-    </mime-mapping>
 
 </web-app>
