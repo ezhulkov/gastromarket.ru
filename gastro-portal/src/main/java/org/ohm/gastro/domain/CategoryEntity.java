@@ -64,4 +64,13 @@ public class CategoryEntity implements BaseEntity {
         this.properties = properties;
     }
 
+    @Override
+    public String toString() {
+        return "CategoryEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", properties=" + properties +
+                '}';
+    }
+
 }

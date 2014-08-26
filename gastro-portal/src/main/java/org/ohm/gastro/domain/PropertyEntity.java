@@ -94,4 +94,15 @@ public class PropertyEntity implements BaseEntity {
         this.values = values;
     }
 
+    @Override
+    public String toString() {
+        return "PropertyEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type=" + type +
+                ", categories=" + categories +
+                ", values=" + values +
+                '}';
+    }
+
 }

@@ -1,6 +1,5 @@
 package org.ohm.gastro.domain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,7 +26,7 @@ public class PropertyValueEntity implements BaseEntity {
     @Column
     private String value;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private PropertyEntity property;
 
     @Override
@@ -53,6 +52,15 @@ public class PropertyValueEntity implements BaseEntity {
 
     public void setProperty(PropertyEntity property) {
         this.property = property;
+    }
+
+    @Override
+    public String toString() {
+        return "PropertyValueEntity{" +
+                "id=" + id +
+                ", value='" + value + '\'' +
+                ", property=" + property +
+                '}';
     }
 
 }

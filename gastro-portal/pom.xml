@@ -37,16 +37,6 @@
                     <archiveClasses>false</archiveClasses>
                     <warName>gastromarket</warName>
                     <webResources>
-                        <!--<resource>-->
-                            <!--<filtering>true</filtering>-->
-                            <!--<directory>src/main/webapp</directory>-->
-                            <!--<targetPath>WEB-INF</targetPath>-->
-                            <!--<includes>-->
-                                <!--<include>css/**</include>-->
-                                <!--<include>js/**</include>-->
-                                <!--<include>img/**</include>-->
-                            <!--</includes>-->
-                        <!--</resource>-->
                         <resource>
                             <filtering>true</filtering>
                             <directory>src/main/resources</directory>

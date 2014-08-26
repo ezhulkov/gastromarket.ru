@@ -34,7 +34,6 @@
                 <t:pagelink page="admin/property/index" context="['UPDATE',property.id]">${property.name}</t:pagelink>
             </t:parameter>
         </t:grid>
-
     </div>
 
 </t:htmllayout>

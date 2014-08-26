@@ -14,13 +14,13 @@
                 <t:delegate to="addControls"/>
             </t:if>
             <t:if test="showAdd">
-                <input t:id="add" class="btn btn-default" type="button" value="Create"/>
+                <input t:id="add" class="btn btn-default" type="button" value="Добавить"/>
             </t:if>
             <t:if test="showUpdate">
-                <input t:id="save" class="btn btn-default" type="button" value="Update"/>
+                <input t:id="save" class="btn btn-default" type="button" value="Сохранить"/>
             </t:if>
             <t:if test="showDelete">
-                <input t:id="delete" class="btn btn-default" type="button" value="Delete"/>
+                <input t:id="delete" class="btn btn-default" type="button" value="Удалить"/>
             </t:if>
         </t:if>
     </t:if>
