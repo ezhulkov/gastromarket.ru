@@ -47,6 +47,9 @@ public abstract class BaseComponent {
     @Inject
     private ApplicationGlobals globals;
 
+    @Inject
+    private PropertyAccess propertyAccess;
+
     public UserDetails getAuthenticatedUser() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         if (securityContext == null || securityContext.getAuthentication() == null) {
@@ -96,4 +99,7 @@ public abstract class BaseComponent {
         return access;
     }
 
+    public PropertyAccess getPropertyAccess() {
+        return propertyAccess;
+    }
 }

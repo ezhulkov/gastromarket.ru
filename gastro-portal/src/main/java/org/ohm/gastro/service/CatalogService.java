@@ -35,4 +35,6 @@ public interface CatalogService {
 
     public void deletePropertyValue(Long id);
 
+    public List<PropertyEntity> findAllProperties(CategoryEntity object);
+
 }

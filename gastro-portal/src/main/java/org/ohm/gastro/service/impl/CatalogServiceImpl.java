@@ -98,4 +98,9 @@ public class CatalogServiceImpl implements CatalogService {
         propertyValueRepository.delete(id);
     }
 
+    @Override
+    public List<PropertyEntity> findAllProperties(CategoryEntity category) {
+        return propertyRepository.findAllProperties(category);
+    }
+
 }

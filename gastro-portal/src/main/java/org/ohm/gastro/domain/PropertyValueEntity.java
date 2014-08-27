@@ -59,7 +59,6 @@ public class PropertyValueEntity implements BaseEntity {
         return "PropertyValueEntity{" +
                 "id=" + id +
                 ", value='" + value + '\'' +
-                ", property=" + property +
                 '}';
     }
 
