@@ -36,6 +36,38 @@
             <column name="category_id" type="java.sql.Types.BIGINT"/>
             <column name="property_id" type="java.sql.Types.BIGINT"/>
         </createTable>
+        <addForeignKeyConstraint baseTableName="property_value" baseColumnNames="property_id"
+                constraintName="value_property_fk" referencedTableName="property" referencedColumnNames="id"
+                deleteCascade="true"/>
+        <addForeignKeyConstraint baseTableName="category_property" baseColumnNames="property_id"
+                constraintName="cp_property_fk" referencedTableName="property" referencedColumnNames="id"
+                deleteCascade="true"/>
+        <addForeignKeyConstraint baseTableName="category_property" baseColumnNames="category_id"
+                constraintName="cp_category_fk" referencedTableName="category" referencedColumnNames="id"
+                deleteCascade="true"/>
+    </changeSet>
+
+    <changeSet author="ezhulkov" id="2">
+        <createTable tableName="person">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="java.sql.Types.VARCHAR(64)"/>
+            <column name="email" type="java.sql.Types.VARCHAR(64)"/>
+            <column name="password" type="java.sql.Types.VARCHAR(256)"/>
+            <column name="type" type="java.sql.Types.VARCHAR(32)"/>
+        </createTable>
+        <createTable tableName="cook">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="java.sql.Types.VARCHAR(64)"/>
+            <column name="description" type="java.sql.Types.VARCHAR(512)"/>
+            <column name="user_id" type="java.sql.Types.BIGINT"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="cook" baseColumnNames="user_id"
+                constraintName="cook_user_fk" referencedTableName="person" referencedColumnNames="id"
+                deleteCascade="true"/>
     </changeSet>
 
 </databaseChangeLog>
