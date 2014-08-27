@@ -4,13 +4,16 @@
 
         <ul>
             <li>
-                <t:pagelink page="admin/property/list">Properties</t:pagelink>
+                <t:pagelink page="admin/property/list">Свойства</t:pagelink>
             </li>
             <li>
-                <t:pagelink page="admin/category/list">Categories</t:pagelink>
+                <t:pagelink page="admin/category/list">Категории</t:pagelink>
             </li>
             <li>
-                <t:pagelink page="admin/order/index">Orders</t:pagelink>
+                <t:pagelink page="admin/order/list">Заказы</t:pagelink>
+            </li>
+            <li>
+                <t:pagelink page="admin/cook/list">Кулинары</t:pagelink>
             </li>
         </ul>
 
