@@ -82,7 +82,7 @@ public class Index extends EditObjectPage<PropertyEntity> {
         catalogService.savePropertyValue(propertyValue);
     }
 
-    public void onPrepareFromValueChangeForm() {
+    public void onPrepareForRenderFromValueChangeForm() {
         value = onePropertyValue.getValue();
     }
 
