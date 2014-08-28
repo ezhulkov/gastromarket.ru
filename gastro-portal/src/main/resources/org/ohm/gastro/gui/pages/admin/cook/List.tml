@@ -1,8 +1,0 @@
-<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="starter-template">
-
-    <div class="main-body">
-        <h1>Кулинары</h1>
-
-    </div>
-
-</t:htmllayout>

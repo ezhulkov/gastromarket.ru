@@ -6,6 +6,8 @@ import org.apache.tapestry5.ioc.services.PropertyAccess;
 import org.apache.tapestry5.services.ApplicationGlobals;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.Response;
+import org.ohm.gastro.service.CatalogService;
+import org.ohm.gastro.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContext;
@@ -49,6 +51,12 @@ public abstract class BaseComponent {
 
     @Inject
     private PropertyAccess propertyAccess;
+
+    @Inject
+    private CatalogService catalogService;
+
+    @Inject
+    private UserService userService;
 
     public UserDetails getAuthenticatedUser() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -101,5 +109,13 @@ public abstract class BaseComponent {
 
     public PropertyAccess getPropertyAccess() {
         return propertyAccess;
+    }
+
+    public CatalogService getCatalogService() {
+        return catalogService;
+    }
+
+    public UserService getUserService() {
+        return userService;
     }
 }

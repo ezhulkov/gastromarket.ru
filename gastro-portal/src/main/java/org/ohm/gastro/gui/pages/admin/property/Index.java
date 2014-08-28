@@ -20,6 +20,9 @@ import org.ohm.gastro.service.CatalogService;
 public class Index extends EditObjectPage<PropertyEntity> {
 
     @Property
+    private PropertyValueEntity onePropertyValue;
+
+    @Property
     private PropertyValueEntity propertyValue;
 
     @Property
@@ -80,7 +83,7 @@ public class Index extends EditObjectPage<PropertyEntity> {
     }
 
     public void onPrepareFromValueChangeForm() {
-        value = propertyValue.getValue();
+        value = onePropertyValue.getValue();
     }
 
     public void onSubmitFromValueChangeForm(Long vid) {

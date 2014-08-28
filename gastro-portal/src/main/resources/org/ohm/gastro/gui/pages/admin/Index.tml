@@ -16,7 +16,7 @@
                 <t:pagelink page="admin/user/list">Пользователи</t:pagelink>
             </li>
             <li>
-                <t:pagelink page="admin/cook/list">Кулинары</t:pagelink>
+                <t:pagelink page="admin/catalog/list">Каталоги</t:pagelink>
             </li>
         </ul>
 

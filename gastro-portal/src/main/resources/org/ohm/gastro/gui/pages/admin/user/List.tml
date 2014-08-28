@@ -30,7 +30,7 @@
         <br/>
         <t:grid source="users" row="oneUser" exclude="id,password" t:mixins="GridSortingDisabled">
             <t:parameter name="nameCell">
-                <t:pagelink page="admin/category/index" context="['UPDATE',oneUser.id]">${oneUser.name}</t:pagelink>
+                <t:pagelink page="admin/user/index" context="['UPDATE',oneUser.id]">${oneUser.name}</t:pagelink>
                 <t:actionlink t:id="delete" context="oneUser.id" class="pull-right"><span class="glyphicon glyphicon-remove"/></t:actionlink>
             </t:parameter>
         </t:grid>

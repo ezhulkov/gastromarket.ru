@@ -1,0 +1,18 @@
+<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="starter-template">
+
+    <div class="main-body">
+        <h1>Каталоги</h1>
+
+        <t:grid source="catalogs" row="oneCatalog" exclude="id,description" add="user" t:mixins="GridSortingDisabled">
+            <t:parameter name="userCell">
+                <t:pagelink t:page="admin/user/index" t:context="['UPDATE',oneCatalog.user.id]">${oneCatalog.user.name}</t:pagelink>
+            </t:parameter>
+            <t:parameter name="nameCell">
+                <t:actionlink t:id="delete" context="oneCatalog.id" class="pull-right"><span class="glyphicon glyphicon-remove"/></t:actionlink>
+                <t:pagelink page="admin/catalog/index" context="['UPDATE',oneCatalog.id]">${oneCatalog.name}</t:pagelink>
+            </t:parameter>
+        </t:grid>
+
+    </div>
+
+</t:htmllayout>

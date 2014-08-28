@@ -19,7 +19,7 @@ import org.ohm.gastro.service.CatalogService;
 public class List extends EditObjectPage<PropertyEntity> {
 
     @Property
-    private PropertyEntity property;
+    private PropertyEntity oneProperty;
 
     @InjectService("catalogService")
     private CatalogService catalogService;

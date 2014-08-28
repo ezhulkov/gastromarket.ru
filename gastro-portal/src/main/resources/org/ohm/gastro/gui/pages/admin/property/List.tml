@@ -28,10 +28,10 @@
 
         <br/>
         <br/>
-        <t:grid source="properties" row="property" exclude="id" t:mixins="GridSortingDisabled">
+        <t:grid source="properties" row="oneProperty" exclude="id" t:mixins="GridSortingDisabled">
             <t:parameter name="nameCell">
-                <t:actionlink t:id="delete" context="property.id" class="pull-right"><span class="glyphicon glyphicon-remove"/></t:actionlink>
-                <t:pagelink page="admin/property/index" context="['UPDATE',property.id]">${property.name}</t:pagelink>
+                <t:actionlink t:id="delete" context="oneProperty.id" class="pull-right"><span class="glyphicon glyphicon-remove"/></t:actionlink>
+                <t:pagelink page="admin/property/index" context="['UPDATE',oneProperty.id]">${oneProperty.name}</t:pagelink>
             </t:parameter>
         </t:grid>
     </div>

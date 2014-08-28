@@ -47,7 +47,7 @@ public class UserEntity implements BaseEntity {
     private Type type = Type.COOK;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-    private List<CookEntity> cooks = Lists.newArrayList();
+    private List<CatalogEntity> cooks = Lists.newArrayList();
 
     @Override
     public Long getId() {
@@ -90,11 +90,11 @@ public class UserEntity implements BaseEntity {
         this.type = type;
     }
 
-    public List<CookEntity> getCooks() {
+    public List<CatalogEntity> getCooks() {
         return cooks;
     }
 
-    public void setCooks(List<CookEntity> cooks) {
+    public void setCooks(List<CatalogEntity> cooks) {
         this.cooks = cooks;
     }
 

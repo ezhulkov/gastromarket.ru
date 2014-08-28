@@ -57,7 +57,7 @@
             <column name="password" type="java.sql.Types.VARCHAR(256)"/>
             <column name="type" type="java.sql.Types.VARCHAR(32)"/>
         </createTable>
-        <createTable tableName="cook">
+        <createTable tableName="catalog">
             <column name="id" type="java.sql.Types.BIGINT">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -65,9 +65,10 @@
             <column name="description" type="java.sql.Types.VARCHAR(512)"/>
             <column name="user_id" type="java.sql.Types.BIGINT"/>
         </createTable>
-        <addForeignKeyConstraint baseTableName="cook" baseColumnNames="user_id"
-                constraintName="cook_user_fk" referencedTableName="person" referencedColumnNames="id"
+        <addForeignKeyConstraint baseTableName="catalog" baseColumnNames="user_id"
+                constraintName="catalog_user_fk" referencedTableName="person" referencedColumnNames="id"
                 deleteCascade="true"/>
+        <addUniqueConstraint tableName="person" columnNames="name"/>
     </changeSet>
 
 </databaseChangeLog>

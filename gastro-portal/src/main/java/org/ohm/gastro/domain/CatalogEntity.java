@@ -14,13 +14,13 @@ import javax.persistence.Table;
  * Created by ezhulkov on 27.08.14.
  */
 @Entity
-@Table(name = "cook")
-public class CookEntity implements BaseEntity {
+@Table(name = "catalog")
+public class CatalogEntity implements BaseEntity {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "cook")
-    @SequenceGenerator(initialValue = 1, allocationSize = 1, name = "cook")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "catalog")
+    @SequenceGenerator(initialValue = 1, allocationSize = 1, name = "catalog")
     private Long id;
 
     @Column
