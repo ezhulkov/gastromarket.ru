@@ -1,9 +1,15 @@
 package org.ohm.gastro.service.impl;
 
+import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CategoryEntity;
+import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
+import org.ohm.gastro.domain.UserEntity;
+import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.CategoryRepository;
+import org.ohm.gastro.reps.ProductRepository;
+import org.ohm.gastro.reps.ProductValueRepository;
 import org.ohm.gastro.reps.PropertyRepository;
 import org.ohm.gastro.reps.PropertyValueRepository;
 import org.ohm.gastro.service.CatalogService;
@@ -24,12 +30,23 @@ public class CatalogServiceImpl implements CatalogService {
     private final PropertyRepository propertyRepository;
     private final PropertyValueRepository propertyValueRepository;
     private final CategoryRepository categoryRepository;
+    private final CatalogRepository catalogRepository;
+    private final ProductRepository productRepository;
+    private final ProductValueRepository productValueRepository;
 
     @Autowired
-    public CatalogServiceImpl(PropertyRepository propertyRepository, PropertyValueRepository propertyValueRepository, CategoryRepository categoryRepository) {
+    public CatalogServiceImpl(PropertyRepository propertyRepository,
+                              PropertyValueRepository propertyValueRepository,
+                              CategoryRepository categoryRepository,
+                              CatalogRepository catalogRepository,
+                              ProductRepository productRepository,
+                              ProductValueRepository productValueRepository) {
         this.propertyRepository = propertyRepository;
         this.propertyValueRepository = propertyValueRepository;
         this.categoryRepository = categoryRepository;
+        this.catalogRepository = catalogRepository;
+        this.productRepository = productRepository;
+        this.productValueRepository = productValueRepository;
     }
 
     @Override
@@ -101,6 +118,44 @@ public class CatalogServiceImpl implements CatalogService {
     @Override
     public List<PropertyEntity> findAllProperties(CategoryEntity category) {
         return propertyRepository.findAllProperties(category);
+    }
+
+    @Override
+    public List<CatalogEntity> findAllCatalogs() {
+        return catalogRepository.findAll();
+    }
+
+    @Override
+    public List<CatalogEntity> findAllCatalogs(UserEntity user) {
+        return catalogRepository.findAllByUser(user);
+    }
+
+    @Override
+    @Transactional
+    public void deleteCatalog(Long id) {
+        catalogRepository.delete(id);
+    }
+
+    @Override
+    @Transactional
+    public void saveCatalog(CatalogEntity catalog) {
+        catalogRepository.save(catalog);
+    }
+
+    @Override
+    public CatalogEntity findCatalog(Long id) {
+        return catalogRepository.findOne(id);
+    }
+
+    @Override
+    @Transactional
+    public void saveProduct(ProductEntity product) {
+        productRepository.save(product);
+    }
+
+    @Override
+    public List<ProductEntity> findAllProducts(CatalogEntity catalog) {
+        return productRepository.findAllByCatalog(catalog);
     }
 
 }

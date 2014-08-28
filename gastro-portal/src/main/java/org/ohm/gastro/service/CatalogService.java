@@ -1,8 +1,11 @@
 package org.ohm.gastro.service;
 
+import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CategoryEntity;
+import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
+import org.ohm.gastro.domain.UserEntity;
 
 import java.util.List;
 
@@ -36,5 +39,19 @@ public interface CatalogService {
     public void deletePropertyValue(Long id);
 
     public List<PropertyEntity> findAllProperties(CategoryEntity object);
+
+    public List<CatalogEntity> findAllCatalogs();
+
+    public List<CatalogEntity> findAllCatalogs(UserEntity user);
+
+    void deleteCatalog(Long id);
+
+    void saveCatalog(CatalogEntity catalog);
+
+    CatalogEntity findCatalog(Long id);
+
+    void saveProduct(ProductEntity product);
+
+    List<ProductEntity> findAllProducts(CatalogEntity object);
 
 }

@@ -15,11 +15,11 @@ public class List extends BaseComponent {
 
     @Cached
     public java.util.List<CatalogEntity> getCatalogs() {
-        return getUserService().findAllCatalogs();
+        return getCatalogService().findAllCatalogs();
     }
 
     public void onActionFromDelete(Long id) {
-        getUserService().deleteCatalog(id);
+        getCatalogService().deleteCatalog(id);
     }
 
 }

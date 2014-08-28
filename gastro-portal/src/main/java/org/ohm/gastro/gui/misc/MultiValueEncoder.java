@@ -1,4 +1,4 @@
-package org.ohm.gastro.gui.services;
+package org.ohm.gastro.gui.misc;
 
 /**
  * Created by IntelliJ IDEA.

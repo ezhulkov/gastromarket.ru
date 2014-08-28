@@ -1,4 +1,4 @@
-package org.ohm.gastro.gui.services.impl;
+package org.ohm.gastro.gui.misc;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
@@ -11,13 +11,14 @@ import org.apache.tapestry5.internal.OptionModelImpl;
 import org.apache.tapestry5.ioc.services.PropertyAccess;
 import org.apache.tapestry5.ioc.services.PropertyAdapter;
 import org.apache.tapestry5.util.AbstractSelectModel;
+import org.ohm.gastro.domain.BaseEntity;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class GenericSelectModel<T> extends AbstractSelectModel implements ValueEncoder<T> {
+public class GenericSelectModel<T extends BaseEntity> extends AbstractSelectModel implements ValueEncoder<T> {
 
     private final PropertyAdapter labelFieldAdapter;
     private final PropertyAdapter idFieldAdapter;

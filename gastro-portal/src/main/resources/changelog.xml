@@ -71,4 +71,35 @@
         <addUniqueConstraint tableName="person" columnNames="name"/>
     </changeSet>
 
+    <changeSet author="ezhulkov" id="3">
+        <createTable tableName="product">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="catalog_id" type="java.sql.Types.BIGINT"/>
+            <column name="category_id" type="java.sql.Types.BIGINT"/>
+            <column name="name" type="java.sql.Types.VARCHAR(64)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="product" baseColumnNames="catalog_id"
+                constraintName="prod_catalog_fk" referencedTableName="catalog" referencedColumnNames="id"
+                deleteCascade="true"/>
+        <addForeignKeyConstraint baseTableName="product" baseColumnNames="category_id"
+                constraintName="prod_category_fk" referencedTableName="category" referencedColumnNames="id"
+                deleteCascade="true"/>
+        <createTable tableName="product_value">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_id" type="java.sql.Types.BIGINT"/>
+            <column name="value_id" type="java.sql.Types.BIGINT"/>
+        </createTable>
+        <addUniqueConstraint tableName="product_value" columnNames="product_id,value_id"/>
+        <addForeignKeyConstraint baseTableName="product_value" baseColumnNames="product_id"
+                constraintName="pv_prod_fk" referencedTableName="product" referencedColumnNames="id"
+                deleteCascade="true"/>
+        <addForeignKeyConstraint baseTableName="product_value" baseColumnNames="value_id"
+                constraintName="pv_val_fk" referencedTableName="property_value" referencedColumnNames="id"
+                deleteCascade="true"/>
+    </changeSet>
+
 </databaseChangeLog>

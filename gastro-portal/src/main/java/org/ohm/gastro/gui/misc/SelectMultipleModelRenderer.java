@@ -1,4 +1,4 @@
-package org.ohm.gastro.gui.services.impl;
+package org.ohm.gastro.gui.misc;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,7 +12,6 @@ import org.apache.tapestry5.MarkupWriter;
 import org.apache.tapestry5.OptionGroupModel;
 import org.apache.tapestry5.OptionModel;
 import org.apache.tapestry5.SelectModelVisitor;
-import org.ohm.gastro.gui.services.MultiValueEncoder;
 
 import java.util.List;
 import java.util.Map;

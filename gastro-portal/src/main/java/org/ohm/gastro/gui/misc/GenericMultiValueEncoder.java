@@ -1,4 +1,4 @@
-package org.ohm.gastro.gui.services.impl;
+package org.ohm.gastro.gui.misc;
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,7 +13,6 @@ import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.beanutils.BeanUtils;
-import org.ohm.gastro.gui.services.MultiValueEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

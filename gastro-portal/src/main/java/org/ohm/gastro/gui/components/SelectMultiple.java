@@ -14,8 +14,8 @@ import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ValueEncoderSource;
 import org.ohm.gastro.domain.BaseEntity;
-import org.ohm.gastro.gui.services.MultiValueEncoder;
-import org.ohm.gastro.gui.services.impl.SelectMultipleModelRenderer;
+import org.ohm.gastro.gui.misc.MultiValueEncoder;
+import org.ohm.gastro.gui.misc.SelectMultipleModelRenderer;
 
 import java.util.List;
 

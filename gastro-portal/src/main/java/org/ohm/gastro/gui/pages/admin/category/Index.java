@@ -9,10 +9,10 @@ import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.gui.AbstractServiceCallback;
 import org.ohm.gastro.gui.ServiceCallback;
 import org.ohm.gastro.gui.components.SelectMultiple;
+import org.ohm.gastro.gui.misc.GenericMultiValueEncoder;
+import org.ohm.gastro.gui.misc.GenericSelectModel;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.EditObjectPage;
-import org.ohm.gastro.gui.services.impl.GenericMultiValueEncoder;
-import org.ohm.gastro.gui.services.impl.GenericSelectModel;
 import org.ohm.gastro.service.CatalogService;
 
 /**
