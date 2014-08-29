@@ -80,4 +80,5 @@ public class ProductEntity implements BaseEntity {
     public void setCategory(CategoryEntity category) {
         this.category = category;
     }
+
 }

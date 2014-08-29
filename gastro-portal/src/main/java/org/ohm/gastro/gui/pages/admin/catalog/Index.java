@@ -20,6 +20,8 @@ import org.ohm.gastro.gui.pages.EditObjectPage;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 24.08.14.
@@ -93,8 +95,20 @@ public class Index extends EditObjectPage<CatalogEntity> {
     }
 
     public void onSubmitFromAddProductForm() {
+        Map<Long, String> propValues = getRequest().getParameterNames().stream()
+                .filter(t -> t.startsWith("prop-"))
+                .map(t -> t.substring("prop-".length(), t.length()))
+                .collect(Collectors.toMap(Long::parseLong,
+                                          key -> getRequest().getParameter("prop-" + key)
+                ));
+        Map<Long, String[]> listValues = getRequest().getParameterNames().stream()
+                .filter(t -> t.startsWith("list-"))
+                .map(t -> t.substring("list-".length(), t.length()))
+                .collect(Collectors.toMap(Long::parseLong,
+                                          key -> getRequest().getParameters("list-" + key)
+                ));
         product.setCatalog(getObject());
-        getCatalogService().saveProduct(product);
+        getCatalogService().saveProduct(product, propValues, listValues);
     }
 
     public void onActionFromDeleteProduct(Long id) {

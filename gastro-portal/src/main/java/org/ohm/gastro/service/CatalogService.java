@@ -8,6 +8,7 @@ import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.UserEntity;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ezhulkov on 21.08.14.
@@ -55,5 +56,7 @@ public interface CatalogService {
     List<ProductEntity> findAllProducts(CatalogEntity object);
 
     void deleteProduct(Long id);
+
+    ProductEntity saveProduct(ProductEntity product, Map<Long, String> propValues, Map<Long, String[]> listValues);
 
 }

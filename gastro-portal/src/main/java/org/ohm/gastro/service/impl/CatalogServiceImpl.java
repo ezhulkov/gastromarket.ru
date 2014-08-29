@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ezhulkov on 21.08.14.
@@ -162,6 +163,12 @@ public class CatalogServiceImpl implements CatalogService {
     @Transactional
     public void deleteProduct(Long id) {
         productRepository.delete(id);
+    }
+
+    @Override
+    @Transactional
+    public ProductEntity saveProduct(ProductEntity product, Map<Long, String> propValues, Map<Long, String[]> listValues) {
+        return productRepository.save(product);
     }
 
 }
