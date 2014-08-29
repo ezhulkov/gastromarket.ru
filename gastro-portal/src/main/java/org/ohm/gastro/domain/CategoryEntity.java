@@ -69,7 +69,6 @@ public class CategoryEntity implements BaseEntity {
         return "CategoryEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", properties=" + properties +
                 '}';
     }
 

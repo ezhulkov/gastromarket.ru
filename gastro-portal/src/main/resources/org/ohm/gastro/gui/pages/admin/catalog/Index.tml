@@ -21,25 +21,52 @@
                 <div class="modal-content">
                     <t:form t:id="addProductForm" t:autofocus="true" t:clientValidation="none" class="form-horizontal well" role="form">
                         <div class="form-group form-group">
-                            <div class="col-sm-10">
-                                <input t:id="productCategory" class="form-control" placeholder="Категория"/>
+                            <div class="col-sm-11">
+                                <t:select t:id="productCategory" class="form-control" t:zone="propertyZone"/>
                             </div>
                         </div>
                         <div class="form-group form-group">
-                            <div class="col-sm-10">
+                            <div class="col-sm-11">
                                 <input t:id="productName" class="form-control" placeholder="Название"/>
                             </div>
                         </div>
+                        <h5>Свойства:</h5>
+                        <t:zone t:id="propertyZone" id="propertyZone">
+                            <t:delegate to="propertyBlock"/>
+                        </t:zone>
+                        <t:block t:id="propertyBlock">
+                            <t:loop source="categoryProperties" value="oneProperty" formState="NONE">
+                                <div class="form-group form-group">
+                                    <t:if test="oneProperty.type.toString().equals('LIST')">
+                                        <div class="col-sm-11">
+                                            <select class="form-control pull-left" style="width:90%;">
+                                                <option value="" disabled="disabled" selected="selected">${oneProperty.name}</option>
+                                                <t:loop source="propertyValues" value="oneValue" formState="NONE">
+                                                    <option>${oneValue.value}</option>
+                                                </t:loop>
+                                            </select>
+                                            <a href="#" class="pull-right" style="padding-top:6px;">Ещё</a>
+                                        </div>
+                                        <t:parameter name="else">
+                                            <div class="col-sm-11">
+                                                <input class="form-control" type="${valueType}" placeholder="${oneProperty.name}"/>
+                                            </div>
+                                        </t:parameter>
+                                    </t:if>
+                                </div>
+                            </t:loop>
+                        </t:block>
                         <input t:id="add" class="btn btn-default" t:type="submit" value="Добавить"/>
                     </t:form>
                 </div>
             </div>
         </div>
 
-        <ul>
+        <ul style="list-style-type: none;">
             <t:loop source="products" value="oneProduct">
                 <li>
-                    ${oneProduct.name}
+                    &#160;${oneProduct.name}
+                    <t:actionlink t:id="deleteProduct" context="oneProduct.id" class="pull-left"><span class="glyphicon glyphicon-remove"/></t:actionlink>
                 </li>
             </t:loop>
         </ul>

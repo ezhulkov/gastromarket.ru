@@ -28,7 +28,7 @@
 
         <br/>
         <br/>
-        <t:grid source="properties" row="oneProperty" exclude="id" t:mixins="GridSortingDisabled">
+        <t:grid source="properties" row="oneProperty" exclude="id" t:mixins="GridSortingDisabled" class="table table-hover">
             <t:parameter name="nameCell">
                 <t:actionlink t:id="delete" context="oneProperty.id" class="pull-right"><span class="glyphicon glyphicon-remove"/></t:actionlink>
                 <t:pagelink page="admin/property/index" context="['UPDATE',oneProperty.id]">${oneProperty.name}</t:pagelink>

@@ -33,7 +33,7 @@
 
             <br/>
             <br/>
-            <t:grid source="values" row="onePropertyValue" exclude="id" t:mixins="GridSortingDisabled">
+            <t:grid source="values" row="onePropertyValue" exclude="id" t:mixins="GridSortingDisabled" class="table table-hover">
                 <t:parameter name="valueCell">
                     <t:actionlink t:id="delete" context="onePropertyValue.id" class="pull-right"><span class="glyphicon glyphicon-remove"/></t:actionlink>
                     <a href="#" data-toggle="modal" data-target="#edit${onePropertyValue.id}">${onePropertyValue.value}</a>

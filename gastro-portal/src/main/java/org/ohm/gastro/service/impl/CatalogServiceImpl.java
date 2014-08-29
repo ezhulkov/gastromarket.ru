@@ -158,4 +158,10 @@ public class CatalogServiceImpl implements CatalogService {
         return productRepository.findAllByCatalog(catalog);
     }
 
+    @Override
+    @Transactional
+    public void deleteProduct(Long id) {
+        productRepository.delete(id);
+    }
+
 }

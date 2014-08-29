@@ -27,7 +27,7 @@ import java.util.List;
 public class PropertyEntity implements BaseEntity {
 
     public enum Type {
-        LIST, STRING, DATE, NUMBER
+        NUMBER, TEXT, LIST
     }
 
     @Id
@@ -41,7 +41,7 @@ public class PropertyEntity implements BaseEntity {
 
     @Column
     @Enumerated(EnumType.STRING)
-    private Type type = Type.STRING;
+    private Type type = Type.TEXT;
 
     @ManyToMany(cascade = CascadeType.REFRESH,
                 fetch = FetchType.LAZY)

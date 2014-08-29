@@ -35,7 +35,7 @@
             <br/>
             <br/>
 
-            <t:grid source="catalogs" row="oneCatalog" exclude="id,description" t:mixins="GridSortingDisabled">
+            <t:grid source="catalogs" row="oneCatalog" exclude="id,description" t:mixins="GridSortingDisabled" class="table table-hover">
                 <t:parameter name="nameCell">
                     <t:pagelink page="admin/catalog/index" context="['UPDATE',oneCatalog.id]">${oneCatalog.name}</t:pagelink>
                     <t:actionlink t:id="delete" context="oneCatalog.id" class="pull-right"><span class="glyphicon glyphicon-remove"/></t:actionlink>

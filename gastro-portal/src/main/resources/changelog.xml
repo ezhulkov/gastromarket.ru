@@ -92,6 +92,7 @@
             </column>
             <column name="product_id" type="java.sql.Types.BIGINT"/>
             <column name="value_id" type="java.sql.Types.BIGINT"/>
+            <column name="data" type="java.sql.Types.VARCHAR(64)"/>
         </createTable>
         <addUniqueConstraint tableName="product_value" columnNames="product_id,value_id"/>
         <addForeignKeyConstraint baseTableName="product_value" baseColumnNames="product_id"

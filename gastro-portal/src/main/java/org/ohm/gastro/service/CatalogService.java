@@ -54,4 +54,6 @@ public interface CatalogService {
 
     List<ProductEntity> findAllProducts(CatalogEntity object);
 
+    void deleteProduct(Long id);
+
 }
