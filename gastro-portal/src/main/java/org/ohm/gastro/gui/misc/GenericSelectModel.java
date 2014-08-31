@@ -3,7 +3,6 @@ package org.ohm.gastro.gui.misc;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
 import org.apache.tapestry5.OptionGroupModel;
 import org.apache.tapestry5.OptionModel;
 import org.apache.tapestry5.ValueEncoder;
@@ -15,30 +14,24 @@ import org.ohm.gastro.domain.BaseEntity;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class GenericSelectModel<T extends BaseEntity> extends AbstractSelectModel implements ValueEncoder<T> {
 
-    private final PropertyAdapter labelFieldAdapter;
-    private final PropertyAdapter idFieldAdapter;
     private final List<OptionModel> options;
     private final BiMap<String, T> objects;
 
     public GenericSelectModel(Collection<T> list,
                               Class<T> clazz, String labelField,
                               String idField, PropertyAccess access) {
-        this.idFieldAdapter = access.getAdapter(clazz).getPropertyAdapter(idField);
-        this.labelFieldAdapter = access.getAdapter(clazz).getPropertyAdapter(labelField);
+        PropertyAdapter idFieldAdapter = access.getAdapter(clazz).getPropertyAdapter(idField);
+        PropertyAdapter labelFieldAdapter = access.getAdapter(clazz).getPropertyAdapter(labelField);
         this.options = ImmutableList.copyOf(list.stream()
                                                     .map(t -> new OptionModelImpl(labelFieldAdapter.get(t).toString(), t))
                                                     .collect(Collectors.toList()));
-        Map<String, T> objects = Maps.newHashMap();
-        list.stream().forEach(t -> {
-            String key = idFieldAdapter.get(t).toString();
-            objects.put(key, t);
-        });
-        this.objects = ImmutableBiMap.copyOf(objects);
+        this.objects = ImmutableBiMap.copyOf(list.stream()
+                                                     .collect(Collectors.toMap(t -> idFieldAdapter.get(t).toString(),
+                                                                               t -> t)));
 
     }
 

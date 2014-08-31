@@ -23,10 +23,13 @@
 
         <br/>
         <br/>
-        <t:grid source="categories" row="oneCategory" exclude="id" t:mixins="GridSortingDisabled" class="table table-hover">
+        <t:grid source="categories" row="oneCategory" exclude="id" add="properties" t:mixins="GridSortingDisabled" class="table table-hover">
             <t:parameter name="nameCell">
                 <t:pagelink page="admin/category/index" context="['UPDATE',oneCategory.id]">${oneCategory.name}</t:pagelink>
                 <t:actionlink t:id="delete" context="oneCategory.id" class="pull-right"><span class="glyphicon glyphicon-remove"/></t:actionlink>
+            </t:parameter>
+            <t:parameter name="propertiesCell">
+                <em>${categoryProperties}</em>
             </t:parameter>
         </t:grid>
 

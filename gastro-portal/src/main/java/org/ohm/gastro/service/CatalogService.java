@@ -5,6 +5,7 @@ import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
+import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.domain.UserEntity;
 
 import java.util.List;
@@ -58,5 +59,7 @@ public interface CatalogService {
     void deleteProduct(Long id);
 
     ProductEntity saveProduct(ProductEntity product, Map<Long, String> propValues, Map<Long, String[]> listValues);
+
+    List<TagEntity> findAllTags(ProductEntity oneProduct);
 
 }

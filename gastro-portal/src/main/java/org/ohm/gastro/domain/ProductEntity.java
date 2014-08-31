@@ -38,7 +38,7 @@ public class ProductEntity implements BaseEntity {
     private CategoryEntity category;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
-    private List<ProductValueEntity> values = Lists.newArrayList();
+    private List<TagEntity> values = Lists.newArrayList();
 
     @Override
     public Long getId() {
@@ -65,11 +65,11 @@ public class ProductEntity implements BaseEntity {
         this.catalog = catalog;
     }
 
-    public List<ProductValueEntity> getValues() {
+    public List<TagEntity> getValues() {
         return values;
     }
 
-    public void setValues(List<ProductValueEntity> values) {
+    public void setValues(List<TagEntity> values) {
         this.values = values;
     }
 

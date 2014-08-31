@@ -28,7 +28,6 @@ public class SelectMultipleModelRenderer implements SelectModelVisitor {
 
     public void beginOptionGroup(OptionGroupModel groupModel) {
         _writer.element("optgroup", "label", groupModel.getLabel());
-
         writeDisabled(groupModel.isDisabled());
         writeAttributes(groupModel.getAttributes());
     }

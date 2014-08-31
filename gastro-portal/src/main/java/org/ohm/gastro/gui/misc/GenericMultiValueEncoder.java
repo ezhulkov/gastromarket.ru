@@ -11,32 +11,25 @@ package org.ohm.gastro.gui.misc;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
+
+import static org.ohm.gastro.misc.Throwables.propagate;
 
 public class GenericMultiValueEncoder<T> implements MultiValueEncoder<T> {
 
     private final static Logger logger = LoggerFactory.getLogger(GenericMultiValueEncoder.class);
     private final BiMap<String, T> objects;
 
-    public GenericMultiValueEncoder(List<T> list, String labelField) {
-        Map<String, T> objects = Maps.newHashMap();
-        list.stream().forEach(t -> {
-            try {
-                String property = BeanUtils.getProperty(t, labelField);
-                objects.put(property, t);
-            } catch (Exception ex) {
-                logger.error("", ex);
-            }
-        });
-        this.objects = ImmutableBiMap.copyOf(objects);
+    public GenericMultiValueEncoder(List<T> list, final String labelField) {
+        this.objects = ImmutableBiMap.copyOf(list.stream()
+                                                     .collect(Collectors.toMap(t -> propagate(() -> BeanUtils.getProperty(t, labelField)),
+                                                                               t -> t)));
     }
 
     public List<String> toClient(T obj) {

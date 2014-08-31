@@ -63,12 +63,21 @@
         </div>
 
         <ul style="list-style-type: none;">
-            <t:loop source="products" value="oneProduct">
-                <li>
-                    &#160;${oneProduct.name}
-                    <t:actionlink t:id="deleteProduct" context="oneProduct.id" class="pull-left"><span class="glyphicon glyphicon-remove"/></t:actionlink>
-                </li>
-            </t:loop>
+            <t:grid source="products" row="oneProduct" exclude="id" add="properties" t:mixins="GridSortingDisabled" class="table table-hover">
+                <t:parameter name="nameCell">
+                    <t:actionlink t:id="deleteProduct" context="oneProduct.id" class="pull-right"><span class="glyphicon glyphicon-remove"/></t:actionlink>
+                    ${oneProduct.name}
+                </t:parameter>
+                <t:parameter name="propertiesCell">
+                    <ul>
+                        <t:loop source="productTags" value="oneTag">
+                            <li>
+                                ${oneTag.property.name}:${oneTag.data}
+                            </li>
+                        </t:loop>
+                    </ul>
+                </t:parameter>
+            </t:grid>
         </ul>
 
     </div>

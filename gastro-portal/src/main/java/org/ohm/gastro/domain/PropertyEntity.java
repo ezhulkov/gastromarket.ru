@@ -53,6 +53,9 @@ public class PropertyEntity implements BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "property")
     private List<PropertyValueEntity> values = Lists.newArrayList();
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "property")
+    private List<TagEntity> products = Lists.newArrayList();
+
     @Override
     public Long getId() {
         return id;
@@ -94,13 +97,20 @@ public class PropertyEntity implements BaseEntity {
         this.values = values;
     }
 
+    public List<TagEntity> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<TagEntity> products) {
+        this.products = products;
+    }
+
     @Override
     public String toString() {
         return "PropertyEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", type=" + type +
-                ", categories=" + categories +
                 ", values=" + values +
                 '}';
     }

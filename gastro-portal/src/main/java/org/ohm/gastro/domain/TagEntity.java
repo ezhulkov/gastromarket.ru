@@ -14,8 +14,8 @@ import javax.persistence.Table;
  * Created by ezhulkov on 24.08.14.
  */
 @Entity
-@Table(name = "product_value")
-public class ProductValueEntity implements BaseEntity {
+@Table(name = "product_property")
+public class TagEntity implements BaseEntity {
 
     @Id
     @Column(name = "id")
@@ -27,7 +27,7 @@ public class ProductValueEntity implements BaseEntity {
     private String data;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private PropertyValueEntity value;
+    private PropertyEntity property;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private ProductEntity product;
@@ -49,12 +49,12 @@ public class ProductValueEntity implements BaseEntity {
         this.data = data;
     }
 
-    public PropertyValueEntity getValue() {
-        return value;
+    public PropertyEntity getProperty() {
+        return property;
     }
 
-    public void setValue(PropertyValueEntity value) {
-        this.value = value;
+    public void setProperty(PropertyEntity property) {
+        this.property = property;
     }
 
     public ProductEntity getProduct() {

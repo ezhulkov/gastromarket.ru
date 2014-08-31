@@ -1,8 +1,5 @@
 package org.ohm.gastro.domain;
 
-import com.google.common.collect.Lists;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,10 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.util.List;
 
 /**
  * Created by ezhulkov on 24.08.14.
@@ -33,9 +28,6 @@ public class PropertyValueEntity implements BaseEntity {
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private PropertyEntity property;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "value")
-    private List<ProductValueEntity> products = Lists.newArrayList();
 
     @Override
     public Long getId() {
@@ -60,14 +52,6 @@ public class PropertyValueEntity implements BaseEntity {
 
     public void setProperty(PropertyEntity property) {
         this.property = property;
-    }
-
-    public List<ProductValueEntity> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<ProductValueEntity> products) {
-        this.products = products;
     }
 
     @Override

@@ -5,13 +5,14 @@ import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
+import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.CategoryRepository;
 import org.ohm.gastro.reps.ProductRepository;
-import org.ohm.gastro.reps.ProductValueRepository;
 import org.ohm.gastro.reps.PropertyRepository;
 import org.ohm.gastro.reps.PropertyValueRepository;
+import org.ohm.gastro.reps.TagRepository;
 import org.ohm.gastro.service.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -33,7 +34,7 @@ public class CatalogServiceImpl implements CatalogService {
     private final CategoryRepository categoryRepository;
     private final CatalogRepository catalogRepository;
     private final ProductRepository productRepository;
-    private final ProductValueRepository productValueRepository;
+    private final TagRepository tagRepository;
 
     @Autowired
     public CatalogServiceImpl(PropertyRepository propertyRepository,
@@ -41,13 +42,13 @@ public class CatalogServiceImpl implements CatalogService {
                               CategoryRepository categoryRepository,
                               CatalogRepository catalogRepository,
                               ProductRepository productRepository,
-                              ProductValueRepository productValueRepository) {
+                              TagRepository tagRepository) {
         this.propertyRepository = propertyRepository;
         this.propertyValueRepository = propertyValueRepository;
         this.categoryRepository = categoryRepository;
         this.catalogRepository = catalogRepository;
         this.productRepository = productRepository;
-        this.productValueRepository = productValueRepository;
+        this.tagRepository = tagRepository;
     }
 
     @Override
@@ -168,7 +169,21 @@ public class CatalogServiceImpl implements CatalogService {
     @Override
     @Transactional
     public ProductEntity saveProduct(ProductEntity product, Map<Long, String> propValues, Map<Long, String[]> listValues) {
-        return productRepository.save(product);
+        productRepository.save(product);
+        tagRepository.deleteAllValues(product);
+        propValues.entrySet().stream().map(t -> {
+            TagEntity productValue = new TagEntity();
+            productValue.setProduct(product);
+            productValue.setData(t.getValue());
+            productValue.setProperty(findProperty(t.getKey()));
+            return productValue;
+        }).forEach(tagRepository::save);
+        return product;
+    }
+
+    @Override
+    public List<TagEntity> findAllTags(ProductEntity product) {
+        return tagRepository.findAllByProduct(product);
     }
 
 }

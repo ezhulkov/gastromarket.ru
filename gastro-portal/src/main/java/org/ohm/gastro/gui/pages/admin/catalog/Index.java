@@ -12,6 +12,7 @@ import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
+import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.gui.AbstractServiceCallback;
 import org.ohm.gastro.gui.ServiceCallback;
 import org.ohm.gastro.gui.misc.GenericSelectModel;
@@ -36,6 +37,9 @@ public class Index extends EditObjectPage<CatalogEntity> {
 
     @Property
     private ProductEntity oneProduct;
+
+    @Property
+    private TagEntity oneTag;
 
     @Property
     private PropertyValueEntity oneValue;
@@ -137,6 +141,10 @@ public class Index extends EditObjectPage<CatalogEntity> {
 
     public String getValueType() {
         return oneProperty.getType().toString().toLowerCase();
+    }
+
+    public java.util.List<TagEntity> getProductTags() {
+        return getCatalogService().findAllTags(oneProduct);
     }
 
 }

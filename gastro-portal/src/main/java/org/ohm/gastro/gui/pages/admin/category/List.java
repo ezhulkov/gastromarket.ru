@@ -6,11 +6,14 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.InjectService;
 import org.ohm.gastro.domain.CategoryEntity;
+import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.gui.AbstractServiceCallback;
 import org.ohm.gastro.gui.ServiceCallback;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.EditObjectPage;
 import org.ohm.gastro.service.CatalogService;
+
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 24.08.14.
@@ -51,6 +54,11 @@ public class List extends EditObjectPage<CategoryEntity> {
 
     public void onActionFromDelete(Long id) {
         catalogService.deleteCategory(id);
+    }
+
+    public String getCategoryProperties() {
+        java.util.List<PropertyEntity> properties = getCatalogService().findAllProperties(oneCategory);
+        return properties.stream().map(PropertyEntity::getName).collect(Collectors.joining(","));
     }
 
 }
