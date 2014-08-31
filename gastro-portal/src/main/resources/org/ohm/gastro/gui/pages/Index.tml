@@ -3,7 +3,25 @@
     <div class="main-body">
         <h1>Under construction</h1>
 
-        <p class="lead">soon</p>
+        <ul>
+            <li>
+                <t:pagelink page="chef">Кулинары</t:pagelink>
+            </li>
+            <li>
+                Категории
+                <ul>
+                    <t:loop source="categories" value="oneCategory" formState="NONE">
+                        <li>
+                            <t:pagelink page="catalog/list" context="oneCategory.id">${oneCategory.name}</t:pagelink>
+                        </li>
+                    </t:loop>
+                </ul>
+            </li>
+            <li>
+                <t:pagelink page="catalog/list">Все товары</t:pagelink>
+            </li>
+        </ul>
+
     </div>
 
 </t:htmllayout>

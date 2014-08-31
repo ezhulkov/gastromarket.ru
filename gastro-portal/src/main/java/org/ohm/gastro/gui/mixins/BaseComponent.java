@@ -6,6 +6,10 @@ import org.apache.tapestry5.ioc.services.PropertyAccess;
 import org.apache.tapestry5.services.ApplicationGlobals;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.Response;
+import org.ohm.gastro.domain.ProductEntity;
+import org.ohm.gastro.domain.PropertyEntity;
+import org.ohm.gastro.domain.PropertyEntity.Type;
+import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.UserService;
 import org.slf4j.Logger;
@@ -16,6 +20,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public abstract class BaseComponent {
 
@@ -118,4 +125,21 @@ public abstract class BaseComponent {
     public UserService getUserService() {
         return userService;
     }
+
+    public java.util.List<TagEntity> getProductTags(ProductEntity product) {
+        java.util.List<TagEntity> allTags = getCatalogService().findAllTags(product);
+        Map<PropertyEntity, List<TagEntity>> groupedTags = allTags.stream().collect(Collectors.groupingBy(TagEntity::getProperty));
+        return groupedTags.entrySet().stream()
+                .sorted((o1, o2) -> o1.getKey().getType().compareTo(o2.getKey().getType()))
+                .map(t -> {
+                    String name = t.getKey().getName();
+                    Type type = t.getKey().getType();
+                    String data = Type.LIST.equals(type) ?
+                            t.getValue().stream().map(k -> getCatalogService().findPropertyValue(Long.parseLong(k.getData())).getValue()).collect(Collectors.joining(",")) :
+                            t.getValue().stream().map(TagEntity::getData).collect(Collectors.joining());
+                    return new TagEntity(name, data);
+                })
+                .collect(Collectors.toList());
+    }
+
 }

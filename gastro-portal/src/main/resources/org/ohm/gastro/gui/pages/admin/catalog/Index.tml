@@ -30,6 +30,11 @@
                                 <input t:id="productName" class="form-control" placeholder="Название"/>
                             </div>
                         </div>
+                        <div class="form-group form-group">
+                            <div class="col-sm-11">
+                                <input t:id="productPrice" class="form-control" placeholder="Цена, руб"/>
+                            </div>
+                        </div>
                         <h5>Свойства:</h5>
                         <t:zone t:id="propertyZone" id="propertyZone">
                             <t:delegate to="propertyBlock"/>

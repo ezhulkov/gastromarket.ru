@@ -204,4 +204,19 @@ public class CatalogServiceImpl implements CatalogService {
         return tagRepository.findAllByProduct(product);
     }
 
+    @Override
+    public List<ProductEntity> findAllProducts() {
+        return productRepository.findAll();
+    }
+
+    @Override
+    public ProductEntity findProduct(Long id) {
+        return productRepository.findOne(id);
+    }
+
+    @Override
+    public List<ProductEntity> findAllProducts(CategoryEntity category) {
+        return productRepository.findAllByCategory(category);
+    }
+
 }

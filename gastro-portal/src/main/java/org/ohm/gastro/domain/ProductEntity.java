@@ -31,6 +31,9 @@ public class ProductEntity implements BaseEntity {
     @Column
     private String name;
 
+    @Column
+    private Integer price;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private CatalogEntity catalog;
 
@@ -55,6 +58,14 @@ public class ProductEntity implements BaseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
     public CatalogEntity getCatalog() {

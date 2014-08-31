@@ -62,4 +62,10 @@ public interface CatalogService {
 
     List<TagEntity> findAllTags(ProductEntity oneProduct);
 
+    List<ProductEntity> findAllProducts();
+
+    ProductEntity findProduct(Long id);
+
+    List<ProductEntity> findAllProducts(CategoryEntity category);
+
 }

@@ -1,0 +1,34 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <a href="#" data-toggle="modal" data-target="#show${product.id}">
+        ${product.name}
+    </a>
+    <br/>
+    Цена ${product.price}<br/>
+    <ul>
+        <t:loop source="productTags" value="oneTag">
+            <li>
+                ${oneTag.name}:${oneTag.value}
+            </li>
+        </t:loop>
+    </ul>
+
+    <div class="modal fade" id="show${product.id}" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <img width="550" height="300" alt="PHOTO"/><br/>
+                <t:pagelink page="catalog" context="product.id">${product.name}</t:pagelink>
+                <br/>
+                Цена ${product.price}<br/>
+                <ul>
+                    <t:loop source="productTags" value="oneTag">
+                        <li>
+                            ${oneTag.name}:${oneTag.value}
+                        </li>
+                    </t:loop>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
