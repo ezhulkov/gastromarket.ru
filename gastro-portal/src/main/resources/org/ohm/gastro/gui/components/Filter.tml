@@ -1,0 +1,10 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <t:form t:id="filterForm" t:autofocus="true" t:clientValidation="none" class="form-inline well" role="form">
+        <div class="form-group">
+            <select class="form-control" t:id="categories"/>
+        </div>
+
+    </t:form>
+
+</div>

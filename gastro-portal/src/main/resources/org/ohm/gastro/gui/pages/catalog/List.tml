@@ -2,6 +2,8 @@
 
     <div class="main-body">
 
+        <t:filter category="category"/>
+
         <ul>
             <t:loop source="products" value="oneProduct" formState="NONE">
                 <li>
