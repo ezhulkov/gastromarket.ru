@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Created by ezhulkov on 24.08.14.
@@ -31,6 +32,20 @@ public class TagEntity implements BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private ProductEntity product;
+
+    @Transient
+    private String name;
+
+    @Transient
+    private String value;
+
+    public TagEntity() {
+    }
+
+    public TagEntity(String name, String value) {
+        this.name = name;
+        this.value = value;
+    }
 
     @Override
     public Long getId() {
@@ -65,4 +80,19 @@ public class TagEntity implements BaseEntity {
         this.product = product;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 }

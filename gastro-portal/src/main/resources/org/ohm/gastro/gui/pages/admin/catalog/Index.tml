@@ -38,14 +38,14 @@
                             <t:loop source="categoryProperties" value="oneProperty" formState="NONE">
                                 <div class="form-group form-group">
                                     <t:if test="oneProperty.type.toString().equals('LIST')">
-                                        <div class="col-sm-11">
+                                        <div class="col-sm-11" id="list${oneProperty.id}">
                                             <select name="list-${oneProperty.id}" class="form-control pull-left" style="width:90%;">
                                                 <option value="" disabled="disabled" selected="selected">${oneProperty.name}</option>
                                                 <t:loop source="propertyValues" value="oneValue" formState="NONE">
                                                     <option value="${oneValue.id}">${oneValue.value}</option>
                                                 </t:loop>
                                             </select>
-                                            <a href="#" class="pull-right" style="padding-top:6px;">Ещё</a>
+                                            <a href="#" class="pull-right more-btn" data="${oneProperty.id}" style="padding-top:6px;">Ещё</a>
                                         </div>
                                         <t:parameter name="else">
                                             <div class="col-sm-11">
@@ -55,6 +55,14 @@
                                     </t:if>
                                 </div>
                             </t:loop>
+                            <script>
+                                jQuery('.more-btn').unbind().bind('click', function () {
+                                    var id = jQuery(this).attr('data');
+                                    var listBlock = jQuery('#list' + id);
+                                    var lastList = jQuery('select:last', listBlock);
+                                    jQuery(lastList).clone().insertAfter(lastList);
+                                });
+                            </script>
                         </t:block>
                         <input t:id="add" class="btn btn-default" t:type="submit" value="Добавить"/>
                     </t:form>
@@ -72,7 +80,7 @@
                     <ul>
                         <t:loop source="productTags" value="oneTag">
                             <li>
-                                ${oneTag.property.name}:${oneTag.data}
+                                ${oneTag.name}:${oneTag.value}
                             </li>
                         </t:loop>
                     </ul>

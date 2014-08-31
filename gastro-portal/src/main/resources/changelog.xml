@@ -112,7 +112,6 @@
             <column name="property_id" type="java.sql.Types.BIGINT"/>
             <column name="data" type="java.sql.Types.VARCHAR(64)"/>
         </createTable>
-        <addUniqueConstraint tableName="product_property" columnNames="product_id,property_id"/>
         <addForeignKeyConstraint baseTableName="product_property" baseColumnNames="product_id"
                 constraintName="pv_prod_fk" referencedTableName="product" referencedColumnNames="id"
                 deleteCascade="true"/>

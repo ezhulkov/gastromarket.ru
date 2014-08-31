@@ -1,5 +1,8 @@
 package org.ohm.gastro.service.impl;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Iterables;
+import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
@@ -20,8 +23,12 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 21.08.14.
@@ -171,13 +178,24 @@ public class CatalogServiceImpl implements CatalogService {
     public ProductEntity saveProduct(ProductEntity product, Map<Long, String> propValues, Map<Long, String[]> listValues) {
         productRepository.save(product);
         tagRepository.deleteAllValues(product);
-        propValues.entrySet().stream().map(t -> {
+        final Function<Entry<Long, String>, TagEntity> tagCreator = t -> {
             TagEntity productValue = new TagEntity();
             productValue.setProduct(product);
             productValue.setData(t.getValue());
             productValue.setProperty(findProperty(t.getKey()));
             return productValue;
-        }).forEach(tagRepository::save);
+        };
+        propValues.entrySet().stream()
+                .filter(t -> StringUtils.isNotEmpty(t.getValue()))
+                .map(tagCreator)
+                .forEach(tagRepository::save);
+        listValues.entrySet().stream()
+                .map(t -> Arrays.stream(t.getValue()).map(v -> ImmutableMap.of(t.getKey(), v)).collect(Collectors.toList()))
+                .flatMap(immutableMaps -> immutableMaps.stream())
+                .map(t -> Iterables.getFirst(t.entrySet(), null))
+                .filter(t -> StringUtils.isNotEmpty(t.getValue()))
+                .map(tagCreator)
+                .forEach(tagRepository::save);
         return product;
     }
 

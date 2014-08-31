@@ -11,6 +11,7 @@ import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
+import org.ohm.gastro.domain.PropertyEntity.Type;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.gui.AbstractServiceCallback;
@@ -144,7 +145,19 @@ public class Index extends EditObjectPage<CatalogEntity> {
     }
 
     public java.util.List<TagEntity> getProductTags() {
-        return getCatalogService().findAllTags(oneProduct);
+        java.util.List<TagEntity> allTags = getCatalogService().findAllTags(oneProduct);
+        Map<PropertyEntity, java.util.List<TagEntity>> groupedTags = allTags.stream().collect(Collectors.groupingBy(TagEntity::getProperty));
+        return groupedTags.entrySet().stream()
+                .sorted((o1, o2) -> o1.getKey().getType().compareTo(o2.getKey().getType()))
+                .map(t -> {
+                    String name = t.getKey().getName();
+                    Type type = t.getKey().getType();
+                    String data = Type.LIST.equals(type) ?
+                            t.getValue().stream().map(k -> getCatalogService().findPropertyValue(Long.parseLong(k.getData())).getValue()).collect(Collectors.joining(",")) :
+                            t.getValue().stream().map(TagEntity::getData).collect(Collectors.joining());
+                    return new TagEntity(name, data);
+                })
+                .collect(Collectors.toList());
     }
 
 }
