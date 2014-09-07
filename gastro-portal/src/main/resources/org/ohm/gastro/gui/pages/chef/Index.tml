@@ -3,15 +3,7 @@
     <div class="main-body">
         <h1>Кулинар "${catalog.name}"</h1>
 
-        <h3>Товары</h3>
-
-        <ul>
-            <t:loop source="products" value="oneProduct" formState="NONE">
-                <li>
-                    <t:product product="oneProduct"/>
-                </li>
-            </t:loop>
-        </ul>
+        <t:catalog t:id="catalog"/>
 
     </div>
 

@@ -54,8 +54,6 @@ public interface CatalogService {
 
     void saveProduct(ProductEntity product);
 
-    List<ProductEntity> findAllProducts(CatalogEntity object);
-
     void deleteProduct(Long id);
 
     ProductEntity saveProduct(ProductEntity product, Map<Long, String> propValues, Map<Long, String[]> listValues);
@@ -66,6 +64,8 @@ public interface CatalogService {
 
     ProductEntity findProduct(Long id);
 
-    List<ProductEntity> findAllProducts(CategoryEntity category);
+    List<ProductEntity> findAllProducts(CategoryEntity category, CatalogEntity catalog);
+
+    List<CategoryEntity> findAllCategories(CatalogEntity catalog);
 
 }

@@ -2,9 +2,8 @@
 
     <t:form t:id="filterForm" t:autofocus="true" t:clientValidation="none" class="form-inline well" role="form">
         <div class="form-group">
-            <select class="form-control" t:id="categories"/>
+            <t:select class="form-control" t:id="categories" id="categories" t:zone="productsZone"/>
         </div>
-
     </t:form>
 
 </div>

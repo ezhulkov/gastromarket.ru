@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.List;
@@ -39,6 +40,9 @@ public class CategoryEntity implements BaseEntity {
                inverseJoinColumns = {@JoinColumn(name = "property_id")})
     private List<PropertyEntity> properties = Lists.newArrayList();
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ProductEntity> products;
+
     @Override
     public Long getId() {
         return id;
@@ -62,6 +66,14 @@ public class CategoryEntity implements BaseEntity {
 
     public void setProperties(List<PropertyEntity> properties) {
         this.properties = properties;
+    }
+
+    public List<ProductEntity> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<ProductEntity> products) {
+        this.products = products;
     }
 
     @Override

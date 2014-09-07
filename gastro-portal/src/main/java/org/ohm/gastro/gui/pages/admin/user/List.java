@@ -24,7 +24,7 @@ public class List extends EditObjectPage<UserEntity> {
     @Property
     private UserEntity oneUser;
 
-    @Component(id = "name", parameters = {"value=object?.name", "validate=maxlength=64,required"})
+    @Component(id = "name", parameters = {"value=object?.username", "validate=maxlength=64,required"})
     private TextField nameField;
 
     @Component(id = "type", parameters = {"value=object?.type", "validate=required"})

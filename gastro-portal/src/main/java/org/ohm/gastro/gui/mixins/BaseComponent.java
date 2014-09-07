@@ -86,12 +86,12 @@ public abstract class BaseComponent {
 
     public boolean isAdmin() {
         UserDetails authenticatedUser = getAuthenticatedUser();
-        return authenticatedUser != null && authenticatedUser.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
+        return authenticatedUser != null && authenticatedUser.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ADMIN"));
     }
 
     public boolean isUser() {
         UserDetails authenticatedUser = getAuthenticatedUser();
-        return authenticatedUser != null && authenticatedUser.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER"));
+        return authenticatedUser != null && authenticatedUser.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("COOK"));
     }
 
     public String getContextPath() {

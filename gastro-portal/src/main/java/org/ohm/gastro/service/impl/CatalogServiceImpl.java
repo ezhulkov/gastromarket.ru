@@ -163,11 +163,6 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
-    public List<ProductEntity> findAllProducts(CatalogEntity catalog) {
-        return productRepository.findAllByCatalog(catalog);
-    }
-
-    @Override
     @Transactional
     public void deleteProduct(Long id) {
         productRepository.delete(id);
@@ -215,8 +210,13 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
-    public List<ProductEntity> findAllProducts(CategoryEntity category) {
-        return productRepository.findAllByCategory(category);
+    public List<ProductEntity> findAllProducts(CategoryEntity category, CatalogEntity catalog) {
+        return productRepository.findAllByCategoryAndCatalog(category, catalog);
+    }
+
+    @Override
+    public List<CategoryEntity> findAllCategories(CatalogEntity catalog) {
+        return categoryRepository.findAllByCatalog(catalog);
     }
 
 }

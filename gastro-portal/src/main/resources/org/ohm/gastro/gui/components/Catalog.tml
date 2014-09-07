@@ -1,0 +1,19 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <t:filter t:id="filter" category="category" catalog="catalog" productsBlock="productsBlock"/>
+
+    <t:zone t:id="productsZone">
+        <t:delegate to="productsBlock"/>
+    </t:zone>
+
+    <t:block t:id="productsBlock">
+        <ul>
+            <t:loop source="products" value="oneProduct" formState="NONE">
+                <li>
+                    <t:product product="oneProduct"/>
+                </li>
+            </t:loop>
+        </ul>
+    </t:block>
+
+</div>

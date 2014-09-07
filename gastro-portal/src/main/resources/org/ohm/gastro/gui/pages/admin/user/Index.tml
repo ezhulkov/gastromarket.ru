@@ -1,7 +1,7 @@
 <t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="starter-template">
 
     <div class="main-body">
-        <h1>Пользователь "${object?.name}"</h1>
+        <h1>Пользователь "${object?.username}"</h1>
 
         <t:editObject t:id="editObject" showUpdate="true" showDelete="true" autoFocus="literal:true">
             <div class="form-group form-group">

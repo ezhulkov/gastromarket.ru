@@ -23,7 +23,7 @@ public class Index extends EditObjectPage<UserEntity> {
     @Property
     private CatalogEntity catalog;
 
-    @Component(id = "name", parameters = {"value=object?.name", "validate=maxlength=64,required"})
+    @Component(id = "name", parameters = {"value=object?.username", "validate=maxlength=64,required"})
     private TextField nameField;
 
     @Component(id = "catalogName", parameters = {"value=catalog?.name", "validate=maxlength=64,required"})

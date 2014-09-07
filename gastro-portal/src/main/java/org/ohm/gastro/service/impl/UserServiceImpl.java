@@ -4,6 +4,8 @@ import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.reps.UserRepository;
 import org.ohm.gastro.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +45,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity findUser(Long id) {
         return userRepository.findOne(id);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username);
     }
 
 }

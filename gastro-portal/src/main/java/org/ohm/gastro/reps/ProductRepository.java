@@ -14,9 +14,7 @@ import java.util.List;
  */
 public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
-    List<ProductEntity> findAllByCatalog(CatalogEntity catalog);
-
-    @Query("from ProductEntity where category=:cat or :cat is null")
-    List<ProductEntity> findAllByCategory(@Param("cat") CategoryEntity category);
+    @Query("from ProductEntity where (category=:category or :category is null) and (catalog=:catalog or :catalog is null)")
+    List<ProductEntity> findAllByCategoryAndCatalog(@Param("category") CategoryEntity category, @Param("catalog") CatalogEntity catalog);
 
 }

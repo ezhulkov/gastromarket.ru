@@ -1,8 +1,10 @@
 package org.ohm.gastro.gui.pages.catalog;
 
+import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
+import org.ohm.gastro.gui.components.Catalog;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 /**
@@ -16,18 +18,19 @@ public class List extends BaseComponent {
     @Property
     private CategoryEntity category;
 
+    @Component(id = "catalog")
+    private Catalog catalogComponent;
+
     public boolean onActivate() {
         category = null;
+        catalogComponent.activate(null, null);
         return true;
     }
 
     public boolean onActivate(Long cid) {
         category = getCatalogService().findCategory(cid);
+        catalogComponent.activate(null, category);
         return true;
-    }
-
-    public java.util.List<ProductEntity> getProducts() {
-        return getCatalogService().findAllProducts(category);
     }
 
     public Object[] onPassivate() {

@@ -2,15 +2,7 @@
 
     <div class="main-body">
 
-        <t:filter category="category"/>
-
-        <ul>
-            <t:loop source="products" value="oneProduct" formState="NONE">
-                <li>
-                    <t:product product="oneProduct"/>
-                </li>
-            </t:loop>
-        </ul>
+        <t:catalog t:id="catalog"/>
 
     </div>
 
