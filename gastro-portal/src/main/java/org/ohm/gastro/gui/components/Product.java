@@ -18,6 +18,10 @@ public class Product extends BaseComponent {
     private ProductEntity product;
 
     @Property
+    @Parameter(name = "owner", required = false, allowNull = true)
+    private Boolean owner;
+
+    @Property
     private TagEntity oneTag;
 
     public List<TagEntity> getProductTags() {

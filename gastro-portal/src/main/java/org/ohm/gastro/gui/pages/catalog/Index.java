@@ -17,8 +17,10 @@ public class Index extends BaseComponent {
     @Property
     private TagEntity oneTag;
 
+
     public Class onActivate(Long id) {
         product = getCatalogService().findProduct(id);
+
         return null;
     }
 

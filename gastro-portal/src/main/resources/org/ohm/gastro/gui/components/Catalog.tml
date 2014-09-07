@@ -1,8 +1,8 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <t:filter t:id="filter" category="category" catalog="catalog" productsBlock="productsBlock"/>
+    <t:filter t:id="filter" category="category" catalog="catalog" productsBlock="productsBlock" owner="catalogOwner" productsZone="productsZone"/>
 
-    <t:zone t:id="productsZone">
+    <t:zone t:id="productsZone" id="productsZone" class="col-sm-12">
         <t:delegate to="productsBlock"/>
     </t:zone>
 
@@ -10,7 +10,10 @@
         <ul>
             <t:loop source="products" value="oneProduct" formState="NONE">
                 <li>
-                    <t:product product="oneProduct"/>
+                    <t:product product="oneProduct" owner="catalogOwner"/>
+                    <t:if test="catalogOwner">
+                        <t:actionlink t:id="deleteProduct" context="oneProduct.id" class="pull-right"><span class="glyphicon glyphicon-remove"/></t:actionlink>
+                    </t:if>
                 </li>
             </t:loop>
         </ul>

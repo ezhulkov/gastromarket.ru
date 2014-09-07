@@ -56,10 +56,11 @@ public class ProductCreate extends BaseComponent {
     @Component(id = "productCategory", parameters = {"model=categoryModel", "encoder=categoryModel", "value=product.category", "validate=required"})
     private Select pCategoryField;
 
-    public void activate() {
+    public void activate(CategoryEntity pCategory) {
         categoryModel = new GenericSelectModel<>(getCatalogService().findAllCategories(), CategoryEntity.class, "name", "id", getPropertyAccess());
         category = getCatalogService().findAllCategories().get(0);
         product = new ProductEntity();
+        if (pCategory != null) product.setCategory(pCategory);
     }
 
     public void onSubmitFromAddProductForm() {

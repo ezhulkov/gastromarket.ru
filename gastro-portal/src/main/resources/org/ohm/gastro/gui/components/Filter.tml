@@ -1,9 +1,25 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="well col-sm-12">
 
-    <t:form t:id="filterForm" t:autofocus="true" t:clientValidation="none" class="form-inline well" role="form">
+    <t:form t:id="filterForm" t:autofocus="true" t:clientValidation="none" class="form-inline pull-left" role="form">
         <div class="form-group">
             <t:select class="form-control" t:id="categories" id="categories" t:zone="productsZone"/>
         </div>
     </t:form>
+    <t:zone t:id="productZone" id="productZone">
+        <t:if test="owner">
+            <button class="btn btn-default pull-right" data-toggle="modal" data-target="#create">
+                Добавить позицию
+            </button>
+
+            <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <t:productcreate t:id="productCreate" catalog="catalog"/>
+                    </div>
+                </div>
+            </div>
+        </t:if>
+    </t:zone>
+
 
 </div>

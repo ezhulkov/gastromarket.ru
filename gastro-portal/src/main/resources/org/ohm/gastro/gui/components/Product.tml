@@ -16,6 +16,7 @@
     <div class="modal fade" id="show${product.id}" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
+                <t:if test="owner">Редактировать</t:if>
                 <img width="550" height="300" alt="PHOTO"/><br/>
                 <t:pagelink page="catalog" context="product.id">${product.name}</t:pagelink>
                 <br/>

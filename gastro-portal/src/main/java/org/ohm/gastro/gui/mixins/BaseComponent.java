@@ -6,10 +6,12 @@ import org.apache.tapestry5.ioc.services.PropertyAccess;
 import org.apache.tapestry5.services.ApplicationGlobals;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.Response;
+import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyEntity.Type;
 import org.ohm.gastro.domain.TagEntity;
+import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.UserService;
 import org.slf4j.Logger;
@@ -65,14 +67,17 @@ public abstract class BaseComponent {
     @Inject
     private UserService userService;
 
-    public UserDetails getAuthenticatedUser() {
+    @Inject
+    private AjaxResponseRenderer ajaxResponseRenderer;
+
+    public UserEntity getAuthenticatedUser() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         if (securityContext == null || securityContext.getAuthentication() == null) {
             return null;
         }
         Object principal = securityContext.getAuthentication().getPrincipal();
-        if (principal != null && principal instanceof UserDetails) {
-            return (UserDetails) principal;
+        if (principal != null && principal instanceof UserEntity) {
+            return (UserEntity) principal;
         }
         return null;
     }
@@ -124,6 +129,10 @@ public abstract class BaseComponent {
 
     public UserService getUserService() {
         return userService;
+    }
+
+    public AjaxResponseRenderer getAjaxResponseRenderer() {
+        return ajaxResponseRenderer;
     }
 
     public java.util.List<TagEntity> getProductTags(ProductEntity product) {
