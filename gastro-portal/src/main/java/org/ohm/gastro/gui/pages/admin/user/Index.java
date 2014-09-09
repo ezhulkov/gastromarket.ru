@@ -4,7 +4,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.corelib.components.Hidden;
 import org.apache.tapestry5.corelib.components.PasswordField;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -32,7 +31,7 @@ public class Index extends EditObjectPage<UserEntity> {
     private CatalogEntity catalog;
 
     @Property
-    private String origPassword;
+    private String newPassword;
 
     @Component(id = "name", parameters = {"value=object?.username", "validate=maxlength=64,required"})
     private TextField nameField;
@@ -40,11 +39,8 @@ public class Index extends EditObjectPage<UserEntity> {
     @Component(id = "email", parameters = {"value=object?.email", "validate=maxlength=64,required"})
     private TextField emailField;
 
-    @Component(id = "password", parameters = {"value=object?.password", "validate=maxlength=64"})
+    @Component(id = "password", parameters = {"value=newPassword", "validate=maxlength=64"})
     private PasswordField pwdField;
-
-    @Component(id = "origPassword", parameters = {"value=origPassword"})
-    private Hidden pwd2Field;
 
     @Component(id = "catalogName", parameters = {"value=catalog?.name", "validate=maxlength=64,required"})
     private TextField catalogNameField;
@@ -60,10 +56,7 @@ public class Index extends EditObjectPage<UserEntity> {
 
             @Override
             public UserEntity findObject(String id) {
-                UserEntity user = getUserService().findUser(Long.parseLong(id));
-                origPassword = user.getPassword();
-                user.setPassword(null);
-                return user;
+                return getUserService().findUser(Long.parseLong(id));
             }
 
             @Override
@@ -74,8 +67,7 @@ public class Index extends EditObjectPage<UserEntity> {
 
             @Override
             public Class<? extends BaseComponent> updateObject(UserEntity object) {
-                if (StringUtils.isEmpty(object.getPassword())) object.setPassword(origPassword);
-                else object.setPassword(passwordEncoder.encode(object.getPassword()));
+                if (StringUtils.isNotEmpty(newPassword)) object.setPassword(passwordEncoder.encode(newPassword));
                 getUserService().saveUser(object);
                 return Index.class;
             }

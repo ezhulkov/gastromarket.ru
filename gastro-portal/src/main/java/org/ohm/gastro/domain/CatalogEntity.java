@@ -37,7 +37,7 @@ public class CatalogEntity implements BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private UserEntity user;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = ProductEntity.class, mappedBy = "catalog", orphanRemoval = true)
     private List<ProductEntity> products = Lists.newArrayList();
 
     @Override
