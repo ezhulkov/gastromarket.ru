@@ -26,10 +26,10 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
 
     <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref="userService">
-            <password-encoder hash="sha-256">
-                <salt-source user-property="username"/>
-            </password-encoder>
+            <password-encoder ref="passwordEncoder"/>
         </authentication-provider>
     </authentication-manager>
+
+    <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>
 
 </beans:beans>

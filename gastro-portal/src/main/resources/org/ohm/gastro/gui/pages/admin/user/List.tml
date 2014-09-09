@@ -21,6 +21,11 @@
                                 <input t:id="name" class="form-control" type="text" placeholder="Логин"/>
                             </div>
                         </div>
+                        <div class="form-group form-group">
+                            <div class="col-sm-10">
+                                <input t:id="email" class="form-control" type="email" placeholder="eMail"/>
+                            </div>
+                        </div>
                     </t:editObject>
                 </div>
             </div>
@@ -28,8 +33,12 @@
 
         <br/>
         <br/>
-        <t:grid source="users" row="oneUser" exclude="id,password" t:mixins="GridSortingDisabled" class="table table-hover">
-            <t:parameter name="nameCell">
+        <t:grid source="users" row="oneUser"
+                exclude="id,password,accountNonExpired,accountNonLocked,credentialsNonExpired,enabled"
+                reorder="username,email,type"
+                t:mixins="GridSortingDisabled"
+                class="table table-hover">
+            <t:parameter name="usernameCell">
                 <t:pagelink page="admin/user/index" context="['UPDATE',oneUser.id]">${oneUser.username}</t:pagelink>
                 <t:actionlink t:id="delete" context="oneUser.id" class="pull-right"><span class="glyphicon glyphicon-remove"/></t:actionlink>
             </t:parameter>

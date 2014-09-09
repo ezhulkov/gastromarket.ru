@@ -129,7 +129,8 @@
 
     <changeSet id="4" author="ezhulkov">
         <sql>
-            insert into person (id,username,email,password,type) values (1,'admin','admin@gastromarket.ru','9589498941648e777300b5e312359ecbf469470078f93d9e3219e59a72c57714','ADMIN');
+            insert into person (id,username,email,password,type) values (1,'admin','admin@gastromarket.ru','aa9304926e54bf318a40dc9cb936e62f86327f987461178b01a85ae5a500bd43639908f104ae7d5f','ADMIN');
+            update hibernate_sequences set sequence_next_hi_value=2 where sequence_name='person';
         </sql>
     </changeSet>
 
