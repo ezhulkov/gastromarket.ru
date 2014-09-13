@@ -1,13 +1,16 @@
 package org.ohm.gastro.gui.pages;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.EventContext;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
+import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.pages.catalog.Search;
 
 import java.util.List;
 
@@ -25,6 +28,9 @@ public class Index extends BaseComponent {
     @Component(id = "search", parameters = {"value=searchString"})
     private TextField searchField;
 
+    @InjectPage
+    private Search search;
+
     public Object onActivate(EventContext context) {
         if (context.getCount() == 0) return null;
         return new HttpError(404, "Page not found.");
@@ -35,8 +41,13 @@ public class Index extends BaseComponent {
         return getCatalogService().findAllCategories();
     }
 
-    public void onSubmitFromSearchForm() {
-
+    public Object onSubmitFromSearchForm() {
+        if (StringUtils.isNotEmpty(searchString)) {
+            search.setSearchString(searchString);
+            return search;
+        } else {
+            return null;
+        }
     }
 
 }

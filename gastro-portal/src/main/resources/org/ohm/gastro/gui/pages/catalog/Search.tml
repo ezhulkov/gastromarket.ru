@@ -1,0 +1,9 @@
+<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="starter-template">
+
+    <div class="main-body">
+
+        <t:catalog t:id="catalog"/>
+
+    </div>
+
+</t:htmllayout>

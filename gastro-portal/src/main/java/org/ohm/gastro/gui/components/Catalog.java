@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.components;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Parameter;
@@ -41,8 +42,8 @@ public class Catalog extends BaseComponent {
     @Property
     private ProductEntity oneProduct;
 
-    public void activate(CatalogEntity catalog, CategoryEntity category) {
-        filter.activate(catalog, category);
+    public void activate(CatalogEntity catalog, CategoryEntity category, String searchString, boolean searchMode) {
+        filter.activate(catalog, category, searchString, searchMode);
     }
 
     public CategoryEntity getSelectedCategory() {
@@ -50,7 +51,11 @@ public class Catalog extends BaseComponent {
     }
 
     public List<ProductEntity> getProducts() {
-        return getCatalogService().findAllProducts(filter.getCategory(), filter.getCatalog());
+        if (StringUtils.isEmpty(filter.getSearchString())) {
+            return getCatalogService().findAllProducts(filter.getCategory(), filter.getCatalog());
+        } else {
+            return getCatalogService().searchProducts(filter.getSearchString());
+        }
     }
 
     public boolean isCatalogOwner() {
@@ -60,6 +65,10 @@ public class Catalog extends BaseComponent {
 
     public void onActionFromDeleteProduct(Long id) {
         getCatalogService().deleteProduct(id);
+    }
+
+    public String getSearchString() {
+        return filter.getSearchString();
     }
 
 }

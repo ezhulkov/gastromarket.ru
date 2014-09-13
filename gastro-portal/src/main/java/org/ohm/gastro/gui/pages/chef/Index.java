@@ -25,7 +25,7 @@ public class Index extends BaseComponent {
     public Class onActivate(EventContext context) {
         if (context.getCount() == 0) return List.class;
         catalog = getCatalogService().findCatalog(context.get(Long.class, 0));
-        catalogComponent.activate(catalog, null);
+        catalogComponent.activate(catalog, null, null, false);
         return null;
     }
 

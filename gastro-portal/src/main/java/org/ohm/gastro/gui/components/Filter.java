@@ -6,6 +6,7 @@ import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Select;
+import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CategoryEntity;
@@ -18,6 +19,11 @@ import java.util.List;
  * Created by ezhulkov on 31.08.14.
  */
 public class Filter extends BaseComponent {
+
+    private String searchString;
+
+    @Property
+    private boolean searchMode;
 
     @Parameter(name = "category", required = false, allowNull = true)
     private CategoryEntity category;
@@ -35,6 +41,9 @@ public class Filter extends BaseComponent {
 
     @Parameter(name = "productsZone", required = true, allowNull = false)
     private Zone productsZone;
+
+    @Component(id = "search", parameters = {"value=searchString"})
+    private TextField searchField;
 
     @Component(id = "categories", parameters = {"model=categoryModel", "encoder=categoryModel", "value=category"})
     private Select pCategoryField;
@@ -70,9 +79,11 @@ public class Filter extends BaseComponent {
         getAjaxResponseRenderer().addRender(productsZone).addRender(productZone);
     }
 
-    public void activate(CatalogEntity catalog, CategoryEntity category) {
+    public void activate(CatalogEntity catalog, CategoryEntity category, String searchString, boolean searchMode) {
         this.catalog = catalog;
         this.category = category;
+        this.searchString = searchString;
+        this.searchMode = searchMode;
         List<CategoryEntity> allCategories;
         if (catalog == null) allCategories = getCatalogService().findAllCategories();
         else allCategories = getCatalogService().findAllCategories(catalog);
@@ -80,5 +91,12 @@ public class Filter extends BaseComponent {
         productCreate.activate(null);
     }
 
+    public String getSearchString() {
+        return searchString;
+    }
+
+    public void setSearchString(String searchString) {
+        this.searchString = searchString;
+    }
 }
 

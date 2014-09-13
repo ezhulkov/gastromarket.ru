@@ -17,4 +17,15 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
     @Query("from ProductEntity where (category=:category or :category is null) and (catalog=:catalog or :catalog is null)")
     List<ProductEntity> findAllByCategoryAndCatalog(@Param("category") CategoryEntity category, @Param("catalog") CatalogEntity catalog);
 
+    @Query(value = "SELECT * FROM (" +
+            "       SELECT " +
+            "         p.*, " +
+            "         ts_rank_cd(to_tsvector('ru', (COALESCE(c.name,'') || ' ' || COALESCE(p.name,'') || ' ' || COALESCE(p.description,''))), to_tsquery(:q)) AS score " +
+            "       FROM product p JOIN category c ON c.id = p.category_id " +
+            "       WHERE (COALESCE(c.name,'') || ' ' || COALESCE(p.name,'') || ' ' || COALESCE(p.description,'')) @@ to_tsquery(:q) " +
+            "     ) s " +
+            "WHERE score > 0 " +
+            "ORDER BY score DESC", nativeQuery = true)
+    List<ProductEntity> searchProducts(@Param("q") String query);
+
 }

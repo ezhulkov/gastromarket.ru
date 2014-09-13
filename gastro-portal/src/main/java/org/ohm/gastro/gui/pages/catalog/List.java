@@ -23,13 +23,13 @@ public class List extends BaseComponent {
 
     public boolean onActivate() {
         category = null;
-        catalogComponent.activate(null, null);
+        catalogComponent.activate(null, null, null, false);
         return true;
     }
 
     public boolean onActivate(Long cid) {
         category = getCatalogService().findCategory(cid);
-        catalogComponent.activate(null, category);
+        catalogComponent.activate(null, category, null, false);
         return true;
     }
 

@@ -16,6 +16,8 @@ import java.util.Map;
  */
 public interface CatalogService {
 
+    public List<ProductEntity> searchProducts(String query);
+
     public List<CategoryEntity> findAllCategories();
 
     public List<PropertyEntity> findAllProperties();

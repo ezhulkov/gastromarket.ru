@@ -59,6 +59,11 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
+    public List<ProductEntity> searchProducts(String query) {
+        return productRepository.searchProducts(query);
+    }
+
+    @Override
     public List<CategoryEntity> findAllCategories() {
         return categoryRepository.findAll(new Sort(Direction.DESC, "name"));
     }

@@ -1,7 +1,6 @@
 <t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="starter-template">
 
     <div class="main-body">
-        <h1>Under construction</h1>
 
         <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="form-inline well" role="form">
             <div class="form-group">

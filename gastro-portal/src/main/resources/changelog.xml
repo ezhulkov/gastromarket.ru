@@ -134,4 +134,13 @@
         </sql>
     </changeSet>
 
+    <changeSet id="5" author="ezhulkov">
+        <addColumn tableName="product">
+            <column name="description" type="java.sql.Types.VARCHAR(1024)"/>
+        </addColumn>
+        <sql>
+            create index product_fts_idx on product using gin(to_tsvector('russian', name || ' ' || description));
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

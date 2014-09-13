@@ -1,8 +1,14 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="well col-sm-12">
 
-    <t:form t:id="filterForm" t:autofocus="true" t:clientValidation="none" class="form-inline pull-left" role="form">
+    <t:form t:id="filterForm" t:autofocus="false" t:clientValidation="none" class="form-inline pull-left" role="form">
         <div class="form-group">
-            <t:select class="form-control" t:id="categories" id="categories" t:zone="productsZone"/>
+            <t:unless test="searchMode">
+                <t:select class="form-control" t:id="categories" id="categories" t:zone="productsZone"/>
+            </t:unless>
+            <t:if test="searchMode">
+                <t:input class="form-control" t:id="search"/>
+                <input type="submit" value="Искать"/>
+            </t:if>
         </div>
     </t:form>
     <t:zone t:id="productZone" id="productZone">
