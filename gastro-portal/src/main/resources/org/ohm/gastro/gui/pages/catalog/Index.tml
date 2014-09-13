@@ -2,9 +2,9 @@
 
     <div class="main-body">
 
-        <t:if test="catalogOwner">
+        <t:if test="owner">
             <t:unless test="edit">
-                <t:pagelink page="catalog" context="[product.id,'true']">Редактировать</t:pagelink>
+                <t:pagelink page="catalog" context="[product.id,'edit']">Редактировать</t:pagelink>
             </t:unless>
         </t:if>
 

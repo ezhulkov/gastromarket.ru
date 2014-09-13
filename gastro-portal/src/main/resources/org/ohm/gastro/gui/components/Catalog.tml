@@ -10,8 +10,8 @@
         <ul>
             <t:loop source="products" value="oneProduct" formState="NONE">
                 <li>
-                    <t:product product="oneProduct" owner="catalogOwner"/>
-                    <t:if test="catalogOwner">
+                    <t:product product="oneProduct"/>
+                    <t:if test="productOwner">
                         <t:actionlink t:id="deleteProduct" context="oneProduct.id" class="pull-right"><span class="glyphicon glyphicon-remove"/></t:actionlink>
                     </t:if>
                 </li>

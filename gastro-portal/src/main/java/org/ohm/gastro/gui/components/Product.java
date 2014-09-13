@@ -4,6 +4,7 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.TagEntity;
+import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.List;
@@ -18,14 +19,15 @@ public class Product extends BaseComponent {
     private ProductEntity product;
 
     @Property
-    @Parameter(name = "owner", required = false, allowNull = true)
-    private Boolean owner;
-
-    @Property
     private TagEntity oneTag;
 
     public List<TagEntity> getProductTags() {
         return getProductTags(product);
+    }
+
+    public boolean isOwner() {
+        UserEntity user = getAuthenticatedUser();
+        return user != null && product.getCatalog().getUser().equals(user);
     }
 
 }

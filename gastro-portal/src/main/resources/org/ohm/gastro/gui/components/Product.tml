@@ -19,7 +19,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <t:if test="owner">
-                    <t:pagelink page="catalog" context="[product.id,'true']">Редактировать</t:pagelink>
+                    <t:pagelink page="catalog" context="[product.id,'edit']">Редактировать</t:pagelink>
                 </t:if>
                 <img width="550" height="300" alt="PHOTO"/><br/>
                 <t:pagelink page="catalog" context="product.id">${product.name}</t:pagelink>

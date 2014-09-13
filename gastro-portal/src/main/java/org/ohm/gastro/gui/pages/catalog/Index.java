@@ -22,12 +22,12 @@ public class Index extends BaseComponent {
     private TagEntity oneTag;
 
     public boolean onActivate(Long id) {
-        return onActivate(id, false);
+        return onActivate(id, "");
     }
 
-    public boolean onActivate(Long id, boolean edit) {
+    public boolean onActivate(Long id, String edit) {
         this.product = getCatalogService().findProduct(id);
-        this.edit = edit;
+        this.edit = "edit".equals(edit);
         return true;
     }
 
@@ -36,7 +36,7 @@ public class Index extends BaseComponent {
         return getProductTags(product);
     }
 
-    public boolean isCatalogOwner() {
+    public boolean isOwner() {
         UserEntity user = getAuthenticatedUser();
         return user != null && product.getCatalog().getUser().equals(user);
     }

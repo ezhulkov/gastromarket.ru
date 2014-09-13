@@ -63,6 +63,11 @@ public class Catalog extends BaseComponent {
         return user != null && catalog != null && catalog.getUser().equals(user);
     }
 
+    public boolean isProductOwner() {
+        UserEntity user = getAuthenticatedUser();
+        return user != null && oneProduct.getCatalog().getUser().equals(user);
+    }
+
     public void onActionFromDeleteProduct(Long id) {
         getCatalogService().deleteProduct(id);
     }
