@@ -5,6 +5,7 @@ import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Select;
+import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
@@ -53,6 +54,9 @@ public class ProductCreate extends BaseComponent {
 
     @Component(id = "productName", parameters = {"value=product.name", "validate=maxlength=64,required"})
     private TextField pNameField;
+
+    @Component(id = "productDescription", parameters = {"value=product.description", "validate=maxlength=1024"})
+    private TextArea descField;
 
     @Component(id = "productCategory", parameters = {"model=categoryModel", "encoder=categoryModel", "value=product.category", "validate=required"})
     private Select pCategoryField;

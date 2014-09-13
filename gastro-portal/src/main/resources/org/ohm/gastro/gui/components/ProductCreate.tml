@@ -13,6 +13,11 @@
         </div>
         <div class="form-group form-group">
             <div class="col-sm-11">
+                <input t:id="productDescription" class="form-control" placeholder="Описание"/>
+            </div>
+        </div>
+        <div class="form-group form-group">
+            <div class="col-sm-11">
                 <input t:id="productPrice" class="form-control" placeholder="Цена, руб"/>
             </div>
         </div>

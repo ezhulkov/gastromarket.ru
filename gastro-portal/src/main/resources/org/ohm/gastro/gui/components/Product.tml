@@ -4,6 +4,8 @@
         ${product.name}
     </a>
     <br/>
+    ${product.description}
+    <br/>
     Цена ${product.price}<br/>
     <ul>
         <t:loop source="productTags" value="oneTag">
@@ -16,9 +18,13 @@
     <div class="modal fade" id="show${product.id}" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <t:if test="owner">Редактировать</t:if>
+                <t:if test="owner">
+                    <t:pagelink page="catalog" context="[product.id,'true']">Редактировать</t:pagelink>
+                </t:if>
                 <img width="550" height="300" alt="PHOTO"/><br/>
                 <t:pagelink page="catalog" context="product.id">${product.name}</t:pagelink>
+                <br/>
+                ${product.description}
                 <br/>
                 Цена ${product.price}<br/>
                 <ul>

@@ -32,6 +32,9 @@ public class ProductEntity implements BaseEntity {
     private String name;
 
     @Column
+    private String description;
+
+    @Column
     private Integer price;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -92,4 +95,11 @@ public class ProductEntity implements BaseEntity {
         this.category = category;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

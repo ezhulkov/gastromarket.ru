@@ -4,6 +4,7 @@ import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.TagEntity;
+import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 /**
@@ -12,21 +13,32 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 public class Index extends BaseComponent {
 
     @Property
+    private boolean edit;
+
+    @Property
     private ProductEntity product;
 
     @Property
     private TagEntity oneTag;
 
+    public boolean onActivate(Long id) {
+        return onActivate(id, false);
+    }
 
-    public Class onActivate(Long id) {
-        product = getCatalogService().findProduct(id);
-
-        return null;
+    public boolean onActivate(Long id, boolean edit) {
+        this.product = getCatalogService().findProduct(id);
+        this.edit = edit;
+        return true;
     }
 
     @Cached
     public java.util.List<TagEntity> getProductTags() {
         return getProductTags(product);
+    }
+
+    public boolean isCatalogOwner() {
+        UserEntity user = getAuthenticatedUser();
+        return user != null && product.getCatalog().getUser().equals(user);
     }
 
 }
