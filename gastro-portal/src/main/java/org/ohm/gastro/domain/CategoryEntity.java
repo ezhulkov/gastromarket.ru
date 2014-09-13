@@ -40,7 +40,7 @@ public class CategoryEntity implements BaseEntity {
                inverseJoinColumns = {@JoinColumn(name = "property_id")})
     private List<PropertyEntity> properties = Lists.newArrayList();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = ProductEntity.class, mappedBy = "category")
     private List<ProductEntity> products;
 
     @Override

@@ -17,6 +17,7 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -57,8 +58,9 @@ public class ProductCreate extends BaseComponent {
     private Select pCategoryField;
 
     public void activate(CategoryEntity pCategory) {
-        categoryModel = new GenericSelectModel<>(getCatalogService().findAllCategories(), CategoryEntity.class, "name", "id", getPropertyAccess());
-        category = getCatalogService().findAllCategories().get(0);
+        List<CategoryEntity> allCategories = getCatalogService().findAllCategories();
+        categoryModel = new GenericSelectModel<>(allCategories, CategoryEntity.class, "name", "id", getPropertyAccess());
+        if (allCategories.size() > 0) category = allCategories.get(0);
         product = new ProductEntity();
         if (pCategory != null) product.setCategory(pCategory);
     }
