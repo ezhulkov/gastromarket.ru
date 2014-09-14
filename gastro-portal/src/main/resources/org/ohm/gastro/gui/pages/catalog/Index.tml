@@ -10,17 +10,40 @@
 
         <img width="100%" height="400" alt="PHOTO"/><br/>
 
-        <h1>${product.name}</h1>
+        <t:if test="edit">
+            <t:form t:id="editForm" class="form-horizontal well" role="form">
+                <div class="form-group form-group">
+                    <div class="col-sm-11">
+                        <input t:id="name" class="form-control" placeholder="Название"/>
+                    </div>
+                </div>
+                <div class="form-group form-group">
+                    <div class="col-sm-11">
+                        <input t:id="description" class="form-control" placeholder="Описание"/>
+                    </div>
+                </div>
+                <div class="form-group form-group">
+                    <div class="col-sm-11">
+                        <input t:id="price" class="form-control" placeholder="Цена, руб"/>
+                    </div>
+                </div>
+                <input type="reset" value="Отменить"/>
+                <input type="submit" value="Сохранить"/>
+            </t:form>
+        </t:if>
+        <t:unless test="edit">
+            <h1>${product.name}</h1>
 
-        ${product.description}<br/>
-        Цена ${product.price}<br/>
-        <ul>
-            <t:loop source="productTags" value="oneTag">
-                <li>
-                    ${oneTag.name}:${oneTag.value}
-                </li>
-            </t:loop>
-        </ul>
+            ${product.description}<br/>
+            Цена ${product.price}<br/>
+            <ul>
+                <t:loop source="productTags" value="oneTag">
+                    <li>
+                        ${oneTag.name}:${oneTag.value}
+                    </li>
+                </t:loop>
+            </ul>
+        </t:unless>
 
     </div>
 
