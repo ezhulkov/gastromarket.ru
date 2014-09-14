@@ -6,14 +6,21 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.ohm.gastro.domain.ProductEntity;
+import org.ohm.gastro.domain.PropertyEntity;
+import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
+
+import java.util.Collections;
 
 /**
  * Created by ezhulkov on 31.08.14.
  */
 public class Index extends BaseComponent {
+
+    @Property
+    private PropertyValueEntity oneValue;
 
     @Property
     private boolean edit;
@@ -23,6 +30,9 @@ public class Index extends BaseComponent {
 
     @Property
     private TagEntity oneTag;
+
+    @Property
+    private PropertyEntity oneProperty;
 
     @Component(id = "name", parameters = {"value=product.name", "validate=required"})
     private TextField nameField;
@@ -60,5 +70,20 @@ public class Index extends BaseComponent {
     public void onSubmitFromEditForm() {
         getCatalogService().saveProduct(product);
     }
+
+    public String getValueType() {
+        return oneProperty.getType().toString().toLowerCase();
+    }
+
+    public java.util.List<PropertyEntity> getCategoryProperties() {
+        java.util.List<PropertyEntity> allProperties = getCatalogService().findAllProperties(product.getCategory());
+        Collections.sort(allProperties, (o1, o2) -> o1.getType().compareTo(o2.getType()));
+        return allProperties;
+    }
+
+    public java.util.List<PropertyValueEntity> getPropertyValues() {
+        return getCatalogService().findAllValues(oneProperty);
+    }
+
 
 }

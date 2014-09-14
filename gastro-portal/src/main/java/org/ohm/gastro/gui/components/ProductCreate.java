@@ -17,7 +17,6 @@ import org.ohm.gastro.gui.misc.GenericSelectModel;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -97,19 +96,13 @@ public class ProductCreate extends BaseComponent {
 
     public java.util.List<PropertyEntity> getCategoryProperties() {
         java.util.List<PropertyEntity> allProperties = getCatalogService().findAllProperties(category);
-        Collections.sort(allProperties, new Comparator<PropertyEntity>() {
-            @Override
-            public int compare(PropertyEntity o1, PropertyEntity o2) {
-                return o1.getType().compareTo(o2.getType());
-            }
-        });
+        Collections.sort(allProperties, (o1, o2) -> o1.getType().compareTo(o2.getType()));
         return allProperties;
     }
 
     public String getValueType() {
         return oneProperty.getType().toString().toLowerCase();
     }
-
 
 }
 
