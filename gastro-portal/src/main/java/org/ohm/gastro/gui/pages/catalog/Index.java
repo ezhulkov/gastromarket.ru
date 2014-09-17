@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.pages.catalog;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
@@ -85,5 +86,10 @@ public class Index extends BaseComponent {
         return getCatalogService().findAllValues(oneProperty);
     }
 
+    public String getProductDescription() {
+        String desc = (String) ObjectUtils.defaultIfNull(product.getDescription(), "");
+        desc = desc.replaceAll("\\r\\n", "<br/>");
+        return desc;
+    }
 
 }

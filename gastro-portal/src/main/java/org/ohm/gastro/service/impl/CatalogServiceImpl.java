@@ -167,6 +167,11 @@ public class CatalogServiceImpl implements CatalogService {
     @Override
     @Transactional
     public void saveProduct(ProductEntity product) {
+        String description = product.getDescription();
+        if (description != null) {
+            description = description.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+            product.setDescription(description);
+        }
         productRepository.save(product);
     }
 

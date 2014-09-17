@@ -54,7 +54,8 @@
         <t:unless test="edit">
             <h1>${product.name}</h1>
 
-            ${product.description}<br/>
+            <t:outputraw value="productDescription"/>
+            <br/>
             Цена ${product.price}<br/>
             <ul>
                 <t:loop source="productTags" value="oneTag">
