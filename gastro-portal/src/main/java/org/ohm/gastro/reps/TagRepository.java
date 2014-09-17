@@ -1,6 +1,7 @@
 package org.ohm.gastro.reps;
 
 import org.ohm.gastro.domain.ProductEntity;
+import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -19,5 +20,7 @@ public interface TagRepository extends JpaRepository<TagEntity, Long> {
     void deleteAllValues(@Param("product") ProductEntity product);
 
     List<TagEntity> findAllByProduct(ProductEntity product);
+
+    List<TagEntity> findAllByProductAndProperty(ProductEntity product, PropertyEntity oneProperty);
 
 }

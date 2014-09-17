@@ -1,6 +1,5 @@
 package org.ohm.gastro.gui.pages.catalog;
 
-import com.google.common.collect.Lists;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
@@ -9,20 +8,18 @@ import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
-import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.Collections;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 31.08.14.
  */
 public class Index extends BaseComponent {
-
-    @Property
-    private PropertyValueEntity oneValue;
 
     @Property
     private boolean edit;
@@ -70,7 +67,19 @@ public class Index extends BaseComponent {
     }
 
     public void onSubmitFromEditForm() {
-        getCatalogService().saveProduct(product);
+        Map<Long, String> propValues = getRequest().getParameterNames().stream()
+                .filter(t -> t.startsWith("prop-"))
+                .map(t -> t.substring("prop-".length(), t.length()))
+                .collect(Collectors.toMap(Long::parseLong,
+                                          key -> getRequest().getParameter("prop-" + key)
+                ));
+        Map<Long, String[]> listValues = getRequest().getParameterNames().stream()
+                .filter(t -> t.startsWith("list-"))
+                .map(t -> t.substring("list-".length(), t.length()))
+                .collect(Collectors.toMap(Long::parseLong,
+                                          key -> getRequest().getParameters("list-" + key)
+                ));
+        getCatalogService().saveProduct(product, propValues, listValues);
     }
 
     public String getValueType() {
@@ -83,32 +92,14 @@ public class Index extends BaseComponent {
         return allProperties;
     }
 
-    public java.util.List<PropertyValueEntity> getPropertyValues() {
-        return getCatalogService().findAllValues(oneProperty);
-    }
-
     public String getProductDescription() {
         String desc = (String) ObjectUtils.defaultIfNull(product.getDescription(), "");
         desc = desc.replaceAll("\\r\\n", "<br/>");
         return desc;
     }
 
-    @Cached
-    public java.util.List<TagEntity> getAllTags() {
-        java.util.List<TagEntity> setTags = getProductTags();
-        java.util.List<TagEntity> result = Lists.newArrayList(setTags);
-        java.util.List<PropertyEntity> categoryProperties = getCategoryProperties();
-        //Add unset properties
-        categoryProperties.stream().forEach(categoryProperty -> {
-            if (!setTags.stream().filter(t -> t.getProperty().equals(categoryProperty)).findAny().isPresent()) {
-                TagEntity unsetTag = new TagEntity();
-                unsetTag.setProduct(product);
-                unsetTag.setProperty(categoryProperty);
-//                unsetTag.setName();
-                result.add(unsetTag);
-            }
-        });
-        return result;
+    public java.util.List<TagEntity> getPropertyTags() {
+        return getCatalogService().findAllTags(product, oneProperty);
     }
 
 }

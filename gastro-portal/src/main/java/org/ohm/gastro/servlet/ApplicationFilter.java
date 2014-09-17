@@ -11,8 +11,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 23.08.14.
@@ -29,7 +31,6 @@ public class ApplicationFilter extends BaseApplicationFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
 
         boolean needToLog = !isStaticResource(httpServletRequest);
-        long start = 0;
 
         Slf4JStopWatch stopWatch = null;
 
@@ -56,8 +57,8 @@ public class ApplicationFilter extends BaseApplicationFilter {
             if (e != null) {
                 while (e.hasMoreElements()) {
                     Object key = e.nextElement();
-                    String value = httpServletRequest.getParameter((String) key);
-                    logger.trace("Parameter: " + key + " Value: " + value);
+                    String[] values = httpServletRequest.getParameterValues((String) key);
+                    logger.trace("Parameter: " + key + " Value: " + Arrays.stream(values).collect(Collectors.joining(",")));
                 }
             }
         }

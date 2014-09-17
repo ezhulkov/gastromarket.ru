@@ -11,50 +11,43 @@
         <img width="100%" height="400" alt="PHOTO"/><br/>
 
         <t:if test="edit">
+            <br/>
             <t:form t:id="editForm" class="form-horizontal well" role="form">
-                <div class="form-group form-group">
+                <div class="form-group">
                     <label class="col-sm-2 control-label" for="name">Название</label>
 
                     <div class="col-sm-10">
                         <input t:id="name" id="name" class="form-control" placeholder="Название"/>
                     </div>
                 </div>
-                <div class="form-group form-group">
+                <div class="form-group">
                     <label class="col-sm-2 control-label" for="description">Описание</label>
 
                     <div class="col-sm-10">
                         <input t:id="description" id="description" class="form-control" placeholder="Описание"/>
                     </div>
                 </div>
-                <div class="form-group form-group">
+                <div class="form-group">
                     <label class="col-sm-2 control-label" for="price">Цена</label>
 
                     <div class="col-sm-10">
                         <input t:id="price" id="price" class="form-control" placeholder="Цена, руб"/>
                     </div>
                 </div>
-                <!--<t:loop source="categoryProperties" value="oneProperty" formState="NONE">-->
-                <!--<div class="form-group form-group">-->
-                <!--<t:if test="oneProperty.type.toString().equals('LIST')">-->
-                <!--<div class="col-sm-11" id="list${oneProperty.id}">-->
-                <!--<select name="list-${oneProperty.id}" class="form-control pull-left" style="width:90%;">-->
-                <!--<option value="" disabled="disabled" selected="selected">${oneProperty.name}</option>-->
-                <!--<t:loop source="propertyValues" value="oneValue" formState="NONE">-->
-                <!--<option value="${oneValue.id}">${oneValue.value}</option>-->
-                <!--</t:loop>-->
-                <!--</select>-->
-                <!--<a href="#" class="pull-right more-btn" data="${oneProperty.id}" style="padding-top:6px;">Ещё</a>-->
-                <!--</div>-->
-                <!--<t:parameter name="else">-->
-                <!--<div class="col-sm-11">-->
-                <!--<input class="form-control" type="${valueType}" name="prop-${oneProperty.id}" placeholder="${oneProperty.name}"/>-->
-                <!--</div>-->
-                <!--</t:parameter>-->
-                <!--</t:if>-->
-                <!--</div>-->
-                <!--</t:loop>-->
-                <input type="reset" value="Отменить"/>
-                <input type="submit" value="Сохранить"/>
+                <t:loop source="categoryProperties" value="oneProperty" formState="NONE">
+                    <t:if test="propertyTags">
+                        <t:loop source="propertyTags" value="oneTag" formState="NONE">
+                            <t:paramBlock property="oneProperty" tag="oneTag"/>
+                        </t:loop>
+                    </t:if>
+                    <t:unless test="propertyTags">
+                        <t:paramBlock property="oneProperty"/>
+                    </t:unless>
+                </t:loop>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-default" value="Сохранить"/>
+                    <input type="reset" class="btn btn-default" value="Отменить"/>
+                </div>
             </t:form>
         </t:if>
         <t:unless test="edit">
@@ -73,5 +66,20 @@
         </t:unless>
 
     </div>
+
+    <script>
+        function moreClick(obj) {
+            var id = jQuery(obj).attr('data');
+            var listBlock = jQuery('div.param' + id).last();
+            var newBlock = jQuery(listBlock).clone().fadeTo(0, 0).insertAfter(listBlock);
+            jQuery(newBlock).fadeTo(400, 1);
+        }
+        function delClick(obj) {
+            var formBlock = jQuery(obj).closest("div.form-group");
+            jQuery(formBlock).fadeOut("fast", function () {
+                this.remove()
+            });
+        }
+    </script>
 
 </t:htmllayout>

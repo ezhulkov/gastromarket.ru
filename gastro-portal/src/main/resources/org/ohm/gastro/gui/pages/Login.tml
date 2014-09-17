@@ -26,7 +26,7 @@
             <div class="form-group form-group">
                 <div class="col-sm-10">
                     <input type="checkbox" name="_spring_security_remember_me" id="rememberme"/> <label for="rememberme">Remember me</label><br/>
-                    <input class="btn btn-lg btn-primary" type="submit" value="Login"/>
+                    <input class="btn btn btn-primary pull-right" type="submit" value="Login"/>
                 </div>
             </div>
 

@@ -62,6 +62,8 @@ public interface CatalogService {
 
     List<TagEntity> findAllTags(ProductEntity oneProduct);
 
+    List<TagEntity> findAllTags(ProductEntity product, PropertyEntity property);
+
     List<ProductEntity> findAllProducts();
 
     ProductEntity findProduct(Long id);

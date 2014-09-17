@@ -213,6 +213,11 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
+    public List<TagEntity> findAllTags(ProductEntity product, PropertyEntity property) {
+        return tagRepository.findAllByProductAndProperty(product, property);
+    }
+
+    @Override
     public List<ProductEntity> findAllProducts() {
         return productRepository.findAll();
     }
