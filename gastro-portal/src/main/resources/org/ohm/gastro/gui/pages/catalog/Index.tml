@@ -13,40 +13,46 @@
         <t:if test="edit">
             <t:form t:id="editForm" class="form-horizontal well" role="form">
                 <div class="form-group form-group">
-                    <div class="col-sm-11">
-                        <input t:id="name" class="form-control" placeholder="Название"/>
+                    <label class="col-sm-2 control-label" for="name">Название</label>
+
+                    <div class="col-sm-10">
+                        <input t:id="name" id="name" class="form-control" placeholder="Название"/>
                     </div>
                 </div>
                 <div class="form-group form-group">
-                    <div class="col-sm-11">
-                        <input t:id="description" class="form-control" placeholder="Описание"/>
+                    <label class="col-sm-2 control-label" for="description">Описание</label>
+
+                    <div class="col-sm-10">
+                        <input t:id="description" id="description" class="form-control" placeholder="Описание"/>
                     </div>
                 </div>
                 <div class="form-group form-group">
-                    <div class="col-sm-11">
-                        <input t:id="price" class="form-control" placeholder="Цена, руб"/>
+                    <label class="col-sm-2 control-label" for="price">Цена</label>
+
+                    <div class="col-sm-10">
+                        <input t:id="price" id="price" class="form-control" placeholder="Цена, руб"/>
                     </div>
                 </div>
-                <t:loop source="categoryProperties" value="oneProperty" formState="NONE">
-                    <div class="form-group form-group">
-                        <t:if test="oneProperty.type.toString().equals('LIST')">
-                            <div class="col-sm-11" id="list${oneProperty.id}">
-                                <select name="list-${oneProperty.id}" class="form-control pull-left" style="width:90%;">
-                                    <option value="" disabled="disabled" selected="selected">${oneProperty.name}</option>
-                                    <t:loop source="propertyValues" value="oneValue" formState="NONE">
-                                        <option value="${oneValue.id}">${oneValue.value}</option>
-                                    </t:loop>
-                                </select>
-                                <a href="#" class="pull-right more-btn" data="${oneProperty.id}" style="padding-top:6px;">Ещё</a>
-                            </div>
-                            <t:parameter name="else">
-                                <div class="col-sm-11">
-                                    <input class="form-control" type="${valueType}" name="prop-${oneProperty.id}" placeholder="${oneProperty.name}"/>
-                                </div>
-                            </t:parameter>
-                        </t:if>
-                    </div>
-                </t:loop>
+                <!--<t:loop source="categoryProperties" value="oneProperty" formState="NONE">-->
+                <!--<div class="form-group form-group">-->
+                <!--<t:if test="oneProperty.type.toString().equals('LIST')">-->
+                <!--<div class="col-sm-11" id="list${oneProperty.id}">-->
+                <!--<select name="list-${oneProperty.id}" class="form-control pull-left" style="width:90%;">-->
+                <!--<option value="" disabled="disabled" selected="selected">${oneProperty.name}</option>-->
+                <!--<t:loop source="propertyValues" value="oneValue" formState="NONE">-->
+                <!--<option value="${oneValue.id}">${oneValue.value}</option>-->
+                <!--</t:loop>-->
+                <!--</select>-->
+                <!--<a href="#" class="pull-right more-btn" data="${oneProperty.id}" style="padding-top:6px;">Ещё</a>-->
+                <!--</div>-->
+                <!--<t:parameter name="else">-->
+                <!--<div class="col-sm-11">-->
+                <!--<input class="form-control" type="${valueType}" name="prop-${oneProperty.id}" placeholder="${oneProperty.name}"/>-->
+                <!--</div>-->
+                <!--</t:parameter>-->
+                <!--</t:if>-->
+                <!--</div>-->
+                <!--</t:loop>-->
                 <input type="reset" value="Отменить"/>
                 <input type="submit" value="Сохранить"/>
             </t:form>
@@ -60,7 +66,7 @@
             <ul>
                 <t:loop source="productTags" value="oneTag">
                     <li>
-                        ${oneTag.name}:${oneTag.value}
+                        ${oneTag.property.name}:${oneTag.data}
                     </li>
                 </t:loop>
             </ul>

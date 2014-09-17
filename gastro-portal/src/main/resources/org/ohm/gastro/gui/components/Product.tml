@@ -10,7 +10,7 @@
     <ul>
         <t:loop source="productTags" value="oneTag">
             <li>
-                ${oneTag.name}:${oneTag.value}
+                ${oneTag.property.name}:${oneTag.data}
             </li>
         </t:loop>
     </ul>
@@ -30,7 +30,7 @@
                 <ul>
                     <t:loop source="productTags" value="oneTag">
                         <li>
-                            ${oneTag.name}:${oneTag.value}
+                            ${oneTag.property.name}:${oneTag.data}
                         </li>
                     </t:loop>
                 </ul>

@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.pages.catalog;
 
+import com.google.common.collect.Lists;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
@@ -90,6 +91,24 @@ public class Index extends BaseComponent {
         String desc = (String) ObjectUtils.defaultIfNull(product.getDescription(), "");
         desc = desc.replaceAll("\\r\\n", "<br/>");
         return desc;
+    }
+
+    @Cached
+    public java.util.List<TagEntity> getAllTags() {
+        java.util.List<TagEntity> setTags = getProductTags();
+        java.util.List<TagEntity> result = Lists.newArrayList(setTags);
+        java.util.List<PropertyEntity> categoryProperties = getCategoryProperties();
+        //Add unset properties
+        categoryProperties.stream().forEach(categoryProperty -> {
+            if (!setTags.stream().filter(t -> t.getProperty().equals(categoryProperty)).findAny().isPresent()) {
+                TagEntity unsetTag = new TagEntity();
+                unsetTag.setProduct(product);
+                unsetTag.setProperty(categoryProperty);
+//                unsetTag.setName();
+                result.add(unsetTag);
+            }
+        });
+        return result;
     }
 
 }
