@@ -50,4 +50,8 @@ public class Index extends BaseComponent {
         }
     }
 
+    public boolean isCookHasCatalog() {
+        return isUser() && getCatalogService().findAllCatalogs(getAuthenticatedUser()).size() > 0;
+    }
+
 }

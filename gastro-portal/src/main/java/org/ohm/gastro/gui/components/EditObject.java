@@ -14,7 +14,7 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 public class EditObject<T extends BaseEntity> extends BaseComponent {
 
     public enum FormEvent {
-        DELETE, UPDATE, ADD, ADD_FOR, ADD_CONTROL
+        DELETE, UPDATE, ADD, ADD_FOR, ADD_CONTROL, SHOW
     }
 
     private FormEvent formEvent;

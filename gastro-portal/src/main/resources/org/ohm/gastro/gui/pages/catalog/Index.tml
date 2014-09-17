@@ -3,16 +3,16 @@
     <div class="main-body">
 
         <t:if test="owner">
-            <t:unless test="edit">
-                <t:pagelink page="catalog" context="[product.id,'edit']">Редактировать</t:pagelink>
+            <t:unless test="updateAction">
+                <t:pagelink page="catalog" context="['UPDATE',object.id]">Редактировать</t:pagelink>
             </t:unless>
         </t:if>
 
         <img width="100%" height="400" alt="PHOTO"/><br/>
 
-        <t:if test="edit">
+        <t:if test="updateAction">
             <br/>
-            <t:form t:id="editForm" class="form-horizontal well" role="form">
+            <t:editObject t:id="editObject" showUpdate="literal:true">
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="name">Название</label>
 
@@ -44,18 +44,14 @@
                         <t:paramBlock property="oneProperty"/>
                     </t:unless>
                 </t:loop>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-default" value="Сохранить"/>
-                    <input type="reset" class="btn btn-default" value="Отменить"/>
-                </div>
-            </t:form>
+            </t:editObject>
         </t:if>
-        <t:unless test="edit">
-            <h1>${product.name}</h1>
+        <t:unless test="updateAction">
+            <h1>${object.name}</h1>
 
             <t:outputraw value="productDescription"/>
             <br/>
-            Цена ${product.price}<br/>
+            Цена ${object.price}<br/>
             <ul>
                 <t:loop source="productTags" value="oneTag">
                     <li>

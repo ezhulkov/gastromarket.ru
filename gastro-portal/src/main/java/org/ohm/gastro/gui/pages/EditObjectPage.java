@@ -75,6 +75,14 @@ public abstract class EditObjectPage<T extends BaseEntity> extends BaseComponent
         return true;
     }
 
+    public boolean onActivate(Long id) {
+        this.formEvent = FormEvent.SHOW;
+        this.editObject.setObject(getServiceCallback().findObject(id.toString()));
+        this.editObject.setFormEvent(formEvent);
+        activated();
+        return true;
+    }
+
     public boolean onActivate(FormEvent formEvent) {
         if (FormEvent.ADD.equals(formEvent)) {
             this.formEvent = formEvent;
