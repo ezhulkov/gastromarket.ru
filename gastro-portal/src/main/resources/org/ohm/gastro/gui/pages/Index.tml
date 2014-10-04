@@ -11,14 +11,16 @@
             <button type="submit" class="btn btn-default">Искать на сайте</button>
         </t:form>
 
-        <t:unless test="cookHasCatalog">
-            <div class="bg-warning">
-                Для начала работы с сайтом необходимо создать свой первый каталог<br/>
-                <t:pagelink page="catalog/index" t:context="['ADD']">Создать первый каталог</t:pagelink>
+        <t:if test="authenticated">
+            <t:unless test="cookHasCatalog">
+                <div class="bg-warning">
+                    Для начала работы с сайтом необходимо создать свой первый каталог<br/>
+                    <t:pagelink page="catalog/index" t:context="['ADD']">Создать первый каталог</t:pagelink>
 
-            </div>
-            <br/>
-        </t:unless>
+                </div>
+                <br/>
+            </t:unless>
+        </t:if>
 
         <ul>
             <li>
@@ -28,9 +30,23 @@
                 Категории
                 <ul>
                     <t:loop source="categories" value="oneCategory" formState="NONE">
-                        <li>
-                            <t:pagelink page="catalog/list" context="oneCategory.id">${oneCategory.name}</t:pagelink>
-                        </li>
+                        <t:if test="oneCategory.children">
+                            <li>
+                                <span>${oneCategory.name}</span>
+                                <ul>
+                                    <t:loop source="oneCategory.children" value="oneSubCategory" formState="NONE">
+                                        <li>
+                                            <t:pagelink page="catalog/list" context="oneSubCategory.id">${oneSubCategory.name}</t:pagelink>
+                                        </li>
+                                    </t:loop>
+                                </ul>
+                            </li>
+                        </t:if>
+                        <t:unless test="oneCategory.children">
+                            <li>
+                                <t:pagelink page="catalog/list" context="oneCategory.id">${oneCategory.name}</t:pagelink>
+                            </li>
+                        </t:unless>
                     </t:loop>
                 </ul>
             </li>

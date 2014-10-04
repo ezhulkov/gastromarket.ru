@@ -13,7 +13,13 @@ import java.util.List;
  */
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
 
-    @Query("select distinct ct from ProductEntity pt join pt.category ct where pt.catalog=:catalog")
+    @Query("select distinct ct from ProductEntity pt join pt.category ct where pt.catalog=:catalog order by ct.name desc")
     List<CategoryEntity> findAllByCatalog(@Param("catalog") CatalogEntity catalog);
+
+    @Query("from CategoryEntity where parent is null order by name desc")
+    List<CategoryEntity> findAllRootCategories();
+
+    @Query("select distinct ct from ProductEntity pt join pt.category ct where pt.catalog=:catalog and ct.parent is null order by ct.name desc")
+    List<CategoryEntity> findAllRootCategories(@Param("catalog") CatalogEntity catalog);
 
 }

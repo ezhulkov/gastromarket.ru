@@ -21,14 +21,15 @@ public class GenericSelectModel<T extends BaseEntity> extends AbstractSelectMode
     private final List<OptionModel> options;
     private final BiMap<String, T> objects;
 
+    protected final PropertyAdapter idFieldAdapter;
+    protected final PropertyAdapter labelFieldAdapter;
+
     public GenericSelectModel(Collection<T> list,
                               Class<T> clazz, String labelField,
                               String idField, PropertyAccess access) {
-        PropertyAdapter idFieldAdapter = access.getAdapter(clazz).getPropertyAdapter(idField);
-        PropertyAdapter labelFieldAdapter = access.getAdapter(clazz).getPropertyAdapter(labelField);
-        this.options = ImmutableList.copyOf(list.stream()
-                                                    .map(t -> new OptionModelImpl(labelFieldAdapter.get(t).toString(), t))
-                                                    .collect(Collectors.toList()));
+        idFieldAdapter = access.getAdapter(clazz).getPropertyAdapter(idField);
+        labelFieldAdapter = access.getAdapter(clazz).getPropertyAdapter(labelField);
+        this.options = getOptionModel(list);
         this.objects = ImmutableBiMap.copyOf(list.stream()
                                                      .collect(Collectors.toMap(t -> idFieldAdapter.get(t).toString(),
                                                                                t -> t)));
@@ -53,6 +54,12 @@ public class GenericSelectModel<T extends BaseEntity> extends AbstractSelectMode
     @Override
     public T toValue(String key) {
         return objects.get(key);
+    }
+
+    protected final List<OptionModel> getOptionModel(Collection<T> list) {
+        return ImmutableList.copyOf(list.stream()
+                                            .map(t -> new OptionModelImpl(labelFieldAdapter.get(t).toString(), t))
+                                            .collect(Collectors.toList()));
     }
 
 }

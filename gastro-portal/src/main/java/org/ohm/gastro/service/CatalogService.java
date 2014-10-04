@@ -20,6 +20,8 @@ public interface CatalogService {
 
     public List<CategoryEntity> findAllCategories();
 
+    public List<CategoryEntity> findAllRootCategories();
+
     public List<PropertyEntity> findAllProperties();
 
     public List<PropertyValueEntity> findAllValues(PropertyEntity property);
@@ -71,5 +73,7 @@ public interface CatalogService {
     List<ProductEntity> findAllProducts(CategoryEntity category, CatalogEntity catalog);
 
     List<CategoryEntity> findAllCategories(CatalogEntity catalog);
+
+    List<CategoryEntity> findAllRootCategories(CatalogEntity catalog);
 
 }

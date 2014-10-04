@@ -31,7 +31,7 @@ public class List extends EditObjectPage<CategoryEntity> {
 
     @Cached
     public java.util.List getCategories() {
-        return catalogService.findAllCategories();
+        return catalogService.findAllRootCategories();
     }
 
     @Override

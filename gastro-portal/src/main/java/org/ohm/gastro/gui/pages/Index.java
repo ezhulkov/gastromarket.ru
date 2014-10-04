@@ -25,6 +25,9 @@ public class Index extends BaseComponent {
     @Property
     private CategoryEntity oneCategory;
 
+    @Property
+    private CategoryEntity oneSubCategory;
+
     @Component(id = "search", parameters = {"value=searchString"})
     private TextField searchField;
 
@@ -38,7 +41,7 @@ public class Index extends BaseComponent {
 
     @Cached
     public List<CategoryEntity> getCategories() {
-        return getCatalogService().findAllCategories();
+        return getCatalogService().findAllRootCategories();
     }
 
     public Object onSubmitFromSearchForm() {

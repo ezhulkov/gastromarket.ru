@@ -10,7 +10,7 @@ import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CategoryEntity;
-import org.ohm.gastro.gui.misc.GenericSelectModel;
+import org.ohm.gastro.gui.misc.CategorySelectModel;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.List;
@@ -49,7 +49,7 @@ public class Filter extends BaseComponent {
     private Select pCategoryField;
 
     @Property
-    private GenericSelectModel<CategoryEntity> categoryModel;
+    private CategorySelectModel categoryModel;
 
     @Component
     private ProductCreate productCreate;
@@ -84,10 +84,10 @@ public class Filter extends BaseComponent {
         this.category = category;
         this.searchString = searchString;
         this.searchMode = searchMode;
-        List<CategoryEntity> allCategories;
-        if (catalog == null) allCategories = getCatalogService().findAllCategories();
-        else allCategories = getCatalogService().findAllCategories(catalog);
-        categoryModel = new GenericSelectModel<>(allCategories, CategoryEntity.class, "name", "id", getPropertyAccess());
+        List<CategoryEntity> allCategories = catalog == null ?
+                getCatalogService().findAllRootCategories() :
+                getCatalogService().findAllRootCategories(catalog);
+        categoryModel = new CategorySelectModel(allCategories, getPropertyAccess());
         productCreate.activate(null);
     }
 

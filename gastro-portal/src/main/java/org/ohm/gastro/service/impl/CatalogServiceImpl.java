@@ -72,6 +72,11 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
+    public List<CategoryEntity> findAllRootCategories() {
+        return categoryRepository.findAllRootCategories();
+    }
+
+    @Override
     public List<PropertyEntity> findAllProperties() {
         return propertyRepository.findAll(new Sort(Direction.DESC, "name"));
     }
@@ -235,6 +240,11 @@ public class CatalogServiceImpl implements CatalogService {
     @Override
     public List<CategoryEntity> findAllCategories(CatalogEntity catalog) {
         return categoryRepository.findAllByCatalog(catalog);
+    }
+
+    @Override
+    public List<CategoryEntity> findAllRootCategories(CatalogEntity catalog) {
+        return categoryRepository.findAllRootCategories(catalog);
     }
 
 }

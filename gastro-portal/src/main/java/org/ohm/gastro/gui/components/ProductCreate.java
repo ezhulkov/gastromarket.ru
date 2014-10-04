@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.components;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Parameter;
@@ -13,7 +14,7 @@ import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
-import org.ohm.gastro.gui.misc.GenericSelectModel;
+import org.ohm.gastro.gui.misc.CategorySelectModel;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.Collections;
@@ -40,7 +41,7 @@ public class ProductCreate extends BaseComponent {
     private CatalogEntity catalog;
 
     @Property
-    private GenericSelectModel<CategoryEntity> categoryModel;
+    private CategorySelectModel categoryModel;
 
     @Property
     private ProductEntity product;
@@ -61,10 +62,13 @@ public class ProductCreate extends BaseComponent {
     private Select pCategoryField;
 
     public void activate(CategoryEntity pCategory) {
-        List<CategoryEntity> allCategories = getCatalogService().findAllCategories();
-        categoryModel = new GenericSelectModel<>(allCategories, CategoryEntity.class, "name", "id", getPropertyAccess());
+        List<CategoryEntity> allCategories = getCatalogService().findAllRootCategories();
+        categoryModel = new CategorySelectModel(allCategories, getPropertyAccess());
         if (allCategories.size() > 0) category = allCategories.get(0);
         product = new ProductEntity();
+        if (pCategory == null) {
+            pCategory = allCategories.stream().filter(t -> CollectionUtils.isEmpty(t.getChildren())).findFirst().orElse(null);
+        }
         if (pCategory != null) product.setCategory(pCategory);
     }
 
