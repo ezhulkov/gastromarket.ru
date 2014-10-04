@@ -1,7 +1,21 @@
 <t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="starter-template">
 
     <div class="main-body">
-        <h1>Кулинар "${catalog.name}"</h1>
+
+        <t:if test="object">
+            <h1>Каталог "${object.name}"</h1>
+        </t:if>
+
+        <t:unless test="object">
+            <h1>Новый каталог</h1>
+            <t:editObject t:id="editObject" showUpdate="true" showDelete="true" autoFocus="literal:true">
+                <div class="form-group form-group">
+                    <div class="col-sm-10">
+                        <input t:id="name" class="form-control" type="text" placeholder="Название каталога"/>
+                    </div>
+                </div>
+            </t:editObject>
+        </t:unless>
 
         <t:catalog t:id="catalog"/>
 
