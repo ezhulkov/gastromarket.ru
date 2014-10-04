@@ -238,13 +238,13 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
-    public List<CategoryEntity> findAllCategories(CatalogEntity catalog) {
-        return categoryRepository.findAllByCatalog(catalog);
-    }
-
-    @Override
     public List<CategoryEntity> findAllRootCategories(CatalogEntity catalog) {
-        return categoryRepository.findAllRootCategories(catalog);
+        List<ProductEntity> allByCategoryAndCatalog = productRepository.findAllByCategoryAndCatalog(null, catalog);
+        return allByCategoryAndCatalog.stream()
+                .map(t -> t.getCategory().getParent() != null ? t.getCategory().getParent() : t.getCategory())
+                .distinct()
+                .sorted((o1, o2) -> o1.getName().compareTo(o2.getName()))
+                .collect(Collectors.toList());
     }
 
 }

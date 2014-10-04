@@ -72,8 +72,6 @@ public interface CatalogService {
 
     List<ProductEntity> findAllProducts(CategoryEntity category, CatalogEntity catalog);
 
-    List<CategoryEntity> findAllCategories(CatalogEntity catalog);
-
     List<CategoryEntity> findAllRootCategories(CatalogEntity catalog);
 
 }
