@@ -11,7 +11,6 @@
             </div>
         </t:editObject>
 
-        <h4>Продукция</h4>
         <button class="btn btn-default pull-right" data-toggle="modal" data-target="#create">
             Добавить позицию
         </button>
@@ -24,6 +23,7 @@
             </div>
         </div>
 
+        <h4>Продукция</h4>
         <ul style="list-style-type: none;">
             <t:grid source="products" row="oneProduct" exclude="id" add="properties" t:mixins="GridSortingDisabled" class="table table-hover">
                 <t:parameter name="nameCell">

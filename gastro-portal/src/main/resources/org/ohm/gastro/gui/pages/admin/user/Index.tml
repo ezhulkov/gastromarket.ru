@@ -22,7 +22,6 @@
         </t:editObject>
 
         <t:if test="userCook">
-            <h4>Каталоги</h4>
             <button class="btn btn-default pull-right" data-toggle="modal" data-target="#create">
                 Добавить каталог
             </button>
@@ -42,9 +41,7 @@
                 </div>
             </div>
 
-            <br/>
-            <br/>
-
+            <h4>Каталоги</h4>
             <t:grid source="catalogs" row="oneCatalog" exclude="id,description" t:mixins="GridSortingDisabled" class="table table-hover">
                 <t:parameter name="nameCell">
                     <t:pagelink page="admin/catalog/index" context="['UPDATE',oneCatalog.id]">${oneCatalog.name}</t:pagelink>

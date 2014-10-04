@@ -143,4 +143,16 @@
         </sql>
     </changeSet>
 
+    <changeSet id="6" author="ezhulkov">
+        <addColumn tableName="category">
+            <column name="parent_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="category" baseColumnNames="parent_id"
+                constraintName="cat_parent_fk" referencedTableName="category" referencedColumnNames="id"
+                deleteCascade="true"/>
+        <createIndex tableName="category" indexName="cat_parent_idx">
+            <column name="parent_id"/>
+        </createIndex>
+    </changeSet>
+
 </databaseChangeLog>

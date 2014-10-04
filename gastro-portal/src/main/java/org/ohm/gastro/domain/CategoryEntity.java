@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -43,6 +44,12 @@ public class CategoryEntity implements BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = ProductEntity.class, mappedBy = "category")
     private List<ProductEntity> products;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private CategoryEntity parent;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = CategoryEntity.class, mappedBy = "parent")
+    private List<CategoryEntity> children;
+
     @Override
     public Long getId() {
         return id;
@@ -50,6 +57,22 @@ public class CategoryEntity implements BaseEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public CategoryEntity getParent() {
+        return parent;
+    }
+
+    public void setParent(CategoryEntity parent) {
+        this.parent = parent;
+    }
+
+    public List<CategoryEntity> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<CategoryEntity> children) {
+        this.children = children;
     }
 
     public String getName() {

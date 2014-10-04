@@ -15,6 +15,8 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.EditObjectPage;
 import org.ohm.gastro.service.CatalogService;
 
+import java.util.stream.Collectors;
+
 /**
  * Created by ezhulkov on 24.08.14.
  */
@@ -22,6 +24,12 @@ public class Index extends EditObjectPage<CategoryEntity> {
 
     @Property
     private CategoryEntity category;
+
+    @Property
+    private CategoryEntity subCategory;
+
+    @Property
+    private CategoryEntity oneCategory;
 
     @Property
     private PropertyEntity oneProperty;
@@ -41,6 +49,9 @@ public class Index extends EditObjectPage<CategoryEntity> {
     @Component(id = "name", parameters = {"value=object?.name", "validate=maxlength=64,required"})
     private TextField nameField;
 
+    @Component(id = "subName", parameters = {"value=subCategory.name", "validate=maxlength=64,required"})
+    private TextField subNameField;
+
     @Component(id = "properties", parameters = {
             "model=propertyModel",
             "encoder=multiValueEncoder",
@@ -48,6 +59,7 @@ public class Index extends EditObjectPage<CategoryEntity> {
     private SelectMultiple categoryPropertiesField;
 
     public void onPrepare() throws Exception {
+        subCategory = new CategoryEntity();
         categoryProperties = catalogService.findAllProperties(getObject());
         java.util.List<PropertyEntity> allProperties = catalogService.findAllProperties();
         if (propertyModel == null) {
@@ -80,6 +92,20 @@ public class Index extends EditObjectPage<CategoryEntity> {
                 return Index.class;
             }
         };
+    }
+
+    public void onActionFromDelete(Long id) {
+        catalogService.deleteCategory(id);
+    }
+
+    public String getCategoryProps() {
+        java.util.List<PropertyEntity> properties = getCatalogService().findAllProperties(oneCategory);
+        return properties.stream().map(PropertyEntity::getName).collect(Collectors.joining(","));
+    }
+
+    public void onSubmitFromAddSubForm() {
+        subCategory.setParent(getObject());
+        getCatalogService().saveCategory(subCategory);
     }
 
 }
