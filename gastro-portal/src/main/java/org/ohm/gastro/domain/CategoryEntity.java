@@ -44,7 +44,7 @@ public class CategoryEntity implements BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = ProductEntity.class, mappedBy = "category")
     private List<ProductEntity> products;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     private CategoryEntity parent;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = CategoryEntity.class, mappedBy = "parent")
