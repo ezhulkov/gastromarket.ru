@@ -20,6 +20,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -42,6 +43,9 @@ public abstract class BaseComponent {
     };
 
     protected final Logger logger = LoggerFactory.getLogger(BaseComponent.class);
+
+    @Inject
+    private HttpServletRequest httpServletRequest;
 
     @Inject
     private Request request;
@@ -133,6 +137,10 @@ public abstract class BaseComponent {
 
     public AjaxResponseRenderer getAjaxResponseRenderer() {
         return ajaxResponseRenderer;
+    }
+
+    public HttpServletRequest getHttpServletRequest() {
+        return httpServletRequest;
     }
 
     public java.util.List<TagEntity> getProductTags(ProductEntity product) {

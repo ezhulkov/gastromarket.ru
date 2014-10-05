@@ -28,7 +28,7 @@ import java.util.List;
 public class UserEntity implements BaseEntity, UserDetails {
 
     public enum Type {
-        ADMIN, COOK, COURIER
+        ADMIN, COOK, COURIER, USER
     }
 
     @Id

@@ -14,7 +14,7 @@ public interface UserService extends UserDetailsService {
 
     void deleteUser(Long id);
 
-    void saveUser(UserEntity user);
+    UserEntity saveUser(UserEntity user) throws UserExistsException, EmptyPasswordException;
 
     UserEntity findUser(Long id);
 

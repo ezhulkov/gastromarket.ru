@@ -14,6 +14,8 @@ import org.ohm.gastro.gui.AbstractServiceCallback;
 import org.ohm.gastro.gui.ServiceCallback;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.EditObjectPage;
+import org.ohm.gastro.service.EmptyPasswordException;
+import org.ohm.gastro.service.UserExistsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
@@ -66,9 +68,15 @@ public class Index extends EditObjectPage<UserEntity> {
             }
 
             @Override
-            public Class<? extends BaseComponent> updateObject(UserEntity object) {
-                if (StringUtils.isNotEmpty(newPassword)) object.setPassword(passwordEncoder.encode(newPassword));
-                getUserService().saveUser(object);
+            public Class<? extends BaseComponent> updateObject(UserEntity user) {
+                if (StringUtils.isNotEmpty(newPassword)) user.setPassword(passwordEncoder.encode(newPassword));
+                try {
+                    getUserService().saveUser(user);
+                } catch (UserExistsException e) {
+                    getEditObject().getForm().recordError("user exists");
+                } catch (EmptyPasswordException e) {
+                    getEditObject().getForm().recordError("empty password");
+                }
                 return Index.class;
             }
         };

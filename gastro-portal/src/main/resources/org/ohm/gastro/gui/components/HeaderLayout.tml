@@ -33,6 +33,9 @@
                         <li>
                             <t:pagelink page="login">Логин</t:pagelink>
                         </li>
+                        <li>
+                            <t:pagelink page="signup">Регистрация</t:pagelink>
+                        </li>
                     </t:parameter>
                 </t:if>
 
