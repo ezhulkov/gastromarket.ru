@@ -2,19 +2,41 @@
 
     <div class="main-body">
 
-        <t:if test="object">
+        <t:if test="object.wasSetup">
             <h1>Каталог "${object.name}"</h1>
+            <t:parameter name="else">
+                <h1>Новый каталог</h1>
+            </t:parameter>
         </t:if>
 
-        <t:unless test="object">
-            <h1>Новый каталог</h1>
+        <t:if test="owner">
+            <t:unless test="updateAction">
+                <t:pagelink page="chef" context="['UPDATE',object.id]">Редактировать</t:pagelink>
+            </t:unless>
+        </t:if>
+
+        <t:if test="updateAction">
             <t:editObject t:id="editObject" showUpdate="true" showDelete="true" autoFocus="literal:true">
-                <div class="form-group form-group">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="name">Название</label>
+
                     <div class="col-sm-10">
-                        <input t:id="name" class="form-control" type="text" placeholder="Название каталога"/>
+                        <input t:id="name" id="name" class="form-control" placeholder="Название"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="description">Описание</label>
+
+                    <div class="col-sm-10">
+                        <input t:id="description" id="description" class="form-control" placeholder="Описание"/>
                     </div>
                 </div>
             </t:editObject>
+        </t:if>
+        <t:unless test="updateAction">
+            <p>
+                <t:outputraw value="catalogDescription"/>
+            </p>
         </t:unless>
 
         <t:catalog t:id="catalog"/>

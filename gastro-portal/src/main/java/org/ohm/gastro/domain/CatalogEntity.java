@@ -34,6 +34,9 @@ public class CatalogEntity implements BaseEntity {
     @Column
     private String description;
 
+    @Column(name="was_setup")
+    private Boolean wasSetup;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private UserEntity user;
 
@@ -47,6 +50,14 @@ public class CatalogEntity implements BaseEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Boolean getWasSetup() {
+        return wasSetup;
+    }
+
+    public void setWasSetup(Boolean wasSetup) {
+        this.wasSetup = wasSetup;
     }
 
     public String getName() {

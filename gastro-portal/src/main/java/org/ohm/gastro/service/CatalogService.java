@@ -50,6 +50,8 @@ public interface CatalogService {
 
     public List<CatalogEntity> findAllCatalogs(UserEntity user);
 
+    public List<CatalogEntity> findNotSetupCatalogs(UserEntity user);
+
     void deleteCatalog(Long id);
 
     void saveCatalog(CatalogEntity catalog);

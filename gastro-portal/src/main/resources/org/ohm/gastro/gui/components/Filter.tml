@@ -2,9 +2,11 @@
 
     <t:form t:id="filterForm" t:autofocus="false" t:clientValidation="none" class="form-inline pull-left" role="form">
         <div class="form-group">
-            <t:unless test="searchMode">
-                <t:select class="form-control" t:id="categories" id="categories" t:zone="productsZone"/>
-            </t:unless>
+            <t:if test="filterCategories">
+                <t:unless test="searchMode">
+                    <t:select class="form-control" t:id="categories" id="categories" t:zone="productsZone"/>
+                </t:unless>
+            </t:if>
             <t:if test="searchMode">
                 <t:input class="form-control" t:id="search"/>
                 <input type="submit" value="Искать"/>

@@ -9,6 +9,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.CategoryEntity;
+import org.ohm.gastro.gui.components.EditObject.FormEvent;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.catalog.Search;
 
@@ -54,7 +55,11 @@ public class Index extends BaseComponent {
     }
 
     public boolean isCookHasCatalog() {
-        return isAdmin() || isUser() && getCatalogService().findAllCatalogs(getAuthenticatedUser()).size() > 0;
+        return !isAdmin() && isUser() && getCatalogService().findNotSetupCatalogs(getAuthenticatedUser()).size() > 0;
+    }
+
+    public Object[] getCatalogContext() {
+        return new Object[]{FormEvent.UPDATE, getCatalogService().findNotSetupCatalogs(getAuthenticatedUser()).get(0).getId()};
     }
 
 }

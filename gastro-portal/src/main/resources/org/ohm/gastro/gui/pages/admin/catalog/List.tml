@@ -3,7 +3,7 @@
     <div class="main-body">
         <h1>Каталоги</h1>
 
-        <t:grid source="catalogs" row="oneCatalog" exclude="id,description" add="user" t:mixins="GridSortingDisabled" class="table table-hover">
+        <t:grid source="catalogs" row="oneCatalog" exclude="id,description,wasSetup" add="user" t:mixins="GridSortingDisabled" class="table table-hover">
             <t:parameter name="userCell">
                 <t:pagelink t:page="admin/user/index" t:context="['UPDATE',oneCatalog.user.id]">${oneCatalog.user.username}</t:pagelink>
             </t:parameter>

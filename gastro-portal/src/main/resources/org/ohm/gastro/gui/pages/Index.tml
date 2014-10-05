@@ -12,18 +12,18 @@
         </t:form>
 
         <t:if test="authenticated">
-            <t:unless test="cookHasCatalog">
+            <t:if test="cookHasCatalog">
                 <div class="bg-warning">
                     Для начала работы с сайтом необходимо создать свой первый каталог<br/>
-                    <t:pagelink page="chef/index" t:context="['ADD']">Создать первый каталог</t:pagelink>
+                    <t:pagelink page="chef/index" t:context="catalogContext">Создать каталог</t:pagelink>
                 </div>
                 <br/>
-            </t:unless>
+            </t:if>
         </t:if>
 
         <ul>
             <li>
-                <t:pagelink page="chef">Кулинары</t:pagelink>
+                <t:pagelink page="chef/list">Кулинары</t:pagelink>
             </li>
             <li>
                 Категории

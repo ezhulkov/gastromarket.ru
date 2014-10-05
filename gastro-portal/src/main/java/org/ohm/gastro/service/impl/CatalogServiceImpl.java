@@ -153,6 +153,11 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
+    public List<CatalogEntity> findNotSetupCatalogs(UserEntity user) {
+        return catalogRepository.findAllByUserAndWasSetup(user, false);
+    }
+
+    @Override
     @Transactional
     public void deleteCatalog(Long id) {
         catalogRepository.delete(id);
@@ -161,6 +166,7 @@ public class CatalogServiceImpl implements CatalogService {
     @Override
     @Transactional
     public void saveCatalog(CatalogEntity catalog) {
+        catalog.setWasSetup(true);
         catalogRepository.save(catalog);
     }
 

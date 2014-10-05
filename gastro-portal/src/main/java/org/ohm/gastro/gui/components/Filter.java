@@ -51,6 +51,9 @@ public class Filter extends BaseComponent {
     @Property
     private CategorySelectModel categoryModel;
 
+    @Property
+    private List<CategoryEntity> filterCategories;
+
     @Component
     private ProductCreate productCreate;
 
@@ -84,10 +87,10 @@ public class Filter extends BaseComponent {
         this.category = category;
         this.searchString = searchString;
         this.searchMode = searchMode;
-        List<CategoryEntity> allCategories = catalog == null ?
+        this.filterCategories = catalog == null ?
                 getCatalogService().findAllRootCategories() :
                 getCatalogService().findAllRootCategories(catalog);
-        categoryModel = new CategorySelectModel(allCategories, getPropertyAccess());
+        this.categoryModel = new CategorySelectModel(filterCategories, getPropertyAccess());
         productCreate.activate(null);
     }
 
