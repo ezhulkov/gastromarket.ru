@@ -1,12 +1,15 @@
 package org.ohm.gastro.gui.pages.chef;
 
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.annotations.Component;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
+import org.ohm.gastro.domain.RatingEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.AbstractServiceCallback;
 import org.ohm.gastro.gui.ServiceCallback;
@@ -20,6 +23,12 @@ import org.ohm.gastro.gui.pages.EditObjectPage;
 public class Index extends EditObjectPage<CatalogEntity> {
 
     @Property
+    private String ratingComment;
+
+    @Property
+    private RatingEntity oneRating;
+
+    @Property
     private ProductEntity oneProduct;
 
     @Component(id = "catalog")
@@ -30,6 +39,13 @@ public class Index extends EditObjectPage<CatalogEntity> {
 
     @Component(id = "description", parameters = {"value=object?.description", "validate=maxlength=512"})
     private TextArea descField;
+
+    @Component(id = "ratingComment", parameters = {"value=ratingComment", "validate=maxlength=512"})
+    private TextArea rcField;
+
+    @Property
+    @Persist(PersistenceConstants.FLASH)
+    private String radioSelectedValue;
 
     @Override
     public void activated() {
@@ -67,6 +83,23 @@ public class Index extends EditObjectPage<CatalogEntity> {
         String desc = (String) ObjectUtils.defaultIfNull(getObject().getDescription(), "");
         desc = desc.replaceAll("\\r\\n", "<br/>");
         return desc;
+    }
+
+    public java.util.List<RatingEntity> getRatings() {
+        return getCatalogService().findAllRatings(getObject());
+    }
+
+    public boolean isRatingEligible() {
+        return isAuthenticated();
+    }
+
+    public void onSubmitFromRatingForm() {
+        RatingEntity rating = new RatingEntity();
+        rating.setComment(ratingComment);
+        rating.setCatalog(getObject());
+        rating.setAuthor(getAuthenticatedUser());
+        rating.setRating("true".equals(radioSelectedValue) ? 1 : "false".equals(radioSelectedValue) ? -1 : 0);
+        getCatalogService().saveRating(rating);
     }
 
 }

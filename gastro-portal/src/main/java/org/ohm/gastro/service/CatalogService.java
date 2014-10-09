@@ -5,6 +5,7 @@ import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
+import org.ohm.gastro.domain.RatingEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.domain.UserEntity;
 
@@ -76,4 +77,7 @@ public interface CatalogService {
 
     List<CategoryEntity> findAllRootCategories(CatalogEntity catalog);
 
+    List<RatingEntity> findAllRatings(CatalogEntity user);
+
+    void saveRating(RatingEntity rating);
 }

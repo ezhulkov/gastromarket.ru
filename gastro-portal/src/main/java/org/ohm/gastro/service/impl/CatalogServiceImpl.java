@@ -2,12 +2,14 @@ package org.ohm.gastro.service.impl;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Iterables;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
+import org.ohm.gastro.domain.RatingEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.reps.CatalogRepository;
@@ -15,6 +17,7 @@ import org.ohm.gastro.reps.CategoryRepository;
 import org.ohm.gastro.reps.ProductRepository;
 import org.ohm.gastro.reps.PropertyRepository;
 import org.ohm.gastro.reps.PropertyValueRepository;
+import org.ohm.gastro.reps.RatingRepository;
 import org.ohm.gastro.reps.TagRepository;
 import org.ohm.gastro.service.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +46,7 @@ public class CatalogServiceImpl implements CatalogService {
     private final CatalogRepository catalogRepository;
     private final ProductRepository productRepository;
     private final TagRepository tagRepository;
+    private final RatingRepository ratingRepository;
 
     @Autowired
     public CatalogServiceImpl(PropertyRepository propertyRepository,
@@ -50,13 +54,15 @@ public class CatalogServiceImpl implements CatalogService {
                               CategoryRepository categoryRepository,
                               CatalogRepository catalogRepository,
                               ProductRepository productRepository,
-                              TagRepository tagRepository) {
+                              TagRepository tagRepository,
+                              RatingRepository ratingRepository) {
         this.propertyRepository = propertyRepository;
         this.propertyValueRepository = propertyValueRepository;
         this.categoryRepository = categoryRepository;
         this.catalogRepository = catalogRepository;
         this.productRepository = productRepository;
         this.tagRepository = tagRepository;
+        this.ratingRepository = ratingRepository;
     }
 
     @Override
@@ -251,6 +257,21 @@ public class CatalogServiceImpl implements CatalogService {
                 .distinct()
                 .sorted((o1, o2) -> o1.getName().compareTo(o2.getName()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<RatingEntity> findAllRatings(CatalogEntity catalog) {
+        return ratingRepository.findAllByCatalog(catalog);
+    }
+
+    @Override
+    @Transactional
+    public void saveRating(RatingEntity rating) {
+        final CatalogEntity catalog = rating.getCatalog();
+        final Integer catalogRating = (Integer) ObjectUtils.defaultIfNull(catalog.getRating(), 0);
+        catalog.setRating(catalogRating + rating.getRating());
+        catalogRepository.save(catalog);
+        ratingRepository.save(rating);
     }
 
 }

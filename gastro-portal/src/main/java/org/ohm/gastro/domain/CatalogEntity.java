@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -34,8 +35,14 @@ public class CatalogEntity implements BaseEntity {
     @Column
     private String description;
 
-    @Column(name="was_setup")
+    @Column(name = "was_setup")
     private Boolean wasSetup;
+
+    @Column
+    private Integer rating = 0;
+
+    @Column
+    private Timestamp date = new Timestamp(System.currentTimeMillis());
 
     @ManyToOne(fetch = FetchType.LAZY)
     private UserEntity user;
@@ -50,6 +57,14 @@ public class CatalogEntity implements BaseEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Timestamp getDate() {
+        return date;
+    }
+
+    public void setDate(Timestamp date) {
+        this.date = date;
     }
 
     public Boolean getWasSetup() {
@@ -90,6 +105,14 @@ public class CatalogEntity implements BaseEntity {
 
     public void setProducts(List<ProductEntity> products) {
         this.products = products;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 
 }

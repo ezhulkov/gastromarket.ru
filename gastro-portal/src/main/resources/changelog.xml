@@ -161,4 +161,44 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="8" author="ezhulkov">
+        <addColumn tableName="catalog">
+            <column name="rating" type="java.sql.Types.INTEGER" defaultValue="0"/>
+        </addColumn>
+        <createTable tableName="rating">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="catalog_id" type="java.sql.Types.BIGINT"/>
+            <column name="author_id" type="java.sql.Types.BIGINT"/>
+            <column name="comment" type="java.sql.Types.VARCHAR(512)"/>
+            <column name="rating" type="java.sql.Types.INTEGER"/>
+            <column name="date" type="java.sql.Types.TIMESTAMP"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="rating" baseColumnNames="catalog_id"
+                constraintName="rating_cat_fk" referencedTableName="catalog" referencedColumnNames="id"
+                deleteCascade="true"/>
+        <addForeignKeyConstraint baseTableName="rating" baseColumnNames="author_id"
+                constraintName="rating_author_fk" referencedTableName="person" referencedColumnNames="id"
+                deleteCascade="true"/>
+        <createIndex tableName="rating" indexName="rating_catalog_idx">
+            <column name="catalog_id"/>
+        </createIndex>
+        <createIndex tableName="rating" indexName="rating_author_idx">
+            <column name="author_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="9" author="ezhulkov">
+        <addColumn tableName="catalog">
+            <column name="date" type="java.sql.Types.TIMESTAMP"/>
+        </addColumn>
+        <addColumn tableName="person">
+            <column name="date" type="java.sql.Types.TIMESTAMP"/>
+        </addColumn>
+        <addColumn tableName="product">
+            <column name="date" type="java.sql.Types.TIMESTAMP"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

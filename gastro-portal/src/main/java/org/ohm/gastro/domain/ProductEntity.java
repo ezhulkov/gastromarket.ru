@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -36,6 +37,9 @@ public class ProductEntity implements BaseEntity {
 
     @Column
     private Integer price;
+
+    @Column
+    private Timestamp date = new Timestamp(System.currentTimeMillis());
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private CatalogEntity catalog;
@@ -101,5 +105,13 @@ public class ProductEntity implements BaseEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Timestamp getDate() {
+        return date;
+    }
+
+    public void setDate(Timestamp date) {
+        this.date = date;
     }
 }

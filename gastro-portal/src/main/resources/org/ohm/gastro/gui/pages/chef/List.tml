@@ -7,6 +7,7 @@
             <t:loop source="catalogs" value="oneCatalog" formState="NONE">
                 <li>
                     <t:pagelink page="chef" context="oneCatalog.id">${oneCatalog.name}</t:pagelink>
+                    Рейтинг ${oneCatalog.rating}
                 </li>
             </t:loop>
         </ul>

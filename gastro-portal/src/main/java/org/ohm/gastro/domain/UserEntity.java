@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
 
@@ -45,6 +46,9 @@ public class UserEntity implements BaseEntity, UserDetails {
 
     @Column
     private String password;
+
+    @Column
+    private Timestamp date = new Timestamp(System.currentTimeMillis());
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -126,6 +130,14 @@ public class UserEntity implements BaseEntity, UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public Timestamp getDate() {
+        return date;
+    }
+
+    public void setDate(Timestamp date) {
+        this.date = date;
     }
 
     @Override
