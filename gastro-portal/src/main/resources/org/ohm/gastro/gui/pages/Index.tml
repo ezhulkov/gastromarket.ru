@@ -13,11 +13,19 @@
 
         <t:if test="authenticated">
             <t:if test="cookHasCatalog">
-                <div class="bg-warning">
-                    Для начала работы с сайтом необходимо создать свой первый каталог<br/>
-                    <t:pagelink page="chef/index" t:context="catalogContext">Создать каталог</t:pagelink>
+                <div class="modal fade" id="createCatalog" tabindex="-1" role="dialog" aria-labelledby="createCatalog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="bg-warning">
+                                Для начала работы с сайтом необходимо создать свой первый каталог<br/>
+                                <t:pagelink page="chef/index" t:context="catalogContext">Создать каталог</t:pagelink>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <br/>
+                <script>
+                    jQuery('#createCatalog').modal();
+                </script>
             </t:if>
         </t:if>
 

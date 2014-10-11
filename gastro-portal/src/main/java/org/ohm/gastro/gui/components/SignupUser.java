@@ -1,28 +1,32 @@
-package org.ohm.gastro.gui.pages;
+package org.ohm.gastro.gui.components;
 
+import org.apache.tapestry5.BindingConstants;
+import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Component;
-import org.apache.tapestry5.annotations.Persist;
+import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.PasswordField;
 import org.apache.tapestry5.corelib.components.TextField;
+import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.domain.UserEntity.Type;
-import org.ohm.gastro.gui.components.SignupUser.SignupResult;
 import org.ohm.gastro.gui.mixins.BaseComponent;
-
-import java.util.Optional;
 
 /**
  * Created by ezhulkov on 24.08.14.
  */
-public abstract class Signup extends BaseComponent {
+public class SignupUser extends BaseComponent {
+
+    public enum SignupResult {
+        OK, PASSWORD, DUPLICATE
+    }
+
+    @Property
+    @Parameter(required = true, name = "type", allowNull = false, defaultPrefix = BindingConstants.LITERAL)
+    private Type type;
 
     @Property
     private SignupResult error;
-
-    @Property
-    @Persist
-    private Long referrer;
 
     @Property
     private UserEntity newUser;
@@ -45,30 +49,19 @@ public abstract class Signup extends BaseComponent {
     @Component(id = "password2", parameters = {"value=password2", "validate=required"})
     private PasswordField pwdField2;
 
-    protected abstract Type getType();
+    @Inject
+    private Block successBlock;
 
-    public Object onPassivate() {
-        return error == null ? null : error;
-    }
-
-    public void onActivate() {
-        if (this.referrer == null) {
-            String referrerStr = getHttpServletRequest().getParameter("referrer");
-            this.referrer = referrerStr == null ? null : Long.parseLong(referrerStr);
-        }
-    }
-
-    public void onActivate(SignupResult error) {
-        this.error = error;
-    }
+    @Inject
+    private Block failureBlock;
 
     public void onPrepare() {
         newUser = new UserEntity();
     }
 
-    public Class onSubmitFromSignupForm() {
-        error = signupUser(getType(), newUser, password1, password2, Optional.ofNullable(referrer));
-        return error.equals(SignupResult.OK) ? Index.class : null;
+    public Block onSubmitFromSignupForm() {
+        error = signupUser(type, newUser, password1, password2, null);
+        return error.equals(SignupResult.OK) ? successBlock : failureBlock;
     }
 
 }

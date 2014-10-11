@@ -14,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -32,6 +33,10 @@ public class UserEntity implements BaseEntity, UserDetails {
         ADMIN, COOK, COURIER, USER
     }
 
+    public enum Status {
+        ENABLED, DISABLED
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "user")
@@ -48,6 +53,10 @@ public class UserEntity implements BaseEntity, UserDetails {
     private String password;
 
     @Column
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    @Column
     private Timestamp date = new Timestamp(System.currentTimeMillis());
 
     @Column
@@ -57,6 +66,9 @@ public class UserEntity implements BaseEntity, UserDetails {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<CatalogEntity> cooks = Lists.newArrayList();
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+    private UserEntity referrer;
+
     @Override
     public Long getId() {
         return id;
@@ -64,6 +76,22 @@ public class UserEntity implements BaseEntity, UserDetails {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public UserEntity getReferrer() {
+        return referrer;
+    }
+
+    public void setReferrer(UserEntity referrer) {
+        this.referrer = referrer;
     }
 
     public void setUsername(String username) {

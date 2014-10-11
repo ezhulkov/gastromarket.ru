@@ -38,13 +38,13 @@
         </createTable>
         <addForeignKeyConstraint baseTableName="property_value" baseColumnNames="property_id"
                 constraintName="value_property_fk" referencedTableName="property" referencedColumnNames="id"
-                deleteCascade="true"/>
+                onDelete="CASCADE"/>
         <addForeignKeyConstraint baseTableName="category_property" baseColumnNames="property_id"
                 constraintName="cp_property_fk" referencedTableName="property" referencedColumnNames="id"
-                deleteCascade="true"/>
+                onDelete="CASCADE"/>
         <addForeignKeyConstraint baseTableName="category_property" baseColumnNames="category_id"
                 constraintName="cp_category_fk" referencedTableName="category" referencedColumnNames="id"
-                deleteCascade="true"/>
+                onDelete="CASCADE"/>
         <createIndex tableName="property_value" indexName="value_prop_idx">
             <column name="property_id"/>
         </createIndex>
@@ -76,7 +76,7 @@
         </createTable>
         <addForeignKeyConstraint baseTableName="catalog" baseColumnNames="user_id"
                 constraintName="catalog_user_fk" referencedTableName="person" referencedColumnNames="id"
-                deleteCascade="true"/>
+                onDelete="CASCADE"/>
         <addUniqueConstraint tableName="person" columnNames="username"/>
         <createIndex tableName="catalog" indexName="cat_user_idx">
             <column name="user_id"/>
@@ -95,10 +95,10 @@
         </createTable>
         <addForeignKeyConstraint baseTableName="product" baseColumnNames="catalog_id"
                 constraintName="prod_catalog_fk" referencedTableName="catalog" referencedColumnNames="id"
-                deleteCascade="true"/>
+                onDelete="CASCADE"/>
         <addForeignKeyConstraint baseTableName="product" baseColumnNames="category_id"
                 constraintName="prod_category_fk" referencedTableName="category" referencedColumnNames="id"
-                deleteCascade="true"/>
+                onDelete="CASCADE"/>
         <createIndex tableName="product" indexName="prod_catalog_idx">
             <column name="catalog_id"/>
         </createIndex>
@@ -115,10 +115,10 @@
         </createTable>
         <addForeignKeyConstraint baseTableName="product_property" baseColumnNames="product_id"
                 constraintName="pv_prod_fk" referencedTableName="product" referencedColumnNames="id"
-                deleteCascade="true"/>
+                onDelete="CASCADE"/>
         <addForeignKeyConstraint baseTableName="product_property" baseColumnNames="property_id"
                 constraintName="pv_prop_fk" referencedTableName="property" referencedColumnNames="id"
-                deleteCascade="true"/>
+                onDelete="CASCADE"/>
         <createIndex tableName="product_property" indexName="pr_val_product_idx">
             <column name="product_id"/>
         </createIndex>
@@ -149,7 +149,7 @@
         </addColumn>
         <addForeignKeyConstraint baseTableName="category" baseColumnNames="parent_id"
                 constraintName="cat_parent_fk" referencedTableName="category" referencedColumnNames="id"
-                deleteCascade="true"/>
+                onDelete="CASCADE"/>
         <createIndex tableName="category" indexName="cat_parent_idx">
             <column name="parent_id"/>
         </createIndex>
@@ -177,10 +177,10 @@
         </createTable>
         <addForeignKeyConstraint baseTableName="rating" baseColumnNames="catalog_id"
                 constraintName="rating_cat_fk" referencedTableName="catalog" referencedColumnNames="id"
-                deleteCascade="true"/>
+                onDelete="CASCADE"/>
         <addForeignKeyConstraint baseTableName="rating" baseColumnNames="author_id"
                 constraintName="rating_author_fk" referencedTableName="person" referencedColumnNames="id"
-                deleteCascade="true"/>
+                onDelete="CASCADE"/>
         <createIndex tableName="rating" indexName="rating_catalog_idx">
             <column name="catalog_id"/>
         </createIndex>
@@ -199,6 +199,19 @@
         <addColumn tableName="product">
             <column name="date" type="java.sql.Types.TIMESTAMP"/>
         </addColumn>
+    </changeSet>
+
+    <changeSet id="10" author="ezhulkov">
+        <addColumn tableName="person">
+            <column name="status" type="java.sql.Types.VARCHAR(16)"/>
+            <column name="referrer_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="person" baseColumnNames="referrer_id"
+                constraintName="person_ref_fk" referencedTableName="person" referencedColumnNames="id"
+                deleteCascade="false"/>
+        <createIndex tableName="person" indexName="person_ref_idx">
+            <column name="referrer_id"/>
+        </createIndex>
     </changeSet>
 
 </databaseChangeLog>

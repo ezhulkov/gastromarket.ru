@@ -1,0 +1,31 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="modal fade" id="signup" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <h1>Регистрация</h1>
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="#cook" role="tab" data-toggle="tab">Для кулинара</a></li>
+                <li><a href="#user" role="tab" data-toggle="tab">Для покупателя</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane active" id="cook">
+
+                    Какие выгоды для кулинара и что он получает
+                    <t:signupUser type="COOK"/>
+
+                </div>
+                <div class="tab-pane" id="user">
+
+                    Небольшой текст, почему регистрироваться хорошо
+                    <t:signupUser type="USER"/>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

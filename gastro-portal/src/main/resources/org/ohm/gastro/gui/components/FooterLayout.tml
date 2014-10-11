@@ -1,3 +1,16 @@
-<div>
+<footer xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-</div>
+    <div class="well">
+        <ul>
+            <t:unless test="authenticated">
+                <li>
+                    <t:pagelink page="signupUser">Регистрация для покупателя</t:pagelink>
+                </li>
+                <li>
+                    <t:pagelink page="signupCook">Регистрация для кулинаров</t:pagelink>
+                </li>
+            </t:unless>
+        </ul>
+    </div>
+
+</footer>
