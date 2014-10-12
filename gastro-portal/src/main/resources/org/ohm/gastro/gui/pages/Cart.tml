@@ -7,17 +7,20 @@
 
             <ul>
                 <t:loop source="catalogs" value="oneCatalog">
-                    <li>
+                    <li style="display:table;">
                         Каталог: "${oneCatalog.getKey().name}"<br/>
                         Условия доставки: ${oneCatalog.getKey().delivery}<br/>
-                        <ul>
-                            <t:loop source="oneCatalog.getValue()" value="oneProduct">
-                                <t:product product="oneProduct" link="false"/>
-                                <t:actionlink t:id="deleteProduct" context="oneProduct.id">Удалить из заказа</t:actionlink>
-                            </t:loop>
-                        </ul>
-                        <hr/>
 
+                        <div class="catalog">
+                            <ul>
+                                <t:loop source="oneCatalog.getValue()" value="oneProduct">
+                                    <li>
+                                        <t:product product="oneProduct" link="false"/>
+                                        <t:actionlink t:id="deleteProduct" context="oneProduct.id">Удалить из заказа</t:actionlink>
+                                    </li>
+                                </t:loop>
+                            </ul>
+                        </div>
                     </li>
                 </t:loop>
             </ul>

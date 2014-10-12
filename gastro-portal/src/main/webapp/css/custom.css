@@ -9,3 +9,16 @@ body {
 .modal-content {
     padding: 30px;
 }
+
+.catalog ul {
+    list-style-type: none;
+    line-height: normal;
+    width: 100%;
+}
+
+.catalog ul li {
+    float: left;
+    width: 200px;
+    margin: 20px;
+}
+

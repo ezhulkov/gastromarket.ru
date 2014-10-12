@@ -1,4 +1,4 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="catalog">
 
     <t:filter t:id="filter" category="category" catalog="catalog" productsBlock="productsBlock" owner="catalogOwner" productsZone="productsZone"/>
 
