@@ -207,8 +207,7 @@
             <column name="referrer_id" type="java.sql.Types.BIGINT"/>
         </addColumn>
         <addForeignKeyConstraint baseTableName="person" baseColumnNames="referrer_id"
-                constraintName="person_ref_fk" referencedTableName="person" referencedColumnNames="id"
-                deleteCascade="false"/>
+                constraintName="person_ref_fk" referencedTableName="person" referencedColumnNames="id" onDelete="NO ACTION"/>
         <createIndex tableName="person" indexName="person_ref_idx">
             <column name="referrer_id"/>
         </createIndex>

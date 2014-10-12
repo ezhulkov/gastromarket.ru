@@ -34,6 +34,7 @@
                         </li>
                     </t:loop>
                 </ul>
+                <t:actionlink t:zone="basketZone" t:id="purchase">Заказать</t:actionlink>
             </div>
         </div>
     </div>

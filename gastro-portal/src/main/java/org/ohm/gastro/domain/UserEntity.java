@@ -66,7 +66,7 @@ public class UserEntity implements BaseEntity, UserDetails {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<CatalogEntity> cooks = Lists.newArrayList();
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     private UserEntity referrer;
 
     @Override

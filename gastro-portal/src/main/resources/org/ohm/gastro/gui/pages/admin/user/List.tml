@@ -39,10 +39,16 @@
         <br/>
         <br/>
         <t:grid source="users" row="oneUser"
-                exclude="id,password,accountNonExpired,accountNonLocked,credentialsNonExpired,enabled"
-                reorder="username,email,type"
+                exclude="id,password,accountNonExpired,accountNonLocked,credentialsNonExpired,enabled,status"
+                reorder="username,email,type,referrer" add="referrer"
                 t:mixins="GridSortingDisabled"
                 class="table table-hover">
+            <t:parameter name="referrerCell">
+                <t:if test="oneUser.referrer">
+                    <t:pagelink page="admin/user/index" context="['UPDATE',oneUser.referrer.id]">${oneUser.referrer.username}</t:pagelink>
+                    <t:parameter name="else">-</t:parameter>
+                </t:if>
+            </t:parameter>
             <t:parameter name="usernameCell">
                 <t:pagelink page="admin/user/index" context="['UPDATE',oneUser.id]">${oneUser.username}</t:pagelink>
                 <t:actionlink t:id="delete" context="oneUser.id" class="pull-right"><span class="glyphicon glyphicon-remove"/></t:actionlink>

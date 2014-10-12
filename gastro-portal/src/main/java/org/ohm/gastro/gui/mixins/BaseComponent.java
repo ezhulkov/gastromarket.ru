@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.mixins;
 
+import org.apache.tapestry5.Block;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.services.PropertyAccess;
@@ -89,6 +90,9 @@ public abstract class BaseComponent {
 
     @Inject
     private AjaxResponseRenderer ajaxResponseRenderer;
+
+    @Inject
+    private Block basketBlock;
 
     public UserEntity getAuthenticatedUser() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -200,4 +204,11 @@ public abstract class BaseComponent {
         return SignupResult.OK;
     }
 
+    public Block getBasketBlock() {
+        return basketBlock;
+    }
+
+    public void setBasketBlock(Block basketBlock) {
+        this.basketBlock = basketBlock;
+    }
 }

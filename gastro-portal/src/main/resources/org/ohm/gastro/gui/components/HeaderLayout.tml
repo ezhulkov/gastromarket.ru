@@ -39,13 +39,19 @@
                             </li>
                         </t:parameter>
                     </t:if>
-
+                    <t:zone elementName="li" t:id="basketZone">
+                        <t:delegate to="basketBlock"/>
+                    </t:zone>
                 </ul>
             </div>
 
         </div>
 
     </div>
+
+    <t:block t:id="basketBlock">
+        <t:pagelink page="index">Корзина</t:pagelink>
+    </t:block>
 
     <t:unless test="authenticated">
         <t:signupUserModal/>
