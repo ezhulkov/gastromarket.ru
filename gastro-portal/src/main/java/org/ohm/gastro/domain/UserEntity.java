@@ -66,7 +66,7 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
     @Column
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status status = Status.ENABLED;
 
     @Column
     private Timestamp date = new Timestamp(System.currentTimeMillis());

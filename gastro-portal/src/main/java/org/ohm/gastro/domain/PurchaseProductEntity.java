@@ -27,7 +27,7 @@ public class PurchaseProductEntity extends AbstractBaseEntity {
     private Integer price;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private PurchaseEntity order;
+    private PurchaseEntity purchase;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private ProductEntity product;
@@ -49,12 +49,12 @@ public class PurchaseProductEntity extends AbstractBaseEntity {
         this.price = price;
     }
 
-    public PurchaseEntity getOrder() {
-        return order;
+    public PurchaseEntity getPurchase() {
+        return purchase;
     }
 
-    public void setOrder(PurchaseEntity order) {
-        this.order = order;
+    public void setPurchase(PurchaseEntity purchase) {
+        this.purchase = purchase;
     }
 
     public ProductEntity getProduct() {
