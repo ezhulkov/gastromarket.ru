@@ -16,7 +16,7 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name = "rating")
-public class RatingEntity implements BaseEntity {
+public class RatingEntity extends AbstractBaseEntity {
 
     @Id
     @Column(name = "id")

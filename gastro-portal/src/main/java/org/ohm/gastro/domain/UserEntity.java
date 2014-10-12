@@ -27,7 +27,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "person")
-public class UserEntity implements BaseEntity, UserDetails {
+public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
     public enum Type {
         ADMIN, COOK, COURIER, USER

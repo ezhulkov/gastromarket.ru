@@ -15,7 +15,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "product_property")
-public class TagEntity implements BaseEntity {
+public class TagEntity extends AbstractBaseEntity {
 
     @Id
     @Column(name = "id")

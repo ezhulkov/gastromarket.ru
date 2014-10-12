@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "category")
-public class CategoryEntity implements BaseEntity {
+public class CategoryEntity extends AbstractBaseEntity {
 
     @Id
     @Column(name = "id")

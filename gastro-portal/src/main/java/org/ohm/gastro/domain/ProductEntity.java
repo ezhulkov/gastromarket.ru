@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "product")
-public class ProductEntity implements BaseEntity {
+public class ProductEntity extends AbstractBaseEntity {
 
     @Id
     @Column(name = "id")
@@ -49,6 +49,13 @@ public class ProductEntity implements BaseEntity {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
     private List<TagEntity> values = Lists.newArrayList();
+
+    public ProductEntity() {
+    }
+
+    public ProductEntity(Long id) {
+        this.id = id;
+    }
 
     @Override
     public Long getId() {
@@ -114,4 +121,5 @@ public class ProductEntity implements BaseEntity {
     public void setDate(Timestamp date) {
         this.date = date;
     }
+
 }

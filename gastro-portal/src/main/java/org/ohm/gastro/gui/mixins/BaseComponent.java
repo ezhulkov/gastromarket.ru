@@ -1,6 +1,6 @@
 package org.ohm.gastro.gui.mixins;
 
-import org.apache.tapestry5.Block;
+import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.services.PropertyAccess;
@@ -14,6 +14,7 @@ import org.ohm.gastro.domain.PropertyEntity.Type;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.components.SignupUser.SignupResult;
+import org.ohm.gastro.gui.dto.ShoppingCart;
 import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.EmptyPasswordException;
 import org.ohm.gastro.service.UserExistsException;
@@ -91,8 +92,8 @@ public abstract class BaseComponent {
     @Inject
     private AjaxResponseRenderer ajaxResponseRenderer;
 
-    @Inject
-    private Block basketBlock;
+    @SessionState
+    private ShoppingCart shoppingCart;
 
     public UserEntity getAuthenticatedUser() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -204,11 +205,11 @@ public abstract class BaseComponent {
         return SignupResult.OK;
     }
 
-    public Block getBasketBlock() {
-        return basketBlock;
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
     }
 
-    public void setBasketBlock(Block basketBlock) {
-        this.basketBlock = basketBlock;
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
     }
 }

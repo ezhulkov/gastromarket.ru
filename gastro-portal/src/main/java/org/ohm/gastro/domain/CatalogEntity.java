@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "catalog")
-public class CatalogEntity implements BaseEntity {
+public class CatalogEntity extends AbstractBaseEntity {
 
     @Id
     @Column(name = "id")

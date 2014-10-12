@@ -59,6 +59,9 @@
                     </li>
                 </t:loop>
             </ul>
+
+            <t:actionlink t:zone="basketZone" t:context="object.id" t:id="purchase">Заказать</t:actionlink>
+
         </t:unless>
 
     </div>

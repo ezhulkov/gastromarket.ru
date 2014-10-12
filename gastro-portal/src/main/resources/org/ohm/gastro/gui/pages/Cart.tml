@@ -1,0 +1,19 @@
+<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="starter-template">
+
+    <div class="main-body">
+
+        <ul>
+            <t:loop source="shoppingCart.products" value="oneProduct">
+                <li>
+                    <t:product product="oneProduct"/>
+                    <t:actionlink t:id="deleteProduct" context="oneProduct.id">Удалить из заказа</t:actionlink>
+                </li>
+                <t:parameter name="empty">
+                    В корзине пока ничего нет, начните поиск в <t:pagelink page="catalog/list">каталоге</t:pagelink>
+                </t:parameter>
+            </t:loop>
+        </ul>
+
+    </div>
+
+</t:htmllayout>

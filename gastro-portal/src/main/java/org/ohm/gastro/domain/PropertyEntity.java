@@ -24,7 +24,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "property")
-public class PropertyEntity implements BaseEntity {
+public class PropertyEntity extends AbstractBaseEntity {
 
     public enum Type {
         NUMBER, TEXT, LIST

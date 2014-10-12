@@ -31,8 +31,9 @@ public class Product extends BaseComponent {
         return user != null && product.getCatalog().getUser().equals(user);
     }
 
-    public Block onActionFromPurchase() {
-        return getBasketBlock();
+    public Block onActionFromPurchase(Long pid) {
+        getShoppingCart().addProduct(getCatalogService().findProduct(pid));
+        return getShoppingCart().getBasketBlock();
     }
 
 }

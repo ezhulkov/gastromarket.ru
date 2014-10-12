@@ -50,7 +50,7 @@
     </div>
 
     <t:block t:id="basketBlock">
-        <t:pagelink page="index">Корзина</t:pagelink>
+        <t:pagelink page="cart">Корзина: ${shoppingCart.products.size()}</t:pagelink>
     </t:block>
 
     <t:unless test="authenticated">

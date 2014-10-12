@@ -15,7 +15,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "property_value")
-public class PropertyValueEntity implements BaseEntity {
+public class PropertyValueEntity extends AbstractBaseEntity{
 
     @Id
     @Column(name = "id")

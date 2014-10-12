@@ -1,6 +1,7 @@
 package org.ohm.gastro.gui.pages.catalog;
 
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
@@ -100,6 +101,11 @@ public class Index extends EditObjectPage<ProductEntity> {
 
     public java.util.List<TagEntity> getPropertyTags() {
         return getCatalogService().findAllTags(getObject(), oneProperty);
+    }
+
+    public Block onActionFromPurchase(Long pid) {
+        getShoppingCart().addProduct(getCatalogService().findProduct(pid));
+        return getShoppingCart().getBasketBlock();
     }
 
 }

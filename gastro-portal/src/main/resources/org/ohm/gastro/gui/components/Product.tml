@@ -1,5 +1,7 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
+    <img width="200" height="200" alt="PHOTO"/><br/>
+
     <a href="#" data-toggle="modal" data-target="#show${product.id}">
         ${product.name}
     </a>
@@ -34,7 +36,7 @@
                         </li>
                     </t:loop>
                 </ul>
-                <t:actionlink t:zone="basketZone" t:id="purchase">Заказать</t:actionlink>
+                <t:actionlink t:zone="basketZone" t:context="product.id" t:id="purchase">Заказать</t:actionlink>
             </div>
         </div>
     </div>
