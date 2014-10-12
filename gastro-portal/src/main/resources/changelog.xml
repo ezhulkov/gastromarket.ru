@@ -213,4 +213,10 @@
         </createIndex>
     </changeSet>
 
+    <changeSet id="11" author="ezhulkov">
+        <addColumn tableName="catalog">
+            <column name="delivery" type="java.sql.Types.VARCHAR(512)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

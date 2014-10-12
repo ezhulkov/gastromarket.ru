@@ -2,9 +2,14 @@
 
     <img width="200" height="200" alt="PHOTO"/><br/>
 
-    <a href="#" data-toggle="modal" data-target="#show${product.id}">
-        ${product.name}
-    </a>
+    <t:if test="link">
+        <a href="#" data-toggle="modal" data-target="#show${product.id}">
+            ${product.name}
+        </a>
+        <t:parameter name="else">
+            ${product.name}
+        </t:parameter>
+    </t:if>
     <br/>
     ${product.description}
     <br/>

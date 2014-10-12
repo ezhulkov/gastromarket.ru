@@ -40,6 +40,9 @@ public class Index extends EditObjectPage<CatalogEntity> {
     @Component(id = "description", parameters = {"value=object?.description", "validate=maxlength=512"})
     private TextArea descField;
 
+    @Component(id = "delivery", parameters = {"value=object?.delivery", "validate=maxlength=512"})
+    private TextArea dlvrField;
+
     @Component(id = "ratingComment", parameters = {"value=ratingComment", "validate=maxlength=512"})
     private TextArea rcField;
 
@@ -81,6 +84,12 @@ public class Index extends EditObjectPage<CatalogEntity> {
 
     public String getCatalogDescription() {
         String desc = (String) ObjectUtils.defaultIfNull(getObject().getDescription(), "");
+        desc = desc.replaceAll("\\r\\n", "<br/>");
+        return desc;
+    }
+
+    public String getCatalogDelivery() {
+        String desc = (String) ObjectUtils.defaultIfNull(getObject().getDelivery(), "");
         desc = desc.replaceAll("\\r\\n", "<br/>");
         return desc;
     }

@@ -2,17 +2,32 @@
 
     <div class="main-body">
 
-        <ul>
-            <t:loop source="shoppingCart.products" value="oneProduct">
-                <li>
-                    <t:product product="oneProduct"/>
-                    <t:actionlink t:id="deleteProduct" context="oneProduct.id">Удалить из заказа</t:actionlink>
-                </li>
-                <t:parameter name="empty">
-                    В корзине пока ничего нет, начните поиск в <t:pagelink page="catalog/list">каталоге</t:pagelink>
-                </t:parameter>
-            </t:loop>
-        </ul>
+        <t:if test="catalogs">
+            <h2>Общая стоимость заказа ${totalPrice} руб</h2>
+
+            <ul>
+                <t:loop source="catalogs" value="oneCatalog">
+                    <li>
+                        Каталог: "${oneCatalog.getKey().name}"<br/>
+                        Условия доставки: ${oneCatalog.getKey().delivery}<br/>
+                        <ul>
+                            <t:loop source="oneCatalog.getValue()" value="oneProduct">
+                                <t:product product="oneProduct" link="false"/>
+                                <t:actionlink t:id="deleteProduct" context="oneProduct.id">Удалить из заказа</t:actionlink>
+                            </t:loop>
+                        </ul>
+                        <hr/>
+
+                    </li>
+                </t:loop>
+            </ul>
+            <t:parameter name="else">
+                <h2>
+                    В корзине пока ничего нет, начните поиск в
+                    <t:pagelink page="catalog/list">каталоге</t:pagelink>
+                </h2>
+            </t:parameter>
+        </t:if>
 
     </div>
 

@@ -35,11 +35,25 @@
                         <input t:id="description" id="description" class="form-control" placeholder="Описание"/>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="description">Доставка</label>
+
+                    <div class="col-sm-10">
+                        <input t:id="delivery" id="delivery" class="form-control" placeholder="Доставка"/>
+                    </div>
+                </div>
             </t:editObject>
         </t:if>
         <t:unless test="updateAction">
+            <h3>Описание</h3>
+
             <p>
                 <t:outputraw value="catalogDescription"/>
+            </p>
+            <h3>Доставка</h3>
+
+            <p>
+                <t:outputraw value="catalogDelivery"/>
             </p>
         </t:unless>
 

@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.components;
 
+import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -18,6 +19,10 @@ public class Product extends BaseComponent {
     @Property
     @Parameter(name = "product", required = true, allowNull = false)
     private ProductEntity product;
+
+    @Property
+    @Parameter(name = "link", required = false, allowNull = false, value = "true", defaultPrefix = BindingConstants.LITERAL)
+    private boolean link;
 
     @Property
     private TagEntity oneTag;

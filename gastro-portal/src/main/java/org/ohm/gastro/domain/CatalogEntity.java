@@ -35,6 +35,9 @@ public class CatalogEntity extends AbstractBaseEntity {
     @Column
     private String description;
 
+    @Column
+    private String delivery;
+
     @Column(name = "was_setup")
     private Boolean wasSetup;
 
@@ -115,4 +118,11 @@ public class CatalogEntity extends AbstractBaseEntity {
         this.rating = rating;
     }
 
+    public String getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(String delivery) {
+        this.delivery = delivery;
+    }
 }
