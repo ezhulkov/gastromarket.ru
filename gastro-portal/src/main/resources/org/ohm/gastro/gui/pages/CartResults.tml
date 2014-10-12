@@ -1,0 +1,9 @@
+<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="starter-template">
+
+    <div class="main-body">
+
+        DONE!
+
+    </div>
+
+</t:htmllayout>

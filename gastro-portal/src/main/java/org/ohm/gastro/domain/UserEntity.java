@@ -44,6 +44,18 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
     private Long id;
 
     @Column
+    private boolean anonymous = false;
+
+    @Column(name = "full_name")
+    private String fullName;
+
+    @Column(name = "delivery_address")
+    private String deliveryAddress;
+
+    @Column(name = "mobile_phone")
+    private String mobilePhone;
+
+    @Column
     private String username;
 
     @Column
@@ -168,20 +180,35 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
         this.date = date;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        UserEntity that = (UserEntity) o;
-
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-
-        return true;
+    public boolean isAnonymous() {
+        return anonymous;
     }
 
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+    public void setAnonymous(boolean anonymous) {
+        this.anonymous = anonymous;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
+
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
     }
 }

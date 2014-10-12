@@ -219,4 +219,48 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="12" author="ezhulkov">
+        <addColumn tableName="person">
+            <column name="anonymous" type="java.sql.Types.BOOLEAN" defaultValueBoolean="false"/>
+            <column name="full_name" type="java.sql.Types.VARCHAR(64)"/>
+            <column name="delivery_address" type="java.sql.Types.VARCHAR(512)"/>
+            <column name="mobile_phone" type="java.sql.Types.VARCHAR(16)"/>
+        </addColumn>
+        <createTable tableName="purchase">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="customer_id" type="java.sql.Types.BIGINT"/>
+            <column name="comment" type="java.sql.Types.VARCHAR(512)"/>
+            <column name="date" type="java.sql.Types.TIMESTAMP"/>
+            <column name="status" type="java.sql.Types.VARCHAR(16)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="purchase" baseColumnNames="customer_id"
+                constraintName="purchase_cust_fk" referencedTableName="person" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <createIndex tableName="purchase" indexName="purchase_cust_idx">
+            <column name="customer_id"/>
+        </createIndex>
+        <createTable tableName="purchase_product">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="purchase_id" type="java.sql.Types.BIGINT"/>
+            <column name="product_id" type="java.sql.Types.BIGINT"/>
+            <column name="price" type="java.sql.Types.INTEGER"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="purchase_product" baseColumnNames="purchase_id"
+                constraintName="purchasep_purchase_fk" referencedTableName="purchase" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="purchase_product" baseColumnNames="product_id"
+                constraintName="purchasep_prod_fk" referencedTableName="product" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <createIndex tableName="purchase_product" indexName="purchasep_purchaser_idx">
+            <column name="purchase_id"/>
+        </createIndex>
+        <createIndex tableName="purchase_product" indexName="purchasep_prod_idx">
+            <column name="product_id"/>
+        </createIndex>
+    </changeSet>
+
 </databaseChangeLog>

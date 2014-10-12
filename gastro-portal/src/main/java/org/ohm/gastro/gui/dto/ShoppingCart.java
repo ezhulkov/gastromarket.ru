@@ -35,4 +35,8 @@ public final class ShoppingCart {
         products.remove(product);
     }
 
+    public void purge() {
+        products.clear();
+    }
+
 }

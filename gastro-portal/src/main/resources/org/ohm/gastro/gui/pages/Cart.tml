@@ -5,10 +5,16 @@
         <t:if test="catalogs">
             <h2>Общая стоимость заказа ${totalPrice} руб</h2>
 
+            <t:unless test="authenticated">
+                Хотите зарабатывать баллы и расплачиваться ими при покупках?
+                Пройдите <a href="#signup" data-toggle="modal" data-target="#signup">регистрацию</a> или <a href="#login" data-toggle="modal" data-target="#login">залогиньтесь</a>
+            </t:unless>
+
+            <h3>Товары</h3>
             <ul>
                 <t:loop source="catalogs" value="oneCatalog">
                     <li style="display:table;">
-                        <h3>Кулинар "${oneCatalog.getKey().name}"</h3>
+                        <h5>Кулинар "${oneCatalog.getKey().name}"</h5>
                         Условия доставки: ${oneCatalog.getKey().delivery}<br/>
 
                         <div class="catalog">
@@ -30,6 +36,42 @@
                     <t:pagelink page="catalog/list">каталоге</t:pagelink>
                 </h2>
             </t:parameter>
+
+            <t:form t:id="cartForm"
+                    t:autofocus="true"
+                    t:clientValidation="none"
+                    class="form-horizontal well"
+                    role="form">
+                <h3>Комментарии к заказу</h3>
+
+                <div class="form-group form-group">
+                    <div class="col-sm-11">
+                        <input t:id="comment" class="form-control" placeholder="дополнительная информация"/>
+                    </div>
+                </div>
+                <h3>Адрес доставки и персональные данные</h3>
+
+                <div class="form-group form-group">
+                    <div class="col-sm-11">
+                        <input t:id="fullName" class="form-control" placeholder="Ваше имя"/>
+                    </div>
+                </div>
+                <div class="form-group form-group">
+                    <div class="col-sm-11">
+                        <input t:id="mobilePhone" class="form-control" placeholder="Телефон для связи"/>
+                    </div>
+                </div>
+                <div class="form-group form-group">
+                    <div class="col-sm-11">
+                        <input t:id="deliveryAddress" class="form-control" placeholder="Адрес доставки"/>
+                    </div>
+                </div>
+
+                <input class="btn btn-default" type="submit" value="Разместить заказ"/>
+
+            </t:form>
+
+
         </t:if>
 
     </div>

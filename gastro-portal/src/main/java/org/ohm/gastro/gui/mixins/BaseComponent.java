@@ -17,6 +17,7 @@ import org.ohm.gastro.gui.components.SignupUser.SignupResult;
 import org.ohm.gastro.gui.dto.ShoppingCart;
 import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.EmptyPasswordException;
+import org.ohm.gastro.service.OrderService;
 import org.ohm.gastro.service.UserExistsException;
 import org.ohm.gastro.service.UserService;
 import org.slf4j.Logger;
@@ -85,6 +86,9 @@ public abstract class BaseComponent {
 
     @Inject
     private CatalogService catalogService;
+
+    @Inject
+    private OrderService orderService;
 
     @Inject
     private UserService userService;
@@ -203,6 +207,10 @@ public abstract class BaseComponent {
             return SignupResult.PASSWORD;
         }
         return SignupResult.OK;
+    }
+
+    public OrderService getOrderService() {
+        return orderService;
     }
 
     public ShoppingCart getShoppingCart() {
