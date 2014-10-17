@@ -66,6 +66,13 @@
                         <input t:id="deliveryAddress" class="form-control" placeholder="Адрес доставки"/>
                     </div>
                 </div>
+                <h3>Оплата заказа</h3>
+
+                <div class="form-group form-group">
+                    <div class="col-sm-11">
+                        <input id="bonus" class="form-control" type="text" placeholder="Оплата бонусными баллами"/>
+                    </div>
+                </div>
 
                 <input class="btn btn-default" type="submit" value="Разместить заказ"/>
 
