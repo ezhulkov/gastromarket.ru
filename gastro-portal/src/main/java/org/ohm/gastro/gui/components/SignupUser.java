@@ -12,6 +12,8 @@ import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.domain.UserEntity.Type;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
+import java.util.Optional;
+
 /**
  * Created by ezhulkov on 24.08.14.
  */
@@ -60,7 +62,7 @@ public class SignupUser extends BaseComponent {
     }
 
     public Block onSubmitFromSignupForm() {
-        error = signupUser(type, newUser, password1, password2, null);
+        error = signupUser(type, newUser, password1, password2, Optional.empty());
         return error.equals(SignupResult.OK) ? successBlock : failureBlock;
     }
 
