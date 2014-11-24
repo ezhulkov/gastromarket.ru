@@ -5,12 +5,10 @@ import org.apache.tapestry5.MarkupWriter;
 import org.apache.tapestry5.OptionModel;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.SelectModelVisitor;
-import org.apache.tapestry5.SymbolConstants;
 import org.apache.tapestry5.annotations.BeforeRenderTemplate;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.corelib.base.AbstractField;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ValueEncoderSource;
 import org.ohm.gastro.domain.BaseEntity;
@@ -46,7 +44,6 @@ public final class SelectMultiple extends AbstractField {
     private ValueEncoderSource valueEncoderSource;
 
     @Inject
-    @Symbol(SymbolConstants.FORM_FIELD_CSS_CLASS)
     protected String cssClass;
 
     @Parameter(required = true, principal = true)

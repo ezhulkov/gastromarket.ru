@@ -18,8 +18,15 @@
         <spring_version>4.0.6.RELEASE</spring_version>
         <spring_security_version>3.2.5.RELEASE</spring_security_version>
         <hibernate_version>4.3.6.Final</hibernate_version>
-        <tapestry_version>5.4-beta-6</tapestry_version>
+        <tapestry_version>5.3.8</tapestry_version>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>tapestry</id>
+            <url>https://repository.apache.org/content/repositories/releases/</url>
+        </repository>
+    </repositories>
 
     <profiles>
         <profile>

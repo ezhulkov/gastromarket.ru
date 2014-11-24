@@ -34,26 +34,11 @@
                 <t:pagelink page="chef/list">Кулинары</t:pagelink>
             </li>
             <li>
-                Категории
                 <ul>
                     <t:loop source="categories" value="oneCategory" formState="NONE">
-                        <t:if test="oneCategory.children">
-                            <li>
-                                <span>${oneCategory.name}</span>
-                                <ul>
-                                    <t:loop source="oneCategory.children" value="oneSubCategory" formState="NONE">
-                                        <li>
-                                            <t:pagelink page="catalog/list" context="oneSubCategory.id">${oneSubCategory.name}</t:pagelink>
-                                        </li>
-                                    </t:loop>
-                                </ul>
-                            </li>
-                        </t:if>
-                        <t:unless test="oneCategory.children">
-                            <li>
-                                <t:pagelink page="catalog/list" context="oneCategory.id">${oneCategory.name}</t:pagelink>
-                            </li>
-                        </t:unless>
+                        <li>
+                            <t:pagelink page="catalog/list" context="oneCategory.id">${oneCategory.name}</t:pagelink>
+                        </li>
                     </t:loop>
                 </ul>
             </li>

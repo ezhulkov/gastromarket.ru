@@ -17,6 +17,7 @@ import org.ohm.gastro.gui.components.SignupUser.SignupResult;
 import org.ohm.gastro.gui.dto.ShoppingCart;
 import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.EmptyPasswordException;
+import org.ohm.gastro.service.MessageService;
 import org.ohm.gastro.service.OrderService;
 import org.ohm.gastro.service.UserExistsException;
 import org.ohm.gastro.service.UserService;
@@ -92,6 +93,9 @@ public abstract class BaseComponent {
 
     @Inject
     private UserService userService;
+
+    @Inject
+    private MessageService messageService;
 
     @Inject
     private AjaxResponseRenderer ajaxResponseRenderer;
