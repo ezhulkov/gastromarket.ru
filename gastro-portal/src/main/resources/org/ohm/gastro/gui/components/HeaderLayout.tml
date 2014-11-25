@@ -19,6 +19,7 @@
                         <t:pagelink page="contacts">Контакты</t:pagelink>
                     </li>
                     <t:if test="authenticated">
+                        <li><t:pagelink page="index">${unreadMessages}</t:pagelink></li>
                         <li>
                             <t:if test="admin">
                                 <t:pagelink page="admin/index">${authenticatedUser.username}</t:pagelink>

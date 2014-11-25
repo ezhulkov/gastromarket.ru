@@ -18,4 +18,8 @@ public class HeaderLayout extends BaseComponent {
         getShoppingCart().setBasketBlock(basketBlock);
     }
 
+    public int getUnreadMessages() {
+        return getMessageService().getUnreadMessages(getAuthenticatedUser());
+    }
+
 }

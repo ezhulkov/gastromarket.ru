@@ -49,6 +49,7 @@ public abstract class BaseComponent {
             return new SimpleDateFormat("dd/MM/yyyy");
         }
     };
+
     protected static final ThreadLocal<DateFormat> GUIDATE_LONG = new ThreadLocal<DateFormat>() {
         @Override
         protected DateFormat initialValue() {
@@ -215,6 +216,10 @@ public abstract class BaseComponent {
 
     public OrderService getOrderService() {
         return orderService;
+    }
+
+    public MessageService getMessageService() {
+        return messageService;
     }
 
     public ShoppingCart getShoppingCart() {

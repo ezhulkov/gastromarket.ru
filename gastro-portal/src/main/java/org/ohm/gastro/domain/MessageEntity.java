@@ -49,7 +49,7 @@ public class MessageEntity extends AbstractBaseEntity {
     @Column(name = "recipient_status")
     private Status recipientStatus = Status.NEW;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(name = "recipient_type")
     private RecipientType recipientType = RecipientType.USER;
 

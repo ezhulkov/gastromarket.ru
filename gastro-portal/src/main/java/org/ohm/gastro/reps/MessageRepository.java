@@ -19,8 +19,15 @@ public interface MessageRepository extends JpaRepository<MessageEntity, Long> {
 
     @Query("from MessageEntity where (recipientType='ALL') or " +
             "(recipientType='COOK' and :type='COOK') or " +
-            "(recipientType='USER' and recipient=:rcpt) order by createdDate")
+            "(recipientType='USER' and recipient=:rcpt) order by createDate")
     List<MessageEntity> findAllReceivedMessages(@Param("rcpt") UserEntity recipient, @Param("type") UserEntity.Type type);
+
+    @Query("from MessageEntity where ((recipientType='ALL') or " +
+            "(recipientType='COOK' and :type='COOK') or " +
+            "(recipientType='USER' and recipient=:rcpt)) and " +
+            "recipientStatus is null " +
+            " order by createDate")
+    List<MessageEntity> findAllUnreadMessages(@Param("rcpt") UserEntity recipient, @Param("type") String type);
 
     @Modifying
     @Query("update MessageEntity set senderStatus='DELETED' where id=:id")
