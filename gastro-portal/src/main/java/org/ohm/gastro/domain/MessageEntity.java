@@ -42,12 +42,15 @@ public class MessageEntity extends AbstractBaseEntity {
     private UserEntity recipient;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "sender_status")
     private Status senderStatus = Status.NEW;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "recipient_status")
     private Status recipientStatus = Status.NEW;
 
     @Enumerated
+    @Column(name = "recipient_type")
     private RecipientType recipientType = RecipientType.USER;
 
     @Column
@@ -56,8 +59,8 @@ public class MessageEntity extends AbstractBaseEntity {
     @Column
     private String body;
 
-    @Column
-    private Date createDate;
+    @Column(name = "create_date")
+    private Date createDate = new Date(System.currentTimeMillis());
 
     @Override
     public Long getId() {

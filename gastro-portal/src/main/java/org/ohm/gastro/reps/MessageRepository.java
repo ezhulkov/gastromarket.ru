@@ -14,13 +14,13 @@ import java.util.List;
  */
 public interface MessageRepository extends JpaRepository<MessageEntity, Long> {
 
-    @Query("find from MessageEntity where sender=:sender order by createdDate")
+    @Query("from MessageEntity where sender=:sender order by createdDate")
     List<MessageEntity> findAllSentMessages(@Param("sender") UserEntity sender);
 
-    @Query("find from MessageEntity where (recipientType='ALL') or " +
-            "(recipientType='COOK' and :rcpt.type='COOK') or " +
+    @Query("from MessageEntity where (recipientType='ALL') or " +
+            "(recipientType='COOK' and :type='COOK') or " +
             "(recipientType='USER' and recipient=:rcpt) order by createdDate")
-    List<MessageEntity> findAllReceivedMessages(@Param("rcpt") UserEntity recipient);
+    List<MessageEntity> findAllReceivedMessages(@Param("rcpt") UserEntity recipient, @Param("type") UserEntity.Type type);
 
     @Modifying
     @Query("update MessageEntity set senderStatus='DELETED' where id=:id")

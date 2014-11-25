@@ -185,6 +185,12 @@
                 <groupId>org.apache.tapestry</groupId>
                 <artifactId>tapestry-core</artifactId>
                 <version>${tapestry_version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javassist</groupId>
+                        <artifactId>javassist</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.tapestry</groupId>

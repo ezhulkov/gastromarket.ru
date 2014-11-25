@@ -263,4 +263,44 @@
         </createIndex>
     </changeSet>
 
+    <changeSet id="13" author="ezhulkov">
+        <createTable tableName="message">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sender_id" type="java.sql.Types.BIGINT"/>
+            <column name="recipient_id" type="java.sql.Types.BIGINT"/>
+            <column name="sender_status" type="java.sql.Types.VARCHAR(16)"/>
+            <column name="recipient_status" type="java.sql.Types.VARCHAR(16)"/>
+            <column name="recipient_type" type="java.sql.Types.VARCHAR(16)"/>
+            <column name="subject" type="java.sql.Types.VARCHAR(128)"/>
+            <column name="body" type="java.sql.Types.VARCHAR(1024)"/>
+            <column name="create_date" type="java.sql.Types.TIMESTAMP"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="message" baseColumnNames="sender_id"
+                constraintName="message_sender_fk" referencedTableName="person" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="message" baseColumnNames="recipient_id"
+                constraintName="message_rcpt_fk" referencedTableName="person" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <createIndex tableName="message" indexName="message_sender_idx">
+            <column name="sender_id"/>
+        </createIndex>
+        <createIndex tableName="message" indexName="message_rcpt_idx">
+            <column name="recipient_id"/>
+        </createIndex>
+        <createIndex tableName="message" indexName="message_sender_status_idx">
+            <column name="sender_status"/>
+        </createIndex>
+        <createIndex tableName="message" indexName="message_rcpt_status_idx">
+            <column name="recipient_status"/>
+        </createIndex>
+        <createIndex tableName="message" indexName="message_rcpt_type_idx">
+            <column name="recipient_type"/>
+        </createIndex>
+        <createIndex tableName="message" indexName="message_date_idx">
+            <column name="create_date"/>
+        </createIndex>
+    </changeSet>
+
 </databaseChangeLog>
