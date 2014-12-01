@@ -50,10 +50,9 @@
             </t:unless>
         </ul>
         <ul>
-            <li>ВК</li>
-            <li>FB</li>
-            <li>TW</li>
-            <li>OK</li>
+            <li><a href="http://vk.com">ВК</a></li>
+            <li><a href="http://facebook.com">FB</a></li>
+            <li><a href="http://twitter.com">TW</a></li>
         </ul>
         <ul>
             <li>&copy; Gastromarket.ru Все права защищены</li>

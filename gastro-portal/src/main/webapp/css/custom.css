@@ -79,3 +79,10 @@
     height: 200px;
     margin: 5px;
 }
+
+.sociallist li {
+    display: inline-block;
+    list-style-type: none;
+    margin: 5px;
+    color: black!important;
+}
