@@ -303,4 +303,16 @@
         </createIndex>
     </changeSet>
 
+    <changeSet id="14" author="ezhulkov">
+        <addColumn tableName="person">
+            <column name="bonus" type="java.sql.Types.INTEGER"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="15" author="ezhulkov">
+        <addColumn tableName="product">
+            <column name="promoted" type="java.sql.Types.BOOLEAN"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

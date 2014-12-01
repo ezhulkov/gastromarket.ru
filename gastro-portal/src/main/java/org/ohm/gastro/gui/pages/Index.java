@@ -8,12 +8,15 @@ import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.services.HttpError;
+import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CategoryEntity;
+import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.gui.components.EditObject.FormEvent;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.catalog.Search;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 23.08.14.
@@ -27,7 +30,10 @@ public class Index extends BaseComponent {
     private CategoryEntity oneCategory;
 
     @Property
-    private CategoryEntity oneSubCategory;
+    private CatalogEntity oneCook;
+
+    @Property
+    private ProductEntity oneProduct;
 
     @Component(id = "search", parameters = {"value=searchString"})
     private TextField searchField;
@@ -60,6 +66,16 @@ public class Index extends BaseComponent {
 
     public Object[] getCatalogContext() {
         return new Object[]{FormEvent.UPDATE, getCatalogService().findNotSetupCatalogs(getAuthenticatedUser()).get(0).getId()};
+    }
+
+    @Cached
+    public List<CatalogEntity> getCooks() {
+        return getCatalogService().findAllCatalogs().stream().limit(5).collect(Collectors.toList());
+    }
+
+    @Cached
+    public List<ProductEntity> getProducts() {
+        return getCatalogService().findPromotedProducts().stream().limit(4).collect(Collectors.toList());
     }
 
 }

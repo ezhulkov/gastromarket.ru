@@ -72,6 +72,9 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
     private Timestamp date = new Timestamp(System.currentTimeMillis());
 
     @Column
+    private Integer bonus = 0;
+
+    @Column
     @Enumerated(EnumType.STRING)
     private Type type = Type.COOK;
 
@@ -211,4 +214,13 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
     public void setMobilePhone(String mobilePhone) {
         this.mobilePhone = mobilePhone;
     }
+
+    public Integer getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(Integer bonus) {
+        this.bonus = bonus;
+    }
+
 }

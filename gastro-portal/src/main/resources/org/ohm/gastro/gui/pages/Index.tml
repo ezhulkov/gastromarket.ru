@@ -2,49 +2,60 @@
 
     <div class="main-body">
 
-        <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="form-inline well" role="form">
-            <div class="form-group">
+        <div class="mainpic">
+            <h2>Готовим на заказ только для вас</h2>
+            <h4>Заказывайте вкусную еду у первоклассных поваров</h4>
+            <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="form-inline" role="form">
                 <div class="form-group">
-                    <input t:id="search" type="text" class="form-control" placeholder="Поиск"/>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-default">Искать на сайте</button>
-        </t:form>
-
-        <t:if test="authenticated">
-            <t:if test="cookHasCatalog">
-                <div class="modal fade" id="createCatalog" tabindex="-1" role="dialog" aria-labelledby="createCatalog" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="bg-warning">
-                                Для начала работы с сайтом необходимо создать свой первый каталог<br/>
-                                <t:pagelink page="chef/index" t:context="catalogContext">Создать каталог</t:pagelink>
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <input t:id="search" type="text" class="form-control" placeholder="Поиск"/>
                     </div>
                 </div>
-                <script>
-                    jQuery('#createCatalog').modal();
-                </script>
-            </t:if>
-        </t:if>
+                <button type="submit" class="btn btn-default">Искать на сайте</button>
+            </t:form>
+            <a href="#howto" data-toggle="modal" data-target="#howto">Как это работает</a>
+        </div>
 
-        <ul>
-            <li>
-                <t:pagelink page="chef/list">Кулинары</t:pagelink>
-            </li>
-            <li>
-                <ul>
-                    <t:loop source="categories" value="oneCategory" formState="NONE">
-                        <li>
-                            <t:pagelink page="catalog/list" context="oneCategory.id">${oneCategory.name}</t:pagelink>
-                        </li>
-                    </t:loop>
-                </ul>
-            </li>
-            <li>
-                <t:pagelink page="catalog/list">Все товары</t:pagelink>
-            </li>
+        <div class="modal fade" id="howto" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <h1>Как это работает</h1>
+                    <img src="" style="width: 300px; height: 200px;"/>
+                </div>
+            </div>
+        </div>
+
+        <h2>Заказ еды для любого события</h2>
+        <ul class="categories">
+            <t:loop source="categories" value="oneCategory">
+                <li>
+                    <img src="" style="width: 248px;height: 150px;"/>
+                    <t:pagelink page="catalog/list" context="oneCategory.id">${oneCategory.name}</t:pagelink>
+                </li>
+            </t:loop>
+        </ul>
+
+
+        <h2>Торты на свадьбу</h2>
+        <t:pagelink page="catalog/promoted">Смотреть всю подборку</t:pagelink>
+        <ul class="promoted">
+            <t:loop source="products" value="oneProduct">
+                <li>
+                    <img src="" style="width: 198px;height: 150px;"/>
+                    <t:pagelink page="catalog/index" context="oneProduct.id">${oneProduct.name}</t:pagelink>
+                </li>
+            </t:loop>
+        </ul>
+
+        <h2>Повара</h2>
+        <t:pagelink page="chef/list">Все повара</t:pagelink>
+        <ul class="cooks">
+            <t:loop source="cooks" value="oneCook">
+                <li>
+                    <img src="" style="width: 198px;height: 150px;"/>
+                    <t:pagelink page="chef/index" context="oneCook.id">${oneCook.name}</t:pagelink>
+                </li>
+            </t:loop>
         </ul>
 
     </div>

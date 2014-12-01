@@ -41,6 +41,9 @@ public class ProductEntity extends AbstractBaseEntity {
     @Column
     private Timestamp date = new Timestamp(System.currentTimeMillis());
 
+    @Column
+    private Boolean promoted = false;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private CatalogEntity catalog;
 
@@ -122,4 +125,11 @@ public class ProductEntity extends AbstractBaseEntity {
         this.date = date;
     }
 
+    public Boolean getPromoted() {
+        return promoted;
+    }
+
+    public void setPromoted(Boolean promoted) {
+        this.promoted = promoted;
+    }
 }

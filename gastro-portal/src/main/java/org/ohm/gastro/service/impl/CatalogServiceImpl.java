@@ -240,6 +240,11 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
+    public List<ProductEntity> findPromotedProducts() {
+        return productRepository.findAllPromotedProducts();
+    }
+
+    @Override
     public ProductEntity findProduct(Long id) {
         return productRepository.findOne(id);
     }

@@ -1,0 +1,15 @@
+<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="starter-template">
+
+    <div class="main-body">
+
+        <ul>
+            <t:loop source="products" value="oneProduct" formState="NONE">
+                <li>
+                    <t:product product="oneProduct"/>
+                </li>
+            </t:loop>
+        </ul>
+
+    </div>
+
+</t:htmllayout>

@@ -71,6 +71,8 @@ public interface CatalogService {
 
     List<ProductEntity> findAllProducts();
 
+    List<ProductEntity> findPromotedProducts();
+
     ProductEntity findProduct(Long id);
 
     List<ProductEntity> findAllProducts(CategoryEntity category, CatalogEntity catalog);

@@ -28,4 +28,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
             "ORDER BY score DESC", nativeQuery = true)
     List<ProductEntity> searchProducts(@Param("q") String query);
 
+    @Query("from ProductEntity where promoted=true")
+    List<ProductEntity> findAllPromotedProducts();
+
 }
