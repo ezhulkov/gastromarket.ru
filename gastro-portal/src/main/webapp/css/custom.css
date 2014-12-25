@@ -1,88 +1,32 @@
-.main-body {
-    padding: 20px 0px;
+body {
+    font-family: "PT Sans", sans-serif;
 }
 
-.modal-content {
-    padding: 30px;
+.container {
+    width: 1200px;
+    background-attachment: gray;
 }
 
-.catalog ul {
-    list-style-type: none;
-    line-height: normal;
-    width: 100%;
+.container.main {
+    padding: 55px 0;
 }
 
-.catalog ul li {
-    float: left;
-    width: 200px;
-    margin: 20px;
+.navbar {
+    min-height: 60px;
+    color: #269398;
+    font-size: 10pt;
+    font-family: "PT Sans", sans-serif;
+    font-weight: bold;
+    background: transparent url("../img/header-bg.png") repeat-x;
+    border-color: transparent;
 }
 
-.footer ul {
-    text-align: center;
+.navbar .logo {
+    padding-left: 24px;
 }
 
-.footer ul li {
-    display: inline-block;
-    list-style-type: none;
-    padding-right: 20px;
-}
-
-.header ul li {
-    display: inline-block;
-    list-style-type: none;
-    padding: 10px 10px 0px 0px;
-    color: white;
-}
-
-.ul1 li {
-    width: 400px;
-    height: 270px;
-    margin: 20px 40px 0px 40px;
-}
-
-.mainpic {
-    width: 100%;
-    border: 1px solid black;
-    height: 350px;
-    text-align: center;
+.navbar .container {
+    height: 55px;
+    line-height: 55px;
     vertical-align: middle;
-    margin: auto 0;
-}
-
-.categories li {
-    text-align: center;
-    border: 1px solid #eee;
-    display: inline-block;
-    list-style-type: none;
-    width: 250px;
-    height: 200px;
-    margin: 5px;
-}
-
-.cooks li {
-    text-align: center;
-    border: 1px solid #eee;
-    display: inline-block;
-    list-style-type: none;
-    width: 199px;
-    height: 200px;
-    margin: 5px;
-}
-
-.promoted li {
-    text-align: center;
-    border: 1px solid #eee;
-    display: inline-block;
-    list-style-type: none;
-    width: 250px;
-    height: 200px;
-    margin: 5px;
-}
-
-.sociallist li {
-    display: inline-block;
-    list-style-type: none;
-    margin: 5px;
-    color: black!important;
 }

@@ -1,53 +1,61 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="header">
-    <div class="navbar navbar-inverse" role="navigation">
-        <ul>
-            <t:if test="authenticated">
-                <li>
-                    ${authenticatedUser.username}
-                </li>
-                <li>
-                    <t:pagelink page="about">
-                        <t:if test="authenticatedUser.bonus">
-                            ${authenticatedUser.bonus} бонусов
-                            <t:parameter name="else">
-                                Нет бонусов
-                            </t:parameter>
-                        </t:if>
-                    </t:pagelink>
-                </li>
-                <t:if test="unreadMessages">
-                    <li>${unreadMessages} писем</li>
-                </t:if>
-            </t:if>
-            <t:unless test="authenticated">
-                <li><a href="#login" data-toggle="modal" data-target="#login">Вход</a></li>
-                <li><a href="#signup" data-toggle="modal" data-target="#signup">Регистрация</a></li>
-            </t:unless>
-            <t:zone elementName="li" t:id="basketZone">
-                <t:delegate to="basketBlock"/>
-            </t:zone>
-        </ul>
+<nav xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="navbar navbar-inverse navbar-fixed-top header">
 
+    <div class="container">
+        <div class="col-sm-2 logo"><img src="img/logo.png" alt="logo"/></div>
+        <div class="col-sm-10 info">
+            <!--<t:if test="authenticated">-->
+            <!--${authenticatedUser.username}-->
+            <!--</t:if>-->
+            <t:unless test="authenticated">
+                <div class="col-sm-5"></div>
+                <div class="col-sm-4 login"><a href="#login" data-toggle="modal" data-target="#login">Войти или зарегистрироваться</a></div>
+            </t:unless>
+            <t:zone elementName="div" t:id="basketZone" class="col-sm-3 pull-right basket">
+                В корзине пусто
+                <!--<t:delegate to="basketBlock"/>-->
+            </t:zone>
+        </div>
     </div>
 
-    <t:block t:id="basketBlock">
+    <div class="hidden">
+        <t:if test="authenticated">
+            <li>
 
-        <t:if test="shoppingCart.products.size()">
-            <t:pagelink page="cart">
-                ${shoppingCart.products.size()} товаров
-            </t:pagelink>
-            <t:parameter name="else">
-                <t:pagelink page="catalog/list">
-                    В корзине пусто
+            </li>
+            <li>
+                <t:pagelink page="about">
+                    <t:if test="authenticatedUser.bonus">
+                        ${authenticatedUser.bonus} бонусов
+                        <t:parameter name="else">
+                            Нет бонусов
+                        </t:parameter>
+                    </t:if>
                 </t:pagelink>
-            </t:parameter>
+            </li>
+            <t:if test="unreadMessages">
+                <li>${unreadMessages} писем</li>
+            </t:if>
         </t:if>
 
-    </t:block>
+        <t:block t:id="basketBlock">
 
-    <t:unless test="authenticated">
-        <t:signupUserModal/>
-        <t:loginUserModal/>
-    </t:unless>
+            <t:if test="shoppingCart.products.size()">
+                <t:pagelink page="cart">
+                    ${shoppingCart.products.size()} товаров
+                </t:pagelink>
+                <t:parameter name="else">
+                    <t:pagelink page="catalog/list">
+                        В корзине пусто
+                    </t:pagelink>
+                </t:parameter>
+            </t:if>
 
-</div>
+        </t:block>
+
+        <t:unless test="authenticated">
+            <t:signupUserModal/>
+            <t:loginUserModal/>
+        </t:unless>
+    </div>
+
+</nav>
