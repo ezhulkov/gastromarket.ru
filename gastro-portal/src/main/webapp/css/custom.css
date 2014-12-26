@@ -56,6 +56,7 @@ body {
 
 .footer ul {
     list-style-type: none;
+    padding: 0;
 }
 
 .footer ul li {
@@ -63,18 +64,18 @@ body {
 }
 
 .footer .menu a {
-    padding: 0 30px;
+    padding: 0 27px;
     color: #faf3de;
 }
 
 .footer .menu {
-    padding: 30px 0 10px 0;
+    padding: 25px 0 5px 0;
     text-align: center;
     font-size: 16px;
 }
 
 .footer .social {
-    padding: 10px 0 10px 0;
+    padding: 10px 0 7px 0;
     text-align: center;
 }
 
@@ -111,6 +112,43 @@ body {
 
 /*Index*/
 .index .landing {
-    height: 445px;
-    background: url(../img/landing.png) no-repeat 0 0;
+    display: table;
+    width: 100%;
+}
+
+.index .landing1 {
+    height: 446px;
+    background: url("../img/landing-bg-1.png") right 0 repeat-x;
+    display: table-cell;
+    width: auto;
+}
+
+.index .landing2 {
+    max-height: 446px;
+    width: 917px;
+    background: url("../img/landing-bg-2.png") center top no-repeat;
+    display: table-cell;
+}
+
+.index .landing2 div {
+    height: 446px;
+    text-align: center;
+    padding-top: 148px;
+}
+
+.index .landing2 h1 {
+    font-family: "PT Serif", serif;
+    font-size: 30px;
+}
+
+.index .landing2 p {
+    font-size: 16px;
+    padding: 10px 60px 20px 60px;
+}
+
+.index .landing3 {
+    width: auto;
+    height: 446px;
+    background: url("../img/landing-bg-3.png") left 0 repeat-x;
+    display: table-cell;
 }

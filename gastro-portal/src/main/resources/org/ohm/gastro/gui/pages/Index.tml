@@ -11,19 +11,27 @@
             <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
         </div>
 
+
         <div class="landing">
-            <div class="row">
+            <div class="landing1"></div>
+            <div class="landing2">
                 <div class="col-sm-6">
+                    <h1>Я &mdash; покупатель</h1>
+
+                    <p>Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века.</p>
+
+
+
                 </div>
                 <div class="col-sm-6">
+                    <h1>Я &mdash; повар</h1>
+
+                    <p>Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века.</p>
+
+
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-6">
-                </div>
-                <div class="col-sm-6">
-                </div>
-            </div>
+            <div class="landing3"></div>
         </div>
     </div>
 
