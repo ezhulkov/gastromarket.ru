@@ -1,7 +1,7 @@
 <nav xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="navbar navbar-inverse navbar-fixed-top header">
 
     <div class="container">
-        <div class="col-sm-2 logo"><img src="img/logo.png" alt="logo"/></div>
+        <div class="col-sm-2 logo"><img src="${contextPath}/img/logo.png" alt="logo"/></div>
         <div class="col-sm-10 info">
             <div class="pull-right">
                 <!--<t:if test="authenticated">-->
@@ -9,6 +9,7 @@
                 <!--</t:if>-->
                 <t:unless test="authenticated">
                     <span class="login">
+                        <img src="${contextPath}/img/signup.png"/>&#160;
                         <a href="#login" data-toggle="modal" data-target="#login">Войти или зарегистрироваться</a>
                     </span>
                 </t:unless>
@@ -21,42 +22,37 @@
 
     <div class="hidden">
         <t:if test="authenticated">
-            <li>
-
-            </li>
-            <li>
-                <t:pagelink page="about">
-                    <t:if test="authenticatedUser.bonus">
-                        ${authenticatedUser.bonus} бонусов
-                        <t:parameter name="else">
-                            Нет бонусов
-                        </t:parameter>
-                    </t:if>
-                </t:pagelink>
-            </li>
+            <t:pagelink page="about">
+                <t:if test="authenticatedUser.bonus">
+                    ${authenticatedUser.bonus} бонусов
+                    <t:parameter name="else">
+                        Нет бонусов
+                    </t:parameter>
+                </t:if>
+            </t:pagelink>
             <t:if test="unreadMessages">
                 <li>${unreadMessages} писем</li>
             </t:if>
         </t:if>
-
-        <t:block t:id="basketBlock">
-            <img src="img/basket.png"/>&#160;
-            <t:if test="shoppingCart.products.size()">
-                <t:pagelink page="cart">
-                    ${shoppingCart.products.size()} товаров
-                </t:pagelink>
-                <t:parameter name="else">
-                    <t:pagelink page="catalog/list">
-                        В корзине пусто
-                    </t:pagelink>
-                </t:parameter>
-            </t:if>
-        </t:block>
-
-        <t:unless test="authenticated">
-            <t:signupUserModal/>
-            <t:loginUserModal/>
-        </t:unless>
     </div>
+
+    <t:block t:id="basketBlock">
+        <img src="${contextPath}/img/basket.png"/>&#160;
+        <t:if test="shoppingCart.products.size()">
+            <t:pagelink page="cart">
+                ${shoppingCart.products.size()} товаров
+            </t:pagelink>
+            <t:parameter name="else">
+                <t:pagelink page="catalog/list">
+                    В корзине пусто
+                </t:pagelink>
+            </t:parameter>
+        </t:if>
+    </t:block>
+
+    <t:unless test="authenticated">
+        <t:signupUserModal/>
+        <t:loginUserModal/>
+    </t:unless>
 
 </nav>

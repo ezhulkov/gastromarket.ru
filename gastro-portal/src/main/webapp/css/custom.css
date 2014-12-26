@@ -10,20 +10,13 @@ body {
     padding: 55px 0;
 }
 
+/*HEADER*/
 .navbar,
 .navbar a,
 .navbar a:hover {
     color: #269398;
-    font-size: 11pt;
+    font-size: 14px;
     font-family: "PT Sans", sans-serif;
-}
-
-.navbar .basket {
-    padding-right: 5px;
-}
-
-.navbar .login {
-    padding-right: 30px;
 }
 
 .navbar {
@@ -40,4 +33,84 @@ body {
     height: 48px;
     line-height: 48px;
     vertical-align: middle;
+}
+
+.navbar .basket,
+.navbar .login {
+    line-height: 52px;
+}
+
+.navbar .basket {
+    padding-right: 12px;
+}
+
+.navbar .login {
+    padding-right: 30px;
+}
+
+/*FOOTER*/
+.footer {
+    background-color: #242424;
+    height: 190px;
+}
+
+.footer ul {
+    list-style-type: none;
+}
+
+.footer ul li {
+    display: inline;
+}
+
+.footer .menu a {
+    padding: 0 30px;
+    color: #faf3de;
+}
+
+.footer .menu {
+    padding: 30px 0 10px 0;
+    text-align: center;
+    font-size: 16px;
+}
+
+.footer .social {
+    padding: 10px 0 10px 0;
+    text-align: center;
+}
+
+.footer .social a {
+    width: 36px;
+    height: 36px;
+    display: inline-block;
+    background: url(../img/social.png) no-repeat 0 0;
+    text-indent: -999em;
+    margin: 0 10px;
+}
+
+.footer .social a.ok {
+    background-position: -36px 0;
+}
+
+.footer .social a.vk {
+    background-position: 0 0;
+}
+
+.footer .social a.fb {
+    background-position: -72px 0;
+}
+
+.footer .social a.tw {
+    background-position: -108px 0;
+}
+
+.footer .copyright {
+    color: #928e83;
+    padding: 10px 0 10px 0;
+    text-align: center;
+}
+
+/*Index*/
+.index .landing {
+    height: 445px;
+    background: url(../img/landing.png) no-repeat 0 0;
 }
