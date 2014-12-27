@@ -143,7 +143,7 @@ body {
 
 .index .landing2 p {
     font-size: 16px;
-    padding: 10px 70px 10px 70px;
+    padding: 10px 70px 18px 70px;
 }
 
 .index .landing3 {
@@ -151,4 +151,33 @@ body {
     height: 453px;
     background: url("../img/landing-bg-3.png") left 0 repeat-x;
     display: table-cell;
+}
+
+.btn-red {
+    padding: 10px 45px;
+    font-size: 20px;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#e70500), to(#bf0400));
+    background-image: -webkit-linear-gradient(top, #e70500, #bf0400);
+    background-image: -moz-linear-gradient(top, #e70500, #bf0400);
+    background-image: -ms-linear-gradient(top, #e70500, #bf0400);
+    background-image: -o-linear-gradient(top, #e70500, #bf0400);
+    background-image: linear-gradient(to bottom, #e70500, #bf0400);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#e70500, endColorstr=#bf0400);
+    color: #FFF;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+}
+
+.btn-red:hover {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#a00000), to(#900000));
+    background-image: -webkit-linear-gradient(top, #a00000, #900000);
+    background-image: -moz-linear-gradient(top, #a00000, #900000);
+    background-image: -ms-linear-gradient(top, #a00000, #900000);
+    background-image: -o-linear-gradient(top, #a00000, #900000);
+    background-image: linear-gradient(to bottom, #a00000, #900000);
+    color: #FFF;
 }
