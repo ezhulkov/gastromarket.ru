@@ -117,23 +117,23 @@ body {
 }
 
 .index .landing1 {
-    height: 446px;
+    height: 453px;
     background: url("../img/landing-bg-1.png") right 0 repeat-x;
     display: table-cell;
     width: auto;
 }
 
 .index .landing2 {
-    max-height: 446px;
-    width: 917px;
+    max-height: 453px;
+    width: 905px;
     background: url("../img/landing-bg-2.png") center top no-repeat;
     display: table-cell;
 }
 
 .index .landing2 div {
-    height: 446px;
+    height: 453px;
     text-align: center;
-    padding-top: 148px;
+    padding-top: 155px;
 }
 
 .index .landing2 h1 {
@@ -143,12 +143,12 @@ body {
 
 .index .landing2 p {
     font-size: 16px;
-    padding: 10px 60px 20px 60px;
+    padding: 10px 70px 10px 70px;
 }
 
 .index .landing3 {
     width: auto;
-    height: 446px;
+    height: 453px;
     background: url("../img/landing-bg-3.png") left 0 repeat-x;
     display: table-cell;
 }

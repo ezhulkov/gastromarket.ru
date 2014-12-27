@@ -20,7 +20,7 @@
 
                     <p>Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века.</p>
 
-
+                    <a href="#signup" class="btn btn-default btn-red">Зарегистрироваться</a>
 
                 </div>
                 <div class="col-sm-6">
@@ -28,6 +28,7 @@
 
                     <p>Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века.</p>
 
+                    <a href="#application" class="btn btn-default btn-red">Оставить заявку</a>
 
                 </div>
             </div>
