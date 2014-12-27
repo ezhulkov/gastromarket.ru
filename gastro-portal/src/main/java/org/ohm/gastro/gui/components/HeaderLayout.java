@@ -22,4 +22,8 @@ public class HeaderLayout extends BaseComponent {
         return getMessageService().getUnreadMessages(getAuthenticatedUser());
     }
 
+    public String getFloatClass() {
+        return "";
+    }
+
 }

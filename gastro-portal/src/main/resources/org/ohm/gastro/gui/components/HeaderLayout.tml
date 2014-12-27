@@ -1,4 +1,4 @@
-<nav xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="navbar navbar-inverse navbar-fixed-top header">
+<nav xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="navbar navbar-inverse ${floatClass} header">
 
     <div class="container">
         <div class="col-sm-2 logo"><img src="${contextPath}/img/logo.png" alt="logo"/></div>

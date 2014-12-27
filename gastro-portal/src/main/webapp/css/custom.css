@@ -2,8 +2,14 @@ body {
     font-family: "PT Sans", sans-serif;
 }
 
+h1 {
+    font-family: "PT Serif", serif;
+}
+
 .container {
     width: 1200px;
+    padding-right: 0;
+    padding-left: 0;
 }
 
 .container.main {
@@ -11,6 +17,11 @@ body {
 }
 
 /*HEADER*/
+.header .container {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
 .navbar,
 .navbar a,
 .navbar a:hover {
@@ -20,9 +31,10 @@ body {
 }
 
 .navbar {
-    min-height: 60px;
+    border: none;
+    margin-bottom: 0;
+    min-height: 55px;
     background: transparent url("../img/header-bg.png") repeat-x;
-    border-color: transparent;
 }
 
 .navbar .logo {
@@ -137,7 +149,6 @@ body {
 }
 
 .index .landing2 h1 {
-    font-family: "PT Serif", serif;
     font-size: 30px;
 }
 
@@ -151,6 +162,33 @@ body {
     height: 453px;
     background: url("../img/landing-bg-3.png") left 0 repeat-x;
     display: table-cell;
+}
+
+.index .main-img {
+    margin-top: -55px;
+    padding-top: 70px;
+    height: 500px;
+    background: url("../img/chef-main.png") center top no-repeat;
+}
+
+.index .main-img h1 {
+    font-size: 40px;
+    padding-top: 83px;
+}
+
+.index .main-img h2 {
+    font-size: 16px;
+    font-family: "PT Sans", sans-serif;
+}
+
+.index .main-img .data {
+    text-align: center;
+    color: white;
+    width: 804px;
+    height: 318px;
+    background: url("../img/chef-shadow.png") center top no-repeat;
+    margin: 0 auto;
+    max-height: 318px;
 }
 
 .btn-red {
