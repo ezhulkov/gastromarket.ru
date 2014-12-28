@@ -6,11 +6,9 @@ h1 {
     font-family: "PT Serif", serif;
     text-align: center;
     font-size: 30px;
-    padding-top: 23px;
 }
 
 div {
-
     text-align: center;
 }
 
@@ -41,6 +39,7 @@ div {
     position: relative;
     margin: 20px auto;
     text-align: center;
+    padding-top: 23px;
 }
 
 .title h1:after {
