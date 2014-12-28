@@ -14,10 +14,63 @@
                 <h1 style="width: 480px;"><span>Заказ еды для любого события</span></h1>
             </div>
 
+            <div class="grid-block category">
+                <div>
+                    <t:pagelink page="index"></t:pagelink>
+                    Классика
+                </div>
+                <div>
+                    <t:pagelink page="index"></t:pagelink>
+                    Классика
+                </div>
+                <div>
+                    <t:pagelink page="index"></t:pagelink>
+                    Классика
+                </div>
+                <div>
+                    <t:pagelink page="index"></t:pagelink>
+                    Классика
+                </div>
+                <div>
+                    <t:pagelink page="index"></t:pagelink>
+                    Классика
+                </div>
+                <div>
+                    <t:pagelink page="index"></t:pagelink>
+                    Классика
+                </div>
+                <div>
+                    <t:pagelink page="index"></t:pagelink>
+                    Классика
+                </div>
+                <div>
+                    <t:pagelink page="index"></t:pagelink>
+                    Классика
+                </div>
+            </div>
 
             <div class="title">
                 <h1 style="width: 300px;"><span>Торты на свадьбу</span></h1>
                 <t:pagelink page="index">Смотреть всю подборку<span/></t:pagelink>
+            </div>
+
+            <div class="grid-block cakes">
+                <div>
+                    <t:pagelink page="index"></t:pagelink>
+                    Классика
+                </div>
+                <div>
+                    <t:pagelink page="index"></t:pagelink>
+                    Классика
+                </div>
+                <div>
+                    <t:pagelink page="index"></t:pagelink>
+                    Классика
+                </div>
+                <div>
+                    <t:pagelink page="index"></t:pagelink>
+                    Классика
+                </div>
             </div>
 
             <div class="title">
@@ -25,7 +78,7 @@
                 <t:pagelink page="index">Все повара<span/></t:pagelink>
             </div>
 
-            <div class="cooks">
+            <div class="grid-block cooks">
                 <div>
                     <t:pagelink page="index"></t:pagelink>
                     Шоколадница

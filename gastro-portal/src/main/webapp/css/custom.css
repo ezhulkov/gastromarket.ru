@@ -273,30 +273,66 @@ div {
     max-height: 318px;
 }
 
-.cooks {
-    margin: 0 auto;
+.grid-block {
+    margin: 0 auto 10px auto;
     font-size: 20px;
     font-family: "PT Sans", sans-serif;
 }
 
-.cooks > div {
+.grid-block > div {
     -webkit-box-shadow: 0 0 2px 2px #eee;
     -moz-box-shadow: 0 0 2px 2px #eee;
     box-shadow: 0 0 6px 2px #ddd;
     background-color: white;
     margin: 9px;
     display: inline-block;
-    width: 210px;
-    height: 250px;
     border: 1px solid #aaa;
     overflow: hidden;
     white-space: nowrap;
 }
 
-.cooks a {
+.grid-block a {
     display: block;
+    margin-bottom: 7px;
+}
+
+.grid-block a {
+    display: block;
+    background: url("../img/cook.png") center top no-repeat;
+}
+
+.cooks > div {
+    width: 210px;
+    height: 250px;
+}
+
+.cooks a {
     width: 208px;
     height: 208px;
     background: url("../img/cook.png") center top no-repeat;
+    margin-bottom: 7px;
+}
+
+.cakes > div {
+    width: 268px;
+    height: 334px;
+}
+
+.cakes a {
+    width: 266px;
+    height: 266px;
+    background: url("../img/cake.png") center top no-repeat;
+    margin-bottom: 18px;
+}
+
+.category > div {
+    width: 268px;
+    height: 186px;
+}
+
+.category a {
+    width: 266px;
+    height: 145px;
+    background: url("../img/category.png") center top no-repeat;
     margin-bottom: 7px;
 }
