@@ -7,6 +7,18 @@
                     <h1>Готовим на заказ только для вас</h1>
 
                     <h2>Заказывайте вкусную еду у первоклассных поваров</h2>
+
+                    <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="container search">
+                        <div class="col-sm-12">
+                            <input t:id="search" type="text" placeholder="Поиск" class="text"/>
+                            <input type="submit" class="submit"/>
+                        </div>
+                    </t:form>
+
+                    <div class="row">
+                        <a href="#howto" data-toggle="modal" class="btn btn-red btn-howto" data-target="#howto">Как это работает?</a>
+                    </div>
+
                 </div>
             </div>
 
@@ -74,7 +86,7 @@
             </div>
 
             <div class="title">
-                <h1 style="width: 200px;"><span>Повара</span></h1>
+                <h1 style="width: 160px;"><span>Повара</span></h1>
                 <t:pagelink page="index">Все повара<span/></t:pagelink>
             </div>
 
@@ -111,7 +123,7 @@
 
                     <p>Хтонический миф, по определению, иллюстрирует самодостаточный общекультурный цикл. Прекрасное, по определению, заканчивает.</p>
 
-                    <a href="#signup" class="btn btn-default btn-red">Зарегистрироваться</a>
+                    <a href="#signup" class="btn btn-red">Зарегистрироваться</a>
 
                 </div>
                 <div class="col-sm-6 landing-info">
@@ -119,7 +131,7 @@
 
                     <p>Хтонический миф, по определению, иллюстрирует самодостаточный общекультурный цикл. Прекрасное, по определению, заканчивает. </p>
 
-                    <a href="#application" class="btn btn-default btn-red">Оставить заявку</a>
+                    <a href="#application" class="btn btn-red">Оставить заявку</a>
 
                 </div>
             </div>
@@ -127,64 +139,38 @@
         </div>
     </div>
 
-    <div class="hidden">
-
-        <div class="mainpic">
-            <h2>Готовим на заказ только для вас</h2>
-            <h4>Заказывайте вкусную еду у первоклассных поваров</h4>
-            <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="form-inline" role="form">
-                <div class="form-group">
-                    <div class="form-group">
-                        <input t:id="search" type="text" class="form-control" placeholder="Поиск"/>
-                    </div>
+    <div class="modal fade howto" id="howto" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header pull-right2">
+                    <a href="index" class="modal-close" data-dismiss="modal"></a>
                 </div>
-                <button type="submit" class="btn btn-default">Искать на сайте</button>
-            </t:form>
-            <a href="#howto" data-toggle="modal" data-target="#howto">Как это работает</a>
-        </div>
+                <div class="row modal-body">
+                    <div class="col-sm-4">
+                        <img src="${contextPath}/img/howto1.jpg"/>
 
-        <div class="modal fade" id="howto" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <h1>Как это работает</h1>
-                    <img src="" style="width: 300px; height: 200px;"/>
+                        <h2></h2>
+
+                        <p></p>
+                    </div>
+                    <div class="col-sm-4">
+                        <img src="${contextPath}/img/howto2.jpg"/>
+
+                        <h2></h2>
+
+                        <p></p>
+
+                    </div>
+                    <div class="col-sm-4">
+                        <img src="${contextPath}/img/howto3.jpg"/>
+
+                        <h2></h2>
+
+                        <p></p>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <h2>Заказ еды для любого события</h2>
-        <ul class="categories">
-            <t:loop source="categories" value="oneCategory">
-                <li>
-                    <img src="" style="width: 248px;height: 150px;"/>
-                    <t:pagelink page="catalog/list" context="oneCategory.id">${oneCategory.name}</t:pagelink>
-                </li>
-            </t:loop>
-        </ul>
-
-
-        <h2>Торты на свадьбу</h2>
-        <t:pagelink page="catalog/promoted">Смотреть всю подборку</t:pagelink>
-        <ul class="promoted">
-            <t:loop source="products" value="oneProduct">
-                <li>
-                    <img src="" style="width: 198px;height: 150px;"/>
-                    <t:pagelink page="catalog/index" context="oneProduct.id">${oneProduct.name}</t:pagelink>
-                </li>
-            </t:loop>
-        </ul>
-
-        <h2>Повара</h2>
-        <t:pagelink page="chef/list">Все повара</t:pagelink>
-        <ul class="cooks">
-            <t:loop source="cooks" value="oneCook">
-                <li>
-                    <img src="" style="width: 198px;height: 150px;"/>
-                    <t:pagelink page="chef/index" context="oneCook.id">${oneCook.name}</t:pagelink>
-                </li>
-            </t:loop>
-        </ul>
-
     </div>
 
 </t:htmllayout>

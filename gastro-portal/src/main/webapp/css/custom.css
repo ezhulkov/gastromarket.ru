@@ -14,6 +14,25 @@ div {
     text-align: center;
 }
 
+.modal-close {
+    background: url("../img/modal-close.png") no-repeat;
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+}
+
+.modal-header {
+    border: none;
+}
+
+.modal-dialog {
+    margin: 100px auto 0 auto;
+}
+
+.modal-backdrop.in {
+    opacity: 0.8;
+}
+
 .title {
     position: relative;
 }
@@ -90,6 +109,12 @@ div {
     color: #FFF;
 }
 
+.btn-howto {
+    border-radius: 25px;
+    padding: 5px 35px;
+    font-size: 16px;
+}
+
 .container {
     width: 1200px;
     padding-right: 0;
@@ -101,11 +126,6 @@ div {
 }
 
 /*HEADER*/
-.header .container {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
 .navbar,
 .navbar a,
 .navbar a:hover {
@@ -122,7 +142,7 @@ div {
 }
 
 .navbar .logo {
-    padding-left: 24px;
+    padding-left: 12px;
 }
 
 .navbar .container {
@@ -273,6 +293,38 @@ div {
     max-height: 318px;
 }
 
+.search {
+    margin-top: 25px;
+    margin-bottom: 30px;
+    width: 600px;
+}
+
+.search input {
+    border: none;
+}
+
+.search input:focus {
+    outline: 0;
+}
+
+.search input.text {
+    height: 48px;
+    width: 520px;
+    background: url("../img/search-input.png") no-repeat;
+    padding: 5px 0 0 30px;
+    font-size: 20px;
+    color: black;
+}
+
+.search input.submit {
+    float: right;
+    padding: 0;
+    width: 50px;
+    height: 48px;
+    text-indent: -999em;
+    background: url("../img/search-btn.png") no-repeat;
+}
+
 .grid-block {
     margin: 0 auto 10px auto;
     font-size: 20px;
@@ -335,4 +387,11 @@ div {
     height: 145px;
     background: url("../img/category.png") center top no-repeat;
     margin-bottom: 7px;
+}
+
+.howto .modal-dialog {
+    width: 1200px;
+}
+
+.howto .modal-body img {
 }
