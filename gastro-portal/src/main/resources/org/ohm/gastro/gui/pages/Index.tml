@@ -9,12 +9,51 @@
                     <h2>Заказывайте вкусную еду у первоклассных поваров</h2>
                 </div>
             </div>
+
+            <div class="title">
+                <h1 style="width: 480px;"><span>Заказ еды для любого события</span></h1>
+            </div>
+
+
+            <div class="title">
+                <h1 style="width: 300px;"><span>Торты на свадьбу</span></h1>
+                <t:pagelink page="index">Смотреть всю подборку<span/></t:pagelink>
+            </div>
+
+            <div class="title">
+                <h1 style="width: 200px;"><span>Повара</span></h1>
+                <t:pagelink page="index">Все повара<span/></t:pagelink>
+            </div>
+
+            <div class="cooks">
+                <div>
+                    <t:pagelink page="index"></t:pagelink>
+                    Шоколадница
+                </div>
+                <div>
+                    <t:pagelink page="index"></t:pagelink>
+                    Шоколадница
+                </div>
+                <div>
+                    <t:pagelink page="index"></t:pagelink>
+                    Шоколадница
+                </div>
+                <div>
+                    <t:pagelink page="index"></t:pagelink>
+                    Шоколадница
+                </div>
+                <div>
+                    <t:pagelink page="index"></t:pagelink>
+                    Шоколадница
+                </div>
+            </div>
+
         </div>
 
         <div class="landing">
-            <div class="landing1"></div>
-            <div class="landing2">
-                <div class="col-sm-6">
+            <div></div>
+            <div>
+                <div class="col-sm-6 landing-info">
                     <h1>Я &mdash; покупатель</h1>
 
                     <p>Хтонический миф, по определению, иллюстрирует самодостаточный общекультурный цикл. Прекрасное, по определению, заканчивает.</p>
@@ -22,7 +61,7 @@
                     <a href="#signup" class="btn btn-default btn-red">Зарегистрироваться</a>
 
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 landing-info">
                     <h1>Я &mdash; повар</h1>
 
                     <p>Хтонический миф, по определению, иллюстрирует самодостаточный общекультурный цикл. Прекрасное, по определению, заканчивает. </p>
@@ -31,7 +70,7 @@
 
                 </div>
             </div>
-            <div class="landing3"></div>
+            <div></div>
         </div>
     </div>
 
