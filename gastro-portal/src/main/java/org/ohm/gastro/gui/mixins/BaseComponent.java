@@ -125,9 +125,14 @@ public abstract class BaseComponent {
         return authenticatedUser != null && authenticatedUser.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ADMIN"));
     }
 
-    public boolean isUser() {
+    public boolean isCook() {
         UserDetails authenticatedUser = getAuthenticatedUser();
         return authenticatedUser != null && authenticatedUser.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("COOK"));
+    }
+
+    public boolean isUser() {
+        UserDetails authenticatedUser = getAuthenticatedUser();
+        return authenticatedUser != null && authenticatedUser.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("USER"));
     }
 
     public String getContextPath() {

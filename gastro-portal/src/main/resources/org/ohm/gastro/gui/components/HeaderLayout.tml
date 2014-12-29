@@ -1,20 +1,27 @@
 <nav xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="navbar navbar-inverse ${floatClass} header">
 
     <div class="container">
-        <div class="col-sm-2 logo"><img src="${contextPath}/img/logo.png" alt="logo"/></div>
+        <div class="col-sm-2 logo"><a href="/"><img src="${contextPath}/img/logo.png" alt="logo"/></a></div>
         <div class="col-sm-10 info">
             <div class="pull-right">
                 <t:if test="authenticated">
                     <div class="dropdown username">
                         <img src="${contextPath}/img/user-avatar.png"/>&#160;
                         <a data-target="#" href="#userMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-                            <!--${authenticatedUser.username}-->
-                            Василий Константинопольский
+                            ${authenticatedUser.username}
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                            <li><a href="/logout">Личный кабинет</a></li>
-                            <li><a href="/logout">Профиль</a></li>
+                            <t:if test="admin">
+                                <li><a href="/admin/index">Личный кабинет</a></li>
+                            </t:if>
+                            <t:if test="cook">
+                                <li><a href="/office/index">Личный кабинет</a></li>
+                            </t:if>
+                            <t:if test="user">
+                                <li><a href="/office/index">Личный кабинет</a></li>
+                            </t:if>
+
                             <li><a href="/logout">Выход</a></li>
                         </ul>
                     </div>

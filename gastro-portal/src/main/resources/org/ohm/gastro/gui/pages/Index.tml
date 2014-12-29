@@ -27,38 +27,12 @@
             </div>
 
             <div class="grid-block category">
-                <div>
-                    <t:pagelink page="index"></t:pagelink>
-                    Классика
-                </div>
-                <div>
-                    <t:pagelink page="index"></t:pagelink>
-                    Классика
-                </div>
-                <div>
-                    <t:pagelink page="index"></t:pagelink>
-                    Классика
-                </div>
-                <div>
-                    <t:pagelink page="index"></t:pagelink>
-                    Классика
-                </div>
-                <div>
-                    <t:pagelink page="index"></t:pagelink>
-                    Классика
-                </div>
-                <div>
-                    <t:pagelink page="index"></t:pagelink>
-                    Классика
-                </div>
-                <div>
-                    <t:pagelink page="index"></t:pagelink>
-                    Классика
-                </div>
-                <div>
-                    <t:pagelink page="index"></t:pagelink>
-                    Классика
-                </div>
+                <t:loop source="categories" value="oneCategory">
+                    <div>
+                        <t:pagelink style="background: url('../img/category.png')" page="catalog/list" context="oneCategory.id"/>
+                        ${oneCategory.name}
+                    </div>
+                </t:loop>
             </div>
 
             <div class="title">
@@ -87,30 +61,16 @@
 
             <div class="title">
                 <h1 style="width: 160px;"><span>Повара</span></h1>
-                <t:pagelink page="index">Все повара<span/></t:pagelink>
+                <t:pagelink page="chef/list">Все повара<span/></t:pagelink>
             </div>
 
             <div class="grid-block cooks">
-                <div>
-                    <t:pagelink page="index"></t:pagelink>
-                    Шоколадница
-                </div>
-                <div>
-                    <t:pagelink page="index"></t:pagelink>
-                    Шоколадница
-                </div>
-                <div>
-                    <t:pagelink page="index"></t:pagelink>
-                    Шоколадница
-                </div>
-                <div>
-                    <t:pagelink page="index"></t:pagelink>
-                    Шоколадница
-                </div>
-                <div>
-                    <t:pagelink page="index"></t:pagelink>
-                    Шоколадница
-                </div>
+                <t:loop source="cooks" value="oneCook">
+                    <div>
+                        <t:pagelink style="background: url('../img/cook.png')" page="chef/index" context="oneCook.id"/>
+                        ${oneCook.name}
+                    </div>
+                </t:loop>
             </div>
 
         </div>

@@ -405,7 +405,6 @@ div.username {
 .cooks a {
     width: 208px;
     height: 208px;
-    background: url("../img/cook.png") center top no-repeat;
     margin-bottom: 7px;
 }
 
@@ -429,7 +428,6 @@ div.username {
 .category a {
     width: 266px;
     height: 145px;
-    background: url("../img/category.png") center top no-repeat;
     margin-bottom: 7px;
 }
 
