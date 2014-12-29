@@ -4,9 +4,21 @@
         <div class="col-sm-2 logo"><img src="${contextPath}/img/logo.png" alt="logo"/></div>
         <div class="col-sm-10 info">
             <div class="pull-right">
-                <!--<t:if test="authenticated">-->
-                <!--${authenticatedUser.username}-->
-                <!--</t:if>-->
+                <t:if test="authenticated">
+                    <div class="dropdown username">
+                        <img src="${contextPath}/img/user-avatar.png"/>&#160;
+                        <a data-target="#" href="#userMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                            <!--${authenticatedUser.username}-->
+                            Василий Константинопольский
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <li><a href="/logout">Личный кабинет</a></li>
+                            <li><a href="/logout">Профиль</a></li>
+                            <li><a href="/logout">Выход</a></li>
+                        </ul>
+                    </div>
+                </t:if>
                 <t:unless test="authenticated">
                     <span class="login">
                         <img src="${contextPath}/img/signup.png"/>&#160;

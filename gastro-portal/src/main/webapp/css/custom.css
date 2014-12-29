@@ -16,6 +16,35 @@ div {
     text-align: center;
 }
 
+.dropdown-menu {
+    text-align: center;
+    border-radius: 8px;
+    top: 25px;
+}
+
+.dropdown-menu:after, .dropdown-menu:before {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.dropdown-menu:after {
+    border-bottom-color: #ffffff;
+    border-width: 7px;
+    margin-left: -7px;
+}
+
+.dropdown-menu:before {
+    border-bottom-color: #aaaaaa;
+    border-width: 8px;
+    margin-left: -8px;
+}
+
 .modal-close {
     background: url("../img/modal-close.png") no-repeat;
     width: 14px;
@@ -168,16 +197,19 @@ div {
 }
 
 .navbar .basket,
+.navbar .username,
 .navbar .login {
     line-height: 52px;
+    padding-right: 20px;
+    cursor: pointer;
 }
 
-.navbar .basket {
-    padding-right: 12px;
+div.username {
+    display: inline;
 }
 
-.navbar .login {
-    padding-right: 30px;
+.navbar .username a {
+    margin-right: 5px;
 }
 
 /*FOOTER*/
@@ -344,8 +376,8 @@ div {
 }
 
 .grid-block > div {
-    -webkit-box-shadow: 0 0 2px 2px #eee;
-    -moz-box-shadow: 0 0 2px 2px #eee;
+    -webkit-box-shadow: 0 0 6px 2px #ddd;
+    -moz-box-shadow: 0 0 6px 2px #ddd;
     box-shadow: 0 0 6px 2px #ddd;
     background-color: #fff;
     margin: 9px;
