@@ -8,6 +8,10 @@ h1 {
     font-size: 30px;
 }
 
+*:focus {
+    outline: 0 !important;
+}
+
 div {
     text-align: center;
 }
@@ -23,12 +27,21 @@ div {
     border: none;
 }
 
+.modal-header a {
+    float: right;
+}
+
 .modal-dialog {
     margin: 100px auto 0 auto;
+    color: black;
 }
 
 .modal-backdrop.in {
     opacity: 0.8;
+}
+
+.modal-body {
+    padding: 50px 60px 20px 60px;
 }
 
 .title {
@@ -106,6 +119,10 @@ div {
     background-image: -o-linear-gradient(top, #a00000, #900000);
     background-image: linear-gradient(to bottom, #a00000, #900000);
     color: #FFF;
+}
+
+.btn-red:focus {
+    color: #fff !important;
 }
 
 .btn-howto {
@@ -284,7 +301,7 @@ div {
 
 .index .main-img .data {
     text-align: center;
-    color: white;
+    color: #fff;
     width: 804px;
     height: 318px;
     background: url("../img/chef-shadow.png") center top no-repeat;
@@ -300,10 +317,6 @@ div {
 
 .search input {
     border: none;
-}
-
-.search input:focus {
-    outline: 0;
 }
 
 .search input.text {
@@ -334,7 +347,7 @@ div {
     -webkit-box-shadow: 0 0 2px 2px #eee;
     -moz-box-shadow: 0 0 2px 2px #eee;
     box-shadow: 0 0 6px 2px #ddd;
-    background-color: white;
+    background-color: #fff;
     margin: 9px;
     display: inline-block;
     border: 1px solid #aaa;
@@ -392,5 +405,11 @@ div {
     width: 1200px;
 }
 
-.howto .modal-body img {
+.howto h1 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.howto p {
+    font-size: 16px;
 }

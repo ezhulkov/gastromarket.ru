@@ -142,31 +142,42 @@
     <div class="modal fade howto" id="howto" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header pull-right2">
+                <div class="modal-header">
                     <a href="index" class="modal-close" data-dismiss="modal"></a>
                 </div>
-                <div class="row modal-body">
-                    <div class="col-sm-4">
-                        <img src="${contextPath}/img/howto1.jpg"/>
-
-                        <h2></h2>
-
-                        <p></p>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <img src="${contextPath}/img/howto1.jpg"/>
+                        </div>
+                        <div class="col-sm-4">
+                            <img src="${contextPath}/img/howto2.jpg"/>
+                        </div>
+                        <div class="col-sm-4">
+                            <img src="${contextPath}/img/howto3.jpg"/>
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        <img src="${contextPath}/img/howto2.jpg"/>
-
-                        <h2></h2>
-
-                        <p></p>
-
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <h1>Выбирайте еду на любой вкус и для любого события</h1>
+                        </div>
+                        <div class="col-sm-4">
+                            <h1>Размещайте заказ и следите за его выполнением</h1>
+                        </div>
+                        <div class="col-sm-4">
+                            <h1>Отдыхайте и наслаждайтесь праздником</h1>
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        <img src="${contextPath}/img/howto3.jpg"/>
-
-                        <h2></h2>
-
-                        <p></p>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <p>Ищите торт на свадьбу или капкейки для детского праздника, бургеры или домашние лимонады - любые блюда на Ваш вкус.</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <p>Оформите заказ - наши шеф-повара с любовью приготовят выбранные Вами блюда или напитки.</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <p>Вы без труда сможете организовать любой праздник, не тратя усилия на подготовку праздничного стола, посвятив свое время общению с любимыми людьми.</p>
+                        </div>
                     </div>
                 </div>
             </div>
