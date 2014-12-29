@@ -32,3 +32,8 @@ jQuery(document).ready(function () {
         jQuery(this).css("margin-left", margin);
     });
 });
+
+function activate_menu(el) {
+    jQuery(el).closest(".office-menu").find(".sel").removeClass("sel");
+    jQuery(el).addClass("sel");
+}

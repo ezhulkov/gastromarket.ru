@@ -1,9 +1,10 @@
-<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="starter-template">
+<t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
     <div class="main-body">
         <t:if test="object?.parent">
             <h1>Категория
-                <t:pagelink page="admin/category/index" context="object?.parent.id">"${object?.parent.name}</t:pagelink>:
+                <t:pagelink page="admin/category/index" context="object?.parent.id">"${object?.parent.name}</t:pagelink>
+                :
                 ${object?.name}"
             </h1>
         </t:if>
@@ -62,4 +63,8 @@
 
     </div>
 
-</t:htmllayout>
+    <script>
+        activate_menu('#category');
+    </script>
+
+</t:adminlayout>

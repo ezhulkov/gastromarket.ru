@@ -20,6 +20,7 @@ div {
     text-align: center;
     border-radius: 8px;
     top: 25px;
+    font-size: 16px;
 }
 
 .dropdown-menu:after, .dropdown-menu:before {
@@ -442,4 +443,36 @@ div.username {
 
 .howto p {
     font-size: 16px;
+}
+
+.office-menu {
+    list-style-type: none;
+    margin-top: 50px;
+}
+
+.office-menu a {
+    font-size: 20px;
+    color: #bd0400;
+    border-bottom: 1px dashed #bd0400;
+}
+
+.office-menu a:hover {
+    border-bottom: 1px dashed #bd0400;
+    text-decoration: none;
+}
+
+.office-menu li {
+    display: inline;
+    padding: 0 25px;
+}
+
+.office-menu li.sel {
+    background-color: #bd0400;
+    padding: 12px 20px 8px 20px;
+    border-radius: 20px;
+}
+
+.office-menu li.sel a {
+    border-bottom: none;
+    color: #ffffff;
 }

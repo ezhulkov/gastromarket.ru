@@ -1,25 +1,24 @@
-<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="starter-template">
+<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="main-body">
-
-        <ul>
-            <li>
-                <t:pagelink page="admin/property/list">Свойства</t:pagelink>
-            </li>
-            <li>
+    <div class="container">
+        <ul class="office-menu">
+            <li id="category">
                 <t:pagelink page="admin/category/list">Категории</t:pagelink>
             </li>
-            <li>
+            <li id="property">
+                <t:pagelink page="admin/property/list">Свойства</t:pagelink>
+            </li>
+            <li id="order">
                 <t:pagelink page="admin/order/list">Заказы</t:pagelink>
             </li>
-            <li>
+            <li id="user">
                 <t:pagelink page="admin/user/list">Пользователи</t:pagelink>
             </li>
-            <li>
+            <li id="catalog">
                 <t:pagelink page="admin/catalog/list">Каталоги</t:pagelink>
             </li>
         </ul>
-
+        <t:body/>
     </div>
 
 </t:htmllayout>

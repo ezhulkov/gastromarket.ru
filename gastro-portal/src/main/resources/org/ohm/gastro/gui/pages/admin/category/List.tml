@@ -1,38 +1,35 @@
-<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="starter-template">
+<t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="main-body">
-        <h1>Категории</h1>
+    <button class="btn btn-default pull-right" data-toggle="modal" data-target="#create">
+        Добавить категорию
+    </button>
 
-        <button class="btn btn-default pull-right" data-toggle="modal" data-target="#create">
-            Добавить категорию
-        </button>
-
-        <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <t:editObject t:id="editObject" showAdd="literal:true" autoFocus="literal:true">
-                        <div class="form-group form-group">
-                            <div class="col-sm-10">
-                                <input t:id="name" class="form-control" type="text" placeholder="Название категории"/>
-                            </div>
+    <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <t:editObject t:id="editObject" showAdd="literal:true" autoFocus="literal:true">
+                    <div class="form-group form-group">
+                        <div class="col-sm-10">
+                            <input t:id="name" class="form-control" type="text" placeholder="Название категории"/>
                         </div>
-                    </t:editObject>
-                </div>
+                    </div>
+                </t:editObject>
             </div>
         </div>
-
-        <br/>
-        <br/>
-        <t:grid source="categories" row="oneCategory" exclude="id" add="properties" t:mixins="GridSortingDisabled" class="table table-hover">
-            <t:parameter name="nameCell">
-                <t:pagelink page="admin/category/index" context="['UPDATE',oneCategory.id]">${oneCategory.name}</t:pagelink>
-                <t:actionlink t:id="delete" context="oneCategory.id" class="pull-right"><span class="glyphicon glyphicon-remove"/></t:actionlink>
-            </t:parameter>
-            <t:parameter name="propertiesCell">
-                <em>${categoryProperties}</em>
-            </t:parameter>
-        </t:grid>
-
     </div>
 
-</t:htmllayout>
+    <t:grid source="categories" row="oneCategory" exclude="id" add="properties" t:mixins="GridSortingDisabled" class="table table-hover">
+        <t:parameter name="nameCell">
+            <t:pagelink page="admin/category/index" context="['UPDATE',oneCategory.id]">${oneCategory.name}</t:pagelink>
+            <t:actionlink t:id="delete" context="oneCategory.id" class="pull-right"><span class="glyphicon glyphicon-remove"/></t:actionlink>
+        </t:parameter>
+        <t:parameter name="propertiesCell">
+            <em>${categoryProperties}</em>
+        </t:parameter>
+    </t:grid>
+
+    <script>
+        activate_menu('#category');
+    </script>
+
+</t:adminlayout>
