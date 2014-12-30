@@ -108,6 +108,15 @@ div {
     position: absolute;
     top: 20px;
     right: 40px;
+}
+
+.data-header {
+    height: 70px;
+    margin: 30px 0;
+}
+
+.data-header a,
+.title a {
     border: 2px solid #bd0400;
     color: #bd0400;
     font-size: 16px;
@@ -115,11 +124,27 @@ div {
     border-radius: 20px;
 }
 
+.data-header a span,
 .title a span {
+    padding: 0 12px;
+    margin: 0 auto;
     width: 10px;
     height: 18px;
     display: inline;
     background: url("../img/title-forward.png") center top no-repeat;
+}
+
+.data-header a {
+    margin: 28px 0 0 50px;
+}
+
+.data-header h1,
+.data-header a {
+    float: left;
+}
+
+.data-header h1 {
+    font-size: 40px;
 }
 
 .btn-red {
@@ -445,6 +470,7 @@ div.username {
     font-size: 16px;
 }
 
+/*Personal*/
 .office-menu {
     list-style-type: none;
     margin-top: 50px;
@@ -475,4 +501,57 @@ div.username {
 .office-menu li.sel a {
     border-bottom: none;
     color: #ffffff;
+}
+
+.office {
+    min-height: 500px;
+}
+
+.office table {
+    margin-bottom: 100px;
+}
+
+.office table th {
+    font-size: 20px;
+    font-weight: normal;
+    background-color: #dddddd;
+    border: 2px solid #ffffff;
+    padding: 10px 0 10px 20px !important;
+}
+
+.office table tr {
+    border-bottom: 2px solid #dddddd;
+}
+
+.office table td {
+    text-align: left;
+    font-size: 16px;
+    border-right: 2px solid #ffffff;
+    padding: 10px 0 10px 20px !important;
+}
+
+.office table a {
+    color: #bd0400;
+}
+
+.office td.name {
+    width: 250px;
+}
+
+.office td.del a {
+    text-decoration: none;
+}
+
+.office td.del {
+    width: 50px;
+    text-align: center;
+    padding: 10px 0 !important;
+}
+
+.office td.user {
+    width: 150px;
+}
+
+.office td.date {
+    width: 200px;
 }

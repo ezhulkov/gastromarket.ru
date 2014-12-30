@@ -1,60 +1,66 @@
-<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="starter-template">
+<t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="main-body">
-        <h1>Пользователи</h1>
-
-        <button class="btn btn-default pull-right" data-toggle="modal" data-target="#create">
-            Добавить пользователя
-        </button>
-
-        <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <t:editObject t:id="editObject" showAdd="literal:true" autoFocus="literal:true">
-                        <div class="form-group form-group">
-                            <div class="col-sm-10">
-                                <input t:id="type" class="form-control"/>
-                            </div>
-                        </div>
-                        <div class="form-group form-group">
-                            <div class="col-sm-10">
-                                <input t:id="name" class="form-control" type="text" placeholder="Логин"/>
-                            </div>
-                        </div>
-                        <div class="form-group form-group">
-                            <div class="col-sm-10">
-                                <input t:id="email" class="form-control" type="email" placeholder="eMail"/>
-                            </div>
-                        </div>
-                        <div class="form-group form-group">
-                            <div class="col-sm-10">
-                                <input t:id="password" class="form-control" type="password" placeholder="Пароль"/>
-                            </div>
-                        </div>
-                    </t:editObject>
-                </div>
-            </div>
-        </div>
-
-        <br/>
-        <br/>
-        <t:grid source="users" row="oneUser"
-                exclude="id,password,accountNonExpired,accountNonLocked,credentialsNonExpired,enabled,status"
-                reorder="username,email,type,referrer" add="referrer"
-                t:mixins="GridSortingDisabled"
-                class="table table-hover">
-            <t:parameter name="referrerCell">
-                <t:if test="oneUser.referrer">
-                    <t:pagelink page="admin/user/index" context="['UPDATE',oneUser.referrer.id]">${oneUser.referrer.username}</t:pagelink>
-                    <t:parameter name="else">-</t:parameter>
-                </t:if>
-            </t:parameter>
-            <t:parameter name="usernameCell">
-                <t:pagelink page="admin/user/index" context="['UPDATE',oneUser.id]">${oneUser.username}</t:pagelink>
-                <t:actionlink t:id="delete" context="oneUser.id" class="pull-right"><span class="glyphicon glyphicon-remove"/></t:actionlink>
-            </t:parameter>
-        </t:grid>
-
+    <div class="data-header">
+        <h1>Список пользователей</h1>
+        <a data-toggle="modal" data-target="#create" href="#create">Создать нового пользователя<span/></a>
     </div>
 
-</t:htmllayout>
+    <t:grid source="users" row="oneUser"
+            exclude="id,password,email,accountNonExpired,accountNonLocked,credentialsNonExpired,enabled,status,anonymous,deliveryAddress,mobilePhone,bonus"
+            reorder="username,type,fullName,date,referrer,del" add="referrer,del"
+            t:mixins="GridSortingDisabled"
+            class="table table-hover">
+        <t:parameter name="delHeader"/>
+        <t:parameter name="dateHeader">Дата создания</t:parameter>
+        <t:parameter name="typeHeader">Тип</t:parameter>
+        <t:parameter name="fullNameHeader">Полное имя</t:parameter>
+        <t:parameter name="referrerHeader">Гастропапа</t:parameter>
+        <t:parameter name="usernameHeader">Логин</t:parameter>
+        <t:parameter name="referrerCell">
+            <t:if test="oneUser.referrer">
+                <t:pagelink page="admin/user/index" context="['UPDATE',oneUser.referrer.id]">${oneUser.referrer.username}</t:pagelink>
+                <t:parameter name="else">-</t:parameter>
+            </t:if>
+        </t:parameter>
+        <t:parameter name="usernameCell">
+            <t:pagelink page="admin/user/index" context="['UPDATE',oneUser.id]">${oneUser.username}</t:pagelink>
+        </t:parameter>
+        <t:parameter name="delCell">
+            <t:actionlink t:id="delete" context="oneUser.id"><span class="glyphicon glyphicon-remove"/></t:actionlink>
+        </t:parameter>
+    </t:grid>
+
+    <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <t:editObject t:id="editObject" showAdd="literal:true" autoFocus="literal:true">
+                    <div class="form-group form-group">
+                        <div class="col-sm-10">
+                            <input t:id="type" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group form-group">
+                        <div class="col-sm-10">
+                            <input t:id="name" class="form-control" type="text" placeholder="Логин"/>
+                        </div>
+                    </div>
+                    <div class="form-group form-group">
+                        <div class="col-sm-10">
+                            <input t:id="email" class="form-control" type="email" placeholder="eMail"/>
+                        </div>
+                    </div>
+                    <div class="form-group form-group">
+                        <div class="col-sm-10">
+                            <input t:id="password" class="form-control" type="password" placeholder="Пароль"/>
+                        </div>
+                    </div>
+                </t:editObject>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        activate_menu('#user');
+    </script>
+
+</t:adminlayout>

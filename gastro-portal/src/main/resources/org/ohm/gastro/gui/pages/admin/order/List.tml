@@ -1,8 +1,11 @@
-<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="starter-template">
+<t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="main-body">
-        <h1>Orders</h1>
-
+    <div class="data-header">
+        <h1>Заказы</h1>
     </div>
 
-</t:htmllayout>
+    <script>
+        activate_menu('#order');
+    </script>
+
+</t:adminlayout>

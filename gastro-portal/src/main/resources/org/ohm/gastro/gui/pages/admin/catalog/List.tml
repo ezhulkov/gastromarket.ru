@@ -1,18 +1,34 @@
-<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="starter-template">
+<t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="main-body">
-        <h1>Каталоги</h1>
-
-        <t:grid source="catalogs" row="oneCatalog" exclude="id,description,wasSetup" add="user" t:mixins="GridSortingDisabled" class="table table-hover">
-            <t:parameter name="userCell">
-                <t:pagelink t:page="admin/user/index" t:context="['UPDATE',oneCatalog.user.id]">${oneCatalog.user.username}</t:pagelink>
-            </t:parameter>
-            <t:parameter name="nameCell">
-                <t:actionlink t:id="delete" context="oneCatalog.id" class="pull-right"><span class="glyphicon glyphicon-remove"/></t:actionlink>
-                <t:pagelink page="admin/catalog/index" context="['UPDATE',oneCatalog.id]">${oneCatalog.name}</t:pagelink>
-            </t:parameter>
-        </t:grid>
-
+    <div class="data-header">
+        <h1>Список каталогов</h1>
     </div>
 
-</t:htmllayout>
+    <t:grid source="catalogs" row="oneCatalog"
+            reorder="name,user"
+            exclude="id,description,wasSetup,delivery" add="user,del"
+            t:mixins="GridSortingDisabled" class="table table-hover">
+        <t:parameter name="delHeader"/>
+        <t:parameter name="nameHeader">Название</t:parameter>
+        <t:parameter name="userHeader">Создатель</t:parameter>
+        <t:parameter name="dateHeader">Дата создания</t:parameter>
+        <t:parameter name="ratingHeader">Рейтинг</t:parameter>
+        <t:parameter name="userCell">
+            <t:pagelink t:page="admin/user/index" t:context="['UPDATE',oneCatalog.user.id]">${oneCatalog.user.username}</t:pagelink>
+        </t:parameter>
+        <t:parameter name="nameCell">
+            <t:pagelink page="admin/catalog/index" context="['UPDATE',oneCatalog.id]">${oneCatalog.name}</t:pagelink>
+        </t:parameter>
+        <t:parameter name="ratingCell">
+            ${oneCatalog.rating}
+        </t:parameter>
+        <t:parameter name="delCell">
+            <t:actionlink t:id="delete" context="oneCatalog.id" class="glyphicon glyphicon-remove"/>
+        </t:parameter>
+    </t:grid>
+
+    <script>
+        activate_menu('#catalog');
+    </script>
+
+</t:adminlayout>
