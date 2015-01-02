@@ -16,6 +16,15 @@ div {
     text-align: center;
 }
 
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-control {
+    height: 38px;
+    border-radius: 5px;
+}
+
 .dropdown-menu {
     text-align: center;
     border-radius: 8px;
@@ -47,14 +56,18 @@ div {
 }
 
 .modal-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
     background: url("../img/modal-close.png") no-repeat;
     width: 14px;
     height: 14px;
-    display: inline-block;
+    /*display: inline-block;*/
 }
 
 .modal-header {
     border: none;
+    padding-top: 0;
 }
 
 .modal-header a {
@@ -71,7 +84,7 @@ div {
 }
 
 .modal-body {
-    padding: 50px 60px 20px 60px;
+    padding: 5px 60px 20px 60px;
 }
 
 .title {
@@ -194,6 +207,11 @@ div {
 
 .container.main {
     padding: 55px 0;
+}
+
+.form label {
+    font-size: 16px;
+    font-weight: normal;
 }
 
 /*HEADER*/
@@ -396,12 +414,15 @@ div.username {
 }
 
 .grid-block {
+    width: 1150px;
     margin: 0 auto 10px auto;
     font-size: 20px;
     font-family: "PT Sans", sans-serif;
+    overflow: hidden;
 }
 
 .grid-block > div {
+    float: left;
     -webkit-box-shadow: 0 0 6px 2px #ddd;
     -moz-box-shadow: 0 0 6px 2px #ddd;
     box-shadow: 0 0 6px 2px #ddd;
@@ -461,13 +482,17 @@ div.username {
     width: 1200px;
 }
 
-.howto h1 {
+.howto h2 {
     font-size: 20px;
     font-weight: bold;
 }
 
 .howto p {
     font-size: 16px;
+}
+
+.edit .modal-dialog {
+    width: 700px;
 }
 
 /*Personal*/

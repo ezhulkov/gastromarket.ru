@@ -103,6 +103,9 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
+                    <div class="title">
+                        <h1 style="width: 300px;"><span>Как это работает?</span></h1>
+                    </div>
                     <a href="index" class="modal-close" data-dismiss="modal"></a>
                 </div>
                 <div class="modal-body">
@@ -119,13 +122,13 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
-                            <h1>Выбирайте еду на любой вкус и для любого события</h1>
+                            <h2>Выбирайте еду на любой вкус и для любого события</h2>
                         </div>
                         <div class="col-sm-4">
-                            <h1>Размещайте заказ и следите за его выполнением</h1>
+                            <h2>Размещайте заказ и следите за его выполнением</h2>
                         </div>
                         <div class="col-sm-4">
-                            <h1>Отдыхайте и наслаждайтесь праздником</h1>
+                            <h2>Отдыхайте и наслаждайтесь праздником</h2>
                         </div>
                     </div>
                     <div class="row">

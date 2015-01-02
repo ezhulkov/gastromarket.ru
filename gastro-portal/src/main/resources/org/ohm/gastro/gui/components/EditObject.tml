@@ -2,7 +2,8 @@
         t:id="form"
         t:autofocus="${autoFocus}"
         t:clientValidation="none"
-        class="form-horizontal well" role="form">
+        class="form form-horizontal"
+        role="form">
 
     <t:if test="object">
 
@@ -14,13 +15,13 @@
                 <t:delegate to="addControls"/>
             </t:if>
             <t:if test="showAdd">
-                <input t:id="add" class="btn btn-default" type="button" value="Добавить"/>
+                <input t:id="add" class="btn btn-red" type="button" value="Добавить"/>
             </t:if>
             <t:if test="showUpdate">
-                <input t:id="save" class="btn btn-default" type="button" value="Сохранить"/>
+                <input t:id="save" class="btn btn-red" type="button" value="Сохранить"/>
             </t:if>
             <t:if test="showDelete">
-                <input t:id="delete" class="btn btn-default" type="button" value="Удалить"/>
+                <input t:id="delete" class="btn btn-red" type="button" value="Удалить"/>
             </t:if>
         </t:if>
     </t:if>

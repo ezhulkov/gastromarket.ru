@@ -20,12 +20,26 @@
         </t:parameter>
     </t:grid>
 
-    <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade edit" id="create" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <t:editObject t:id="editObject" showAdd="literal:true" autoFocus="literal:true">
-                    <input t:id="name" type="text" placeholder="Название категории"/>
-                </t:editObject>
+                <div class="modal-header">
+                    <div class="title">
+                        <h1 style="width: 300px;"><span>Новая категория</span></h1>
+                    </div>
+                    <a href="index" class="modal-close" data-dismiss="modal"></a>
+                </div>
+                <div class="modal-body">
+                    <t:editObject t:id="editObject" showAdd="literal:true" autoFocus="literal:true">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="name">Название:</label>
+
+                            <div class="col-sm-10">
+                                <input t:id="name" type="text" class="form-control" placeholder="Название категории"/>
+                            </div>
+                        </div>
+                    </t:editObject>
+                </div>
             </div>
         </div>
     </div>
