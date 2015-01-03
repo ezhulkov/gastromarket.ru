@@ -61,4 +61,8 @@ public class List extends EditObjectPage<CategoryEntity> {
         return properties.stream().map(PropertyEntity::getName).collect(Collectors.joining(", "));
     }
 
+    public String getCategorySubs() {
+        return oneCategory.getChildren().stream().map(CategoryEntity::getName).collect(Collectors.joining(", "));
+    }
+
 }

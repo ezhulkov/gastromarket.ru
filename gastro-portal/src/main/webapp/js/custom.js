@@ -34,9 +34,9 @@ jQuery(document).ready(function () {
     jQuery(".tip").tooltip({placement: "bottom"});
     initChosen(jQuery("select.chosen-select"));
 });
-//Event.on(document, Tapestry.ZONE_UPDATED_EVENT, function (event) {
-//    initChosen(jQuery(event.srcElement).find('select.chosen-select'));
-//});
+jQuery(document).on(Tapestry.ZONE_UPDATED_EVENT, function (event) {
+    alert(event);
+});
 function activate_menu(el) {
     jQuery(el).closest(".office-menu").find(".sel").removeClass("sel");
     jQuery(el).addClass("sel");
