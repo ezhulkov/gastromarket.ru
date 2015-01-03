@@ -55,7 +55,7 @@ public class Filter extends BaseComponent {
     private List<CategoryEntity> filterCategories;
 
     @Component
-    private ProductCreate productCreate;
+    private ProductEdit productEdit;
 
     @InjectComponent
     private Zone productZone;
@@ -78,7 +78,7 @@ public class Filter extends BaseComponent {
 
     public void onValueChangedFromCategories(CategoryEntity category) {
         this.category = category;
-        productCreate.activate(category);
+        productEdit.activate(category);
         getAjaxResponseRenderer().addRender(productsZone).addRender(productZone);
     }
 
@@ -91,7 +91,7 @@ public class Filter extends BaseComponent {
                 getCatalogService().findAllRootCategories() :
                 getCatalogService().findAllRootCategories(catalog);
         this.categoryModel = new CategorySelectModel(filterCategories, getPropertyAccess());
-        productCreate.activate(null);
+        productEdit.activate(null);
     }
 
     public String getSearchString() {

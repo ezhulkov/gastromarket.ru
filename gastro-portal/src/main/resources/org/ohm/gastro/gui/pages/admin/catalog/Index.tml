@@ -45,7 +45,7 @@
                     <a href="index" class="modal-close" data-dismiss="modal"></a>
                 </div>
                 <div class="modal-body">
-                    <t:productcreate t:id="productCreate" catalog="object"/>
+                    <t:productEdit t:id="productEdit" catalog="object"/>
                 </div>
             </div>
         </div>

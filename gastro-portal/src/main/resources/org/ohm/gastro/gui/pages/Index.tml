@@ -41,22 +41,12 @@
             </div>
 
             <div class="grid-block cakes">
-                <div>
-                    <t:pagelink page="index"></t:pagelink>
-                    Классика
-                </div>
-                <div>
-                    <t:pagelink page="index"></t:pagelink>
-                    Классика
-                </div>
-                <div>
-                    <t:pagelink page="index"></t:pagelink>
-                    Классика
-                </div>
-                <div>
-                    <t:pagelink page="index"></t:pagelink>
-                    Классика
-                </div>
+                <t:loop source="products" value="oneProduct">
+                    <div>
+                        <t:pagelink style="background: url('../img/cake.png')" page="catalog/index" context="oneProduct.id"/>
+                        ${oneProduct.name}
+                    </div>
+                </t:loop>
             </div>
 
             <div class="title">

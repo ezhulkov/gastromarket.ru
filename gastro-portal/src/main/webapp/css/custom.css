@@ -8,12 +8,12 @@ h1, h2, h3 {
     font-size: 30px;
 }
 
-*:focus {
-    outline: 0 !important;
+h2 {
+    font-size: 25px;
 }
 
-div {
-    text-align: center;
+*:focus {
+    outline: 0 !important;
 }
 
 .empty {
@@ -163,17 +163,12 @@ div {
 }
 
 .data-header h1,
-.data-header h2,
 .data-header a {
     float: left;
 }
 
 .data-header h1 {
     font-size: 40px;
-}
-
-.data-header h2 {
-    font-size: 30px;
 }
 
 .btn-red {
@@ -454,6 +449,7 @@ div.username {
     border: 1px solid #aaa;
     overflow: hidden;
     white-space: nowrap;
+    text-align: center;
 }
 
 .grid-block a {
@@ -504,6 +500,10 @@ div.username {
     width: 1200px;
 }
 
+.howto div {
+    text-align: center;
+}
+
 .howto h2 {
     font-size: 20px;
     font-weight: bold;
@@ -515,6 +515,7 @@ div.username {
 
 .edit {
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .edit .modal-dialog {
@@ -525,6 +526,7 @@ div.username {
 .office-menu {
     list-style-type: none;
     margin-top: 50px;
+    text-align: center;
 }
 
 .office-menu a {
@@ -581,14 +583,12 @@ div.username {
     padding: 10px 0 10px 20px !important;
 }
 
-.office table a {
+.office table a,
+.product-create .more a {
     color: #bd0400;
 }
 
-.office td.name {
-    /*width: 300px;*/
-}
-
+.product-create .more a,
 .office td.del a,
 .office td.toggle a {
     text-decoration: none;
@@ -597,6 +597,11 @@ div.username {
 .office td.del,
 .office td.toggle {
     width: 50px;
+}
+
+.office .more,
+.office td.del,
+.office td.toggle {
     text-align: center;
     padding: 10px 0 !important;
 }

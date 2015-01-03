@@ -32,9 +32,18 @@ jQuery(document).ready(function () {
         jQuery(this).css("margin-left", margin);
     });
     jQuery(".tip").tooltip({placement: "bottom"});
+    initChosen(jQuery("select.chosen-select"));
 });
-
+//Event.on(document, Tapestry.ZONE_UPDATED_EVENT, function (event) {
+//    initChosen(jQuery(event.srcElement).find('select.chosen-select'));
+//});
 function activate_menu(el) {
     jQuery(el).closest(".office-menu").find(".sel").removeClass("sel");
     jQuery(el).addClass("sel");
+}
+
+function initChosen(el) {
+    jQuery(el).chosen({"width": "100%"}).on('change', function (e) {
+        this.fire(Tapestry.ACTION_EVENT, e);
+    });
 }

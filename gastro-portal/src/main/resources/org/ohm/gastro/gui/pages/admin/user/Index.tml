@@ -64,7 +64,7 @@
                         <a href="index" class="modal-close" data-dismiss="modal"></a>
                     </div>
                     <div class="modal-body">
-                        <t:form t:id="catalogForm" t:autofocus="true" t:clientValidation="none" class="form form-horizontal" role="form">
+                        <t:form t:id="catalogForm" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="catalogName">Название:</label>
 

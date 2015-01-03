@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 /**
  * Created by ezhulkov on 31.08.14.
  */
-public class ProductCreate extends BaseComponent {
+public class ProductEdit extends BaseComponent {
 
     @Property
     private PropertyEntity oneProperty;
