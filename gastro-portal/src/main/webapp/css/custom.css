@@ -70,6 +70,7 @@ h2 {
     background: url("../img/modal-close.png") no-repeat;
     width: 14px;
     height: 14px;
+    cursor: pointer;
 }
 
 .header-stub {
@@ -171,6 +172,25 @@ h2 {
     font-size: 40px;
 }
 
+.btn-white {
+    border: 2px solid #e70500;
+    padding: 8px 25px;
+    font-size: 16px;
+    margin: 5px;
+    color: #e70500;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+}
+
+.btn-white:hover {
+    color: #bf0400;
+    border: 2px solid #bf0400;
+}
+
 .btn-red {
     padding: 8px 25px;
     font-size: 16px;
@@ -265,6 +285,15 @@ h2 {
     cursor: pointer;
 }
 
+.remember-link {
+    color: #e70500;
+    padding-top: 5px;
+}
+
+.remember-link:hover {
+    color: #bf0400;
+}
+
 div.username {
     display: inline;
 }
@@ -279,11 +308,13 @@ div.username {
     height: 190px;
 }
 
+.social ul,
 .footer ul {
     list-style-type: none;
     padding: 0;
 }
 
+.social ul li,
 .footer ul li {
     display: inline;
 }
@@ -299,12 +330,12 @@ div.username {
     font-size: 16px;
 }
 
-.footer .social {
+.social {
     padding: 10px 0 7px 0;
     text-align: center;
 }
 
-.footer .social a {
+.social a {
     width: 36px;
     height: 36px;
     display: inline-block;
@@ -313,19 +344,19 @@ div.username {
     margin: 0 10px;
 }
 
-.footer .social a.ok {
+.social a.ok {
     background-position: -36px 0;
 }
 
-.footer .social a.vk {
+.social a.vk {
     background-position: 0 0;
 }
 
-.footer .social a.fb {
+.social a.fb {
     background-position: -72px 0;
 }
 
-.footer .social a.tw {
+.social a.tw {
     background-position: -108px 0;
 }
 

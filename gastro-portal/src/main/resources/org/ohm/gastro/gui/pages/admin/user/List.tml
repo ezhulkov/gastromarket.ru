@@ -48,7 +48,7 @@
                     <div class="title">
                         <h1 style="width: 350px;"><span>Новый пользователь</span></h1>
                     </div>
-                    <a href="index" class="modal-close" data-dismiss="modal"></a>
+                    <a class="modal-close" data-dismiss="modal"></a>
                 </div>
                 <div class="modal-body">
                     <t:editObject t:id="editObject" showAdd="literal:true" autoFocus="literal:true">

@@ -1,61 +1,101 @@
-<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-hidden="true">
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="modal fade" id="login" tabindex="-1" role="dialog" aria-hidden="true">
 
-    <div class="modal-dialog">
+    <div class="modal-dialog login">
         <div class="modal-content">
-            <div id="login_content">
-                <h1>Вход</h1>
-                <ul class="sociallist">
-                    <li>VK</li>
-                    <li>FB</li>
-                    <li>TW</li>
-                </ul>
-                или
-                <form method="post" class="form-horizontal" role="form" action="j_security_check">
-                    <div class="form-group form-group">
-                        <label class="col-sm-2 control-label" for="username">Email</label>
-
-                        <div class="col-sm-10">
-                            <input class="form-control" id="username" type="text" name="j_username"/>
-                        </div>
-                    </div>
-                    <div class="form-group form-group">
-                        <label class="col-sm-2 control-label" for="password">Пароль</label>
-
-                        <div class="col-sm-10">
-                            <input class="form-control" id="password" type="password" name="j_password"/>
-                        </div>
-                    </div>
-                    <a id="forget_btn" href="#">забыли пароль?</a>
-                    <input type="checkbox" name="_spring_security_remember_me" id="rememberme"/> <label for="rememberme">Запомнить меня на сайте</label><br/>
-                    <input class="btn btn btn-primary pull-right" type="submit" value="Вход"/>
-                    <div class="clearfix"/>
-                </form>
+            <div class="modal-header">
+                <div class="title">
+                    <h1 style="width: 200px;"><span>Вход</span></h1>
+                </div>
+                <a class="modal-close" data-dismiss="modal"></a>
             </div>
-            <div id="forget_content" class="hidden">
-                <h1>Забыли пароль</h1>
+            <div class="modal-body">
+                <!--<div class="row">-->
+                <!--<div class="col-sm-12 social">-->
+                <!--<ul>-->
+                <!--<li><a href="http://vk.com" title="vk.com" class="vk">vk.com</a></li>-->
+                <!--<li><a href="http://facebook.com" title="facebook.com" class="fb">facebook.com</a></li>-->
+                <!--<li><a href="http://twitter.com" title="twitter.com" class="tw">twitter.com</a></li>-->
+                <!--<li><a href="http://ok.ru" title="odnoklassniki.ru" class="ok">ok.ru</a></li>-->
+                <!--</ul>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="row">-->
+                <!--<div class="col-sm-12">или</div>-->
+                <!--</div>-->
+                <form method="post" action="j_security_check" class="form form-horizontal edit" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="login">eMail:</label>
 
-                <form method="post" class="form-horizontal" role="form" action="j_security_check">
-                    <div class="form-group form-group">
-                        <label class="col-sm-2 control-label" for="username">Email</label>
-
-                        <div class="col-sm-10">
-                            <input class="form-control" id="username" type="text" name="j_username"/>
+                        <div class="col-sm-9">
+                            <input name="j_username" type="text" class="form-control"/>
                         </div>
                     </div>
-                    <input class="btn btn btn-primary pull-right" type="submit" value="Восстановить"/>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="password">Пароль:</label>
 
-                    <div class="clearfix"/>
+                        <div class="col-sm-9">
+                            <input name="j_password" type="password" class="form-control"/>
+                            <a href="#" class="pull-left remember-link">Забыли пароль?</a>
+                        </div>
+                    </div>
+                    <input class="btn btn-red" type="submit" value="Войти"/>
+                    <a href="#" class="btn btn-white signup-link">Регистрация</a>
                 </form>
             </div>
         </div>
-
     </div>
 
-    <script>
-        jQuery("#forget_btn").unbind().bind('click', function () {
-            jQuery("#login_content").addClass("hidden");
-            jQuery("#forget_content").removeClass("hidden");
-        })
-    </script>
+    <div class="modal-dialog remember">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="title">
+                    <h1 style="width: 300px;"><span>Забыли пароль?</span></h1>
+                </div>
+                <a class="modal-close" data-dismiss="modal"></a>
+            </div>
+            <div class="modal-body">
+                <t:form t:id="rememberForm" class="form form-horizontal edit" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="eMail">eMail:</label>
+
+                        <div class="col-sm-9">
+                            <input t:type="TextField" t:id="eMail" t:value="eMail" type="text" class="form-control"/>
+                        </div>
+                    </div>
+                    <input class="btn btn-red" type="submit" value="Восстановить"/>
+                </t:form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-dialog signup">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="title">
+                    <h1 style="width: 250px;"><span>Регистрация</span></h1>
+                </div>
+                <a class="modal-close" data-dismiss="modal"></a>
+            </div>
+            <div class="modal-body">
+                <t:form t:id="signupForm" class="form form-horizontal edit" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="eMail">eMail:</label>
+
+                        <div class="col-sm-9">
+                            <input t:type="TextField" t:id="eMail2" t:value="eMail" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="password">Пароль:</label>
+
+                        <div class="col-sm-9">
+                            <input t:type="PasswordField" t:id="password" t:value="password" class="form-control"/>
+                        </div>
+                    </div>
+                    <input class="btn btn-red" type="submit" value="Зарегистрироваться"/>
+                </t:form>
+            </div>
+        </div>
+    </div>
 
 </div>

@@ -1,60 +1,47 @@
-<nav xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="navbar navbar-inverse ${floatClass} header">
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+    <nav class="navbar navbar-inverse ${floatClass} header">
 
-    <div class="container">
-        <div class="col-sm-2 logo"><a href="/"><img src="${contextPath}/img/logo.png" alt="logo"/></a></div>
-        <div class="col-sm-10 info">
-            <div class="pull-right">
-                <t:if test="authenticated">
-                    <div class="dropdown username">
-                        <img src="${contextPath}/img/user-avatar.png"/>&#160;
-                        <a data-target="#" href="#userMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-                            ${authenticatedUser.printableName}
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                            <t:if test="admin">
-                                <li>
-                                    <t:pagelink page="admin/category/list">Личный кабинет</t:pagelink>
-                                </li>
-                            </t:if>
-                            <t:if test="cook">
-                                <li><a href="/office/index">Личный кабинет</a></li>
-                            </t:if>
-                            <t:if test="user">
-                                <li><a href="/office/index">Личный кабинет</a></li>
-                            </t:if>
-                            <li><a href="/logout">Выход</a></li>
-                        </ul>
-                    </div>
-                </t:if>
-                <t:unless test="authenticated">
+        <div class="container">
+            <div class="col-sm-2 logo"><a href="/"><img src="${contextPath}/img/logo.png" alt="logo"/></a></div>
+            <div class="col-sm-10 info">
+                <div class="pull-right">
+                    <t:if test="authenticated">
+                        <div class="dropdown username">
+                            <img src="${contextPath}/img/user-avatar.png"/>&#160;
+                            <a data-target="#" href="#userMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                                ${authenticatedUser.printableName}
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                <t:if test="admin">
+                                    <li>
+                                        <t:pagelink page="admin/category/list">Личный кабинет</t:pagelink>
+                                    </li>
+                                </t:if>
+                                <t:if test="cook">
+                                    <li><a href="/office/index">Личный кабинет</a></li>
+                                </t:if>
+                                <t:if test="user">
+                                    <li><a href="/office/index">Личный кабинет</a></li>
+                                </t:if>
+                                <li><a href="/logout">Выход</a></li>
+                            </ul>
+                        </div>
+                    </t:if>
+                    <t:unless test="authenticated">
                     <span class="login">
                         <img src="${contextPath}/img/signup.png"/>&#160;
-                        <a href="#login" data-toggle="modal" data-target="#login">Войти или зарегистрироваться</a>
+                        <a href="#login" data-toggle="modal" class="login-link" data-target="#login">Войти или зарегистрироваться</a>
                     </span>
-                </t:unless>
-                <t:zone elementName="span" t:id="basketZone" class="basket">
-                    <t:delegate to="basketBlock"/>
-                </t:zone>
+                    </t:unless>
+                    <t:zone elementName="span" t:id="basketZone" class="basket">
+                        <t:delegate to="basketBlock"/>
+                    </t:zone>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="hidden">
-        <t:if test="authenticated">
-            <t:pagelink page="about">
-                <t:if test="authenticatedUser.bonus">
-                    ${authenticatedUser.bonus} бонусов
-                    <t:parameter name="else">
-                        Нет бонусов
-                    </t:parameter>
-                </t:if>
-            </t:pagelink>
-            <t:if test="unreadMessages">
-                <li>${unreadMessages} писем</li>
-            </t:if>
-        </t:if>
-    </div>
+    </nav>
 
     <t:block t:id="basketBlock">
         <img src="${contextPath}/img/basket.png"/>&#160;
@@ -71,8 +58,8 @@
     </t:block>
 
     <t:unless test="authenticated">
-        <t:signupUserModal/>
         <t:loginUserModal/>
+        <t:signupCookModal/>
     </t:unless>
 
-</nav>
+</div>

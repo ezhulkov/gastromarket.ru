@@ -42,7 +42,7 @@
                     <div class="title">
                         <h1 style="width: 300px;"><span>Создать товар</span></h1>
                     </div>
-                    <a href="index" class="modal-close" data-dismiss="modal"></a>
+                    <a class="modal-close" data-dismiss="modal"></a>
                 </div>
                 <div class="modal-body">
                     <t:productEdit t:id="productEdit" catalog="object"/>

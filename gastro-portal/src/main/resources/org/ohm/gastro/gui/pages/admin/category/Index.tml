@@ -52,7 +52,7 @@
                         <div class="title">
                             <h1 style="width: 320px;"><span>Добавить категорию</span></h1>
                         </div>
-                        <a href="index" class="modal-close" data-dismiss="modal"></a>
+                        <a class="modal-close" data-dismiss="modal"></a>
                     </div>
                     <div class="modal-body">
                         <t:form t:id="addSubForm" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">

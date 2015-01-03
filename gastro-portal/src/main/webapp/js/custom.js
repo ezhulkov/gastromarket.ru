@@ -33,10 +33,12 @@ jQuery(document).ready(function () {
     });
     jQuery(".tip").tooltip({placement: "bottom"});
     initChosen(jQuery("select.chosen-select"));
+    initLoginModal();
 });
 jQuery(document).on(Tapestry.ZONE_UPDATED_EVENT, function (event) {
     alert(event);
 });
+
 function activate_menu(el) {
     jQuery(el).closest(".office-menu").find(".sel").removeClass("sel");
     jQuery(el).addClass("sel");
@@ -45,5 +47,23 @@ function activate_menu(el) {
 function initChosen(el) {
     jQuery(el).chosen({"width": "100%"}).on('change', function (e) {
         this.fire(Tapestry.ACTION_EVENT, e);
+    });
+}
+function initLoginModal() {
+    jQuery([".login-link", ".signup-link", ".remember-link"]).hide();
+    jQuery(".remember-link").unbind("click").bind("click", function (e) {
+        jQuery(".modal-dialog.login").hide();
+        jQuery(".modal-dialog.remember").show();
+        jQuery(".modal-dialog.signup").hide();
+    });
+    jQuery(".login-link").unbind("click").bind("click", function (e) {
+        jQuery(".modal-dialog.login").show();
+        jQuery(".modal-dialog.remember").hide();
+        jQuery(".modal-dialog.signup").hide();
+    });
+    jQuery(".signup-link").unbind("click").bind("click", function (e) {
+        jQuery(".modal-dialog.login").hide();
+        jQuery(".modal-dialog.remember").hide();
+        jQuery(".modal-dialog.signup").show();
     });
 }

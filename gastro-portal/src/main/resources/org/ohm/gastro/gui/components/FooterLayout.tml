@@ -7,7 +7,7 @@
                     <t:pagelink page="catalog/list">Каталог</t:pagelink>
                 </li>
                 <li>
-                    <t:pagelink page="chef/list">Повара</t:pagelink>
+                    <t:pagelink page="chef/list">Кулинары</t:pagelink>
                 </li>
                 <li>
                     <t:pagelink page="about">О проекте</t:pagelink>
@@ -17,10 +17,13 @@
                 </li>
                 <t:unless test="authenticated">
                     <li>
-                        <a href="#login" data-toggle="modal" data-target="#login">Вход</a>
+                        <a href="#login" class="login-link" data-toggle="modal" data-target="#login">Вход</a>
                     </li>
                     <li>
-                        <a href="#signup" data-toggle="modal" data-target="#signup">Регистрация</a>
+                        <a href="#login" class="signup-link" data-toggle="modal" data-target="#login">Регистрация</a>
+                    </li>
+                    <li>
+                        <a href="#application" class="application-link" data-toggle="modal" data-target="#application">Оставить заявку</a>
                     </li>
                     <t:parameter name="else">
                         <a href="/logout">Выход</a>
@@ -39,32 +42,6 @@
         <div class="col-sm-12  copyright">
             &copy;&nbsp;Gastromarket.ru&nbsp;&nbsp;Все права защищены
         </div>
-    </div>
-
-    <div class="hidden">
-
-        <t:unless test="authenticated">
-            <div>
-                <ul class="ul1">
-                    <li>
-                        <img src="" width="100px" height="100px"/><br/>
-
-                        <h3>Я - покупатель</h3>
-
-                        <p>Анализ рыночных цен версифицирован. Сущность и концепция маркетинговой программы решительно ускоряет конкурент. Метод изучения рынка естественно переворачивает показ баннера.</p>
-                        <a href="#signup" data-toggle="modal" data-target="#signup">Зарегистрироваться</a>
-                    </li>
-                    <li>
-                        <img src="" width="100px" height="100px"/><br/>
-
-                        <h3>Я - повар</h3>
-
-                        <p>Более того, промоакция откровенно цинична. Точечное воздействие директивно индуцирует BTL. Дело в том, что продвижение проекта одновременно экономит комплексный контент, работая над проектом.</p>
-                        <a href="#signup" data-toggle="modal" data-target="#signup">Оставить заявку</a>
-                    </li>
-                </ul>
-            </div>
-        </t:unless>
     </div>
 
 </footer>
