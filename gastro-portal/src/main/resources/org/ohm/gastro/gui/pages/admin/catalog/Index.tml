@@ -16,7 +16,7 @@
 
     <div class="data-header">
         <h1>Товары</h1>
-        <a data-toggle="modal" data-target="#create" href="#create">Добавить позицию<span/></a>
+        <a data-toggle="modal" data-target="#create" href="#create">Создать товар<span/></a>
     </div>
 
     <t:grid source="products" row="oneProduct"
@@ -38,7 +38,15 @@
     <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <t:productcreate t:id="productCreate" catalog="object"/>
+                <div class="modal-header">
+                    <div class="title">
+                        <h1 style="width: 300px;"><span>Создать товар</span></h1>
+                    </div>
+                    <a href="index" class="modal-close" data-dismiss="modal"></a>
+                </div>
+                <div class="modal-body">
+                    <t:productcreate t:id="productCreate" catalog="object"/>
+                </div>
             </div>
         </div>
     </div>

@@ -7,7 +7,7 @@
 
     <t:grid source="users" row="oneUser"
             exclude="id,password,email,accountNonExpired,accountNonLocked,credentialsNonExpired,enabled,status,anonymous,deliveryAddress,mobilePhone,bonus,printableName"
-            reorder="username,type,fullName,date,referrer,toggle" add="referrer,toggle"
+            reorder="username,fullName,type,date,referrer,toggle" add="referrer,toggle"
             t:mixins="GridSortingDisabled"
             class="table table-hover">
         <t:parameter name="referrerCell">

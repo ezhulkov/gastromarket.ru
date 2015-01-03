@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.components;
 
+import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.MarkupWriter;
 import org.apache.tapestry5.OptionModel;
@@ -43,8 +44,8 @@ public final class SelectMultiple extends AbstractField {
     @Inject
     private ValueEncoderSource valueEncoderSource;
 
-    @Inject
-    protected String cssClass;
+    @Parameter(name = "class", defaultPrefix = BindingConstants.LITERAL)
+    private String cssClass;
 
     @Parameter(required = true, principal = true)
     private List<BaseEntity> values;

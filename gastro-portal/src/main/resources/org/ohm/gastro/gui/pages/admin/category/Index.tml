@@ -1,67 +1,75 @@
 <t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="main-body">
+    <div class="data-header">
         <t:if test="object?.parent">
-            <h1>Категория
-                <t:pagelink page="admin/category/index" context="object?.parent.id">"${object?.parent.name}</t:pagelink>
-                :
-                ${object?.name}"
-            </h1>
+            <h1>Подкатегория ${object?.name}"</h1>
         </t:if>
         <t:unless test="object?.parent">
             <h1>Категория "${object?.name}"</h1>
         </t:unless>
+    </div>
 
-        <t:editObject t:id="editObject" showUpdate="true" showDelete="true" autoFocus="literal:true">
-            <div class="form-group form-group">
-                <div class="col-sm-10">
-                    <input t:id="name" class="form-control" type="text" placeholder="Название категории"/>
-                </div>
+    <t:editObject t:id="editObject" showUpdate="true" showDelete="true" autoFocus="literal:true">
+        <div class="form-group form-group">
+            <label class="col-sm-2 control-label" for="name">Название:</label>
+
+            <div class="col-sm-10">
+                <input t:id="name" class="form-control" type="text" placeholder="Название категории"/>
             </div>
+        </div>
+        <div class="form-group form-group">
+            <label class="col-sm-2 control-label" for="name">Свойства:</label>
 
-            <div class="form-group form-group">
-                <div class="col-sm-10">
-                    <h4>Свойства</h4>
-                    <t:selectmultiple class="form-control" t:id="properties"/>
-                </div>
+            <div class="col-sm-10">
+                <t:selectmultiple class="form-control" t:id="properties"/>
             </div>
+        </div>
+    </t:editObject>
 
-        </t:editObject>
+    <t:unless test="object?.parent">
+        <div class="data-header">
+            <h1>Подкатегории</h1>
+            <a data-toggle="modal" data-target="#create" href="#create">Добавить категорию<span/></a>
+        </div>
+        <t:grid source="object.children" row="oneCategory" exclude="id" add="properties,del" reorder="name,properties,del" t:mixins="GridSortingDisabled" class="table table-hover">
+            <t:parameter name="delCell">
+                <t:actionlink t:id="delete" context="oneCategory.id"><span class="glyphicon glyphicon-remove"/></t:actionlink>
+            </t:parameter>
+            <t:parameter name="nameCell">
+                <t:pagelink page="admin/category/index" context="['UPDATE',oneCategory.id]">${oneCategory.name}</t:pagelink>
+            </t:parameter>
+            <t:parameter name="propertiesCell">
+                <em>${categoryProps}</em>
+            </t:parameter>
+            <t:parameter name="empty">
+                <div class="empty">Нет данных</div>
+            </t:parameter>
+        </t:grid>
+        <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="title">
+                            <h1 style="width: 320px;"><span>Добавить категорию</span></h1>
+                        </div>
+                        <a href="index" class="modal-close" data-dismiss="modal"></a>
+                    </div>
+                    <div class="modal-body">
+                        <t:form t:id="addSubForm" t:autofocus="true" t:clientValidation="none" class="form  form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="subName">Название:</label>
 
-        <t:unless test="object?.parent">
-
-            <button class="btn btn-default pull-right" data-toggle="modal" data-target="#create">
-                Добавить подкатегорию
-            </button>
-
-            <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <t:form t:id="addSubForm" t:autofocus="true" t:clientValidation="none" class="form-horizontal well" role="form">
-                            <div class="form-group form-group">
-                                <div class="col-sm-11">
-                                    <input t:id="subName" class="form-control" placeholder="Название подкатегории"/>
+                                <div class="col-sm-10">
+                                    <input t:id="subName" type="text" class="form-control" placeholder="Название подкатегории"/>
                                 </div>
                             </div>
-                            <input t:id="add" class="btn btn-default" t:type="submit" value="Добавить"/>
+                            <input class="btn btn-red" type="submit" value="Добавить"/>
                         </t:form>
                     </div>
                 </div>
             </div>
-
-            <h4>Подкатегории</h4>
-            <t:grid source="object.children" row="oneCategory" exclude="id" add="props" t:mixins="GridSortingDisabled" class="table table-hover">
-                <t:parameter name="nameCell">
-                    <t:pagelink page="admin/category/index" context="['UPDATE',oneCategory.id]">${oneCategory.name}</t:pagelink>
-                    <t:actionlink t:id="delete" context="oneCategory.id" class="pull-right"><span class="glyphicon glyphicon-remove"/></t:actionlink>
-                </t:parameter>
-                <t:parameter name="propsCell">
-                    <em>${categoryProps}</em>
-                </t:parameter>
-            </t:grid>
-        </t:unless>
-
-    </div>
+        </div>
+    </t:unless>
 
     <script>
         activate_menu('#category');

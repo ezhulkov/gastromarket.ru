@@ -38,7 +38,7 @@ public class GenericMultiValueEncoder<T> implements MultiValueEncoder<T> {
 
     @SuppressWarnings("Convert2MethodRef")
     public List<T> toValue(String[] ids) {
-        return Arrays.stream(ids).map(t -> objects.get(t)).collect(Collectors.toList());
+        return ids == null ? Lists.newArrayList() : Arrays.stream(ids).map(t -> objects.get(t)).collect(Collectors.toList());
     }
 
 }

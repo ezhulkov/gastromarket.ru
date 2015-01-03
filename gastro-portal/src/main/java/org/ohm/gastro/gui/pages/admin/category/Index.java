@@ -100,7 +100,7 @@ public class Index extends EditObjectPage<CategoryEntity> {
 
     public String getCategoryProps() {
         java.util.List<PropertyEntity> properties = getCatalogService().findAllProperties(oneCategory);
-        return properties.stream().map(PropertyEntity::getName).collect(Collectors.joining(","));
+        return properties.stream().map(PropertyEntity::getName).collect(Collectors.joining(", "));
     }
 
     public void onSubmitFromAddSubForm() {

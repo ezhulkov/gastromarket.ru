@@ -58,7 +58,7 @@ public class List extends EditObjectPage<CategoryEntity> {
 
     public String getCategoryProperties() {
         java.util.List<PropertyEntity> properties = getCatalogService().findAllProperties(oneCategory);
-        return properties.stream().map(PropertyEntity::getName).collect(Collectors.joining(","));
+        return properties.stream().map(PropertyEntity::getName).collect(Collectors.joining(", "));
     }
 
 }

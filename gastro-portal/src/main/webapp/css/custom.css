@@ -586,7 +586,7 @@ div.username {
 }
 
 .office td.name {
-    width: 300px;
+    /*width: 300px;*/
 }
 
 .office td.del a,
@@ -601,10 +601,15 @@ div.username {
     padding: 10px 0 !important;
 }
 
-.office td.user {
-    width: 150px;
+.office td.user,
+.office td.rating,
+.office td.products,
+.office td.referrer,
+.office td.type,
+.office td.date {
+    width: 180px;
 }
 
-.office td.date {
-    width: 200px;
+.office td.fullName {
+    width: 300px;
 }
