@@ -8,14 +8,14 @@
     <t:grid source="properties" row="oneProperty"
             exclude="id" add="del" reorder="name,type,del"
             t:mixins="GridSortingDisabled" class="table table-hover">
-        <t:parameter name="delHeader"/>
-        <t:parameter name="nameHeader">Название</t:parameter>
-        <t:parameter name="typeHeader">Тип</t:parameter>
         <t:parameter name="nameCell">
             <t:pagelink page="admin/property/index" context="['UPDATE',oneProperty.id]">${oneProperty.name}</t:pagelink>
         </t:parameter>
         <t:parameter name="delCell">
             <t:actionlink t:id="delete" context="oneProperty.id" class="glyphicon glyphicon-remove"/>
+        </t:parameter>
+        <t:parameter name="empty">
+            <div class="empty">Нет данных</div>
         </t:parameter>
     </t:grid>
 

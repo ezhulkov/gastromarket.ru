@@ -1,58 +1,84 @@
-<t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="starter-template">
+<t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="main-body">
+    <div class="data-header">
         <h1>Пользователь "${object?.username}"</h1>
+    </div>
 
-        <t:editObject t:id="editObject" showUpdate="true" showDelete="true" autoFocus="literal:true">
-            <div class="form-group form-group">
-                <div class="col-sm-10">
-                    <input t:id="name" class="form-control" type="text" placeholder="Логин"/>
-                </div>
-            </div>
-            <div class="form-group form-group">
-                <div class="col-sm-10">
-                    <input t:id="email" class="form-control" type="email" placeholder="eMail"/>
-                </div>
-            </div>
-            <div class="form-group form-group">
-                <div class="col-sm-10">
-                    <input t:id="password" class="form-control" type="password" placeholder="Пароль"/>
-                </div>
-            </div>
-        </t:editObject>
+    <t:editObject t:id="editObject" showUpdate="true" showDelete="true" autoFocus="literal:true">
+        <div class="form-group form-group">
+            <label class="col-sm-2 control-label" for="name">Логин:</label>
 
-        <t:if test="userCook">
-            <button class="btn btn-default pull-right" data-toggle="modal" data-target="#create">
-                Добавить каталог
-            </button>
+            <div class="col-sm-10">
+                <input t:id="name" class="form-control" type="text" placeholder="Логин"/>
+            </div>
+        </div>
+        <div class="form-group form-group">
+            <label class="col-sm-2 control-label" for="fullName">Полное имя:</label>
 
-            <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <t:form t:id="catalogForm" t:autofocus="true" t:clientValidation="none" class="form-horizontal well" role="form">
-                            <div class="form-group form-group">
+            <div class="col-sm-10">
+                <input t:id="fullName" class="form-control" type="text" placeholder="Полное имя"/>
+            </div>
+        </div>
+        <div class="form-group form-group">
+            <label class="col-sm-2 control-label" for="email">eMail:</label>
+
+            <div class="col-sm-10">
+                <input t:id="email" class="form-control" type="text" placeholder="eMail"/>
+            </div>
+        </div>
+        <div class="form-group form-group">
+            <label class="col-sm-2 control-label" for="password">Пароль:</label>
+
+            <div class="col-sm-10">
+                <input t:id="password" class="form-control" type="text"/>
+            </div>
+        </div>
+    </t:editObject>
+
+    <t:if test="userCook">
+        <div class="data-header">
+            <h1>Каталоги</h1>
+            <a data-toggle="modal" data-target="#create" href="#create">Добавить каталог<span/></a>
+        </div>
+        <t:grid source="catalogs" row="oneCatalog"
+                reorder="name,date,rating,products,del"
+                add="del,products" exclude="id,description,wasSetup,delivery"
+                t:mixins="GridSortingDisabled" class="table table-hover">
+            <t:parameter name="delCell">
+                <t:actionlink t:id="delete" context="oneCatalog.id"><span class="glyphicon glyphicon-remove"/></t:actionlink>
+            </t:parameter>
+            <t:parameter name="productsCell">
+                ${oneCatalog.products.size()}
+            </t:parameter>
+            <t:parameter name="nameCell">
+                <t:pagelink page="admin/catalog/index" context="['UPDATE',oneCatalog.id]">${oneCatalog.name}</t:pagelink>
+            </t:parameter>
+        </t:grid>
+        <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="title">
+                            <h1 style="width: 300px;"><span>Новый каталог</span></h1>
+                        </div>
+                        <a href="index" class="modal-close" data-dismiss="modal"></a>
+                    </div>
+                    <div class="modal-body">
+                        <t:form t:id="catalogForm" t:autofocus="true" t:clientValidation="none" class="form form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="catalogName">Название:</label>
+
                                 <div class="col-sm-10">
-                                    <input t:id="catalogName" class="form-control" placeholder="Название каталога"/>
+                                    <input t:id="catalogName" type="text" class="form-control" placeholder="Название каталога"/>
                                 </div>
                             </div>
-                            <input t:id="add" class="btn btn-default" t:type="submit" value="Добавить"/>
+                            <input class="btn btn-red" type="submit" value="Добавить"/>
                         </t:form>
                     </div>
                 </div>
             </div>
-
-            <h4>Каталоги</h4>
-            <t:grid source="catalogs" row="oneCatalog" exclude="id,description,wasSetup" t:mixins="GridSortingDisabled" class="table table-hover">
-                <t:parameter name="nameCell">
-                    <t:pagelink page="admin/catalog/index" context="['UPDATE',oneCatalog.id]">${oneCatalog.name}</t:pagelink>
-                    <t:actionlink t:id="delete" context="oneCatalog.id" class="pull-right"><span class="glyphicon glyphicon-remove"/></t:actionlink>
-                </t:parameter>
-            </t:grid>
-            <br/>
-            <br/>
-        </t:if>
-
-    </div>
+        </div>
+    </t:if>
 
     <script>
         activate_menu('#user');

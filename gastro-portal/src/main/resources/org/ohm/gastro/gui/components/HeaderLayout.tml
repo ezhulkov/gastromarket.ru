@@ -8,7 +8,7 @@
                     <div class="dropdown username">
                         <img src="${contextPath}/img/user-avatar.png"/>&#160;
                         <a data-target="#" href="#userMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-                            ${authenticatedUser.username}
+                            ${authenticatedUser.printableName}
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">

@@ -1,4 +1,4 @@
-<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" floatingHeader="false">
 
     <div class="index">
         <div class="container">
@@ -83,7 +83,7 @@
 
                     <p>Хтонический миф, по определению, иллюстрирует самодостаточный общекультурный цикл. Прекрасное, по определению, заканчивает.</p>
 
-                    <a href="#signup" class="btn btn-red">Зарегистрироваться</a>
+                    <a href="#signup" class="btn btn-red btn-lg">Зарегистрироваться</a>
 
                 </div>
                 <div class="col-sm-6 landing-info">
@@ -91,7 +91,7 @@
 
                     <p>Хтонический миф, по определению, иллюстрирует самодостаточный общекультурный цикл. Прекрасное, по определению, заканчивает. </p>
 
-                    <a href="#application" class="btn btn-red">Оставить заявку</a>
+                    <a href="#application" class="btn btn-lg btn-red">Оставить заявку</a>
 
                 </div>
             </div>

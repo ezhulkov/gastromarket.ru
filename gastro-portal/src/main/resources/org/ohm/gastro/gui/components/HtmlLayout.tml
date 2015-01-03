@@ -25,7 +25,10 @@
     </script>
 </head>
 <body>
-<t:headerlayout/>
+<t:if test="floatingHeader">
+    <div class="header-stub"/>
+</t:if>
+<t:headerlayout floatingHeader="floatingHeader"/>
 <t:body/>
 <t:footerlayout/>
 </body>

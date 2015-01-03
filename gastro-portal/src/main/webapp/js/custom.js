@@ -31,6 +31,7 @@ jQuery(document).ready(function () {
         margin = margin + "px";
         jQuery(this).css("margin-left", margin);
     });
+    jQuery(".tip").tooltip({placement: "bottom"});
 });
 
 function activate_menu(el) {

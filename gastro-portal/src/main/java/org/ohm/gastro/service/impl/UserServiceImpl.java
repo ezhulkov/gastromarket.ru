@@ -3,6 +3,7 @@ package org.ohm.gastro.service.impl;
 import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.UserEntity;
+import org.ohm.gastro.domain.UserEntity.Status;
 import org.ohm.gastro.domain.UserEntity.Type;
 import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.UserRepository;
@@ -10,6 +11,7 @@ import org.ohm.gastro.service.EmptyPasswordException;
 import org.ohm.gastro.service.UserExistsException;
 import org.ohm.gastro.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
@@ -21,6 +23,7 @@ import java.util.List;
  * Created by ezhulkov on 27.08.14.
  */
 @Component("userService")
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -34,17 +37,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserEntity> findAllUser() {
-        return userRepository.findAll();
+        return userRepository.findAll(new Sort("username"));
     }
 
     @Override
-    @Transactional
-    public void deleteUser(Long id) {
-        userRepository.delete(id);
+    public void toggleUser(Long id) {
+        UserEntity user = userRepository.findOne(id);
+        user.setStatus(user.getStatus() == Status.ENABLED ? Status.DISABLED : Status.ENABLED);
+        userRepository.save(user);
     }
 
     @Override
-    @Transactional
     public UserEntity saveUser(UserEntity user) throws UserExistsException, EmptyPasswordException {
         if (StringUtils.isEmpty(user.getPassword())) throw new EmptyPasswordException();
         if (user.getId() == null) {

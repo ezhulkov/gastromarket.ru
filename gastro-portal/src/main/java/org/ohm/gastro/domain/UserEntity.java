@@ -1,6 +1,7 @@
 package org.ohm.gastro.domain;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -172,7 +173,7 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return status == Status.ENABLED;
     }
 
     public Timestamp getDate() {
@@ -189,6 +190,10 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
     public void setAnonymous(boolean anonymous) {
         this.anonymous = anonymous;
+    }
+
+    public String getPrintableName() {
+        return StringUtils.isEmpty(fullName) ? username : fullName;
     }
 
     public String getFullName() {

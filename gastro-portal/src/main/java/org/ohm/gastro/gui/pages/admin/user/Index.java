@@ -38,6 +38,9 @@ public class Index extends EditObjectPage<UserEntity> {
     @Component(id = "name", parameters = {"value=object?.username", "validate=maxlength=64,required"})
     private TextField nameField;
 
+    @Component(id = "fullName", parameters = {"value=object?.fullName", "validate=maxlength=64"})
+    private TextField fnameField;
+
     @Component(id = "email", parameters = {"value=object?.email", "validate=maxlength=64,required"})
     private TextField emailField;
 
@@ -63,7 +66,7 @@ public class Index extends EditObjectPage<UserEntity> {
 
             @Override
             public Class<? extends BaseComponent> deleteObject(UserEntity object) {
-                getUserService().deleteUser(object.getId());
+                getUserService().toggleUser(object.getId());
                 return List.class;
             }
 

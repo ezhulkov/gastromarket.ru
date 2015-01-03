@@ -8,14 +8,14 @@
             <li id="property">
                 <t:pagelink page="admin/property/list">Свойства</t:pagelink>
             </li>
-            <li id="order">
-                <t:pagelink page="admin/order/list">Заказы</t:pagelink>
-            </li>
             <li id="user">
                 <t:pagelink page="admin/user/list">Пользователи</t:pagelink>
             </li>
             <li id="catalog">
                 <t:pagelink page="admin/catalog/list">Каталоги</t:pagelink>
+            </li>
+            <li id="order">
+                <t:pagelink page="admin/order/list">Заказы</t:pagelink>
             </li>
         </ul>
         <t:body/>

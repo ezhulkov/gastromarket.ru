@@ -2,7 +2,7 @@ body {
     font-family: "PT Sans", sans-serif;
 }
 
-h1 {
+h1, h2, h3 {
     font-family: "PT Serif", serif;
     text-align: center;
     font-size: 30px;
@@ -14,6 +14,14 @@ h1 {
 
 div {
     text-align: center;
+}
+
+.empty {
+    padding: 20px 0 40px 0;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    font-family: "PT Serif", serif;
 }
 
 .form-group {
@@ -63,6 +71,10 @@ div {
     width: 14px;
     height: 14px;
     /*display: inline-block;*/
+}
+
+.header-stub {
+    height: 55px;
 }
 
 .modal-header {
@@ -152,6 +164,7 @@ div {
 }
 
 .data-header h1,
+.data-header h2,
 .data-header a {
     float: left;
 }
@@ -160,9 +173,14 @@ div {
     font-size: 40px;
 }
 
+.data-header h2 {
+    font-size: 30px;
+}
+
 .btn-red {
-    padding: 10px 45px;
-    font-size: 20px;
+    padding: 8px 25px;
+    font-size: 16px;
+    margin: 5px;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#e70500), to(#bd0400));
     background-image: -webkit-linear-gradient(top, #e70500, #bd0400);
     background-image: -moz-linear-gradient(top, #e70500, #bf0400);
@@ -191,6 +209,11 @@ div {
 
 .btn-red:focus {
     color: #fff !important;
+}
+
+.btn-lg {
+    padding: 10px 45px;
+    font-size: 20px;
 }
 
 .btn-howto {
@@ -491,6 +514,10 @@ div.username {
     font-size: 16px;
 }
 
+.edit {
+    margin-bottom: 20px;
+}
+
 .edit .modal-dialog {
     width: 700px;
 }
@@ -560,14 +587,16 @@ div.username {
 }
 
 .office td.name {
-    width: 250px;
+    width: 300px;
 }
 
-.office td.del a {
+.office td.del a,
+.office td.toggle a {
     text-decoration: none;
 }
 
-.office td.del {
+.office td.del,
+.office td.toggle {
     width: 50px;
     text-align: center;
     padding: 10px 0 !important;

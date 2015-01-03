@@ -70,8 +70,8 @@ public class List extends EditObjectPage<UserEntity> {
         };
     }
 
-    public void onActionFromDelete(Long id) {
-        getUserService().deleteUser(id);
+    public void onActionFromToggleState(Long id) {
+        getUserService().toggleUser(id);
     }
 
 }

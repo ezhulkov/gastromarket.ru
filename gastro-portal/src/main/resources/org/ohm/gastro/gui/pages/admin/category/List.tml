@@ -6,9 +6,6 @@
     </div>
 
     <t:grid source="categories" row="oneCategory" reorder="name,properties,del" exclude="id" add="properties,del" t:mixins="GridSortingDisabled" class="table table-hover">
-        <t:parameter name="delHeader"/>
-        <t:parameter name="nameHeader">Название</t:parameter>
-        <t:parameter name="propertiesHeader">Свойства</t:parameter>
         <t:parameter name="nameCell">
             <t:pagelink page="admin/category/index" context="['UPDATE',oneCategory.id]">${oneCategory.name}</t:pagelink>
         </t:parameter>
@@ -18,9 +15,12 @@
         <t:parameter name="delCell">
             <t:actionlink t:id="delete" context="oneCategory.id" class="glyphicon glyphicon-remove"/>
         </t:parameter>
+        <t:parameter name="empty">
+            <div class="empty">Нет данных</div>
+        </t:parameter>
     </t:grid>
 
-    <div class="modal fade edit" id="create" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

@@ -12,7 +12,7 @@ public interface UserService extends UserDetailsService {
 
     public List<UserEntity> findAllUser();
 
-    void deleteUser(Long id);
+    void toggleUser(Long id);
 
     UserEntity saveUser(UserEntity user) throws UserExistsException, EmptyPasswordException;
 

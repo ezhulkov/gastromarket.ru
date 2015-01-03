@@ -2,7 +2,7 @@
         t:id="form"
         t:autofocus="${autoFocus}"
         t:clientValidation="none"
-        class="form form-horizontal"
+        class="form form-horizontal edit"
         role="form">
 
     <t:if test="object">
