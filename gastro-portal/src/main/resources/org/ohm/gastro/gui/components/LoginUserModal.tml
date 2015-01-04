@@ -10,6 +10,9 @@
             </div>
             <div class="modal-body">
                 <div class="row">
+                    <p class="modal-text">Вход через аккаунт одной из социальных сетей</p>
+                </div>
+                <div class="row">
                     <div class="col-sm-12 social-big">
                         <ul>
                             <li><a href="http://vk.com" title="vk.com" class="vk">vk.com</a></li>
@@ -19,7 +22,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <p class="modal-text text-center">или</p>
+                    <p class="modal-text text-center">или через почтовый адрес и пароль</p>
                 </div>
                 <form method="post" action="j_security_check" class="form form-horizontal edit" role="form">
                     <div class="form-group">
@@ -85,6 +88,9 @@
             </div>
             <div class="modal-body">
                 <div class="row">
+                    <p class="modal-text">Регистрация через социальные сети</p>
+                </div>
+                <div class="row">
                     <div class="col-sm-12 social-big">
                         <ul>
                             <li><a href="http://vk.com" title="vk.com" class="vk">vk.com</a></li>
@@ -94,7 +100,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <p class="modal-text">или</p>
+                    <p class="modal-text">или через почтовый адрес</p>
                 </div>
                 <t:form t:id="signupForm" class="form form-horizontal edit" role="form">
                     <div class="form-group">
