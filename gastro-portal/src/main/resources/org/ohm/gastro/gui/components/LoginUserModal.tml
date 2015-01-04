@@ -34,7 +34,12 @@
 
                         <div class="col-sm-8">
                             <input name="j_password" type="password" class="form-control"/>
-                            <a href="#" class="pull-left remember-link">Забыли пароль?</a>
+                            <a href="#" class="pull-left forget-link">Забыли пароль?</a>
+
+                            <div class="remember-link pull-right">
+                                <label for="rememberme">Запомнить меня</label>
+                                <input type="checkbox" name="_spring_security_remember_me" id="rememberme"/>
+                            </div>
                         </div>
                     </div>
                     <input class="btn btn-red" type="submit" value="Войти"/>

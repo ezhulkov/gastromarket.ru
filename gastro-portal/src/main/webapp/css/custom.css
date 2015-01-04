@@ -288,12 +288,18 @@ h2 {
     cursor: pointer;
 }
 
+.forget-link,
 .remember-link {
     color: #e70500;
     padding-top: 5px;
+    font-size: 16px;
 }
 
-.remember-link:hover {
+.remember-link input {
+    margin-left: 10px;
+}
+
+.forget-link:hover {
     color: #bf0400;
 }
 
@@ -611,7 +617,7 @@ div.username {
 }
 
 .office {
-    min-height: 500px;
+    min-height: 600px;
 }
 
 .office table {
@@ -675,5 +681,5 @@ div.username {
 
 /*Main*/
 .container.main {
-    min-height: 500px;
+    min-height: 600px;
 }

@@ -50,8 +50,8 @@ function initChosen(el) {
     });
 }
 function initLoginModal() {
-    jQuery([".login-link", ".signup-link", ".remember-link"]).hide();
-    jQuery(".remember-link").unbind("click").bind("click", function (e) {
+    jQuery([".login-link", ".signup-link", ".forget-link"]).hide();
+    jQuery(".forget-link").unbind("click").bind("click", function (e) {
         jQuery(".modal-dialog.login").hide();
         jQuery(".modal-dialog.remember").show();
         jQuery(".modal-dialog.signup").hide();
