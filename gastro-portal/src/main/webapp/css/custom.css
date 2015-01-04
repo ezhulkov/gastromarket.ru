@@ -16,6 +16,13 @@ h2 {
     outline: 0 !important;
 }
 
+.modal-text {
+    font-size: 16px;
+    padding: 0 20px 10px 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
 .error {
     font-size: 16px;
     margin: 5px 0 5px 0;
@@ -196,6 +203,10 @@ h2 {
 .btn-white:hover {
     color: #bf0400;
     border: 2px solid #bf0400;
+}
+
+.white:focus {
+    color: #e70500 !important;
 }
 
 .btn-red {

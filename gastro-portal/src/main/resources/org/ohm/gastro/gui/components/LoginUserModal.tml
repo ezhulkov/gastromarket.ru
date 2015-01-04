@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <h4 class="text-center">или</h4><br/>
+                    <p class="modal-text text-center">или</p>
                 </div>
                 <form method="post" action="j_security_check" class="form form-horizontal edit" role="form">
                     <div class="form-group">
@@ -58,6 +58,9 @@
                 <a class="modal-close" data-dismiss="modal"></a>
             </div>
             <div class="modal-body">
+                <div class="row">
+                    <p class="modal-text">Укажите свой почтовый адрес для восстановления пароля.<br/> Новый пароль будет выслан на указанный адрес.</p>
+                </div>
                 <t:form t:id="rememberForm" class="form form-horizontal edit" role="form">
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="eMail">Адрес почты:</label>
@@ -91,7 +94,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <h4 class="text-center">или</h4><br/>
+                    <p class="modal-text">или</p>
                 </div>
                 <t:form t:id="signupForm" class="form form-horizontal edit" role="form">
                     <div class="form-group">
