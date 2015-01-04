@@ -16,6 +16,13 @@ h2 {
     outline: 0 !important;
 }
 
+.error {
+    font-size: 16px;
+    margin: 5px 0 5px 0;
+    color: #e70500;
+    font-weight: bold;
+}
+
 .empty {
     padding: 20px 0 40px 0;
     width: 100%;
@@ -242,10 +249,6 @@ h2 {
     padding-left: 0;
 }
 
-.container.main {
-    padding: 55px 0;
-}
-
 .form label {
     font-size: 16px;
     font-weight: normal;
@@ -309,12 +312,14 @@ div.username {
 }
 
 .social ul,
+.social-big ul,
 .footer ul {
     list-style-type: none;
     padding: 0;
 }
 
 .social ul li,
+.social-big ul li,
 .footer ul li {
     display: inline;
 }
@@ -330,7 +335,8 @@ div.username {
     font-size: 16px;
 }
 
-.social {
+.social,
+.social-big {
     padding: 10px 0 7px 0;
     text-align: center;
 }
@@ -344,20 +350,37 @@ div.username {
     margin: 0 10px;
 }
 
-.social a.ok {
-    background-position: -36px 0;
-}
-
 .social a.vk {
     background-position: 0 0;
+}
+
+.social a.ok {
+    background-position: -36px 0;
 }
 
 .social a.fb {
     background-position: -72px 0;
 }
 
-.social a.tw {
-    background-position: -108px 0;
+.social-big a {
+    width: 62px;
+    height: 62px;
+    display: inline-block;
+    background: url(../img/social-big.png) no-repeat 0 0;
+    text-indent: -999em;
+    margin: 0 10px;
+}
+
+.social-big a.vk {
+    background-position: 0 0;
+}
+
+.social-big a.fb {
+    background-position: -62px 0;
+}
+
+.social-big a.ok {
+    background-position: -124px 0;
 }
 
 .footer .copyright {
@@ -648,4 +671,9 @@ div.username {
 
 .office td.fullName {
     width: 300px;
+}
+
+/*Main*/
+.container.main {
+    min-height: 500px;
 }

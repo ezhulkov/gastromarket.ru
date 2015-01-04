@@ -1,37 +1,52 @@
-<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+<t:mainLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" floatingHeader="false">
 
-    <div class="main-body">
-        <h1>Login</h1>
-
-        <t:if test="error">
-            <div class="bg-warning">Login error</div>
-        </t:if>
-
-        <form method="post" class="form-horizontal well" role="form" action="j_security_check">
-            <div class="form-group form-group">
-                <label class="col-sm-2 control-label" for="username">Username</label>
-
-                <div class="col-sm-10">
-                    <input class="form-control" id="username" type="text" name="j_username"/>
+    <div class="login">
+        <div class="container">
+            <t:unless test="authenticated">
+                <div class="title">
+                    <h1 style="width: 150px;"><span>Вход</span></h1>
                 </div>
-            </div>
-            <div class="form-group form-group">
-                <label class="col-sm-2 control-label" for="password">Password</label>
-
-                <div class="col-sm-10">
-                    <input class="form-control" id="password" type="password" name="j_password"/>
+                <div class="row">
+                    <div class="col-sm-12 social-big">
+                        <ul>
+                            <li><a href="http://vk.com" title="vk.com" class="vk">vk.com</a></li>
+                            <li><a href="http://facebook.com" title="facebook.com" class="fb">facebook.com</a></li>
+                            <li><a href="http://ok.ru" title="odnoklassniki.ru" class="ok">ok.ru</a></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-
-            <div class="form-group form-group">
-                <div class="col-sm-10">
-                    <input type="checkbox" name="_spring_security_remember_me" id="rememberme"/> <label for="rememberme">Remember me</label><br/>
-                    <input class="btn btn btn-primary pull-right" type="submit" value="Login"/>
+                <div class="row">
+                    <h4 class="text-center">или</h4><br/>
                 </div>
-            </div>
+                <t:if test="error">
+                    <div class="row">
+                        <div class="col-sm-2"/>
+                        <div class="col-sm-9">
+                            <div class="error">Неправильно указан адрес почты или пароль</div>
+                        </div>
+                    </div>
+                </t:if>
+                <form method="post" action="j_security_check" class="form form-horizontal edit" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="j_username">Адрес почты:</label>
 
-        </form>
+                        <div class="col-sm-9">
+                            <input id="j_username" name="j_username" type="text" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="j_password">Пароль:</label>
 
+                        <div class="col-sm-9">
+                            <input id="j_password" name="j_password" type="password" class="form-control"/>
+                            <a href="#" class="pull-left remember-link" data-toggle="modal" data-target="#login">Забыли пароль?</a>
+                        </div>
+                    </div>
+                    <input class="btn btn-red" type="submit" value="Войти"/>
+                    <a href="#" class="btn btn-white signup-link" data-toggle="modal" data-target="#login">Регистрация</a>
+                </form>
+            </t:unless>
+        </div>
     </div>
 
-</t:htmllayout>
+</t:mainLayout>

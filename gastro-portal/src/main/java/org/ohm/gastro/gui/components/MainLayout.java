@@ -8,10 +8,10 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 /**
  * Created by ezhulkov on 23.08.14.
  */
-public class HtmlLayout extends BaseComponent {
+public class MainLayout extends BaseComponent {
 
     @Property
-    @Parameter(name = "floatingHeader", required = false, value = "true", defaultPrefix = BindingConstants.PROP)
+    @Parameter(name = "floatingHeader", required = false, value = "true", defaultPrefix = BindingConstants.LITERAL)
     private boolean floatingHeader;
 
 }
