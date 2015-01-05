@@ -9,6 +9,9 @@
                         <h1 style="width: 150px;"><span>Вход</span></h1>
                     </div>
                     <div class="row">
+                        <p class="modal-text">Вход через аккаунт одной из социальных сетей</p>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-12 social-big">
                             <ul>
                                 <li><a href="http://vk.com" title="vk.com" class="vk">vk.com</a></li>
@@ -18,7 +21,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <p class="modal-text">или</p>
+                        <p class="modal-text text-center">или через почтовый адрес и пароль</p>
                     </div>
                     <t:if test="error">
                         <div class="row">
@@ -41,7 +44,7 @@
 
                             <div class="col-sm-9">
                                 <input id="j_password" name="j_password" type="password" class="form-control"/>
-                                <a href="#" class="pull-left forget-link" data-toggle="modal" data-target="#login">Забыли пароль?</a>
+                                <a href="#" class="pull-left red-link forget-link" data-toggle="modal" data-target="#login">Забыли пароль?</a>
 
                                 <div class="remember-link pull-right">
                                     <label for="rememberme">Запомнить меня на сайте</label>

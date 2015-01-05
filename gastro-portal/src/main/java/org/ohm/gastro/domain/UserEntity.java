@@ -57,9 +57,6 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
     private String mobilePhone;
 
     @Column
-    private String username;
-
-    @Column
     private String email;
 
     @Column
@@ -110,10 +107,6 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
         this.referrer = referrer;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -153,7 +146,7 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
     @Override
@@ -193,7 +186,7 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
     }
 
     public String getPrintableName() {
-        return StringUtils.isEmpty(fullName) ? username : fullName;
+        return StringUtils.isEmpty(fullName) ? email : fullName;
     }
 
     public String getFullName() {
@@ -226,6 +219,14 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
     public void setBonus(Integer bonus) {
         this.bonus = bonus;
+    }
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                '}';
     }
 
 }

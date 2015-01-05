@@ -37,7 +37,7 @@
 
                         <div class="col-sm-8">
                             <input name="j_password" type="password" class="form-control"/>
-                            <a href="#" class="pull-left forget-link">Забыли пароль?</a>
+                            <a href="#" class="pull-left forget-link red-link">Забыли пароль?</a>
 
                             <div class="remember-link pull-right">
                                 <label for="rememberme">Запомнить меня</label>
@@ -60,11 +60,11 @@
                 </div>
                 <a class="modal-close" data-dismiss="modal"></a>
             </div>
-            <div class="modal-body">
+            <div class="modal-body data">
                 <div class="row">
                     <p class="modal-text">Укажите свой почтовый адрес для восстановления пароля.<br/> Новый пароль будет выслан на указанный адрес.</p>
                 </div>
-                <t:form t:id="rememberForm" class="form form-horizontal edit" role="form">
+                <t:form t:zone="rememberZone" t:id="rememberForm" class="form form-horizontal edit" role="form">
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="eMail">Адрес почты:</label>
 
@@ -75,6 +75,17 @@
                     <input class="btn btn-red" type="submit" value="Восстановить"/>
                 </t:form>
             </div>
+            <t:block t:id="rememberResultBlock">
+                <div class="modal-body result">
+                    <div class="row">
+                        <p class="modal-text"><b>Новый пароль был выслан на почтовый адрес ${eMail}</b></p>
+
+                        <p class="modal-text"><a data-dismiss="modal" href="#" class="red-link">Продолжить работу</a></p>
+                    </div>
+                </div>
+                <script>showModalResult(".remember");</script>
+            </t:block>
+            <t:zone t:id="rememberZone"/>
         </div>
     </div>
 
@@ -87,8 +98,9 @@
                 <a class="modal-close" data-dismiss="modal"></a>
             </div>
             <div class="modal-body">
+
                 <div class="row">
-                    <p class="modal-text">Регистрация через социальные сети</p>
+                    <p class="modal-text">Регистрация через аккаунт одной из социальных сетей</p>
                 </div>
                 <div class="row">
                     <div class="col-sm-12 social-big">
@@ -111,10 +123,17 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="password">Пароль:</label>
+                        <label class="col-sm-3 control-label" for="password1">Пароль:</label>
 
                         <div class="col-sm-8">
-                            <input t:type="PasswordField" t:id="password" t:value="password" class="form-control"/>
+                            <input t:type="PasswordField" t:id="password1" t:value="password1" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="password1">Повторите пароль:</label>
+
+                        <div class="col-sm-8">
+                            <input t:type="PasswordField" t:id="password2" t:value="password2" class="form-control"/>
                         </div>
                     </div>
                     <input class="btn btn-red" type="submit" value="Зарегистрироваться"/>

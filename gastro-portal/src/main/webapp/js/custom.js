@@ -50,20 +50,29 @@ function initChosen(el) {
     });
 }
 function initLoginModal() {
-    jQuery([".login-link", ".signup-link", ".forget-link"]).hide();
+    jQuery([".login-link", ".signup-link", ".forget-link", ".result"], ".modal-dialog").hide();
     jQuery(".forget-link").unbind("click").bind("click", function (e) {
         jQuery(".modal-dialog.login").hide();
         jQuery(".modal-dialog.remember").show();
         jQuery(".modal-dialog.signup").hide();
+        jQuery(".modal-body.result").hide();
+        jQuery(".modal-body.data").show();
     });
     jQuery(".login-link").unbind("click").bind("click", function (e) {
         jQuery(".modal-dialog.login").show();
         jQuery(".modal-dialog.remember").hide();
         jQuery(".modal-dialog.signup").hide();
+        jQuery(".modal-body.result").hide();
+        jQuery(".modal-body.data").show();
     });
     jQuery(".signup-link").unbind("click").bind("click", function (e) {
         jQuery(".modal-dialog.login").hide();
         jQuery(".modal-dialog.remember").hide();
         jQuery(".modal-dialog.signup").show();
+        jQuery(".modal-body.result").hide();
+        jQuery(".modal-body.data").show();
     });
+}
+function showModalResult(block) {
+    jQuery(block).find(".data").hide();
 }

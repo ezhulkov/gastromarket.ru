@@ -16,11 +16,28 @@ h2 {
     outline: 0 !important;
 }
 
+html > body div.t-error {
+    border: none;
+    text-align: left;
+    font-size: 16px;
+    color: #e70500;
+    font-weight: bold;
+    margin: 0 0 5px 180px;
+}
+
+html > body div.t-error ul {
+    list-style-type: none;
+}
+
+.t-banner,
+.t-error-icon {
+    display: none !important;
+}
+
 .modal-text {
     font-size: 16px;
     padding: 0 20px 0 20px;
     text-align: center;
-    font-weight: bold;
 }
 
 .error {
@@ -94,6 +111,7 @@ h2 {
 .modal-header {
     border: none;
     padding-top: 0;
+    padding-bottom: 0;
 }
 
 .modal-header a {
@@ -103,6 +121,7 @@ h2 {
 .modal-dialog {
     margin: 100px auto 0 auto;
     color: black;
+    width: 700px;
 }
 
 .modal-backdrop.in {
@@ -110,7 +129,7 @@ h2 {
 }
 
 .modal-body {
-    padding: 5px 60px 20px 60px;
+    padding: 5px 40px 20px 40px;
 }
 
 .title {
@@ -299,7 +318,7 @@ h2 {
     cursor: pointer;
 }
 
-.forget-link,
+.red-link,
 .remember-link {
     color: #e70500;
     padding-top: 5px;
@@ -310,7 +329,7 @@ h2 {
     margin-left: 10px;
 }
 
-.forget-link:hover {
+.red-link:hover {
     color: #bf0400;
 }
 

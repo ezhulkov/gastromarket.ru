@@ -61,7 +61,6 @@
             <column name="id" type="java.sql.Types.BIGINT">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="username" type="java.sql.Types.VARCHAR(64)"/>
             <column name="email" type="java.sql.Types.VARCHAR(64)"/>
             <column name="password" type="java.sql.Types.VARCHAR(256)"/>
             <column name="type" type="java.sql.Types.VARCHAR(32)"/>
@@ -77,7 +76,7 @@
         <addForeignKeyConstraint baseTableName="catalog" baseColumnNames="user_id"
                 constraintName="catalog_user_fk" referencedTableName="person" referencedColumnNames="id"
                 onDelete="CASCADE"/>
-        <addUniqueConstraint tableName="person" columnNames="username"/>
+        <addUniqueConstraint tableName="person" columnNames="email"/>
         <createIndex tableName="catalog" indexName="cat_user_idx">
             <column name="user_id"/>
         </createIndex>
@@ -129,7 +128,7 @@
 
     <changeSet id="4" author="ezhulkov">
         <sql>
-            insert into person (id,username,email,password,type,status) values (1,'admin','admin@gastromarket.ru','aa9304926e54bf318a40dc9cb936e62f86327f987461178b01a85ae5a500bd43639908f104ae7d5f','ADMIN','ENABLED');
+            insert into person (id,email,password,type,status) values (1,'admin@gastromarket.ru','aa9304926e54bf318a40dc9cb936e62f86327f987461178b01a85ae5a500bd43639908f104ae7d5f','ADMIN','ENABLED');
             update hibernate_sequences set sequence_next_hi_value=2 where sequence_name='person';
         </sql>
     </changeSet>

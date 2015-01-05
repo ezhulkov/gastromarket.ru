@@ -1,5 +1,6 @@
 package org.ohm.gastro.service.impl;
 
+import com.google.common.io.BaseEncoding;
 import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.UserEntity;
@@ -10,34 +11,40 @@ import org.ohm.gastro.reps.UserRepository;
 import org.ohm.gastro.service.EmptyPasswordException;
 import org.ohm.gastro.service.UserExistsException;
 import org.ohm.gastro.service.UserService;
+import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by ezhulkov on 27.08.14.
  */
 @Component("userService")
 @Transactional
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, Logging {
 
     private final UserRepository userRepository;
     private final CatalogRepository catalogRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final Random random = new Random();
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, CatalogRepository catalogRepository) {
+    public UserServiceImpl(UserRepository userRepository, CatalogRepository catalogRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.catalogRepository = catalogRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public List<UserEntity> findAllUser() {
-        return userRepository.findAll(new Sort("username"));
+        return userRepository.findAll(new Sort("email"));
     }
 
     @Override
@@ -51,7 +58,7 @@ public class UserServiceImpl implements UserService {
     public UserEntity saveUser(UserEntity user) throws UserExistsException, EmptyPasswordException {
         if (StringUtils.isEmpty(user.getPassword())) throw new EmptyPasswordException();
         if (user.getId() == null) {
-            if (userRepository.findByUsername(user.getUsername()) != null) throw new UserExistsException();
+            if (userRepository.findByEmail(user.getUsername()) != null) throw new UserExistsException();
             if (Type.COOK.equals(user.getType())) {
                 CatalogEntity catalog = new CatalogEntity();
                 catalog.setWasSetup(false);
@@ -69,8 +76,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username);
+    public void resetPassword(String eMail) {
+        //Generate
+        UserEntity user = userRepository.findByEmail(eMail);
+        if (user != null) {
+            final byte[] buffer = new byte[5];
+            random.nextBytes(buffer);
+            String password = BaseEncoding.base64Url().omitPadding().encode(buffer);
+            String encPassword = passwordEncoder.encode(password);
+            user.setPassword(encPassword);
+            userRepository.save(user);
+            logger.debug("Setting new password {} for user {}", password, user);
+            //Send email
+        }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return userRepository.findByEmail(email);
     }
 
 }

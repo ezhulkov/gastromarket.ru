@@ -18,4 +18,6 @@ public interface UserService extends UserDetailsService {
 
     UserEntity findUser(Long id);
 
+    void resetPassword(String eMail);
+
 }

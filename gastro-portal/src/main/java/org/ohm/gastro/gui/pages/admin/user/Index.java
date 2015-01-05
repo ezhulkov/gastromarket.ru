@@ -35,13 +35,10 @@ public class Index extends EditObjectPage<UserEntity> {
     @Property
     private String newPassword;
 
-    @Component(id = "name", parameters = {"value=object?.username", "validate=maxlength=64,required"})
-    private TextField nameField;
-
     @Component(id = "fullName", parameters = {"value=object?.fullName", "validate=maxlength=64"})
     private TextField fnameField;
 
-    @Component(id = "email", parameters = {"value=object?.email", "validate=maxlength=64,required"})
+    @Component(id = "email", parameters = {"value=object?.email", "validate=maxlength=64,required,email"})
     private TextField emailField;
 
     @Component(id = "password", parameters = {"value=newPassword", "validate=maxlength=64"})
