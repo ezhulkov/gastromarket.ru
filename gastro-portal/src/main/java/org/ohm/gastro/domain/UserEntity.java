@@ -31,7 +31,7 @@ import java.util.List;
 public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
     public enum Type {
-        ADMIN, COOK, COURIER, USER
+        ADMIN, COOK, USER
     }
 
     public enum Status {

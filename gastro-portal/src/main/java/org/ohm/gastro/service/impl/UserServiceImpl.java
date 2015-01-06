@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService, Logging {
     public UserEntity saveUser(UserEntity user) throws UserExistsException, EmptyPasswordException {
         if (StringUtils.isEmpty(user.getPassword())) throw new EmptyPasswordException();
         if (user.getId() == null) {
-            if (userRepository.findByEmail(user.getUsername()) != null) throw new UserExistsException();
+            if (userRepository.findByEmail(user.getEmail()) != null) throw new UserExistsException();
             if (Type.COOK.equals(user.getType())) {
                 CatalogEntity catalog = new CatalogEntity();
                 catalog.setWasSetup(false);
@@ -87,6 +87,7 @@ public class UserServiceImpl implements UserService, Logging {
             user.setPassword(encPassword);
             userRepository.save(user);
             logger.debug("Setting new password {} for user {}", password, user);
+            //todo
             //Send email
         }
     }

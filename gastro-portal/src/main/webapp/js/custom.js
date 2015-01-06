@@ -50,27 +50,28 @@ function initChosen(el) {
     });
 }
 function initLoginModal() {
-    jQuery([".login-link", ".signup-link", ".forget-link", ".result"], ".modal-dialog").hide();
-    jQuery(".forget-link").unbind("click").bind("click", function (e) {
+    var hideAll = function () {
         jQuery(".modal-dialog.login").hide();
-        jQuery(".modal-dialog.remember").show();
+        jQuery(".modal-dialog.remember").hide();
         jQuery(".modal-dialog.signup").hide();
+        jQuery(".modal-dialog div.t-error").hide();
+        jQuery(".modal-dialog .error").hide();
         jQuery(".modal-body.result").hide();
+        jQuery(".modal-body.data").hide();
+        jQuery(".modal-body input.t-error").removeClass("t-error");
+    };
+    jQuery(".forget-link").unbind("click").bind("click", function (e) {
+        hideAll();
+        jQuery(".modal-dialog.remember").show();
         jQuery(".modal-body.data").show();
     });
     jQuery(".login-link").unbind("click").bind("click", function (e) {
+        hideAll();
         jQuery(".modal-dialog.login").show();
-        jQuery(".modal-dialog.remember").hide();
-        jQuery(".modal-dialog.signup").hide();
-        jQuery(".modal-body.result").hide();
-        jQuery(".modal-body.data").show();
     });
     jQuery(".signup-link").unbind("click").bind("click", function (e) {
-        jQuery(".modal-dialog.login").hide();
-        jQuery(".modal-dialog.remember").hide();
+        hideAll();
         jQuery(".modal-dialog.signup").show();
-        jQuery(".modal-body.result").hide();
-        jQuery(".modal-body.data").show();
     });
 }
 function showModalResult(block) {

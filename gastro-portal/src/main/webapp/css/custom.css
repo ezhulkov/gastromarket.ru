@@ -132,6 +132,10 @@ html > body div.t-error ul {
     padding: 5px 40px 20px 40px;
 }
 
+.modal-body div.t-error {
+    margin: 0 0 0 140px;
+}
+
 .title {
     position: relative;
 }

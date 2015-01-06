@@ -1,9 +1,11 @@
 package org.ohm.gastro.gui.components;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.UserEntity;
+import org.ohm.gastro.domain.UserEntity.Type;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.service.EmptyPasswordException;
 import org.ohm.gastro.service.UserExistsException;
@@ -14,8 +16,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
-
-import java.util.Optional;
 
 /**
  * Created by ezhulkov on 24.08.14.
@@ -31,6 +31,13 @@ public class LoginUserModal extends BaseComponent {
     @Inject
     private Block rememberResultBlock;
 
+    @Inject
+    private Block signupResultBlock;
+
+    @Inject
+    @Property
+    private Block signupFormBlock;
+
     @Property
     private String eMail;
 
@@ -40,40 +47,52 @@ public class LoginUserModal extends BaseComponent {
     @Property
     private String password2;
 
+    @Property
+    private boolean passwordError = false;
+
+    @Property
+    private boolean busyError = false;
+
+    @Property
+    private boolean error = false;
+
     public Block onSubmitFromRememberForm() {
         getUserService().resetPassword(eMail);
         return rememberResultBlock;
     }
 
-    public void onSubmitFromSignupForm() {
-        System.out.println("signup");
+    public void onFailureFromSignupForm() {
+        error = true;
     }
 
-    public void signupUser(UserEntity.Type type, UserEntity user, String password1, String password2, Optional<Long> referrer) {
-        if (password1 == null || password2 == null || !password1.equals(password2)) {
-//            return SignupResult.PASSWORD;
-        }
-        user.setPassword(passwordEncoder.encode(password1));
-        try {
-            user.setId(null);
-            user.setType(type);
-            user.setReferrer(referrer.map(t -> getUserService().findUser(t)).orElse(null));
-            user = getUserService().saveUser(user);
+    public Block onSubmitFromSignupForm() {
+        if (!error) {
+            if (StringUtils.isEmpty(password1) || StringUtils.isEmpty(password2) || !password1.equals(password2)) {
+                error = passwordError = true;
+                return signupFormBlock;
+            }
             try {
+                UserEntity user = new UserEntity();
+                user.setEmail(eMail);
+                user.setPassword(passwordEncoder.encode(password1));
+                user.setType(Type.USER);
+                //todo referrer
+                //user.setReferrer(referrer.map(t -> getUserService().findUser(t)).orElse(null));
+                user = getUserService().saveUser(user);
                 UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), password1);
                 token.setDetails(new WebAuthenticationDetails(getHttpServletRequest()));
                 Authentication authentication = authenticationProvider.authenticate(token);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+                return signupResultBlock;
+            } catch (UserExistsException e) {
+                error = busyError = true;
+            } catch (EmptyPasswordException e) {
+                error = passwordError = true;
             } catch (AuthenticationException e) {
                 SecurityContextHolder.getContext().setAuthentication(null);
             }
-        } catch (UserExistsException e) {
-//            return SignupResult.DUPLICATE;
-        } catch (EmptyPasswordException e) {
-//            return SignupResult.PASSWORD;
         }
-//        return SignupResult.OK;
+        return signupFormBlock;
     }
-
 
 }
