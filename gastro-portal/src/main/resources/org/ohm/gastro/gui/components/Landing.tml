@@ -1,0 +1,35 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+    <t:unless test="authenticated">
+        <div class="landing">
+            <div></div>
+            <div>
+                <div class="col-sm-6 landing-info">
+                    <h1>Я &mdash; покупатель</h1>
+
+                    <p>Пройдите регистрацию на ГастроМаркет и зарабатывайте бонусные баллы, тратьте или меняйте баллы на приятные подарки, принимайте участие в акциях и оценивайте наших кулинаров.</p>
+
+                    <a href="index" class="red-link">узнать подробности</a>
+
+                    <a class="btn btn-red btn-lg signup-link" data-toggle="modal" data-target="#login">Зарегистрироваться</a>
+
+                </div>
+                <div class="col-sm-6 landing-info">
+                    <h1>Я &mdash; кулинар</h1>
+
+                    <p>Оставьте заявку и создавайте каталоги Вашей продукции, полноценно используйте все возможности ГастроМаркет: помощь в продвижении, рейтинговые системы, услуги фотографа и приятные подарки.</p>
+
+                    <a href="index" class="red-link">узнать подробности</a>
+
+                    <a class="btn btn-lg btn-red application-link" data-toggle="modal" data-target="#application">Оставить заявку</a>
+
+                </div>
+            </div>
+            <div></div>
+        </div>
+        <t:parameter name="else">
+            <br/>
+            <br/>
+            <br/>
+        </t:parameter>
+    </t:unless>
+</div>
