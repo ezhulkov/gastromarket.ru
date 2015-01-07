@@ -11,14 +11,14 @@
 
     <t:editObject t:id="editObject" showUpdate="true" showDelete="true" autoFocus="literal:true">
         <div class="form-group form-group">
-            <label class="col-sm-2 control-label" for="name">Название:</label>
+            <t:label class="col-sm-2 control-label" for="name">Название:</t:label>
 
             <div class="col-sm-10">
                 <input t:id="name" class="form-control" type="text" placeholder="Название категории"/>
             </div>
         </div>
         <div class="form-group form-group">
-            <label class="col-sm-2 control-label" for="name">Свойства:</label>
+            <t:label class="col-sm-2 control-label" for="name">Свойства:</t:label>
 
             <div class="col-sm-10">
                 <t:selectmultiple class="form-control" t:id="properties"/>
@@ -57,7 +57,7 @@
                     <div class="modal-body">
                         <t:form t:id="addSubForm" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
                             <div class="form-group">
-                                <label class="col-sm-2 control-label" for="subName">Название:</label>
+                                <t:label class="col-sm-2 control-label" for="subName">Название:</t:label>
 
                                 <div class="col-sm-10">
                                     <input t:id="subName" type="text" class="form-control" placeholder="Название подкатегории"/>

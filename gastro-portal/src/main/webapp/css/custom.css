@@ -242,7 +242,6 @@ html > body div.t-error ul {
     background-image: -ms-linear-gradient(top, #e70500, #bf0400);
     background-image: -o-linear-gradient(top, #e70500, #bf0400);
     background-image: linear-gradient(to bottom, #e70500, #bf0400);
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#e70500, endColorstr=#bf0400);
     color: #FFF;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
@@ -466,7 +465,11 @@ div.username {
 
 .landing-info p {
     font-size: 16px;
-    padding: 10px 20px 18px 20px;
+    padding: 10px 20px 0 20px;
+}
+
+.landing-info .btn {
+    margin-top: 15px;
 }
 
 .index .main-img {

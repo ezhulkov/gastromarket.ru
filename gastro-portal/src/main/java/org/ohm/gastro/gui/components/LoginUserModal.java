@@ -1,6 +1,5 @@
 package org.ohm.gastro.gui.components;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -42,10 +41,10 @@ public class LoginUserModal extends BaseComponent {
     private String eMail;
 
     @Property
-    private String password1;
+    private String password;
 
     @Property
-    private String password2;
+    private String fullName;
 
     @Property
     private boolean passwordError = false;
@@ -67,19 +66,16 @@ public class LoginUserModal extends BaseComponent {
 
     public Block onSubmitFromSignupForm() {
         if (!error) {
-            if (StringUtils.isEmpty(password1) || StringUtils.isEmpty(password2) || !password1.equals(password2)) {
-                error = passwordError = true;
-                return signupFormBlock;
-            }
             try {
                 UserEntity user = new UserEntity();
                 user.setEmail(eMail);
-                user.setPassword(passwordEncoder.encode(password1));
+                user.setPassword(passwordEncoder.encode(password));
                 user.setType(Type.USER);
+                user.setFullName(fullName);
                 //todo referrer
                 //user.setReferrer(referrer.map(t -> getUserService().findUser(t)).orElse(null));
                 user = getUserService().saveUser(user);
-                UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), password1);
+                UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), password);
                 token.setDetails(new WebAuthenticationDetails(getHttpServletRequest()));
                 Authentication authentication = authenticationProvider.authenticate(token);
                 SecurityContextHolder.getContext().setAuthentication(authentication);

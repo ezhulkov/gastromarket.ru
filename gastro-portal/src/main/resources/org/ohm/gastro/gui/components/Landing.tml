@@ -8,7 +8,9 @@
 
                     <p>Пройдите регистрацию на ГастроМаркет и зарабатывайте бонусные баллы, тратьте или меняйте баллы на приятные подарки, принимайте участие в акциях и оценивайте наших кулинаров.</p>
 
-                    <a href="index" class="red-link">узнать подробности</a>
+                    <div class="row">
+                        <a href="index" class="red-link">узнать подробности</a>
+                    </div>
 
                     <a class="btn btn-red btn-lg signup-link" data-toggle="modal" data-target="#login">Зарегистрироваться</a>
 
@@ -18,13 +20,69 @@
 
                     <p>Оставьте заявку и создавайте каталоги Вашей продукции, полноценно используйте все возможности ГастроМаркет: помощь в продвижении, рейтинговые системы, услуги фотографа и приятные подарки.</p>
 
-                    <a href="index" class="red-link">узнать подробности</a>
+                    <div class="row">
+                        <a href="index" class="red-link">узнать подробности</a>
+                    </div>
 
                     <a class="btn btn-lg btn-red application-link" data-toggle="modal" data-target="#application">Оставить заявку</a>
 
                 </div>
             </div>
             <div></div>
+        </div>
+        <div class="modal fade" id="application" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog application">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="title">
+                            <h1 style="width: 400px;"><span>Заявка на подключение</span></h1>
+                        </div>
+                        <a class="modal-close" data-dismiss="modal"></a>
+                    </div>
+                    <t:zone t:id="applicationZone"/>
+                    <div class="modal-body data">
+                        <div class="row">
+                            <p class="modal-text">Если Вы кулинар и хотите подключиться к ГастроМаркет, полноценно использовать все возможности сайта и продавать продукцию, то оставьте нам заявку на подключение и мы обязательно с Вами свяжемся.</p>
+                        </div>
+                        <br/>
+                        <t:form t:zone="applicationZone" t:id="applicationForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
+                            <t:errors/>
+                            <div class="form-group">
+                                <t:label class="col-sm-3 control-label" for="eMail">Адрес почты:</t:label>
+
+                                <div class="col-sm-8">
+                                    <input t:type="TextField" id="eMail" t:id="eMail" t:value="eMail" t:validate="required,email,maxlength=64" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <t:label class="col-sm-3 control-label" for="fullName">Полное имя:</t:label>
+
+                                <div class="col-sm-8">
+                                    <input t:type="TextField" id="fullName" t:id="fullName" t:value="fullName" t:validate="required,maxlength=64" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <t:label class="col-sm-3 control-label" for="about">Расскажите о себе:</t:label>
+
+                                <div class="col-sm-8">
+                                    <textarea t:type="TextArea" t:id="about" t:value="about" t:validate="required" rows="5" class="form-control"/>
+                                </div>
+                            </div>
+                            <input class="btn btn-red" type="submit" value="Оставить заявку"/>
+                        </t:form>
+                    </div>
+                    <t:block t:id="applicationResultBlock">
+                        <div class="modal-body result">
+                            <div class="row">
+                                <p class="modal-text"><b>Спасибо, мы получили заявку и свяжемся с Вами в ближайшее время</b></p>
+
+                                <p class="modal-text"><a data-dismiss="modal" href="#" class="red-link">Продолжить работу</a></p>
+                            </div>
+                        </div>
+                        <script>showModalResult(".application");</script>
+                    </t:block>
+                </div>
+            </div>
         </div>
         <t:parameter name="else">
             <br/>

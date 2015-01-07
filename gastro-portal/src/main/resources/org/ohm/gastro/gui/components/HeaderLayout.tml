@@ -59,7 +59,6 @@
 
     <t:unless test="authenticated">
         <t:loginUserModal/>
-        <t:signupCookModal/>
     </t:unless>
 
 </div>

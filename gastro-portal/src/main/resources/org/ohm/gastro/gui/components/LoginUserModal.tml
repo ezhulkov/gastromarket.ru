@@ -25,19 +25,20 @@
                     <p class="modal-text text-center">или через почтовый адрес и пароль</p>
                 </div>
                 <br/>
+
                 <form method="post" action="j_security_check" class="form form-horizontal edit" role="form">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="login">Адрес почты:</label>
+                        <label class="col-sm-3 control-label" for="username1">Адрес почты:</label>
 
                         <div class="col-sm-8">
-                            <input name="j_username" type="text" class="form-control"/>
+                            <input id="username1" name="j_username" type="text" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="password">Пароль:</label>
+                        <label class="col-sm-3 control-label" for="password1">Пароль:</label>
 
                         <div class="col-sm-8">
-                            <input name="j_password" type="password" class="form-control"/>
+                            <input id="password1" name="j_password" type="password" class="form-control"/>
                             <a href="#" class="pull-left forget-link red-link">Забыли пароль?</a>
 
                             <div class="remember-link pull-right">
@@ -67,9 +68,9 @@
                     <p class="modal-text">Укажите свой почтовый адрес для восстановления пароля.<br/> Новый пароль будет выслан на указанный адрес.</p>
                 </div>
                 <br/>
-                <t:form t:zone="rememberZone" t:id="rememberForm" class="form form-horizontal edit" role="form">
+                <t:form t:zone="rememberZone" t:id="rememberForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="eMail">Адрес почты:</label>
+                        <t:label class="col-sm-3 control-label" for="eMail">Адрес почты:</t:label>
 
                         <div class="col-sm-8">
                             <input t:type="TextField" t:id="eMail" t:value="eMail" type="text" class="form-control"/>
@@ -138,30 +139,34 @@
                             <t:errors/>
                         </t:if>
                         <br/>
+
                         <div class="form-group">
-                            <label class="col-sm-3 control-label" for="eMail">Адрес почты:</label>
+                            <t:label class="col-sm-3 control-label" for="eMail2">Адрес почты:</t:label>
 
                             <div class="col-sm-8">
                                 <input t:type="TextField" t:id="eMail2" t:value="eMail" t:validate="required,email,maxlength=64" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label" for="password1">Пароль:</label>
+                            <t:label class="col-sm-3 control-label" for="fullName">Полное имя:</t:label>
 
                             <div class="col-sm-8">
-                                <input t:type="PasswordField" t:id="password1" t:value="password1" t:validate="required,maxlength=64" class="form-control"/>
+                                <input t:type="TextField" t:id="fullName" t:value="fullName" t:validate="maxlength=64" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label" for="password1">Повторите пароль:</label>
+                            <t:label class="col-sm-3 control-label" for="password">Пароль:</t:label>
 
                             <div class="col-sm-8">
-                                <input t:type="PasswordField" t:id="password2" t:value="password2" t:validate="required,maxlength=64" class="form-control"/>
+                                <input t:type="PasswordField" t:id="password" t:value="password" t:validate="required,maxlength=64" class="form-control"/>
                             </div>
                         </div>
                         <input class="btn btn-red" type="submit" value="Зарегистрироваться"/>
                     </t:form>
                 </t:block>
+                <div class="row">
+                    <p class="modal-text">Регистрируясь, вы соглашаетесь c <a href="license" target="_tab" class="red-link">условиями пользовательского соглашения</a></p>
+                </div>
             </div>
         </div>
     </div>

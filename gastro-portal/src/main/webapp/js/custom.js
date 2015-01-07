@@ -53,6 +53,7 @@ function initLoginModal() {
     var hideAll = function () {
         jQuery(".modal-dialog.login").hide();
         jQuery(".modal-dialog.remember").hide();
+        jQuery(".modal-dialog.application").hide();
         jQuery(".modal-dialog.signup").hide();
         jQuery(".modal-dialog div.t-error").hide();
         jQuery(".modal-dialog .error").hide();
@@ -72,6 +73,11 @@ function initLoginModal() {
     jQuery(".signup-link").unbind("click").bind("click", function (e) {
         hideAll();
         jQuery(".modal-dialog.signup").show();
+    });
+    jQuery(".application-link").unbind("click").bind("click", function (e) {
+        hideAll();
+        jQuery(".modal-dialog.application").show();
+        jQuery(".modal-body.data").show();
     });
 }
 function showModalResult(block) {

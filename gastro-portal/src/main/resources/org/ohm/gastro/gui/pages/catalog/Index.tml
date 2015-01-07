@@ -14,21 +14,21 @@
             <br/>
             <t:editObject t:id="editObject" showUpdate="literal:true">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="name">Название</label>
+                    <t:label class="col-sm-2 control-label" for="name">Название</t:label>
 
                     <div class="col-sm-10">
                         <input t:id="name" id="name" class="form-control" placeholder="Название"/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="description">Описание</label>
+                    <t:label class="col-sm-2 control-label" for="description">Описание</t:label>
 
                     <div class="col-sm-10">
                         <input t:id="description" id="description" class="form-control" placeholder="Описание"/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="price">Цена</label>
+                    <t:label class="col-sm-2 control-label" for="price">Цена</t:label>
 
                     <div class="col-sm-10">
                         <input t:id="price" id="price" class="form-control" placeholder="Цена, руб"/>
