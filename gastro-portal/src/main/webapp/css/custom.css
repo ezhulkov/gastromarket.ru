@@ -39,17 +39,12 @@ html > body div.t-error ul {
     padding: 5px 0 5px 150px;
 }
 
-.simple-text h1 {
-    font-size: 30px;
-    padding: 0;
-    margin: 0 0 10px 0;
-}
-
 .simple-text h2 {
     font-size: 20px;
     padding: 0;
     margin: 0 0 20px 0;
     line-height: normal;
+    text-align: left;
 }
 
 .simple-text h2 * {
