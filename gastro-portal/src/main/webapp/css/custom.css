@@ -29,6 +29,33 @@ html > body div.t-error ul {
     list-style-type: none;
 }
 
+.simple-text {
+    width: 750px;
+    margin: 30px auto 0 auto;
+}
+
+.simple-text p {
+    font-size: 16px;
+    padding: 5px 0 5px 150px;
+}
+
+.simple-text h1 {
+    font-size: 30px;
+    padding: 0;
+    margin: 0 0 10px 0;
+}
+
+.simple-text h2 {
+    font-size: 20px;
+    padding: 0;
+    margin: 0 0 20px 0;
+    line-height: normal;
+}
+
+.simple-text h2 * {
+    font-size: 20px;
+}
+
 .t-banner,
 .t-error-icon {
     display: none !important;
@@ -429,31 +456,32 @@ div.username {
 }
 
 /*Index*/
-.index .landing {
+.landing {
+    margin-top: 50px;
     display: table;
     width: 100%;
 }
 
-.index .landing > div {
+.landing > div {
     height: 453px;
     display: table-cell;
     width: 905px;
     background: url("../img/landing-bg-2.png") center top no-repeat;
 }
 
-.index .landing > div:first-child {
+.landing > div:first-child {
     background: url("../img/landing-bg-1.png") right 0 repeat-x;
     display: table-cell;
     width: auto;
 }
 
-.index .landing > div:last-child {
+.landing > div:last-child {
     background: url("../img/landing-bg-3.png") left 0 repeat-x;
     display: table-cell;
     width: auto;
 }
 
-.index .landing-info {
+.landing-info {
     height: 453px;
     text-align: center;
     padding-top: 155px;
@@ -718,5 +746,9 @@ div.username {
 
 /*Main*/
 .container.main {
-    min-height: 600px;
+    min-height: 500px;
+}
+
+.contacts .container {
+    min-height: 200px;
 }

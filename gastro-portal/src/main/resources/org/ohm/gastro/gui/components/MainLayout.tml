@@ -1,7 +1,0 @@
-<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" floatingHeader="floatingHeader">
-
-    <div class="container main">
-        <t:body/>
-    </div>
-
-</t:htmllayout>

@@ -1,4 +1,4 @@
-<t:mainLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" floatingHeader="false">
+<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" floatingHeader="false">
 
     <div class="contacts">
         <div class="container">
@@ -8,4 +8,4 @@
         </div>
     </div>
 
-</t:mainLayout>
+</t:htmlLayout>
