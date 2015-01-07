@@ -20,4 +20,6 @@ public interface UserService extends UserDetailsService {
 
     void resetPassword(String eMail);
 
+    void processApplicationRequest(String eMail, String fullName, String about);
+
 }

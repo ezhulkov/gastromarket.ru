@@ -22,6 +22,10 @@ public class Landing extends BaseComponent {
     @Inject
     private Block applicationResultBlock;
 
+    @Inject
+    @Property
+    private Block applicationFormBlock;
+
     @Property
     private boolean error = false;
 
@@ -30,10 +34,9 @@ public class Landing extends BaseComponent {
     }
 
     public Block onSubmitFromApplicationForm() {
-        if (!error) {
-            return applicationResultBlock;
-        }
-        return null;
+        if (error) return applicationFormBlock;
+        getUserService().processApplicationRequest(eMail, fullName, about);
+        return applicationResultBlock;
     }
 
 }

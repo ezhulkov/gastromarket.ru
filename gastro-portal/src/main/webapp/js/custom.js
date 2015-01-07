@@ -77,7 +77,6 @@ function initLoginModal() {
     jQuery(".application-link").unbind("click").bind("click", function (e) {
         hideAll();
         jQuery(".modal-dialog.application").show();
-        jQuery(".modal-body.data").show();
     });
 }
 function showModalResult(block) {

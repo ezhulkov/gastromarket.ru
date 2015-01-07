@@ -93,6 +93,19 @@ public class UserServiceImpl implements UserService, Logging {
     }
 
     @Override
+    public void processApplicationRequest(String eMail, String fullName, String about) {
+
+        logger.info("Application received");
+        logger.info("email: {}", eMail);
+        logger.info("fullName: {}", fullName);
+        logger.info("about: {}", about);
+
+        //todo
+        //send email
+
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email);
     }
