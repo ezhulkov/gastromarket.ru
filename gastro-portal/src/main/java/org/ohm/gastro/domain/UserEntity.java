@@ -30,6 +30,10 @@ import java.util.List;
 @Table(name = "person")
 public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
+    public enum SocialNetwork {
+        FACEBOOK, VKONTAKTE, ODNOKLASSNIKI
+    }
+
     public enum Type {
         ADMIN, COOK, USER
     }
@@ -71,6 +75,19 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
     @Column
     private Integer bonus = 0;
+
+    @Column(name = "avatar_url")
+    private String avatarUrl;
+
+    @Column(name = "avatar_url_small")
+    private String avatarUrlSmall;
+
+    @Column(name = "social_network")
+    @Enumerated(EnumType.STRING)
+    private SocialNetwork socialNetwork;
+
+    @Column(name = "social_id")
+    private String socialId;
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -219,6 +236,38 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
     public void setBonus(Integer bonus) {
         this.bonus = bonus;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public SocialNetwork getSocialNetwork() {
+        return socialNetwork;
+    }
+
+    public void setSocialNetwork(SocialNetwork socialNetwork) {
+        this.socialNetwork = socialNetwork;
+    }
+
+    public String getSocialId() {
+        return socialId;
+    }
+
+    public void setSocialId(String socialId) {
+        this.socialId = socialId;
+    }
+
+    public String getAvatarUrlSmall() {
+        return avatarUrlSmall;
+    }
+
+    public void setAvatarUrlSmall(String avatarUrlSmall) {
+        this.avatarUrlSmall = avatarUrlSmall;
     }
 
     @Override

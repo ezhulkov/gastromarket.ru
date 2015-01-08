@@ -53,7 +53,7 @@
                 <div class="modal-body">
                     <t:editObject t:id="editObject" showAdd="literal:true" autoFocus="literal:true">
                         <div class="form-group">
-                            <t:label class="col-sm-2 control-label" for="name">Тип:</t:label>
+                            <t:label class="col-sm-2 control-label" for="type">Тип:</t:label>
 
                             <div class="col-sm-10">
                                 <select t:id="type" class="form-control chosen-select"/>

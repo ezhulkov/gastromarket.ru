@@ -15,6 +15,7 @@ public class AppModule {
         configuration.add("/css/.*");
         configuration.add("/img/.*");
         configuration.add("/fonts/.*");
+        configuration.add("/social/*");
     }
 
     public void contributeApplicationStateManager(MappedConfiguration<Class, ApplicationStateContribution> configuration) {

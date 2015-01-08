@@ -8,6 +8,6 @@ import org.slf4j.LoggerFactory;
  */
 public interface Logging {
 
-    public Logger logger = LoggerFactory.getLogger(Logging.class);
+    public final Logger logger = LoggerFactory.getLogger(Logging.class);
 
 }

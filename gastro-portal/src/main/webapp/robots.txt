@@ -7,7 +7,7 @@ Disallow:/errors*
 Disallow: *ajax*
 Disallow: *jsessionid=*
 Clean-param: jsessionid /*
-Host: www.gastromarket.ru
+Host: gastromarket.ru
 
 User-Agent: *
 Disallow:/search

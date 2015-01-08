@@ -314,4 +314,13 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="16" author="ezhulkov">
+        <addColumn tableName="person">
+            <column name="avatar_url" type="java.sql.Types.VARCHAR(256)"/>
+            <column name="avatar_url_small" type="java.sql.Types.VARCHAR(256)"/>
+            <column name="social_network" type="java.sql.Types.VARCHAR(16)"/>
+            <column name="social_id" type="java.sql.Types.VARCHAR(32)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>
