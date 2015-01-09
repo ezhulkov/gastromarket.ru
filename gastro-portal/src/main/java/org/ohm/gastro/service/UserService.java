@@ -22,4 +22,6 @@ public interface UserService extends UserDetailsService {
 
     void processApplicationRequest(String eMail, String fullName, String about);
 
+    void signupSocial(UserEntity userProfile);
+
 }

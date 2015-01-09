@@ -1,6 +1,7 @@
 package org.ohm.gastro.service;
 
 import org.ohm.gastro.domain.UserEntity;
+import org.scribe.model.Token;
 import org.scribe.oauth.OAuthService;
 
 /**
@@ -8,13 +9,7 @@ import org.scribe.oauth.OAuthService;
  */
 public interface SocialSource {
 
-    boolean isConnected(UserEntity socialInfo);
-
-    UserEntity getUserProfile(String token, String uid);
-
-    String getImageURL(String token, String uid);
-
-    String getSmallImageURL(String token, String uid);
+    UserEntity getUserProfile(Token token);
 
     OAuthService getAuthService();
 

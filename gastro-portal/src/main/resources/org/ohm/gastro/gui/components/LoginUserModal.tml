@@ -15,9 +15,9 @@
                 <div class="row">
                     <div class="col-sm-12 social-big">
                         <ul>
-                            <li><a href="http://vk.com" title="vk.com" class="vk">vk.com</a></li>
-                            <li><a href="http://facebook.com" title="facebook.com" class="fb">facebook.com</a></li>
-                            <li><a href="http://ok.ru" title="odnoklassniki.ru" class="ok">ok.ru</a></li>
+                            <li><a href="/social?social=vk" title="vk.com" class="vk">vk.com</a></li>
+                            <li><a href="/social?social=fb" title="facebook.com" class="fb">facebook.com</a></li>
+                            <li><a href="/social?social=ok" title="odnoklassniki.ru" class="ok">ok.ru</a></li>
                         </ul>
                     </div>
                 </div>

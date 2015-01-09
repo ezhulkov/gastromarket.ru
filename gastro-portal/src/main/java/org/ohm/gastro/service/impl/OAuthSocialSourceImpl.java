@@ -1,6 +1,8 @@
 package org.ohm.gastro.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.ohm.gastro.service.SocialSource;
+import org.ohm.gastro.trait.Logging;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.Api;
 import org.scribe.oauth.OAuthService;
@@ -8,7 +10,9 @@ import org.scribe.oauth.OAuthService;
 /**
  * Created by ezhulkov on 08.01.15.
  */
-public abstract class OAuthSocialSourceImpl<ST extends Api> implements SocialSource {
+public abstract class OAuthSocialSourceImpl<ST extends Api> implements SocialSource, Logging {
+
+    protected final static ObjectMapper mapper = new ObjectMapper();
 
     private final String apiKey;
     private final String apiSecret;

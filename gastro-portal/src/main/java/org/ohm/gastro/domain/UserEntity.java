@@ -30,10 +30,6 @@ import java.util.List;
 @Table(name = "person")
 public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
-    public enum SocialNetwork {
-        FACEBOOK, VKONTAKTE, ODNOKLASSNIKI
-    }
-
     public enum Type {
         ADMIN, COOK, USER
     }
@@ -82,16 +78,9 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
     @Column(name = "avatar_url_small")
     private String avatarUrlSmall;
 
-    @Column(name = "social_network")
-    @Enumerated(EnumType.STRING)
-    private SocialNetwork socialNetwork;
-
-    @Column(name = "social_id")
-    private String socialId;
-
     @Column
     @Enumerated(EnumType.STRING)
-    private Type type = Type.COOK;
+    private Type type = Type.USER;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<CatalogEntity> cooks = Lists.newArrayList();
@@ -244,22 +233,6 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
-    }
-
-    public SocialNetwork getSocialNetwork() {
-        return socialNetwork;
-    }
-
-    public void setSocialNetwork(SocialNetwork socialNetwork) {
-        this.socialNetwork = socialNetwork;
-    }
-
-    public String getSocialId() {
-        return socialId;
-    }
-
-    public void setSocialId(String socialId) {
-        this.socialId = socialId;
     }
 
     public String getAvatarUrlSmall() {

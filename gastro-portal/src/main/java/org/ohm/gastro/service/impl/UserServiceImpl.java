@@ -14,6 +14,9 @@ import org.ohm.gastro.service.UserService;
 import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -102,6 +105,19 @@ public class UserServiceImpl implements UserService, Logging {
 
         //todo
         //send email
+
+    }
+
+    @Override
+    public void signupSocial(UserEntity userProfile) {
+
+        UserEntity existingUser = userRepository.findByEmail(userProfile.getEmail());
+        if (existingUser == null) {
+            existingUser = userRepository.save(userProfile);
+        }
+
+        Authentication authentication = new UsernamePasswordAuthenticationToken(existingUser, null, existingUser.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
     }
 

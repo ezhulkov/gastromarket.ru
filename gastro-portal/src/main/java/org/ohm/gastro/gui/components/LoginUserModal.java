@@ -4,7 +4,6 @@ import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.UserEntity;
-import org.ohm.gastro.domain.UserEntity.Type;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.service.EmptyPasswordException;
 import org.ohm.gastro.service.UserExistsException;
@@ -70,7 +69,6 @@ public class LoginUserModal extends BaseComponent {
                 UserEntity user = new UserEntity();
                 user.setEmail(eMail);
                 user.setPassword(passwordEncoder.encode(password));
-                user.setType(Type.USER);
                 user.setFullName(fullName);
                 //todo referrer
                 //user.setReferrer(referrer.map(t -> getUserService().findUser(t)).orElse(null));
