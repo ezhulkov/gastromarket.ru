@@ -46,31 +46,31 @@
                     role="form">
                 <h3>Комментарии к заказу</h3>
 
-                <div class="form-group form-group">
+                <div class="form-group">
                     <div class="col-sm-11">
                         <input t:id="comment" class="form-control" placeholder="дополнительная информация"/>
                     </div>
                 </div>
                 <h3>Адрес доставки и персональные данные</h3>
 
-                <div class="form-group form-group">
+                <div class="form-group">
                     <div class="col-sm-11">
                         <input t:id="fullName" class="form-control" placeholder="Ваше имя"/>
                     </div>
                 </div>
-                <div class="form-group form-group">
+                <div class="form-group">
                     <div class="col-sm-11">
                         <input t:id="mobilePhone" class="form-control" placeholder="Телефон для связи"/>
                     </div>
                 </div>
-                <div class="form-group form-group">
+                <div class="form-group">
                     <div class="col-sm-11">
                         <input t:id="deliveryAddress" class="form-control" placeholder="Адрес доставки"/>
                     </div>
                 </div>
                 <h3>Оплата заказа</h3>
 
-                <div class="form-group form-group">
+                <div class="form-group">
                     <div class="col-sm-11">
                         <input id="bonus" class="form-control" type="text" placeholder="Оплата бонусными баллами"/>
                     </div>
