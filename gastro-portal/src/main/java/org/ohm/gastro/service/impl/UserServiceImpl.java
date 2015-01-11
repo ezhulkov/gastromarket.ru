@@ -114,6 +114,11 @@ public class UserServiceImpl implements UserService, Logging {
         UserEntity existingUser = userRepository.findByEmail(userProfile.getEmail());
         if (existingUser == null) {
             existingUser = userRepository.save(userProfile);
+        } else {
+            if (StringUtils.isEmpty(existingUser.getFullName())) existingUser.setFullName(userProfile.getFullName());
+            if (StringUtils.isNotEmpty(userProfile.getAvatarUrl())) existingUser.setAvatarUrl(userProfile.getAvatarUrl());
+            if (StringUtils.isNotEmpty(userProfile.getAvatarUrlSmall())) existingUser.setAvatarUrlSmall(userProfile.getAvatarUrlSmall());
+            userRepository.save(existingUser);
         }
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(existingUser, null, existingUser.getAuthorities());

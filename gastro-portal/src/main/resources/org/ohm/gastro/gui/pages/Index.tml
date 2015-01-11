@@ -35,19 +35,21 @@
                 </t:loop>
             </div>
 
-            <div class="title">
-                <h1 style="width: 300px;"><span>Торты на свадьбу</span></h1>
-                <t:pagelink page="index">Смотреть всю подборку<span/></t:pagelink>
-            </div>
+            <t:if test="products">
+                <div class="title">
+                    <h1 style="width: 400px;"><span>Предложения недели</span></h1>
+                    <t:pagelink page="catalog/promoted">Смотреть всю подборку<span/></t:pagelink>
+                </div>
 
-            <div class="grid-block cakes">
-                <t:loop source="products" value="oneProduct">
-                    <div>
-                        <t:pagelink style="background: url('../img/cake.png')" page="catalog/index" context="oneProduct.id"/>
-                        ${oneProduct.name}
-                    </div>
-                </t:loop>
-            </div>
+                <div class="grid-block cakes">
+                    <t:loop source="products" value="oneProduct">
+                        <div>
+                            <t:pagelink style="background: url('../img/cake.png')" page="catalog/index" context="oneProduct.id"/>
+                            ${oneProduct.name}
+                        </div>
+                    </t:loop>
+                </div>
+            </t:if>
 
             <div class="title">
                 <h1 style="width: 160px;"><span>Кулинары</span></h1>

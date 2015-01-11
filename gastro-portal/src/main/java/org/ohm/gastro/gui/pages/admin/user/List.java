@@ -52,9 +52,9 @@ public class List extends EditObjectPage<UserEntity> {
                 try {
                     getUserService().saveUser(user);
                 } catch (UserExistsException e) {
-                    getEditObject().getForm().recordError("user exists");
+                    getEditObject().getForm().recordError(emailField, getMessages().get("error.user.exists"));
                 } catch (EmptyPasswordException e) {
-                    getEditObject().getForm().recordError("empty password");
+                    getEditObject().getForm().recordError(pwdField, getMessages().get("error.password.empty"));
                 }
                 return List.class;
             }

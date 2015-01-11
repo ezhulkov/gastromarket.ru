@@ -7,22 +7,19 @@
                 <div class="pull-right">
                     <t:if test="authenticated">
                         <div class="dropdown username">
-                            <img src="${contextPath}/img/user-avatar.png"/>&#160;
+                            <img class="avatar" src="${authenticatedUser.avatarUrlSmall}"/>&#160;
                             <a data-target="#" href="#userMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                                 ${authenticatedUser.printableName}
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                <li>
+                                    <t:pagelink page="office" context="['UPDATE','0']">Мой профиль</t:pagelink>
+                                </li>
                                 <t:if test="admin">
                                     <li>
-                                        <t:pagelink page="admin/category/list">Личный кабинет</t:pagelink>
+                                        <t:pagelink page="admin/category/list">Системные настройки</t:pagelink>
                                     </li>
-                                </t:if>
-                                <t:if test="cook">
-                                    <li><a href="/office/index">Личный кабинет</a></li>
-                                </t:if>
-                                <t:if test="user">
-                                    <li><a href="/office/index">Личный кабинет</a></li>
                                 </t:if>
                                 <li><a href="/logout">Выход</a></li>
                             </ul>

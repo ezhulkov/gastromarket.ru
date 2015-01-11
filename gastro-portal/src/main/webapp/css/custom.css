@@ -343,6 +343,12 @@ html > body div.t-error ul {
     cursor: pointer;
 }
 
+.navbar .avatar {
+    width: 23px;
+    height: 23px;
+    border-radius: 11px;
+}
+
 .red-link,
 .remember-link {
     color: #e70500;

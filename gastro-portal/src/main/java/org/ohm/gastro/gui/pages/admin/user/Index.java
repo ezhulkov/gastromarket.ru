@@ -6,7 +6,6 @@ import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.PasswordField;
 import org.apache.tapestry5.corelib.components.TextField;
-import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.domain.UserEntity.Type;
@@ -16,15 +15,11 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.EditObjectPage;
 import org.ohm.gastro.service.EmptyPasswordException;
 import org.ohm.gastro.service.UserExistsException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * Created by ezhulkov on 24.08.14.
  */
 public class Index extends EditObjectPage<UserEntity> {
-
-    @Inject
-    private PasswordEncoder passwordEncoder;
 
     @Property
     private CatalogEntity oneCatalog;
@@ -69,7 +64,7 @@ public class Index extends EditObjectPage<UserEntity> {
 
             @Override
             public Class<? extends BaseComponent> updateObject(UserEntity user) {
-                if (StringUtils.isNotEmpty(newPassword)) user.setPassword(passwordEncoder.encode(newPassword));
+                if (StringUtils.isNotEmpty(newPassword)) user.setPassword(getPasswordEncoder().encode(newPassword));
                 try {
                     getUserService().saveUser(user);
                 } catch (UserExistsException e) {

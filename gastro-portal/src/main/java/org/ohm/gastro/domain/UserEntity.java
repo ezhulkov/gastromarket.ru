@@ -76,7 +76,7 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
     private String avatarUrl;
 
     @Column(name = "avatar_url_small")
-    private String avatarUrlSmall;
+    private String avatarUrlSmall = "/img/user-avatar.png";
 
     @Column
     @Enumerated(EnumType.STRING)

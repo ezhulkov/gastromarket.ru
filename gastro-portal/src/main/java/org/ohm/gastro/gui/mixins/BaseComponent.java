@@ -72,6 +72,9 @@ public abstract class BaseComponent {
     private PropertyAccess propertyAccess;
 
     @Inject
+    private PasswordEncoder passwordEncoder;
+
+    @Inject
     private CatalogService catalogService;
 
     @Inject
@@ -96,7 +99,7 @@ public abstract class BaseComponent {
         }
         Object principal = securityContext.getAuthentication().getPrincipal();
         if (principal != null && principal instanceof UserEntity) {
-            return (UserEntity) principal;
+            return userService.findUser(((UserEntity) principal).getId());
         }
         return null;
     }
@@ -158,6 +161,10 @@ public abstract class BaseComponent {
 
     public HttpServletRequest getHttpServletRequest() {
         return httpServletRequest;
+    }
+
+    public PasswordEncoder getPasswordEncoder() {
+        return passwordEncoder;
     }
 
     public java.util.List<TagEntity> getProductTags(ProductEntity product) {
