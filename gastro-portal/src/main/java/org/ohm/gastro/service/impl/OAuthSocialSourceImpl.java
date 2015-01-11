@@ -30,15 +30,13 @@ public abstract class OAuthSocialSourceImpl<ST extends Api> implements SocialSou
 
     @Override
     public OAuthService getAuthService() {
-        ServiceBuilder builder = new ServiceBuilder();
-        builder.provider(authServiceClass).apiKey(apiKey).apiSecret(apiSecret);
-        if (callback != null) {
-            builder.callback(callback);
-        }
-        if (scope != null) {
-            builder.scope(scope);
-        }
-        return builder.build();
+        return new ServiceBuilder()
+                .provider(authServiceClass)
+                .apiKey(apiKey)
+                .apiSecret(apiSecret)
+                .callback(callback)
+                .scope(scope)
+                .build();
     }
 
 }
