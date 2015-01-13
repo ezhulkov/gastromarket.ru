@@ -29,6 +29,31 @@ html > body div.t-error ul {
     list-style-type: none;
 }
 
+.qq-upload-button-selector {
+    width: 49px;
+    height: 49px;
+    background: url("../img/upload-avatar.png") no-repeat;
+}
+
+.qq-upload-button-hover {
+    width: 49px;
+    height: 49px;
+    background: url("../img/upload-avatar-hover.png") no-repeat;
+}
+
+.upload-avatar {
+    overflow: hidden;
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+.upload-avatar div.qq-uploader-selector {
+    position: absolute;
+    bottom: 10px;
+    left: 75px;
+}
+
 .simple-text {
     width: 750px;
     margin: 30px auto 0 auto;

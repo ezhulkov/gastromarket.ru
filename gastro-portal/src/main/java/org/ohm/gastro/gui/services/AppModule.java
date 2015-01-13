@@ -16,6 +16,7 @@ public class AppModule {
         configuration.add("/img/.*");
         configuration.add("/fonts/.*");
         configuration.add("/social/*");
+        configuration.add("/upload/*");
     }
 
     public void contributeApplicationStateManager(MappedConfiguration<Class, ApplicationStateContribution> configuration) {

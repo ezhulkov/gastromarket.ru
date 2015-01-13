@@ -103,6 +103,10 @@
         <filter-name>socialFilter</filter-name>
         <filter-class>org.ohm.gastro.filter.SocialFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>uploadFilter</filter-name>
+        <filter-class>org.ohm.gastro.filter.UploadFilter</filter-class>
+    </filter>
 
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
@@ -123,6 +127,10 @@
     <filter-mapping>
         <filter-name>socialFilter</filter-name>
         <url-pattern>/social/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>uploadFilter</filter-name>
+        <url-pattern>/upload/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>app</filter-name>

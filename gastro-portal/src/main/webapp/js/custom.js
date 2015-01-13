@@ -31,6 +31,11 @@ jQuery(document).ready(function () {
         margin = margin + "px";
         jQuery(this).css("margin-left", margin);
     });
+    jQuery(".uploader-button").fineUploader({
+        request: {
+            endpoint: '/upload'
+        }
+    });
     jQuery(".tip").tooltip({placement: "bottom"});
     initChosen(jQuery("select.chosen-select"));
     initLoginModal();
