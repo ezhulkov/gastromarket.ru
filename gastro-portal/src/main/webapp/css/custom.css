@@ -12,6 +12,11 @@ h2 {
     font-size: 25px;
 }
 
+h3 {
+    text-align: left;
+    font-size: 20px;
+}
+
 *:focus {
     outline: 0 !important;
 }
@@ -32,13 +37,13 @@ html > body div.t-error ul {
 .qq-upload-button-selector {
     width: 49px;
     height: 49px;
-    background: url("../img/upload-avatar.png") no-repeat;
+    background: url("../img/avatar-upload.png") no-repeat;
 }
 
 .qq-upload-button-hover {
     width: 49px;
     height: 49px;
-    background: url("../img/upload-avatar-hover.png") no-repeat;
+    background: url("../img/avatar-upload-hover.png") no-repeat;
 }
 
 .upload-avatar {
@@ -51,7 +56,7 @@ html > body div.t-error ul {
 .upload-avatar div.qq-uploader-selector {
     position: absolute;
     bottom: 10px;
-    left: 75px;
+    left: 140px;
 }
 
 .simple-text {
@@ -185,6 +190,10 @@ html > body div.t-error ul {
 
 .title {
     position: relative;
+}
+
+.office .title {
+    margin-bottom: 50px;
 }
 
 .title h1 {
@@ -770,11 +779,6 @@ div.username {
     width: 300px;
 }
 
-/*Main*/
-.container.main {
-    min-height: 500px;
-}
-
 .contacts .container {
-    min-height: 200px;
+    min-height: 300px;
 }

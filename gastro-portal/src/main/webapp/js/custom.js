@@ -31,24 +31,29 @@ jQuery(document).ready(function () {
         margin = margin + "px";
         jQuery(this).css("margin-left", margin);
     });
-    jQuery(".uploader-button").fineUploader({
-        request: {
-            endpoint: '/upload'
-        }
-    });
+    jQuery(".uploader-button")
+        .fineUploader({
+            request: {
+                endpoint: '/upload'
+            },
+            validation: {
+                allowedExtensions: ['jpeg', 'jpg', 'png'],
+                sizeLimit: 10485760,
+                itemLimit: 1
+            },
+            multiple: false
+        })
+        .on("complete", function (id, name, responseJSON, xhr) {
+            jQuery(id.target).closest("div.upload-avatar").find("img").attr("src", xhr.url);
+        });
     jQuery(".tip").tooltip({placement: "bottom"});
     initChosen(jQuery("select.chosen-select"));
     initLoginModal();
 });
-jQuery(document).on(Tapestry.ZONE_UPDATED_EVENT, function (event) {
-    alert(event);
-});
-
 function activate_menu(el) {
     jQuery(el).closest(".office-menu").find(".sel").removeClass("sel");
     jQuery(el).addClass("sel");
 }
-
 function initChosen(el) {
     jQuery(el).chosen({"width": "100%"}).on('change', function (e) {
         this.fire(Tapestry.ACTION_EVENT, e);

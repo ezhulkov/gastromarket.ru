@@ -11,13 +11,17 @@ import java.io.IOException;
  */
 public class UploadFilter extends BaseApplicationFilter {
 
+    private final static String ajaxResponse = "{\"url\":\"%s\"}";
+
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain)
             throws ServletException, IOException {
 
-        System.out.println("!!!!!!!");
-
-        httpServletResponse.sendError(HttpServletResponse.SC_OK);
+        httpServletResponse.setContentType("application/json");
+        httpServletResponse.setCharacterEncoding("UTF-8");
+        httpServletResponse.setHeader("Cache-Control", "no-cache");
+        httpServletResponse.getWriter().write(String.format(ajaxResponse, "/img/cook.png"));
+        httpServletResponse.getWriter().flush();
 
     }
 
