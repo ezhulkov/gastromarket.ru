@@ -37,11 +37,10 @@ jQuery(document).ready(function () {
                 endpoint: '/upload'
             },
             validation: {
-                allowedExtensions: ['jpeg', 'jpg', 'png'],
+                allowedExtensions: ['jpeg', 'jpg'],
                 sizeLimit: 10485760,
                 itemLimit: 1
-            },
-            multiple: false
+            }
         })
         .on("complete", function (id, name, responseJSON, xhr) {
             jQuery(id.target).closest("div.upload-avatar").find("img").attr("src", xhr.url);
