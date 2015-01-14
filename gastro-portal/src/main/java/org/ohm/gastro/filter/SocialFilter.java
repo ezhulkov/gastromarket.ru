@@ -26,34 +26,39 @@ public class SocialFilter extends BaseApplicationFilter {
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain)
             throws ServletException, IOException {
 
-        String rqType = (String) ObjectUtils.defaultIfNull(httpServletRequest.getParameter("type"), "direct");
-        String socialNetwork = httpServletRequest.getParameter("social");
-        Logging.logger.info("Calling SocialFilter with parameters rqType: {}, socialNetwork {}", rqType, socialNetwork);
+        try {
+            String rqType = (String) ObjectUtils.defaultIfNull(httpServletRequest.getParameter("type"), "direct");
+            String socialNetwork = httpServletRequest.getParameter("social");
+            Logging.logger.info("Calling SocialFilter with parameters rqType: {}, socialNetwork {}", rqType, socialNetwork);
 
-        SocialSource socialSource = ApplicationContextHolder.getBean(SocialSource.class, socialNetwork);
-        OAuthService authService = socialSource.getAuthService();
-        if ("direct".equals(rqType)) {
-            String authUrl = authService.getAuthorizationUrl(null);
-            httpServletResponse.sendRedirect(authUrl);
-        } else if ("callback".equals(rqType)) {
-            String oAuth2Code = httpServletRequest.getParameter("code");
-            if (oAuth2Code == null) {
-                Logging.logger.error("Empty oAuth2Code from callback call");
+            SocialSource socialSource = ApplicationContextHolder.getBean(SocialSource.class, socialNetwork);
+            OAuthService authService = socialSource.getAuthService();
+            if ("direct".equals(rqType)) {
+                String authUrl = authService.getAuthorizationUrl(null);
+                httpServletResponse.sendRedirect(authUrl);
+            } else if ("callback".equals(rqType)) {
+                String oAuth2Code = httpServletRequest.getParameter("code");
+                if (oAuth2Code == null) {
+                    Logging.logger.error("Empty oAuth2Code from callback call");
+                    httpServletResponse.sendRedirect("/");
+                    return;
+                }
+                Verifier verifier = new Verifier(oAuth2Code);
+                Token token = authService.getAccessToken(null, verifier);
+                Logging.logger.info("Got access token {}", token);
+                UserEntity userProfile = socialSource.getUserProfile(token);
+                if (userProfile == null || StringUtils.isEmpty(userProfile.getEmail())) {
+                    Logging.logger.error("Empty UserProfile from social source call");
+                    httpServletResponse.sendRedirect("/");
+                    return;
+                }
+                Logging.logger.info("UserProfile from social source {}", userProfile);
+                ApplicationContextHolder.getBean(UserService.class).signupSocial(userProfile);
                 httpServletResponse.sendRedirect("/");
-                return;
             }
-            Verifier verifier = new Verifier(oAuth2Code);
-            Token token = authService.getAccessToken(null, verifier);
-            Logging.logger.info("Got access token {}", token);
-            UserEntity userProfile = socialSource.getUserProfile(token);
-            if (userProfile == null || StringUtils.isEmpty(userProfile.getEmail())) {
-                Logging.logger.error("Empty UserProfile from social source call");
-                httpServletResponse.sendRedirect("/");
-                return;
-            }
-            Logging.logger.info("UserProfile from social source {}", userProfile);
-            ApplicationContextHolder.getBean(UserService.class).signupSocial(userProfile);
-            httpServletResponse.sendRedirect("/");
+        } catch (Exception e) {
+            Logging.logger.error("", e);
+            httpServletResponse.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
 
     }

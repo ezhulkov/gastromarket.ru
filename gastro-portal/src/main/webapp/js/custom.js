@@ -34,7 +34,7 @@ jQuery(document).ready(function () {
     jQuery(".uploader-button")
         .fineUploader({
             request: {
-                endpoint: '/upload'
+                endpoint: '/upload?file_path=/tmp/1.jpg'
             },
             validation: {
                 allowedExtensions: ['jpeg', 'jpg'],

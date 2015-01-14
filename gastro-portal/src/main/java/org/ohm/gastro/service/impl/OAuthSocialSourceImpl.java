@@ -1,6 +1,7 @@
 package org.ohm.gastro.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.service.SocialSource;
 import org.ohm.gastro.trait.Logging;
 import org.scribe.builder.ServiceBuilder;
@@ -30,13 +31,9 @@ public abstract class OAuthSocialSourceImpl<ST extends Api> implements SocialSou
 
     @Override
     public OAuthService getAuthService() {
-        return new ServiceBuilder()
-                .provider(authServiceClass)
-                .apiKey(apiKey)
-                .apiSecret(apiSecret)
-                .callback(callback)
-                .scope(scope)
-                .build();
+        final ServiceBuilder builder = new ServiceBuilder().provider(authServiceClass).apiKey(apiKey).apiSecret(apiSecret).callback(callback);
+        if (StringUtils.isNotEmpty(scope)) builder.scope(scope);
+        return builder.build();
     }
 
 }
