@@ -28,6 +28,9 @@ import java.util.stream.Collectors;
 public class ProductEdit extends BaseComponent {
 
     @Property
+    private boolean error = false;
+
+    @Property
     private PropertyEntity oneProperty;
 
     @Property
@@ -36,6 +39,10 @@ public class ProductEdit extends BaseComponent {
     @Inject
     @Property
     private Block propertyBlock;
+
+    @Inject
+    @Property
+    private Block productBlock;
 
     @Parameter(name = "catalog", required = true, allowNull = false)
     private CatalogEntity catalog;
@@ -72,21 +79,28 @@ public class ProductEdit extends BaseComponent {
         if (pCategory != null) product.setCategory(pCategory);
     }
 
-    public void onSubmitFromAddProductForm() {
-        Map<Long, String> propValues = getRequest().getParameterNames().stream()
-                .filter(t -> t.startsWith("prop-"))
-                .map(t -> t.substring("prop-".length(), t.length()))
-                .collect(Collectors.toMap(Long::parseLong,
-                                          key -> getRequest().getParameter("prop-" + key)
-                ));
-        Map<Long, String[]> listValues = getRequest().getParameterNames().stream()
-                .filter(t -> t.startsWith("list-"))
-                .map(t -> t.substring("list-".length(), t.length()))
-                .collect(Collectors.toMap(Long::parseLong,
-                                          key -> getRequest().getParameters("list-" + key)
-                ));
-        product.setCatalog(catalog);
-        getCatalogService().saveProduct(product, propValues, listValues);
+    public void onFailureFromAddProductForm() {
+        error = true;
+    }
+
+    public Block onSubmitFromAddProductForm() {
+        if (!error) {
+            Map<Long, String> propValues = getRequest().getParameterNames().stream()
+                    .filter(t -> t.startsWith("prop-"))
+                    .map(t -> t.substring("prop-".length(), t.length()))
+                    .collect(Collectors.toMap(Long::parseLong,
+                                              key -> getRequest().getParameter("prop-" + key)
+                    ));
+            Map<Long, String[]> listValues = getRequest().getParameterNames().stream()
+                    .filter(t -> t.startsWith("list-"))
+                    .map(t -> t.substring("list-".length(), t.length()))
+                    .collect(Collectors.toMap(Long::parseLong,
+                                              key -> getRequest().getParameters("list-" + key)
+                    ));
+            product.setCatalog(catalog);
+            getCatalogService().saveProduct(product, propValues, listValues);
+        }
+        return productBlock;
     }
 
     public Block onValueChangedFromProductCategory(CategoryEntity category) {

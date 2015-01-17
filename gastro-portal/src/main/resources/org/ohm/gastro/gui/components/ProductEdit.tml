@@ -1,64 +1,85 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="product-create">
-
-    <t:form t:id="addProductForm" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
-        <div class="form-group">
-            <div class="col-sm-12">
-                <t:select t:id="productCategory" class="form-control chosen-select" t:zone="propertyZone"/>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-sm-12">
-                <input t:id="productName" class="form-control" placeholder="Название"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-12">
-                <input t:id="productDescription" class="form-control" placeholder="Описание"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-12">
-                <input t:id="productPrice" class="form-control" placeholder="Цена, руб"/>
-            </div>
-        </div>
-        <h2>Свойства</h2>
-        <t:zone t:id="propertyZone" id="propertyZone">
-            <t:delegate to="propertyBlock"/>
-        </t:zone>
-        <t:block t:id="propertyBlock">
-            <t:loop source="categoryProperties" value="oneProperty" formState="NONE">
-                <div class="form-group">
-                    <t:if test="oneProperty.type.toString().equals('LIST')">
-                        <div class="col-sm-11" id="list${oneProperty.id}">
-                            <select name="list-${oneProperty.id}" class="form-control chosen-select">
-                                <option value="" disabled="disabled" selected="selected">${oneProperty.name}</option>
-                                <t:loop source="propertyValues" value="oneValue" formState="NONE">
-                                    <option value="${oneValue.id}">${oneValue.value}</option>
-                                </t:loop>
-                            </select>
-                        </div>
-                        <div class="col-sm-1 more">
-                            <a href="#" data="${oneProperty.id}" class="glyphicon glyphicon-plus"/>
-                        </div>
-                        <t:parameter name="else">
-                            <div class="col-sm-12">
-                                <input class="form-control" type="${valueType}" name="prop-${oneProperty.id}" placeholder="${oneProperty.name}"/>
-                            </div>
-                        </t:parameter>
-                    </t:if>
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" data-backdrop="static" class="modal fade" id="create" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="title">
+                    <h1 style="width: 300px;"><span>Создать товар</span></h1>
                 </div>
-            </t:loop>
-            <!--<script>-->
-            <!--jQuery('.more-btn').unbind().bind('click', function () {-->
-            <!--var id = jQuery(this).attr('data');-->
-            <!--var listBlock = jQuery('#list' + id);-->
-            <!--var lastList = jQuery('select:last', listBlock);-->
-            <!--jQuery(lastList).clone().insertAfter(lastList);-->
-            <!--});-->
-            <!--</script>-->
-        </t:block>
-        <input t:id="add" class="btn btn-red" t:type="submit" value="Добавить"/>
-    </t:form>
+                <a class="modal-close" data-dismiss="modal"></a>
+            </div>
+            <div class="modal-body product-create">
 
+                <t:zone t:id="productZone">
+                    <t:delegate to="productBlock"/>
+                </t:zone>
+
+                <t:block t:id="productBlock">
+                    <t:form t:id="addProductForm" t:zone="productZone" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
+                        <t:errors/>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <t:select t:id="productCategory" class="form-control chosen-select" t:zone="propertyZone"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <input t:id="productName" class="form-control" placeholder="Название"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <input t:id="productDescription" rows="4" class="form-control" placeholder="Описание"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <input t:id="productPrice" class="form-control price" placeholder="Цена, руб"/>
+                            </div>
+                        </div>
+                        <t:zone t:id="propertyZone" id="propertyZone">
+                            <t:delegate to="propertyBlock"/>
+                        </t:zone>
+                        <t:block t:id="propertyBlock">
+                            <t:if test="categoryProperties">
+                                <h2>Свойства</h2>
+                                <t:loop source="categoryProperties" value="oneProperty" formState="NONE">
+                                    <div class="form-group">
+                                        <t:if test="oneProperty.type.toString().equals('LIST')">
+                                            <div class="col-sm-11" id="list${oneProperty.id}">
+                                                <select name="list-${oneProperty.id}" class="form-control chosen-select">
+                                                    <option value="" disabled="disabled" selected="selected">${oneProperty.name}</option>
+                                                    <t:loop source="propertyValues" value="oneValue" formState="NONE">
+                                                        <option value="${oneValue.id}">${oneValue.value}</option>
+                                                    </t:loop>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-1 more">
+                                                <a href="#" data="${oneProperty.id}" class="glyphicon glyphicon-plus"/>
+                                            </div>
+                                            <t:parameter name="else">
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="${valueType}" name="prop-${oneProperty.id}" placeholder="${oneProperty.name}"/>
+                                                </div>
+                                            </t:parameter>
+                                        </t:if>
+                                    </div>
+                                </t:loop>
+                            </t:if>
+                            <!--<script>-->
+                            <!--jQuery('.more-btn').unbind().bind('click', function () {-->
+                            <!--var id = jQuery(this).attr('data');-->
+                            <!--var listBlock = jQuery('#list' + id);-->
+                            <!--var lastList = jQuery('select:last', listBlock);-->
+                            <!--jQuery(lastList).clone().insertAfter(lastList);-->
+                            <!--});-->
+                            <!--</script>-->
+                        </t:block>
+                        <a class="btn btn-white signup-link" data-dismiss="modal" href="#">Закрыть</a>
+                        <input t:id="add" class="btn btn-red" t:type="submit" value="Добавить фото >"/>
+                    </t:form>
+                </t:block>
+
+            </div>
+        </div>
+    </div>
 </div>

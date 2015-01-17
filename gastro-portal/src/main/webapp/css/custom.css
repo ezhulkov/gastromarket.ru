@@ -188,6 +188,10 @@ html > body div.t-error ul {
     margin: 0 0 0 140px;
 }
 
+.modal-body.product-create div.t-error {
+    margin: 0 0 0 0;
+}
+
 .title {
     position: relative;
 }
@@ -781,4 +785,10 @@ div.username {
 
 .contacts .container {
     min-height: 300px;
+}
+
+.form-control.price {
+    font-weight: bold;
+    font-size: 24px;
+    height: 50px;
 }

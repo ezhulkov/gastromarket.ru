@@ -16,7 +16,7 @@
 
     <div class="data-header">
         <h1>Товары</h1>
-        <a data-toggle="modal" data-target="#create" href="#create">Создать товар<span/></a>
+        <a data-toggle="modal"  data-target="#create" href="#create">Создать товар<span/></a>
     </div>
 
     <t:grid source="products" row="oneProduct"
@@ -33,23 +33,12 @@
                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
             </t:if>
         </t:parameter>
+        <t:parameter name="empty">
+            <div class="empty">Нет данных</div>
+        </t:parameter>
     </t:grid>
 
-    <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="title">
-                        <h1 style="width: 300px;"><span>Создать товар</span></h1>
-                    </div>
-                    <a class="modal-close" data-dismiss="modal"></a>
-                </div>
-                <div class="modal-body">
-                    <t:productEdit t:id="productEdit" catalog="object"/>
-                </div>
-            </div>
-        </div>
-    </div>
+    <t:productEdit t:id="productEdit" catalog="object"/>
 
     <script>
         activate_menu('#catalog');
