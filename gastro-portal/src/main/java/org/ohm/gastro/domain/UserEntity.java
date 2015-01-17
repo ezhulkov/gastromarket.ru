@@ -75,6 +75,10 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
     @Column(name = "avatar_url")
     private String avatarUrl = "/img/avatar-stub.png";
 
+    @Column(name = "avatar_url_medium")
+    private String avatarUrlMedium = "/img/avatar-stub-medium.png";
+
+
     @Column(name = "avatar_url_small")
     private String avatarUrlSmall = "/img/avatar-stub-small.png";
 
@@ -241,6 +245,14 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
     public void setAvatarUrlSmall(String avatarUrlSmall) {
         this.avatarUrlSmall = avatarUrlSmall;
+    }
+
+    public String getAvatarUrlMedium() {
+        return avatarUrlMedium;
+    }
+
+    public void setAvatarUrlMedium(String avatarUrlMedium) {
+        this.avatarUrlMedium = avatarUrlMedium;
     }
 
     @Override

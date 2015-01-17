@@ -13,7 +13,7 @@ public abstract class BaseApplicationFilter extends OncePerRequestFilter impleme
     private String[] urls;
 
     @Override
-    protected synchronized void initFilterBean() throws ServletException {
+    protected void initFilterBean() throws ServletException {
         String params = super.getServletContext().getInitParameter(STATIC_RESOURCE_URLS_PARAM);
         if (params != null) {
             urls = params.split(",");

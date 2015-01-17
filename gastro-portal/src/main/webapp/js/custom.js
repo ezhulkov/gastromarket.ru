@@ -31,10 +31,13 @@ jQuery(document).ready(function () {
         margin = margin + "px";
         jQuery(this).css("margin-left", margin);
     });
+
+    var fileType = jQuery(".uploader-button").closest("div.upload-avatar").attr("data-type");
+    var respSize = jQuery(".uploader-button").closest("div.upload-avatar").attr("data-size");
     jQuery(".uploader-button")
         .fineUploader({
             request: {
-                endpoint: '/upload?file_path=/tmp/1.jpg&file_type=AVATAR'
+                endpoint: '/upload?file_path=/tmp/1.jpg&file_type=' + fileType
             },
             validation: {
                 allowedExtensions: ['jpeg', 'jpg'],
@@ -43,7 +46,7 @@ jQuery(document).ready(function () {
             }
         })
         .on("complete", function (id, name, responseJSON, xhr) {
-            jQuery(id.target).closest("div.upload-avatar").find("img").attr("src", xhr.url);
+            jQuery(id.target).closest("div.upload-avatar").find("img").attr("src", xhr[respSize]);
         });
     jQuery(".tip").tooltip({placement: "bottom"});
     initChosen(jQuery("select.chosen-select"));

@@ -1,10 +1,13 @@
 package org.ohm.gastro.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 import org.apache.commons.io.FileUtils;
 import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.service.ImageUploaderService;
+import org.ohm.gastro.service.ImageUploaderService.FileType;
+import org.ohm.gastro.service.ImageUploaderService.ImageSize;
+import org.ohm.gastro.service.impl.ApplicationContextHolder;
 import org.ohm.gastro.trait.Logging;
 
 import javax.imageio.ImageIO;
@@ -17,9 +20,11 @@ import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static org.ohm.gastro.misc.Throwables.propagate;
 
 /**
@@ -27,16 +32,15 @@ import static org.ohm.gastro.misc.Throwables.propagate;
  */
 public class UploadFilter extends BaseApplicationFilter implements Logging {
 
-    private static enum ImageSize {SIZE1, SIZE2, SIZE3}
-
-    private static enum FileType {AVATAR, PRODUCT}
-
     private final static String IMAGE_DESTINATION_URL = "imageDestinationUrl";
     private final static String IMAGE_DESTINATION_PATH = "imageDestinationPath";
     private final static String IMAGE_NAME_TEMPLATE = "%s_%s_%s.jpg";
     private final static ObjectMapper objectMapper = new ObjectMapper();
 
+    private volatile Collection<ImageUploaderService> uploaderServices;
+
     private static String imageDestinationPath;
+    private static String imageDestinationUrl;
 
     private final static Map<FileType, Map<ImageSize, Integer[]>> sizes = new ImmutableMap.Builder<FileType, Map<ImageSize, Integer[]>>()
             .put(FileType.AVATAR, new ImmutableMap.Builder<ImageSize, Integer[]>()
@@ -51,9 +55,10 @@ public class UploadFilter extends BaseApplicationFilter implements Logging {
                     .build())
             .build();
 
-    protected synchronized void initFilterBean() throws ServletException {
+    protected void initFilterBean() throws ServletException {
         super.initFilterBean();
         imageDestinationPath = super.getServletContext().getInitParameter(IMAGE_DESTINATION_PATH);
+        imageDestinationUrl = super.getServletContext().getInitParameter(IMAGE_DESTINATION_URL);
     }
 
     @Override
@@ -67,13 +72,13 @@ public class UploadFilter extends BaseApplicationFilter implements Logging {
             final String fileTypeStr = httpServletRequest.getParameter("file_type");
             final String objectIdStr = httpServletRequest.getParameter("obj_id");
 
-            Preconditions.checkNotNull(filePath, "file_path should not be empty");
-            Preconditions.checkNotNull(fileTypeStr, "file_type should not be empty");
+            checkNotNull(filePath, "file_path should not be empty");
+            checkNotNull(fileTypeStr, "file_type should not be empty");
 
             final FileType fileType = FileType.valueOf(fileTypeStr);
             final String objectId = fileType == FileType.AVATAR ? BaseComponent.getAuthenticatedUser(null).map(t -> t.getId().toString()).orElse("0") : objectIdStr;
 
-            Preconditions.checkNotNull(objectId, "objectId should not be empty");
+            checkNotNull(objectId, "objectId should not be empty");
 
             file = new File(filePath);
             final BufferedImage image = ImageIO.read(file);
@@ -81,18 +86,20 @@ public class UploadFilter extends BaseApplicationFilter implements Logging {
             Logging.logger.info("Image uploaded fileType {}, objectId {} ", fileType, objectId);
 
             final Map<ImageSize, Integer[]> fileSizes = sizes.get(fileType);
-            Map<String, String> imageUrls = fileSizes.entrySet().stream()
+            Map<ImageSize, String> imageUrls = fileSizes.entrySet().stream()
                     .map(entry -> propagate(() -> {
-                        String imageSizeName = entry.getKey().toString();
-                        final String imageName = String.format(IMAGE_NAME_TEMPLATE, fileType, objectId, imageSizeName);
+                        ImageSize imageSize = entry.getKey();
+                        final String imageName = String.format(IMAGE_NAME_TEMPLATE, fileType, objectId, imageSize);
                         final BufferedImage resizedImage = resizeImage(image, entry.getValue()[0], entry.getValue()[1]);
                         final String imageFileName = imageDestinationPath + File.separator + imageName;
                         ImageIO.write(resizedImage, "jpeg", new File(imageFileName));
-                        Logging.logger.debug("Image resized {} to {}", imageSizeName, imageFileName);
-                        return new String[]{imageSizeName, IMAGE_DESTINATION_URL + imageName};
-                    })).collect(Collectors.toMap(t -> t[0], t -> t[1]));
+                        Logging.logger.debug("Image resized {} to {}", imageSize, imageFileName);
+                        return new Object[]{imageSize, imageDestinationUrl + imageName};
+                    })).collect(Collectors.toMap(t -> (ImageSize) t[0], t -> (String) t[1]));
 
             Logging.logger.debug("Final image set {}", imageUrls);
+
+            getService(fileType).processUploadedImages(objectId, imageUrls);
 
             httpServletResponse.setContentType("application/json");
             httpServletResponse.setCharacterEncoding("UTF-8");
@@ -113,12 +120,39 @@ public class UploadFilter extends BaseApplicationFilter implements Logging {
 
     }
 
-    private static BufferedImage resizeImage(BufferedImage originalImage, int width, int height) {
-        BufferedImage resizedImage = new BufferedImage(width, height, ColorSpace.TYPE_RGB);
-        Graphics2D g = resizedImage.createGraphics();
-        g.drawImage(originalImage, 0, 0, width, height, null);
+    private BufferedImage resizeImage(final BufferedImage originalImage, final int width, final int height) {
+        final int originalWidth = originalImage.getWidth();
+        final int originalHeight = originalImage.getHeight();
+        final int croppedWidth;
+        final int croppedHeight;
+        if (width > height) {
+            croppedWidth = originalWidth;
+            croppedHeight = height * originalWidth / width;
+        } else if (width < height) {
+            croppedWidth = width * originalHeight / height;
+            croppedHeight = originalHeight;
+        } else {
+            croppedWidth = Math.min(originalHeight, originalWidth);
+            croppedHeight = Math.min(originalHeight, originalWidth);
+        }
+        final BufferedImage croppedImage = originalImage.getSubimage((originalWidth - croppedWidth) / 2, (originalHeight - croppedHeight) / 2, croppedWidth, croppedHeight);
+        final BufferedImage resizedImage = new BufferedImage(width, height, ColorSpace.TYPE_RGB);
+        final Graphics2D g = resizedImage.createGraphics();
+        g.drawImage(croppedImage, 0, 0, width, height, null);
         g.dispose();
         return resizedImage;
+
+    }
+
+    private ImageUploaderService getService(FileType fileType) {
+        if (uploaderServices == null) {
+            synchronized (this) {
+                if (uploaderServices == null) {
+                    uploaderServices = ApplicationContextHolder.getApplicationContext().getBeansOfType(ImageUploaderService.class).values();
+                }
+            }
+        }
+        return uploaderServices.stream().filter(t -> t.test(fileType)).findFirst().orElseThrow(RuntimeException::new);
     }
 
 }

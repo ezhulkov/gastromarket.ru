@@ -314,12 +314,17 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="17" author="ezhulkov">
+        <addColumn tableName="person">
+            <column name="avatar_url_medium" type="java.sql.Types.VARCHAR(256)"/>
+        </addColumn>
+    </changeSet>
+
     <changeSet id="data" author="ezhulkov">
         <sql>
             insert into person (id,email,password,type,status) values (1,'ezhulkov@gmail.com','aa9304926e54bf318a40dc9cb936e62f86327f987461178b01a85ae5a500bd43639908f104ae7d5f','ADMIN','ENABLED');
             update hibernate_sequences set sequence_next_hi_value=2 where sequence_name='person';
         </sql>
     </changeSet>
-
 
 </databaseChangeLog>

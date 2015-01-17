@@ -1,5 +1,6 @@
 package org.ohm.gastro.service.impl;
 
+import com.google.common.base.Objects;
 import com.google.common.io.BaseEncoding;
 import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
@@ -24,7 +25,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+
+import static org.scribe.utils.Preconditions.checkNotNull;
 
 /**
  * Created by ezhulkov on 27.08.14.
@@ -129,6 +133,26 @@ public class UserServiceImpl implements UserService, Logging {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public void processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
+
+        checkNotNull(objectId, "ObjectId should not be null");
+        UserEntity user = userRepository.findOne(Long.parseLong(objectId));
+        checkNotNull(user, "User should not be null");
+
+        user.setAvatarUrlSmall(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE1), user.getAvatarUrlSmall()));
+        user.setAvatarUrlMedium(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE2), user.getAvatarUrlMedium()));
+        user.setAvatarUrl(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE3), user.getAvatarUrl()));
+
+        userRepository.save(user);
+
+    }
+
+    @Override
+    public boolean test(FileType fileType) {
+        return fileType == FileType.AVATAR;
     }
 
 }
