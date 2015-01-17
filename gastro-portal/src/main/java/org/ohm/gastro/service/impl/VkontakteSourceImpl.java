@@ -43,6 +43,7 @@ public final class VkontakteSourceImpl extends OAuthSocialSourceImpl<VkontakteAp
             user.setFullName(profile.getFirstName() + " " + profile.getLastName());
             user.setEmail(map.get("email").toString());
             user.setAvatarUrl(profile.getPhotoBig());
+            user.setAvatarUrlMedium(profile.getPhotoBig());
             user.setAvatarUrlSmall(profile.getPhoto());
             return user;
         } catch (Exception e) {

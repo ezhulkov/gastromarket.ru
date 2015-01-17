@@ -41,6 +41,7 @@ public final class FacebookSourceImpl extends OAuthSocialSourceImpl<FacebookApi>
             user.setFullName(profile.getName());
             user.setEmail(profile.getEmail());
             user.setAvatarUrl(String.format(AVATAR_BIG, profile.getId()));
+            user.setAvatarUrlMedium(String.format(AVATAR_BIG, profile.getId()));
             user.setAvatarUrlSmall(String.format(AVATAR_SMALL, profile.getId()));
             return user;
         } catch (Exception e) {
