@@ -31,7 +31,7 @@
 <t:if test="floatingHeader">
     <div class="header-stub"/>
 </t:if>
-<t:headerlayout floatingHeader="floatingHeader"/>
+<t:headerlayout floatingHeader="floatingHeader" header="header"/>
 <t:body/>
 <t:footerlayout/>
 </body>

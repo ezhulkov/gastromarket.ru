@@ -34,7 +34,7 @@ jQuery(document).ready(function () {
     jQuery(".uploader-button")
         .fineUploader({
             request: {
-                endpoint: '/upload?file_path=/tmp/1.jpg'
+                endpoint: '/upload?file_path=/tmp/1.jpg&file_type=AVATAR'
             },
             validation: {
                 allowedExtensions: ['jpeg', 'jpg'],

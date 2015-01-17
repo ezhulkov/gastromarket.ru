@@ -30,6 +30,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public abstract class BaseComponent {
@@ -93,19 +94,28 @@ public abstract class BaseComponent {
     private ShoppingCart shoppingCart;
 
     public UserEntity getAuthenticatedUser() {
+        return getAuthenticatedUserOpt().orElseThrow(RuntimeException::new);
+    }
+
+    public Optional<UserEntity> getAuthenticatedUserOpt() {
+        return getAuthenticatedUser(userService);
+    }
+
+    public static Optional<UserEntity> getAuthenticatedUser(UserService userService) {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         if (securityContext == null || securityContext.getAuthentication() == null) {
-            return null;
+            return Optional.empty();
         }
         Object principal = securityContext.getAuthentication().getPrincipal();
         if (principal != null && principal instanceof UserEntity) {
-            return userService.findUser(((UserEntity) principal).getId());
+            UserEntity user = (UserEntity) principal;
+            return Optional.of(userService == null ? user : userService.findUser(user.getId()));
         }
-        return null;
+        return Optional.empty();
     }
 
     public boolean isAuthenticated() {
-        return request.getSession(false) != null && getAuthenticatedUser() != null;
+        return request.getSession(false) != null && getAuthenticatedUserOpt().isPresent();
     }
 
     public boolean isAdmin() {

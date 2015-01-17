@@ -15,6 +15,10 @@ public class HeaderLayout extends BaseComponent {
     @Parameter(name = "floatingHeader", required = true)
     private boolean floatingHeader;
 
+    @Property
+    @Parameter(name = "header", required = true)
+    private boolean header;
+
     @Inject
     @Property
     private Block basketBlock;
