@@ -1,9 +1,9 @@
 package org.ohm.gastro.gui.components;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Parameter;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Select;
 import org.apache.tapestry5.corelib.components.TextArea;
@@ -54,6 +54,7 @@ public class ProductEdit extends BaseComponent {
     private ProductEntity product;
 
     @Property
+    @Persist
     private CategoryEntity category;
 
     @Component(id = "productPrice", parameters = {"value=product.price", "validate=required"})
@@ -68,15 +69,15 @@ public class ProductEdit extends BaseComponent {
     @Component(id = "productCategory", parameters = {"model=categoryModel", "encoder=categoryModel", "value=product.category", "validate=required"})
     private Select pCategoryField;
 
-    public void activate(CategoryEntity pCategory) {
-        List<CategoryEntity> allCategories = getCatalogService().findAllRootCategories();
+    public void activate() {
+        final List<CategoryEntity> allCategories = getCatalogService().findAllRootCategories();
         categoryModel = new CategorySelectModel(allCategories, getPropertyAccess());
-        if (allCategories.size() > 0) category = allCategories.get(0);
-        product = new ProductEntity();
-        if (pCategory == null) {
-            pCategory = allCategories.stream().filter(t -> CollectionUtils.isEmpty(t.getChildren())).findFirst().orElse(null);
+        if (category == null && allCategories.size() > 0) {
+            final CategoryEntity firstCategory = allCategories.get(0);
+            category = firstCategory.getChildren().size() == 0 ? firstCategory : firstCategory.getChildren().get(0);
         }
-        if (pCategory != null) product.setCategory(pCategory);
+        product = new ProductEntity();
+        product.setCategory(category);
     }
 
     public void onFailureFromAddProductForm() {

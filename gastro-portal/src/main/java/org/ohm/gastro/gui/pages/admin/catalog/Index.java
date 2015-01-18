@@ -32,7 +32,7 @@ public class Index extends EditObjectPage<CatalogEntity> {
 
     @Override
     public void activated() {
-        productEdit.activate(null);
+        productEdit.activate();
     }
 
     @Cached

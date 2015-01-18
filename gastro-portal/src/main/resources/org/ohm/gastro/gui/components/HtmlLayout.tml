@@ -23,9 +23,6 @@
     <script src="/js/chosen.jquery.js"></script>
     <script src="/js/jquery.fine-uploader.js"></script>
     <script src="/js/custom.js"></script>
-    <script>
-        jQuery.noConflict();
-    </script>
 </head>
 <body>
 <t:if test="floatingHeader">

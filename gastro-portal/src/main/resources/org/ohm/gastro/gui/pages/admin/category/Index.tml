@@ -2,7 +2,7 @@
 
     <div class="data-header">
         <t:if test="object?.parent">
-            <h1>Подкатегория ${object?.name}"</h1>
+            <h1>Подкатегория "${object?.name}"</h1>
         </t:if>
         <t:unless test="object?.parent">
             <h1>Категория "${object?.name}"</h1>
