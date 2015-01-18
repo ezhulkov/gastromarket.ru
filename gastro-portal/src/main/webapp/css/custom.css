@@ -49,14 +49,22 @@ html > body div.t-error ul {
 .upload-avatar {
     overflow: hidden;
     position: relative;
+}
+
+.upload-avatar.AVATAR {
     width: 200px;
     height: 200px;
+}
+
+.upload-avatar.PRODUCT {
+    width: 430px;
+    height: 310px;
 }
 
 .upload-avatar div.qq-uploader-selector {
     position: absolute;
     bottom: 10px;
-    left: 140px;
+    right: 10px;
 }
 
 .simple-text {
@@ -795,4 +803,16 @@ div.username {
 
 .property-select div.chosen-container {
     margin-bottom: 3px;
+}
+
+.photo-details {
+    text-align: center;
+}
+
+.photo-details .row.buttons {
+    margin-top: 30px;
+}
+
+.photo-details div.upload-avatar {
+    margin: 0 auto;
 }

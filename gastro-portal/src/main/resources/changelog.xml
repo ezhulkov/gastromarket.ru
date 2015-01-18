@@ -320,6 +320,23 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="18" author="ezhulkov">
+        <addColumn tableName="product">
+            <column name="hidden" type="java.sql.Types.BOOLEAN"/>
+        </addColumn>
+        <sql>
+            update product set hidden=false;
+        </sql>
+    </changeSet>
+
+    <changeSet id="19" author="ezhulkov">
+        <addColumn tableName="product">
+            <column name="avatar_url" type="java.sql.Types.VARCHAR(256)"/>
+            <column name="avatar_url_small" type="java.sql.Types.VARCHAR(256)"/>
+            <column name="avatar_url_medium" type="java.sql.Types.VARCHAR(256)"/>
+        </addColumn>
+    </changeSet>
+
     <changeSet id="data" author="ezhulkov">
         <sql>
             insert into person (id,email,password,type,status) values (1,'ezhulkov@gmail.com','aa9304926e54bf318a40dc9cb936e62f86327f987461178b01a85ae5a500bd43639908f104ae7d5f','ADMIN','ENABLED');

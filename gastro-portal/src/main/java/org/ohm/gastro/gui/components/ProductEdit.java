@@ -31,6 +31,9 @@ public class ProductEdit extends BaseComponent {
     private boolean error = false;
 
     @Property
+    private boolean photoStage = false;
+
+    @Property
     private PropertyEntity oneProperty;
 
     @Property
@@ -77,6 +80,7 @@ public class ProductEdit extends BaseComponent {
             category = firstCategory.getChildren().size() == 0 ? firstCategory : firstCategory.getChildren().get(0);
         }
         product = new ProductEntity();
+        product.setHidden(true);
         product.setCategory(category);
     }
 
@@ -100,6 +104,7 @@ public class ProductEdit extends BaseComponent {
                     ));
             product.setCatalog(catalog);
             getCatalogService().saveProduct(product, propValues, listValues);
+            photoStage = true;
         }
         return productBlock;
     }

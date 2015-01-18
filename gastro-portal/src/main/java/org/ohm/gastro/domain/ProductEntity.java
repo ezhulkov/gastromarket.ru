@@ -39,6 +39,9 @@ public class ProductEntity extends AbstractBaseEntity {
     private Integer price;
 
     @Column
+    private boolean hidden = true;
+
+    @Column
     private Timestamp date = new Timestamp(System.currentTimeMillis());
 
     @Column
@@ -52,6 +55,16 @@ public class ProductEntity extends AbstractBaseEntity {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
     private List<TagEntity> values = Lists.newArrayList();
+
+    @Column(name = "avatar_url")
+    private String avatarUrl = "/img/product-stub.png";
+
+    @Column(name = "avatar_url_medium")
+    private String avatarUrlMedium = "/img/product-stub-medium.png";
+
+
+    @Column(name = "avatar_url_small")
+    private String avatarUrlSmall = "/img/product-stub-small.png";
 
     public ProductEntity() {
     }
@@ -67,6 +80,38 @@ public class ProductEntity extends AbstractBaseEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(final String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public String getAvatarUrlMedium() {
+        return avatarUrlMedium;
+    }
+
+    public void setAvatarUrlMedium(final String avatarUrlMedium) {
+        this.avatarUrlMedium = avatarUrlMedium;
+    }
+
+    public String getAvatarUrlSmall() {
+        return avatarUrlSmall;
+    }
+
+    public void setAvatarUrlSmall(final String avatarUrlSmall) {
+        this.avatarUrlSmall = avatarUrlSmall;
+    }
+
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(final boolean hidden) {
+        this.hidden = hidden;
     }
 
     public String getName() {

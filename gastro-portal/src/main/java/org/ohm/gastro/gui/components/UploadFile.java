@@ -13,11 +13,19 @@ import org.ohm.gastro.service.ImageUploaderService.ImageSize;
 public class UploadFile extends BaseComponent {
 
     @Property
+    @Parameter(defaultPrefix = BindingConstants.LITERAL)
+    private String objectId;
+
+    @Property
     @Parameter(required = true, allowNull = false, defaultPrefix = BindingConstants.LITERAL)
     private FileType type;
 
     @Property
     @Parameter(required = true, allowNull = false, defaultPrefix = BindingConstants.LITERAL)
     private ImageSize responseSize;
+
+    @Property
+    @Parameter(required = true, allowNull = false, defaultPrefix = BindingConstants.LITERAL)
+    private String imageUrl;
 
 }

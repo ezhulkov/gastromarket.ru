@@ -1,5 +1,5 @@
-<div class="upload-avatar" data-type="${type}" data-size="${responseSize}">
-    <img src="${authenticatedUser.avatarUrl}"/>
+<div class="upload-avatar ${type}" data-objectid="${objectId}" data-type="${type}" data-size="${responseSize}">
+    <img src="${imageUrl}"/>
     <div class="uploader-button"></div>
     <script type="text/template" id="qq-template">
          <div class="qq-uploader-selector qq-uploader">

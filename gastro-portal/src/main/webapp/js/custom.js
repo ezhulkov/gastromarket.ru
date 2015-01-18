@@ -56,7 +56,11 @@ function initProductEdit() {
         jQuery(".modal-dialog div.t-error").hide();
         jQuery(".modal-body input.t-error").removeClass("t-error");
         jQuery(".modal-dialog .error").hide();
+        jQuery(".modal-dialog .photo-details").hide();
+        jQuery(".modal-dialog .product-details").show();
     });
+    jQuery(".modal-dialog .photo-details").hide();
+    jQuery(".modal-dialog .product-details").show();
     jQuery('.more-btn').unbind().bind('click', function () {
         var id = jQuery(this).attr('data');
         var listBlock = jQuery('#list' + id);
@@ -65,6 +69,11 @@ function initProductEdit() {
         jQuery(newList).insertAfter(lastList);
         initChosen(jQuery(newList));
     });
+}
+function togglePhotoDetails() {
+    jQuery(".modal-dialog .photo-details").show();
+    jQuery(".modal-dialog .product-details").hide();
+    initFineUploader();
 }
 function initLoginModal() {
     var hideAll = function () {
@@ -103,9 +112,10 @@ function initFineUploader() {
     var button = jQuery(".uploader-button");
     var fileType = button.closest("div.upload-avatar").attr("data-type");
     var respSize = button.closest("div.upload-avatar").attr("data-size");
+    var objectId = button.closest("div.upload-avatar").attr("data-objectid");
     button.fineUploader({
         request: {
-            endpoint: '/upload?file_path=/tmp/1.jpg&file_type=' + fileType
+            endpoint: '/upload?file_path=/tmp/1.jpg&file_type=' + fileType + '&object_id=' + objectId
         },
         validation: {
             allowedExtensions: ['jpeg', 'jpg'],
