@@ -16,29 +16,30 @@
 
     <div class="data-header">
         <h1>Товары</h1>
-        <a class="product-edit-link" data-toggle="modal" data-target="#create" href="#create">Создать товар<span/></a>
+        <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Создать товар<span/></a>
     </div>
+    <t:productEdit modalId="pr-new" catalog="object"/>
 
     <t:grid source="products" row="oneProduct"
             exclude="id,properties,date,description,promoted,avatarUrl,avatarUrlMedium,avatarUrlSmall"
             reorder="name,price,del"
             add="properties,del"
             t:mixins="GridSortingDisabled" class="table table-hover">
+        <t:parameter name="nameCell">
+            <a class="product-edit-link" data-toggle="modal" data-target="#pr-edit-${oneProduct.id}" href="#">
+                ${oneProduct.name}
+                <t:if test="oneProduct.promoted">
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                </t:if>
+            </a>
+        </t:parameter>
         <t:parameter name="delCell">
             <t:actionlink t:id="deleteProduct" context="oneProduct.id"><span class="glyphicon glyphicon-remove"/></t:actionlink>
-        </t:parameter>
-        <t:parameter name="nameCell">
-            ${oneProduct.name}
-            <t:if test="oneProduct.promoted">
-                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-            </t:if>
         </t:parameter>
         <t:parameter name="empty">
             <div class="empty">Нет данных</div>
         </t:parameter>
     </t:grid>
-
-    <t:productEdit t:id="productEdit" catalog="object"/>
 
     <script>
         activate_menu('#catalog');

@@ -52,7 +52,7 @@
             </t:if>
 
             <div class="title">
-                <h1 style="width: 160px;"><span>Кулинары</span></h1>
+                <h1 style="width: 200px;"><span>Кулинары</span></h1>
                 <t:pagelink page="chef/list">Все кулинары<span/></t:pagelink>
             </div>
 

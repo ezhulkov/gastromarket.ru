@@ -54,8 +54,8 @@ public class Filter extends BaseComponent {
     @Property
     private List<CategoryEntity> filterCategories;
 
-    @Component
-    private ProductEdit productEdit;
+//    @Component
+//    private ProductEdit productEdit;
 
     @InjectComponent
     private Zone productZone;

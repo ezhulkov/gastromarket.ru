@@ -9,7 +9,6 @@ import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.gui.AbstractServiceCallback;
 import org.ohm.gastro.gui.ServiceCallback;
-import org.ohm.gastro.gui.components.ProductEdit;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.EditObjectPage;
 
@@ -27,13 +26,13 @@ public class Index extends EditObjectPage<CatalogEntity> {
     @Component(id = "name", parameters = {"value=object?.name", "validate=maxlength=64,required"})
     private TextField nameField;
 
-    @Component
-    private ProductEdit productEdit;
+//    @Component
+//    private ProductEdit productEdit;
 
-    @Override
-    public void activated() {
-        productEdit.activate();
-    }
+//    @Override
+//    public void activated() {
+//        productEdit.activate();
+//    }
 
     @Cached
     public java.util.List<ProductEntity> getProducts() {

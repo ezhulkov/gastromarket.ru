@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.components;
 
+import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Parameter;
@@ -57,9 +58,6 @@ public class ProductEdit extends BaseComponent {
     private CategorySelectModel categoryModel;
 
     @Property
-    private ProductEntity product;
-
-    @Property
     @Persist
     private CategoryEntity category;
 
@@ -75,7 +73,15 @@ public class ProductEdit extends BaseComponent {
     @Component(id = "productCategory", parameters = {"model=categoryModel", "encoder=categoryModel", "value=product.category", "validate=required"})
     private Select pCategoryField;
 
-    public void activate() {
+    @Property
+    @Parameter(name = "modalId", defaultPrefix = BindingConstants.LITERAL)
+    private String modalId;
+
+    @Property
+    @Parameter(defaultPrefix = BindingConstants.PROP)
+    private ProductEntity product;
+
+    public void beginRender() {
         final List<CategoryEntity> allCategories = getCatalogService().findAllRootCategories();
         categoryModel = new CategorySelectModel(allCategories, getPropertyAccess());
         if (category == null && allCategories.size() > 0) {
