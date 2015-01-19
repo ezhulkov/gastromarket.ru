@@ -20,7 +20,7 @@
     </div>
 
     <t:grid source="products" row="oneProduct"
-            exclude="id,properties,date,description,promoted"
+            exclude="id,properties,date,description,promoted,avatarUrl,avatarUrlMedium,avatarUrlSmall"
             reorder="name,price,del"
             add="properties,del"
             t:mixins="GridSortingDisabled" class="table table-hover">

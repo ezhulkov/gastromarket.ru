@@ -137,7 +137,7 @@ public class UserServiceImpl implements UserService, Logging {
     }
 
     @Override
-    public void processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
+    public UserEntity processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
 
         checkNotNull(objectId, "ObjectId should not be null");
         UserEntity user = userRepository.findOne(Long.parseLong(objectId));
@@ -147,7 +147,7 @@ public class UserServiceImpl implements UserService, Logging {
         user.setAvatarUrlMedium(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE2), user.getAvatarUrlMedium()));
         user.setAvatarUrl(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE3), user.getAvatarUrl()));
 
-        userRepository.save(user);
+        return userRepository.save(user);
 
     }
 

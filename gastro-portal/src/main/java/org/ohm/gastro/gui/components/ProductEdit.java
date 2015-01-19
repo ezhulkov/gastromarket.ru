@@ -34,6 +34,9 @@ public class ProductEdit extends BaseComponent {
     private boolean photoStage = false;
 
     @Property
+    private boolean finishStage = false;
+
+    @Property
     private PropertyEntity oneProperty;
 
     @Property
@@ -126,6 +129,12 @@ public class ProductEdit extends BaseComponent {
 
     public String getValueType() {
         return oneProperty.getType().toString().toLowerCase();
+    }
+
+    public Block onActionFromProductFinish(Long pid) {
+        getCatalogService().showProduct(pid);
+        finishStage = true;
+        return productBlock;
     }
 
 }

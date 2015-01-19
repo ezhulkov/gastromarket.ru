@@ -15,7 +15,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -70,17 +70,18 @@ public class UploadFilter extends BaseApplicationFilter implements Logging {
 
             final String filePath = httpServletRequest.getParameter("file_path");
             final String fileTypeStr = httpServletRequest.getParameter("file_type");
-            final String objectIdStr = httpServletRequest.getParameter("obj_id");
+            final String objectIdStr = httpServletRequest.getParameter("object_id");
 
             checkNotNull(filePath, "file_path should not be empty");
             checkNotNull(fileTypeStr, "file_type should not be empty");
+
+            file = new File(filePath);
 
             final FileType fileType = FileType.valueOf(fileTypeStr);
             final String objectId = fileType == FileType.AVATAR ? BaseComponent.getAuthenticatedUser(null).map(t -> t.getId().toString()).orElse("0") : objectIdStr;
 
             checkNotNull(objectId, "objectId should not be empty");
 
-            file = new File(filePath);
             final BufferedImage image = ImageIO.read(file);
 
             Logging.logger.info("Image uploaded fileType {}, objectId {} ", fileType, objectId);

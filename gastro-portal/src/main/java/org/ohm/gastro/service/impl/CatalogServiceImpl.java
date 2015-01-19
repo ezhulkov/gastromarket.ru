@@ -1,5 +1,6 @@
 package org.ohm.gastro.service.impl;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Iterables;
 import org.apache.commons.lang.ObjectUtils;
@@ -33,6 +34,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static org.scribe.utils.Preconditions.checkNotNull;
 
 /**
  * Created by ezhulkov on 21.08.14.
@@ -277,6 +280,33 @@ public class CatalogServiceImpl implements CatalogService {
         catalog.setRating(catalogRating + rating.getRating());
         catalogRepository.save(catalog);
         ratingRepository.save(rating);
+    }
+
+    @Override
+    public void showProduct(Long pid) {
+        final ProductEntity product = productRepository.findOne(pid);
+        product.setHidden(false);
+        productRepository.save(product);
+    }
+
+    @Override
+    public ProductEntity processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
+
+        checkNotNull(objectId, "ObjectId should not be null");
+        ProductEntity product = productRepository.findOne(Long.parseLong(objectId));
+        checkNotNull(product, "Product should not be null");
+
+        product.setAvatarUrlSmall(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE1), product.getAvatarUrlSmall()));
+        product.setAvatarUrlMedium(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE2), product.getAvatarUrlMedium()));
+        product.setAvatarUrl(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE3), product.getAvatarUrl()));
+
+        return productRepository.save(product);
+
+    }
+
+    @Override
+    public boolean test(FileType fileType) {
+        return fileType == FileType.PRODUCT;
     }
 
 }

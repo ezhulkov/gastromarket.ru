@@ -73,19 +73,24 @@
                     </div>
                     <div class="photo-details">
                         <div class="row">
-                            <p class="modal-text">Загрузите фотографию в формате JPEG,<br/> размер которой не должен быть больше 10 мегабайт.</p>
+                            <p class="modal-text">Загрузите фотографию в формате JPEG,<br/> размер которой должен быть меньше 10 мегабайт.</p>
                         </div>
                         <div class="row">
                             <t:uploadfile type="PRODUCT" responseSize="SIZE3" imageUrl="${product?.avatarUrl}" objectId="${product?.id}"/>
                         </div>
                         <div class="row buttons">
-                            <a class="btn btn-white" data-dismiss="modal" href="#">Закрыть</a>
-                            <button class="btn btn-red disabled">Завершить</button>
+                            <a class="btn btn-white product-finish-close" data-dismiss="modal" href="#">Закрыть</a>
+                            <t:actionlink t:zone="productZone" t:id="productFinish" t:context="${product?.id}" class="btn btn-red disabled product-finish">Завершить</t:actionlink>
                         </div>
                     </div>
                     <t:if test="photoStage">
                         <script>
                             togglePhotoDetails();
+                        </script>
+                    </t:if>
+                    <t:if test="finishStage">
+                        <script>
+                            location.reload();
                         </script>
                     </t:if>
                 </t:block>

@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * Created by ezhulkov on 21.08.14.
  */
-public interface CatalogService {
+public interface CatalogService extends ImageUploaderService<ProductEntity> {
 
     public List<ProductEntity> searchProducts(String query);
 
@@ -82,4 +82,7 @@ public interface CatalogService {
     List<RatingEntity> findAllRatings(CatalogEntity user);
 
     void saveRating(RatingEntity rating);
+
+    void showProduct(Long pid);
+
 }

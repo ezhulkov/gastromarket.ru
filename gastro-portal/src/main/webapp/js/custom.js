@@ -58,6 +58,8 @@ function initProductEdit() {
         jQuery(".modal-dialog .error").hide();
         jQuery(".modal-dialog .photo-details").hide();
         jQuery(".modal-dialog .product-details").show();
+        jQuery(".modal-dialog .product-finish-close").show();
+        jQuery(".modal-dialog .product-finish").addClass('disabled');
     });
     jQuery(".modal-dialog .photo-details").hide();
     jQuery(".modal-dialog .product-details").show();
@@ -68,6 +70,10 @@ function initProductEdit() {
         var newList = jQuery(lastList).clone();
         jQuery(newList).insertAfter(lastList);
         initChosen(jQuery(newList));
+    });
+    jQuery(".uploader-button").on("complete", function (id, name, responseJSON, xhr) {
+        jQuery(".product-finish-close").hide();
+        jQuery(".product-finish").removeClass("disabled");
     });
 }
 function togglePhotoDetails() {
