@@ -74,30 +74,40 @@ public class ProductEdit extends BaseComponent {
     private Select pCategoryField;
 
     @Property
-    @Parameter(name = "modalId", defaultPrefix = BindingConstants.LITERAL)
+    @Parameter(name = "modalId", defaultPrefix = BindingConstants.LITERAL, value = "pr-new")
     private String modalId;
 
     @Property
     @Parameter(defaultPrefix = BindingConstants.PROP)
     private ProductEntity product;
 
-    public void beginRender() {
+    public void onPrepareFromEditProductForm() {
+        activate();
+    }
+
+    public void beforeRender() {
+        activate();
+    }
+
+    private void activate() {
         final List<CategoryEntity> allCategories = getCatalogService().findAllRootCategories();
         categoryModel = new CategorySelectModel(allCategories, getPropertyAccess());
         if (category == null && allCategories.size() > 0) {
             final CategoryEntity firstCategory = allCategories.get(0);
             category = firstCategory.getChildren().size() == 0 ? firstCategory : firstCategory.getChildren().get(0);
         }
-        product = new ProductEntity();
-        product.setHidden(true);
-        product.setCategory(category);
+        if (product == null) {
+            product = new ProductEntity();
+            product.setHidden(true);
+            product.setCategory(category);
+        }
     }
 
-    public void onFailureFromAddProductForm() {
+    public void onFailureFromEditProductForm() {
         error = true;
     }
 
-    public Block onSubmitFromAddProductForm() {
+    public Block onSubmitFromEditProductForm() {
         if (!error) {
             Map<Long, String> propValues = getRequest().getParameterNames().stream()
                     .filter(t -> t.startsWith("prop-"))
