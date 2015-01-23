@@ -26,13 +26,13 @@
             add="properties,del"
             t:mixins="GridSortingDisabled" class="table table-hover">
         <t:parameter name="nameCell">
-            <a class="product-edit-link" data-toggle="modal" data-target="#pr-new2" href="#pr-new2">
+            <a class="product-edit-link" data-toggle="modal" data-target="#pr-${oneProduct.id}" href="#pr-${oneProduct.id}">
                 ${oneProduct.name}
                 <t:if test="oneProduct.promoted">
                     <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                 </t:if>
             </a>
-            <!--<t:productEdit modalId="pr-new2" catalog="object"/>-->
+            <t:productEdit modalId="pr-${oneProduct.id}" product="oneProduct" catalog="object"/>
         </t:parameter>
         <t:parameter name="delCell">
             <t:actionlink t:id="deleteProduct" context="oneProduct.id"><span class="glyphicon glyphicon-remove"/></t:actionlink>

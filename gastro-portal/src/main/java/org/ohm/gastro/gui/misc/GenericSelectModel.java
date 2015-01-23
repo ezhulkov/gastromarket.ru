@@ -56,7 +56,7 @@ public class GenericSelectModel<T extends BaseEntity> extends AbstractSelectMode
         return objects.get(key);
     }
 
-    protected final List<OptionModel> getOptionModel(Collection<T> list) {
+    protected List<OptionModel> getOptionModel(Collection<T> list) {
         return ImmutableList.copyOf(list.stream()
                                             .map(t -> new OptionModelImpl(labelFieldAdapter.get(t).toString(), t))
                                             .collect(Collectors.toList()));

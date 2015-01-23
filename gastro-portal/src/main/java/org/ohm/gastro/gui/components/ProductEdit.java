@@ -2,6 +2,7 @@ package org.ohm.gastro.gui.components;
 
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
+import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Persist;
@@ -55,9 +56,6 @@ public class ProductEdit extends BaseComponent {
     private CatalogEntity catalog;
 
     @Property
-    private CategorySelectModel categoryModel;
-
-    @Property
     @Persist
     private CategoryEntity category;
 
@@ -70,7 +68,7 @@ public class ProductEdit extends BaseComponent {
     @Component(id = "productDescription", parameters = {"value=product.description", "validate=maxlength=1024"})
     private TextArea descField;
 
-    @Component(id = "productCategory", parameters = {"model=categoryModel", "encoder=categoryModel", "value=product.category", "validate=required"})
+    @Component(id = "productCategory", parameters = {"model=categoryModel", "encoder=categoryModel", "value=category", "validate=required"})
     private Select pCategoryField;
 
     @Property
@@ -81,26 +79,32 @@ public class ProductEdit extends BaseComponent {
     @Parameter(defaultPrefix = BindingConstants.PROP)
     private ProductEntity product;
 
-    public void onPrepareFromEditProductForm() {
-        activate();
-    }
-
-    public void beforeRender() {
-        activate();
-    }
-
-    private void activate() {
-        final List<CategoryEntity> allCategories = getCatalogService().findAllRootCategories();
-        categoryModel = new CategorySelectModel(allCategories, getPropertyAccess());
-        if (category == null && allCategories.size() > 0) {
-            final CategoryEntity firstCategory = allCategories.get(0);
-            category = firstCategory.getChildren().size() == 0 ? firstCategory : firstCategory.getChildren().get(0);
-        }
+    private void onPrepareFromEditProductForm() {
         if (product == null) {
+            final CategoryEntity firstCategory = getAllCategories().get(0);
             product = new ProductEntity();
-            product.setHidden(true);
-            product.setCategory(category);
+            category = firstCategory.getChildren().size() == 0 ? firstCategory : firstCategory.getChildren().get(0);
+        } else {
+            category = product.getCategory();
         }
+    }
+
+    @Cached
+    public CategorySelectModel getCategoryModel() {
+        return new CategorySelectModel(getAllCategories(), getPropertyAccess());
+    }
+
+    @Cached
+    public List<CategoryEntity> getAllCategories() {
+        return getCatalogService().findAllRootCategories();
+    }
+
+    public boolean isEditProduct() {
+        return product != null && product.getId() != null;
+    }
+
+    public String getPhotoCaption() {
+        return isEditProduct() ? getMessages().get("edit.photo") : getMessages().get("add.photo");
     }
 
     public void onFailureFromEditProductForm() {
@@ -121,6 +125,7 @@ public class ProductEdit extends BaseComponent {
                     .collect(Collectors.toMap(Long::parseLong,
                                               key -> getRequest().getParameters("list-" + key)
                     ));
+            product.setCategory(category);
             product.setCatalog(catalog);
             getCatalogService().saveProduct(product, propValues, listValues);
             photoStage = true;

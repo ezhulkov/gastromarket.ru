@@ -26,19 +26,10 @@ public class Index extends EditObjectPage<CatalogEntity> {
     @Component(id = "name", parameters = {"value=object?.name", "validate=maxlength=64,required"})
     private TextField nameField;
 
-//    @Component
-//    private ProductEdit productEdit;
-
-//    @Override
-//    public void activated() {
-//        productEdit.activate();
-//    }
-
     @Cached
     public java.util.List<ProductEntity> getProducts() {
         return getCatalogService().findAllProducts(null, getObject());
     }
-
 
     @Override
     public ServiceCallback<CatalogEntity> getServiceCallback() {

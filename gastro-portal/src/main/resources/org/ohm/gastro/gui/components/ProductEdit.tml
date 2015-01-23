@@ -3,7 +3,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="title">
-                    <h1 style="width: 300px;"><span>Создать товар</span></h1>
+                    <t:if test="editProduct">
+                        <h1 style="width: 400px;"><span>Редактировать товар</span></h1>
+                    </t:if>
+                    <t:unless test="editProduct">
+                        <h1 style="width: 300px;"><span>Создать товар</span></h1>
+                    </t:unless>
                 </div>
                 <a class="modal-close" data-dismiss="modal"></a>
             </div>
@@ -19,7 +24,7 @@
                             <t:errors/>
                             <div class="form-group">
                                 <div class="col-sm-12">
-                                    <t:select t:id="productCategory" class="form-control chosen-select" t:zone="propertyZone"/>
+                                    <t:select t:id="productCategory" class="form-control chosen-select" disabled="editProduct" t:zone="propertyZone"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -68,7 +73,7 @@
                                 </t:if>
                             </t:block>
                             <a class="btn btn-white signup-link" data-dismiss="modal" href="#">Закрыть</a>
-                            <input t:id="add" class="btn btn-red" t:type="submit" value="Добавить фото >"/>
+                            <input t:id="add" class="btn btn-red" t:type="submit" value="${photoCaption}"/>
                         </t:form>
                     </div>
                     <div class="photo-details">

@@ -25,15 +25,22 @@ public class CategorySelectModel extends GenericSelectModel<CategoryEntity> {
         super(list, CategoryEntity.class, "name", "id", access);
         this.options = ImmutableList.copyOf(list.stream()
                                                     .filter(t -> t.getChildren().size() == 0)
-                                                    .map(t -> new OptionModelImpl(labelFieldAdapter.get(t).toString(), t))
+                                                    .map(t -> new OptionModelImpl(t.getName(), t))
                                                     .collect(Collectors.toList()));
         this.groups = ImmutableList.copyOf(list.stream()
                                                    .filter(t -> t.getChildren().size() > 0)
                                                    .map(t -> new OptionGroupModelImpl<>(t.getName(), getOptionModel(t.getChildren())))
                                                    .collect(Collectors.toList()));
         this.objects = ImmutableBiMap.copyOf(list.stream().flatMap(t -> t.getChildren().size() == 0 ? Stream.of(t) : t.getChildren().stream())
-                                                     .collect(Collectors.toMap(t -> idFieldAdapter.get(t).toString(),
+                                                     .collect(Collectors.toMap(t -> t.getId().toString(),
                                                                                t -> t)));
+    }
+
+    @Override
+    protected List<OptionModel> getOptionModel(final Collection<CategoryEntity> list) {
+        return ImmutableList.copyOf(list.stream()
+                                            .map(t -> new OptionModelImpl((t.getParent() != null ? t.getParent().getName() + " - " : "") + t.getName(), t))
+                                            .collect(Collectors.toList()));
     }
 
     @Override
