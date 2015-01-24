@@ -28,6 +28,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -186,13 +187,13 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Override
     @Transactional
-    public void saveProduct(ProductEntity product) {
+    public ProductEntity saveProduct(ProductEntity product) {
         String description = product.getDescription();
         if (description != null) {
             description = description.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
             product.setDescription(description);
         }
-        productRepository.save(product);
+        return productRepository.save(product);
     }
 
     @Override
@@ -204,7 +205,7 @@ public class CatalogServiceImpl implements CatalogService {
     @Override
     @Transactional
     public ProductEntity saveProduct(ProductEntity product, Map<Long, String> propValues, Map<Long, String[]> listValues) {
-        productRepository.save(product);
+        saveProduct(product);
         tagRepository.deleteAllValues(product);
         final Function<Entry<Long, String>, TagEntity> tagCreator = t -> {
             TagEntity productValue = new TagEntity();
@@ -219,7 +220,7 @@ public class CatalogServiceImpl implements CatalogService {
                 .forEach(tagRepository::save);
         listValues.entrySet().stream()
                 .map(t -> Arrays.stream(t.getValue()).map(v -> ImmutableMap.of(t.getKey(), v)).collect(Collectors.toList()))
-                .flatMap(immutableMaps -> immutableMaps.stream())
+                .flatMap(Collection::stream)
                 .map(t -> Iterables.getFirst(t.entrySet(), null))
                 .filter(t -> StringUtils.isNotEmpty(t.getValue()))
                 .map(tagCreator)

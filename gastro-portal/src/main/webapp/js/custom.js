@@ -54,15 +54,16 @@ function initChosen(el) {
 function initProductEdit() {
     jQuery(".product-edit-link").unbind("click").bind("click", function (e) {
         jQuery(".modal-dialog div.t-error").hide();
-        jQuery(".modal-body input.t-error").removeClass("t-error");
+        jQuery(".modal-body .t-error").removeClass("t-error");
         jQuery(".modal-dialog .error").hide();
         jQuery(".modal-dialog .photo-details").hide();
+        jQuery(".modal-dialog .properties-details").hide();
         jQuery(".modal-dialog .product-details").show();
-        jQuery(".modal-dialog .product-finish-close").show();
-        jQuery(".modal-dialog .product-finish").addClass('disabled');
+        jQuery(".modal-dialog .product-finish-close").hide();
     });
     jQuery(".modal-dialog .photo-details").hide();
-    jQuery(".modal-dialog .product-details").show();
+    jQuery(".modal-dialog .properties-details").hide();
+    jQuery(".modal-dialog .product-details").hide();
     jQuery('.more-btn').unbind().bind('click', function () {
         var id = jQuery(this).attr('data');
         var listBlock = jQuery('#list' + id);
@@ -73,13 +74,28 @@ function initProductEdit() {
     });
     jQuery(".uploader-button").on("complete", function (id, name, responseJSON, xhr) {
         jQuery(".product-finish-close").hide();
-        jQuery(".product-finish").removeClass("disabled");
     });
 }
 function togglePhotoDetails() {
     jQuery(".modal-dialog .photo-details").show();
     jQuery(".modal-dialog .product-details").hide();
+    jQuery(".modal-dialog .properties-details").hide();
     initFineUploader();
+}
+function togglePropDetails() {
+    jQuery(".modal-dialog .properties-details").show();
+    jQuery(".modal-dialog .photo-details").hide();
+    jQuery(".modal-dialog .product-details").hide();
+    initFineUploader();
+}
+function toggleDescDetails() {
+    jQuery(".modal-dialog .properties-details").hide();
+    jQuery(".modal-dialog .photo-details").hide();
+    jQuery(".modal-dialog .product-details").show();
+    initFineUploader();
+}
+function doneProductEditing() {
+    location.reload();
 }
 function initLoginModal() {
     var hideAll = function () {

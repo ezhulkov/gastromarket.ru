@@ -23,7 +23,6 @@ h3 {
 
 html > body div.t-error {
     border: none;
-    text-align: left;
     font-size: 16px;
     color: #e70500;
     font-weight: bold;
@@ -192,10 +191,6 @@ html > body div.t-error ul {
     width: 700px;
 }
 
-.modal-dialog.product-edit {
-    margin: 30px auto 0 auto;
-}
-
 .modal-backdrop.in {
     opacity: 0.8;
 }
@@ -312,6 +307,11 @@ html > body div.t-error ul {
     color: #e70500 !important;
 }
 
+.office table a,
+.product-create .more a {
+    color: #bd0400;
+}
+
 .btn-red {
     padding: 8px 25px;
     font-size: 16px;
@@ -322,7 +322,7 @@ html > body div.t-error ul {
     background-image: -ms-linear-gradient(top, #e70500, #bf0400);
     background-image: -o-linear-gradient(top, #e70500, #bf0400);
     background-image: linear-gradient(to bottom, #e70500, #bf0400);
-    color: #FFF;
+    color: #FFF !important;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
     border-radius: 6px;
@@ -774,11 +774,6 @@ html div.office table.table td.img {
     height: 102px;
     border: 1px solid white;
     overflow: hidden;
-}
-
-.office table a,
-.product-create .more a {
-    color: #bd0400;
 }
 
 .product-create .more a,

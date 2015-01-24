@@ -23,6 +23,14 @@
     <script src="/js/chosen.jquery.js"></script>
     <script src="/js/jquery.fine-uploader.js"></script>
     <script src="/js/custom.js"></script>
+    <script type="text/template" id="qq-template">
+    <div class="qq-uploader-selector qq-uploader">
+        <div class="qq-upload-button-selector"/>
+        <div class="qq-upload-list-selector hidden">
+            <div class="qq-edit-filename-selector"/>
+        </div>
+    </div>
+    </script>
 </head>
 <body>
 <t:if test="floatingHeader">
@@ -31,13 +39,5 @@
 <t:headerlayout floatingHeader="floatingHeader" header="header"/>
 <t:body/>
 <t:footerlayout/>
-<script type="text/template" id="qq-template">
-     <div class="qq-uploader-selector qq-uploader">
-        <div class="qq-upload-button-selector"/>
-        <div class="qq-upload-list-selector hidden">
-            <div class="qq-edit-filename-selector"/>
-        </div>
-    </div>
-</script>
 </body>
 </html>

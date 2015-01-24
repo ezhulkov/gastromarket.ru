@@ -59,7 +59,7 @@ public interface CatalogService extends ImageUploaderService<ProductEntity> {
 
     CatalogEntity findCatalog(Long id);
 
-    void saveProduct(ProductEntity product);
+    ProductEntity saveProduct(ProductEntity product);
 
     void deleteProduct(Long id);
 

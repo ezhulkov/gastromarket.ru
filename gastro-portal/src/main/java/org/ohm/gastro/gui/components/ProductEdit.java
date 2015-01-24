@@ -32,14 +32,18 @@ import java.util.stream.Collectors;
  */
 public class ProductEdit extends BaseComponent {
 
+    public enum Stage {
+        DESC, PROP, PHOTO, DONE
+    }
+
     @Property
     private boolean error = false;
 
     @Property
-    private boolean photoStage = false;
+    private Stage stage = Stage.DESC;
 
     @Property
-    private boolean finishStage = false;
+    private boolean closeImmediately = false;
 
     @Property
     private PropertyEntity oneProperty;
@@ -99,8 +103,10 @@ public class ProductEdit extends BaseComponent {
         return product != null && product.getId() != null;
     }
 
-    public String getPhotoCaption() {
-        return isEditProduct() ? getMessages().get("edit.photo") : getMessages().get("add.photo");
+    public String getNextCaption() {
+        if (stage == Stage.DESC) return isEditProduct() ? getMessages().get("edit.props") : getMessages().get("add.props");
+        if (stage == Stage.PROP) return isEditProduct() ? getMessages().get("edit.photo") : getMessages().get("add.photo");
+        return "";
     }
 
     public java.util.List<PropertyValueEntity> getPropertyValues() {
@@ -137,38 +143,58 @@ public class ProductEdit extends BaseComponent {
                 Lists.newArrayList();
     }
 
-    private void onPrepareFromEditProductForm() {
-        if (product == null) {
+    private void beginRender() {
+        if (product != null && product.getId() != null) {
+            category = product.getCategory();
+        } else {
             final CategoryEntity firstCategory = getAllCategories().get(0);
             product = new ProductEntity();
             category = firstCategory.getChildren().size() == 0 ? firstCategory : firstCategory.getChildren().get(0);
-        } else {
-            category = product.getCategory();
         }
+    }
+
+    public void onPrepareFromEditProductForm() {
+        beginRender();
     }
 
     public void onFailureFromEditProductForm() {
         error = true;
     }
 
-    public Block onSubmitFromEditProductForm() {
+    public void onSelectedFromSaveAndClose() {
+        closeImmediately = true;
+    }
+
+    public void onSelectedFromSaveAndNext() {
+        closeImmediately = false;
+    }
+
+    public Block onSubmitFromEditProductForm(Long pid, Stage stage) {
         if (!error) {
-            Map<Long, String> propValues = getRequest().getParameterNames().stream()
-                    .filter(t -> t.startsWith("prop-"))
-                    .map(t -> t.substring("prop-".length(), t.length()))
-                    .collect(Collectors.toMap(Long::parseLong,
-                                              key -> getRequest().getParameter("prop-" + key)
-                    ));
-            Map<Long, String[]> listValues = getRequest().getParameterNames().stream()
-                    .filter(t -> t.startsWith("list-"))
-                    .map(t -> t.substring("list-".length(), t.length()))
-                    .collect(Collectors.toMap(Long::parseLong,
-                                              key -> getRequest().getParameters("list-" + key)
-                    ));
-            product.setCategory(category);
-            product.setCatalog(catalog);
-            getCatalogService().saveProduct(product, propValues, listValues);
-            photoStage = true;
+            final ProductEntity origProduct = pid != null ? getCatalogService().findProduct(pid) : product;
+            if (stage == Stage.DESC) {
+                origProduct.setName(product.getName());
+                origProduct.setPrice(product.getPrice());
+                origProduct.setDescription(product.getDescription());
+                origProduct.setCategory(category);
+                origProduct.setCatalog(catalog);
+                getCatalogService().saveProduct(origProduct);
+                this.stage = Stage.PROP;
+            } else if (stage == Stage.PROP) {
+                Map<Long, String> propValues = getRequest().getParameterNames().stream()
+                        .filter(t -> t.startsWith("prop-"))
+                        .map(t -> t.substring("prop-".length(), t.length()))
+                        .collect(Collectors.toMap(Long::parseLong, key -> getRequest().getParameter("prop-" + key)
+                        ));
+                Map<Long, String[]> listValues = getRequest().getParameterNames().stream()
+                        .filter(t -> t.startsWith("list-"))
+                        .map(t -> t.substring("list-".length(), t.length()))
+                        .collect(Collectors.toMap(Long::parseLong, key -> getRequest().getParameters("list-" + key)
+                        ));
+                getCatalogService().saveProduct(origProduct, propValues, listValues);
+                this.stage = Stage.PHOTO;
+            }
+            if (closeImmediately) this.stage = Stage.DONE;
         }
         return productBlock;
     }
@@ -176,12 +202,6 @@ public class ProductEdit extends BaseComponent {
     public Block onValueChangedFromProductCategory(CategoryEntity category) {
         this.category = category;
         return propertyBlock;
-    }
-
-    public Block onActionFromProductFinish(Long pid) {
-        getCatalogService().showProduct(pid);
-        finishStage = true;
-        return productBlock;
     }
 
 }
