@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.components;
 
+import com.google.common.collect.Lists;
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
@@ -16,9 +17,11 @@ import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
+import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.gui.misc.CategorySelectModel;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +46,9 @@ public class ProductEdit extends BaseComponent {
 
     @Property
     private PropertyValueEntity oneValue;
+
+    @Property
+    private TagEntity oneTag;
 
     @Inject
     @Property
@@ -79,16 +85,6 @@ public class ProductEdit extends BaseComponent {
     @Parameter(defaultPrefix = BindingConstants.PROP)
     private ProductEntity product;
 
-    private void onPrepareFromEditProductForm() {
-        if (product == null) {
-            final CategoryEntity firstCategory = getAllCategories().get(0);
-            product = new ProductEntity();
-            category = firstCategory.getChildren().size() == 0 ? firstCategory : firstCategory.getChildren().get(0);
-        } else {
-            category = product.getCategory();
-        }
-    }
-
     @Cached
     public CategorySelectModel getCategoryModel() {
         return new CategorySelectModel(getAllCategories(), getPropertyAccess());
@@ -105,6 +101,50 @@ public class ProductEdit extends BaseComponent {
 
     public String getPhotoCaption() {
         return isEditProduct() ? getMessages().get("edit.photo") : getMessages().get("add.photo");
+    }
+
+    public java.util.List<PropertyValueEntity> getPropertyValues() {
+        return getCatalogService().findAllValues(oneProperty);
+    }
+
+    public java.util.List<PropertyEntity> getCategoryProperties() {
+        java.util.List<PropertyEntity> allProperties = getCatalogService().findAllProperties(category);
+        Collections.sort(allProperties, (o1, o2) -> o1.getType().compareTo(o2.getType()));
+        return allProperties;
+    }
+
+    public String getValueType() {
+        return oneProperty.getType().toString().toLowerCase();
+    }
+
+    public String getProductTagValue() {
+        return isEditProduct() ?
+                getProductTags(product).stream()
+                        .filter(t -> t.getProperty().equals(oneProperty))
+                        .map(TagEntity::getData)
+                        .findFirst().orElse("") :
+                "";
+    }
+
+    public List<TagEntity> getProductListValues() {
+        return isEditProduct() ?
+                getProductTags(product).stream()
+                        .filter(t -> t.getProperty().getType() == PropertyEntity.Type.LIST)
+                        .filter(t -> t.getProperty().equals(oneProperty))
+                        .flatMap(t -> Arrays.stream(t.getData().split(",")))
+                        .map(t -> new TagEntity(t, oneProperty))
+                        .collect(Collectors.toList()) :
+                Lists.newArrayList();
+    }
+
+    private void onPrepareFromEditProductForm() {
+        if (product == null) {
+            final CategoryEntity firstCategory = getAllCategories().get(0);
+            product = new ProductEntity();
+            category = firstCategory.getChildren().size() == 0 ? firstCategory : firstCategory.getChildren().get(0);
+        } else {
+            category = product.getCategory();
+        }
     }
 
     public void onFailureFromEditProductForm() {
@@ -136,20 +176,6 @@ public class ProductEdit extends BaseComponent {
     public Block onValueChangedFromProductCategory(CategoryEntity category) {
         this.category = category;
         return propertyBlock;
-    }
-
-    public java.util.List<PropertyValueEntity> getPropertyValues() {
-        return getCatalogService().findAllValues(oneProperty);
-    }
-
-    public java.util.List<PropertyEntity> getCategoryProperties() {
-        java.util.List<PropertyEntity> allProperties = getCatalogService().findAllProperties(category);
-        Collections.sort(allProperties, (o1, o2) -> o1.getType().compareTo(o2.getType()));
-        return allProperties;
-    }
-
-    public String getValueType() {
-        return oneProperty.getType().toString().toLowerCase();
     }
 
     public Block onActionFromProductFinish(Long pid) {

@@ -57,11 +57,12 @@
                     <div class="modal-body">
                         <t:form t:id="addSubForm" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
                             <div class="form-group">
-                                <t:label class="col-sm-2 control-label" for="subName">Название:</t:label>
-
+                                <div class="col-sm-1"/>
                                 <div class="col-sm-10">
-                                    <input t:id="subName" type="text" class="form-control" placeholder="Название подкатегории"/>
+                                    <t:label for="subName">Название подкатегории:</t:label>
+                                    <input t:id="subName" type="text" class="form-control"/>
                                 </div>
+                                <div class="col-sm-1"/>
                             </div>
                             <input class="btn btn-red" type="submit" value="Добавить"/>
                         </t:form>

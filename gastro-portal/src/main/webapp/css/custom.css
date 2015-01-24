@@ -116,7 +116,15 @@ html > body div.t-error ul {
 }
 
 .form-group {
-    margin-bottom: 25px;
+    margin-bottom: 15px;
+}
+
+.form-group div {
+    text-align: left;
+}
+
+.form-group label {
+    padding-left: 5px;
 }
 
 .form-control {
@@ -182,6 +190,10 @@ html > body div.t-error ul {
     margin: 100px auto 0 auto;
     color: black;
     width: 700px;
+}
+
+.modal-dialog.product-edit {
+    margin: 30px auto 0 auto;
 }
 
 .modal-backdrop.in {
@@ -759,6 +771,7 @@ html div.office table.table td.img {
     padding: 0;
     margin: 0;
     width: 102px;
+    height: 102px;
     border: 1px solid white;
     overflow: hidden;
 }
@@ -784,6 +797,10 @@ html div.office table.table td.del,
 html div.office table.table td.toggle {
     text-align: center;
     padding: 10px 0 !important;
+}
+
+.office .more {
+    padding-top: 37px !important;
 }
 
 .office td.user,

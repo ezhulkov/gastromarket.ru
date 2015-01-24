@@ -59,11 +59,12 @@
                     <div class="modal-body">
                         <t:form t:id="catalogForm" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
                             <div class="form-group">
-                                <t:label class="col-sm-2 control-label" for="catalogName">Название:</t:label>
-
+                                <div class="col-sm-1"/>
                                 <div class="col-sm-10">
-                                    <input t:id="catalogName" type="text" class="form-control" placeholder="Название каталога"/>
+                                    <t:label for="catalogName">Название каталога:</t:label>
+                                    <input t:id="catalogName" type="text" class="form-control"/>
                                 </div>
+                                <div class="col-sm-1"/>
                             </div>
                             <input class="btn btn-red" type="submit" value="Добавить"/>
                         </t:form>

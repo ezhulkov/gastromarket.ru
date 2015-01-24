@@ -35,6 +35,11 @@ public class TagEntity extends AbstractBaseEntity {
     public TagEntity() {
     }
 
+    public TagEntity(final String data, final PropertyEntity property) {
+        this.data = data;
+        this.property = property;
+    }
+
     @Override
     public Long getId() {
         return id;

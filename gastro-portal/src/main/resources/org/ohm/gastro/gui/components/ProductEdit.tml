@@ -1,5 +1,5 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" data-backdrop="static" data-keyboard="false" class="modal fade" id="${modalId}" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog product-edit">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="title">
@@ -23,24 +23,36 @@
                         <t:form t:id="editProductForm" id="editProductForm" t:zone="productZone" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
                             <t:errors/>
                             <div class="form-group">
-                                <div class="col-sm-12">
+                                <div class="col-sm-1"/>
+                                <div class="col-sm-10">
+                                    <t:label t:for="productCategory">Категория:</t:label>
                                     <t:select t:id="productCategory" class="form-control chosen-select" disabled="editProduct" t:zone="propertyZone"/>
                                 </div>
+                                <div class="col-sm-1"/>
                             </div>
                             <div class="form-group">
-                                <div class="col-sm-12">
-                                    <input t:id="productName" class="form-control" placeholder="Название"/>
+                                <div class="col-sm-1"/>
+                                <div class="col-sm-10">
+                                    <t:label t:for="productName">Название:</t:label>
+                                    <input t:id="productName" class="form-control"/>
                                 </div>
+                                <div class="col-sm-1"/>
                             </div>
                             <div class="form-group">
-                                <div class="col-sm-12">
-                                    <input t:id="productDescription" rows="4" class="form-control" placeholder="Описание"/>
+                                <div class="col-sm-1"/>
+                                <div class="col-sm-10">
+                                    <t:label t:for="productDescription">Описание:</t:label>
+                                    <input t:id="productDescription" rows="4" class="form-control"/>
                                 </div>
+                                <div class="col-sm-1"/>
                             </div>
                             <div class="form-group">
-                                <div class="col-sm-12">
-                                    <input t:id="productPrice" class="form-control price" placeholder="Цена, руб"/>
+                                <div class="col-sm-1"/>
+                                <div class="col-sm-10">
+                                    <t:label t:for="productPrice">Цена, руб:</t:label>
+                                    <input t:id="productPrice" class="form-control price"/>
                                 </div>
+                                <div class="col-sm-1"/>
                             </div>
                             <t:zone t:id="propertyZone" id="propertyZone">
                                 <t:delegate to="propertyBlock"/>
@@ -50,24 +62,45 @@
                                     <h2>Свойства</h2>
                                     <t:loop source="categoryProperties" value="oneProperty" formState="NONE">
                                         <div class="form-group">
+                                            <div class="col-sm-1"/>
                                             <t:if test="oneProperty.type.toString().equals('LIST')">
-                                                <div class="col-sm-11 property-select" id="list${oneProperty.id}">
-                                                    <select name="list-${oneProperty.id}" class="form-control chosen-select">
-                                                        <option value="" disabled="disabled" selected="selected">${oneProperty.name}</option>
-                                                        <t:loop source="propertyValues" value="oneValue" formState="NONE">
-                                                            <option value="${oneValue.id}">${oneValue.value}</option>
+                                                <div class="col-sm-9 property-select" id="list${oneProperty.id}">
+                                                    <label for="prop-${oneProperty.id}">${oneProperty.name}:</label>
+                                                    <t:if test="productListValues">
+                                                        <t:loop source="productListValues" value="oneTag" formState="NONE">
+                                                            <select name="list-${oneProperty.id}" class="form-control chosen-select">
+                                                                <option value="">&nbsp;</option>
+                                                                <t:loop source="propertyValues" value="oneValue" formState="NONE">
+                                                                    <t:if test="oneTag.data.equals(oneValue.value)">
+                                                                        <option selected="selected" value="${oneValue.id}">${oneValue.value}</option>
+                                                                        <t:parameter name="else">
+                                                                            <option value="${oneValue.id}">${oneValue.value}</option>
+                                                                        </t:parameter>
+                                                                    </t:if>
+                                                                </t:loop>
+                                                            </select>
                                                         </t:loop>
-                                                    </select>
+                                                    </t:if>
+                                                    <t:unless test="productListValues">
+                                                        <select name="list-${oneProperty.id}" class="form-control chosen-select">
+                                                            <option value="">&nbsp;</option>
+                                                            <t:loop source="propertyValues" value="oneValue" formState="NONE">
+                                                                <option value="${oneValue.id}">${oneValue.value}</option>
+                                                            </t:loop>
+                                                        </select>
+                                                    </t:unless>
                                                 </div>
                                                 <div class="col-sm-1 more">
                                                     <a href="#" data="${oneProperty.id}" class="glyphicon glyphicon-plus more-btn"/>
                                                 </div>
-                                                <t:parameter name="else">
-                                                    <div class="col-sm-12">
-                                                        <input class="form-control" type="${valueType}" name="prop-${oneProperty.id}" placeholder="${oneProperty.name}"/>
-                                                    </div>
-                                                </t:parameter>
                                             </t:if>
+                                            <t:unless test="oneProperty.type.toString().equals('LIST')">
+                                                <div class="col-sm-10">
+                                                    <label for="prop-${oneProperty.id}">${oneProperty.name}:</label>
+                                                    <input class="form-control" type="${valueType}" id="prop-${oneProperty.id}" name="prop-${oneProperty.id}" value="${productTagValue}"/>
+                                                </div>
+                                            </t:unless>
+                                            <div class="col-sm-1"/>
                                         </div>
                                     </t:loop>
                                 </t:if>
