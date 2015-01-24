@@ -22,9 +22,10 @@
 
     <t:grid source="products" row="oneProduct"
             exclude="id,properties,date,description,promoted,avatarUrl,avatarUrlMedium,avatarUrlSmall"
-            reorder="name,price,del"
-            add="properties,del"
+            reorder="img,name,price,del"
+            add="img,properties,del"
             t:mixins="GridSortingDisabled" class="table table-hover">
+
         <t:parameter name="nameCell">
             <a class="product-edit-link" data-toggle="modal" data-target="#pr-${oneProduct.id}" href="#pr-${oneProduct.id}">
                 ${oneProduct.name}
@@ -33,6 +34,9 @@
                 </t:if>
             </a>
             <t:productEdit modalId="pr-${oneProduct.id}" product="oneProduct" catalog="object"/>
+        </t:parameter>
+        <t:parameter name="imgCell">
+            <a class="product-edit-link" data-toggle="modal" data-target="#pr-${oneProduct.id}" href="#pr-${oneProduct.id}"><img src="${oneProduct.avatarUrlSmall}"/></a>
         </t:parameter>
         <t:parameter name="delCell">
             <t:actionlink t:id="deleteProduct" context="oneProduct.id"><span class="glyphicon glyphicon-remove"/></t:actionlink>

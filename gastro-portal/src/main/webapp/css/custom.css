@@ -748,11 +748,19 @@ div.username {
     border-bottom: 2px solid #dddddd;
 }
 
-.office table td {
+html div.office table.table td {
     text-align: left;
     font-size: 16px;
     border-right: 2px solid #ffffff;
-    padding: 10px 0 10px 20px !important;
+    padding: 10px 0 10px 20px;
+}
+
+html div.office table.table td.img {
+    padding: 0;
+    margin: 0;
+    width: 102px;
+    border: 1px solid white;
+    overflow: hidden;
 }
 
 .office table a,
@@ -772,8 +780,8 @@ div.username {
 }
 
 .office .more,
-.office td.del,
-.office td.toggle {
+html div.office table.table td.del,
+html div.office table.table td.toggle {
     text-align: center;
     padding: 10px 0 !important;
 }
