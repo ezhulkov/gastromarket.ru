@@ -1,4 +1,4 @@
-<div class="upload-avatar ${type}" data-objectid="${objectId}" data-type="${type}" data-size="${responseSize}">
+<div class="upload-file ${type}" data-objectid="${objectId}" data-type="${type}" data-size="${responseSize}">
     <img src="${imageUrl}"/>
 
     <div class="uploader-button"></div>

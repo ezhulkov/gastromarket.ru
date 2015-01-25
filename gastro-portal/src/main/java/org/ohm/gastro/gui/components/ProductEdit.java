@@ -86,6 +86,10 @@ public class ProductEdit extends BaseComponent {
     private String modalId;
 
     @Property
+    @Parameter(name = "edit", defaultPrefix = BindingConstants.LITERAL, value = "true")
+    private boolean editProduct;
+
+    @Property
     @Parameter(defaultPrefix = BindingConstants.PROP)
     private ProductEntity product;
 
@@ -99,13 +103,9 @@ public class ProductEdit extends BaseComponent {
         return getCatalogService().findAllRootCategories();
     }
 
-    public boolean isEditProduct() {
-        return product != null && product.getId() != null;
-    }
-
     public String getNextCaption() {
-        if (stage == Stage.DESC) return isEditProduct() ? getMessages().get("edit.props") : getMessages().get("add.props");
-        if (stage == Stage.PROP) return isEditProduct() ? getMessages().get("edit.photo") : getMessages().get("add.photo");
+        if (stage == Stage.DESC) return editProduct ? getMessages().get("edit.props") : getMessages().get("add.props");
+        if (stage == Stage.PROP) return editProduct ? getMessages().get("edit.photo") : getMessages().get("add.photo");
         return "";
     }
 
@@ -124,7 +124,7 @@ public class ProductEdit extends BaseComponent {
     }
 
     public String getProductTagValue() {
-        return isEditProduct() ?
+        return editProduct ?
                 getProductTags(product).stream()
                         .filter(t -> t.getProperty().equals(oneProperty))
                         .map(TagEntity::getData)
@@ -133,7 +133,7 @@ public class ProductEdit extends BaseComponent {
     }
 
     public List<TagEntity> getProductListValues() {
-        return isEditProduct() ?
+        return editProduct ?
                 getProductTags(product).stream()
                         .filter(t -> t.getProperty().getType() == PropertyEntity.Type.LIST)
                         .filter(t -> t.getProperty().equals(oneProperty))
@@ -143,7 +143,16 @@ public class ProductEdit extends BaseComponent {
                 Lists.newArrayList();
     }
 
+    public String getProductZone() {
+        return editProduct ? "productZone" + product.getId() : "productZoneNew";
+    }
+
+    public String getPropertyZone() {
+        return editProduct ? "propertyZone" + product.getId() : "propertyZoneNew";
+    }
+
     private void beginRender() {
+        System.out.println("!!!!!!! " + product);
         if (product != null && product.getId() != null) {
             category = product.getCategory();
         } else {
@@ -205,4 +214,3 @@ public class ProductEdit extends BaseComponent {
     }
 
 }
-

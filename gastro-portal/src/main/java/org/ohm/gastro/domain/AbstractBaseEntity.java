@@ -5,8 +5,6 @@ package org.ohm.gastro.domain;
  */
 public abstract class AbstractBaseEntity implements BaseEntity {
 
-    private String t;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -22,6 +20,13 @@ public abstract class AbstractBaseEntity implements BaseEntity {
     @Override
     public int hashCode() {
         return getId() != null ? getId().hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + "{" +
+                "id='" + getId() + '\'' +
+                '}';
     }
 
 }

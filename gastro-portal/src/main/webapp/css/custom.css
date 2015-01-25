@@ -45,25 +45,29 @@ html > body div.t-error ul {
     background: url("../img/avatar-upload-hover.png") no-repeat;
 }
 
-.upload-avatar {
+.upload-file {
     overflow: hidden;
     position: relative;
 }
 
-.upload-avatar.AVATAR {
+.upload-file.AVATAR {
     width: 200px;
     height: 200px;
 }
 
-.upload-avatar.PRODUCT {
+.upload-file.PRODUCT {
     width: 430px;
     height: 310px;
 }
 
-.upload-avatar div.qq-uploader-selector {
+.upload-file div.qq-uploader-selector {
     position: absolute;
     bottom: 10px;
     right: 10px;
+}
+
+.photo-details div.upload-file {
+    margin: 0 auto;
 }
 
 .simple-text {
@@ -833,6 +837,6 @@ html div.office table.table td.toggle {
     margin-top: 30px;
 }
 
-.photo-details div.upload-avatar {
+.photo-details div.upload-file {
     margin: 0 auto;
 }

@@ -193,7 +193,7 @@ public class CatalogServiceImpl implements CatalogService {
             description = description.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
             product.setDescription(description);
         }
-        return productRepository.save(product);
+        return productRepository.saveAndFlush(product);
     }
 
     @Override
@@ -287,7 +287,7 @@ public class CatalogServiceImpl implements CatalogService {
     public void showProduct(Long pid) {
         final ProductEntity product = productRepository.findOne(pid);
         product.setHidden(false);
-        productRepository.save(product);
+        productRepository.saveAndFlush(product);
     }
 
     @Override
@@ -301,7 +301,7 @@ public class CatalogServiceImpl implements CatalogService {
         product.setAvatarUrlMedium(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE2), product.getAvatarUrlMedium()));
         product.setAvatarUrl(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE3), product.getAvatarUrl()));
 
-        return productRepository.save(product);
+        return productRepository.saveAndFlush(product);
 
     }
 

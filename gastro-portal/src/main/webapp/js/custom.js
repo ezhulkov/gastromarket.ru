@@ -25,7 +25,6 @@ jQuery.noConflict();
     });
 })();
 Event.observe(document, Tapestry.ZONE_UPDATED_EVENT, function (event) {
-    initProductEdit();
     initChosen(jQuery(event.srcElement).find('select.chosen-select'));
 });
 jQuery(document).ready(function () {
@@ -39,8 +38,8 @@ jQuery(document).ready(function () {
     jQuery(".tip").tooltip({placement: "bottom"});
     initChosen(jQuery("select.chosen-select"));
     initLoginModal();
-    initProductEdit();
-    initFineUploader();
+    initProductEdit(jQuery("div.product-edit-modal"));
+    initFineUploader(jQuery("div.upload-file"));
 });
 function activate_menu(el) {
     jQuery(el).closest(".office-menu").find(".sel").removeClass("sel");
@@ -51,51 +50,39 @@ function initChosen(el) {
         this.fire(Tapestry.ACTION_EVENT, e);
     });
 }
-function initProductEdit() {
-    jQuery(".product-edit-link").unbind("click").bind("click", function (e) {
-        jQuery(".modal-dialog div.t-error").hide();
-        jQuery(".modal-body .t-error").removeClass("t-error");
-        jQuery(".modal-dialog .error").hide();
-        jQuery(".modal-dialog .photo-details").hide();
-        jQuery(".modal-dialog .properties-details").hide();
-        jQuery(".modal-dialog .product-details").show();
-        jQuery(".modal-dialog .product-finish-close").hide();
+function initProductEdit(el) {
+    jQuery(el).each(function (i, e) {
+        var linkId = jQuery(e).attr("id");
+        jQuery("#" + linkId).unbind("click").bind("click", function () {
+            jQuery("div.t-error", e).hide();
+            jQuery(".t-error", e).removeClass("t-error");
+            jQuery(".error", e).hide();
+            jQuery(".photo-details", e).hide();
+            jQuery(".properties-details", e).hide();
+            jQuery(".product-details", e).show();
+            jQuery(".product-finish-close", e).hide();
+        });
+        jQuery(".more-btn", e).unbind().bind('click', function () {
+            var id = jQuery(this).attr('data');
+            var listBlock = jQuery('#list' + id);
+            var lastList = jQuery('select:last', listBlock);
+            var newList = jQuery(lastList).clone();
+            jQuery(newList).insertAfter(lastList);
+            initChosen(jQuery(newList));
+        });
+        jQuery(".uploader-button", e).on("complete", function (id, name, responseJSON, xhr) {
+            jQuery(".product-finish-close").hide();
+        });
     });
-    jQuery(".modal-dialog .photo-details").hide();
-    jQuery(".modal-dialog .properties-details").hide();
-    jQuery(".modal-dialog .product-details").hide();
-    jQuery('.more-btn').unbind().bind('click', function () {
-        var id = jQuery(this).attr('data');
-        var listBlock = jQuery('#list' + id);
-        var lastList = jQuery('select:last', listBlock);
-        var newList = jQuery(lastList).clone();
-        jQuery(newList).insertAfter(lastList);
-        initChosen(jQuery(newList));
-    });
-    jQuery(".uploader-button").on("complete", function (id, name, responseJSON, xhr) {
-        jQuery(".product-finish-close").hide();
-    });
 }
-function togglePhotoDetails() {
-    jQuery(".modal-dialog .photo-details").show();
-    jQuery(".modal-dialog .product-details").hide();
-    jQuery(".modal-dialog .properties-details").hide();
-    initFineUploader();
-}
-function togglePropDetails() {
-    jQuery(".modal-dialog .properties-details").show();
-    jQuery(".modal-dialog .photo-details").hide();
-    jQuery(".modal-dialog .product-details").hide();
-    initFineUploader();
-}
-function toggleDescDetails() {
-    jQuery(".modal-dialog .properties-details").hide();
-    jQuery(".modal-dialog .photo-details").hide();
-    jQuery(".modal-dialog .product-details").show();
-    initFineUploader();
-}
-function doneProductEditing() {
-    location.reload();
+function toggleProductEdit(type, el) {
+    jQuery(".product-details", el).hide();
+    jQuery(".properties-details", el).hide();
+    jQuery(".photo-details", el).hide();
+    if (type == 'DESC') jQuery(".product-details", el).show();
+    if (type == 'PROP') jQuery(".properties-details", el).show();
+    if (type == 'PHOTO') jQuery(".photo-details", el).show();
+    if (type == 'DONE') location.reload();
 }
 function initLoginModal() {
     var hideAll = function () {
@@ -130,21 +117,23 @@ function initLoginModal() {
 function showModalResult(block) {
     jQuery(block).find(".data").hide();
 }
-function initFineUploader() {
-    var button = jQuery(".uploader-button");
-    var fileType = button.closest("div.upload-avatar").attr("data-type");
-    var respSize = button.closest("div.upload-avatar").attr("data-size");
-    var objectId = button.closest("div.upload-avatar").attr("data-objectid");
-    button.fineUploader({
-        request: {
-            endpoint: '/upload?file_path=/tmp/1.jpg&file_type=' + fileType + '&object_id=' + objectId
-        },
-        validation: {
-            allowedExtensions: ['jpeg', 'jpg'],
-            sizeLimit: 10485760,
-            itemLimit: 1
-        }
-    }).on("complete", function (id, name, responseJSON, xhr) {
-        jQuery(id.target).closest("div.upload-avatar").find("img").attr("src", xhr[respSize]);
-    });
+function initFineUploader(el) {
+    jQuery(el).each(function (i, e) {
+        var button = jQuery(".uploader-button", e);
+        var fileType = jQuery(e).attr("data-type");
+        var respSize = jQuery(e).attr("data-size");
+        var objectId = jQuery(e).attr("data-objectid");
+        button.fineUploader({
+            request: {
+                endpoint: '/upload?file_path=/tmp/1.jpg&file_type=' + fileType + '&object_id=' + objectId
+            },
+            validation: {
+                allowedExtensions: ['jpeg', 'jpg'],
+                sizeLimit: 10485760,
+                itemLimit: 1
+            }
+        }).on("complete", function (id, name, responseJSON, xhr) {
+            jQuery(e).find("img").attr("src", xhr[respSize]);
+        });
+    })
 }
