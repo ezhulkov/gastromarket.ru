@@ -5,7 +5,7 @@
             <div class="col-sm-2"/>
             <div class="col-sm-8">
                 <div class="title">
-                    <h1 style="width: 150px;"><span>Вход</span></h1>
+                    <h1><span>Вход</span></h1>
                 </div>
                 <div class="row">
                     <p class="modal-text">Вход через аккаунт одной из социальных сетей</p>

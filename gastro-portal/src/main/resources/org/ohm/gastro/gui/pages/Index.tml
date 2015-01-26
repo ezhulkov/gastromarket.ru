@@ -23,7 +23,7 @@
             </div>
 
             <div class="title">
-                <h1 style="width: 480px;"><span>Заказ еды для любого события</span></h1>
+                <h1><span>Заказ еды для любого события</span></h1>
             </div>
 
             <div class="grid-block category">
@@ -37,7 +37,7 @@
 
             <t:if test="products">
                 <div class="title">
-                    <h1 style="width: 400px;"><span>Предложения недели</span></h1>
+                    <h1><span>Предложения недели</span></h1>
                     <t:pagelink page="catalog/promoted">Смотреть всю подборку<span/></t:pagelink>
                 </div>
 
@@ -52,7 +52,7 @@
             </t:if>
 
             <div class="title">
-                <h1 style="width: 200px;"><span>Кулинары</span></h1>
+                <h1><span>Кулинары</span></h1>
                 <t:pagelink page="chef/list">Все кулинары<span/></t:pagelink>
             </div>
 
@@ -74,7 +74,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="title">
-                        <h1 style="width: 300px;"><span>Как это работает?</span></h1>
+                        <h1><span>Как это работает?</span></h1>
                     </div>
                     <a class="modal-close" data-dismiss="modal"></a>
                 </div>

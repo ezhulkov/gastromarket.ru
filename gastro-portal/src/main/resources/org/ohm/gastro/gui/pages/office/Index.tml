@@ -3,7 +3,7 @@
     <div class="office">
         <div class="container">
             <div class="title">
-                <h1 style="width: 250px;"><span>Мой профиль</span></h1>
+                <h1><span>Мой профиль</span></h1>
             </div>
             <t:editObject t:id="editObject" showUpdate="true" autoFocus="literal:true">
                 <div class="row">

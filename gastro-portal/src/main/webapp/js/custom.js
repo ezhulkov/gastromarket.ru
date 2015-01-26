@@ -37,6 +37,9 @@ jQuery(document).ready(function () {
         jQuery(this).css("margin-left", margin);
     });
     jQuery(".tip").tooltip({placement: "bottom"});
+    jQuery("div.title").find("h1").each(function (i, e) {
+        jQuery(e).css("width", realTitleWidth(jQuery(e)) + 50);
+    });
     initChosen(jQuery("select.chosen-select"));
     initLoginModal();
     initProductEdit(jQuery("div.product-edit-modal"));
@@ -136,4 +139,12 @@ function initFineUploader(el) {
             jQuery(e).find("img").attr("src", xhr[respSize]);
         });
     })
+}
+function realTitleWidth(obj) {
+    var clone = obj.clone();
+    clone.css("visibility", "hidden");
+    jQuery('body').append(clone);
+    var width = clone.find("span").width();
+    clone.remove();
+    return width;
 }

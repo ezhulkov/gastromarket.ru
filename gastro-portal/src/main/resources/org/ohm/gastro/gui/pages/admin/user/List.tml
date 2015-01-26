@@ -46,7 +46,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="title">
-                        <h1 style="width: 350px;"><span>Новый пользователь</span></h1>
+                        <h1><span>Новый пользователь</span></h1>
                     </div>
                     <a class="modal-close" data-dismiss="modal"></a>
                 </div>

@@ -4,10 +4,10 @@
             <div class="modal-header">
                 <div class="title">
                     <t:if test="editProduct">
-                        <h1 style="width: 400px;"><span>Редактировать товар</span></h1>
+                        <h1><span>Редактировать товар</span></h1>
                     </t:if>
                     <t:unless test="editProduct">
-                        <h1 style="width: 300px;"><span>Создать товар</span></h1>
+                        <h1><span>Создать товар</span></h1>
                     </t:unless>
                 </div>
                 <a class="modal-close" data-dismiss="modal"></a>
