@@ -75,7 +75,7 @@ public interface CatalogService extends ImageUploaderService<ProductEntity> {
 
     ProductEntity findProduct(Long id);
 
-    List<ProductEntity> findAllProducts(CategoryEntity category, CatalogEntity catalog);
+    List<ProductEntity> findAllProducts(CategoryEntity category, CatalogEntity catalog, Boolean hidden);
 
     List<CategoryEntity> findAllRootCategories(CatalogEntity catalog);
 

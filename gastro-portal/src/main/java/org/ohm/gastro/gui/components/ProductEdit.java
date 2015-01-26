@@ -12,6 +12,7 @@ import org.apache.tapestry5.corelib.components.Select;
 import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
@@ -62,12 +63,12 @@ public class ProductEdit extends BaseComponent {
     @Property
     private Block productBlock;
 
-    @Parameter(name = "catalog", required = true, allowNull = false)
-    private CatalogEntity catalog;
-
     @Property
     @Persist
     private CategoryEntity category;
+
+    @Inject
+    private AjaxResponseRenderer ajaxResponseRenderer;
 
     @Component(id = "productPrice", parameters = {"value=product.price", "validate=required"})
     private TextField pPriceField;
@@ -80,6 +81,18 @@ public class ProductEdit extends BaseComponent {
 
     @Component(id = "productCategory", parameters = {"model=categoryModel", "encoder=categoryModel", "value=category", "validate=required"})
     private Select pCategoryField;
+
+    @Property
+    @Parameter(name = "catalog", required = true, allowNull = false)
+    private CatalogEntity catalog;
+
+    @Property
+    @Parameter(name = "productsZone", required = false, allowNull = false, value = "productsZone", defaultPrefix = BindingConstants.LITERAL)
+    private String productsZone;
+
+    @Property
+    @Parameter(name = "productsBlock", required = true, allowNull = false)
+    private Block productsBlock;
 
     @Property
     @Parameter(name = "modalId", defaultPrefix = BindingConstants.LITERAL, value = "pr-new")
@@ -178,7 +191,7 @@ public class ProductEdit extends BaseComponent {
         closeImmediately = false;
     }
 
-    public Block onSubmitFromEditProductForm(Long pid, Stage stage) {
+    public void onSubmitFromEditProductForm(Long pid, Stage stage) {
         if (!error) {
             final ProductEntity origProduct = pid != null ? getCatalogService().findProduct(pid) : product;
             if (stage == Stage.DESC) {
@@ -205,7 +218,9 @@ public class ProductEdit extends BaseComponent {
             }
             if (closeImmediately) this.stage = Stage.DONE;
         }
-        return productBlock;
+        ajaxResponseRenderer
+                .addRender(getProductZone(), productBlock)
+                .addRender(productsZone, productsBlock);
     }
 
     public Block onValueChangedFromProductCategory(CategoryEntity category) {

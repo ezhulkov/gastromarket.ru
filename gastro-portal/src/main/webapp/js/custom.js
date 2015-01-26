@@ -53,7 +53,7 @@ function initChosen(el) {
 function initProductEdit(el) {
     jQuery(el).each(function (i, e) {
         var linkId = jQuery(e).attr("id");
-        jQuery("#" + linkId).unbind("click").bind("click", function () {
+        jQuery("a[data-target='#" + linkId + "']").unbind("click").bind("click", function () {
             jQuery("div.t-error", e).hide();
             jQuery(".t-error", e).removeClass("t-error");
             jQuery(".error", e).hide();
@@ -62,20 +62,20 @@ function initProductEdit(el) {
             jQuery(".product-details", e).show();
             jQuery(".product-finish-close", e).hide();
         });
-        jQuery(".more-btn", e).unbind().bind('click', function () {
-            var id = jQuery(this).attr('data');
-            var listBlock = jQuery('#list' + id);
-            var lastList = jQuery('select:last', listBlock);
-            var newList = jQuery(lastList).clone();
-            jQuery(newList).insertAfter(lastList);
-            initChosen(jQuery(newList));
-        });
         jQuery(".uploader-button", e).on("complete", function (id, name, responseJSON, xhr) {
             jQuery(".product-finish-close").hide();
         });
     });
 }
+function addMoreProperties(el) {
+    var listBlock = jQuery(el);
+    var lastList = jQuery('select:last', listBlock);
+    var newList = jQuery(lastList).clone();
+    jQuery(newList).insertAfter(lastList);
+    initChosen(jQuery(newList));
+}
 function toggleProductEdit(type, el) {
+    initFineUploader(jQuery(el).find("div.upload-file"));
     jQuery(".product-details", el).hide();
     jQuery(".properties-details", el).hide();
     jQuery(".photo-details", el).hide();

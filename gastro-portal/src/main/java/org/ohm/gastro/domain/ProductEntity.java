@@ -39,7 +39,7 @@ public class ProductEntity extends AbstractBaseEntity {
     private Integer price;
 
     @Column
-    private boolean hidden = false;
+    private boolean hidden = true;
 
     @Column
     private Timestamp date = new Timestamp(System.currentTimeMillis());

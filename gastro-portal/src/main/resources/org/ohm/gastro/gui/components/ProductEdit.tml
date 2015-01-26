@@ -92,7 +92,8 @@
                                                     </t:unless>
                                                 </div>
                                                 <div class="col-sm-1 more">
-                                                    <a href="#" data="${oneProperty.id}" class="glyphicon glyphicon-plus more-btn"/>
+                                                    <a href="#" onclick="javascript:addMoreProperties('#list${oneProperty.id}')"
+                                                       data="${oneProperty.id}" class="glyphicon glyphicon-plus more-btn"/>
                                                 </div>
                                             </t:if>
                                             <t:unless test="oneProperty.type.toString().equals('LIST')">

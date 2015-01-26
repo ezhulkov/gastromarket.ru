@@ -1,9 +1,13 @@
 package org.ohm.gastro.gui.pages.admin.catalog;
 
+import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
+import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.TextField;
+import org.apache.tapestry5.corelib.components.Zone;
+import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.TagEntity;
@@ -23,12 +27,20 @@ public class Index extends EditObjectPage<CatalogEntity> {
     @Property
     private TagEntity oneTag;
 
+    @Property
+    @Inject
+    private Block productsBlock;
+
+    @Property
+    @InjectComponent
+    private Zone productsZone;
+
     @Component(id = "name", parameters = {"value=object?.name", "validate=maxlength=64,required"})
     private TextField nameField;
 
     @Cached
     public java.util.List<ProductEntity> getProducts() {
-        return getCatalogService().findAllProducts(null, getObject());
+        return getCatalogService().findAllProducts(null, getObject(), null);
     }
 
     @Override
@@ -54,8 +66,14 @@ public class Index extends EditObjectPage<CatalogEntity> {
         };
     }
 
-    public void onActionFromDeleteProduct(Long id) {
+    public Block onActionFromDeleteProduct(Long id) {
         getCatalogService().deleteProduct(id);
+        return productsBlock;
+    }
+
+    public Block onActionFromShowProduct(Long id) {
+        getCatalogService().showProduct(id);
+        return productsBlock;
     }
 
     public java.util.List<TagEntity> getProductTags() {

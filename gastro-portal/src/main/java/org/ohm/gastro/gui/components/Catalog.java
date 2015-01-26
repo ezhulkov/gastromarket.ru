@@ -52,7 +52,7 @@ public class Catalog extends BaseComponent {
 
     public List<ProductEntity> getProducts() {
         if (StringUtils.isEmpty(filter.getSearchString())) {
-            return getCatalogService().findAllProducts(filter.getCategory(), filter.getCatalog());
+            return getCatalogService().findAllProducts(filter.getCategory(), filter.getCatalog(), false);
         } else {
             return getCatalogService().searchProducts(filter.getSearchString());
         }

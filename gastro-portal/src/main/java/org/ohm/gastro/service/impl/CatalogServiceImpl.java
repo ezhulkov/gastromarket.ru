@@ -254,13 +254,13 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
-    public List<ProductEntity> findAllProducts(CategoryEntity category, CatalogEntity catalog) {
-        return productRepository.findAllByCategoryAndCatalog(category, catalog);
+    public List<ProductEntity> findAllProducts(CategoryEntity category, CatalogEntity catalog, Boolean hidden) {
+        return productRepository.findAllByCategoryAndCatalog(category, catalog, hidden);
     }
 
     @Override
     public List<CategoryEntity> findAllRootCategories(CatalogEntity catalog) {
-        List<ProductEntity> allByCategoryAndCatalog = productRepository.findAllByCategoryAndCatalog(null, catalog);
+        List<ProductEntity> allByCategoryAndCatalog = productRepository.findAllByCategoryAndCatalog(null, catalog, false);
         return allByCategoryAndCatalog.stream()
                 .map(t -> t.getCategory().getParent() != null ? t.getCategory().getParent() : t.getCategory())
                 .distinct()
