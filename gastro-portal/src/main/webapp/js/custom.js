@@ -26,6 +26,7 @@ jQuery.noConflict();
 })();
 Event.observe(document, Tapestry.ZONE_UPDATED_EVENT, function (event) {
     initChosen(jQuery(event.srcElement).find('select.chosen-select'));
+    initProductEdit(jQuery(event.srcElement).find("div.product-edit-modal"));
 });
 jQuery(document).ready(function () {
     jQuery("ul.dropdown-menu").each(function (e) {
@@ -82,7 +83,7 @@ function toggleProductEdit(type, el) {
     if (type == 'DESC') jQuery(".product-details", el).show();
     if (type == 'PROP') jQuery(".properties-details", el).show();
     if (type == 'PHOTO') jQuery(".photo-details", el).show();
-    if (type == 'DONE') location.reload();
+    if (type == 'DONE') jQuery(el).closest(".product-edit-modal").modal('hide');
 }
 function initLoginModal() {
     var hideAll = function () {

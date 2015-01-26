@@ -165,7 +165,6 @@ public class ProductEdit extends BaseComponent {
     }
 
     private void beginRender() {
-        System.out.println("!!!!!!! " + product);
         if (product != null && product.getId() != null) {
             category = product.getCategory();
         } else {
@@ -200,7 +199,7 @@ public class ProductEdit extends BaseComponent {
                 origProduct.setDescription(product.getDescription());
                 origProduct.setCategory(category);
                 origProduct.setCatalog(catalog);
-                getCatalogService().saveProduct(origProduct);
+                product = getCatalogService().saveProduct(origProduct);
                 this.stage = Stage.PROP;
             } else if (stage == Stage.PROP) {
                 Map<Long, String> propValues = getRequest().getParameterNames().stream()
@@ -213,14 +212,13 @@ public class ProductEdit extends BaseComponent {
                         .map(t -> t.substring("list-".length(), t.length()))
                         .collect(Collectors.toMap(Long::parseLong, key -> getRequest().getParameters("list-" + key)
                         ));
-                getCatalogService().saveProduct(origProduct, propValues, listValues);
+                product = getCatalogService().saveProduct(origProduct, propValues, listValues);
                 this.stage = Stage.PHOTO;
             }
             if (closeImmediately) this.stage = Stage.DONE;
         }
-        ajaxResponseRenderer
-                .addRender(getProductZone(), productBlock)
-                .addRender(productsZone, productsBlock);
+        ajaxResponseRenderer.addRender(productsZone, productsBlock);
+        if (!closeImmediately) ajaxResponseRenderer.addRender(getProductZone(), productBlock);
     }
 
     public Block onValueChangedFromProductCategory(CategoryEntity category) {
