@@ -23,8 +23,7 @@
                 </div>
                 <t:if test="error">
                     <div class="row">
-                        <div class="col-sm-2"/>
-                        <div class="col-sm-9">
+                        <div class="col-sm-12 text-center">
                             <div class="error">Неправильно указан адрес почты или пароль</div>
                         </div>
                     </div>

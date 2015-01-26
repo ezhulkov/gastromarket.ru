@@ -37,17 +37,21 @@ jQuery(document).ready(function () {
         jQuery(this).css("margin-left", margin);
     });
     jQuery(".tip").tooltip({placement: "bottom"});
-    jQuery("div.title").find("h1").each(function (i, e) {
-        jQuery(e).css("width", realTitleWidth(jQuery(e)) + 50);
-    });
     initChosen(jQuery("select.chosen-select"));
     initLoginModal();
+    initTitle(jQuery("div.title"));
     initProductEdit(jQuery("div.product-edit-modal"));
     initFineUploader(jQuery("div.upload-file"));
 });
 function activate_menu(el) {
     jQuery(el).closest(".office-menu").find(".sel").removeClass("sel");
     jQuery(el).addClass("sel");
+}
+function initTitle(el) {
+    jQuery(el).each(function (i, e) {
+        var h1 = jQuery(e).find("h1");
+        jQuery(h1).css("width", realTitleWidth(jQuery(h1)) + 50);
+    });
 }
 function initChosen(el) {
     jQuery(el).chosen({"width": "100%"}).on('change', function (e) {
@@ -63,6 +67,7 @@ function initProductEdit(el) {
             jQuery(".error", e).hide();
             jQuery("input[name='stage']", e).attr('value', 'DESC');
             toggleProductEdit(e, false);
+            initTitle(jQuery("div.title",e));
         });
     });
 }
