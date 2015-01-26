@@ -19,8 +19,9 @@
                 </t:zone>
 
                 <t:block t:id="productBlock">
-                    <t:form t:id="editProductForm" t:context="[product?.id,stage]" t:zone="${productZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
+                    <t:form t:id="editProductForm" t:context="[product?.id]" t:zone="${productZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
                         <t:errors/>
+                        <t:hidden t:id="stage"/>
                         <div class="product-details">
                             <div class="form-group">
                                 <div class="col-sm-1"/>
@@ -60,54 +61,52 @@
                                 <t:delegate to="propertyBlock"/>
                             </t:zone>
                             <t:block t:id="propertyBlock">
-                                ${categoryProperties.size()}
-
-                                <!--<t:if test="categoryProperties">-->
-                                <!--<t:loop source="categoryProperties" value="oneProperty" formState="NONE">-->
-                                <!--<div class="form-group">-->
-                                <!--<div class="col-sm-1"/>-->
-                                <!--<t:if test="oneProperty.type.toString().equals('LIST')">-->
-                                <!--<div class="col-sm-9 property-select" id="list${oneProperty.id}">-->
-                                <!--<label for="prop-${oneProperty.id}">${oneProperty.name}:</label>-->
-                                <!--<t:if test="productListValues">-->
-                                <!--<t:loop source="productListValues" value="oneTag" formState="NONE">-->
-                                <!--<select name="list-${oneProperty.id}" class="form-control chosen-select">-->
-                                <!--<option value="">&nbsp;</option>-->
-                                <!--<t:loop source="propertyValues" value="oneValue" formState="NONE">-->
-                                <!--<t:if test="oneTag.data.equals(oneValue.value)">-->
-                                <!--<option selected="selected" value="${oneValue.id}">${oneValue.value}</option>-->
-                                <!--<t:parameter name="else">-->
-                                <!--<option value="${oneValue.id}">${oneValue.value}</option>-->
-                                <!--</t:parameter>-->
-                                <!--</t:if>-->
-                                <!--</t:loop>-->
-                                <!--</select>-->
-                                <!--</t:loop>-->
-                                <!--</t:if>-->
-                                <!--<t:unless test="productListValues">-->
-                                <!--<select name="list-${oneProperty.id}" class="form-control chosen-select">-->
-                                <!--<option value="">&nbsp;</option>-->
-                                <!--<t:loop source="propertyValues" value="oneValue" formState="NONE">-->
-                                <!--<option value="${oneValue.id}">${oneValue.value}</option>-->
-                                <!--</t:loop>-->
-                                <!--</select>-->
-                                <!--</t:unless>-->
-                                <!--</div>-->
-                                <!--<div class="col-sm-1 more">-->
-                                <!--<a href="#" onclick="javascript:addMoreProperties('#list${oneProperty.id}')"-->
-                                <!--data="${oneProperty.id}" class="glyphicon glyphicon-plus more-btn"/>-->
-                                <!--</div>-->
-                                <!--</t:if>-->
-                                <!--<t:unless test="oneProperty.type.toString().equals('LIST')">-->
-                                <!--<div class="col-sm-10">-->
-                                <!--<label for="prop-${oneProperty.id}">${oneProperty.name}:</label>-->
-                                <!--<input class="form-control" type="${valueType}" id="prop-${oneProperty.id}" name="prop-${oneProperty.id}" value="${productTagValue}"/>-->
-                                <!--</div>-->
-                                <!--</t:unless>-->
-                                <!--<div class="col-sm-1"/>-->
-                                <!--</div>-->
-                                <!--</t:loop>-->
-                                <!--</t:if>-->
+                                <t:if test="categoryProperties">
+                                    <t:loop source="categoryProperties" value="oneProperty" formState="NONE">
+                                        <div class="form-group">
+                                            <div class="col-sm-1"/>
+                                            <t:if test="oneProperty.type.toString().equals('LIST')">
+                                                <div class="col-sm-9 property-select" id="list${oneProperty.id}">
+                                                    <label for="prop-${oneProperty.id}">${oneProperty.name}:</label>
+                                                    <t:if test="productListValues">
+                                                        <t:loop source="productListValues" value="oneTag" formState="NONE">
+                                                            <select name="list-${oneProperty.id}" class="form-control chosen-select">
+                                                                <option value="">&nbsp;</option>
+                                                                <t:loop source="propertyValues" value="oneValue" formState="NONE">
+                                                                    <t:if test="oneTag.data.equals(oneValue.value)">
+                                                                        <option selected="selected" value="${oneValue.id}">${oneValue.value}</option>
+                                                                        <t:parameter name="else">
+                                                                            <option value="${oneValue.id}">${oneValue.value}</option>
+                                                                        </t:parameter>
+                                                                    </t:if>
+                                                                </t:loop>
+                                                            </select>
+                                                        </t:loop>
+                                                    </t:if>
+                                                    <t:unless test="productListValues">
+                                                        <select name="list-${oneProperty.id}" class="form-control chosen-select">
+                                                            <option value="">&nbsp;</option>
+                                                            <t:loop source="propertyValues" value="oneValue" formState="NONE">
+                                                                <option value="${oneValue.id}">${oneValue.value}</option>
+                                                            </t:loop>
+                                                        </select>
+                                                    </t:unless>
+                                                </div>
+                                                <div class="col-sm-1 more">
+                                                    <a href="#" onclick="javascript:addMoreProperties('#list${oneProperty.id}')"
+                                                       data="${oneProperty.id}" class="glyphicon glyphicon-plus more-btn"/>
+                                                </div>
+                                            </t:if>
+                                            <t:unless test="oneProperty.type.toString().equals('LIST')">
+                                                <div class="col-sm-10">
+                                                    <label for="prop-${oneProperty.id}">${oneProperty.name}:</label>
+                                                    <input class="form-control" type="${valueType}" id="prop-${oneProperty.id}" name="prop-${oneProperty.id}" value="${productTagValue}"/>
+                                                </div>
+                                            </t:unless>
+                                            <div class="col-sm-1"/>
+                                        </div>
+                                    </t:loop>
+                                </t:if>
                             </t:block>
                         </div>
                         <div class="photo-details">
@@ -132,7 +131,7 @@
                         </div>
                     </t:form>
                     <script type="text/javascript">
-                        toggleProductEdit('${stage.name()}', jQuery('#div-${productZone}'));
+                        toggleProductEdit(jQuery('#div-${productZone}'), ${closeImmediately});
                     </script>
                 </t:block>
             </div>

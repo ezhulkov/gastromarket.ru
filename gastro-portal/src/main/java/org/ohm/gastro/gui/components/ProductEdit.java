@@ -8,6 +8,7 @@ import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.corelib.components.Hidden;
 import org.apache.tapestry5.corelib.components.Select;
 import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
@@ -34,7 +35,7 @@ import java.util.stream.Collectors;
 public class ProductEdit extends BaseComponent {
 
     public enum Stage {
-        DESC, PROP, PHOTO, DONE
+        DESC, PROP, PHOTO
     }
 
     @Property
@@ -81,6 +82,9 @@ public class ProductEdit extends BaseComponent {
 
     @Component(id = "productCategory", parameters = {"model=categoryModel", "encoder=categoryModel", "value=category", "validate=required"})
     private Select pCategoryField;
+
+    @Component(id = "stage", parameters = {"value=stage"})
+    private Hidden pStageField;
 
     @Property
     @Parameter(name = "catalog", required = true, allowNull = false)
@@ -165,17 +169,20 @@ public class ProductEdit extends BaseComponent {
     }
 
     private void beginRender() {
-        if (product != null && product.getId() != null) {
-            category = product.getCategory();
-        } else {
-            final CategoryEntity firstCategory = getAllCategories().get(0);
+        if (product == null || product.getId() == null) {
             product = new ProductEntity();
-            category = firstCategory.getChildren().size() == 0 ? firstCategory : firstCategory.getChildren().get(0);
         }
     }
 
     public void onPrepareFromEditProductForm() {
-        beginRender();
+        if (product == null || product.getId() == null) {
+            final CategoryEntity firstCategory = getAllCategories().get(0);
+            category = firstCategory.getChildren().size() == 0 ? firstCategory : firstCategory.getChildren().get(0);
+            product = new ProductEntity();
+            product.setCategory(category);
+        } else {
+            category = product.getCategory();
+        }
     }
 
     public void onFailureFromEditProductForm() {
@@ -184,13 +191,14 @@ public class ProductEdit extends BaseComponent {
 
     public void onSelectedFromSaveAndClose() {
         closeImmediately = true;
+        stage = Stage.DESC;
     }
 
     public void onSelectedFromSaveAndNext() {
         closeImmediately = false;
     }
 
-    public void onSubmitFromEditProductForm(Long pid, Stage stage) {
+    public void onSubmitFromEditProductForm(Long pid) {
         if (!error) {
             final ProductEntity origProduct = pid != null ? getCatalogService().findProduct(pid) : product;
             if (stage == Stage.DESC) {
@@ -215,10 +223,10 @@ public class ProductEdit extends BaseComponent {
                 product = getCatalogService().saveProduct(origProduct, propValues, listValues);
                 this.stage = Stage.PHOTO;
             }
-            if (closeImmediately) this.stage = Stage.DONE;
         }
-        ajaxResponseRenderer.addRender(productsZone, productsBlock);
-        if (!closeImmediately) ajaxResponseRenderer.addRender(getProductZone(), productBlock);
+        ajaxResponseRenderer
+                .addRender(productsZone, productsBlock)
+                .addRender(getProductZone(), productBlock);
     }
 
     public Block onValueChangedFromProductCategory(CategoryEntity category) {
