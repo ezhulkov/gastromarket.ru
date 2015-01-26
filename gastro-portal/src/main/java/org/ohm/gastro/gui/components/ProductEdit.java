@@ -223,10 +223,13 @@ public class ProductEdit extends BaseComponent {
                 product = getCatalogService().saveProduct(origProduct, propValues, listValues);
                 this.stage = Stage.PHOTO;
             }
+            if (closeImmediately || !editProduct) ajaxResponseRenderer.addRender(productsZone, productsBlock);
+            if (!closeImmediately) ajaxResponseRenderer.addRender(getProductZone(), productBlock);
+        } else {
+            closeImmediately = false;
+            product = pid != null ? getCatalogService().findProduct(pid) : new ProductEntity();
+            ajaxResponseRenderer.addRender(getProductZone(), productBlock);
         }
-        ajaxResponseRenderer
-                .addRender(productsZone, productsBlock)
-                .addRender(getProductZone(), productBlock);
     }
 
     public Block onValueChangedFromProductCategory(CategoryEntity category) {
