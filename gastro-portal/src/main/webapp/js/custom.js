@@ -67,7 +67,7 @@ function initProductEdit(el) {
             jQuery(".error", e).hide();
             jQuery("input[name='stage']", e).attr('value', 'DESC');
             toggleProductEdit(e, false);
-            initTitle(jQuery("div.title",e));
+            initTitle(jQuery("div.title", e));
         });
     });
 }
@@ -152,4 +152,13 @@ function realTitleWidth(obj) {
     var width = clone.find("span").width();
     clone.remove();
     return width;
+}
+function triggerEvent(element, eventName) {
+    if (document.createEvent) {
+        var evt = document.createEvent('HTMLEvents');
+        evt.initEvent(eventName, true, true);
+        return element.dispatchEvent(evt);
+    } else if (element.fireEvent) {
+        return element.fireEvent('on' + eventName);
+    }
 }

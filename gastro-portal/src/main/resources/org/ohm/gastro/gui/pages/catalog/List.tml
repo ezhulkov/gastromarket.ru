@@ -5,6 +5,30 @@
             <div class="title">
                 <h1><span>${category?.name}</span></h1>
             </div>
+
+            <div id="texts">
+
+            </div>
+
+            <t:zone t:id="textZone">
+                <t:delegate to="textBlock"/>
+            </t:zone>
+
+            <t:block t:id="textBlock">
+                <div id="new_texts">
+                    <p>
+                        <t:loop source="texts" value="oneText">
+                            ${oneText}&nbsp;
+                        </t:loop>
+                    </p>
+                </div>
+                <script>
+                    jQuery("#new_texts").find("p").appendTo("#texts");
+                </script>
+                <t:actionlink class="next-texts" t:id="nextTexts" t:context="${lastIndex}" t:zone="textZone">Fetch Next Texts</t:actionlink>
+            </t:block>
+            <a href="#" onclick="javascript:triggerEvent(jQuery('a[id^=nextTexts]').get(0),'click')">NEXT!!!</a>
+
         </div>
     </div>
 
