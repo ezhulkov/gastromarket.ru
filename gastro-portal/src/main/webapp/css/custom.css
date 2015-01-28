@@ -850,3 +850,10 @@ html div.office table.table td.toggle {
 .photo-details div.upload-file {
     margin: 0 auto;
 }
+
+/*Catalog*/
+.product-item {
+    width: 239px;
+    height: 300px;
+    border: 1px solid #eee;
+}

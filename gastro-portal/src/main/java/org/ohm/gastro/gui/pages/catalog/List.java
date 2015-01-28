@@ -8,6 +8,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -16,6 +17,8 @@ import java.util.stream.IntStream;
  */
 public class List extends BaseComponent {
 
+    private final Random random = new Random();
+
     @Property
     private CategoryEntity category;
 
@@ -23,21 +26,25 @@ public class List extends BaseComponent {
     private int lastIndex = 0;
 
     @Property
-    private String oneText;
+    private String oneProduct;
 
     @Inject
     @Property
-    private Block textBlock;
+    private Block productsBlock;
 
-    public java.util.List<String> getTexts() {
-        lastIndex += 5;
-        return IntStream.range(lastIndex - 5, lastIndex).mapToObj(t -> "" + t).distinct().collect(Collectors.toList());
+    public int getHeight() {
+        return random.nextInt(300) + 50;
     }
 
-    @OnEvent(value = EventConstants.ACTION, component = "nextTexts")
+    public java.util.List<String> getProducts() {
+        lastIndex += 10;
+        return IntStream.range(lastIndex - 10, lastIndex).mapToObj(t -> "" + t).distinct().collect(Collectors.toList());
+    }
+
+    @OnEvent(value = EventConstants.ACTION, component = "fetchProducts")
     public Block fetchNextTexts(int lastIndex) {
         this.lastIndex = lastIndex;
-        return textBlock;
+        return productsBlock;
     }
 
     public boolean onActivate() {

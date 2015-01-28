@@ -22,6 +22,7 @@
     <script src="/js/bootstrap.js"></script>
     <script src="/js/chosen.jquery.js"></script>
     <script src="/js/jquery.fine-uploader.js"></script>
+    <script src="/js/jquery.freetile.min.js"></script>
     <script src="/js/custom.js"></script>
     <script type="text/template" id="qq-template">
     <div class="qq-uploader-selector qq-uploader">

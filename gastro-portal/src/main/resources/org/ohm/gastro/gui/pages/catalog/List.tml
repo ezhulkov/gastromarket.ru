@@ -6,28 +6,25 @@
                 <h1><span>${category?.name}</span></h1>
             </div>
 
-            <div id="texts">
+            <div id="product-items" style="border: 1px solid black;"/>
 
-            </div>
-
-            <t:zone t:id="textZone">
-                <t:delegate to="textBlock"/>
+            <t:zone t:id="productsZone">
+                <t:delegate to="productsBlock"/>
             </t:zone>
 
-            <t:block t:id="textBlock">
-                <div id="new_texts">
-                    <p>
-                        <t:loop source="texts" value="oneText">
-                            ${oneText}&nbsp;
-                        </t:loop>
-                    </p>
-                </div>
-                <script>
-                    jQuery("#new_texts").find("p").appendTo("#texts");
-                </script>
-                <t:actionlink class="next-texts" t:id="nextTexts" t:context="${lastIndex}" t:zone="textZone">Fetch Next Texts</t:actionlink>
+            <t:block t:id="productsBlock">
+                <t:loop source="products" value="oneProduct">
+                    <div class="product-item">
+                        ${oneProduct}
+                    </div>
+                </t:loop>
+                <t:actionlink t:id="fetchProducts" t:context="${lastIndex}" t:zone="productsZone">Загрузить далее</t:actionlink>
             </t:block>
-            <a href="#" onclick="javascript:triggerEvent(jQuery('a[id^=nextTexts]').get(0),'click')">NEXT!!!</a>
+            <!--<a href="#" onclick="javascript:triggerEvent(jQuery('a[id^=nextTexts]').get(0),'click')">NEXT!!!</a>-->
+
+            <script>
+                initProductCatalog(jQuery("#productsZone").get(0));
+            </script>
 
         </div>
     </div>

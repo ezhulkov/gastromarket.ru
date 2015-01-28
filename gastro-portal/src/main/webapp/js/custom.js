@@ -26,7 +26,6 @@ jQuery.noConflict();
 })();
 Event.observe(document, Tapestry.ZONE_UPDATED_EVENT, function (event) {
     initChosen(jQuery(event.srcElement).find('select.chosen-select'));
-    initProductEdit(jQuery(event.srcElement).find("div.product-edit-modal"));
 });
 jQuery(document).ready(function () {
     jQuery("ul.dropdown-menu").each(function (e) {
@@ -40,7 +39,6 @@ jQuery(document).ready(function () {
     initChosen(jQuery("select.chosen-select"));
     initLoginModal();
     initTitle(jQuery("div.title"));
-    initProductEdit(jQuery("div.product-edit-modal"));
     initFineUploader(jQuery("div.upload-file"));
 });
 function activate_menu(el) {
@@ -57,6 +55,30 @@ function initChosen(el) {
     jQuery(el).chosen({"width": "100%"}).on('change', function (e) {
         this.fire(Tapestry.ACTION_EVENT, e);
     });
+}
+function initProductCatalog(ajaxContainer) {
+    var layoutFunction = function (source, target) {
+        jQuery("div.product-item", source).appendTo(target);
+        jQuery(target).freetile({
+            animate: false,
+            selector: ".product-item",
+            containerResize: false
+        });
+    }
+    layoutFunction(jQuery("#productsZone"), jQuery("#product-items"));
+    Event.observe(ajaxContainer, Tapestry.ZONE_UPDATED_EVENT, function (event) {
+        layoutFunction(event.srcElement, jQuery("#product-items"));
+    });
+
+}
+function initProductsEdit() {
+    var modals = jQuery("div.product-edit-modal");
+    initProductEdit(modals);
+    jQuery(modals).find("div.t-zone").each(function (i, e) {
+        Event.observe(e, Tapestry.ZONE_UPDATED_EVENT, function (event) {
+            initProductEdit(jQuery("div.product-edit-modal", event.srcElement));
+        });
+    })
 }
 function initProductEdit(el) {
     jQuery(el).each(function (i, e) {
