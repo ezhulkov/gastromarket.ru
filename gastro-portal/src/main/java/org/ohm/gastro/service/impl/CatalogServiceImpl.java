@@ -42,6 +42,7 @@ import static org.scribe.utils.Preconditions.checkNotNull;
  * Created by ezhulkov on 21.08.14.
  */
 @Component("catalogService")
+@Transactional
 public class CatalogServiceImpl implements CatalogService {
 
     private final PropertyRepository propertyRepository;
@@ -112,37 +113,31 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
-    @Transactional
     public CategoryEntity saveCategory(CategoryEntity category) {
         return categoryRepository.save(category);
     }
 
     @Override
-    @Transactional
     public PropertyEntity saveProperty(PropertyEntity property) {
         return propertyRepository.save(property);
     }
 
     @Override
-    @Transactional
     public PropertyValueEntity savePropertyValue(PropertyValueEntity value) {
         return propertyValueRepository.save(value);
     }
 
     @Override
-    @Transactional
     public void deleteCategory(Long id) {
         categoryRepository.delete(id);
     }
 
     @Override
-    @Transactional
     public void deleteProperty(Long id) {
         propertyRepository.delete(id);
     }
 
     @Override
-    @Transactional
     public void deletePropertyValue(Long id) {
         propertyValueRepository.delete(id);
     }
@@ -168,13 +163,11 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
-    @Transactional
     public void deleteCatalog(Long id) {
         catalogRepository.delete(id);
     }
 
     @Override
-    @Transactional
     public void saveCatalog(CatalogEntity catalog) {
         catalog.setWasSetup(true);
         catalogRepository.save(catalog);
@@ -186,7 +179,6 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
-    @Transactional
     public ProductEntity saveProduct(ProductEntity product) {
         String description = product.getDescription();
         if (description != null) {
@@ -197,13 +189,11 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
-    @Transactional
     public void deleteProduct(Long id) {
         productRepository.delete(id);
     }
 
     @Override
-    @Transactional
     public ProductEntity saveProduct(ProductEntity product, Map<Long, String> propValues, Map<Long, String[]> listValues) {
         saveProduct(product);
         tagRepository.deleteAllValues(product);
@@ -274,7 +264,6 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
-    @Transactional
     public void saveRating(RatingEntity rating) {
         final CatalogEntity catalog = rating.getCatalog();
         final Integer catalogRating = (Integer) ObjectUtils.defaultIfNull(catalog.getRating(), 0);
@@ -284,9 +273,16 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
-    public void showProduct(Long pid) {
+    public void publishProduct(Long pid) {
         final ProductEntity product = productRepository.findOne(pid);
-        product.setHidden(false);
+        product.setHidden(!product.isHidden());
+        productRepository.saveAndFlush(product);
+    }
+
+    @Override
+    public void promoteProduct(Long pid) {
+        final ProductEntity product = productRepository.findOne(pid);
+        product.setPromoted(!product.getPromoted());
         productRepository.saveAndFlush(product);
     }
 

@@ -44,7 +44,7 @@
                 <div class="grid-block cakes">
                     <t:loop source="products" value="oneProduct">
                         <div>
-                            <t:pagelink style="background: url('../img/cake.png')" page="catalog/index" context="oneProduct.id"/>
+                            <t:pagelink style="background: url(${oneProduct.avatarUrlMedium})" page="catalog/index" context="oneProduct.id"/>
                             ${oneProduct.name}
                         </div>
                     </t:loop>
@@ -59,7 +59,7 @@
             <div class="grid-block cooks">
                 <t:loop source="cooks" value="oneCook">
                     <div>
-                        <t:pagelink style="background: url('../img/cook.png')" page="chef/index" context="oneCook.id"/>
+                        <t:pagelink style="background: url(${oneCook.user.avatarUrl})" page="chef/index" context="oneCook.id"/>
                         ${oneCook.name}
                     </div>
                 </t:loop>

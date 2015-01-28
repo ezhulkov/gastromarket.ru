@@ -15,7 +15,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -46,7 +46,7 @@ public class UploadFilter extends BaseApplicationFilter implements Logging {
             .put(FileType.AVATAR, new ImmutableMap.Builder<ImageSize, Integer[]>()
                     .put(ImageSize.SIZE1, new Integer[]{23, 23})
                     .put(ImageSize.SIZE2, new Integer[]{100, 100})
-                    .put(ImageSize.SIZE3, new Integer[]{200, 200})
+                    .put(ImageSize.SIZE3, new Integer[]{210, 210})
                     .build())
             .put(FileType.PRODUCT, new ImmutableMap.Builder<ImageSize, Integer[]>()
                     .put(ImageSize.SIZE1, new Integer[]{100, 100})

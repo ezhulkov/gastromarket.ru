@@ -55,8 +55,13 @@ html > body div.t-error ul li {
 }
 
 .upload-file.AVATAR {
-    width: 200px;
-    height: 200px;
+    width: 210px;
+    height: 210px;
+}
+
+.upload-file.AVATAR img {
+    width: 210px;
+    height: 210px;
 }
 
 .upload-file.PRODUCT {
@@ -656,7 +661,6 @@ div.username {
 
 .grid-block a {
     display: block;
-    background: url("../img/cook.png") center top no-repeat;
 }
 
 .cooks > div {
@@ -665,30 +669,30 @@ div.username {
 }
 
 .cooks a {
-    width: 208px;
-    height: 208px;
+    width: 210px;
+    height: 210px;
     margin-bottom: 7px;
 }
 
 .cakes > div {
-    width: 268px;
+    width: 270px;
     height: 334px;
 }
 
 .cakes a {
-    width: 266px;
-    height: 266px;
+    width: 270px;
+    height: 270px;
     background: url("../img/cake.png") center top no-repeat;
     margin-bottom: 18px;
 }
 
 .category > div {
-    width: 268px;
+    width: 270px;
     height: 186px;
 }
 
 .category a {
-    width: 266px;
+    width: 270px;
     height: 145px;
     margin-bottom: 7px;
 }
@@ -757,7 +761,7 @@ div.username {
     min-height: 600px;
 }
 
-.office table {
+.office .t-data-grid {
     margin-bottom: 100px;
 }
 
@@ -862,4 +866,17 @@ html div.office table.table td.toggle {
     width: 270px;
     height: 270px;
     border: none;
+}
+
+.product-item .data {
+    padding: 10px;
+}
+
+.product-item span {
+    display: block;
+    text-align: left;
+}
+
+.product-item span.name {
+    font-size: 20px;
 }

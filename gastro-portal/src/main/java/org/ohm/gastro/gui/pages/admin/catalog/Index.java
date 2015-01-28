@@ -71,8 +71,13 @@ public class Index extends EditObjectPage<CatalogEntity> {
         return productsBlock;
     }
 
+    public Block onActionFromPromoteProduct(Long id) {
+        getCatalogService().promoteProduct(id);
+        return productsBlock;
+    }
+
     public Block onActionFromShowProduct(Long id) {
-        getCatalogService().showProduct(id);
+        getCatalogService().publishProduct(id);
         return productsBlock;
     }
 

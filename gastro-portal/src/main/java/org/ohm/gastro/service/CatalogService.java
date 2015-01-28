@@ -63,6 +63,8 @@ public interface CatalogService extends ImageUploaderService<ProductEntity> {
 
     void deleteProduct(Long id);
 
+    void promoteProduct(Long id);
+
     ProductEntity saveProduct(ProductEntity product, Map<Long, String> propValues, Map<Long, String[]> listValues);
 
     List<TagEntity> findAllTags(ProductEntity oneProduct);
@@ -83,6 +85,6 @@ public interface CatalogService extends ImageUploaderService<ProductEntity> {
 
     void saveRating(RatingEntity rating);
 
-    void showProduct(Long pid);
+    void publishProduct(Long pid);
 
 }

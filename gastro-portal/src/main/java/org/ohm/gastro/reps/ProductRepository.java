@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
-    @Query("from ProductEntity where (category=:category or :category is null) and (catalog=:catalog or :catalog is null) and (hidden=false or :hidden is null) order by id")
+    @Query("from ProductEntity where (category=:category or :category is null) and (catalog=:catalog or :catalog is null) and (hidden=false or :hidden is null) order by id desc")
     List<ProductEntity> findAllByCategoryAndCatalog(@Param("category") CategoryEntity category, @Param("catalog") CatalogEntity catalog, @Param("hidden") Boolean hidden);
 
     @Query(value = "SELECT * FROM (" +

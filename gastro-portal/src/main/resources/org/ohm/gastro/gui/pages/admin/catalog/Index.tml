@@ -27,8 +27,8 @@
     <t:block t:id="productsBlock">
         <t:grid source="products" row="oneProduct"
                 exclude="id,properties,date,description,promoted,avatarUrl,avatarUrlMedium,avatarUrlSmall"
-                reorder="img,name,price,publish,del"
-                add="img,properties,publish,del"
+                reorder="img,name,price,publish,promote,del"
+                add="img,properties,publish,promote,del"
                 t:mixins="GridSortingDisabled" class="table table-hover">
             <t:parameter name="imgCell">
                 <img src="${oneProduct.avatarUrlSmall}"/>
@@ -46,12 +46,24 @@
                 <t:actionlink t:zone="productsZone" t:id="deleteProduct" context="oneProduct.id"><span class="glyphicon glyphicon-remove"/></t:actionlink>
             </t:parameter>
             <t:parameter name="publishCell">
-                <t:if test="oneProduct.hidden">
-                    <t:actionlink t:zone="productsZone" t:id="showProduct" context="oneProduct.id">Опубликовать</t:actionlink>
-                    <t:parameter name="else">
-                        Опубликовано
-                    </t:parameter>
-                </t:if>
+                <t:actionlink t:zone="productsZone" t:id="showProduct" context="oneProduct.id">
+                    <t:if test="oneProduct.hidden">
+                        Опубликовать
+                        <t:parameter name="else">
+                            Опубликовано
+                        </t:parameter>
+                    </t:if>
+                </t:actionlink>
+            </t:parameter>
+            <t:parameter name="promoteCell">
+                <t:actionlink t:zone="productsZone" t:id="promoteProduct" context="oneProduct.id">
+                    <t:if test="oneProduct.promoted">
+                        Убрать с главной
+                        <t:parameter name="else">
+                            На главную
+                        </t:parameter>
+                    </t:if>
+                </t:actionlink>
             </t:parameter>
             <t:parameter name="empty">
                 <div class="empty">Нет данных</div>
