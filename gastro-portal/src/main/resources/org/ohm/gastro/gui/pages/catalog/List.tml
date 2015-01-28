@@ -6,7 +6,7 @@
                 <h1><span>${category?.name}</span></h1>
             </div>
 
-            <div id="product-items" style="border: 1px solid black;"/>
+            <div id="product-items"/>
 
             <t:zone t:id="productsZone">
                 <t:delegate to="productsBlock"/>
@@ -14,16 +14,15 @@
 
             <t:block t:id="productsBlock">
                 <t:loop source="products" value="oneProduct">
-                    <div class="product-item">
+                    <div class="product-item" style="height: ${height}px">
                         ${oneProduct}
                     </div>
                 </t:loop>
                 <t:actionlink t:id="fetchProducts" t:context="${lastIndex}" t:zone="productsZone">Загрузить далее</t:actionlink>
             </t:block>
-            <!--<a href="#" onclick="javascript:triggerEvent(jQuery('a[id^=nextTexts]').get(0),'click')">NEXT!!!</a>-->
 
             <script>
-                initProductCatalog(jQuery("#productsZone").get(0));
+                initProductCatalog(jQuery("#productsZone"));
             </script>
 
         </div>

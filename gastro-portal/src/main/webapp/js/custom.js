@@ -66,10 +66,17 @@ function initProductCatalog(ajaxContainer) {
         });
     }
     layoutFunction(jQuery("#productsZone"), jQuery("#product-items"));
-    Event.observe(ajaxContainer, Tapestry.ZONE_UPDATED_EVENT, function (event) {
+    var mutex = true;
+    Event.observe(ajaxContainer.get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
         layoutFunction(event.srcElement, jQuery("#product-items"));
+        mutex = true;
     });
-
+    jQuery(window).scroll(function () {
+        if (mutex && jQuery(window).scrollTop() + jQuery(window).height() > jQuery(document).height() - 50) {
+            triggerEvent(jQuery('a[id^=fetchProducts]').get(0), 'click');
+            mutex = false;
+        }
+    });
 }
 function initProductsEdit() {
     var modals = jQuery("div.product-edit-modal");

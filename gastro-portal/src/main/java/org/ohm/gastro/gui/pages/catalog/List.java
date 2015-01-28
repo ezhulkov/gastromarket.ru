@@ -37,8 +37,8 @@ public class List extends BaseComponent {
     }
 
     public java.util.List<String> getProducts() {
-        lastIndex += 10;
-        return IntStream.range(lastIndex - 10, lastIndex).mapToObj(t -> "" + t).distinct().collect(Collectors.toList());
+        lastIndex += 20;
+        return IntStream.range(lastIndex - 20, lastIndex).mapToObj(t -> "" + t).distinct().collect(Collectors.toList());
     }
 
     @OnEvent(value = EventConstants.ACTION, component = "fetchProducts")
