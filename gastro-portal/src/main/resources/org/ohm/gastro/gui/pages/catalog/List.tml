@@ -6,7 +6,7 @@
                 <h1><span>${category?.name}</span></h1>
             </div>
 
-            <div id="product-items"/>
+            <div id="product-items" class="grid-block"/>
 
             <t:zone t:id="productsZone">
                 <t:delegate to="productsBlock"/>
@@ -14,8 +14,8 @@
 
             <t:block t:id="productsBlock">
                 <t:loop source="products" value="oneProduct">
-                    <div class="product-item" style="height: ${height}px">
-                        ${oneProduct}
+                    <div class="product-item">
+                        <img class="product-image" src=""/>
                     </div>
                 </t:loop>
                 <t:actionlink t:id="fetchProducts" t:context="${lastIndex}" t:zone="productsZone">Загрузить далее</t:actionlink>

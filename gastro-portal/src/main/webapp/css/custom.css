@@ -641,7 +641,7 @@ div.username {
     -moz-box-shadow: 0 0 6px 2px #ddd;
     box-shadow: 0 0 6px 2px #ddd;
     background-color: #fff;
-    margin: 9px;
+    margin: 7px;
     display: inline-block;
     border: 1px solid #aaa;
     overflow: hidden;
@@ -853,7 +853,13 @@ html div.office table.table td.toggle {
 
 /*Catalog*/
 .product-item {
-    width: 239px;
-    height: 300px;
-    border: 1px solid #eee;
+    width: 272px;
+    min-height: 350px;
+    overflow: hidden;
+}
+
+.product-item .product-image {
+    width: 270px;
+    height: 270px;
+    border: none;
 }

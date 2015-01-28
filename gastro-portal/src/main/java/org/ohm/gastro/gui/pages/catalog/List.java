@@ -32,10 +32,6 @@ public class List extends BaseComponent {
     @Property
     private Block productsBlock;
 
-    public int getHeight() {
-        return random.nextInt(300) + 50;
-    }
-
     public java.util.List<String> getProducts() {
         lastIndex += 20;
         return IntStream.range(lastIndex - 20, lastIndex).mapToObj(t -> "" + t).distinct().collect(Collectors.toList());
