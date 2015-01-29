@@ -58,11 +58,20 @@ function initChosen(el) {
 }
 function initProductCatalog(ajaxContainer) {
     var layoutFunction = function (source, target) {
-        jQuery("div.product-item", source).appendTo(target);
+        var newItems = jQuery("div.product-item", source);
+        jQuery(newItems).css("display", "none");
+        jQuery(newItems).appendTo(target);
         jQuery(target).freetile({
             animate: false,
             selector: ".product-item",
-            containerResize: false
+            containerResize: false,
+            callback: function () {
+                jQuery("div.product-item")
+                    .filter(function () {
+                        return jQuery(this).css("display") == "none";
+                    })
+                    .fadeIn(1000);
+            }
         });
     }
     layoutFunction(jQuery("#productsZone"), jQuery("#product-items"));

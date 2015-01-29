@@ -33,7 +33,9 @@
                         </div>
                     </div>
                 </t:loop>
-                <t:actionlink t:id="fetchProducts" t:context="0" t:zone="productsZone">Загрузить далее</t:actionlink>
+                <div class="more-link">
+                    <t:actionlink t:id="fetchProducts" t:context="0" t:zone="productsZone" class="">Показать еще...</t:actionlink>
+                </div>
             </t:block>
 
             <script>
