@@ -9,10 +9,14 @@ import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
+import java.util.Random;
+
 /**
  * Created by ezhulkov on 31.08.14.
  */
 public class List extends BaseComponent {
+
+    private final Random random = new Random();
 
     @Property
     private CategoryEntity category;
@@ -23,6 +27,10 @@ public class List extends BaseComponent {
     @Inject
     @Property
     private Block productsBlock;
+
+    public int getHeight() {
+        return 270 - random.nextInt(50);
+    }
 
     public java.util.List<ProductEntity> getProducts() {
         return getCatalogService().findAllProducts(null, null, false);

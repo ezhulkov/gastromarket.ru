@@ -277,7 +277,7 @@ html > body div.t-error ul li {
 }
 
 .more-link a {
-    padding:5px 20px 5px 20px;
+    padding: 5px 20px 5px 20px;
 }
 
 .data-header a span,
@@ -871,11 +871,11 @@ html div.office table.table td.toggle {
 }
 
 /*Catalog*/
-.product-item {
+.grid-block div.product-item {
     display: none;
     width: 272px;
     min-height: 350px;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .product-item .product-image {
@@ -884,8 +884,26 @@ html div.office table.table td.toggle {
     border: none;
 }
 
+.product-item a {
+    color: #bd0400;
+    font-size: 14px;
+    display: inline;
+    margin-left: 5px;
+}
+
+.product-item > div {
+    width: 270px;
+    overflow: hidden;
+}
+
+.product-item .pic {
+    height: 270px;
+}
+
 .product-item .data {
-    padding: 10px;
+    padding: 10px 20px 8px 10px;
+    word-wrap: break-word;
+    text-align: left;
 }
 
 .product-item span {
@@ -895,4 +913,31 @@ html div.office table.table td.toggle {
 
 .product-item span.name {
     font-size: 20px;
+    line-height: 25px
+}
+
+.product-item span.desc {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.product-item span.price {
+    font-size: 30px;
+    margin: 10px 0 0 0;
+    font-weight: bold;
+}
+
+.product-item .basket {
+    margin: 15px 0 0 0;
+}
+
+.wrapword {
+    white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    white-space: pre-wrap; /* css-3 */
+    word-wrap: normal; /* Internet Explorer 5.5+ */
+    white-space: -webkit-pre-wrap; /* Newer versions of Chrome/Safari*/
+    word-break: normal;
+    white-space: normal;
 }

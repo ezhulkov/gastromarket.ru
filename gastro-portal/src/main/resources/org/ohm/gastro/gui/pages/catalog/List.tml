@@ -15,21 +15,24 @@
             <t:block t:id="productsBlock">
                 <t:loop source="products" value="oneProduct">
                     <div class="product-item">
-                        <img class="product-image" src="${oneProduct.avatarUrlMedium}"/>
-
-                        <div class="data">
-                            <span class="name">${oneProduct.name}</span>
+                        <div style="height: ${height}px" class="pic">
+                            <img class="product-image" src="${oneProduct.avatarUrlMedium}"/>
+                        </div>
+                        <div class="data wrapword">
+                            <span class="name wrapword">${oneProduct.name}</span>
 
                             <span class="catalog">
-                                <img src="${oneProduct.catalog.user.avatarUrlSmall}"/>
-                                <t:pagelink page="catalog/index" t:context="${oneProduct.catalog.user.id}">${oneProduct.catalog.user.fullName}</t:pagelink>
+                            <img src="${oneProduct.catalog.user.avatarUrlSmall}"/>
+                            <t:pagelink page="catalog/index" t:context="${oneProduct.catalog.user.id}">${oneProduct.catalog.user.fullName}</t:pagelink>
                             </span>
 
                             <t:if test="oneProduct.description">
                                 <span class="desc">${oneProduct.description}</span>
                             </t:if>
 
-                            <span class="price">${oneProduct.price}</span>
+                            <span class="price pull-left">${oneProduct.price} &#x20bd;</span>
+                            <span class="basket pull-right"><img src="/img/basket-add.png"/> <a href="#">В корзину</a></span>
+
                         </div>
                     </div>
                 </t:loop>
