@@ -876,6 +876,7 @@ html div.office table.table td.toggle {
     width: 272px;
     min-height: 350px;
     overflow: auto;
+    cursor: pointer;
 }
 
 .product-item .product-image {
@@ -898,6 +899,7 @@ html div.office table.table td.toggle {
 
 .product-item .pic {
     height: 270px;
+    cursor: zoom-in;
 }
 
 .product-item .data {

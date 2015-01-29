@@ -66,11 +66,18 @@ function initProductCatalog(ajaxContainer) {
             selector: ".product-item",
             containerResize: false,
             callback: function () {
-                jQuery("div.product-item")
+                var items = jQuery("div.product-item");
+                jQuery(items)
                     .filter(function () {
                         return jQuery(this).css("display") == "none";
                     })
                     .fadeIn(1000);
+                jQuery(items)
+                    .mouseenter(function () {
+                        jQuery(this).find("img").css("opacity", "0.8");
+                    }).mouseleave(function () {
+                        jQuery(this).find("img").css("opacity", "1");
+                    });
             }
         });
     }
