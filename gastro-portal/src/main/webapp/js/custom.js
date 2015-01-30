@@ -49,6 +49,25 @@ function initChosen(el) {
         this.fire(Tapestry.ACTION_EVENT, e);
     });
 }
+function showProductModal(pid) {
+    var modal = jQuery("#product-modal-template");
+    var productMain = jQuery("div[data-productid='" + pid + "']:first");
+    var product = jQuery(productMain).find(".modal-data");
+    var block1 = modal.find(".block1");
+    var block2 = modal.find(".block2");
+    block1.find("a.product-link").attr("href", product.find("div.url").text());
+    block1.find("img.product-image").attr("src", product.find("div.image").text());
+    block1.find("div.category").empty().append(product.find(".category").clone().children());
+    block1.find("div.cook").empty().append(product.find(".cook").clone().children());
+    block1.find("div.name").empty().append(product.find(".name").clone());
+    block1.find("div.price").empty().append(product.find(".price").clone());
+    block1.find("div.basket").empty().append(product.find(".basket").clone().click(function () {
+        triggerEvent(productMain.find("a.basket-add").get(0), "click");
+    }));
+    block2.find("div.desc").empty().append(product.find(".desc").clone().html());
+
+    modal.modal();
+}
 function initProductCatalog(ajaxContainer) {
     var layoutFunction = function (source, target) {
         var newItems = jQuery("div.product-item", source);
@@ -68,8 +87,12 @@ function initProductCatalog(ajaxContainer) {
                 jQuery(items)
                     .mouseenter(function () {
                         jQuery(this).find("img").css("opacity", "0.8");
-                    }).mouseleave(function () {
+                    })
+                    .mouseleave(function () {
                         jQuery(this).find("img").css("opacity", "1");
+                    })
+                    .click(function () {
+                        showProductModal(jQuery(this).attr("data-productid"));
                     });
             }
         });
@@ -86,9 +109,9 @@ function initProductCatalog(ajaxContainer) {
                 jQuery(this).stop().fadeIn(100);
             })
             .mouseleave(function () {
-                jQuery(this).fadeOut(1000);
+                jQuery(this).stop().fadeOut(1000);
             })
-            .fadeOut(3000);
+            .delay(2000).fadeOut(1000);
     });
     jQuery(window).scroll(function () {
         if (scrollMutex && jQuery(window).scrollTop() + jQuery(window).height() > jQuery(document).height() - 50) {

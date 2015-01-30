@@ -8,7 +8,7 @@
                     <t:if test="header">
                         <t:if test="authenticated">
                             <div class="dropdown username">
-                                <img class="avatar" src="${authenticatedUser.avatarUrlSmall}"/>&#160;
+                                <img class="avatar-small" src="${authenticatedUser.avatarUrlSmall}"/>&#160;
                                 <a data-target="#" href="#userMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                                     ${authenticatedUser.printableName}
                                     <span class="caret"></span>

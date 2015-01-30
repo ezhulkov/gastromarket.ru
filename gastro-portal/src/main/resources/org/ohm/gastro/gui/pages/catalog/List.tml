@@ -16,10 +16,17 @@
                 <t:loop source="products" value="oneProduct">
                     <t:product product="oneProduct"/>
                 </t:loop>
-                <div class="more-link">
-                    <t:actionlink t:id="fetchProducts" t:context="0" t:zone="productsZone" class="">Показать еще...</t:actionlink>
-                </div>
+                <t:if test="products">
+                    <div class="more-link">
+                        <t:actionlink t:id="fetchProducts" t:context="0" t:zone="productsZone" class="">Показать еще...</t:actionlink>
+                    </div>
+                    <t:parameter name="else">
+                        <div class="empty">В этой секции каталога пока нет товаров</div>
+                    </t:parameter>
+                </t:if>
             </t:block>
+
+            <t:productModalTemplate/>
 
             <script>
                 jQuery(document).ready(function () {

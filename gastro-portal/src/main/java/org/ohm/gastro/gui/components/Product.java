@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.components;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -35,6 +36,12 @@ public class Product extends BaseComponent {
     public Block onActionFromPurchase(Long pid) {
         getShoppingCart().addProduct(getCatalogService().findProduct(pid));
         return getShoppingCart().getBasketBlock();
+    }
+
+    public String getDescription() {
+        String desc = (String) ObjectUtils.defaultIfNull(product.getDescription(), "");
+        desc = desc.replaceAll("\\n", "<br/>");
+        return desc;
     }
 
 }

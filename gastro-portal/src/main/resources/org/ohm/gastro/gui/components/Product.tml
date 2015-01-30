@@ -1,20 +1,45 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="product-item">
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="product-item" data-productid="${product.id}">
     <div style="height: ${height}px" class="pic">
         <img class="product-image" src="${product.avatarUrlMedium}"/>
     </div>
     <div class="data wrapword">
         <span class="name wrapword">${product.name}</span>
 
-        <span class="catalog">
-            <img src="${product.catalog.user.avatarUrlSmall}"/>
-            <t:pagelink page="catalog/index" t:context="${product.catalog.user.id}">${product.catalog.user.fullName}</t:pagelink>
+        <span class="cook">
+            <img class="avatar-small" src="${product.catalog.user.avatarUrlSmall}"/>
+            <a href="/catalog/${product.catalog.user.id}">${product.catalog.user.fullName}</a>
         </span>
 
-        <t:if test="product.description">
-            <span class="desc">${product.description}</span>
+        <t:if test="description">
+            <span class="desc"><t:outputraw value="description"/></span>
         </t:if>
 
         <span class="price pull-left">${product.price} &#x20bd;</span>
         <span class="basket-add pull-right"><img src="/img/basket-add.png"/><t:actionLink class="basket-add" t:zone="basketZone" t:context="product.id" t:id="purchase">В корзину</t:actionLink></span>
+    </div>
+    <div class="modal-data hidden">
+        <div class="category">
+            <t:if test="product.category.parent">
+                <a href="/catalog/list/${product.category.parent?.id}">${product.category.parent?.name}</a> <span> / </span>
+            </t:if>
+            <a href="/catalog/list/${product.category.id}">${product.category.name}</a>
+        </div>
+        <div class="name">${product.name}</div>
+        <div class="image">${product.avatarUrl}</div>
+        <div class="desc">${description}</div>
+        <div class="price">${product.price} &#x20bd;</div>
+        <div class="basket"><img src="/img/basket-add.png"/><a class="basket-add" data-productid="${product.id}">В корзину</a></div>
+        <div class="cook">
+            <img class="avatar-small" src="${product.catalog.user.avatarUrlSmall}"/>
+            <a href="/catalog/${product.catalog.user.id}">${product.catalog.user.fullName}</a>
+        </div>
+        <div class="url">/catalog/${product.id}</div>
+        <div class="tags">
+            <ul>
+                <t:loop source="productTags" value="oneTag">
+                    <li>${oneTag.property.name}: ${oneTag.data}</li>
+                </t:loop>
+            </ul>
+        </div>
     </div>
 </div>
