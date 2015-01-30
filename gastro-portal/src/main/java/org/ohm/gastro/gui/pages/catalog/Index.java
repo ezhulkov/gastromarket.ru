@@ -47,7 +47,7 @@ public class Index extends EditObjectPage<ProductEntity> {
 
     public boolean isOwner() {
         UserEntity user = getAuthenticatedUser();
-        return user != null && getObject().getCatalog().getUser().equals(user);
+        return false;
     }
 
     @Override

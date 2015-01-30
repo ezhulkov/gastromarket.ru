@@ -12,6 +12,7 @@ import java.util.List;
  */
 public final class ShoppingCart {
 
+    private boolean justAdded;
     private Block basketBlock;
     private final List<ProductEntity> products = Lists.newLinkedList();
 
@@ -21,6 +22,11 @@ public final class ShoppingCart {
 
     public void setBasketBlock(Block basketBlock) {
         this.basketBlock = basketBlock;
+        this.justAdded = false;
+    }
+
+    public boolean isJustAdded() {
+        return justAdded;
     }
 
     public List<ProductEntity> getProducts() {
@@ -28,7 +34,8 @@ public final class ShoppingCart {
     }
 
     public void addProduct(ProductEntity product) {
-        if (!products.contains(product)) products.add(product);
+        products.add(product);
+        justAdded = true;
     }
 
     public void removeProduct(ProductEntity product) {

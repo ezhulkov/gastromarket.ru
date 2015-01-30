@@ -151,6 +151,20 @@ html > body div.t-error ul li {
     font-size: 16px;
 }
 
+.dropdown-menu.basket-show {
+    left: -200px;
+    width: 300px;
+    font-size: 14px;
+    text-align: left;
+    padding: 10px 10px 10px 20px;
+    color: black;
+    line-height: 25px;
+}
+
+.dropdown-menu.basket-show a {
+    color: #e70500;
+}
+
 .dropdown-menu:after, .dropdown-menu:before {
     bottom: 100%;
     left: 50%;
@@ -160,6 +174,10 @@ html > body div.t-error ul li {
     width: 0;
     position: absolute;
     pointer-events: none;
+}
+
+.dropdown-menu.basket-show:after, .dropdown-menu.basket-show:before {
+    left: 85%;
 }
 
 .dropdown-menu:after {
@@ -420,6 +438,10 @@ html > body div.t-error ul li {
     height: 48px;
     line-height: 48px;
     vertical-align: middle;
+}
+
+.navbar .basket {
+    position: relative;
 }
 
 .navbar .basket,
@@ -903,7 +925,7 @@ html div.office table.table td.toggle {
 }
 
 .product-item .data {
-    padding: 10px 20px 8px 10px;
+    padding: 10px 20px 8px 15px;
     word-wrap: break-word;
     text-align: left;
 }
@@ -929,8 +951,8 @@ html div.office table.table td.toggle {
     font-weight: bold;
 }
 
-.product-item .basket {
-    margin: 15px 0 0 0;
+.product-item .basket-add {
+    margin: 15px 0 0 5px;
 }
 
 .wrapword {

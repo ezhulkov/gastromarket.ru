@@ -13,7 +13,7 @@
                                     ${authenticatedUser.printableName}
                                     <span class="caret"></span>
                                 </a>
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                <ul class="dropdown-menu" role="menu">
                                     <li>
                                         <t:pagelink page="office" context="['UPDATE','0']">Мой профиль</t:pagelink>
                                     </li>
@@ -46,8 +46,14 @@
         <img src="${contextPath}/img/basket.png"/>&#160;
         <t:if test="shoppingCart.products.size()">
             <t:pagelink page="cart">
-                ${shoppingCart.products.size()} товаров
+                ${shoppingCart.products.size()} ${declProducts}
             </t:pagelink>
+            <t:if test="shoppingCart.justAdded">
+                <div class="dropdown-menu basket-show">
+                    Товар добавлен в корзину. <br/>Вы можете продолжить поиск или перейти
+                    <t:pagelink page="cart">к оформлению заказа</t:pagelink>.
+                </div>
+            </t:if>
             <t:parameter name="else">
                 <t:pagelink page="catalog/list">
                     В корзине пусто

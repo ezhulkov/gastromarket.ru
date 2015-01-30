@@ -1,49 +1,20 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
-
-    <img width="200" height="200" alt="PHOTO"/><br/>
-
-    <t:if test="link">
-        <a href="#" data-toggle="modal" data-target="#show${product.id}">
-            ${product.name}
-        </a>
-        <t:parameter name="else">
-            ${product.name}
-        </t:parameter>
-    </t:if>
-    <br/>
-    ${product.description}
-    <br/>
-    Цена ${product.price}<br/>
-    <ul>
-        <t:loop source="productTags" value="oneTag">
-            <li>
-                ${oneTag.property.name}:${oneTag.data}
-            </li>
-        </t:loop>
-    </ul>
-
-    <div class="modal fade" id="show${product.id}" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <t:if test="owner">
-                    <t:pagelink page="catalog" context="['UPDATE',product.id]">Редактировать</t:pagelink>
-                </t:if>
-                <img width="550" height="300" alt="PHOTO"/><br/>
-                <t:pagelink page="catalog" context="product.id">${product.name}</t:pagelink>
-                <br/>
-                ${product.description}
-                <br/>
-                Цена ${product.price}<br/>
-                <ul>
-                    <t:loop source="productTags" value="oneTag">
-                        <li>
-                            ${oneTag.property.name}:${oneTag.data}
-                        </li>
-                    </t:loop>
-                </ul>
-                <t:actionlink t:zone="basketZone" t:context="product.id" t:id="purchase">Заказать</t:actionlink>
-            </div>
-        </div>
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="product-item">
+    <div style="height: ${height}px" class="pic">
+        <img class="product-image" src="${product.avatarUrlMedium}"/>
     </div>
+    <div class="data wrapword">
+        <span class="name wrapword">${product.name}</span>
 
+        <span class="catalog">
+            <img src="${product.catalog.user.avatarUrlSmall}"/>
+            <t:pagelink page="catalog/index" t:context="${product.catalog.user.id}">${product.catalog.user.fullName}</t:pagelink>
+        </span>
+
+        <t:if test="product.description">
+            <span class="desc">${product.description}</span>
+        </t:if>
+
+        <span class="price pull-left">${product.price} &#x20bd;</span>
+        <span class="basket-add pull-right"><img src="/img/basket-add.png"/><t:actionLink class="basket-add" t:zone="basketZone" t:context="product.id" t:id="purchase">В корзину</t:actionLink></span>
+    </div>
 </div>

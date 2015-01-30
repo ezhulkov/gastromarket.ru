@@ -14,27 +14,7 @@
 
             <t:block t:id="productsBlock">
                 <t:loop source="products" value="oneProduct">
-                    <div class="product-item">
-                        <div style="height: ${height}px" class="pic">
-                            <img class="product-image" src="${oneProduct.avatarUrlMedium}"/>
-                        </div>
-                        <div class="data wrapword">
-                            <span class="name wrapword">${oneProduct.name}</span>
-
-                            <span class="catalog">
-                            <img src="${oneProduct.catalog.user.avatarUrlSmall}"/>
-                            <t:pagelink page="catalog/index" t:context="${oneProduct.catalog.user.id}">${oneProduct.catalog.user.fullName}</t:pagelink>
-                            </span>
-
-                            <t:if test="oneProduct.description">
-                                <span class="desc">${oneProduct.description}</span>
-                            </t:if>
-
-                            <span class="price pull-left">${oneProduct.price} &#x20bd;</span>
-                            <span class="basket pull-right"><img src="/img/basket-add.png"/> <a href="#">В корзину</a></span>
-
-                        </div>
-                    </div>
+                    <t:product product="oneProduct"/>
                 </t:loop>
                 <div class="more-link">
                     <t:actionlink t:id="fetchProducts" t:context="0" t:zone="productsZone" class="">Показать еще...</t:actionlink>
@@ -42,7 +22,9 @@
             </t:block>
 
             <script>
-                initProductCatalog(jQuery("#productsZone"));
+                jQuery(document).ready(function () {
+                    initProductCatalog(jQuery("#productsZone"));
+                });
             </script>
 
         </div>

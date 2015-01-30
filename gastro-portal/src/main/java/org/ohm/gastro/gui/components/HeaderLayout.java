@@ -35,4 +35,10 @@ public class HeaderLayout extends BaseComponent {
         return floatingHeader ? "navbar-fixed-top" : "";
     }
 
+    public String getDeclProducts() {
+        if (getShoppingCart().getProducts().size() == 1) return getMessages().get("one.product");
+        if (getShoppingCart().getProducts().size() % 10 < 5) return getMessages().get("four.products");
+        return getMessages().get("many.products");
+    }
+
 }
