@@ -1,6 +1,7 @@
 package org.ohm.gastro.gui.components;
 
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -42,6 +43,10 @@ public class Product extends BaseComponent {
         String desc = (String) ObjectUtils.defaultIfNull(product.getDescription(), "");
         desc = desc.replaceAll("\\n", "<br/>");
         return desc;
+    }
+
+    public boolean isHasBlock2() {
+        return StringUtils.isNotEmpty(product.getDescription()) || getProductTags().size() > 0;
     }
 
 }

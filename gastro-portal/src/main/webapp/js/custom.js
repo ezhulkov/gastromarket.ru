@@ -55,6 +55,11 @@ function showProductModal(pid) {
     var product = jQuery(productMain).find(".modal-data");
     var block1 = modal.find(".block1");
     var block2 = modal.find(".block2");
+    if (product.find("div.has-block2").text() == 'true') {
+        block2.show();
+    } else {
+        block2.hide();
+    }
     block1.find("a.product-link").attr("href", product.find("div.url").text());
     block1.find("img.product-image").attr("src", product.find("div.image").text());
     block1.find("div.category").empty().append(product.find(".category").clone().children());
@@ -65,6 +70,7 @@ function showProductModal(pid) {
         triggerEvent(productMain.find("a.basket-add").get(0), "click");
     }));
     block2.find("div.desc").empty().append(product.find(".desc").clone().html());
+    block2.find("div.tags").empty().append(product.find(".tags").clone().children());
 
     modal.modal();
 }

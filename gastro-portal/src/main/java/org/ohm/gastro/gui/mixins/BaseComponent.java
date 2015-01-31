@@ -185,7 +185,7 @@ public abstract class BaseComponent {
                 .map(t -> {
                     Type type = t.getKey().getType();
                     String data = Type.LIST.equals(type) ?
-                            t.getValue().stream().map(k -> getCatalogService().findPropertyValue(Long.parseLong(k.getData())).getValue()).collect(Collectors.joining(",")) :
+                            t.getValue().stream().map(k -> getCatalogService().findPropertyValue(Long.parseLong(k.getData())).getValue()).collect(Collectors.joining(", ")) :
                             t.getValue().stream().map(TagEntity::getData).collect(Collectors.joining());
                     TagEntity tag = new TagEntity();
                     tag.setData(data);

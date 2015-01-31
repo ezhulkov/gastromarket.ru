@@ -220,6 +220,7 @@ html > body div.t-error ul li {
     margin: 100px auto 0 auto;
     color: black;
     width: 700px;
+    position: relative;
 }
 
 .modal-backdrop.in {
@@ -935,6 +936,13 @@ html div.office table.table td.toggle {
     text-align: left;
 }
 
+.product-modal-template .modal-close {
+    background: url("../img/modal-close-inv.png") no-repeat;
+    position: absolute;
+    right: -25px;
+    top: 10px;
+}
+
 .product-modal-template .name {
     margin-bottom: 5px;
 }
@@ -1015,8 +1023,9 @@ html div.office table.table td.toggle {
 }
 
 .block1 .data,
-.block2 .data {
-    padding: 8px 20px 5px 18px;
+.block2 .data,
+.block3 .data {
+    padding: 8px 20px 5px 20px;
     position: relative;
     color: black;
     font-size: 14px;
@@ -1024,6 +1033,10 @@ html div.office table.table td.toggle {
 
 .block1 .data {
     height: 200px;
+}
+
+.block2 .data {
+    padding: 15px 20px;
 }
 
 .block1 .bottom {
@@ -1039,4 +1052,14 @@ html div.office table.table td.toggle {
 .block1 .category * {
     font-size: 14px;
     color: #444;
+}
+
+.block2 .tags ul {
+    list-style: none;
+    padding: 0;
+}
+
+.block2 .tags .tag {
+    font-weight: bold;
+
 }

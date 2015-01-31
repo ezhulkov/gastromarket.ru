@@ -26,7 +26,13 @@
         </div>
         <div class="name">${product.name}</div>
         <div class="image">${product.avatarUrl}</div>
-        <div class="desc">${description}</div>
+        <div class="desc">
+            <t:if test="description">
+                <t:outputraw value="description"/>
+                <br/>
+                <br/>
+            </t:if>
+        </div>
         <div class="price">${product.price} &#x20bd;</div>
         <div class="basket"><img src="/img/basket-add.png"/><a class="basket-add" data-productid="${product.id}">В корзину</a></div>
         <div class="cook">
@@ -37,9 +43,10 @@
         <div class="tags">
             <ul>
                 <t:loop source="productTags" value="oneTag">
-                    <li>${oneTag.property.name}: ${oneTag.data}</li>
+                    <li><span class="tag">${oneTag.property.name}:</span> ${oneTag.data}</li>
                 </t:loop>
             </ul>
         </div>
+        <div class="has-block2">${hasBlock2}</div>
     </div>
 </div>
