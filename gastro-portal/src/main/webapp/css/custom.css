@@ -957,7 +957,7 @@ html div.office table.table td.toggle {
 }
 
 .product-modal-template .arrow-right {
-    background-position-x: -13px;
+    background-position: -13px 0;
     right: -35px;
     top: 50%;
 }

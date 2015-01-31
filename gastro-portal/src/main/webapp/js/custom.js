@@ -60,7 +60,6 @@ function showProductModal(pid) {
         block3.show();
         block3.height(block1.height() - block3.position().top);
     }
-    //modal.modal('hide');
     if (product.find("div.has-block2").text() == 'true') {
         block2.show();
     } else {
@@ -111,8 +110,8 @@ function productRightScroll(pid) {
     if (pid != undefined) showProductModal(pid);
 }
 function initProductCatalog(ajaxContainer) {
-    var layoutFunction = function (source, target) {
-        var newItems = jQuery("div.product-item", source);
+    var layoutFunction = function (target) {
+        var newItems = jQuery("div.product-item", jQuery("div[id^='productsZone']"));
         jQuery(newItems).css("display", "none");
         jQuery(newItems).appendTo(target);
         jQuery(target).freetile({
@@ -139,11 +138,13 @@ function initProductCatalog(ajaxContainer) {
             }
         });
     }
-    layoutFunction(jQuery("#productsZone"), jQuery("#product-items"));
+    layoutFunction(jQuery("#product-items"));
     var scrollMutex = true;
     Event.observe(ajaxContainer.get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
-        layoutFunction(event.srcElement, jQuery("#product-items"));
-        scrollMutex = true;
+        layoutFunction(jQuery("#product-items"));
+        setTimeout(function () {
+            scrollMutex = true;
+        }, 500);
     });
     Event.observe(jQuery("span[id^='basketZone']").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
         jQuery(".basket-show").show()
@@ -157,8 +158,8 @@ function initProductCatalog(ajaxContainer) {
     });
     jQuery(window).scroll(function () {
         if (scrollMutex && jQuery(window).scrollTop() + jQuery(window).height() > jQuery(document).height() - 50) {
-            triggerEvent(jQuery('a[id^=fetchProducts]').get(0), 'click');
             scrollMutex = false;
+            triggerEvent(jQuery('a[id^=fetchProducts]').get(0), 'click');
         }
     });
 }
