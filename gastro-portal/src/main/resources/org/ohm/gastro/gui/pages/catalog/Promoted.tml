@@ -1,15 +1,26 @@
-<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" >
+<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" floatingHeader="true">
 
-    <div class="main-body">
+    <div class="catalog">
+        <div class="container">
+            <div class="title">
+                <h1><span>Предложения недели</span></h1>
+            </div>
 
-        <ul>
-            <t:loop source="products" value="oneProduct" formState="NONE">
-                <li>
+            <div id="product-items" class="grid-block">
+                <t:loop source="products" value="oneProduct">
                     <t:product product="oneProduct"/>
-                </li>
-            </t:loop>
-        </ul>
+                </t:loop>
+            </div>
 
+            <t:productModalTemplate/>
+
+            <script>
+                jQuery(document).ready(function () {
+                    initProductCatalog();
+                });
+            </script>
+
+        </div>
     </div>
 
-</t:htmllayout>
+</t:htmlLayout>

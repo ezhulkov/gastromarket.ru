@@ -144,29 +144,31 @@ function initProductCatalog(ajaxContainer) {
         });
     }
     layoutFunction(jQuery("#product-items"));
-    var scrollMutex = true;
-    Event.observe(ajaxContainer.get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
-        layoutFunction(jQuery("#product-items"));
-        setTimeout(function () {
-            scrollMutex = true;
-        }, 500);
-    });
-    Event.observe(jQuery("span[id^='basketZone']").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
-        jQuery(".basket-show").show()
-            .mouseenter(function () {
-                jQuery(this).stop().fadeIn(100);
-            })
-            .mouseleave(function () {
-                jQuery(this).stop().fadeOut(1000);
-            })
-            .delay(2000).fadeOut(1000);
-    });
-    jQuery(window).scroll(function () {
-        if (scrollMutex && jQuery(window).scrollTop() + jQuery(window).height() > jQuery(document).height() - 50) {
-            scrollMutex = false;
-            triggerEvent(jQuery('a[id^=fetchProducts]').get(0), 'click');
-        }
-    });
+    if (ajaxContainer != undefined) {
+        var scrollMutex = true;
+        Event.observe(ajaxContainer.get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
+            layoutFunction(jQuery("#product-items"));
+            setTimeout(function () {
+                scrollMutex = true;
+            }, 500);
+        });
+        Event.observe(jQuery("span[id^='basketZone']").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
+            jQuery(".basket-show").show()
+                .mouseenter(function () {
+                    jQuery(this).stop().fadeIn(100);
+                })
+                .mouseleave(function () {
+                    jQuery(this).stop().fadeOut(1000);
+                })
+                .delay(2000).fadeOut(1000);
+        });
+        jQuery(window).scroll(function () {
+            if (scrollMutex && jQuery(window).scrollTop() + jQuery(window).height() > jQuery(document).height() - 50) {
+                scrollMutex = false;
+                triggerEvent(jQuery('a[id^=fetchProducts]').get(0), 'click');
+            }
+        });
+    }
 }
 function initProductsEdit() {
     var modals = jQuery("div.product-edit-modal");
