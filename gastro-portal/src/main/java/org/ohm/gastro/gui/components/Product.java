@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
@@ -25,6 +26,15 @@ public class Product extends BaseComponent {
 
     @Property
     private TagEntity oneTag;
+
+    @Inject
+    private Block recommendedBlock;
+
+    @Property
+    private List<ProductEntity> recommendedProducts;
+
+    @Property
+    private ProductEntity oneProduct;
 
     public int getHeight() {
         return 270 - random.nextInt(50);
@@ -47,6 +57,11 @@ public class Product extends BaseComponent {
 
     public boolean isHasBlock2() {
         return StringUtils.isNotEmpty(product.getDescription()) || getProductTags().size() > 0;
+    }
+
+    public Block onActionFromRecommended(Long pid, int count) {
+        recommendedProducts = getCatalogService().findRecommendedProducts(pid, count);
+        return recommendedBlock;
     }
 
 }

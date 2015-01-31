@@ -87,4 +87,6 @@ public interface CatalogService extends ImageUploaderService<ProductEntity> {
 
     void publishProduct(Long pid);
 
+    List<ProductEntity> findRecommendedProducts(Long pid, int count);
+
 }

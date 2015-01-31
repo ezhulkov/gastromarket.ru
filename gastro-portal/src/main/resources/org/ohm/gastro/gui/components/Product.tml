@@ -18,6 +18,7 @@
         <span class="basket-add pull-right"><img src="/img/basket-add.png"/><t:actionLink class="basket-add" t:zone="basketZone" t:context="product.id" t:id="purchase">В корзину</t:actionLink></span>
     </div>
     <div class="modal-data hidden">
+        <t:actionlink class="recommended-link" t:id="recommended" t:context="[product.id,5]" t:zone="recommendedProductsZone"/>
         <div class="category">
             <t:if test="product.category.parent">
                 <a href="/catalog/list/${product.category.parent?.id}">${product.category.parent?.name}</a> <span> / </span>
@@ -49,4 +50,13 @@
         </div>
         <div class="has-block2">${hasBlock2}</div>
     </div>
+    <t:block t:id="recommendedBlock">
+        <ul>
+            <t:loop source="recommendedProducts" value="oneProduct">
+                <li>
+                    <a href="/catalog/${oneProduct.id}"><img src="${oneProduct.avatarUrlSmall}"/></a>
+                </li>
+            </t:loop>
+        </ul>
+    </t:block>
 </div>

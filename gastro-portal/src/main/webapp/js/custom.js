@@ -60,6 +60,7 @@ function showProductModal(pid) {
         block3.show();
         block3.height(block1.height() - block3.position().top);
     }
+    //Init blocks
     if (product.find("div.has-block2").text() == 'true') {
         block2.show();
     } else {
@@ -77,6 +78,7 @@ function showProductModal(pid) {
     block2.find("div.desc").empty().append(product.find(".desc").clone().html());
     block2.find("div.tags").empty().append(product.find(".tags").clone().children());
     block3.hide();
+    //Start Modal
     if (!modal.hasClass("in")) {
         modal.modal('show')
             .unbind('shown.bs.modal').bind('shown.bs.modal', function () {
@@ -89,6 +91,7 @@ function showProductModal(pid) {
     } else {
         layoutBlock3();
     }
+    //Navigation
     modal.find(".modal-arrow").unbind('click').bind('click', function () {
         if (jQuery(this).hasClass("arrow-left"))productLeftScroll(pid);
         if (jQuery(this).hasClass("arrow-right"))productRightScroll(pid);
@@ -98,6 +101,8 @@ function showProductModal(pid) {
         if (e.keyCode == 39) productRightScroll(pid);
         return false;
     });
+    //Download recommended
+    triggerEvent(jQuery(".recommended-link", productMain).get(0), 'click');
 }
 function productLeftScroll(pid) {
     var productMain = jQuery("div[data-productid='" + pid + "']:first");

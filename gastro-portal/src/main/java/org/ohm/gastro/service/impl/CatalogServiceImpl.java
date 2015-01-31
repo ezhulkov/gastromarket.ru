@@ -280,6 +280,11 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
+    public List<ProductEntity> findRecommendedProducts(final Long pid, final int count) {
+        return productRepository.findAll().stream().limit(count).collect(Collectors.toList());
+    }
+
+    @Override
     public void promoteProduct(Long pid) {
         final ProductEntity product = productRepository.findOne(pid);
         product.setPromoted(!product.getPromoted());

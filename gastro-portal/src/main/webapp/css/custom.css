@@ -962,44 +962,6 @@ html div.office table.table td.toggle {
     top: 50%;
 }
 
-.product-modal-template .name {
-    margin-bottom: 5px;
-}
-
-.product-modal-template .name,
-.product-modal-template .price,
-.product-item span.name {
-    color: black;
-    font-size: 20px;
-    line-height: 25px
-}
-
-.product-item span.desc {
-    font-size: 14px;
-    margin-top: 5px;
-}
-
-.product-item span.price {
-    font-size: 30px;
-    margin: 10px 0 0 0;
-    font-weight: bold;
-}
-
-.product-modal-template .price {
-    font-size: 30px;
-    font-weight: bold;
-}
-
-.product-item .basket-add {
-    margin: 15px 0 0 5px;
-}
-
-.product-modal-template .basket a {
-    color: #bd0400;
-    margin-left: 5px;
-    cursor: pointer;
-}
-
 .wrapword {
     white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
     white-space: -pre-wrap; /* Opera 4-6 */
@@ -1017,7 +979,6 @@ html div.office table.table td.toggle {
 
 .product-modal-template .blocks > div {
     background-color: white;
-    color: #ffffff;
     border-radius: 6px;
 }
 
@@ -1044,6 +1005,7 @@ html div.office table.table td.toggle {
     width: 330px;
     min-height: 100px;
     float: right;
+    overflow: scroll;
 }
 
 .block1 .data,
@@ -1082,6 +1044,11 @@ html div.office table.table td.toggle {
     color: #444;
 }
 
+.block2 .desc {
+    max-height: 200px;
+    overflow: scroll;
+}
+
 .block2 .tags ul {
     list-style: none;
     padding: 0;
@@ -1091,3 +1058,64 @@ html div.office table.table td.toggle {
     font-weight: bold;
 
 }
+
+.product-modal-template .name {
+    margin-bottom: 5px;
+}
+
+.product-modal-template .name,
+.product-modal-template .recommended,
+.product-modal-template .price,
+.product-item span.name {
+    color: black;
+    font-size: 20px;
+    line-height: 25px
+}
+
+.product-item span.desc {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.product-item span.price {
+    font-size: 30px;
+    margin: 10px 0 0 0;
+    font-weight: bold;
+}
+
+.product-modal-template .price {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.product-item .basket-add {
+    margin: 15px 0 0 5px;
+}
+
+.product-modal-template .basket a {
+    color: #bd0400;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.block3 .recommended {
+    overflow: scroll;
+}
+
+.block3 .recommended ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+    width: 100%;
+}
+
+.block3 .recommended ul li {
+    float: left;
+    padding: 8px;
+}
+
+.block3 .recommended img {
+    width: 80px;
+    height: 80px;
+}
+
