@@ -25,7 +25,7 @@ public class List extends BaseComponent {
     private Block productsBlock;
 
     public java.util.List<ProductEntity> getProducts() {
-        return getCatalogService().findAllProducts(null, null, false);
+        return getCatalogService().findAllProducts(category, null, false);
     }
 
     @OnEvent(value = EventConstants.ACTION, component = "fetchProducts")
@@ -45,6 +45,10 @@ public class List extends BaseComponent {
 
     public Object[] onPassivate() {
         return category == null ? null : new Object[]{category.getId()};
+    }
+
+    public String getTitle() {
+        return category == null ? getMessages().get("catalog.title") : category.getName();
     }
 
 

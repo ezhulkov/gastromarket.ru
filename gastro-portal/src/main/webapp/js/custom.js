@@ -124,7 +124,7 @@ function initProductCatalog(ajaxContainer) {
             selector: ".product-item",
             containerResize: false,
             callback: function () {
-                var items = jQuery("div.product-item");
+                var items = jQuery("div.product-modal-trigger");
                 jQuery(items)
                     .filter(function () {
                         return jQuery(this).css("display") == "none";
@@ -144,6 +144,7 @@ function initProductCatalog(ajaxContainer) {
         });
     }
     layoutFunction(jQuery("#product-items"));
+    initBasket();
     if (ajaxContainer != undefined) {
         var scrollMutex = true;
         Event.observe(ajaxContainer.get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
@@ -152,16 +153,6 @@ function initProductCatalog(ajaxContainer) {
                 scrollMutex = true;
             }, 500);
         });
-        Event.observe(jQuery("span[id^='basketZone']").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
-            jQuery(".basket-show").show()
-                .mouseenter(function () {
-                    jQuery(this).stop().fadeIn(100);
-                })
-                .mouseleave(function () {
-                    jQuery(this).stop().fadeOut(1000);
-                })
-                .delay(2000).fadeOut(1000);
-        });
         jQuery(window).scroll(function () {
             if (scrollMutex && jQuery(window).scrollTop() + jQuery(window).height() > jQuery(document).height() - 50) {
                 scrollMutex = false;
@@ -169,6 +160,18 @@ function initProductCatalog(ajaxContainer) {
             }
         });
     }
+}
+function initBasket() {
+    Event.observe(jQuery("span[id^='basketZone']").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
+        jQuery(".basket-show").show()
+            .mouseenter(function () {
+                jQuery(this).stop().fadeIn(100);
+            })
+            .mouseleave(function () {
+                jQuery(this).stop().fadeOut(1000);
+            })
+            .delay(2000).fadeOut(1000);
+    });
 }
 function initProductsEdit() {
     var modals = jQuery("div.product-edit-modal");

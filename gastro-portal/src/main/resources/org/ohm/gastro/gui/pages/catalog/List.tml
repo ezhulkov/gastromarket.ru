@@ -1,9 +1,9 @@
-<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" floatingHeader="true">
+<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" floatingHeader="true" title="prop:title">
 
     <div class="catalog">
         <div class="container">
             <div class="title">
-                <h1><span>${category?.name}</span></h1>
+                <h1><span>${title}</span></h1>
             </div>
 
             <div id="product-items" class="grid-block"/>
@@ -28,13 +28,13 @@
 
             <t:productModalTemplate/>
 
-            <script>
-                jQuery(document).ready(function () {
-                    initProductCatalog(jQuery("#productsZone"));
-                });
-            </script>
-
         </div>
     </div>
+
+    <script>
+        jQuery(document).ready(function () {
+            initProductCatalog(jQuery("#productsZone"));
+        });
+    </script>
 
 </t:htmlLayout>

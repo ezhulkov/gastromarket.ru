@@ -11,16 +11,15 @@
                     <t:product product="oneProduct"/>
                 </t:loop>
             </div>
-
             <t:productModalTemplate/>
-
-            <script>
-                jQuery(document).ready(function () {
-                    initProductCatalog();
-                });
-            </script>
 
         </div>
     </div>
+
+    <script>
+        jQuery(document).ready(function () {
+            initProductCatalog();
+        });
+    </script>
 
 </t:htmlLayout>

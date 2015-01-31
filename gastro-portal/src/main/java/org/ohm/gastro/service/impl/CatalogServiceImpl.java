@@ -245,6 +245,9 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Override
     public List<ProductEntity> findAllProducts(CategoryEntity category, CatalogEntity catalog, Boolean hidden) {
+        if (category != null && category.getChildren().size() > 0) {
+            return productRepository.findAllByParentCategory(category, hidden);
+        }
         return productRepository.findAllByCategoryAndCatalog(category, catalog, hidden);
     }
 

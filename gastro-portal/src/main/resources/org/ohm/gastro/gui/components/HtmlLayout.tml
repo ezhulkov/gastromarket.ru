@@ -2,7 +2,7 @@
 <html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
 <head>
     <meta charset="utf-8"/>
-    <title>gastromarket.ru - Готовим на заказ только для вас</title>
+    <title>gastromarket.ru - ${title}</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="description" content="Заказывайте вкусную еду у первоклассных кулинаров"/>

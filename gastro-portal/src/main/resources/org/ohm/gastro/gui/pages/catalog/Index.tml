@@ -1,84 +1,59 @@
-<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" >
+<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" floatingHeader="false" title="${product.name}">
 
-    <div class="main-body">
-
-        <t:if test="owner">
-            <t:unless test="updateAction">
-                <t:pagelink page="catalog" context="['UPDATE',object.id]">Редактировать</t:pagelink>
-            </t:unless>
-        </t:if>
-
-        <img width="100%" height="400" alt="PHOTO"/><br/>
-
-        <t:if test="updateAction">
-            <br/>
-            <t:editObject t:id="editObject" showUpdate="literal:true">
-                <div class="form-group">
-                    <t:label class="col-sm-2 control-label" for="name">Название</t:label>
-
-                    <div class="col-sm-10">
-                        <input t:id="name" id="name" class="form-control" placeholder="Название"/>
-                    </div>
+    <div class="product">
+        <div class="container">
+            <div class="title">
+                <h1><span>${product.name}</span></h1>
+            </div>
+            <div class="breadcrumbs">
+                <t:if test="product.category.parent">
+                    <a href="/catalog/list/${product.category.parent?.id}">${product.category.parent?.name}</a> <span> / </span>
+                </t:if>
+                <a href="/catalog/list/${product.category.id}">${product.category.name}</a>
+            </div>
+            <div class="row info">
+                <div class="col-sm-6">
+                    <img class="pull-right" src="${product.avatarUrl}"/>
                 </div>
-                <div class="form-group">
-                    <t:label class="col-sm-2 control-label" for="description">Описание</t:label>
+                <div class="col-sm-5 product-item">
+                    <span class="cook">
+                        <img class="avatar-small" src="${product.catalog.user.avatarUrlSmall}"/>
+                        <a href="/catalog/${product.catalog.user.id}">${product.catalog.user.fullName}</a>
+                    </span>
 
-                    <div class="col-sm-10">
-                        <input t:id="description" id="description" class="form-control" placeholder="Описание"/>
+                    <div>
+                        <span class="price pull-left">${product.price} &#x20bd;</span>
+                        <span class="basket-add pull-right"><img src="/img/basket-add.png"/><t:actionLink class="basket-add" t:zone="basketZone" t:context="product.id" t:id="purchase">В корзину</t:actionLink></span>
                     </div>
-                </div>
-                <div class="form-group">
-                    <t:label class="col-sm-2 control-label" for="price">Цена</t:label>
-
-                    <div class="col-sm-10">
-                        <input t:id="price" id="price" class="form-control" placeholder="Цена, руб"/>
-                    </div>
-                </div>
-                <t:loop source="categoryProperties" value="oneProperty" formState="NONE">
-                    <t:if test="propertyTags">
-                        <t:loop source="propertyTags" value="oneTag" formState="NONE">
-                            <t:paramBlock property="oneProperty" tag="oneTag"/>
-                        </t:loop>
+                    <t:if test="description">
+                        <span class="desc"><t:outputraw value="description"/></span>
                     </t:if>
-                    <t:unless test="propertyTags">
-                        <t:paramBlock property="oneProperty"/>
-                    </t:unless>
+                    <br/>
+                    <div class="tags">
+                        <ul>
+                            <t:loop source="productTags" value="oneTag">
+                                <li><span class="tag">${oneTag.property.name}:</span> ${oneTag.data}</li>
+                            </t:loop>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="title">
+                <h1><span>Похожие товары</span></h1>
+            </div>
+            <div id="product-items" class="grid-block fixed">
+                <t:loop source="recommendedProducts" value="oneProduct">
+                    <t:product product="oneProduct"/>
                 </t:loop>
-            </t:editObject>
-        </t:if>
-        <t:unless test="updateAction">
-            <h1>${object.name}</h1>
-
-            <t:outputraw value="productDescription"/>
-            <br/>
-            Цена ${object.price}<br/>
-            <ul>
-                <t:loop source="productTags" value="oneTag">
-                    <li>
-                        ${oneTag.property.name}:${oneTag.data}
-                    </li>
-                </t:loop>
-            </ul>
-
-            <t:actionlink t:zone="basketZone" t:context="object.id" t:id="purchase">Заказать</t:actionlink>
-
-        </t:unless>
-
+            </div>
+            <t:productModalTemplate/>
+        </div>
     </div>
 
     <script>
-        function moreClick(obj) {
-            var id = jQuery(obj).attr('data');
-            var listBlock = jQuery('div.param' + id).last();
-            var newBlock = jQuery(listBlock).clone().fadeTo(0, 0).insertAfter(listBlock);
-            jQuery(newBlock).fadeTo(400, 1);
-        }
-        function delClick(obj) {
-            var formBlock = jQuery(obj).closest("div.form-group");
-            jQuery(formBlock).fadeOut("fast", function () {
-                this.remove()
-            });
-        }
+        jQuery(document).ready(function () {
+            initProductCatalog();
+        });
     </script>
 
-</t:htmllayout>
+</t:htmlLayout>

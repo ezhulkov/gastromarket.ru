@@ -235,6 +235,16 @@ html > body div.t-error ul li {
     margin: 0 0 0 0;
 }
 
+.breadcrumbs {
+    width: 100%;
+    text-align: center;
+}
+
+.breadcrumbs a {
+    font-size: 14px;
+    color: #444;
+}
+
 .title {
     position: relative;
 }
@@ -866,8 +876,10 @@ html div.office table.table td.toggle {
 }
 
 .catalog .container,
+.product .container,
 .contacts .container {
     min-height: 300px;
+    margin-bottom: 100px;
 }
 
 .form-control.price {
@@ -1049,27 +1061,30 @@ html div.office table.table td.toggle {
     overflow: scroll;
 }
 
+.product-item .tags ul,
 .block2 .tags ul {
     list-style: none;
     padding: 0;
 }
 
+.product-item .tags .tag,
 .block2 .tags .tag {
     font-weight: bold;
-
+    display: inline;
 }
 
 .product-modal-template .name {
     margin-bottom: 5px;
 }
 
-.product-modal-template .name,
+.product-modal-template .name a,
 .product-modal-template .recommended,
 .product-modal-template .price,
-.product-item span.name {
+.product-item span.name a {
     color: black;
     font-size: 20px;
-    line-height: 25px
+    line-height: 25px;
+    margin: 0;
 }
 
 .product-item span.desc {
@@ -1117,5 +1132,13 @@ html div.office table.table td.toggle {
 .block3 .recommended img {
     width: 80px;
     height: 80px;
+}
+
+.product .info {
+    margin: 20px 0;
+}
+
+.product .info > div {
+    padding: 10px;
 }
 

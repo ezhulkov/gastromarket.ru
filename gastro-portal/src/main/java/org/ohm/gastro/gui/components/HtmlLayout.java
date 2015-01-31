@@ -15,6 +15,10 @@ public class HtmlLayout extends BaseComponent {
     private boolean floatingHeader;
 
     @Property
+    @Parameter(name = "title", required = false, value = "page.title", defaultPrefix = BindingConstants.MESSAGE)
+    private String title;
+
+    @Property
     @Parameter(name = "header", required = false, value = "true", defaultPrefix = BindingConstants.PROP)
     private boolean header;
 
