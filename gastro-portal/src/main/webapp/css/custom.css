@@ -943,6 +943,25 @@ html div.office table.table td.toggle {
     top: 10px;
 }
 
+.product-modal-template .modal-arrow {
+    background: url("../img/arrow-big.png") no-repeat;
+    height: 26px;
+    width: 14px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.product-modal-template .arrow-left {
+    left: -35px;
+    top: 50%;
+}
+
+.product-modal-template .arrow-right {
+    background-position-x: -13px;
+    right: -35px;
+    top: 50%;
+}
+
 .product-modal-template .name {
     margin-bottom: 5px;
 }
@@ -992,21 +1011,26 @@ html div.office table.table td.toggle {
     white-space: normal;
 }
 
-.product-modal-template .modal-dialog {
+.product-modal-template .blocks {
     width: 770px;
 }
 
-.product-modal-template .modal-dialog > div {
+.product-modal-template .blocks > div {
     background-color: white;
     color: #ffffff;
     border-radius: 6px;
-    overflow: hidden;
+}
+
+.blocks {
+    position: relative;
+    display: table;
 }
 
 .block1 {
     width: 430px;
     min-height: 510px;
     float: left;
+    overflow: hidden;
 }
 
 .block2 {
@@ -1029,6 +1053,10 @@ html div.office table.table td.toggle {
     position: relative;
     color: black;
     font-size: 14px;
+}
+
+.block1 .product-link {
+    overflow: hidden;
 }
 
 .block1 .data {

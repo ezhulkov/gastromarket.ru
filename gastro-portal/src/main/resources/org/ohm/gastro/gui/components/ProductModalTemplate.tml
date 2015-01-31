@@ -1,28 +1,33 @@
 <div class="modal fade product-modal-template" id="product-modal-template" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
-        <a class="modal-close" data-dismiss="modal"></a>
 
-        <div class="block1">
-            <a class="product-link" href=""><img class="product-image"/></a>
+        <div class="blocks">
+            <a class="modal-close" data-dismiss="modal"></a>
+            <a class="modal-arrow arrow-left"></a>
+            <a class="modal-arrow arrow-right"></a>
+            <div class="block1">
 
-            <div class="data">
-                <div class="category"></div>
-                <div class="name"></div>
-                <div class="cook"></div>
-                <div class="bottom">
-                    <div class="price pull-left"></div>
-                    <div class="basket pull-right"></div>
+                <a class="product-link" href=""><img class="product-image"/></a>
+
+                <div class="data">
+                    <div class="category"></div>
+                    <div class="name"></div>
+                    <div class="cook"></div>
+                    <div class="bottom">
+                        <div class="price pull-left"></div>
+                        <div class="basket pull-right"></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="block2">
-            <div class="data">
-                <div class="desc"></div>
-                <div class="tags"></div>
+            <div class="block2">
+                <div class="data">
+                    <div class="desc"></div>
+                    <div class="tags"></div>
+                </div>
             </div>
-        </div>
-        <div class="block3">
+            <div class="block3">
 
+            </div>
         </div>
     </div>
 </div>

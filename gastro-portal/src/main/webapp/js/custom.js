@@ -55,6 +55,12 @@ function showProductModal(pid) {
     var product = jQuery(productMain).find(".modal-data");
     var block1 = modal.find(".block1");
     var block2 = modal.find(".block2");
+    var block3 = modal.find(".block3");
+    var layoutBlock3 = function () {
+        block3.show();
+        block3.height(block1.height() - block3.position().top);
+    }
+    //modal.modal('hide');
     if (product.find("div.has-block2").text() == 'true') {
         block2.show();
     } else {
@@ -71,8 +77,38 @@ function showProductModal(pid) {
     }));
     block2.find("div.desc").empty().append(product.find(".desc").clone().html());
     block2.find("div.tags").empty().append(product.find(".tags").clone().children());
-
-    modal.modal();
+    block3.hide();
+    if (!modal.hasClass("in")) {
+        modal.modal('show')
+            .unbind('shown.bs.modal').bind('shown.bs.modal', function () {
+                layoutBlock3();
+                return false;
+            })
+            .unbind('hidden.bs.modal').bind('hidden.bs.modal', function () {
+                jQuery(document).unbind('keydown')
+            });
+    } else {
+        layoutBlock3();
+    }
+    modal.find(".modal-arrow").unbind('click').bind('click', function () {
+        if (jQuery(this).hasClass("arrow-left"))productLeftScroll(pid);
+        if (jQuery(this).hasClass("arrow-right"))productRightScroll(pid);
+    });
+    jQuery(document).unbind('keydown').bind('keydown', function (e) {
+        if (e.keyCode == 37) productLeftScroll(pid);
+        if (e.keyCode == 39) productRightScroll(pid);
+        return false;
+    });
+}
+function productLeftScroll(pid) {
+    var productMain = jQuery("div[data-productid='" + pid + "']:first");
+    pid = productMain.prev().attr("data-productid");
+    if (pid != undefined) showProductModal(pid);
+}
+function productRightScroll(pid) {
+    var productMain = jQuery("div[data-productid='" + pid + "']:first");
+    var pid = productMain.next().attr("data-productid");
+    if (pid != undefined) showProductModal(pid);
 }
 function initProductCatalog(ajaxContainer) {
     var layoutFunction = function (source, target) {
