@@ -127,6 +127,13 @@ function initProductCatalog(ajaxContainer) {
                 var items = jQuery("div.product-modal-trigger");
                 jQuery(items)
                     .filter(function () {
+                        return jQuery(this).hasClass("fixed");
+                    }).each(function (i, e) {
+                        var pic = jQuery(".pic", this);
+                        jQuery(".data", this).height(jQuery(this).height() - pic.height() - 20);
+                    });
+                jQuery(items)
+                    .filter(function () {
                         return jQuery(this).css("display") == "none";
                     })
                     .fadeIn(1000);

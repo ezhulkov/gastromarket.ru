@@ -1,4 +1,4 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="product-item product-modal-trigger" data-productid="${product.id}">
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="product-item product-modal-trigger ${additionalClass}" data-productid="${product.id}">
     <div style="height: ${height}px" class="pic">
         <img class="product-image" src="${product.avatarUrlMedium}"/>
     </div>
@@ -14,8 +14,10 @@
             <span class="desc"><t:outputraw value="description"/></span>
         </t:if>
 
-        <span class="price pull-left">${product.price} &#x20bd;</span>
-        <span class="basket-add pull-right"><img src="/img/basket-add.png"/><t:actionLink class="basket-add" t:zone="basketZone" t:context="product.id" t:id="purchase">В корзину</t:actionLink></span>
+        <div class="basket-block">
+            <span class="price pull-left">${product.price} &#x20bd;</span>
+            <span class="basket-add pull-right"><img src="/img/basket-add.png"/><t:actionLink class="basket-add" t:zone="basketZone" t:context="product.id" t:id="purchase">В корзину</t:actionLink></span>
+        </div>
     </div>
     <div class="modal-data hidden">
         <t:actionlink class="recommended-link" t:id="recommended" t:context="[product.id,5]" t:zone="recommendedProductsZone"/>

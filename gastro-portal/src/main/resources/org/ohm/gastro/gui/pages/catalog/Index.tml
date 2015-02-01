@@ -1,4 +1,4 @@
-<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" floatingHeader="false" title="${product.name}">
+<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"  title="${product.name}">
 
     <div class="product">
         <div class="container">
@@ -29,6 +29,7 @@
                         <span class="desc"><t:outputraw value="description"/></span>
                     </t:if>
                     <br/>
+
                     <div class="tags">
                         <ul>
                             <t:loop source="productTags" value="oneTag">
@@ -41,9 +42,9 @@
             <div class="title">
                 <h1><span>Похожие товары</span></h1>
             </div>
-            <div id="product-items" class="grid-block fixed">
+            <div id="product-items" class="grid-block">
                 <t:loop source="recommendedProducts" value="oneProduct">
-                    <t:product product="oneProduct"/>
+                    <t:product product="oneProduct" class="fixed"/>
                 </t:loop>
             </div>
             <t:productModalTemplate/>
