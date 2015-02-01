@@ -40,7 +40,7 @@ public class Index extends EditObjectPage<CatalogEntity> {
 
     @Cached
     public java.util.List<ProductEntity> getProducts() {
-        return getCatalogService().findAllProducts(null, getObject(), null);
+        return getProductService().findAllProducts(null, getObject(), null);
     }
 
     @Override
@@ -67,17 +67,17 @@ public class Index extends EditObjectPage<CatalogEntity> {
     }
 
     public Block onActionFromDeleteProduct(Long id) {
-        getCatalogService().deleteProduct(id);
+        getProductService().deleteProduct(id);
         return productsBlock;
     }
 
     public Block onActionFromPromoteProduct(Long id) {
-        getCatalogService().promoteProduct(id);
+        getProductService().promoteProduct(id);
         return productsBlock;
     }
 
     public Block onActionFromShowProduct(Long id) {
-        getCatalogService().publishProduct(id);
+        getProductService().publishProduct(id);
         return productsBlock;
     }
 

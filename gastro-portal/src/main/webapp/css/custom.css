@@ -72,6 +72,10 @@ html > body div.t-error ul li {
     text-align: center;
 }
 
+.border {
+    border: 1px solid black;
+}
+
 .qq-upload-button-selector {
     width: 49px;
     height: 49px;
@@ -720,6 +724,10 @@ div.username {
     overflow: hidden;
 }
 
+.chefs .grid-block {
+    width: 900px;
+}
+
 .grid-block > div {
     float: left;
     -webkit-box-shadow: 0 0 6px 2px #ddd;
@@ -1198,7 +1206,6 @@ html div.office table.table td.toggle {
     opacity: 0.8;
 }
 
-
 .product .info {
     margin: 20px 0;
 }
@@ -1207,3 +1214,35 @@ html div.office table.table td.toggle {
     padding: 10px;
 }
 
+/*Chefs*/
+.chefs {
+    padding: 10px 0;
+}
+
+.chefs:nth-child(odd) {
+    background-image: -webkit-gradient(
+            linear, left top, left bottom, from(rgba(245, 245, 245, 1)),
+            to(rgba(245, 245, 245, 1))
+    );
+}
+
+.chefs .chef {
+    padding: 8px 10px 0 0;
+}
+
+.chefs .chef .pic {
+    height: 100px;
+    width: 100px;
+}
+
+.chefs .chef .cats {
+    color: #797979;
+    font-size: 14px;
+}
+
+.chefs .chef .name {
+    color: black;
+    font-size: 20px;
+    line-height: 25px;
+    margin: 10px 0 0 0;
+}

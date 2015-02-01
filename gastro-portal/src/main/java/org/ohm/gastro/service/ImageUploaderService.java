@@ -13,7 +13,7 @@ public interface ImageUploaderService<T extends BaseEntity> extends Predicate<Fi
 
     public enum ImageSize {SIZE1, SIZE2, SIZE3}
 
-    public enum FileType {AVATAR, PRODUCT}
+    public enum FileType {AVATAR, PRODUCT, CATALOG}
 
     T processUploadedImages(String objectId, Map<ImageSize, String> imageUrls);
 

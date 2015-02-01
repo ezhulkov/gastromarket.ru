@@ -206,14 +206,14 @@ public class ProductEdit extends BaseComponent {
 
     public void onSubmitFromEditProductForm(Long pid, @RequestParameter(value = "stage", allowBlank = true) Stage currentStage) {
         if (!error) {
-            final ProductEntity origProduct = pid != null ? getCatalogService().findProduct(pid) : product;
+            final ProductEntity origProduct = pid != null ? getProductService().findProduct(pid) : product;
             if (currentStage == Stage.DESC) {
                 origProduct.setName(product.getName());
                 origProduct.setPrice(product.getPrice());
                 origProduct.setDescription(product.getDescription());
                 origProduct.setCategory(category);
                 origProduct.setCatalog(catalog);
-                product = getCatalogService().saveProduct(origProduct);
+                product = getProductService().saveProduct(origProduct);
                 this.stage = Stage.PROP;
             } else if (currentStage == Stage.PROP) {
                 Map<Long, String> propValues = getRequest().getParameterNames().stream()
@@ -226,7 +226,7 @@ public class ProductEdit extends BaseComponent {
                         .map(t -> t.substring("list-".length(), t.length()))
                         .collect(Collectors.toMap(Long::parseLong, key -> getRequest().getParameters("list-" + key)
                         ));
-                product = getCatalogService().saveProduct(origProduct, propValues, listValues);
+                product = getProductService().saveProduct(origProduct, propValues, listValues);
                 this.stage = Stage.PHOTO;
             }
             if (closeImmediately) this.stage = Stage.DESC;
@@ -240,7 +240,7 @@ public class ProductEdit extends BaseComponent {
             }
         } else {
             closeImmediately = false;
-            product = pid != null ? getCatalogService().findProduct(pid) : new ProductEntity();
+            product = pid != null ? getProductService().findProduct(pid) : new ProductEntity();
             ajaxResponseRenderer.addRender(getProductZone(), productBlock);
         }
     }

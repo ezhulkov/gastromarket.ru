@@ -38,14 +38,20 @@ public class CatalogEntity extends AbstractBaseEntity {
     @Column
     private String delivery;
 
-    @Column(name = "was_setup")
-    private Boolean wasSetup;
-
     @Column
     private Integer rating = 0;
 
     @Column
     private Timestamp date = new Timestamp(System.currentTimeMillis());
+
+    @Column(name = "avatar_url")
+    private String avatarUrl = "/img/avatar-stub.png";
+
+    @Column(name = "avatar_url_medium")
+    private String avatarUrlMedium = "/img/avatar-stub-medium.png";
+
+    @Column(name = "avatar_url_small")
+    private String avatarUrlSmall = "/img/avatar-stub-small.png";
 
     @ManyToOne(fetch = FetchType.LAZY)
     private UserEntity user;
@@ -68,14 +74,6 @@ public class CatalogEntity extends AbstractBaseEntity {
 
     public void setDate(Timestamp date) {
         this.date = date;
-    }
-
-    public Boolean getWasSetup() {
-        return wasSetup;
-    }
-
-    public void setWasSetup(Boolean wasSetup) {
-        this.wasSetup = wasSetup;
     }
 
     public String getName() {
@@ -125,4 +123,29 @@ public class CatalogEntity extends AbstractBaseEntity {
     public void setDelivery(String delivery) {
         this.delivery = delivery;
     }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(final String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public String getAvatarUrlMedium() {
+        return avatarUrlMedium;
+    }
+
+    public void setAvatarUrlMedium(final String avatarUrlMedium) {
+        this.avatarUrlMedium = avatarUrlMedium;
+    }
+
+    public String getAvatarUrlSmall() {
+        return avatarUrlSmall;
+    }
+
+    public void setAvatarUrlSmall(final String avatarUrlSmall) {
+        this.avatarUrlSmall = avatarUrlSmall;
+    }
+
 }

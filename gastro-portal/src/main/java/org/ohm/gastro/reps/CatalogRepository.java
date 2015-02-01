@@ -13,6 +13,4 @@ public interface CatalogRepository extends JpaRepository<CatalogEntity, Long> {
 
     List<CatalogEntity> findAllByUser(UserEntity user);
 
-    List<CatalogEntity> findAllByUserAndWasSetup(UserEntity user,Boolean wasSetup);
-
 }

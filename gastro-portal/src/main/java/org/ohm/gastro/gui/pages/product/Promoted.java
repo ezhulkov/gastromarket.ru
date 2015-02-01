@@ -1,4 +1,4 @@
-package org.ohm.gastro.gui.pages.catalog;
+package org.ohm.gastro.gui.pages.product;
 
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
@@ -15,7 +15,7 @@ public class Promoted extends BaseComponent {
 
     @Cached
     public java.util.List<ProductEntity> getProducts() {
-        return getCatalogService().findPromotedProducts();
+        return getProductService().findPromotedProducts();
     }
 
 }

@@ -3,11 +3,11 @@
         <img class="product-image" src="${product.avatarUrlMedium}"/>
     </div>
     <div class="data wrapword">
-        <span class="name wrapword"><a href="/catalog/${product.id}">${product.name}</a></span>
+        <span class="name wrapword"><a href="/product/${product.id}">${product.name}</a></span>
 
         <span class="cook">
-            <img class="avatar-small" src="${product.catalog.user.avatarUrlSmall}"/>
-            <a href="/catalog/${product.catalog.user.id}">${product.catalog.user.fullName}</a>
+            <img class="avatar-small" src="${product.catalog.avatarUrlSmall}"/>
+            <a href="/catalog/${product.catalog.id}">${product.catalog.name}</a>
         </span>
 
         <t:if test="description">
@@ -23,11 +23,11 @@
         <t:actionlink class="recommended-link" t:id="recommended" t:context="[product.id,5]" t:zone="recommendedProductsZone"/>
         <div class="category">
             <t:if test="product.category.parent">
-                <a href="/catalog/list/${product.category.parent?.id}">${product.category.parent?.name}</a> <span> / </span>
+                <a href="/product/list/${product.category.parent?.id}">${product.category.parent?.name}</a> <span> / </span>
             </t:if>
-            <a href="/catalog/list/${product.category.id}">${product.category.name}</a>
+            <a href="/product/list/${product.category.id}">${product.category.name}</a>
         </div>
-        <div class="name wrapword"><a href="/catalog/${product.id}">${product.name}</a></div>
+        <div class="name wrapword"><a href="/product/${product.id}">${product.name}</a></div>
         <div class="image">${product.avatarUrl}</div>
         <div class="desc">
             <t:if test="description">
@@ -39,10 +39,10 @@
         <div class="price">${product.price} &#x20bd;</div>
         <div class="basket"><img src="/img/basket-add.png"/><a class="basket-add" data-productid="${product.id}">В корзину</a></div>
         <div class="cook">
-            <img class="avatar-small" src="${product.catalog.user.avatarUrlSmall}"/>
-            <a href="/catalog/${product.catalog.user.id}">${product.catalog.user.fullName}</a>
+            <img class="avatar-small" src="${product.catalog.avatarUrlSmall}"/>
+            <a href="/product/${product.catalog.id}">${product.catalog.name}</a>
         </div>
-        <div class="url">/catalog/${product.id}</div>
+        <div class="url">/product/${product.id}</div>
         <div class="tags">
             <ul>
                 <t:loop source="productTags" value="oneTag">
@@ -56,7 +56,7 @@
         <ul>
             <t:loop source="recommendedProducts" value="oneProduct">
                 <li>
-                    <a href="/catalog/${oneProduct.id}"><img src="${oneProduct.avatarUrlSmall}"/></a>
+                    <a href="/product/${oneProduct.id}"><img src="${oneProduct.avatarUrlSmall}"/></a>
                 </li>
             </t:loop>
         </ul>

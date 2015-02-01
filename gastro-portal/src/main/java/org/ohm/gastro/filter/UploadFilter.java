@@ -53,6 +53,11 @@ public class UploadFilter extends BaseApplicationFilter implements Logging {
                     .put(ImageSize.SIZE2, new Integer[]{270, 270})
                     .put(ImageSize.SIZE3, new Integer[]{430, 310})
                     .build())
+            .put(FileType.CATALOG, new ImmutableMap.Builder<ImageSize, Integer[]>()
+                    .put(ImageSize.SIZE1, new Integer[]{23, 23})
+                    .put(ImageSize.SIZE2, new Integer[]{100, 100})
+                    .put(ImageSize.SIZE3, new Integer[]{210, 210})
+                    .build())
             .build();
 
     protected void initFilterBean() throws ServletException {

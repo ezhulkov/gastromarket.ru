@@ -114,6 +114,27 @@ function productRightScroll(pid) {
     var pid = productMain.next().attr("data-productid");
     if (pid != undefined) showProductModal(pid);
 }
+function initProductInCatalog(items) {
+    jQuery(items)
+        .mouseenter(function () {
+            jQuery(this).find("img").css("opacity", "0.8");
+        })
+        .mouseleave(function () {
+            jQuery(this).find("img").css("opacity", "1");
+        })
+        .click(function () {
+            showProductModal(jQuery(this).attr("data-productid"));
+        });
+}
+function initProductCatalogFixed() {
+    var newItems = jQuery("div.product-item.fixed");
+    initProductInCatalog(newItems);
+    jQuery(newItems).each(function (i, e) {
+        var pic = jQuery(".pic", this);
+        jQuery(".data", this).height(jQuery(this).height() - pic.height() - 20);
+    }).fadeIn(1000);
+    initBasket();
+}
 function initProductCatalog(ajaxContainer) {
     var layoutFunction = function (target) {
         var newItems = jQuery("div.product-item", jQuery("div[id^='productsZone']"));
@@ -127,46 +148,28 @@ function initProductCatalog(ajaxContainer) {
                 var items = jQuery("div.product-modal-trigger");
                 jQuery(items)
                     .filter(function () {
-                        return jQuery(this).hasClass("fixed");
-                    }).each(function (i, e) {
-                        var pic = jQuery(".pic", this);
-                        jQuery(".data", this).height(jQuery(this).height() - pic.height() - 20);
-                    });
-                jQuery(items)
-                    .filter(function () {
                         return jQuery(this).css("display") == "none";
                     })
                     .fadeIn(1000);
-                jQuery(items)
-                    .mouseenter(function () {
-                        jQuery(this).find("img").css("opacity", "0.8");
-                    })
-                    .mouseleave(function () {
-                        jQuery(this).find("img").css("opacity", "1");
-                    })
-                    .click(function () {
-                        showProductModal(jQuery(this).attr("data-productid"));
-                    });
+                initProductInCatalog(items);
             }
         });
     }
     layoutFunction(jQuery("#product-items"));
     initBasket();
-    if (ajaxContainer != undefined) {
-        var scrollMutex = true;
-        Event.observe(ajaxContainer.get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
-            layoutFunction(jQuery("#product-items"));
-            setTimeout(function () {
-                scrollMutex = true;
-            }, 500);
-        });
-        jQuery(window).scroll(function () {
-            if (scrollMutex && jQuery(window).scrollTop() + jQuery(window).height() > jQuery(document).height() - 50) {
-                scrollMutex = false;
-                triggerEvent(jQuery('a[id^=fetchProducts]').get(0), 'click');
-            }
-        });
-    }
+    var scrollMutex = true;
+    Event.observe(ajaxContainer.get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
+        layoutFunction(jQuery("#product-items"));
+        setTimeout(function () {
+            scrollMutex = true;
+        }, 500);
+    });
+    jQuery(window).scroll(function () {
+        if (scrollMutex && jQuery(window).scrollTop() + jQuery(window).height() > jQuery(document).height() - 50) {
+            scrollMutex = false;
+            triggerEvent(jQuery('a[id^=fetchProducts]').get(0), 'click');
+        }
+    });
 }
 function initBasket() {
     Event.observe(jQuery("span[id^='basketZone']").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {

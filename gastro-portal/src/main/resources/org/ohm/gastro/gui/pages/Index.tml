@@ -29,7 +29,7 @@
             <div class="grid-block category">
                 <t:loop source="categories" value="oneCategory">
                     <div>
-                        <t:pagelink style="background: url('../img/category.png')" page="catalog/list" context="oneCategory.id"/>
+                        <t:pagelink style="background: url('../img/category.png')" page="product/list" context="oneCategory.id"/>
                         ${oneCategory.name}
                     </div>
                 </t:loop>
@@ -38,13 +38,15 @@
             <t:if test="products">
                 <div class="title">
                     <h1><span>Предложения недели</span></h1>
-                    <t:pagelink page="catalog/promoted">Смотреть всю подборку<span/></t:pagelink>
+                    <t:pagelink page="product/promoted">Смотреть всю подборку<span/></t:pagelink>
                 </div>
 
                 <div class="grid-block cakes">
                     <t:loop source="products" value="oneProduct">
                         <div>
-                            <t:pagelink style="background: url(${oneProduct.avatarUrlMedium})" page="catalog/index" context="oneProduct.id"/>
+                            <t:pagelink page="product/index" context="oneProduct.id">
+                                <img src="${oneProduct.avatarUrlMedium}"/>
+                            </t:pagelink>
                             ${oneProduct.name}
                         </div>
                     </t:loop>
@@ -53,13 +55,15 @@
 
             <div class="title">
                 <h1><span>Кулинары</span></h1>
-                <t:pagelink page="chef/list">Все кулинары<span/></t:pagelink>
+                <t:pagelink page="catalog/list">Все кулинары<span/></t:pagelink>
             </div>
 
             <div class="grid-block cooks">
                 <t:loop source="cooks" value="oneCook">
                     <div>
-                        <t:pagelink style="background: url(${oneCook.user.avatarUrl})" page="chef/index" context="oneCook.id"/>
+                        <t:pagelink page="catalog/index" context="oneCook.id">
+                            <img src="${oneCook.avatarUrl}"/>
+                        </t:pagelink>
                         ${oneCook.name}
                     </div>
                 </t:loop>

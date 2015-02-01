@@ -1,39 +1,43 @@
-<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" floatingHeader="true" title="prop:title">
+<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" floatingHeader="true">
 
-    <div class="catalog">
+    <div class="catalogs">
         <div class="container">
             <div class="title">
-                <h1><span>${title}</span></h1>
+                <h1><span>Кулинары</span></h1>
             </div>
-
-            <div id="product-items" class="grid-block"/>
-
-            <t:zone t:id="productsZone">
-                <t:delegate to="productsBlock"/>
-            </t:zone>
-
-            <t:block t:id="productsBlock">
-                <t:loop source="products" value="oneProduct">
-                    <t:product product="oneProduct"/>
-                </t:loop>
-                <t:if test="products">
-                    <div class="more-link">
-                        <t:actionlink t:id="fetchProducts" t:context="0" t:zone="productsZone" class="">Показать еще...</t:actionlink>
-                    </div>
-                    <t:parameter name="else">
-                        <div class="empty">В этой секции каталога пока нет товаров</div>
-                    </t:parameter>
-                </t:if>
-            </t:block>
-
-            <t:productModalTemplate/>
-
         </div>
+        <t:loop source="catalogs" value="oneCatalog">
+            <div class="chefs">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="chef text-right">
+                                <img class="pic" src="${oneCatalog.avatarUrlMedium}"/>
+
+                                <div class="name">${oneCatalog.name}</div>
+                                <div class="cats">${categories}</div>
+                                <div class="data-header pull-right">
+                                    <t:pagelink page="catalog/index" t:context="oneCatalog.id">Весь каталог<span/></t:pagelink>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div id="product-items" class="grid-block">
+                                <t:loop source="products" value="oneProduct">
+                                    <t:product product="oneProduct" class="fixed"/>
+                                </t:loop>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t:loop>
+        <t:productmodaltemplate/>
     </div>
 
     <script>
         jQuery(document).ready(function () {
-            initProductCatalog(jQuery("#productsZone"));
+            initProductCatalogFixed();
         });
     </script>
 

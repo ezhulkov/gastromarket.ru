@@ -48,7 +48,7 @@ public class Cart extends BaseComponent {
 
     public List<Map.Entry<CatalogEntity, List<ProductEntity>>> getCatalogs() {
         return getShoppingCart().getProducts().stream()
-                .map(t -> getCatalogService().findProduct(t.getId()))
+                .map(t -> getProductService().findProduct(t.getId()))
                 .collect(Collectors.groupingBy(ProductEntity::getCatalog)).entrySet().stream()
                 .collect(Collectors.toList());
     }

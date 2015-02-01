@@ -50,7 +50,7 @@ public class Product extends BaseComponent {
     }
 
     public Block onActionFromPurchase(Long pid) {
-        getShoppingCart().addProduct(getCatalogService().findProduct(pid));
+        getShoppingCart().addProduct(getProductService().findProduct(pid));
         return getShoppingCart().getBasketBlock();
     }
 
@@ -65,7 +65,7 @@ public class Product extends BaseComponent {
     }
 
     public Block onActionFromRecommended(Long pid, int count) {
-        recommendedProducts = getCatalogService().findRecommendedProducts(pid, count);
+        recommendedProducts = getProductService().findRecommendedProducts(pid, count);
         return recommendedBlock;
     }
 

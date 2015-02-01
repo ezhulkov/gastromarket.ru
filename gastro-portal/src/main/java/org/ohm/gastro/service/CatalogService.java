@@ -2,56 +2,49 @@ package org.ohm.gastro.service;
 
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CategoryEntity;
-import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.RatingEntity;
-import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.domain.UserEntity;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by ezhulkov on 21.08.14.
  */
-public interface CatalogService extends ImageUploaderService<ProductEntity> {
+public interface CatalogService extends ImageUploaderService<CatalogEntity> {
 
-    public List<ProductEntity> searchProducts(String query);
+    List<CategoryEntity> findAllCategories();
 
-    public List<CategoryEntity> findAllCategories();
+    List<CategoryEntity> findAllRootCategories();
 
-    public List<CategoryEntity> findAllRootCategories();
+    List<PropertyEntity> findAllProperties();
 
-    public List<PropertyEntity> findAllProperties();
+    List<PropertyValueEntity> findAllValues(PropertyEntity property);
 
-    public List<PropertyValueEntity> findAllValues(PropertyEntity property);
+    CategoryEntity findCategory(Long id);
 
-    public CategoryEntity findCategory(Long id);
+    PropertyEntity findProperty(Long id);
 
-    public PropertyEntity findProperty(Long id);
+    PropertyValueEntity findPropertyValue(Long id);
 
-    public PropertyValueEntity findPropertyValue(Long id);
+    CategoryEntity saveCategory(CategoryEntity category);
 
-    public CategoryEntity saveCategory(CategoryEntity category);
+    PropertyEntity saveProperty(PropertyEntity property);
 
-    public PropertyEntity saveProperty(PropertyEntity property);
+    PropertyValueEntity savePropertyValue(PropertyValueEntity value);
 
-    public PropertyValueEntity savePropertyValue(PropertyValueEntity value);
+    void deleteCategory(Long id);
 
-    public void deleteCategory(Long id);
+    void deleteProperty(Long id);
 
-    public void deleteProperty(Long id);
+    void deletePropertyValue(Long id);
 
-    public void deletePropertyValue(Long id);
+    List<PropertyEntity> findAllProperties(CategoryEntity object);
 
-    public List<PropertyEntity> findAllProperties(CategoryEntity object);
+    List<CatalogEntity> findAllCatalogs();
 
-    public List<CatalogEntity> findAllCatalogs();
-
-    public List<CatalogEntity> findAllCatalogs(UserEntity user);
-
-    public List<CatalogEntity> findNotSetupCatalogs(UserEntity user);
+    List<CatalogEntity> findAllCatalogs(UserEntity user);
 
     void deleteCatalog(Long id);
 
@@ -59,34 +52,10 @@ public interface CatalogService extends ImageUploaderService<ProductEntity> {
 
     CatalogEntity findCatalog(Long id);
 
-    ProductEntity saveProduct(ProductEntity product);
-
-    void deleteProduct(Long id);
-
-    void promoteProduct(Long id);
-
-    ProductEntity saveProduct(ProductEntity product, Map<Long, String> propValues, Map<Long, String[]> listValues);
-
-    List<TagEntity> findAllTags(ProductEntity oneProduct);
-
-    List<TagEntity> findAllTags(ProductEntity product, PropertyEntity property);
-
-    List<ProductEntity> findAllProducts();
-
-    List<ProductEntity> findPromotedProducts();
-
-    ProductEntity findProduct(Long id);
-
-    List<ProductEntity> findAllProducts(CategoryEntity category, CatalogEntity catalog, Boolean hidden);
-
     List<CategoryEntity> findAllRootCategories(CatalogEntity catalog);
 
     List<RatingEntity> findAllRatings(CatalogEntity user);
 
     void saveRating(RatingEntity rating);
-
-    void publishProduct(Long pid);
-
-    List<ProductEntity> findRecommendedProducts(Long pid, int count);
 
 }

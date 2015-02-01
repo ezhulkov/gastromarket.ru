@@ -68,7 +68,6 @@ public class UserServiceImpl implements UserService, Logging {
             if (userRepository.findByEmail(user.getEmail()) != null) throw new UserExistsException();
             if (Type.COOK.equals(user.getType())) {
                 CatalogEntity catalog = new CatalogEntity();
-                catalog.setWasSetup(false);
                 catalog.setUser(user);
                 catalog.setName("Каталог");
                 catalogRepository.save(catalog);

@@ -17,6 +17,7 @@ import org.ohm.gastro.gui.dto.ShoppingCart;
 import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.MessageService;
 import org.ohm.gastro.service.OrderService;
+import org.ohm.gastro.service.ProductService;
 import org.ohm.gastro.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,6 +78,9 @@ public abstract class BaseComponent {
 
     @Inject
     private CatalogService catalogService;
+
+    @Inject
+    private ProductService productService;
 
     @Inject
     private OrderService orderService;
@@ -161,6 +165,10 @@ public abstract class BaseComponent {
         return catalogService;
     }
 
+    public ProductService getProductService() {
+        return productService;
+    }
+
     public UserService getUserService() {
         return userService;
     }
@@ -178,7 +186,7 @@ public abstract class BaseComponent {
     }
 
     public java.util.List<TagEntity> getProductTags(ProductEntity product) {
-        java.util.List<TagEntity> allTags = getCatalogService().findAllTags(product);
+        java.util.List<TagEntity> allTags = getProductService().findAllTags(product);
         Map<PropertyEntity, List<TagEntity>> groupedTags = allTags.stream().collect(Collectors.groupingBy(TagEntity::getProperty));
         return groupedTags.entrySet().stream()
                 .sorted((o1, o2) -> o1.getKey().getType().compareTo(o2.getKey().getType()))
