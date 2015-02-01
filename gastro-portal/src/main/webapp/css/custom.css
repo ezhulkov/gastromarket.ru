@@ -993,7 +993,7 @@ html div.office table.table td.toggle {
 
 .product-item .pic {
     height: 270px;
-    cursor: zoom-in;
+    cursor: pointer;
 }
 
 .product-item .data {
@@ -1193,6 +1193,11 @@ html div.office table.table td.toggle {
     width: 80px;
     height: 80px;
 }
+
+.block3 .recommended img:hover {
+    opacity: 0.8;
+}
+
 
 .product .info {
     margin: 20px 0;
