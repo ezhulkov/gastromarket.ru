@@ -119,12 +119,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <t:if test="editProduct">
-                                <input class="btn btn-red" t:type="submit" t:id="saveAndClose" value="Сохранить"/>
-                            </t:if>
-                            <t:unless test="editProduct">
-                                <a class="btn btn-white signup-link" data-dismiss="modal" href="#">Закрыть</a>
-                            </t:unless>
+                            <input class="btn btn-red" t:type="submit" t:id="saveAndClose" value="${saveCaption}"/>
                             <t:if test="nextCaption">
                                 <input class="btn btn-red" t:type="submit" t:id="saveAndNext" value="${nextCaption}"/>
                             </t:if>

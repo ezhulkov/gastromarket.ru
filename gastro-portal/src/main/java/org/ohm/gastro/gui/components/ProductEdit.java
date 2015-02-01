@@ -121,6 +121,11 @@ public class ProductEdit extends BaseComponent {
         return getCatalogService().findAllRootCategories();
     }
 
+    public String getSaveCaption() {
+        if (editProduct) return getMessages().get("save.product");
+        return getMessages().get("create.product");
+    }
+
     public String getNextCaption() {
         if (stage == Stage.DESC) return editProduct ? getMessages().get("edit.props") : getMessages().get("add.props");
         if (stage == Stage.PROP) return editProduct ? getMessages().get("edit.photo") : getMessages().get("add.photo");
@@ -225,8 +230,14 @@ public class ProductEdit extends BaseComponent {
                 this.stage = Stage.PHOTO;
             }
             if (closeImmediately) this.stage = Stage.DESC;
-            if (closeImmediately || !editProduct) ajaxResponseRenderer.addRender(productsZone, productsBlock);
-            if (!closeImmediately) ajaxResponseRenderer.addRender(getProductZone(), productBlock);
+            if (editProduct) {
+                if (closeImmediately) ajaxResponseRenderer.addRender(productsZone, productsBlock);
+                else ajaxResponseRenderer.addRender(getProductZone(), productBlock);
+            } else {
+                ajaxResponseRenderer.addRender(getProductZone(), productBlock);
+                ajaxResponseRenderer.addRender(productsZone, productsBlock);
+                if (closeImmediately) product = new ProductEntity();
+            }
         } else {
             closeImmediately = false;
             product = pid != null ? getCatalogService().findProduct(pid) : new ProductEntity();
