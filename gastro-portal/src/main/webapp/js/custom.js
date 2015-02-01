@@ -25,7 +25,7 @@ jQuery.noConflict();
     });
 })();
 Event.observe(document, Tapestry.ZONE_UPDATED_EVENT, function (event) {
-    initChosen(jQuery(event.srcElement).find('select.chosen-select'));
+    initChosen(jQuery(this).find('select.chosen-select'));
 });
 jQuery(document).ready(function () {
     jQuery(".tip").tooltip({placement: "bottom"});
@@ -181,47 +181,44 @@ function initBasket() {
     });
 }
 function initProductsEdit() {
-    var modals = jQuery("div.product-edit-modal");
-    initProductEdit(modals);
-    jQuery(modals).find("div.t-zone").each(function (i, e) {
-        Event.observe(e, Tapestry.ZONE_UPDATED_EVENT, function (event) {
-            initProductEdit(jQuery("div.product-edit-modal", event.srcElement));
-        });
-    })
-}
-function initProductEdit(el) {
-    jQuery(el).each(function (i, e) {
-        var linkId = jQuery(e).attr("id");
-        jQuery("a[data-target='#" + linkId + "']").unbind("click").bind("click", function () {
-            jQuery("div.t-error", e).hide();
-            jQuery(".t-error", e).removeClass("t-error");
-            jQuery(".error", e).hide();
-            jQuery("input[name='stage']", e).attr('value', 'DESC');
-            toggleProductEdit(e, false);
-            initTitle(jQuery("div.title", e));
-        });
+    jQuery("div.product-edit-modal").each(function (i, e) {
+        initProductEdit(e);
     });
 }
-function addMoreProperties(el) {
-    var listBlock = jQuery(el);
+function initProductEdit(el) {
+    var linkId = jQuery(el).attr("id");
+    jQuery("a[data-target='#" + linkId + "']").unbind("click").bind("click", function () {
+        jQuery("div.t-error", el).hide();
+        jQuery(".t-error", el).removeClass("t-error");
+        jQuery(".error", el).hide();
+        jQuery("input[name='stage']", el).attr('value', 'DESC');
+        toggleProductEdit(el, false);
+    });
+}
+function addMoreProperties(product, el) {
+    var listBlock = jQuery(el, product);
     var lastList = jQuery('select:last', listBlock);
     var newList = jQuery(lastList).clone();
     jQuery(newList).insertAfter(lastList);
     initChosen(jQuery(newList));
 }
 function toggleProductEdit(el, closeModal) {
-    var type = jQuery(el).find("input[name='stage']").attr('value');
-    if (closeModal) {
-        jQuery(el).closest(".product-edit-modal").modal('hide');
-        return;
-    }
+    initTitle(jQuery("div.title", el));
     initFineUploader(jQuery(el).find("div.upload-file"));
-    jQuery(".product-details", el).hide();
-    jQuery(".properties-details", el).hide();
-    jQuery(".photo-details", el).hide();
-    if (type == 'DESC') jQuery(".product-details", el).show();
-    if (type == 'PROP') jQuery(".properties-details", el).show();
-    if (type == 'PHOTO') jQuery(".photo-details", el).show();
+    if (closeModal) {
+        modal = jQuery(el).closest(".product-edit-modal");
+        initProductEdit(modal);
+        modal.modal('hide');
+        jQuery("body").removeClass("modal-open");
+    } else {
+        jQuery(".product-details", el).hide();
+        jQuery(".properties-details", el).hide();
+        jQuery(".photo-details", el).hide();
+        var type = jQuery(el).find("input[name='stage']").attr('value');
+        if (type == 'DESC') jQuery(".product-details", el).show();
+        if (type == 'PROP') jQuery(".properties-details", el).show();
+        if (type == 'PHOTO') jQuery(".photo-details", el).show();
+    }
 }
 function initLoginModal() {
     var hideAll = function () {

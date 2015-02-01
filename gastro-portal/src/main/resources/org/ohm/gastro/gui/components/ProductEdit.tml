@@ -93,7 +93,7 @@
                                                     </t:unless>
                                                 </div>
                                                 <div class="col-sm-1 more">
-                                                    <a href="#" onclick="javascript:addMoreProperties('#list${oneProperty.id}')"
+                                                    <a href="#" onclick="javascript:addMoreProperties('#${modalId}','#list${oneProperty.id}')"
                                                        data="${oneProperty.id}" class="glyphicon glyphicon-plus more-btn"/>
                                                 </div>
                                             </t:if>

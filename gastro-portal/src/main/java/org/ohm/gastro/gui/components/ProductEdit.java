@@ -8,6 +8,7 @@ import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.RequestParameter;
 import org.apache.tapestry5.corelib.components.Hidden;
 import org.apache.tapestry5.corelib.components.Select;
 import org.apache.tapestry5.corelib.components.TextArea;
@@ -154,7 +155,7 @@ public class ProductEdit extends BaseComponent {
                 getProductTags(product).stream()
                         .filter(t -> t.getProperty().getType() == PropertyEntity.Type.LIST)
                         .filter(t -> t.getProperty().equals(oneProperty))
-                        .flatMap(t -> Arrays.stream(t.getData().split(",")))
+                        .flatMap(t -> Arrays.stream(t.getData().split(", ")))
                         .map(t -> new TagEntity(t, oneProperty))
                         .collect(Collectors.toList()) :
                 Lists.newArrayList();
@@ -198,10 +199,10 @@ public class ProductEdit extends BaseComponent {
         closeImmediately = false;
     }
 
-    public void onSubmitFromEditProductForm(Long pid) {
+    public void onSubmitFromEditProductForm(Long pid, @RequestParameter(value = "stage", allowBlank = true) Stage currentStage) {
         if (!error) {
             final ProductEntity origProduct = pid != null ? getCatalogService().findProduct(pid) : product;
-            if (stage == Stage.DESC) {
+            if (currentStage == Stage.DESC) {
                 origProduct.setName(product.getName());
                 origProduct.setPrice(product.getPrice());
                 origProduct.setDescription(product.getDescription());
@@ -209,7 +210,7 @@ public class ProductEdit extends BaseComponent {
                 origProduct.setCatalog(catalog);
                 product = getCatalogService().saveProduct(origProduct);
                 this.stage = Stage.PROP;
-            } else if (stage == Stage.PROP) {
+            } else if (currentStage == Stage.PROP) {
                 Map<Long, String> propValues = getRequest().getParameterNames().stream()
                         .filter(t -> t.startsWith("prop-"))
                         .map(t -> t.substring("prop-".length(), t.length()))
@@ -223,6 +224,7 @@ public class ProductEdit extends BaseComponent {
                 product = getCatalogService().saveProduct(origProduct, propValues, listValues);
                 this.stage = Stage.PHOTO;
             }
+            if (closeImmediately) this.stage = Stage.DESC;
             if (closeImmediately || !editProduct) ajaxResponseRenderer.addRender(productsZone, productsBlock);
             if (!closeImmediately) ajaxResponseRenderer.addRender(getProductZone(), productBlock);
         } else {
