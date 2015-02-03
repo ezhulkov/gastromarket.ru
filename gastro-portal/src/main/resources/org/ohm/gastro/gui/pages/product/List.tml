@@ -2,8 +2,57 @@
 
     <div class="catalog">
         <div class="container">
+
             <div class="title">
                 <h1><span>${title}</span></h1>
+            </div>
+
+            <div class="col-sm-12 text-center filter">
+                <ul>
+                    <li>Категория:
+                        <div class="dropdown username">
+                            <a data-target="#" href="#sortMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                                ${categoryName}
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <t:loop source="categories" value="oneCategory">
+                                    <li><a href="/product/list/${oneCategory.id}">${oneCategory.name}</a>
+                                        <t:if test="oneCategory.children">
+                                            <ul>
+                                                <t:loop source="oneCategory.children" value="oneCategory">
+                                                    <li><a href="/product/list/${oneCategory.id}">${oneCategory.name}</a></li>
+                                                </t:loop>
+                                            </ul>
+                                        </t:if>
+                                    </li>
+                                </t:loop>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>Сортировать по:
+                        <div class="dropdown username">
+                            <a data-target="#" href="#sortMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                                ${orderMessage}
+                                <span class="order order-${order}"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="/product/list/${categoryId}/name/asc">по имени <span class="order order-ASC"></span></a>
+                                </li>
+                                <li>
+                                    <a href="/product/list/${categoryId}/name/desc">по имени <span class="order order-DESC"></span></a>
+                                </li>
+                                <li>
+                                    <a href="/product/list/${categoryId}/price/asc">по цене <span class="order order-ASC"></span></a>
+                                </li>
+                                <li>
+                                    <a href="/product/list/${categoryId}/price/desc">по цене <span class="order order-DESC"></span></a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </li>
+                </ul>
             </div>
 
             <div id="product-items" class="grid-block"/>

@@ -4,10 +4,10 @@
         <div class="col-sm-12 menu">
             <ul>
                 <li>
-                    <t:pagelink page="product/list">Каталог</t:pagelink>
+                    <a href="/product/list">Каталог</a>
                 </li>
                 <li>
-                    <t:pagelink page="catalog/list">Кулинары</t:pagelink>
+                    <a href="/catalog/list">Кулинары</a>
                 </li>
                 <li>
                     <t:pagelink page="about">О проекте</t:pagelink>

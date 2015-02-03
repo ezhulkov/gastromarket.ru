@@ -8,7 +8,7 @@
 
             <div id="product-items" class="grid-block">
                 <t:loop source="products" value="oneProduct">
-                    <t:product product="oneProduct"/>
+                    <t:product product="oneProduct" class="fixed"/>
                 </t:loop>
             </div>
             <t:productModalTemplate/>

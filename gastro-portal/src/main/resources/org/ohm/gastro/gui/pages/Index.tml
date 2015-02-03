@@ -29,7 +29,9 @@
             <div class="grid-block category">
                 <t:loop source="categories" value="oneCategory">
                     <div>
-                        <t:pagelink style="background: url('../img/category.png')" page="product/list" context="oneCategory.id"/>
+                        <t:pagelink page="product/list" context="oneCategory.id">
+                            <img src="/img/category.png"/>
+                        </t:pagelink>
                         ${oneCategory.name}
                     </div>
                 </t:loop>

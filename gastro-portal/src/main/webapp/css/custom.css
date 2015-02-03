@@ -925,6 +925,7 @@ html div.office table.table td.toggle {
 
 .catalog .container,
 .product .container,
+.info .container,
 .contacts .container {
     min-height: 300px;
     margin-bottom: 100px;
@@ -1212,6 +1213,37 @@ html div.office table.table td.toggle {
 
 .product .info > div {
     padding: 10px;
+}
+
+.filter ul {
+    list-style: none;
+    margin: 20px 0;
+}
+
+.filter ul li {
+    display: inline;
+    padding: 10px 20px;
+    font-size: 20px;
+}
+
+.filter ul li a {
+    color: #bd0400;
+}
+
+.order {
+    background: url("../img/order.png") no-repeat;
+    height: 5px;
+    width: 9px;
+    display: inline-block;
+    margin: 0 0 3px 3px;
+}
+
+.order-ASC {
+    background-position: 0 0;
+}
+
+.order-DESC {
+    background-position: 0 -5px;
 }
 
 /*Chefs*/

@@ -14,6 +14,14 @@ import java.util.Map;
  */
 public interface ProductService extends ImageUploaderService<ProductEntity> {
 
+    public enum Order {
+        DESC, ASC, NONE
+    }
+
+    public enum OrderType {
+        NAME, PRICE, NONE
+    }
+
     List<ProductEntity> findAllProducts(CategoryEntity category, CatalogEntity catalog, Boolean hidden);
 
     ProductEntity findProduct(Long id);

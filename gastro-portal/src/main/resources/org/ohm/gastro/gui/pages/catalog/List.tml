@@ -35,6 +35,8 @@
         <t:productmodaltemplate/>
     </div>
 
+    <t:landing/>
+
     <script>
         jQuery(document).ready(function () {
             initProductCatalogFixed();

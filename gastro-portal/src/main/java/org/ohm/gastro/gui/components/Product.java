@@ -26,7 +26,7 @@ public class Product extends BaseComponent {
     private ProductEntity product;
 
     @Property
-    @Parameter(name = "class", required = false, allowNull = true, value = "", defaultPrefix = BindingConstants.LITERAL)
+    @Parameter(name = "class", required = false, allowNull = true, value = "floating", defaultPrefix = BindingConstants.LITERAL)
     private String additionalClass;
 
     @Property
