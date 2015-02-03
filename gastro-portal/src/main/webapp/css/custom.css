@@ -931,6 +931,12 @@ html div.office table.table td.toggle {
     margin-bottom: 100px;
 }
 
+.catalog .search {
+    margin: 38px 0 10px 0;
+    width: 100%;
+    min-height: 0;
+}
+
 .form-control.price {
     font-weight: bold;
     font-size: 24px;
@@ -1272,6 +1278,20 @@ html div.office table.table td.toggle {
     -webkit-border-radius: 0 8px 8px 8px;
     -moz-border-radius: 0 8px 8px;
     border-radius: 8px;
+}
+
+.dropdown-submenu > a:after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #ccc;
+    margin-top: 5px;
+    margin-right: -10px;
 }
 
 .dropdown-submenu > .dropdown-menu::after,

@@ -3,9 +3,19 @@
     <div class="catalog">
         <div class="container">
 
-            <div class="title">
-                <h1><span>${title}</span></h1>
-            </div>
+            <t:if test="searchString">
+                <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="container search">
+                    <div class="col-sm-12">
+                        <input type="text" placeholder="Поиск" class="text"/>
+                        <input type="submit" class="submit"/>
+                    </div>
+                </t:form>
+            </t:if>
+            <t:unless test="searchString">
+                <div class="title">
+                    <h1><span>${title}</span></h1>
+                </div>
+            </t:unless>
 
             <div class="col-sm-12 text-center filter">
                 <ul>
@@ -21,7 +31,7 @@
                                             <a href="/product/list/${oneCategory.id}">${oneCategory.name}</a>
                                             <ul class="dropdown-menu">
                                                 <t:loop source="oneCategory.children" value="oneCategory">
-                                                    <li class="dropdown-submenu"><a href="/product/list/${oneCategory.id}">${oneCategory.name}</a></li>
+                                                    <li><a href="/product/list/${oneCategory.id}">${oneCategory.name}</a></li>
                                                 </t:loop>
                                             </ul>
                                         </li>
