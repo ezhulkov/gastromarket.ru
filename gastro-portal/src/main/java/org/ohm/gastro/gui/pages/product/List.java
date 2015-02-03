@@ -52,7 +52,7 @@ public class List extends BaseComponent {
     }
 
     public String getCategoryName() {
-        return category == null ? getMessages().get("category.select") : category.getName();
+        return category == null ? getMessages().get("category.select") : category.getName().toLowerCase();
     }
 
     public java.util.List<ProductEntity> getProducts() {

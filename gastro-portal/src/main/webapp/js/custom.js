@@ -28,6 +28,13 @@ Event.observe(document, Tapestry.ZONE_UPDATED_EVENT, function (event) {
     initChosen(jQuery(this).find('select.chosen-select'));
 });
 jQuery(document).ready(function () {
+    jQuery("ul.dropdown-menu").each(function (e) {
+        var parentWidth = jQuery(this).parent().innerWidth();
+        var menuWidth = jQuery(this).innerWidth();
+        var margin = (parentWidth / 2 ) - (menuWidth / 2);
+        margin = margin + "px";
+        jQuery(this).css("margin-left", margin);
+    });
     jQuery(".tip").tooltip({placement: "bottom"});
     initChosen(jQuery("select.chosen-select"));
     initLoginModal();

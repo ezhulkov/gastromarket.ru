@@ -10,43 +10,47 @@
             <div class="col-sm-12 text-center filter">
                 <ul>
                     <li>Категория:
-                        <div class="dropdown username">
+                        <div class="dropdown cats">
                             <a data-target="#" href="#sortMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                                 ${categoryName}
                             </a>
-                            <ul class="dropdown-menu" role="menu">
+                            <ul class="dropdown-menu multi-level" role="menu">
                                 <t:loop source="categories" value="oneCategory">
-                                    <li><a href="/product/list/${oneCategory.id}">${oneCategory.name}</a>
-                                        <t:if test="oneCategory.children">
-                                            <ul>
+                                    <t:if test="oneCategory.children">
+                                        <li class="dropdown-submenu">
+                                            <a href="/product/list/${oneCategory.id}">${oneCategory.name}</a>
+                                            <ul class="dropdown-menu">
                                                 <t:loop source="oneCategory.children" value="oneCategory">
-                                                    <li><a href="/product/list/${oneCategory.id}">${oneCategory.name}</a></li>
+                                                    <li class="dropdown-submenu"><a href="/product/list/${oneCategory.id}">${oneCategory.name}</a></li>
                                                 </t:loop>
                                             </ul>
-                                        </t:if>
-                                    </li>
+                                        </li>
+                                        <t:parameter name="else">
+                                            <li><a href="/product/list/${oneCategory.id}">${oneCategory.name}</a></li>
+                                        </t:parameter>
+                                    </t:if>
                                 </t:loop>
                             </ul>
                         </div>
                     </li>
                     <li>Сортировать по:
-                        <div class="dropdown username">
+                        <div class="dropdown sort">
                             <a data-target="#" href="#sortMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                                 ${orderMessage}
                                 <span class="order order-${order}"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
-                                    <a href="/product/list/${categoryId}/name/asc">по имени <span class="order order-ASC"></span></a>
+                                    <a href="/product/list/${categoryId}/name/asc">по имени возрастая</a>
                                 </li>
                                 <li>
-                                    <a href="/product/list/${categoryId}/name/desc">по имени <span class="order order-DESC"></span></a>
+                                    <a href="/product/list/${categoryId}/name/desc">по имени убывая</a>
                                 </li>
                                 <li>
-                                    <a href="/product/list/${categoryId}/price/asc">по цене <span class="order order-ASC"></span></a>
+                                    <a href="/product/list/${categoryId}/price/asc">по цене возрастая</a>
                                 </li>
                                 <li>
-                                    <a href="/product/list/${categoryId}/price/desc">по цене <span class="order order-DESC"></span></a>
+                                    <a href="/product/list/${categoryId}/price/desc">по цене убывая</a>
                                 </li>
                             </ul>
                         </div>

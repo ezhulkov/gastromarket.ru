@@ -1220,7 +1220,7 @@ html div.office table.table td.toggle {
     margin: 20px 0;
 }
 
-.filter ul li {
+.filter > ul li {
     display: inline;
     padding: 10px 20px;
     font-size: 20px;
@@ -1244,6 +1244,43 @@ html div.office table.table td.toggle {
 
 .order-DESC {
     background-position: 0 -5px;
+}
+
+.filter .dropdown {
+    display: inline;
+}
+
+.filter .dropdown li {
+    padding: 0;
+}
+
+.filter .dropdown li a {
+    font-size: 14px;
+    text-align: left;
+    padding: 4px 25px 4px 20px;
+}
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu > .dropdown-menu {
+    top: 0;
+    left: 50px;
+    margin-top: -6px;
+    margin-left: -1px;
+    -webkit-border-radius: 0 8px 8px 8px;
+    -moz-border-radius: 0 8px 8px;
+    border-radius: 8px;
+}
+
+.dropdown-submenu > .dropdown-menu::after,
+.dropdown-submenu > .dropdown-menu::before {
+    left: 30%;
+}
+
+.dropdown-submenu:hover > .dropdown-menu {
+    display: block;
 }
 
 /*Chefs*/
