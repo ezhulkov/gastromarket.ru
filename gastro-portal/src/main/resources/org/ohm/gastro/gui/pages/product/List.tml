@@ -21,9 +21,7 @@
                 <ul>
                     <li>Категория:
                         <div class="dropdown cats">
-                            <a data-target="#" href="#sortMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-                                ${categoryName}
-                            </a>
+                            <a data-target="#" href="#sortMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">${categoryName}</a>
                             <ul class="dropdown-menu multi-level" role="menu">
                                 <t:loop source="categories" value="oneCategory">
                                     <t:if test="oneCategory.children">
@@ -45,10 +43,8 @@
                     </li>
                     <li>Сортировать по:
                         <div class="dropdown sort">
-                            <a data-target="#" href="#sortMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-                                ${orderMessage}
-                                <span class="order order-${order}"></span>
-                            </a>
+                            <a data-target="#" href="#sortMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">${orderMessage}</a>
+                            <span class="order order-${order}"></span>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
                                     <a href="/product/list/${categoryId}/name/asc">по имени возрастая</a>

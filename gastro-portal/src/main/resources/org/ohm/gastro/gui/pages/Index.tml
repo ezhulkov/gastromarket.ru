@@ -9,10 +9,9 @@
                     <h2>Заказывайте вкусную еду у первоклассных кулинаров</h2>
 
                     <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="container search">
-                        <div class="col-sm-12">
-                            <input t:id="search" type="text" placeholder="Поиск" class="text"/>
-                            <input type="submit" class="submit"/>
-                        </div>
+                        <span>&nbsp;</span>
+                        <input t:id="search" type="text" placeholder="Поиск" class="text hidden"/>
+                        <input type="submit" class="submit"/>
                     </t:form>
 
                     <div class="row">
