@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.pages;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.tapestry5.EventContext;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 public class Index extends BaseComponent {
 
     @Property
-    private String searchString;
+    private String searchString = "";
 
     @Property
     private CategoryEntity oneCategory;
@@ -41,7 +42,7 @@ public class Index extends BaseComponent {
     }
 
     public void onSubmitFromSearchForm() throws IOException {
-        getResponse().sendRedirect("/product/list/search/" + searchString);
+        getResponse().sendRedirect("/product/list/search/" + ObjectUtils.defaultIfNull(searchString, "Поиск"));
     }
 
     @Cached

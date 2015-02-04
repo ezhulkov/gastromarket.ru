@@ -698,30 +698,6 @@ div.username {
     border: none;
 }
 
-.search span {
-    height: 48px;
-    width: 32px;
-    background: url("../img/search-input-left.png") no-repeat;
-}
-
-.search input.text {
-    height: 48px;
-    width: 520px;
-    background: url("../img/search-tile.png") repeat-x;
-    padding: 5px 0 0 0;
-    font-size: 20px;
-    color: black;
-}
-
-.search input.submit {
-    float: right;
-    padding: 0;
-    width: 50px;
-    height: 48px;
-    text-indent: -999em;
-    background: url("../img/search-btn.png") no-repeat;
-}
-
 .grid-block {
     width: 1150px;
     margin: 0 auto 10px auto;

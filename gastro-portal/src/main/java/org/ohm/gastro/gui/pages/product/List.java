@@ -21,7 +21,7 @@ public class List extends BaseComponent {
     private CategoryEntity category = null;
 
     @Property
-    private String searchString = null;
+    private String searchString = "";
 
     @Property
     private ProductService.Order order = Order.NONE;
