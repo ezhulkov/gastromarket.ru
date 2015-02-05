@@ -313,8 +313,6 @@ html > body div.t-error ul li {
     background: #fff;
     position: relative;
     z-index: 1;
-    padding: 0 12px;
-    margin: 0 auto;
 }
 
 .title a {
@@ -341,22 +339,18 @@ html > body div.t-error ul li {
     border: 2px solid #bd0400;
     color: #bd0400;
     font-size: 16px;
-    padding: 5px 5px 5px 20px;
-    border-radius: 20px;
-}
-
-.more-link a {
     padding: 5px 20px 5px 20px;
+    border-radius: 20px;
 }
 
 .more-link a span,
 .data-header a span,
 .title a span {
-    padding: 0 12px;
-    margin: 0 auto;
+    margin-bottom: -4px;
+    margin-left: 5px;
     width: 10px;
     height: 18px;
-    display: inline;
+    display: inline-block;
     background: url("../img/title-forward.png") center top no-repeat;
 }
 

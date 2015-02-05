@@ -31,7 +31,7 @@
             <t:productModalTemplate/>
 
             <div class="more-link">
-                <t:pagelink page="catalog/products" t:context="catalog.id">Все товары <span/></t:pagelink>
+                <t:pagelink page="catalog/products" t:context="catalog.id">Все товары<span/></t:pagelink>
             </div>
 
         </div>
