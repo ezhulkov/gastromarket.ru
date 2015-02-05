@@ -1355,6 +1355,10 @@ html div.office table.table td.toggle {
 }
 
 .chefs .chef .name {
+    padding: 10px 0;
+}
+
+.chefs .chef .name a {
     color: black;
     font-size: 20px;
     line-height: 25px;
