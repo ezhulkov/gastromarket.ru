@@ -34,6 +34,10 @@
                 <t:pagelink page="catalog/products" t:context="catalog.id">Все товары<span/></t:pagelink>
             </div>
 
+            <div class="title">
+                <h1><span>Отзывы</span></h1>
+            </div>
+
         </div>
     </div>
 
