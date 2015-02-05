@@ -349,6 +349,7 @@ html > body div.t-error ul li {
     padding: 5px 20px 5px 20px;
 }
 
+.more-link a span,
 .data-header a span,
 .title a span {
     padding: 0 12px;
@@ -1260,7 +1261,7 @@ html div.office table.table td.toggle {
 }
 
 .dropdown-submenu > .dropdown-menu {
-    left: 80%;
+    left: 95%;
     height: 236px;
     -webkit-border-radius: 0 8px 8px 8px;
     -moz-border-radius: 0 8px 8px;
@@ -1282,6 +1283,10 @@ html div.office table.table td.toggle {
     border-left-color: #ccc;
     margin-top: 5px;
     margin-right: -10px;
+}
+
+.dropdown-submenu:hover > a:after {
+    border-left-color: #bd0400;
 }
 
 .dropdown-submenu > .dropdown-menu::after,
@@ -1359,4 +1364,8 @@ html div.office table.table td.toggle {
     font-size: 20px;
     line-height: 25px;
     margin: 10px 0 0 0;
+}
+
+.chef-page .info {
+    margin-bottom: 50px;
 }

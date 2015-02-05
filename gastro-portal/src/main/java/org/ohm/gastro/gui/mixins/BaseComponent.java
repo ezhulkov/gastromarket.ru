@@ -218,4 +218,5 @@ public abstract class BaseComponent {
     public void setShoppingCart(ShoppingCart shoppingCart) {
         this.shoppingCart = shoppingCart;
     }
+
 }

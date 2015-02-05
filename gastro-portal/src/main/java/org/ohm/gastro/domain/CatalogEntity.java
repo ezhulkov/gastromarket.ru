@@ -39,6 +39,9 @@ public class CatalogEntity extends AbstractBaseEntity {
     private String delivery;
 
     @Column
+    private String payment;
+
+    @Column
     private Integer rating = 0;
 
     @Column
@@ -148,4 +151,11 @@ public class CatalogEntity extends AbstractBaseEntity {
         this.avatarUrlSmall = avatarUrlSmall;
     }
 
+    public String getPayment() {
+        return payment;
+    }
+
+    public void setPayment(String payment) {
+        this.payment = payment;
+    }
 }

@@ -5,6 +5,7 @@ import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -37,6 +38,15 @@ public class Index extends EditObjectPage<CatalogEntity> {
 
     @Component(id = "name", parameters = {"value=object?.name", "validate=maxlength=64,required"})
     private TextField nameField;
+
+    @Component(id = "desc", parameters = {"value=object?.description", "validate=maxlength=512"})
+    private TextArea descField;
+
+    @Component(id = "delivery", parameters = {"value=object?.delivery", "validate=maxlength=512"})
+    private TextArea dlvrField;
+
+    @Component(id = "payment", parameters = {"value=object?.payment", "validate=maxlength=256"})
+    private TextArea pmtField;
 
     @Cached
     public java.util.List<ProductEntity> getProducts() {

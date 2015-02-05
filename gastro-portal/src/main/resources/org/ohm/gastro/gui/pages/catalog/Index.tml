@@ -1,3 +1,48 @@
-<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="${catalog.name}">
 
-</t:htmllayout>
+    <div class="chef-page">
+        <div class="container">
+            <div class="title">
+                <h1><span>${catalog.name}</span></h1>
+            </div>
+            <div class="row info">
+                <div class="col-sm-5">
+                    <img class="pull-right" src="${catalog.avatarUrl}"/>
+                </div>
+                <div class="col-sm-6 product-item">
+                    <t:if test="description">
+                        <span class="desc"><t:outputraw value="description"/></span>
+                    </t:if>
+                    <t:if test="delivery">
+                        <h4>Доставка:</h4>
+                        <span class="desc"><t:outputraw value="delivery"/></span>
+                    </t:if>
+                    <t:if test="payment">
+                        <h4>Оплата:</h4>
+                        <span class="payment"><t:outputraw value="payment"/></span>
+                    </t:if>
+                </div>
+            </div>
+            <div id="product-items" class="grid-block">
+                <t:loop source="products" value="oneProduct">
+                    <t:product product="oneProduct" class="fixed"/>
+                </t:loop>
+            </div>
+            <t:productModalTemplate/>
+
+            <div class="more-link">
+                <t:pagelink page="catalog/products" t:context="catalog.id">Все товары <span/></t:pagelink>
+            </div>
+
+        </div>
+    </div>
+
+    <t:landing/>
+
+    <script>
+        jQuery(document).ready(function () {
+            initProductCatalogFixed();
+        });
+    </script>
+
+</t:htmlLayout>
