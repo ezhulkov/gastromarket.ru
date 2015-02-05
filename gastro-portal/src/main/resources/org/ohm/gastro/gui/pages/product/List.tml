@@ -30,11 +30,12 @@
                                     <t:if test="oneCategory.children">
                                         <li class="dropdown-submenu">
                                             <a href="/product/list/${oneCategory.id}">${oneCategory.name}</a>
-                                            <ul class="dropdown-menu">
+
+                                            <div class="dropdown-menu">
                                                 <t:loop source="oneCategory.children" value="oneCategory">
-                                                    <li><a href="/product/list/${oneCategory.id}">${oneCategory.name}</a></li>
+                                                    <a href="/product/list/${oneCategory.id}">${oneCategory.name}</a>
                                                 </t:loop>
-                                            </ul>
+                                            </div>
                                         </li>
                                         <t:parameter name="else">
                                             <li><a href="/product/list/${oneCategory.id}">${oneCategory.name}</a></li>

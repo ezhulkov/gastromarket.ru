@@ -188,6 +188,7 @@ html > body div.t-error ul li {
     border-radius: 8px;
     top: 25px;
     font-size: 16px;
+    border: 1px solid #aaa;
 }
 
 .dropdown-menu.basket-show {
@@ -1203,9 +1204,8 @@ html div.office table.table td.toggle {
     padding: 10px;
 }
 
-.filter ul {
+.filter > ul {
     list-style: none;
-    margin: 20px 0;
 }
 
 .filter > ul li {
@@ -1216,6 +1216,10 @@ html div.office table.table td.toggle {
 
 .filter ul li a {
     color: #bd0400;
+}
+
+.filter ul.dropdown-menu.multi-level {
+    margin-top: 10px;
 }
 
 .order {
@@ -1242,24 +1246,23 @@ html div.office table.table td.toggle {
     padding: 0;
 }
 
-.filter .dropdown li a {
+.filter .dropdown li a,
+.filter .dropdown div.dropdown-menu a {
     font-size: 14px;
     text-align: left;
     padding: 4px 25px 4px 20px;
-}
-
-.dropdown-submenu {
-    position: relative;
+    display: block;
 }
 
 .dropdown-submenu > .dropdown-menu {
-    top: 0;
-    left: 50px;
-    margin-top: -6px;
-    margin-left: -1px;
+    left: 80%;
+    height: 236px;
     -webkit-border-radius: 0 8px 8px 8px;
     -moz-border-radius: 0 8px 8px;
-    border-radius: 8px;
+    border-radius: 0 8px 8px 0;
+    top: -1px;
+    margin: 0;
+    background-color: #eee;
 }
 
 .dropdown-submenu > a:after {
@@ -1278,7 +1281,7 @@ html div.office table.table td.toggle {
 
 .dropdown-submenu > .dropdown-menu::after,
 .dropdown-submenu > .dropdown-menu::before {
-    left: 30%;
+    display: none;
 }
 
 .dropdown-submenu:hover > .dropdown-menu {
@@ -1302,7 +1305,7 @@ html div.office table.table td.toggle {
 }
 
 .search-bar input[type=submit] {
-    background: url(../img/search-btn.png) no-repeat 0 0;;
+    background: url(../img/search-btn.png) no-repeat 0 0;
     width: 40px;
     height: 40px;
     border: none;
