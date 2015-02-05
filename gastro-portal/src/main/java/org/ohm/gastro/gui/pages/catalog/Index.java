@@ -5,6 +5,7 @@ import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
+import org.ohm.gastro.domain.RatingEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.stream.Collectors;
@@ -20,6 +21,9 @@ public class Index extends BaseComponent {
     @Property
     private ProductEntity oneProduct;
 
+    @Property
+    private RatingEntity oneRating;
+
     public boolean onActivate(Long pid) {
         catalog = getCatalogService().findCatalog(pid);
         return true;
@@ -27,6 +31,11 @@ public class Index extends BaseComponent {
 
     public Object[] onPassivate() {
         return new Object[]{catalog.getId()};
+    }
+
+    @Cached
+    public java.util.List<RatingEntity> getRatings() {
+        return getCatalogService().findAllRatings(catalog);
     }
 
     @Cached

@@ -1,5 +1,7 @@
 package org.ohm.gastro.domain;
 
+import org.ohm.gastro.util.DateUtils;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -86,6 +88,10 @@ public class RatingEntity extends AbstractBaseEntity {
 
     public void setDate(Timestamp date) {
         this.date = date;
+    }
+
+    public String getDatePrintable() {
+        return DateUtils.GUIDATE_LONG.get().format(date);
     }
 
 }

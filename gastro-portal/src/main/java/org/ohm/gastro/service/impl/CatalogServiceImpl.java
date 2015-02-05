@@ -164,7 +164,7 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Override
     public List<RatingEntity> findAllRatings(CatalogEntity catalog) {
-        return ratingRepository.findAllByCatalog(catalog);
+        return ratingRepository.findAllByCatalogOrderByIdDesc(catalog);
     }
 
     @Override

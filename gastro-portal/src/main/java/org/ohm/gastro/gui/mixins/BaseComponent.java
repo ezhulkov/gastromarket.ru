@@ -27,28 +27,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 public abstract class BaseComponent {
-
-    protected static final ThreadLocal<DateFormat> GUIDATE = new ThreadLocal<DateFormat>() {
-        @Override
-        protected DateFormat initialValue() {
-            return new SimpleDateFormat("dd/MM/yyyy");
-        }
-    };
-
-    protected static final ThreadLocal<DateFormat> GUIDATE_LONG = new ThreadLocal<DateFormat>() {
-        @Override
-        protected DateFormat initialValue() {
-            return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        }
-    };
 
     protected final Logger logger = LoggerFactory.getLogger(BaseComponent.class);
 

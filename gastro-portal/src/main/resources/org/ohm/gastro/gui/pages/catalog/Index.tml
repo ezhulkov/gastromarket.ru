@@ -38,6 +38,30 @@
                 <h1><span>Отзывы</span></h1>
             </div>
 
+            <t:if test="ratings">
+                <ul class="ratings">
+                    <t:loop source="ratings" value="oneRating">
+                        <li class="row">
+                            <div class="col-sm-1"/>
+                            <div class="col-sm-2 pic text-right">
+                                <img src="${oneRating.author.avatarUrlMedium}"/>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="date">
+                                    ${oneRating.datePrintable}
+                                </div>
+                                <div class="name">
+                                    ${oneRating.author.fullName}
+                                </div>
+                                <div class="text">
+                                    ${oneRating.comment}
+                                </div>
+                            </div>
+                        </li>
+                    </t:loop>
+                </ul>
+            </t:if>
+
         </div>
     </div>
 

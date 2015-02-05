@@ -1364,3 +1364,25 @@ html div.office table.table td.toggle {
 .chef-page .info {
     margin-bottom: 50px;
 }
+
+ul.ratings {
+    list-style: none;
+}
+
+ul.ratings .pic {
+    margin: 25px 0;
+}
+
+ul.ratings .pic img {
+    width: 50px;
+    height: 50px;
+}
+
+ul.ratings .date {
+    color: #aaa;
+}
+
+ul.ratings .name {
+    font-size: 20px;
+}
+

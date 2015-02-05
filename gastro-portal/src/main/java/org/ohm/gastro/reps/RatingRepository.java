@@ -11,6 +11,6 @@ import java.util.List;
  */
 public interface RatingRepository extends JpaRepository<RatingEntity, Long> {
 
-    List<RatingEntity> findAllByCatalog(CatalogEntity catalog);
+    List<RatingEntity> findAllByCatalogOrderByIdDesc(CatalogEntity catalog);
 
 }
