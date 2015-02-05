@@ -17,8 +17,8 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
     @Query("from ProductEntity where (category=:category or :category is null) and (catalog=:catalog or :catalog is null) and (hidden=false or :hidden is null) order by id desc")
     List<ProductEntity> findAllByCategoryAndCatalog(@Param("category") CategoryEntity category, @Param("catalog") CatalogEntity catalog, @Param("hidden") Boolean hidden);
 
-    @Query("select pr from ProductEntity pr join pr.category c join c.parent p where p=:parent and (pr.hidden=false or :hidden is null) order by pr.id desc")
-    List<ProductEntity> findAllByParentCategory(@Param("parent") CategoryEntity parentCategory, @Param("hidden") Boolean hidden);
+    @Query("select pr from ProductEntity pr join pr.category c left join c.parent p where (p=:category or c=:category) and (pr.hidden=false or :hidden is null) order by pr.id desc")
+    List<ProductEntity> findAllByParentCategory(@Param("category") CategoryEntity parentCategory, @Param("hidden") Boolean hidden);
 
     @Query(value = "SELECT * FROM (" +
             "       SELECT " +

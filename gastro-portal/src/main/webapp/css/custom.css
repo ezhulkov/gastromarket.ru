@@ -1204,6 +1204,10 @@ html div.office table.table td.toggle {
     padding: 10px;
 }
 
+.filter {
+    margin-top: 20px;
+}
+
 .filter > ul {
     list-style: none;
 }

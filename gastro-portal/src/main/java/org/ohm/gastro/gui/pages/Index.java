@@ -4,7 +4,9 @@ import org.apache.commons.lang.ObjectUtils;
 import org.apache.tapestry5.EventContext;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.HttpError;
+import org.apache.tapestry5.services.URLEncoder;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
@@ -18,6 +20,9 @@ import java.util.stream.Collectors;
  * Created by ezhulkov on 23.08.14.
  */
 public class Index extends BaseComponent {
+
+    @Inject
+    private URLEncoder urlEncoder;
 
     @Property
     private String searchString = "";
@@ -42,7 +47,7 @@ public class Index extends BaseComponent {
     }
 
     public void onSubmitFromSearchForm() throws IOException {
-        getResponse().sendRedirect("/product/list/search/" + ObjectUtils.defaultIfNull(searchString, "Поиск"));
+        getResponse().sendRedirect("/product/list/search/" + urlEncoder.encode((String) ObjectUtils.defaultIfNull(searchString, "")));
     }
 
     @Cached

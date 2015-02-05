@@ -39,6 +39,9 @@ public class List extends BaseComponent {
     @Property
     private Block productsBlock;
 
+    @Property
+    private boolean searchMode = false;
+
     public java.util.List<CategoryEntity> getCategories() {
         return getCatalogService().findAllRootCategories();
     }
@@ -76,6 +79,7 @@ public class List extends BaseComponent {
 
     public boolean onActivate(String token, String searchString) {
         this.searchString = searchString;
+        this.searchMode = true;
         return true;
     }
 
