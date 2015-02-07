@@ -1,6 +1,7 @@
 package org.ohm.gastro.service.impl;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang.ObjectUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CategoryEntity;
@@ -134,6 +135,7 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Override
     public List<CatalogEntity> findAllCatalogs(UserEntity user) {
+        if (user == null) return Lists.newArrayList();
         return catalogRepository.findAllByUser(user);
     }
 

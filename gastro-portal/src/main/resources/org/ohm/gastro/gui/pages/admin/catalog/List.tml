@@ -6,7 +6,7 @@
 
     <t:grid source="catalogs" row="oneCatalog"
             reorder="name,date,user,rating,products"
-            exclude="id,description,delivery,avatarUrl,avatarUrlSmall,avatarUrlMedium"
+            exclude="id,description,delivery,avatarUrl,avatarUrlSmall,avatarUrlMedium,payment,wasSetup"
             add="user,del,products"
             t:mixins="GridSortingDisabled" class="table table-hover">
         <t:parameter name="userCell">

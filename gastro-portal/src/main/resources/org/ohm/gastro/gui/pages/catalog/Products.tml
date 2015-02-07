@@ -4,6 +4,7 @@
         <div class="container">
             <div class="title">
                 <h1><span>${catalog.name}</span></h1>
+                <t:pagelink page="catalog/index" t:context="catalog.id">Вернуться к каталогу<span/></t:pagelink>
             </div>
 
             <div id="product-items" class="grid-block"/>
@@ -14,7 +15,7 @@
 
             <t:block t:id="productsBlock">
                 <t:loop source="products" value="oneProduct">
-                    <t:product product="oneProduct"/>
+                    <t:product product="oneProduct" edit="catalogOwner"/>
                 </t:loop>
                 <t:if test="products">
                     <div class="more-link">
@@ -33,7 +34,14 @@
 
     <script>
         jQuery(document).ready(function () {
-            initProductCatalog(jQuery("#productsZone"));
+            var init = function () {
+                if (${catalogOwner}) initProductCatalogEdit();
+                initProductCatalog(jQuery("#productsZone"));
+            }
+            init();
+            Event.observe(jQuery("#productsZone").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
+                init();
+            });
         });
     </script>
 

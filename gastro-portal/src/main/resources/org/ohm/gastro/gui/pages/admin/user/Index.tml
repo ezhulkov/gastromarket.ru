@@ -35,7 +35,7 @@
         </div>
         <t:grid source="catalogs" row="oneCatalog"
                 reorder="name,date,rating,products,del"
-                add="del,products" exclude="id,description,delivery"
+                add="del,products" exclude="id,description,delivery,avatarUrl,avatarUrlMedium,avatarUrlSmall,payment"
                 t:mixins="GridSortingDisabled" class="table table-hover">
             <t:parameter name="delCell">
                 <t:actionlink t:id="delete" context="oneCatalog.id"><span class="glyphicon glyphicon-remove"/></t:actionlink>

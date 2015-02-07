@@ -1,5 +1,7 @@
 package org.ohm.gastro.domain;
 
+import org.hibernate.proxy.HibernateProxy;
+
 /**
  * Created by ezhulkov on 24.08.14.
  */
@@ -8,13 +10,9 @@ public abstract class AbstractBaseEntity implements BaseEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (o == null || getRealClass(this) != getRealClass(o)) return false;
         AbstractBaseEntity that = (AbstractBaseEntity) o;
-
-        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
-
-        return true;
+        return getId() == null ? that.getId() == null : getId().equals(that.getId());
     }
 
     @Override
@@ -27,6 +25,16 @@ public abstract class AbstractBaseEntity implements BaseEntity {
         return this.getClass().getSimpleName() + "{" +
                 "id='" + getId() + '\'' +
                 '}';
+    }
+
+    public static Class getRealClass(Object proxy) {
+        if (proxy instanceof HibernateProxy) {
+            return ((HibernateProxy) proxy).getHibernateLazyInitializer()
+                    .getImplementation()
+                    .getClass();
+        } else {
+            return proxy.getClass();
+        }
     }
 
 }

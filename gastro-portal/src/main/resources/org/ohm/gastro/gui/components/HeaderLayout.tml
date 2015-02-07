@@ -17,6 +17,13 @@
                                     <li>
                                         <t:pagelink page="office" context="['UPDATE','0']">Мой профиль</t:pagelink>
                                     </li>
+                                    <t:if test="cook">
+                                        <t:loop source="catalogs" value="oneCatalog">
+                                            <li>
+                                                <t:pagelink page="catalog/index" t:context="oneCatalog.id">Каталог '${oneCatalog.name}'</t:pagelink>
+                                            </li>
+                                        </t:loop>
+                                    </t:if>
                                     <t:if test="admin">
                                         <li>
                                             <t:pagelink page="admin/category/list">Системные настройки</t:pagelink>
@@ -51,7 +58,8 @@
             <t:if test="shoppingCart.justAdded">
                 <div class="dropdown-menu basket-show">
                     Товар добавлен в корзину. <br/>Вы можете продолжить поиск или перейти
-                    <t:pagelink page="cart">к оформлению заказа</t:pagelink>.
+                    <t:pagelink page="cart">к оформлению заказа</t:pagelink>
+                    .
                 </div>
             </t:if>
             <t:parameter name="else">

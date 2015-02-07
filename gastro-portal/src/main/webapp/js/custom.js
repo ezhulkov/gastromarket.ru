@@ -142,6 +142,14 @@ function initProductCatalogFixed() {
     }).fadeIn(1000);
     initBasket();
 }
+function initProductCatalogEdit() {
+    jQuery(".product-item")
+        .mouseenter(function () {
+            jQuery("div.pic .edit-block", this).css("display", "block");
+        }).mouseleave(function () {
+            jQuery("div.pic .edit-block", this).css("display", "none");
+        })
+}
 function initProductCatalog(ajaxContainer) {
     var layoutFunction = function (target) {
         var newItems = jQuery("div.product-item", jQuery("div[id^='productsZone']"));
@@ -171,12 +179,12 @@ function initProductCatalog(ajaxContainer) {
             scrollMutex = true;
         }, 500);
     });
-    jQuery(window).scroll(function () {
-        if (scrollMutex && jQuery(window).scrollTop() + jQuery(window).height() > jQuery(document).height() - 50) {
-            scrollMutex = false;
-            triggerEvent(jQuery('a[id^=fetchProducts]').get(0), 'click');
-        }
-    });
+    //jQuery(window).scroll(function () {
+    //    if (scrollMutex && jQuery(window).scrollTop() + jQuery(window).height() > jQuery(document).height() - 50) {
+    //        scrollMutex = false;
+    //        triggerEvent(jQuery('a[id^=fetchProducts]').get(0), 'click');
+    //    }
+    //});
 }
 function initBasket() {
     Event.observe(jQuery("span[id^='basketZone']").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {

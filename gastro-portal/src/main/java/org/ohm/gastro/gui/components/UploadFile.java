@@ -28,4 +28,8 @@ public class UploadFile extends BaseComponent {
     @Parameter(required = true, allowNull = false, defaultPrefix = BindingConstants.LITERAL)
     private String imageUrl;
 
+    @Property
+    @Parameter(name = "class", defaultPrefix = BindingConstants.LITERAL)
+    private String additionalClass;
+
 }

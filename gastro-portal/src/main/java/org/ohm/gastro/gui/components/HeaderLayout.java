@@ -4,12 +4,18 @@ import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
+
+import java.util.List;
 
 /**
  * Created by ezhulkov on 23.08.14.
  */
 public class HeaderLayout extends BaseComponent {
+
+    @Property
+    private CatalogEntity oneCatalog;
 
     @Property
     @Parameter(name = "floatingHeader", required = true)
@@ -39,6 +45,10 @@ public class HeaderLayout extends BaseComponent {
         if (getShoppingCart().getProducts().size() == 1) return getMessages().get("one.product");
         if (getShoppingCart().getProducts().size() % 10 < 5) return getMessages().get("four.products");
         return getMessages().get("many.products");
+    }
+
+    public List<CatalogEntity> getCatalogs() {
+        return getCatalogService().findAllCatalogs(getAuthenticatedUserOpt().orElse(null));
     }
 
 }

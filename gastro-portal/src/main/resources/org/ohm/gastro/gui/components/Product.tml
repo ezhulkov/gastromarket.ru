@@ -1,5 +1,11 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="product-item product-modal-trigger ${additionalClass}" data-productid="${product.id}">
     <div style="height: ${height}px" class="pic">
+        <t:if test="editMode">
+            <div class="edit-block">
+                <a href="#" class="edit"></a>
+                <a href="#" class="delete"></a>
+            </div>
+        </t:if>
         <img class="product-image" src="${product.avatarUrlMedium}"/>
     </div>
     <div class="data wrapword">

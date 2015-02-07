@@ -5,9 +5,25 @@
             <div class="title">
                 <h1><span>${catalog.name}</span></h1>
             </div>
+            <t:if test="catalogOwner">
+                <div class="catalog-edit-links">
+                    <div class="more-link">
+                        <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Редактировать страницу<span/></a>
+                    </div>
+                    <div class="more-link">
+                        <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Создать товар<span/></a>
+                    </div>
+                </div>
+                <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>
+            </t:if>
             <div class="row info">
-                <div class="col-sm-5">
-                    <img class="pull-right" src="${catalog.avatarUrl}"/>
+                <div class="col-sm-5 pic">
+                    <t:if test="catalogOwner">
+                        <t:uploadfile type="CATALOG" responseSize="SIZE3" imageUrl="${catalog.avatarUrl}" class="pull-right"/>
+                        <t:parameter name="else">
+                            <img class="pull-right" src="${catalog.avatarUrl}"/>
+                        </t:parameter>
+                    </t:if>
                 </div>
                 <div class="col-sm-6 product-item">
                     <t:if test="description">
@@ -23,19 +39,26 @@
                     </t:if>
                 </div>
             </div>
-            <div id="product-items" class="grid-block">
-                <t:loop source="products" value="oneProduct">
-                    <t:product product="oneProduct" class="fixed"/>
-                </t:loop>
-            </div>
-            <t:productModalTemplate/>
-
-            <div class="more-link">
-                <t:pagelink page="catalog/products" t:context="catalog.id">Все товары<span/></t:pagelink>
-            </div>
 
             <div class="title">
-                <h1><span>Отзывы</span></h1>
+                <h1><span>Товары</span></h1>
+                <t:pagelink page="catalog/products" t:context="catalog.id">Все товары<span/></t:pagelink>
+            </div>
+            <t:zone t:id="productsZone">
+                <t:delegate to="productsBlock"/>
+            </t:zone>
+            <t:block t:id="productsBlock">
+                <div id="product-items" class="grid-block">
+                    <t:loop source="products" value="oneProduct">
+                        <t:product product="oneProduct" class="fixed" edit="catalogOwner"/>
+                    </t:loop>
+                </div>
+            </t:block>
+            <t:productModalTemplate/>
+
+            <div class="title">
+                <h1><span>Отзывы о кулинаре</span></h1>
+                <a href="#">Оставить отзыв</a>
             </div>
 
             <t:if test="ratings">
@@ -60,6 +83,9 @@
                         </li>
                     </t:loop>
                 </ul>
+                <t:parameter name="else">
+                    <div class="empty">Пока нет ни одного отзыва</div>
+                </t:parameter>
             </t:if>
 
         </div>
@@ -69,7 +95,16 @@
 
     <script>
         jQuery(document).ready(function () {
-            initProductCatalogFixed();
+            var init = function () {
+                initProductCatalogFixed();
+                if (${catalogOwner}) {
+                    initProductCatalogEdit();
+                }
+            }
+            init();
+            Event.observe(jQuery("#productsZone").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
+                init();
+            });
         });
     </script>
 

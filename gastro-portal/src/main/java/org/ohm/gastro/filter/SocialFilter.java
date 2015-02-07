@@ -54,7 +54,7 @@ public class SocialFilter extends BaseApplicationFilter {
                 }
                 Logging.logger.info("UserProfile from social source {}", userProfile);
                 ApplicationContextHolder.getBean(UserService.class).signupSocial(userProfile);
-                httpServletResponse.sendRedirect("/");
+                httpServletResponse.sendRedirect((String) ObjectUtils.defaultIfNull(httpServletRequest.getHeader("referer"), ""));
             }
         } catch (Exception e) {
             Logging.logger.error("", e);

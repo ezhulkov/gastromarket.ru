@@ -20,8 +20,9 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
         <intercept-url pattern="/admin/**" access="hasRole('ADMIN')"/>
         <intercept-url pattern="/" access="hasAnyRole('ROLE_ANONYMOUS,COOK,USER,ADMIN')"/>
         <intercept-url pattern="/index" access="hasAnyRole('ROLE_ANONYMOUS,COOK,USER,ADMIN')"/>
-        <form-login login-page="/login" default-target-url="/index" always-use-default-target="true" authentication-failure-url="/login/error" login-processing-url="/j_security_check"/>
-        <logout logout-url="/logout" logout-success-url="/" invalidate-session="true"/>
+        <form-login login-page="/login" default-target-url="/index" always-use-default-target="true" authentication-failure-url="/login/error"
+                login-processing-url="/j_security_check" authentication-success-handler-ref="authenticationSuccessHandler"/>
+        <logout logout-url="/logout" invalidate-session="true" success-handler-ref="logoutSuccessHandler"/>
         <remember-me user-service-ref="userService" key="b6cNMFz1W8BFNDQPmPg2cuXJamNgCmOc"/>
     </http>
 
@@ -32,5 +33,13 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
     </authentication-manager>
 
     <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>
+
+    <beans:bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+        <beans:property name="useReferer" value="true"/>
+    </beans:bean>
+
+    <beans:bean id="logoutSuccessHandler" class="org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler">
+        <beans:property name="useReferer" value="true"/>
+    </beans:bean>
 
 </beans:beans>

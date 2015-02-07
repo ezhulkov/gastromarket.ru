@@ -1,8 +1,10 @@
 package org.ohm.gastro.gui.pages.catalog;
 
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.RatingEntity;
@@ -23,6 +25,10 @@ public class Index extends BaseComponent {
 
     @Property
     private RatingEntity oneRating;
+
+    @Inject
+    @Property
+    private Block productsBlock;
 
     public boolean onActivate(Long pid) {
         catalog = getCatalogService().findCatalog(pid);
@@ -63,6 +69,11 @@ public class Index extends BaseComponent {
         String desc = (String) ObjectUtils.defaultIfNull(catalog.getPayment(), "");
         desc = desc.replaceAll("\\n", "<br/>");
         return desc;
+    }
+
+    @Cached
+    public boolean isCatalogOwner() {
+        return catalog.getUser().equals(getAuthenticatedUserOpt().orElse(null));
     }
 
 }

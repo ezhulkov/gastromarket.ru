@@ -30,6 +30,10 @@ public class Product extends BaseComponent {
     private String additionalClass;
 
     @Property
+    @Parameter(name = "edit", required = false, allowNull = true, defaultPrefix = BindingConstants.LITERAL)
+    private boolean editMode = false;
+
+    @Property
     private TagEntity oneTag;
 
     @Inject
@@ -70,4 +74,3 @@ public class Product extends BaseComponent {
     }
 
 }
-

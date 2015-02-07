@@ -2,6 +2,7 @@ package org.ohm.gastro.gui.pages.catalog;
 
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.EventConstants;
+import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -85,5 +86,9 @@ public class Products extends BaseComponent {
         return catalog.getName();
     }
 
+    @Cached
+    public boolean isCatalogOwner() {
+        return catalog.getUser().equals(getAuthenticatedUserOpt().orElse(null));
+    }
 
 }

@@ -44,6 +44,9 @@ public class CatalogEntity extends AbstractBaseEntity {
     @Column
     private Integer rating = 0;
 
+    @Column(name = "was_setup")
+    private boolean wasSetup = false;
+
     @Column
     private Timestamp date = new Timestamp(System.currentTimeMillis());
 
