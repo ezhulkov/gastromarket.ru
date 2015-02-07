@@ -15,6 +15,7 @@ import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -31,6 +32,7 @@ import static org.scribe.utils.Preconditions.checkNotNull;
  * Created by ezhulkov on 01.02.15.
  */
 @Component
+@Transactional
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;

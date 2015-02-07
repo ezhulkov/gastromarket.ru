@@ -6,7 +6,6 @@ import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Parameter;
-import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.RequestParameter;
 import org.apache.tapestry5.corelib.components.Hidden;
@@ -46,7 +45,7 @@ public class ProductEdit extends BaseComponent {
     private Stage stage = Stage.DESC;
 
     @Property
-    private boolean closeImmediately = false;
+    private boolean closeImmediately;
 
     @Property
     private PropertyEntity oneProperty;
@@ -66,7 +65,6 @@ public class ProductEdit extends BaseComponent {
     private Block productBlock;
 
     @Property
-    @Persist
     private CategoryEntity category;
 
     @Inject
@@ -81,7 +79,7 @@ public class ProductEdit extends BaseComponent {
     @Component(id = "productDescription", parameters = {"value=product.description", "validate=maxlength=1024"})
     private TextArea descField;
 
-    @Component(id = "productCategory", parameters = {"model=categoryModel", "encoder=categoryModel", "value=category", "validate=required"})
+    @Component(id = "productCategory", parameters = {"model=categoryModel", "encoder=categoryModel", "value=category"})
     private Select pCategoryField;
 
     @Component(id = "stage", parameters = {"value=stage"})
@@ -177,6 +175,8 @@ public class ProductEdit extends BaseComponent {
     private void beginRender() {
         if (product == null || product.getId() == null) {
             product = new ProductEntity();
+        } else {
+            category = product.getCategory();
         }
     }
 
@@ -205,6 +205,7 @@ public class ProductEdit extends BaseComponent {
     }
 
     public void onSubmitFromEditProductForm(Long pid, @RequestParameter(value = "stage", allowBlank = true) Stage currentStage) {
+        if (category == null) category = product.getCategory();
         if (!error) {
             final ProductEntity origProduct = pid != null ? getProductService().findProduct(pid) : product;
             if (currentStage == Stage.DESC) {
@@ -230,14 +231,11 @@ public class ProductEdit extends BaseComponent {
                 this.stage = Stage.PHOTO;
             }
             if (closeImmediately) this.stage = Stage.DESC;
-            if (editProduct) {
-                if (closeImmediately) ajaxResponseRenderer.addRender(productsZone, productsBlock);
-                else ajaxResponseRenderer.addRender(getProductZone(), productBlock);
-            } else {
-                ajaxResponseRenderer.addRender(getProductZone(), productBlock);
-                ajaxResponseRenderer.addRender(productsZone, productsBlock);
-                if (closeImmediately) product = new ProductEntity();
+            if (!editProduct && closeImmediately) {
+                product = new ProductEntity();
             }
+            ajaxResponseRenderer.addRender(productsZone, productsBlock);
+            ajaxResponseRenderer.addRender(getProductZone(), productBlock);
         } else {
             closeImmediately = false;
             product = pid != null ? getProductService().findProduct(pid) : new ProductEntity();

@@ -4,6 +4,7 @@ import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.InjectComponent;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
@@ -26,11 +27,19 @@ public class Index extends EditObjectPage<CatalogEntity> {
     private ProductEntity oneProduct;
 
     @Property
+    @Persist
+    private ProductEntity editedProduct;
+
+    @Property
     private TagEntity oneTag;
 
     @Property
     @Inject
     private Block productsBlock;
+
+    @Property
+    @Inject
+    private Block productEditBlock;
 
     @Property
     @InjectComponent
@@ -74,6 +83,11 @@ public class Index extends EditObjectPage<CatalogEntity> {
                 return Index.class;
             }
         };
+    }
+
+    public Block onActionFromEditProduct(Long pid) {
+        editedProduct = getProductService().findProduct(pid);
+        return productEditBlock;
     }
 
     public Block onActionFromDeleteProduct(Long id) {

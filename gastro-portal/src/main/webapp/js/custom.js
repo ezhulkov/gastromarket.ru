@@ -197,6 +197,7 @@ function initProductsEdit() {
 }
 function initProductEdit(el) {
     var linkId = jQuery(el).attr("id");
+    toggleProductEdit(el, false);
     jQuery("a[data-target='#" + linkId + "']").unbind("click").bind("click", function () {
         jQuery("div.t-error", el).hide();
         jQuery(".t-error", el).removeClass("t-error");
@@ -213,22 +214,22 @@ function addMoreProperties(product, el) {
     initChosen(jQuery(newList));
 }
 function toggleProductEdit(el, closeModal) {
-    initTitle(jQuery("div.title", el));
-    initFineUploader(jQuery(el).find("div.upload-file"));
     if (closeModal) {
         modal = jQuery(el).closest(".product-edit-modal");
-        initProductEdit(modal);
         modal.modal('hide');
+        initProductEdit(modal);
         jQuery("body").removeClass("modal-open");
     } else {
-        jQuery(".product-details", el).hide();
-        jQuery(".properties-details", el).hide();
-        jQuery(".photo-details", el).hide();
+        jQuery(".product-details", el).addClass("hidden");
+        jQuery(".properties-details", el).addClass("hidden");
+        jQuery(".photo-details", el).addClass("hidden");
         var type = jQuery(el).find("input[name='stage']").attr('value');
-        if (type == 'DESC') jQuery(".product-details", el).show();
-        if (type == 'PROP') jQuery(".properties-details", el).show();
-        if (type == 'PHOTO') jQuery(".photo-details", el).show();
+        if (type == 'DESC') jQuery(".product-details", el).removeClass("hidden");
+        if (type == 'PROP') jQuery(".properties-details", el).removeClass("hidden");
+        if (type == 'PHOTO') jQuery(".photo-details", el).removeClass("hidden");
     }
+    initTitle(jQuery("div.title", el));
+    initFineUploader(jQuery(el).find("div.upload-file"));
 }
 function initLoginModal() {
     var hideAll = function () {
