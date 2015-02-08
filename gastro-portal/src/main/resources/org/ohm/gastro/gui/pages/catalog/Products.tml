@@ -15,7 +15,7 @@
 
             <t:block t:id="productsBlock">
                 <t:loop source="products" value="oneProduct">
-                    <t:product product="oneProduct" edit="catalogOwner"/>
+                    <t:product product="oneProduct" edit="catalogOwner" productsBlock="productsBlock"/>
                 </t:loop>
                 <t:if test="products">
                     <div class="more-link">

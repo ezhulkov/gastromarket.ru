@@ -13,6 +13,7 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.List;
 import java.util.Random;
+import java.util.function.Consumer;
 
 /**
  * Created by ezhulkov on 31.08.14.
@@ -32,6 +33,15 @@ public class Product extends BaseComponent {
     @Property
     @Parameter(name = "edit", required = false, allowNull = true, defaultPrefix = BindingConstants.LITERAL)
     private boolean editMode = false;
+
+    @Parameter(name = "productsBlock", required = false, allowNull = false)
+    private Block productsBlock;
+
+    @Parameter(name = "productEditBlock", required = false, allowNull = false)
+    private Block productEditBlock;
+
+    @Parameter(name = "productSetter", required = false, allowNull = false)
+    private Consumer<ProductEntity> productSetter;
 
     @Property
     private TagEntity oneTag;
@@ -71,6 +81,16 @@ public class Product extends BaseComponent {
     public Block onActionFromRecommended(Long pid, int count) {
         recommendedProducts = getProductService().findRecommendedProducts(pid, count);
         return recommendedBlock;
+    }
+
+    public Block onActionFromDelete(Long pid) {
+        getProductService().deleteProduct(pid);
+        return productsBlock;
+    }
+
+    public Block onActionFromEdit(Long pid) {
+        productSetter.accept(getProductService().findProduct(pid));
+        return productEditBlock;
     }
 
 }

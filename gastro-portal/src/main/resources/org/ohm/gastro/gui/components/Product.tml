@@ -2,8 +2,8 @@
     <div style="height: ${height}px" class="pic">
         <t:if test="editMode">
             <div class="edit-block">
-                <a href="#" class="edit"></a>
-                <a href="#" class="delete"></a>
+                <t:actionlink t:id="edit" t:context="product.id" t:zone="productEditZone" class="edit"/>
+                <t:actionlink t:id="delete" t:context="product.id" t:zone="productsZone" class="delete"/>
             </div>
         </t:if>
         <img class="product-image" src="${product.avatarUrlMedium}"/>

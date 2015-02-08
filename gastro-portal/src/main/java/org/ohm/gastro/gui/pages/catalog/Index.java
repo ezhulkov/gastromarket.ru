@@ -13,6 +13,7 @@ import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.RatingEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
@@ -27,11 +28,18 @@ public class Index extends BaseComponent {
     private ProductEntity oneProduct;
 
     @Property
+    private ProductEntity editedProduct;
+
+    @Property
     private RatingEntity oneRating;
 
     @Inject
     @Property
     private Block productsBlock;
+
+    @Inject
+    @Property
+    private Block productEditBlock;
 
     @Inject
     @Property
@@ -72,6 +80,12 @@ public class Index extends BaseComponent {
 
     public Object[] onPassivate() {
         return new Object[]{catalog.getId()};
+    }
+
+    public Consumer<ProductEntity> getProductSetter() {
+        return productEntity -> {
+            editedProduct = productEntity;
+        };
     }
 
     @Cached
