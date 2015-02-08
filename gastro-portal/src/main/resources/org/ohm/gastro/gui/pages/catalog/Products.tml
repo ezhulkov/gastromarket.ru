@@ -9,13 +9,23 @@
 
             <div id="product-items" class="grid-block"/>
 
+            <t:zone t:id="productEditZone"/>
             <t:zone t:id="productsZone">
                 <t:delegate to="productsBlock"/>
             </t:zone>
 
+            <t:block t:id="productEditBlock">
+                <t:productEdit modalId="pr-${editedProduct.id}" product="editedProduct" catalog="catalog" productsBlock="productsBlock"/>
+                <script>
+                    var pe = jQuery("#pr-${editedProduct.id}");
+                    pe.modal('show');
+                    initProductEdit(pe);
+                </script>
+            </t:block>
+
             <t:block t:id="productsBlock">
                 <t:loop source="products" value="oneProduct">
-                    <t:product product="oneProduct" edit="catalogOwner" productsBlock="productsBlock"/>
+                    <t:product product="oneProduct" edit="catalogOwner" productsBlock="productsBlock" productEditBlock="productEditBlock" productSetter="productSetter"/>
                 </t:loop>
                 <t:if test="products">
                     <div class="more-link">

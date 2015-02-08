@@ -13,6 +13,8 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.service.ProductService.Order;
 import org.ohm.gastro.service.ProductService.OrderType;
 
+import java.util.function.Consumer;
+
 /**
  * Created by ezhulkov on 31.08.14.
  */
@@ -31,11 +33,18 @@ public class Products extends BaseComponent {
     private OrderType orderType = OrderType.NONE;
 
     @Property
+    private ProductEntity editedProduct;
+
+    @Property
     private ProductEntity oneProduct;
 
     @Inject
     @Property
     private Block productsBlock;
+
+    @Inject
+    @Property
+    private Block productEditBlock;
 
     public java.util.List<CategoryEntity> getCategories() {
         return getCatalogService().findAllRootCategories();
@@ -89,6 +98,12 @@ public class Products extends BaseComponent {
     @Cached
     public boolean isCatalogOwner() {
         return catalog.getUser().equals(getAuthenticatedUserOpt().orElse(null));
+    }
+
+    public Consumer<ProductEntity> getProductSetter() {
+        return productEntity -> {
+            editedProduct = productEntity;
+        };
     }
 
 }
