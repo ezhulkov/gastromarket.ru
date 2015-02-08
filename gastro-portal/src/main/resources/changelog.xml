@@ -351,6 +351,12 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="22" author="ezhulkov">
+        <addColumn tableName="catalog">
+            <column name="basket_min" type="java.sql.Types.INTEGER"/>
+        </addColumn>
+    </changeSet>
+
     <changeSet id="data" author="ezhulkov">
         <sql>
             insert into person (id,email,password,type,status) values (1,'ezhulkov@gmail.com','aa9304926e54bf318a40dc9cb936e62f86327f987461178b01a85ae5a500bd43639908f104ae7d5f','ADMIN','ENABLED');

@@ -524,10 +524,6 @@ div.username {
     display: inline;
 }
 
-.navbar .username a {
-    margin-right: 5px;
-}
-
 /*FOOTER*/
 .footer {
     background-color: #242424;

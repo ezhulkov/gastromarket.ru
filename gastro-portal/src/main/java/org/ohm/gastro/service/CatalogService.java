@@ -50,6 +50,8 @@ public interface CatalogService extends ImageUploaderService<CatalogEntity> {
 
     void saveCatalog(CatalogEntity catalog);
 
+    void setupCatalog(CatalogEntity catalog);
+
     CatalogEntity findCatalog(Long id);
 
     List<CategoryEntity> findAllRootCategories(CatalogEntity catalog);

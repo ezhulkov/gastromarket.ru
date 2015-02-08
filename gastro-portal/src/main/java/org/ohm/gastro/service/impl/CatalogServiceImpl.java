@@ -150,6 +150,12 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
+    public void setupCatalog(final CatalogEntity catalog) {
+        catalog.setWasSetup(true);
+        catalogRepository.save(catalog);
+    }
+
+    @Override
     public CatalogEntity findCatalog(Long id) {
         return catalogRepository.findOne(id);
     }

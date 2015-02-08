@@ -44,6 +44,9 @@ public class CatalogEntity extends AbstractBaseEntity {
     @Column
     private Integer rating = 0;
 
+    @Column(name = "basket_min")
+    private Integer basketMin = 0;
+
     @Column(name = "was_setup")
     private boolean wasSetup = false;
 
@@ -161,4 +164,21 @@ public class CatalogEntity extends AbstractBaseEntity {
     public void setPayment(String payment) {
         this.payment = payment;
     }
+
+    public Integer getBasketMin() {
+        return basketMin;
+    }
+
+    public void setBasketMin(final Integer basketMin) {
+        this.basketMin = basketMin;
+    }
+
+    public boolean isWasSetup() {
+        return wasSetup;
+    }
+
+    public void setWasSetup(final boolean wasSetup) {
+        this.wasSetup = wasSetup;
+    }
+
 }
