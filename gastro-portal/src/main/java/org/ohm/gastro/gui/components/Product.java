@@ -22,7 +22,7 @@ public class Product extends BaseComponent {
     private final Random random = new Random();
 
     @Property
-    @Parameter(name = "product", required = true, allowNull = false)
+    @Parameter(name = "product", required = true, allowNull = true)
     private ProductEntity product;
 
     @Property
@@ -54,6 +54,10 @@ public class Product extends BaseComponent {
 
     public String getEditZoneId() {
         return "editZone" + product.getId();
+    }
+
+    public String getProductZoneId() {
+        return "productZone" + product.getId();
     }
 
     public int getHeight() {

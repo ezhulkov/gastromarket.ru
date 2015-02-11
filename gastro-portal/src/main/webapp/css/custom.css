@@ -938,7 +938,7 @@ html div.office table.table td.toggle {
 /*Catalog*/
 .grid-block div.product-item {
     display: none;
-    width: 272px;
+    width: 270px;
     min-height: 350px;
     overflow: auto;
     cursor: pointer;

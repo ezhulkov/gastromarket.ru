@@ -58,10 +58,6 @@ public class ProductEdit extends BaseComponent {
 
     @Inject
     @Property
-    private Block propertyBlock;
-
-    @Inject
-    @Property
     private Block productEditBlock;
 
     @Property
@@ -85,17 +81,17 @@ public class ProductEdit extends BaseComponent {
     @Component(id = "stage", parameters = {"value=stage"})
     private Hidden pStageField;
 
-    @Property
-    @Parameter(name = "catalog", required = true, allowNull = false)
+    @Parameter(name = "catalog", required = true, allowNull = true)
     private CatalogEntity catalog;
 
-    @Property
-    @Parameter(name = "productsZone", required = false, allowNull = false, value = "productsZone", defaultPrefix = BindingConstants.LITERAL)
-    private String productsZone;
-
-    @Property
     @Parameter(name = "productsBlock", required = false, allowNull = false)
     private Block productsBlock;
+
+    @Parameter(name = "productBlock", required = false, allowNull = false)
+    private Block productBlock;
+
+    @Parameter(name = "productZoneId", required = false, allowNull = false)
+    private String productZoneId;
 
     @Property
     @Parameter(name = "modalId", defaultPrefix = BindingConstants.LITERAL, value = "pr-new")
@@ -106,7 +102,7 @@ public class ProductEdit extends BaseComponent {
     private boolean editProduct;
 
     @Property
-    @Parameter(defaultPrefix = BindingConstants.PROP)
+    @Parameter(defaultPrefix = BindingConstants.PROP, allowNull = true, required = false)
     private ProductEntity product;
 
     @Cached
@@ -168,10 +164,6 @@ public class ProductEdit extends BaseComponent {
         return editProduct ? "productEditZone" + product.getId() : "productZoneNew";
     }
 
-    public String getPropertyZone() {
-        return editProduct ? "propertyZone" + product.getId() : "propertyZoneNew";
-    }
-
     private void beginRender() {
         if (product == null || product.getId() == null) {
             product = new ProductEntity();
@@ -186,6 +178,7 @@ public class ProductEdit extends BaseComponent {
             category = firstCategory.getChildren().size() == 0 ? firstCategory : firstCategory.getChildren().get(0);
             product = new ProductEntity();
             product.setCategory(category);
+            product.setCatalog(catalog);
         } else {
             category = product.getCategory();
         }
@@ -205,7 +198,6 @@ public class ProductEdit extends BaseComponent {
     }
 
     public void onSubmitFromEditProductForm(Long pid, @RequestParameter(value = "stage", allowBlank = true) Stage currentStage) {
-        if (category == null) category = product.getCategory();
         if (!error) {
             final ProductEntity origProduct = pid != null ? getProductService().findProduct(pid) : product;
             if (currentStage == Stage.DESC) {
@@ -213,7 +205,6 @@ public class ProductEdit extends BaseComponent {
                 origProduct.setPrice(product.getPrice());
                 origProduct.setDescription(product.getDescription());
                 origProduct.setCategory(category);
-                origProduct.setCatalog(catalog);
                 product = getProductService().saveProduct(origProduct);
                 this.stage = Stage.PROP;
             } else if (currentStage == Stage.PROP) {
@@ -234,18 +225,14 @@ public class ProductEdit extends BaseComponent {
             if (!editProduct && closeImmediately) {
                 product = new ProductEntity();
             }
-            if (productsBlock != null) ajaxResponseRenderer.addRender(productsZone, productsBlock);
+            if (productsBlock != null) ajaxResponseRenderer.addRender("productsZone", productsBlock);
             if (productEditBlock != null) ajaxResponseRenderer.addRender(getProductZone(), productEditBlock);
+            if (productBlock != null) ajaxResponseRenderer.addRender(productZoneId, productBlock);
         } else {
             closeImmediately = false;
             product = pid != null ? getProductService().findProduct(pid) : new ProductEntity();
             ajaxResponseRenderer.addRender(getProductZone(), productEditBlock);
         }
-    }
-
-    public Block onValueChangedFromProductCategory(CategoryEntity category) {
-        this.category = category;
-        return propertyBlock;
     }
 
 }
