@@ -62,7 +62,7 @@ public class ProductEdit extends BaseComponent {
 
     @Inject
     @Property
-    private Block productBlock;
+    private Block productEditBlock;
 
     @Property
     private CategoryEntity category;
@@ -94,7 +94,7 @@ public class ProductEdit extends BaseComponent {
     private String productsZone;
 
     @Property
-    @Parameter(name = "productsBlock", required = true, allowNull = false)
+    @Parameter(name = "productsBlock", required = false, allowNull = false)
     private Block productsBlock;
 
     @Property
@@ -165,7 +165,7 @@ public class ProductEdit extends BaseComponent {
     }
 
     public String getProductZone() {
-        return editProduct ? "productZone" + product.getId() : "productZoneNew";
+        return editProduct ? "productEditZone" + product.getId() : "productZoneNew";
     }
 
     public String getPropertyZone() {
@@ -234,12 +234,12 @@ public class ProductEdit extends BaseComponent {
             if (!editProduct && closeImmediately) {
                 product = new ProductEntity();
             }
-            ajaxResponseRenderer.addRender(productsZone, productsBlock);
-            ajaxResponseRenderer.addRender(getProductZone(), productBlock);
+            if (productsBlock != null) ajaxResponseRenderer.addRender(productsZone, productsBlock);
+            if (productEditBlock != null) ajaxResponseRenderer.addRender(getProductZone(), productEditBlock);
         } else {
             closeImmediately = false;
             product = pid != null ? getProductService().findProduct(pid) : new ProductEntity();
-            ajaxResponseRenderer.addRender(getProductZone(), productBlock);
+            ajaxResponseRenderer.addRender(getProductZone(), productEditBlock);
         }
     }
 

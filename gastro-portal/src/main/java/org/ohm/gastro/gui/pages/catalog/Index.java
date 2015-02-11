@@ -42,10 +42,6 @@ public class Index extends BaseComponent {
 
     @Inject
     @Property
-    private Block productEditBlock;
-
-    @Inject
-    @Property
     private Block catalogFormBlock;
 
     @Component(id = "name", parameters = {"value=catalog?.name", "validate=maxlength=64,required"})

@@ -129,15 +129,15 @@ function initProductInCatalog(items) {
         });
         event.stopPropagation();
     });
+    jQuery(items).find("img.product-image").click(function () {
+        showProductModal(jQuery(this).closest("div.product-item").attr("data-productid"));
+    });
     jQuery(items)
         .mouseenter(function () {
             jQuery(this).find("img").css("opacity", "0.8");
         })
         .mouseleave(function () {
             jQuery(this).find("img").css("opacity", "1");
-        })
-        .click(function () {
-            showProductModal(jQuery(this).attr("data-productid"));
         });
 }
 function initProductCatalogFixed() {
@@ -213,13 +213,13 @@ function initProductsEdit() {
 function initProductEdit(el) {
     var linkId = jQuery(el).attr("id");
     toggleProductEdit(el, false);
-    jQuery("a[data-target='#" + linkId + "']").unbind("click").bind("click", function () {
-        jQuery("div.t-error", el).hide();
-        jQuery(".t-error", el).removeClass("t-error");
-        jQuery(".error", el).hide();
-        jQuery("input[name='stage']", el).attr('value', 'DESC');
-        toggleProductEdit(el, false);
-    });
+    //jQuery("a[data-target='#" + linkId + "']").unbind("click").bind("click", function () {
+    //    jQuery("div.t-error", el).hide();
+    //    jQuery(".t-error", el).removeClass("t-error");
+    //    jQuery(".error", el).hide();
+    //    jQuery("input[name='stage']", el).attr('value', 'DESC');
+    //    toggleProductEdit(el, false);
+    //});
 }
 function addMoreProperties(product, el) {
     var listBlock = jQuery(el, product);

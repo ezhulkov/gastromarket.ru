@@ -15,10 +15,10 @@
             <div class="modal-body product-create">
 
                 <t:zone t:id="productZone" id="${productZone}">
-                    <t:delegate to="productBlock"/>
+                    <t:delegate to="productEditBlock"/>
                 </t:zone>
 
-                <t:block t:id="productBlock">
+                <t:block t:id="productEditBlock">
                     <t:form t:id="editProductForm" t:context="[product?.id]" t:zone="${productZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
                         <t:errors/>
                         <t:hidden t:id="stage"/>

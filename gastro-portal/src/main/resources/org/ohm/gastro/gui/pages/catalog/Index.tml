@@ -122,22 +122,11 @@
             <t:block t:id="productsBlock">
                 <div id="product-items" class="grid-block">
                     <t:loop source="products" value="oneProduct">
-                        <t:product product="oneProduct" class="fixed" edit="catalogOwner" productsBlock="productsBlock" productEditBlock="productEditBlock" productSetter="productSetter"/>
+                        <t:product product="oneProduct" class="fixed" edit="catalogOwner"/>
                     </t:loop>
                 </div>
             </t:block>
             <t:productModalTemplate/>
-
-            <t:zone t:id="productEditZone"/>
-
-            <t:block t:id="productEditBlock">
-                <t:productEdit modalId="pr-${editedProduct.id}" product="editedProduct" catalog="catalog" productsBlock="productsBlock"/>
-                <script>
-                    var pe = jQuery("#pr-${editedProduct.id}");
-                    pe.modal('show');
-                    initProductEdit(pe);
-                </script>
-            </t:block>
 
             <div class="title">
                 <h1><span>Отзывы о кулинаре</span></h1>

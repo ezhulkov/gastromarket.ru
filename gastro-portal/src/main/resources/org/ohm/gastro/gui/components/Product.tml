@@ -1,11 +1,10 @@
-<t:zone t:id="productZone" id="${productZoneId}" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="product-item product-modal-trigger ${additionalClass}" data-productid="${product?.id}">
+<t:zone t:id="productZone" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="product-item product-modal-trigger ${additionalClass}" data-productid="${product?.id}">
     <t:delegate to="productBlock"/>
-    <t:block t:id="emptyBlock"/>
     <t:block t:id="productBlock">
         <div style="height: ${height}px" class="pic">
             <t:if test="editMode">
                 <div class="edit-block">
-                    <t:actionlink t:id="edit" t:context="product.id" t:zone="productEditZone" class="edit"/>
+                    <t:actionlink t:id="edit" t:context="product.id" t:zone="${editZoneId}" class="edit"/>
                     <t:actionlink t:id="delete" t:context="product.id" t:zone="^" class="delete"/>
                 </div>
             </t:if>
@@ -13,16 +12,13 @@
         </div>
         <div class="data wrapword">
             <span class="name wrapword"><a href="/product/${product.id}">${product.name}</a></span>
-
-        <span class="cook">
-            <img class="avatar-small" src="${product.catalog.avatarUrlSmall}"/>
-            <a href="/catalog/${product.catalog.id}">${product.catalog.name}</a>
-        </span>
-
+            <span class="cook">
+                <img class="avatar-small" src="${product.catalog.avatarUrlSmall}"/>
+                <a href="/catalog/${product.catalog.id}">${product.catalog.name}</a>
+            </span>
             <t:if test="description">
                 <span class="desc"><t:outputraw value="description"/></span>
             </t:if>
-
             <div class="basket-block">
                 <span class="price pull-left">${product.price} &#x20bd;</span>
                 <span class="basket-add pull-right"><img src="/img/basket-add.png"/><t:actionLink class="basket-add" t:zone="basketZone" t:context="product.id" t:id="purchase">В корзину</t:actionLink></span>
@@ -70,5 +66,14 @@
                 </li>
             </t:loop>
         </ul>
+    </t:block>
+    <t:zone t:id="editZone" id="${editZoneId}"/>
+    <t:block t:id="editBlock">
+        <t:productEdit modalId="pr-${product.id}" product="product" catalog="product.catalog"/>
+        <script>
+            var pe = jQuery("#pr-${product.id}");
+            pe.modal('show');
+            initProductEdit(pe);
+        </script>
     </t:block>
 </t:zone>
