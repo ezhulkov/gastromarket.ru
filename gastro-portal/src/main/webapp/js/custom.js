@@ -122,6 +122,13 @@ function productRightScroll(pid) {
     if (pid != undefined) showProductModal(pid);
 }
 function initProductInCatalog(items) {
+    jQuery(items).find("a.delete").click(function (event) {
+        var productMain = jQuery(this).closest(".product-item");
+        productMain.fadeOut(300, function () {
+            jQuery(this).remove();
+        });
+        event.stopPropagation();
+    });
     jQuery(items)
         .mouseenter(function () {
             jQuery(this).find("img").css("opacity", "0.8");

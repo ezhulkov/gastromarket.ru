@@ -22,6 +22,9 @@ import java.util.stream.Collectors;
 public class Index extends BaseComponent {
 
     @Property
+    private boolean closeImmediately = false;
+
+    @Property
     private CatalogEntity catalog;
 
     @Property
@@ -45,9 +48,6 @@ public class Index extends BaseComponent {
     @Property
     private Block catalogFormBlock;
 
-    @Inject
-    private Block catalogFormCloseBlock;
-
     @Component(id = "name", parameters = {"value=catalog?.name", "validate=maxlength=64,required"})
     private TextField nameField;
 
@@ -70,7 +70,8 @@ public class Index extends BaseComponent {
     public Block onSuccessFromCatalogForm() {
         getCatalogService().saveCatalog(catalog);
         getCatalogService().setupCatalog(catalog);
-        return catalogFormCloseBlock;
+        closeImmediately = true;
+        return catalogFormBlock;
     }
 
     public boolean onActivate(Long pid) {

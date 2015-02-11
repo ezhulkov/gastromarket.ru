@@ -28,12 +28,12 @@
                                 <t:zone t:id="catalogEditZone">
                                     <t:delegate to="catalogFormBlock"/>
                                 </t:zone>
-                                <t:block t:id="catalogFormCloseBlock">
-                                    <script>
-                                        location.reload();
-                                    </script>
-                                </t:block>
                                 <t:block t:id="catalogFormBlock">
+                                    <t:if test="closeImmediately">
+                                        <script>
+                                            location.reload();
+                                        </script>
+                                    </t:if>
                                     <t:form t:zone="catalogEditZone" t:id="catalogForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
                                         <t:errors/>
                                         <div class="form-group">

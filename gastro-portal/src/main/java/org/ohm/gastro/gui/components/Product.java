@@ -47,6 +47,13 @@ public class Product extends BaseComponent {
     private TagEntity oneTag;
 
     @Inject
+    @Property
+    private Block productBlock;
+
+    @Inject
+    private Block emptyBlock;
+
+    @Inject
     private Block recommendedBlock;
 
     @Property
@@ -54,6 +61,10 @@ public class Product extends BaseComponent {
 
     @Property
     private ProductEntity oneProduct;
+
+    public String getProductZoneId() {
+        return "productZone" + product.getId();
+    }
 
     public int getHeight() {
         return 270 - random.nextInt(50);
@@ -85,7 +96,7 @@ public class Product extends BaseComponent {
 
     public Block onActionFromDelete(Long pid) {
         getProductService().deleteProduct(pid);
-        return productsBlock;
+        return emptyBlock;
     }
 
     public Block onActionFromEdit(Long pid) {

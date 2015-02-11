@@ -1012,6 +1012,7 @@ html div.office table.table td.toggle {
 
 .edit-block .delete {
     background-position: -98px 0;
+    z-index: 25;
 }
 
 .product-item .data {
