@@ -35,76 +35,37 @@
         </div>
     </t:editObject>
 
-    <div class="data-header">
-        <h1>Товары</h1>
-        <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Создать товар<span/></a>
-    </div>
-    <t:productEdit catalog="object" edit="false" productsBlock="productsBlock"/>
-
-    <t:zone t:id="productsZone">
-        <t:delegate to="productsBlock"/>
-    </t:zone>
-
-    <t:zone t:id="productEditZone"/>
-
-    <t:block t:id="productEditBlock">
-        <t:productEdit modalId="pr-${editedProduct.id}" product="editedProduct" catalog="object" productsBlock="productsBlock"/>
-        <script>
-            var pe = jQuery("#pr-${editedProduct.id}");
-            pe.modal('show');
-            initProductEdit(pe);
-        </script>
-    </t:block>
-
-    <t:block t:id="productsBlock">
-        <t:grid source="products" row="oneProduct"
-                exclude="id,properties,date,description,promoted,avatarUrl,avatarUrlMedium,avatarUrlSmall"
-                reorder="img,name,price,publish,promote,del"
-                add="img,properties,publish,promote,del"
-                t:mixins="GridSortingDisabled" class="table table-hover">
-            <t:parameter name="imgCell">
-                <img src="${oneProduct.avatarUrlSmall}"/>
-            </t:parameter>
-            <t:parameter name="nameCell">
-                <t:actionlink t:id="editProduct" t:context="oneProduct.id" t:zone="productEditZone">
-                    ${oneProduct.name}
-                    <t:if test="oneProduct.promoted">
-                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                    </t:if>
-                </t:actionlink>
-            </t:parameter>
-            <t:parameter name="delCell">
-                <t:actionlink t:zone="productsZone" t:id="deleteProduct" context="oneProduct.id"><span class="glyphicon glyphicon-remove"/></t:actionlink>
-            </t:parameter>
-            <t:parameter name="publishCell">
-                <t:actionlink t:zone="productsZone" t:id="showProduct" context="oneProduct.id">
-                    <t:if test="oneProduct.hidden">
-                        Опубликовать
-                        <t:parameter name="else">
-                            Опубликовано
-                        </t:parameter>
-                    </t:if>
-                </t:actionlink>
-            </t:parameter>
-            <t:parameter name="promoteCell">
-                <t:actionlink t:zone="productsZone" t:id="promoteProduct" context="oneProduct.id">
-                    <t:if test="oneProduct.promoted">
-                        Убрать с главной
-                        <t:parameter name="else">
-                            На главную
-                        </t:parameter>
-                    </t:if>
-                </t:actionlink>
-            </t:parameter>
-            <t:parameter name="empty">
-                <div class="empty">Нет данных</div>
-            </t:parameter>
-        </t:grid>
-    </t:block>
+    <t:grid source="products" row="oneProduct"
+            exclude="id,properties,date,description,promoted,avatarUrl,avatarUrlMedium,avatarUrlSmall"
+            reorder="img,name,price,promote"
+            add="img,properties,promote"
+            t:mixins="GridSortingDisabled" class="table table-hover">
+        <t:parameter name="imgCell">
+            <img src="${oneProduct.avatarUrlSmall}"/>
+        </t:parameter>
+        <t:parameter name="nameCell">
+            ${oneProduct.name}
+            <t:if test="oneProduct.promoted">
+                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            </t:if>
+        </t:parameter>
+        <t:parameter name="promoteCell">
+            <t:actionlink t:id="promoteProduct" context="oneProduct.id">
+                <t:if test="oneProduct.promoted">
+                    Убрать с главной
+                    <t:parameter name="else">
+                        На главную
+                    </t:parameter>
+                </t:if>
+            </t:actionlink>
+        </t:parameter>
+        <t:parameter name="empty">
+            <div class="empty">Нет данных</div>
+        </t:parameter>
+    </t:grid>
 
     <script>
         activate_menu('#catalog');
-        initProductsEdit();
     </script>
 
 </t:adminlayout>

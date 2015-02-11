@@ -118,6 +118,10 @@ html > body div.t-error ul li {
     margin: 0 auto;
 }
 
+.chosen-container {
+    display: block;
+}
+
 .simple-text {
     width: 750px;
     margin: 30px auto 0 auto;
@@ -394,6 +398,7 @@ html > body div.t-error ul li {
 .office table a,
 .product-create .more a {
     color: #bd0400;
+    margin-top: 35px;
 }
 
 .btn-red {

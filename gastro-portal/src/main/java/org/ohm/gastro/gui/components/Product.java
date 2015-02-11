@@ -61,7 +61,7 @@ public class Product extends BaseComponent {
     }
 
     public int getHeight() {
-        return 270 - random.nextInt(50);
+        return (int) (270 - (product == null ? 0 : product.getId() % 7 * 6));
     }
 
     public List<TagEntity> getProductTags() {

@@ -115,6 +115,12 @@ public class ProductEdit extends BaseComponent {
         return getCatalogService().findAllRootCategories();
     }
 
+    @Cached
+    public CategoryEntity getFirstCategory() {
+        final CategoryEntity firstCategory = getAllCategories().get(0);
+        return firstCategory.getChildren().size() == 0 ? firstCategory : firstCategory.getChildren().get(0);
+    }
+
     public String getSaveCaption() {
         if (editProduct) return getMessages().get("save.product");
         return getMessages().get("create.product");
@@ -174,10 +180,9 @@ public class ProductEdit extends BaseComponent {
 
     public void onPrepareFromEditProductForm() {
         if (product == null || product.getId() == null) {
-            final CategoryEntity firstCategory = getAllCategories().get(0);
-            category = firstCategory.getChildren().size() == 0 ? firstCategory : firstCategory.getChildren().get(0);
+            category = getFirstCategory();
             product = new ProductEntity();
-            product.setCategory(category);
+            product.setCategory(getFirstCategory());
             product.setCatalog(catalog);
         } else {
             category = product.getCategory();

@@ -4,28 +4,21 @@
         <div class="container">
             <div class="title">
                 <h1><span>${catalog.name}</span></h1>
-                <t:pagelink page="catalog/index" t:context="catalog.id">Вернуться к каталогу<span/></t:pagelink>
+                <t:if test="catalogOwner">
+                    <a data-toggle="modal" data-target="#pr-new" href="#pr-new">Создать товар<span/></a>
+                </t:if>
             </div>
+            <t:if test="catalogOwner">
+                <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>
+            </t:if>
 
             <div id="product-items" class="grid-block"/>
-
-            <t:zone t:id="productEditZone"/>
             <t:zone t:id="productsZone">
                 <t:delegate to="productsBlock"/>
             </t:zone>
-
-            <t:block t:id="productEditBlock">
-                <t:productEdit modalId="pr-${editedProduct.id}" product="editedProduct" catalog="catalog" productsBlock="productsBlock"/>
-                <script>
-                    var pe = jQuery("#pr-${editedProduct.id}");
-                    pe.modal('show');
-                    initProductEdit(pe);
-                </script>
-            </t:block>
-
             <t:block t:id="productsBlock">
                 <t:loop source="products" value="oneProduct">
-                    <t:product product="oneProduct" edit="catalogOwner" productsBlock="productsBlock" productEditBlock="productEditBlock" productSetter="productSetter"/>
+                    <t:product product="oneProduct" edit="catalogOwner"/>
                 </t:loop>
                 <t:if test="products">
                     <div class="more-link">
@@ -36,7 +29,6 @@
                     </t:parameter>
                 </t:if>
             </t:block>
-
             <t:productModalTemplate/>
 
         </div>
@@ -45,9 +37,11 @@
     <script>
         jQuery(document).ready(function () {
             var init = function () {
-                if (${catalogOwner}) initProductCatalogEdit();
                 initProductCatalog(jQuery("#productsZone"));
-            }
+                if (${catalogOwner}) {
+                    initProductCatalogEdit();
+                }
+            };
             init();
             Event.observe(jQuery("#productsZone").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
                 init();
