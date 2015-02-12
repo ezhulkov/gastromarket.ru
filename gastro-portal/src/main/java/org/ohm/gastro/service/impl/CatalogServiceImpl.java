@@ -162,7 +162,7 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Override
     public List<CategoryEntity> findAllRootCategories(CatalogEntity catalog) {
-        List<ProductEntity> allByCategoryAndCatalog = productRepository.findAllByCategoryAndCatalog(null, catalog, false);
+        List<ProductEntity> allByCategoryAndCatalog = productRepository.findAllByCategoryAndCatalog(null, catalog, false, null);
         return allByCategoryAndCatalog.stream()
                 .map(t -> t.getCategory().getParent() != null ? t.getCategory().getParent() : t.getCategory())
                 .distinct()

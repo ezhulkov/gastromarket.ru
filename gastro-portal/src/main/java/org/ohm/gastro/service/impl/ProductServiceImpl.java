@@ -14,6 +14,10 @@ import org.ohm.gastro.reps.TagRepository;
 import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -142,10 +146,22 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductEntity> findAllProducts(CategoryEntity category, CatalogEntity catalog, Boolean hidden) {
+        return findProductsInternal(category, catalog, hidden, null);
+    }
+
+    @Override
+    public List<ProductEntity> findProductsForFrontend(CategoryEntity category, CatalogEntity catalog, OrderType orderType, Direction direction, int from, int to) {
+        final int count = to - from;
+        final int page = from / count;
+        final Sort sort = orderType == OrderType.NONE ? null : new Sort(direction, orderType.name().toLowerCase());
+        return findProductsInternal(category, catalog, false, new PageRequest(page, count, sort));
+    }
+
+    private List<ProductEntity> findProductsInternal(CategoryEntity category, CatalogEntity catalog, Boolean hidden, Pageable page) {
         if (category != null && category.getChildren().size() > 0) {
-            return productRepository.findAllByParentCategory(category, hidden);
+            return productRepository.findAllByParentCategory(category, hidden, page);
         }
-        return productRepository.findAllByCategoryAndCatalog(category, catalog, hidden);
+        return productRepository.findAllByCategoryAndCatalog(category, catalog, hidden, page);
     }
 
     @Override

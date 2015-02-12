@@ -5,6 +5,7 @@ import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.TagEntity;
+import org.springframework.data.domain.Sort.Direction;
 
 import java.util.List;
 import java.util.Map;
@@ -14,15 +15,15 @@ import java.util.Map;
  */
 public interface ProductService extends ImageUploaderService<ProductEntity> {
 
-    public enum Order {
-        DESC, ASC, NONE
-    }
+    public static int PRODUCTS_PER_PAGE = 4;
 
     public enum OrderType {
         NAME, PRICE, NONE
     }
 
     List<ProductEntity> findAllProducts(CategoryEntity category, CatalogEntity catalog, Boolean hidden);
+
+    List<ProductEntity> findProductsForFrontend(CategoryEntity category, CatalogEntity catalog, OrderType orderType, Direction direction, int from, int to);
 
     ProductEntity findProduct(Long id);
 

@@ -48,7 +48,7 @@
                     <li>Сортировать по:
                         <div class="dropdown sort">
                             <a data-target="#" href="#sortMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">${orderMessage}</a>
-                            <span class="order order-${order}"></span>
+                            <span class="order order-${direction}"></span>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
                                     <a href="/product/list/${categoryId}/name/asc">по имени возрастая</a>
@@ -79,13 +79,10 @@
                 <t:loop source="products" value="oneProduct">
                     <t:product product="oneProduct"/>
                 </t:loop>
-                <t:if test="products">
+                <t:if test="hasProducts">
                     <div class="more-link">
-                        <t:actionlink t:id="fetchProducts" t:context="0" t:zone="productsZone" class="">Показать еще...</t:actionlink>
+                        <t:actionlink t:id="fetchProducts" t:context="${to}" t:zone="productsZone" class="">Показать еще...</t:actionlink>
                     </div>
-                    <t:parameter name="else">
-                        <div class="empty">В этой секции каталога пока нет товаров</div>
-                    </t:parameter>
                 </t:if>
             </t:block>
 

@@ -22,7 +22,7 @@
                 </t:loop>
                 <t:if test="products">
                     <div class="more-link">
-                        <t:actionlink t:id="fetchProducts" t:context="0" t:zone="productsZone" class="">Показать еще...</t:actionlink>
+                        <t:actionlink t:id="fetchProducts" t:context="${offset}" t:zone="productsZone" class="">Показать еще...</t:actionlink>
                     </div>
                     <t:parameter name="else">
                         <div class="empty">В этой секции каталога пока нет товаров</div>

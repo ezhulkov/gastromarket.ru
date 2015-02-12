@@ -10,8 +10,9 @@ import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
-import org.ohm.gastro.service.ProductService.Order;
+import org.ohm.gastro.service.ProductService;
 import org.ohm.gastro.service.ProductService.OrderType;
+import org.springframework.data.domain.Sort.Direction;
 
 import java.util.function.Consumer;
 
@@ -27,7 +28,7 @@ public class Products extends BaseComponent {
     private CategoryEntity category = null;
 
     @Property
-    private Order order = Order.NONE;
+    private Direction direction = null;
 
     @Property
     private OrderType orderType = OrderType.NONE;
@@ -46,6 +47,9 @@ public class Products extends BaseComponent {
     @Property
     private Block productEditBlock;
 
+    @Property
+    private int offset = ProductService.PRODUCTS_PER_PAGE;
+
     public java.util.List<CategoryEntity> getCategories() {
         return getCatalogService().findAllRootCategories();
     }
@@ -63,22 +67,25 @@ public class Products extends BaseComponent {
     }
 
     public java.util.List<ProductEntity> getProducts() {
-        return getProductService().findAllProducts(category, catalog, false);
+        return getProductService().findProductsForFrontend(category, catalog,
+                                                           orderType, direction,
+                                                           offset, ProductService.PRODUCTS_PER_PAGE);
     }
 
     @OnEvent(value = EventConstants.ACTION, component = "fetchProducts")
-    public Block fetchNextProducts(Long count) {
+    public Block fetchNextProducts(int offset) {
+        this.offset = offset;
         return productsBlock;
     }
 
     public boolean onActivate(Long catId) {
-        return onActivate(catId, null, OrderType.NONE, Order.NONE);
+        return onActivate(catId, null, OrderType.NONE, null);
     }
 
-    public boolean onActivate(Long catId, Long cid, OrderType orderType, Order order) {
+    public boolean onActivate(Long catId, Long cid, OrderType orderType, Direction direction) {
         this.catalog = getCatalogService().findCatalog(catId);
         this.category = cid == null ? null : getCatalogService().findCategory(cid);
-        this.order = order;
+        this.direction = direction;
         this.orderType = orderType;
         return true;
     }
@@ -88,7 +95,7 @@ public class Products extends BaseComponent {
                 catalog.getId(),
                 category == null ? null : category.getId(),
                 orderType == null ? null : orderType.name().toLowerCase(),
-                order == null ? null : order.name().toLowerCase()};
+                direction == null ? null : direction.name().toLowerCase()};
     }
 
     public String getTitle() {
