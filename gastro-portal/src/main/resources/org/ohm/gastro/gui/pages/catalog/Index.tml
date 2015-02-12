@@ -93,7 +93,7 @@
                         </t:parameter>
                     </t:if>
                 </div>
-                <div class="col-sm-6 product-item">
+                <div class="col-sm-6">
                     <t:if test="description">
                         <span class="desc"><t:outputraw value="description"/></span>
                     </t:if>

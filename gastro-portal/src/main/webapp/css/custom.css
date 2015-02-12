@@ -945,7 +945,7 @@ html div.office table.table td.toggle {
     display: none;
     width: 270px;
     min-height: 350px;
-    overflow: auto;
+    overflow: hidden;
     cursor: pointer;
 }
 

@@ -25,14 +25,14 @@
             </t:if>
             <img class="product-image" src="${product.avatarUrlMedium}"/>
         </div>
-        <div class="data wrapword">
+        <div class="data">
             <span class="name wrapword"><a href="/product/${product.id}">${product.name}</a></span>
                 <span class="cook">
                     <img class="avatar-small" src="${product.catalog.avatarUrlSmall}"/>
                     <a href="/catalog/${product.catalog.id}">${product.catalog.name}</a>
                 </span>
             <t:if test="description">
-                <span class="desc"><t:outputraw value="description"/></span>
+                <span class="desc wrapword"><t:outputraw value="description"/></span>
             </t:if>
             <div class="basket-block">
                 <span class="price pull-left">${product.price} &#x20bd;</span>
