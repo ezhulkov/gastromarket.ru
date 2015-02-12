@@ -186,12 +186,12 @@ function initProductCatalog(ajaxContainer) {
             scrollMutex = true;
         }, 500);
     });
-    //jQuery(window).scroll(function () {
-    //    if (scrollMutex && jQuery(window).scrollTop() + jQuery(window).height() > jQuery(document).height() - 50) {
-    //        scrollMutex = false;
-    //        triggerEvent(jQuery('a[id^=fetchProducts]').get(0), 'click');
-    //    }
-    //});
+    jQuery(window).scroll(function () {
+        if (scrollMutex && jQuery(window).scrollTop() + jQuery(window).height() > jQuery(document).height() - 50) {
+            scrollMutex = false;
+            triggerEvent(jQuery('a[id^=fetchProducts]').get(0), 'click');
+        }
+    });
 }
 function initBasket() {
     Event.observe(jQuery("span[id^='basketZone']").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
