@@ -13,6 +13,7 @@ import org.ohm.gastro.reps.ProductRepository;
 import org.ohm.gastro.reps.TagRepository;
 import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.ProductService;
+import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -37,7 +38,7 @@ import static org.scribe.utils.Preconditions.checkNotNull;
  */
 @Component
 @Transactional
-public class ProductServiceImpl implements ProductService {
+public class ProductServiceImpl implements ProductService, Logging {
 
     private final ProductRepository productRepository;
     private final TagRepository tagRepository;
@@ -153,15 +154,15 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductEntity> findProductsForFrontend(CategoryEntity category, CatalogEntity catalog, OrderType orderType, Direction direction, int from, int to) {
         final int count = to - from;
         final int page = from / count;
-        final Sort sort = orderType == OrderType.NONE ? null : new Sort(direction, orderType.name().toLowerCase());
+        final Sort sort = orderType == OrderType.NONE || orderType == null ? null : new Sort(direction, orderType.name().toLowerCase());
         return findProductsInternal(category, catalog, false, new PageRequest(page, count, sort));
     }
 
     private List<ProductEntity> findProductsInternal(CategoryEntity category, CatalogEntity catalog, Boolean hidden, Pageable page) {
         if (category != null && category.getChildren().size() > 0) {
-            return productRepository.findAllByParentCategory(category, hidden, page);
+            return productRepository.findAllByParentCategory(category, hidden, page).getContent();
         }
-        return productRepository.findAllByCategoryAndCatalog(category, catalog, hidden, page);
+        return productRepository.findAllByCategoryAndCatalog(category, catalog, hidden, page).getContent();
     }
 
     @Override

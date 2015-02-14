@@ -27,8 +27,8 @@ public class Index extends BaseComponent {
     @Property
     private CatalogEntity catalog;
 
-    @Property
-    private ProductEntity oneProduct;
+        @Property
+        private ProductEntity oneProduct;
 
     @Property
     private ProductEntity editedProduct;

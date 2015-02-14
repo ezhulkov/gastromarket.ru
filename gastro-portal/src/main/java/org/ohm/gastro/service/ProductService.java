@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public interface ProductService extends ImageUploaderService<ProductEntity> {
 
-    public static int PRODUCTS_PER_PAGE = 4;
+    public static int PRODUCTS_PER_PAGE = 8;
 
     public enum OrderType {
         NAME, PRICE, NONE

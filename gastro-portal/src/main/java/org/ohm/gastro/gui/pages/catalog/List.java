@@ -7,7 +7,6 @@ import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
-import java.util.Collections;
 import java.util.stream.Collectors;
 
 /**
@@ -30,9 +29,7 @@ public class List extends BaseComponent {
     }
 
     public java.util.List<ProductEntity> getProducts() {
-        java.util.List<ProductEntity> products = getProductService().findAllProducts(null, oneCatalog, false).stream().limit(3).collect(Collectors.toList());
-        Collections.shuffle(products);
-        return products;
+        return getProductService().findProductsForFrontend(null, oneCatalog, null, null, 0, 3);
     }
 
     public String getCategories() {

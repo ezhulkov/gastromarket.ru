@@ -171,8 +171,7 @@ function initProductCatalog(ajaxContainer) {
                 jQuery(items)
                     .filter(function () {
                         return jQuery(this).css("display") == "none";
-                    })
-                    .fadeIn(1000);
+                    }).fadeIn(1000);
                 initProductInCatalog(items);
             }
         });
