@@ -2,7 +2,7 @@ package org.ohm.gastro.service.impl;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
@@ -23,6 +23,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -176,12 +177,15 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
-    public void saveRating(RatingEntity rating) {
-        final CatalogEntity catalog = rating.getCatalog();
-        final Integer catalogRating = (Integer) ObjectUtils.defaultIfNull(catalog.getRating(), 0);
-        catalog.setRating(catalogRating + rating.getRating());
-        catalogRepository.save(catalog);
-        ratingRepository.save(rating);
+    public void rateCatalog(final CatalogEntity catalog, final String comment, final int rating, final UserEntity user) {
+        if (StringUtils.isEmpty(comment) || user == null) return;
+        RatingEntity ratingEntity = new RatingEntity();
+        ratingEntity.setCatalog(catalog);
+        ratingEntity.setAuthor(user);
+        ratingEntity.setComment(comment);
+        ratingEntity.setDate(new Timestamp(System.currentTimeMillis()));
+        ratingEntity.setRating(rating);
+        ratingRepository.save(ratingEntity);
     }
 
     @Override

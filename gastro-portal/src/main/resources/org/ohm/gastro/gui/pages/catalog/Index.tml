@@ -130,9 +130,40 @@
 
             <div class="title">
                 <h1><span>Отзывы о кулинаре</span></h1>
-                <a href="#">Оставить отзыв</a>
+                <a href="#rate" data-toggle="modal" data-target="#rate">Оставить отзыв</a>
             </div>
 
+
+            <div class="modal fade rate" id="rate" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="title">
+                                <h1><span>Отзыв о кулинаре</span></h1>
+                            </div>
+                            <a class="modal-close" data-dismiss="modal"></a>
+                        </div>
+                        <div class="modal-body">
+                            <t:if test="commentAllowed">
+                                <t:form t:id="rateForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
+                                    <t:errors/>
+                                    <div class="form-group">
+                                        <div class="col-sm-1"/>
+                                        <div class="col-sm-10">
+                                            <textarea t:type="TextArea" t:id="rateComment" t:value="rateComment" rows="5" class="form-control"/>
+                                        </div>
+                                        <div class="col-sm-1"/>
+                                    </div>
+                                    <input class="btn btn-red" type="submit" value="Оценить"/>
+                                </t:form>
+                            </t:if>
+                            <t:unless test="commentAllowed">
+                                <p class="modal-text">Для того чтобы оставить отзыв о работе кулинара необходимо совершить как минимум одну покупку.</p>
+                            </t:unless>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <t:if test="ratings">
                 <ul class="ratings">
                     <t:loop source="ratings" value="oneRating">
@@ -149,7 +180,7 @@
                                     ${oneRating.author.fullName}
                                 </div>
                                 <div class="text">
-                                    ${oneRating.comment}
+                                    <t:outputraw value="oneRatingComment"/>
                                 </div>
                             </div>
                         </li>

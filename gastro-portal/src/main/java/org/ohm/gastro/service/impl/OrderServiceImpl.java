@@ -1,8 +1,10 @@
 package org.ohm.gastro.service.impl;
 
+import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PurchaseEntity;
 import org.ohm.gastro.domain.PurchaseProductEntity;
+import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.reps.PurchaseProductRepository;
 import org.ohm.gastro.reps.PurchaseRepository;
 import org.ohm.gastro.reps.UserRepository;
@@ -44,6 +46,11 @@ public class OrderServiceImpl implements OrderService {
         }).collect(Collectors.toList());
         purchaseRepository.save(purchase);
         purchaseProductRepository.save(productEntities);
+    }
+
+    @Override
+    public List<PurchaseEntity> findAllOrders(final UserEntity customer, final CatalogEntity catalog) {
+        return purchaseRepository.findAllByCatalogAndCustomer(customer, catalog);
     }
 
 }

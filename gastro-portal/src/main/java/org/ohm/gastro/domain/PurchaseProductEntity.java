@@ -32,6 +32,9 @@ public class PurchaseProductEntity extends AbstractBaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private ProductEntity product;
 
+    @Column
+    private int count = 1;
+
     @Override
     public Long getId() {
         return id;
@@ -63,6 +66,14 @@ public class PurchaseProductEntity extends AbstractBaseEntity {
 
     public void setProduct(ProductEntity product) {
         this.product = product;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(final int count) {
+        this.count = count;
     }
 
 }

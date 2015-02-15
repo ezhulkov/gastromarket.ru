@@ -58,6 +58,6 @@ public interface CatalogService extends ImageUploaderService<CatalogEntity> {
 
     List<RatingEntity> findAllRatings(CatalogEntity user);
 
-    void saveRating(RatingEntity rating);
+    void rateCatalog(final CatalogEntity catalog, final String comment, final int rating, final UserEntity user);
 
 }

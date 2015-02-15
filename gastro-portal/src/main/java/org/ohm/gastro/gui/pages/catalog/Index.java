@@ -27,14 +27,17 @@ public class Index extends BaseComponent {
     @Property
     private CatalogEntity catalog;
 
-        @Property
-        private ProductEntity oneProduct;
+    @Property
+    private ProductEntity oneProduct;
 
     @Property
     private ProductEntity editedProduct;
 
     @Property
     private RatingEntity oneRating;
+
+    @Property
+    private String rateComment;
 
     @Inject
     @Property
@@ -117,9 +120,24 @@ public class Index extends BaseComponent {
         return desc;
     }
 
+    public String getOneRatingComment() {
+        String text = (String) ObjectUtils.defaultIfNull(oneRating.getComment(), "");
+        text = text.replaceAll("\\n", "<br/>");
+        return text;
+    }
+
     @Cached
     public boolean isCatalogOwner() {
         return catalog.getUser().equals(getAuthenticatedUserOpt().orElse(null));
+    }
+
+    @Cached
+    public boolean isCommentAllowed() {
+        return getAuthenticatedUserOpt().map(t -> getOrderService().findAllOrders(t, catalog).size()).orElse(0) > 0;
+    }
+
+    public void onSuccessFromRateForm() {
+        getCatalogService().rateCatalog(catalog, rateComment, 5, getAuthenticatedUserOpt().orElse(null));
     }
 
 }

@@ -1,5 +1,7 @@
 package org.ohm.gastro.domain;
 
+import com.google.common.collect.Lists;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,9 +11,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by ezhulkov on 24.08.14.
@@ -42,6 +46,9 @@ public class PurchaseEntity extends AbstractBaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private UserEntity customer;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "purchase")
+    private List<PurchaseProductEntity> products = Lists.newArrayList();
 
     @Override
     public Long getId() {
@@ -83,4 +90,13 @@ public class PurchaseEntity extends AbstractBaseEntity {
     public void setCustomer(UserEntity customer) {
         this.customer = customer;
     }
+
+    public List<PurchaseProductEntity> getProducts() {
+        return products;
+    }
+
+    public void setProducts(final List<PurchaseProductEntity> products) {
+        this.products = products;
+    }
+
 }
