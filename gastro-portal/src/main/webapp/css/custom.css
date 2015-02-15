@@ -297,14 +297,16 @@ html > body div.t-error ul li {
     margin-bottom: 30px;
 }
 
-.title h1 {
+.title h1,
+.title h2 {
     position: relative;
     margin: 20px auto;
     text-align: center;
     padding-top: 23px;
 }
 
-.title h1:after {
+.title h1:after,
+.title h2:after {
     content: "";
     border-top: 1px solid #bdbdbd;
     position: absolute;
@@ -313,7 +315,8 @@ html > body div.t-error ul li {
     width: 150%;
 }
 
-.title h1 span {
+.title h1 span,
+.title h2 span {
     background: #fff;
     position: relative;
     z-index: 1;
@@ -510,14 +513,22 @@ html > body div.t-error ul li {
     border-radius: 11px;
 }
 
-.red-link,
-.remember-link {
+.red-link {
     color: #e70500;
     padding-top: 5px;
     font-size: 16px;
 }
 
-.remember-link input {
+.remember-link {
+    color: #e70500;
+}
+
+.label-checkbox-set {
+    padding-top: 5px;
+    font-size: 16px;
+}
+
+.label-checkbox-set input {
     margin-left: 10px;
 }
 
@@ -907,6 +918,7 @@ html div.office table.table td.toggle {
 .catalog .container,
 .product .container,
 .info .container,
+.cart .container,
 .contacts .container {
     min-height: 300px;
     margin-bottom: 100px;
@@ -1428,4 +1440,117 @@ div.catalog-edit-links {
 div.catalog-edit-links .more-link {
     display: inline;
     margin: 0 10px;
+}
+
+/*Cart*/
+.attention {
+    border: 1px solid #bd0400;
+    padding: 20px 40px;
+    margin: 40px 250px;
+    border-radius: 11px;
+}
+
+.attention p {
+    font-size: 18px;
+    text-align: center;
+
+}
+
+.cart-catalog {
+    margin-bottom: 20px;
+}
+
+.cart-catalog .name a {
+    font-size: 20px;
+    color: #bd0400;
+}
+
+.purchase {
+    -webkit-box-shadow: 0 0 6px 2px #ddd;
+    -moz-box-shadow: 0 0 6px 2px #ddd;
+    box-shadow: 0 0 6px 2px #ddd;
+    background-color: #fff;
+    border: 1px solid #aaa;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 10px 0 20px 0;
+    height: 100px;
+}
+
+.purchase .pic {
+    width: 100px;
+    height: 100px;
+}
+
+.purchase .data {
+    width: 675px;
+    height: 100px;
+    padding: 10px;
+}
+
+.purchase .controls {
+    margin-top: 10px;
+}
+
+.purchase .data .name a {
+    color: black;
+}
+
+.purchase .data .name {
+    font-size: 20px;
+}
+
+.purchase .data .price {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.purchase .del {
+    color: #bd0400;
+    font-size: 20px;
+    margin-top: 10px;
+    padding-right: 20px;
+}
+
+.purchase .del span {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    background: url("../img/purchase-edit.png") no-repeat -41px 0;
+    margin-right: 10px;
+}
+
+.purchase .inc {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background: url("../img/purchase-edit.png") no-repeat 0 0;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.purchase .dec {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background: url("../img/purchase-edit.png") no-repeat -20px 0;
+    margin-right: 15px;
+    vertical-align: middle;
+}
+
+.purchase .count {
+    width: 70px;
+    height: 35px;
+    margin-top: 5px;
+    padding: 0 10px;
+    border-radius: 5px;
+}
+
+.cart-catalog .details {
+    font-size: 20px;
+}
+
+.cart .total {
+    font-size: 20px;
+    font-weight: bold;
 }

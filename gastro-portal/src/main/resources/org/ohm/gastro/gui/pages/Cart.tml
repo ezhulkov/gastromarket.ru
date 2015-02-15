@@ -1,88 +1,156 @@
-<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <div class="cart">
+        <div class="container">
+            <div class="title">
+                <h1><span>Корзина</span></h1>
+            </div>
 
 
+            <t:if test="catalogs">
 
-    <div class="main-body">
+                <t:unless test="authenticated">
+                    <div class="attention">
+                        <h2>Хотите совершать покупки бесплатно?</h2>
 
-        <t:if test="catalogs">
-            <h2>Общая стоимость заказа ${totalPrice} руб</h2>
-
-            <t:unless test="authenticated">
-                Хотите зарабатывать баллы и расплачиваться ими при покупках?
-                Пройдите <a href="#signup" data-toggle="modal" data-target="#signup">регистрацию</a> или <a href="#login" data-toggle="modal" data-target="#login">залогиньтесь</a>
-            </t:unless>
-
-            <h3>Товары</h3>
-            <ul>
-                <t:loop source="catalogs" value="oneCatalog">
-                    <li style="display:table;">
-                        <h5>Кулинар "${oneCatalog.getKey().name}"</h5>
-                        Условия доставки: ${oneCatalog.getKey().delivery}<br/>
-
-                        <div class="catalog">
-                            <ul>
+                        <p>Пройдите <a href="#login" class="signup-link" data-toggle="modal" data-target="#login">простую регистрацию</a> на Гастромаркет, приглашайте друзей, оставляйте отзывы о работе кулинаров, копите и расплачивайтесь бонусными баллами на Гастромаркет.</p>
+                    </div>
+                </t:unless>
+                <t:zone t:id="purchaseZone">
+                    <t:delegate to="purchaseBlock"/>
+                </t:zone>
+                <t:block t:id="purchaseBlock">
+                    <t:loop source="catalogs" value="oneCatalog">
+                        <div class="row cart-catalog">
+                            <div class="col-sm-2"/>
+                            <div class="col-sm-8">
+                                <div class="name">
+                                    <t:pagelink page="catalog/index" t:context="oneCatalog.getKey().id">${oneCatalog.getKey().name}</t:pagelink>
+                                </div>
                                 <t:loop source="oneCatalog.getValue()" value="oneProduct">
-                                    <li>
-                                        <t:product product="oneProduct" link="false"/>
-                                        <t:actionlink t:id="deleteProduct" context="oneProduct.id">Удалить из заказа</t:actionlink>
-                                    </li>
+                                    <div class="purchase">
+                                        <a href="/product/${oneProduct.id}"><img class="pic pull-left" src="${oneProduct.avatarUrlSmall}"/></a>
+
+                                        <div class="data pull-right">
+                                            <div class="name"><a href="/product/${oneProduct.id}">${oneProduct.name}</a></div>
+                                            <div class="controls row">
+                                                <div class="price col-sm-3">${oneProduct.price} &#x20bd;</div>
+                                                <div class="col-sm-5">
+                                                    <t:actionlink t:id="incProduct" t:zone="purchaseZone" context="oneProduct.id" class="dec"/>
+                                                    <input type="text" value="${oneProduct.count}" class="count"/>
+                                                    <t:actionlink t:id="decProduct" t:zone="purchaseZone" context="oneProduct.id" class="inc"/>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <t:actionlink t:id="deleteProduct" t:zone="purchaseZone" context="oneProduct.id" class="del pull-right"><span/>Удалить</t:actionlink>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </t:loop>
-                            </ul>
+                                <t:if test="oneCatalog.getKey().delivery">
+                                    <div class="details">
+                                        Доставка: ${oneCatalog.getKey().delivery}<br/>
+                                    </div>
+                                </t:if>
+                                <t:if test="oneCatalog.getKey().payment">
+                                    <div class="details">
+                                        Оплата: ${oneCatalog.getKey().payment}<br/>
+                                    </div>
+                                </t:if>
+                            </div>
+                            <div class="col-sm-2"/>
                         </div>
-                    </li>
-                </t:loop>
-            </ul>
-            <t:parameter name="else">
-                <h2>
-                    В корзине пока ничего нет, начните поиск в
-                    <t:pagelink page="catalog/list">каталоге</t:pagelink>
-                </h2>
-            </t:parameter>
+                    </t:loop>
+                    <div class="row cart-catalog total">
+                        <div class="col-sm-2"/>
+                        <div class="col-sm-8">
+                            Общая стоимость заказа без учета доставки: ${totalPrice} &#x20bd;
+                        </div>
+                        <div class="col-sm-2"/>
+                    </div>
+                </t:block>
 
-            <t:form t:id="cartForm"
-                    t:autofocus="true"
-                    t:clientValidation="none"
-                    class="form-horizontal well"
-                    role="form">
-                <h3>Комментарии к заказу</h3>
-
-                <div class="form-group">
-                    <div class="col-sm-11">
-                        <input t:id="comment" class="form-control" placeholder="дополнительная информация"/>
-                    </div>
-                </div>
-                <h3>Адрес доставки и персональные данные</h3>
-
-                <div class="form-group">
-                    <div class="col-sm-11">
-                        <input t:id="fullName" class="form-control" placeholder="Ваше имя"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-11">
-                        <input t:id="mobilePhone" class="form-control" placeholder="Телефон для связи"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-11">
-                        <input t:id="deliveryAddress" class="form-control" placeholder="Адрес доставки"/>
-                    </div>
-                </div>
-                <h3>Оплата заказа</h3>
-
-                <div class="form-group">
-                    <div class="col-sm-11">
-                        <input id="bonus" class="form-control" type="text" placeholder="Оплата бонусными баллами"/>
-                    </div>
+                <div class="title">
+                    <h2><span>Оформление заказа</span></h2>
                 </div>
 
-                <input class="btn btn-default" type="submit" value="Разместить заказ"/>
+                <t:form t:id="cartForm" t:autofocus="false" t:clientValidation="none" class="form form-horizontal edit" role="form">
+                    <t:errors/>
+                    <div class="form-group">
+                        <div class="col-sm-3"/>
+                        <div class="col-sm-6">
+                            <t:label for="fullName">Ваше имя:</t:label>
+                            <input id="fullName" t:id="fullName" class="form-control"/>
+                        </div>
+                        <div class="col-sm-3"/>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3"/>
+                        <div class="col-sm-6">
+                            <t:label for="mobilePhone">Телефон для связи:</t:label>
+                            <input id="mobilePhone" t:id="mobilePhone" class="form-control"/>
+                        </div>
+                        <div class="col-sm-3"/>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3"/>
+                        <div class="col-sm-6">
+                            <t:label for="deliveryAddress">Адрес доставки:</t:label>
+                            <input id="deliveryAddress" t:id="deliveryAddress" rows="2" class="form-control"/>
+                        </div>
+                        <div class="col-sm-3"/>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3"/>
+                        <div class="col-sm-6">
+                            <t:label for="comment">Комментарии к заказу:</t:label>
+                            <input id="comment" t:id="comment" rows="5" class="form-control"/>
+                        </div>
+                        <div class="col-sm-3"/>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3"/>
+                        <div class="col-sm-3 label-checkbox-set">
+                            <label for="useBonus">Оплатить бонусными баллами</label>
+                            <input type="checkbox" name="useBonus" id="useBonus"/>
+                        </div>
+                        <div class="col-sm-3 bonus-field hidden">
+                            <t:if test="authenticated">
+                                <input id="bonus" t:id="bonus" class="form-control" placeholder="Не более ${authenticatedUser.bonus} баллов"/>
+                            </t:if>
+                            <t:unless test="authenticated">
+                                Пройдите <a href="#login" class="signup-link" data-toggle="modal" data-target="#login">простую регистрацию</a> для того, чтобы расплачиваться бонусными баллами
+                            </t:unless>
+                        </div>
+                        <div class="col-sm-3"/>
+                    </div>
 
-            </t:form>
+                    <input class="btn  btn-red" type="submit" value="Оформить заказ"/>
 
+                </t:form>
 
-        </t:if>
+                <t:parameter name="else">
+                    <div class="empty">
+                        В корзине пока ничего нет, начните поиск в <a href="product/list">каталоге</a>
+                    </div>
+                </t:parameter>
 
+            </t:if>
+
+        </div>
+        <t:landing/>
     </div>
 
-</t:htmllayout>
+    <script>
+        jQuery(document).ready(function () {
+            jQuery("#useBonus").click(function () {
+                if (jQuery(this).is(':checked')) {
+                    jQuery(".bonus-field").removeClass("hidden");
+                } else {
+                    jQuery(".bonus-field").addClass("hidden");
+                }
+            });
+        });
+    </script>
+
+</t:htmlLayout>

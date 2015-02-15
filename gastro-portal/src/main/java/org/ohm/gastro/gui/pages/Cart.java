@@ -1,9 +1,14 @@
 package org.ohm.gastro.gui.pages;
 
+import org.apache.tapestry5.Block;
+import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
+import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
+import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PurchaseEntity;
@@ -30,22 +35,45 @@ public class Cart extends BaseComponent {
     @Property
     private PurchaseEntity newPurchase;
 
+    @Property
+    private Integer bonus;
+
+    @Inject
+    @Property
+    private Block purchaseBlock;
+
     @Component(id = "comment", parameters = {"value=newPurchase.comment"})
     private TextArea commentField;
 
-    @Component(id = "fullName", parameters = {"value=newPurchase.customer.fullName"})
+    @Component(id = "fullName", parameters = {"value=newPurchase.customer.fullName", "validate=required"})
     private TextField fnField;
 
-    @Component(id = "deliveryAddress", parameters = {"value=newPurchase.customer.deliveryAddress"})
-    private TextField daField;
+    @Component(id = "deliveryAddress", parameters = {"value=newPurchase.customer.deliveryAddress", "validate=required"})
+    private TextArea daField;
 
-    @Component(id = "mobilePhone", parameters = {"value=newPurchase.customer.mobilePhone"})
+    @Component(id = "mobilePhone", parameters = {"value=newPurchase.customer.mobilePhone", "validate=required"})
     private TextField mfField;
 
-    public void onActionFromDeleteProduct(Long pid) {
+    @Component(id = "bonus", parameters = {"value=bonus"})
+    private TextField bonusField;
+
+    @InjectComponent
+    private Form cartForm;
+
+    public Block onActionFromDeleteProduct(Long pid) {
         getShoppingCart().removeProduct(new ProductEntity(pid));
+        return purchaseBlock;
     }
 
+    public Block onActionFromIncProduct(Long pid) {
+        return purchaseBlock;
+    }
+
+    public Block onActionFromDecProduct(Long pid) {
+        return purchaseBlock;
+    }
+
+    @Cached
     public List<Map.Entry<CatalogEntity, List<ProductEntity>>> getCatalogs() {
         return getShoppingCart().getProducts().stream()
                 .map(t -> getProductService().findProduct(t.getId()))
@@ -57,7 +85,11 @@ public class Cart extends BaseComponent {
         return getShoppingCart().getProducts().stream().collect(Collectors.summingInt(ProductEntity::getPrice));
     }
 
-    public Object onSubmitFromCartForm() {
+    public Object onSuccessFromCartForm() {
+        if (isAuthenticated() && bonus > getAuthenticatedUser().getBonus()) {
+            cartForm.recordError(bonusField, getMessages().get("insufficient.bonuses.error"));
+            return null;
+        }
         getOrderService().placeOrder(newPurchase, getShoppingCart().getProducts());
         getShoppingCart().purge();
         return CartResults.class;

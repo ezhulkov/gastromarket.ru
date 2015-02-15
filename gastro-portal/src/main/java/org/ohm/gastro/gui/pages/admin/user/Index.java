@@ -66,7 +66,7 @@ public class Index extends EditObjectPage<UserEntity> {
             public Class<? extends BaseComponent> updateObject(UserEntity user) {
                 if (StringUtils.isNotEmpty(newPassword)) user.setPassword(getPasswordEncoder().encode(newPassword));
                 try {
-                    getUserService().saveUser(user);
+                    getUserService().createUser(user);
                 } catch (UserExistsException e) {
                     getEditObject().getForm().recordError("user exists");
                 } catch (EmptyPasswordException e) {

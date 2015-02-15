@@ -47,8 +47,8 @@ function activate_menu(el) {
 }
 function initTitle(el) {
     jQuery(el).each(function (i, e) {
-        var h1 = jQuery(e).find("h1");
-        jQuery(h1).css("width", realTitleWidth(jQuery(h1)) + 50);
+        var h = jQuery(e).find("h1,h2");
+        jQuery(h).css("width", realTitleWidth(jQuery(h)) + 50);
     });
 }
 function initChosen(el) {

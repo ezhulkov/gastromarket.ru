@@ -112,19 +112,21 @@
                 </div>
             </div>
 
-            <div class="title">
-                <h1><span>Товары</span></h1>
-                <t:pagelink page="catalog/products" t:context="catalog.id">Все товары<span/></t:pagelink>
-            </div>
             <t:zone t:id="productsZone">
                 <t:delegate to="productsBlock"/>
             </t:zone>
             <t:block t:id="productsBlock">
-                <div id="product-items" class="grid-block">
-                    <t:loop source="products" value="oneProduct">
-                        <t:product product="oneProduct" class="fixed" edit="catalogOwner"/>
-                    </t:loop>
-                </div>
+                <t:if test="products">
+                    <div class="title">
+                        <h1><span>Товары</span></h1>
+                        <t:pagelink page="catalog/products" t:context="catalog.id">Все товары<span/></t:pagelink>
+                    </div>
+                    <div id="product-items" class="grid-block">
+                        <t:loop source="products" value="oneProduct">
+                            <t:product product="oneProduct" class="fixed" edit="catalogOwner"/>
+                        </t:loop>
+                    </div>
+                </t:if>
             </t:block>
             <t:productModalTemplate/>
 
@@ -207,6 +209,7 @@
             init();
             Event.observe(jQuery("#productsZone").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
                 init();
+                initTitle(jQuery("div.title"));
             });
         });
     </script>

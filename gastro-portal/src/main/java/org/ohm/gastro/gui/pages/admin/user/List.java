@@ -50,7 +50,7 @@ public class List extends EditObjectPage<UserEntity> {
             public Class<? extends BaseComponent> addObject(UserEntity user) {
                 if (StringUtils.isNotEmpty(newPassword)) user.setPassword(passwordEncoder.encode(newPassword));
                 try {
-                    getUserService().saveUser(user);
+                    getUserService().createUser(user);
                 } catch (UserExistsException e) {
                     getEditObject().getForm().recordError(emailField, getMessages().get("error.user.exists"));
                 } catch (EmptyPasswordException e) {

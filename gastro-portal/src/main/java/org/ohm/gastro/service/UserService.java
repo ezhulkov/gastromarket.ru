@@ -14,7 +14,9 @@ public interface UserService extends UserDetailsService, ImageUploaderService<Us
 
     void toggleUser(Long id);
 
-    UserEntity saveUser(UserEntity user) throws UserExistsException, EmptyPasswordException;
+    UserEntity saveUser(UserEntity user);
+
+    UserEntity createUser(UserEntity user) throws UserExistsException, EmptyPasswordException;
 
     UserEntity findUser(Long id);
 

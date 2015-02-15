@@ -36,7 +36,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public void placeOrder(PurchaseEntity purchase, List<ProductEntity> products) {
-        if (purchase.getCustomer().getId() == null) userRepository.save(purchase.getCustomer());
+        userRepository.save(purchase.getCustomer());
         List<PurchaseProductEntity> productEntities = products.stream().map(t -> {
             PurchaseProductEntity link = new PurchaseProductEntity();
             link.setPrice(t.getPrice());

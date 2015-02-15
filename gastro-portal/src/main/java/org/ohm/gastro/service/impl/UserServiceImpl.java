@@ -62,7 +62,12 @@ public class UserServiceImpl implements UserService, Logging {
     }
 
     @Override
-    public UserEntity saveUser(UserEntity user) throws UserExistsException, EmptyPasswordException {
+    public UserEntity saveUser(final UserEntity user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public UserEntity createUser(UserEntity user) throws UserExistsException, EmptyPasswordException {
         if (StringUtils.isEmpty(user.getPassword())) throw new EmptyPasswordException();
         if (user.getId() == null) {
             if (userRepository.findByEmail(user.getEmail()) != null) throw new UserExistsException();
