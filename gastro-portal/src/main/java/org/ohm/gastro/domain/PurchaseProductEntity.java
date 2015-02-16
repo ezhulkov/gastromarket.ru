@@ -35,6 +35,13 @@ public class PurchaseProductEntity extends AbstractBaseEntity {
     @Column
     private int count = 1;
 
+    public PurchaseProductEntity() {
+    }
+
+    public PurchaseProductEntity(Long id) {
+        this.id = id;
+    }
+
     @Override
     public Long getId() {
         return id;

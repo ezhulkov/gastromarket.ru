@@ -44,6 +44,9 @@ public class PurchaseEntity extends AbstractBaseEntity {
     @Column
     private Timestamp date = new Timestamp(System.currentTimeMillis());
 
+    @Column(name = "user_bonuses")
+    private int usedBonuses = 0;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private UserEntity customer;
 
@@ -99,4 +102,11 @@ public class PurchaseEntity extends AbstractBaseEntity {
         this.products = products;
     }
 
+    public int getUsedBonuses() {
+        return usedBonuses;
+    }
+
+    public void setUsedBonuses(int usedBonuses) {
+        this.usedBonuses = usedBonuses;
+    }
 }

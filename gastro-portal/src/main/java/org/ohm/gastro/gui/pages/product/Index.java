@@ -37,7 +37,7 @@ public class Index extends BaseComponent {
     }
 
     public Block onActionFromPurchase(Long pid) {
-        getShoppingCart().addProduct(getProductService().findProduct(pid));
+        getShoppingCart().addProduct(createPurchaseItem(pid));
         return getShoppingCart().getBasketBlock();
     }
 

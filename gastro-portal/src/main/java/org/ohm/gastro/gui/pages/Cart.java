@@ -1,7 +1,7 @@
 package org.ohm.gastro.gui.pages;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.tapestry5.Block;
-import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Property;
@@ -10,8 +10,8 @@ import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
-import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PurchaseEntity;
+import org.ohm.gastro.domain.PurchaseProductEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.domain.UserEntity.Status;
 import org.ohm.gastro.domain.UserEntity.Type;
@@ -19,7 +19,6 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 23.08.14.
@@ -27,10 +26,10 @@ import java.util.stream.Collectors;
 public class Cart extends BaseComponent {
 
     @Property
-    private ProductEntity oneProduct;
+    private PurchaseProductEntity oneProduct;
 
     @Property
-    private Map.Entry<CatalogEntity, List<ProductEntity>> oneCatalog;
+    private Map.Entry<CatalogEntity, List<PurchaseProductEntity>> oneCatalog;
 
     @Property
     private PurchaseEntity newPurchase;
@@ -61,35 +60,26 @@ public class Cart extends BaseComponent {
     private Form cartForm;
 
     public Block onActionFromDeleteProduct(Long pid) {
-        getShoppingCart().removeProduct(new ProductEntity(pid));
+        getShoppingCart().removeProduct(pid);
         return purchaseBlock;
     }
 
     public Block onActionFromIncProduct(Long pid) {
+        getShoppingCart().incProduct(pid);
         return purchaseBlock;
     }
 
     public Block onActionFromDecProduct(Long pid) {
+        getShoppingCart().decProduct(pid);
         return purchaseBlock;
     }
 
-    @Cached
-    public List<Map.Entry<CatalogEntity, List<ProductEntity>>> getCatalogs() {
-        return getShoppingCart().getProducts().stream()
-                .map(t -> getProductService().findProduct(t.getId()))
-                .collect(Collectors.groupingBy(ProductEntity::getCatalog)).entrySet().stream()
-                .collect(Collectors.toList());
-    }
-
-    public Integer getTotalPrice() {
-        return getShoppingCart().getProducts().stream().collect(Collectors.summingInt(ProductEntity::getPrice));
-    }
-
     public Object onSuccessFromCartForm() {
-        if (isAuthenticated() && bonus != null && bonus > getAuthenticatedUser().getBonus()) {
+        if (isAuthenticated() && bonus > getAuthenticatedUser().getBonus()) {
             cartForm.recordError(bonusField, getMessages().get("insufficient.bonuses.error"));
             return null;
         }
+        newPurchase.setUsedBonuses(bonus);
         getOrderService().placeOrder(newPurchase, getShoppingCart().getProducts());
         getShoppingCart().purge();
         return CartResults.class;
@@ -106,6 +96,25 @@ public class Cart extends BaseComponent {
             newUser.setStatus(Status.ENABLED);
             newPurchase.setCustomer(newUser);
         }
+    }
+
+    public String getOneCatalogDelivery() {
+        String desc = (String) ObjectUtils.defaultIfNull(oneCatalog.getKey().getDelivery(), "");
+        desc = desc.replaceAll("\\n", "<br/>");
+        return desc;
+    }
+
+    public String getOneCatalogPayment() {
+        String desc = (String) ObjectUtils.defaultIfNull(oneCatalog.getKey().getPayment(), "");
+        desc = desc.replaceAll("\\n", "<br/>");
+        return desc;
+    }
+
+    public String getBonusMessage() {
+        if (isAuthenticated()) return getAuthenticatedUser().getBonus() > 0 ?
+                getMessages().format("bonuses.message", getAuthenticatedUser().getBonus()) :
+                getMessages().get("no.bonuses");
+        return getMessages().get("no.bonuses");
     }
 
 }

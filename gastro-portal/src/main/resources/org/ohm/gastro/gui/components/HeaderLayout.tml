@@ -63,7 +63,7 @@
                 </div>
             </t:if>
             <t:parameter name="else">
-                <t:pagelink page="catalog/list">
+                <t:pagelink page="cart">
                     В корзине пусто
                 </t:pagelink>
             </t:parameter>

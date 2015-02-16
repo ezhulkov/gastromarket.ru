@@ -1,7 +1,6 @@
 package org.ohm.gastro.service.impl;
 
 import org.ohm.gastro.domain.CatalogEntity;
-import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PurchaseEntity;
 import org.ohm.gastro.domain.PurchaseProductEntity;
 import org.ohm.gastro.domain.UserEntity;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 12.10.14.
@@ -35,17 +33,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public void placeOrder(PurchaseEntity purchase, List<ProductEntity> products) {
+    public void placeOrder(PurchaseEntity purchase, List<PurchaseProductEntity> purchaseItems) {
         userRepository.save(purchase.getCustomer());
-        List<PurchaseProductEntity> productEntities = products.stream().map(t -> {
-            PurchaseProductEntity link = new PurchaseProductEntity();
-            link.setPrice(t.getPrice());
-            link.setPurchase(purchase);
-            link.setProduct(t);
-            return link;
-        }).collect(Collectors.toList());
         purchaseRepository.save(purchase);
-        purchaseProductRepository.save(productEntities);
+        purchaseItems.stream().forEach(t -> t.setPurchase(purchase));
+        purchaseProductRepository.save(purchaseItems);
     }
 
     @Override

@@ -7,7 +7,7 @@
             </div>
 
 
-            <t:if test="catalogs">
+            <t:if test="shoppingCart.catalogs">
 
                 <t:unless test="authenticated">
                     <div class="attention">
@@ -20,7 +20,7 @@
                     <t:delegate to="purchaseBlock"/>
                 </t:zone>
                 <t:block t:id="purchaseBlock">
-                    <t:loop source="catalogs" value="oneCatalog">
+                    <t:loop source="shoppingCart.catalogs" value="oneCatalog">
                         <div class="row cart-catalog">
                             <div class="col-sm-2"/>
                             <div class="col-sm-8">
@@ -29,33 +29,31 @@
                                 </div>
                                 <t:loop source="oneCatalog.getValue()" value="oneProduct">
                                     <div class="purchase">
-                                        <a href="/product/${oneProduct.id}"><img class="pic pull-left" src="${oneProduct.avatarUrlSmall}"/></a>
+                                        <a href="/product/${oneProduct.product.id}"><img class="pic pull-left" src="${oneProduct.product.avatarUrlSmall}"/></a>
 
                                         <div class="data pull-right">
-                                            <div class="name"><a href="/product/${oneProduct.id}">${oneProduct.name}</a></div>
+                                            <div class="name"><a href="/product/${oneProduct.product.id}">${oneProduct.product.name}</a></div>
                                             <div class="controls row">
                                                 <div class="price col-sm-3">${oneProduct.price} &#x20bd;</div>
                                                 <div class="col-sm-5">
-                                                    <t:actionlink t:id="incProduct" t:zone="purchaseZone" context="oneProduct.id" class="dec"/>
-                                                    <input type="text" value="${oneProduct.count}" class="count"/>
-                                                    <t:actionlink t:id="decProduct" t:zone="purchaseZone" context="oneProduct.id" class="inc"/>
+                                                    <t:actionlink t:id="decProduct" t:zone="purchaseZone" context="oneProduct.product.id" class="dec"/>
+                                                    <input type="text" value="${oneProduct.count}" class="count" disabled="disabled"/>
+                                                    <t:actionlink t:id="incProduct" t:zone="purchaseZone" context="oneProduct.product.id" class="inc"/>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <t:actionlink t:id="deleteProduct" t:zone="purchaseZone" context="oneProduct.id" class="del pull-right"><span/>Удалить</t:actionlink>
+                                                    <t:actionlink t:id="deleteProduct" t:zone="purchaseZone" context="oneProduct.product.id" class="del pull-right"><span/>Удалить</t:actionlink>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </t:loop>
                                 <t:if test="oneCatalog.getKey().delivery">
-                                    <div class="details">
-                                        Доставка: ${oneCatalog.getKey().delivery}<br/>
-                                    </div>
+                                    <h4>Доставка:</h4>
+                                    <t:outputraw value="oneCatalogDelivery"/>
                                 </t:if>
                                 <t:if test="oneCatalog.getKey().payment">
-                                    <div class="details">
-                                        Оплата: ${oneCatalog.getKey().payment}<br/>
-                                    </div>
+                                    <h4>Оплата:</h4>
+                                    <t:outputraw value="oneCatalogPayment"/>
                                 </t:if>
                             </div>
                             <div class="col-sm-2"/>
@@ -64,7 +62,7 @@
                     <div class="row cart-catalog total">
                         <div class="col-sm-2"/>
                         <div class="col-sm-8">
-                            Общая стоимость заказа без учета доставки: ${totalPrice} &#x20bd;
+                            Общая стоимость заказа без учета доставки: <span style="font-size: 30px">${shoppingCart.totalPrice} &#x20bd;</span>
                         </div>
                         <div class="col-sm-2"/>
                     </div>
@@ -116,7 +114,7 @@
                         </div>
                         <div class="col-sm-3 bonus-field hidden">
                             <t:if test="authenticated">
-                                <input id="bonus" t:id="bonus" class="form-control" placeholder="Не более ${authenticatedUser.bonus} баллов"/>
+                                <input id="bonus" t:id="bonus" class="form-control" placeholder="${bonusMessage}"/>
                             </t:if>
                             <t:unless test="authenticated">
                                 Пройдите <a href="#login" class="signup-link" data-toggle="modal" data-target="#login">простую регистрацию</a> для того, чтобы расплачиваться бонусными баллами

@@ -297,7 +297,7 @@
 
     <changeSet id="14" author="ezhulkov">
         <addColumn tableName="person">
-            <column name="bonus" type="java.sql.Types.INTEGER"/>
+            <column name="bonus" type="java.sql.Types.INTEGER" defaultValue="0"/>
         </addColumn>
     </changeSet>
 
@@ -360,6 +360,12 @@
     <changeSet id="23" author="ezhulkov">
         <addColumn tableName="purchase_product">
             <column name="count" type="java.sql.Types.INTEGER"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="24" author="ezhulkov">
+        <addColumn tableName="purchase">
+            <column name="user_bonuses" type="java.sql.Types.INTEGER" defaultValue="0"/>
         </addColumn>
     </changeSet>
 

@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -48,9 +47,6 @@ public class ProductEntity extends AbstractBaseEntity {
     @Column
     private Boolean promoted = false;
 
-    @Transient
-    private int count = 1;
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private CatalogEntity catalog;
 
@@ -71,10 +67,6 @@ public class ProductEntity extends AbstractBaseEntity {
     private String avatarUrlSmall = "/img/product-stub-small.png";
 
     public ProductEntity() {
-    }
-
-    public ProductEntity(Long id) {
-        this.id = id;
     }
 
     @Override
@@ -182,11 +174,4 @@ public class ProductEntity extends AbstractBaseEntity {
         this.promoted = promoted;
     }
 
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(final int count) {
-        this.count = count;
-    }
 }
