@@ -15,6 +15,9 @@
                 <li>
                     <t:pagelink page="contacts">Контакты</t:pagelink>
                 </li>
+                <li>
+                    <t:pagelink page="license">Пользовательское соглашение</t:pagelink>
+                </li>
                 <t:unless test="authenticated">
                     <li>
                         <a href="#login" class="login-link" data-toggle="modal" data-target="#login">Вход</a>
