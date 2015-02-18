@@ -1,0 +1,32 @@
+---
+  - name: update
+    shell: apt-get update
+
+  - name: sudo
+    apt: name=sudo
+
+  - name: sshpass
+    apt: name=sshpass
+
+  - name: mc
+    apt: name=mc
+
+  - name: zsh
+    apt: name=zsh
+
+  - name: user eugenezh
+    user: name=eugenezh comment="Eugene Zhulkov" group=sudo shell=/bin/zsh
+
+  - name: jdk8
+    apt: name=oracle-java8-installer oracle-java8-set-default -y
+
+  - name: nginx
+    apt: name=nginx
+
+  - name: tomcat7
+    apt: name=tomcat7
+
+  - shell: rm -fr /var/lib/tomcat7/webapps/*
+
+  - name: postgres
+    apt: name=zsh

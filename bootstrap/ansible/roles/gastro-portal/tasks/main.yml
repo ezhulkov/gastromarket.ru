@@ -3,6 +3,7 @@
     file: path={{ item }} state=directory mode=0777 group=root owner=root
     with_items:
       - "/var/log/gastro"
+      - "/var/lib/gastro"
 
   - name: cleanup tomcat7 work files
     shell: rm -fr /var/lib/tomcat7/work/*
