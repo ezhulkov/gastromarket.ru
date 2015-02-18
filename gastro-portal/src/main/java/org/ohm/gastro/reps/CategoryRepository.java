@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
 
-    @Query("from CategoryEntity where parent is null order by name desc")
+    @Query("from CategoryEntity where parent is null order by name asc")
     List<CategoryEntity> findAllRootCategories();
 
 }

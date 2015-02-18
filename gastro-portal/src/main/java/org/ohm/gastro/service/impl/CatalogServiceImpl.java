@@ -71,7 +71,7 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Override
     public List<PropertyEntity> findAllProperties() {
-        return propertyRepository.findAll(new Sort(Direction.DESC, "name"));
+        return propertyRepository.findAll(new Sort(Direction.ASC, "name"));
     }
 
     @Override

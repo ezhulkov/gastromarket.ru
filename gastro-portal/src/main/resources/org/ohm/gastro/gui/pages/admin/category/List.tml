@@ -6,6 +6,9 @@
     </div>
 
     <t:grid source="categories" row="oneCategory" reorder="name,properties,sub,del" exclude="id" add="properties,sub,del" t:mixins="GridSortingDisabled" class="table table-hover">
+        <t:parameter name="nameHeader">
+            Название
+        </t:parameter>
         <t:parameter name="subCell">
             <em>${categorySubs}</em>
         </t:parameter>
