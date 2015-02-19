@@ -1,32 +1,38 @@
+#brew install https://raw.github.com/eugeneoden/homebrew/eca9de1/Library/Formula/sshpass.rb
+#apt-get install python python-apt
+
 ---
-  - name: update
-    shell: apt-get update
+#Prepare
+  - hostname: name=gastromarket.ru
+  - shell: sudo sh -c 'echo "deb http://nginx.org/packages/debian/ wheezy nginx" > /etc/apt/sources.list.d/nginx.list'
+  - shell: sudo sh -c 'echo "deb-src http://nginx.org/packages/debian/ wheezy nginx" >> /etc/apt/sources.list.d/nginx.list'
+  - shell: sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ wheezy-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+  - shell: sudo sh -c 'echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" > /etc/apt/sources.list.d/webupd8team-java.list'
+  - shell: sudo sh -c 'echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" >> /etc/apt/sources.list.d/webupd8team-java.list'
+  - shell: apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
+  - shell: apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys ABF5BD827BD9BF62
 
-  - name: sudo
-    apt: name=sudo
+#Sys
+  - apt: name=sudo
+  - apt: name=mc
+  - apt: name=zsh
 
-  - name: sshpass
-    apt: name=sshpass
+#Java
+  - apt: name=python-software-properties
+  - shell: echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+  - apt: update_cache=yes
+  - name: Install Java 8 and Set Java 8 Env
+    apt: pkg={{ item }} state=latest install_recommends=yes
+    with_items:
+      - oracle-java8-installer
+      - oracle-java8-set-default
 
-  - name: mc
-    apt: name=mc
-
-  - name: zsh
-    apt: name=zsh
-
-  - name: user eugenezh
-    user: name=eugenezh comment="Eugene Zhulkov" group=sudo shell=/bin/zsh
-
-  - name: jdk8
-    apt: name=oracle-java8-installer oracle-java8-set-default -y
-
-  - name: nginx
-    apt: name=nginx
-
-  - name: tomcat7
-    apt: name=tomcat7
-
+#Soft
+  - apt: name=nginx=1.6.2-1~wheezy force=yes
+  - apt: name=postgresql-9.4 force=yes
+  - apt: name=tomcat7
   - shell: rm -fr /var/lib/tomcat7/webapps/*
 
-  - name: postgres
-    apt: name=zsh
+#User
+  - user: name=eugenezh comment="Eugene Zhulkov" group=sudo shell=/bin/zsh
+  - authorized_key: user=eugenezh key="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC3cQptzOu0Jf5LkUdB/schdFpBGXmJBjdA05sFFr0qOpnm8GUBhpCRwDkNkjHeVh51NuKwoAfM3h0QBOrCfmuMounmwdK73VFV1P3yPAS3Vq9PSbuYynFfS9+OZudMJp2q91u4Kk864SJ5q0DZ9mbq5Sl6dZAWdJtU4ZbdpNg65E06RFWmR+YwFIlEybPDoHVBYk/d2Fpdv059seu9/VLb3DEdVe2ROzYnbsx3i+2fmyqTi97T0v026NA/1QQdYeWbiBhu57O6qjZFpABpF0+Pmh4M76vN94ub0Gln2seL0CiZLgk3OIyjFJ9RNjlRbWUvcN/Xpb3XBF14j8xfXBar ezhulkov@ezhulkov"
