@@ -68,7 +68,7 @@
     </context-param>
     <context-param>
         <param-name>tapestry.production-mode</param-name>
-        <param-value>false</param-value>
+        <param-value>${mvn.prod.mode}</param-value>
     </context-param>
     <context-param>
         <param-name>tapestry.use-external-spring-context</param-name>

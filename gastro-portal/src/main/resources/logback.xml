@@ -1,6 +1,6 @@
 <configuration>
 
-    <property name="PATTERN" value="[%d{HH:mm:ss.SSS}][%-5level][%thread][%X{sid}][%X{uid}][%X{op}] - %msg%n"/>
+    <property name="PATTERN" value="[%d{HH:mm:ss.SSS}][%-5level][%X{ip}][%X{sid}][%X{uid}][%X{op}] - %msg%n"/>
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -18,9 +18,8 @@
         <file>/var/log/gastro/gastro-manager.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>/var/log/gastro/gastro-manager.%d.log</fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxHistory>14</maxHistory>
-            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>14</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
         <encoder>
             <pattern>${PATTERN}</pattern>
@@ -35,9 +34,8 @@
         <file>/var/log/gastro/gastro-manager-perf.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>/var/log/gastro/gastro-manager-perf.%d.log</fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxHistory>14</maxHistory>
-            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>14</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
         <encoder>
             <pattern>${PATTERN}</pattern>
@@ -50,7 +48,7 @@
 
     <appender name="EMAIL" class="ch.qos.logback.classic.net.SMTPAppender">
         <smtpHost>localhost</smtpHost>
-        <to>ezhulkov@gmail.com</to>
+        <to>contacts@gastromarket.ru</to>
         <from>noreply@gastromarket.ru</from>
         <subject>Portal Error</subject>
         <layout class="ch.qos.logback.classic.html.HTMLLayout"/>

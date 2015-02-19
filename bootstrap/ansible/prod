@@ -1,2 +1,2 @@
 [portal]
-gastromarket.ru ansible_ssh_user=root
+gastromarket.ru ansible_ssh_user=eugenezh

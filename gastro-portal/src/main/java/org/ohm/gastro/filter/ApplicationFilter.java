@@ -38,6 +38,7 @@ public class ApplicationFilter extends BaseApplicationFilter {
             String uid = SecurityContextHolder.getContext().getAuthentication() == null ? "-" : SecurityContextHolder.getContext().getAuthentication().getName();
             stopWatch = new Slf4JStopWatch("op" + opNumber, servletPath);
             MDC.put("sid", sid);
+            MDC.put("ip", httpServletRequest.getHeader("X-Real-IP"));
             MDC.put("uid", uid);
             MDC.put("op", "op" + Long.toString(opNumber));
             StringBuilder logStr = new StringBuilder(httpServletRequest.getMethod());
