@@ -196,8 +196,6 @@
         </div>
     </div>
 
-    <t:landing/>
-
     <script>
         jQuery(document).ready(function () {
             var init = function () {

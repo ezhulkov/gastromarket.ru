@@ -37,6 +37,7 @@
 </t:if>
 <t:headerlayout floatingHeader="floatingHeader" header="header"/>
 <t:body/>
+<t:landing/>
 <t:footerlayout/>
 </body>
 </html>

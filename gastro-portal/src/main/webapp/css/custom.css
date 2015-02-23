@@ -699,34 +699,66 @@ div.username {
 
 .main-img-after.main1 {
     background: url("../img/main/main1.jpg") center top no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .main-img-after.main2 {
     background: url("../img/main/main2.jpg") center top no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .main-img-after.main3 {
     background: url("../img/main/main3.jpg") center top no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .main-img-after.main4 {
     background: url("../img/main/main4.jpg") center top no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .main-img-after.main5 {
     background: url("../img/main/main5.jpg") center top no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .main-img-after.main6 {
     background: url("../img/main/main6.jpg") center top no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .main-img-after.main7 {
     background: url("../img/main/main7.jpg") center top no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .main-img-after.main8 {
     background: url("../img/main/main8.jpg") center top no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .main-img h1 {
@@ -895,6 +927,10 @@ a.category-69 {
     font-size: 16px;
 }
 
+.howto-row {
+    margin-bottom: 20px;
+}
+
 .edit {
     margin-bottom: 20px;
     text-align: center;
@@ -1021,6 +1057,7 @@ html div.office table.table td.toggle {
 .product .container,
 .info .container,
 .cart .container,
+.catalogs .container,
 .contacts .container {
     min-height: 300px;
     margin-bottom: 100px;

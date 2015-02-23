@@ -80,7 +80,6 @@
             </div>
 
         </div>
-        <t:landing/>
     </div>
 
     <div class="modal fade howto" id="howto" tabindex="-1" role="dialog" aria-hidden="true">
@@ -93,7 +92,7 @@
                     <a class="modal-close" data-dismiss="modal"></a>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
+                    <div class="row howto-row">
                         <div class="col-sm-4">
                             <img src="${contextPath}/img/howto1.jpg"/>
                         </div>
