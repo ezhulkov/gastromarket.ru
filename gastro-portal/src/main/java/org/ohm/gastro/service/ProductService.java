@@ -25,6 +25,8 @@ public interface ProductService extends ImageUploaderService<ProductEntity> {
 
     List<ProductEntity> findProductsForFrontend(CategoryEntity category, CatalogEntity catalog, OrderType orderType, Direction direction, int from, int to);
 
+    int findProductsForFrontendCount(CatalogEntity catalog);
+
     ProductEntity findProduct(Long id);
 
     List<ProductEntity> findPromotedProducts();

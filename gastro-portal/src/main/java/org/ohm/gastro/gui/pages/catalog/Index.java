@@ -140,4 +140,16 @@ public class Index extends BaseComponent {
         getCatalogService().rateCatalog(catalog, rateComment, 5, getAuthenticatedUserOpt().orElse(null));
     }
 
+    public int getProductsCount() {
+        return getProductService().findProductsForFrontendCount(catalog);
+    }
+
+    public int getRatingCount() {
+        return getRatings().size();
+    }
+
+    public int getOrderCount() {
+        return 1;
+    }
+
 }

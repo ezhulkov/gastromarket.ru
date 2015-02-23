@@ -158,6 +158,11 @@ public class ProductServiceImpl implements ProductService, Logging {
         return findProductsInternal(category, catalog, false, new PageRequest(page, count, sort));
     }
 
+    @Override
+    public int findProductsForFrontendCount(final CatalogEntity catalog) {
+        return productRepository.findCountCatalog(catalog);
+    }
+
     private List<ProductEntity> findProductsInternal(CategoryEntity category, CatalogEntity catalog, Boolean hidden, Pageable page) {
         if (category != null && category.getChildren().size() > 0) {
             return productRepository.findAllByParentCategory(category, hidden, page).getContent();

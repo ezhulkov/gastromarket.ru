@@ -22,6 +22,9 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
             "      (pr.hidden=false or :hidden is null)")
     Page<ProductEntity> findAllByCategoryAndCatalog(@Param("category") CategoryEntity category, @Param("catalog") CatalogEntity catalog, @Param("hidden") Boolean hidden, Pageable page);
 
+    @Query("select count(*) from ProductEntity where catalog=:catalog and hidden=false")
+    int findCountCatalog(@Param("catalog") CatalogEntity catalog);
+
     @Query("select pr from ProductEntity pr " +
             "join pr.category c " +
             "left join c.parent p " +

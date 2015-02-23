@@ -111,6 +111,11 @@
                     </t:if>
                 </div>
             </div>
+            <div class="row stat">
+                <span>Товаров: ${productsCount}</span>
+                <span>Отзывов: ${ratingCount}</span>
+                <span>Выполнено заказов: ${orderCount}</span>
+            </div>
 
             <t:zone t:id="productsZone">
                 <t:delegate to="productsBlock"/>

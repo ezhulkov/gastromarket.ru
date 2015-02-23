@@ -1015,6 +1015,10 @@ html div.office table.table td.img {
     overflow: hidden;
 }
 
+.properties-details .more-btn {
+    margin-top: 38px;
+}
+
 .product-create .more a,
 .office td.del a,
 .office td.toggle a {
@@ -1547,7 +1551,17 @@ html div.office table.table td.toggle {
 }
 
 .chef-page .info {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
+}
+
+.chef-page .stat {
+    text-align: center;
+    font-size: 20px;
+    margin: 0 0 50px 0;
+}
+
+.chef-page .stat span {
+    margin: 0 20px;
 }
 
 ul.ratings {
