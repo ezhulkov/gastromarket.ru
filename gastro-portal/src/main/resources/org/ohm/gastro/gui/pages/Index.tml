@@ -31,9 +31,7 @@
             <div class="grid-block category">
                 <t:loop source="categories" value="oneCategory">
                     <div>
-                        <t:pagelink page="product/list" context="oneCategory.id">
-                            <img src="/img/category.png"/>
-                        </t:pagelink>
+                        <t:pagelink page="product/list" context="oneCategory.id" class="category-${oneCategory.id}"/>
                         ${oneCategory.name}
                     </div>
                 </t:loop>

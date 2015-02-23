@@ -677,7 +677,7 @@ div.username {
     margin-top: -55px;
     padding-top: 70px;
     height: 500px;
-    background: url("../img/chef-main.png") center top no-repeat;
+    background: url("../img/main/main1.jpg") center top no-repeat;
 }
 
 .index .main-img h1 {
@@ -737,6 +737,10 @@ div.username {
     text-overflow: ellipsis;
 }
 
+.grid-block.category > div {
+    margin: 15px;
+}
+
 .grid-block a {
     display: block;
     margin-bottom: 7px;
@@ -769,14 +773,60 @@ div.username {
 }
 
 .category > div {
-    width: 270px;
+    width: 200px;
     height: 186px;
 }
 
 .category a {
-    width: 270px;
+    opacity: 0.9;
     height: 145px;
+    width: 100%;
     margin-bottom: 7px;
+    overflow: hidden;
+}
+
+.category a:hover {
+    opacity: 1;
+}
+
+a.category-1 {
+    background: transparent url("../img/category/dessert-small.jpg") repeat-x;;
+}
+
+a.category-2 {
+    background: transparent url("../img/category/dessert-small.jpg") repeat-x;;
+}
+
+a.category-3 {
+    background: transparent url("../img/category/dessert-small.jpg") repeat-x;;
+}
+
+a.category-4 {
+    background: transparent url("../img/category/country-small.jpg") repeat-x;;
+}
+
+a.category-5 {
+    background: transparent url("../img/category/catering-small.jpg") repeat-x;;
+}
+
+a.category-6 {
+    background: transparent url("../img/category/dessert-small.jpg") repeat-x;;
+}
+
+a.category-7 {
+    background: transparent url("../img/category/steak-small.jpg") repeat-x;;
+}
+
+a.category-8 {
+    background: transparent url("../img/category/salad-small.jpg") repeat-x;;
+}
+
+a.category-68 {
+    background: transparent url("../img/category/cake-small.jpg") repeat-x;;
+}
+
+a.category-69 {
+    background: transparent url("../img/category/sidedishes-small.jpg") repeat-x;;
 }
 
 .howto .modal-dialog {
