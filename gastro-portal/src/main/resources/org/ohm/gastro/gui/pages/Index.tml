@@ -1,28 +1,29 @@
 <t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" floatingHeader="false">
 
     <div class="index">
-        <div class="container">
-            <div class="main-img">
-                <div class="data">
-                    <h1>Готовим на заказ только для вас</h1>
+        <div class="main-img">
+            <div class="main-img-after"/>
+            <div class="data">
+                <h1>Готовим на заказ только для вас</h1>
 
-                    <h2>Заказывайте вкусную еду у первоклассных кулинаров</h2>
+                <h2>Заказывайте вкусную еду у первоклассных кулинаров</h2>
 
-                    <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="search-form">
-                        <div class="col-sm-1"/>
-                        <div class="col-sm-10 search-bar">
-                            <input t:id="search" t:value="searchString" t:type="TextField" placeholder="Поиск"/>
-                            <input type="submit" value=""/>
-                        </div>
-                        <div class="col-sm-1"/>
-                    </t:form>
-
-                    <div class="row">
-                        <a href="#howto" data-toggle="modal" class="btn btn-red btn-howto" data-target="#howto">Как это работает?</a>
+                <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="search-form">
+                    <div class="col-sm-1"/>
+                    <div class="col-sm-10 search-bar">
+                        <input t:id="search" t:value="searchString" t:type="TextField" placeholder="Поиск"/>
+                        <input type="submit" value=""/>
                     </div>
+                    <div class="col-sm-1"/>
+                </t:form>
 
+                <div class="row">
+                    <a href="#howto" data-toggle="modal" class="btn btn-red btn-howto" data-target="#howto">Как это работает?</a>
                 </div>
+
             </div>
+        </div>
+        <div class="container">
 
             <div class="title">
                 <h1><span>Заказ еды для любого события</span></h1>
@@ -122,5 +123,9 @@
             </div>
         </div>
     </div>
+
+    <script>
+        initMainPage();
+    </script>
 
 </t:htmllayout>

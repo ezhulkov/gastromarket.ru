@@ -673,29 +673,46 @@ div.username {
     margin-top: 15px;
 }
 
-.index .main-img {
+.main-img {
     margin-top: -55px;
     padding-top: 70px;
     height: 500px;
-    background: url("../img/main/main1.jpg") center top no-repeat;
+    width: 100%;
+    display: block;
+    position: relative;
 }
 
-.index .main-img h1 {
+.main-img-after {
+    background: url("../img/main/main1.jpg") center top no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    content: "";
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.main-img h1 {
     font-size: 40px;
     padding-top: 83px;
 }
 
-.index .main-img h2 {
+.main-img h2 {
     font-size: 16px;
     font-family: "PT Sans", sans-serif;
 }
 
-.index .main-img .data {
+.main-img .data {
     text-align: center;
     color: #fff;
     width: 804px;
     height: 318px;
-    background: url("../img/chef-shadow.png") center top no-repeat;
+    /*background: url("../img/chef-shadow.png") center top no-repeat;*/
     margin: 0 auto;
     max-height: 318px;
 }

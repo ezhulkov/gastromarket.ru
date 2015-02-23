@@ -81,7 +81,6 @@ INSERT INTO category (id, name, parent_id) VALUES (50, 'Мясные блюда'
 INSERT INTO category (id, name, parent_id) VALUES (51, 'Рыбные блюда', 7);
 INSERT INTO category (id, name, parent_id) VALUES (52, 'Блюда из птицы', 7);
 INSERT INTO category (id, name, parent_id) VALUES (53, 'Пельмени и манты', 7);
-INSERT INTO category (id, name, parent_id) VALUES (54, 'Гарниры', 7);
 INSERT INTO category (id, name, parent_id) VALUES (55, 'Рагу', 7);
 INSERT INTO category (id, name, parent_id) VALUES (56, 'Паэлья', 7);
 INSERT INTO category (id, name, parent_id) VALUES (57, 'Блюда с грибами', 7);
@@ -94,7 +93,12 @@ INSERT INTO category (id, name, parent_id) VALUES (64, 'Овощи и фрукт
 INSERT INTO category (id, name, parent_id) VALUES (65, 'Бакалея', 4);
 INSERT INTO category (id, name, parent_id) VALUES (66, 'Заготовки', 4);
 INSERT INTO category (id, name, parent_id) VALUES (67, 'Ягоды', 4);
-
+INSERT INTO category (id, name, parent_id) VALUES (68, 'Торты', NULL);
+INSERT INTO category (id, name, parent_id) VALUES (69, 'Гарниры', NULL);
+INSERT INTO category (id, name, parent_id) VALUES (70, 'Бисквитные торты', 68);
+INSERT INTO category (id, name, parent_id) VALUES (71, 'Вафельные торты', 68);
+INSERT INTO category (id, name, parent_id) VALUES (72, 'Песочные торты', 68);
+INSERT INTO category (id, name, parent_id) VALUES (73, 'Творожные торты', 68);
 
 --
 -- Data for Name: property; Type: TABLE DATA; Schema: public; Owner: gastro
@@ -438,12 +442,48 @@ INSERT INTO category_property (category_id, property_id) VALUES (65, 9);
 INSERT INTO category_property (category_id, property_id) VALUES (66, 9);
 INSERT INTO category_property (category_id, property_id) VALUES (67, 9);
 
+INSERT INTO category_property (category_id, property_id) VALUES (68, 5);
+INSERT INTO category_property (category_id, property_id) VALUES (68, 1);
+INSERT INTO category_property (category_id, property_id) VALUES (68, 9);
+INSERT INTO category_property (category_id, property_id) VALUES (68, 2);
+INSERT INTO category_property (category_id, property_id) VALUES (68, 7);
+INSERT INTO category_property (category_id, property_id) VALUES (68, 8);
+INSERT INTO category_property (category_id, property_id) VALUES (69, 5);
+INSERT INTO category_property (category_id, property_id) VALUES (69, 1);
+INSERT INTO category_property (category_id, property_id) VALUES (69, 9);
+INSERT INTO category_property (category_id, property_id) VALUES (69, 2);
+INSERT INTO category_property (category_id, property_id) VALUES (69, 7);
+INSERT INTO category_property (category_id, property_id) VALUES (69, 8);
+INSERT INTO category_property (category_id, property_id) VALUES (70, 5);
+INSERT INTO category_property (category_id, property_id) VALUES (70, 1);
+INSERT INTO category_property (category_id, property_id) VALUES (70, 9);
+INSERT INTO category_property (category_id, property_id) VALUES (70, 2);
+INSERT INTO category_property (category_id, property_id) VALUES (70, 7);
+INSERT INTO category_property (category_id, property_id) VALUES (70, 8);
+INSERT INTO category_property (category_id, property_id) VALUES (71, 5);
+INSERT INTO category_property (category_id, property_id) VALUES (71, 1);
+INSERT INTO category_property (category_id, property_id) VALUES (71, 9);
+INSERT INTO category_property (category_id, property_id) VALUES (71, 2);
+INSERT INTO category_property (category_id, property_id) VALUES (71, 7);
+INSERT INTO category_property (category_id, property_id) VALUES (71, 8);
+INSERT INTO category_property (category_id, property_id) VALUES (72, 5);
+INSERT INTO category_property (category_id, property_id) VALUES (72, 1);
+INSERT INTO category_property (category_id, property_id) VALUES (72, 9);
+INSERT INTO category_property (category_id, property_id) VALUES (72, 2);
+INSERT INTO category_property (category_id, property_id) VALUES (72, 7);
+INSERT INTO category_property (category_id, property_id) VALUES (72, 8);
+INSERT INTO category_property (category_id, property_id) VALUES (73, 5);
+INSERT INTO category_property (category_id, property_id) VALUES (73, 1);
+INSERT INTO category_property (category_id, property_id) VALUES (73, 9);
+INSERT INTO category_property (category_id, property_id) VALUES (73, 2);
+INSERT INTO category_property (category_id, property_id) VALUES (73, 7);
+INSERT INTO category_property (category_id, property_id) VALUES (73, 8);
 
 --
 -- Data for Name: hibernate_sequences; Type: TABLE DATA; Schema: public; Owner: gastro
 --
 
-INSERT INTO hibernate_sequences (sequence_name, sequence_next_hi_value) VALUES ('category', 67);
+INSERT INTO hibernate_sequences (sequence_name, sequence_next_hi_value) VALUES ('category', 74);
 INSERT INTO hibernate_sequences (sequence_name, sequence_next_hi_value) VALUES ('property', 10);
 INSERT INTO hibernate_sequences (sequence_name, sequence_next_hi_value) VALUES ('property_value', 267);
 
