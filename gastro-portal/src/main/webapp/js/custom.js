@@ -42,27 +42,19 @@ jQuery(document).ready(function () {
     initFineUploader(jQuery("div.upload-file"));
 });
 function initMainPage() {
-    var mainImage = jQuery('.main-img-after');
-    var backgrounds = [
-        'url("../img/main/main1.jpg") center top no-repeat',
-        'url("../img/main/main4.jpg") center top no-repeat',
-        'url("../img/main/main6.jpg") center top no-repeat',
-        'url("../img/main/main3.jpg") center top no-repeat',
-        'url("../img/main/main2.jpg") center top no-repeat',
-        'url("../img/main/main5.jpg") center top no-repeat',
-        'url("../img/main/main7.jpg") center top no-repeat',
-        'url("../img/main/main8.jpg") center top no-repeat'];
-    var current = 0;
+    var current = Math.floor(Math.random() * 8) + 1;
+    var zindex = 1;
 
     function nextBackground() {
-        jQuery(mainImage).animate({opacity: 0.3}, 300, function () {
-            mainImage.css('background', backgrounds[current = ++current % backgrounds.length]);
-            jQuery(mainImage).animate({opacity: 1}, 600, function () {
-                setTimeout(nextBackground, 5000);
-            });
+        if (++current > 8) current = 1;
+        var pic = jQuery(".main-img-after.main" + current);
+        jQuery(pic).fadeIn(1500, function () {
+            jQuery(".main-img-after").not(this).fadeOut(10);
         });
+        setTimeout(nextBackground, 5000);
     }
 
+    jQuery(".main-img-after.main" + current).fadeIn(0);
     setTimeout(nextBackground, 5000);
 }
 function activate_menu(el) {

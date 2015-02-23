@@ -683,7 +683,6 @@ div.username {
 }
 
 .main-img-after {
-    background: url("../img/main/main1.jpg") center top no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -695,6 +694,39 @@ div.username {
     right: 0;
     position: absolute;
     z-index: -1;
+    display: none;
+}
+
+.main-img-after.main1 {
+    background: url("../img/main/main1.jpg") center top no-repeat;
+}
+
+.main-img-after.main2 {
+    background: url("../img/main/main2.jpg") center top no-repeat;
+}
+
+.main-img-after.main3 {
+    background: url("../img/main/main3.jpg") center top no-repeat;
+}
+
+.main-img-after.main4 {
+    background: url("../img/main/main4.jpg") center top no-repeat;
+}
+
+.main-img-after.main5 {
+    background: url("../img/main/main5.jpg") center top no-repeat;
+}
+
+.main-img-after.main6 {
+    background: url("../img/main/main6.jpg") center top no-repeat;
+}
+
+.main-img-after.main7 {
+    background: url("../img/main/main7.jpg") center top no-repeat;
+}
+
+.main-img-after.main8 {
+    background: url("../img/main/main8.jpg") center top no-repeat;
 }
 
 .main-img h1 {
@@ -712,7 +744,7 @@ div.username {
     color: #fff;
     width: 804px;
     height: 318px;
-    /*background: url("../img/chef-shadow.png") center top no-repeat;*/
+    background: url("../img/chef-shadow.png") center top no-repeat;
     margin: 0 auto;
     max-height: 318px;
 }

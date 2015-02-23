@@ -2,7 +2,14 @@
 
     <div class="index">
         <div class="main-img">
-            <div class="main-img-after"/>
+            <div class="main-img-after main1"/>
+            <div class="main-img-after main2"/>
+            <div class="main-img-after main3"/>
+            <div class="main-img-after main4"/>
+            <div class="main-img-after main5"/>
+            <div class="main-img-after main6"/>
+            <div class="main-img-after main7"/>
+            <div class="main-img-after main8"/>
             <div class="data">
                 <h1>Готовим на заказ только для вас</h1>
 
