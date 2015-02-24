@@ -2,6 +2,9 @@ package org.ohm.gastro.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.service.ImageUploaderService;
@@ -9,7 +12,6 @@ import org.ohm.gastro.service.ImageUploaderService.FileType;
 import org.ohm.gastro.service.ImageUploaderService.ImageSize;
 import org.ohm.gastro.service.impl.ApplicationContextHolder;
 import org.ohm.gastro.trait.Logging;
-import org.ohm.gastro.util.CommonsUtils;
 
 import javax.imageio.ImageIO;
 import javax.servlet.FilterChain;
@@ -22,7 +24,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Enumeration;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -77,16 +79,12 @@ public class UploadFilter extends BaseApplicationFilter implements Logging {
         File file = null;
         try {
 
-            Enumeration<String> headerNames = httpServletRequest.getHeaderNames();
-            while (headerNames.hasMoreElements()) {
-                String s = headerNames.nextElement();
-                Logging.logger.error("!!! {} {}", s, httpServletRequest.getHeader(s));
-            }
-
-            final String filePath = CommonsUtils.coalesceLazy(httpServletRequest.getHeader("file_path"),
-                                                              () -> httpServletRequest.getParameter("file_path"));
-            final String fileTypeStr = httpServletRequest.getParameter("file_type");
-            final String objectIdStr = httpServletRequest.getParameter("object_id");
+            final List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(httpServletRequest);
+            final Map<String, String> multipartParams = items.stream().filter(FileItem::isFormField).collect(Collectors.toMap(FileItem::getFieldName,
+                                                                                                                              FileItem::getString));
+            final String filePath = multipartParams.get("file_path");
+            final String fileTypeStr = multipartParams.get("file_type");
+            final String objectIdStr = multipartParams.get("object_id");
 
             checkNotNull(filePath, "file_path should not be empty");
             checkNotNull(fileTypeStr, "file_type should not be empty");
