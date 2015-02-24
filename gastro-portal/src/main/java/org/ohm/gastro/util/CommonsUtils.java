@@ -2,11 +2,12 @@ package org.ohm.gastro.util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.function.Supplier;
 
 /**
  * Created by ezhulkov on 05.02.15.
  */
-public class DateUtils {
+public class CommonsUtils {
 
     public static final ThreadLocal<DateFormat> GUIDATE = new ThreadLocal<DateFormat>() {
         @Override
@@ -21,5 +22,18 @@ public class DateUtils {
             return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         }
     };
+
+    public static <T> T coalesceLazy(final T value, final Supplier<? extends T>... suppliers) {
+        if (value != null) {
+            return value;
+        }
+        for (Supplier<? extends T> supplier : suppliers) {
+            final T v = supplier.get();
+            if (v != null) {
+                return v;
+            }
+        }
+        return null;
+    }
 
 }

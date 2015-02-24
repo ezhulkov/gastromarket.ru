@@ -9,6 +9,7 @@ import org.ohm.gastro.service.ImageUploaderService.FileType;
 import org.ohm.gastro.service.ImageUploaderService.ImageSize;
 import org.ohm.gastro.service.impl.ApplicationContextHolder;
 import org.ohm.gastro.trait.Logging;
+import org.ohm.gastro.util.CommonsUtils;
 
 import javax.imageio.ImageIO;
 import javax.servlet.FilterChain;
@@ -21,9 +22,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static org.ohm.gastro.misc.Throwables.propagate;
 
@@ -74,7 +77,14 @@ public class UploadFilter extends BaseApplicationFilter implements Logging {
         File file = null;
         try {
 
-            final String filePath = httpServletRequest.getParameter("file_path");
+            Enumeration<String> headerNames = httpServletRequest.getHeaderNames();
+            while (headerNames.hasMoreElements()) {
+                String s = headerNames.nextElement();
+                Logging.logger.error("!!! {} {}", s, httpServletRequest.getHeader(s));
+            }
+
+            final String filePath = CommonsUtils.coalesceLazy(httpServletRequest.getHeader("file_path"),
+                                                              () -> httpServletRequest.getParameter("file_path"));
             final String fileTypeStr = httpServletRequest.getParameter("file_type");
             final String objectIdStr = httpServletRequest.getParameter("object_id");
 
@@ -87,10 +97,11 @@ public class UploadFilter extends BaseApplicationFilter implements Logging {
             final String objectId = fileType == FileType.AVATAR ? BaseComponent.getAuthenticatedUser(null).map(t -> t.getId().toString()).orElse("0") : objectIdStr;
 
             checkNotNull(objectId, "objectId should not be empty");
+            checkArgument(file.exists(), "file %s should exist", filePath);
 
             final BufferedImage image = ImageIO.read(file);
 
-            Logging.logger.info("Image uploaded fileType {}, objectId {} ", fileType, objectId);
+            Logging.logger.info("Image uploaded file {}, fileType {}, objectId {} ", file, fileType, objectId);
 
             final Map<ImageSize, Integer[]> fileSizes = sizes.get(fileType);
             Map<ImageSize, String> imageUrls = fileSizes.entrySet().stream()

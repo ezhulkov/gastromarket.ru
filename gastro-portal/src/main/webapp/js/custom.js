@@ -294,7 +294,7 @@ function initFineUploader(el) {
         var objectId = jQuery(e).attr("data-objectid");
         button.fineUploader({
             request: {
-                endpoint: '/upload?file_path=/tmp/1.jpg&file_type=' + fileType + '&object_id=' + objectId
+                endpoint: '/upload?file_type=' + fileType + '&object_id=' + objectId
             },
             validation: {
                 allowedExtensions: ['jpeg', 'jpg'],

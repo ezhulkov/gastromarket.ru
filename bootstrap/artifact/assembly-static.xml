@@ -13,9 +13,13 @@
             <outputDirectory>/usr/share/nginx/www</outputDirectory>
             <includes>
                 <include>css/*.*</include>
+                <include>css/**/*.*</include>
                 <include>fonts/*.*</include>
+                <include>fonts/**/*.*</include>
                 <include>img/*.*</include>
+                <include>img/**/*.*</include>
                 <include>js/*.*</include>
+                <include>js/**/*.*</include>
                 <include>robots.txt</include>
             </includes>
         </fileSet>

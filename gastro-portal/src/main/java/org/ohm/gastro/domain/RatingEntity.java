@@ -1,6 +1,6 @@
 package org.ohm.gastro.domain;
 
-import org.ohm.gastro.util.DateUtils;
+import org.ohm.gastro.util.CommonsUtils;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -91,7 +91,7 @@ public class RatingEntity extends AbstractBaseEntity {
     }
 
     public String getDatePrintable() {
-        return DateUtils.GUIDATE_LONG.get().format(date);
+        return CommonsUtils.GUIDATE_LONG.get().format(date);
     }
 
 }
