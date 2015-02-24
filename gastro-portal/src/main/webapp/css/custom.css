@@ -799,6 +799,10 @@ div.username {
     overflow: hidden;
 }
 
+.grid-block .name {
+    padding: 0 5px;
+}
+
 .chefs .grid-block {
     width: 900px;
 }
@@ -809,13 +813,18 @@ div.username {
     -moz-box-shadow: 0 0 6px 2px #ddd;
     box-shadow: 0 0 6px 2px #ddd;
     background-color: #fff;
-    margin: 7px;
+    margin: 10px;
     display: inline-block;
     border: 1px solid #aaa;
     overflow: hidden;
     white-space: nowrap;
     text-align: center;
     text-overflow: ellipsis;
+}
+
+.grid-block.products > div,
+.grid-block.promo > div {
+    margin: 7px;
 }
 
 .grid-block.category > div {
@@ -832,34 +841,35 @@ div.username {
 }
 
 .cooks > div {
-    width: 200px;
+    width: 210px;
     height: 250px;
 }
 
 .cooks a {
     opacity: 0.9;
-    width: 200px;
-    height: 200px;
-    margin-bottom: 7px;
+    width: 210px;
+    height: 210px;
+    margin-bottom: 5px;
+    overflow: hidden;
 }
 
 .cooks a:hover {
     opacity: 1;
 }
 
-.cakes > div {
+.promo > div {
     width: 270px;
     height: 334px;
 }
 
-.cakes a {
+.promo a {
     opacity: 0.9;
     width: 270px;
     height: 270px;
     margin-bottom: 18px;
 }
 
-.cakes a:hover {
+.promo a:hover {
     opacity: 1;
 }
 
@@ -1071,7 +1081,6 @@ html div.office table.table td.toggle {
 .product .container,
 .info .container,
 .cart .container,
-.catalogs .container,
 .contacts .container {
     min-height: 300px;
     margin-bottom: 100px;
@@ -1384,7 +1393,7 @@ html div.office table.table td.toggle {
 }
 
 .block3 .recommended img:hover {
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .product .info {

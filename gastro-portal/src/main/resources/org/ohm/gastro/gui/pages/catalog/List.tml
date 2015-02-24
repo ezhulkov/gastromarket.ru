@@ -22,7 +22,7 @@
                             </div>
                         </div>
                         <div class="col-sm-9">
-                            <div id="product-items" class="grid-block">
+                            <div id="product-items" class="grid-block products">
                                 <t:loop source="products" value="oneProduct">
                                     <t:product product="oneProduct" class="fixed"/>
                                 </t:loop>

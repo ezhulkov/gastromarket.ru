@@ -143,9 +143,9 @@ public class UploadFilter extends BaseApplicationFilter implements Logging {
         final int croppedHeight;
         if (width > height) {
             croppedWidth = originalWidth;
-            croppedHeight = height * originalWidth / width;
+            croppedHeight = Math.min(height * originalWidth / width, originalHeight);
         } else if (width < height) {
-            croppedWidth = width * originalHeight / height;
+            croppedWidth = Math.min(width * originalHeight / height, originalWidth);
             croppedHeight = originalHeight;
         } else {
             croppedWidth = Math.min(originalHeight, originalWidth);
@@ -154,6 +154,7 @@ public class UploadFilter extends BaseApplicationFilter implements Logging {
         final BufferedImage croppedImage = originalImage.getSubimage((originalWidth - croppedWidth) / 2, (originalHeight - croppedHeight) / 2, croppedWidth, croppedHeight);
         final BufferedImage resizedImage = new BufferedImage(width, height, ColorSpace.TYPE_RGB);
         final Graphics2D g = resizedImage.createGraphics();
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
         g.drawImage(croppedImage, 0, 0, width, height, null);
         g.dispose();
         return resizedImage;

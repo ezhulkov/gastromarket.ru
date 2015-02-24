@@ -20,7 +20,7 @@
 
             <t:filter category="category" orderType="orderType" direction="direction" pageContext="literal:/product/list"/>
 
-            <div id="product-items" class="grid-block"/>
+            <div id="product-items" class="grid-block products"/>
 
             <t:zone t:id="productsZone">
                 <t:delegate to="productsBlock"/>

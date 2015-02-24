@@ -40,7 +40,7 @@
                 <t:loop source="categories" value="oneCategory">
                     <div>
                         <t:pagelink page="product/list" context="oneCategory.id" class="category-${oneCategory.id}"/>
-                        ${oneCategory.name}
+                        <span class="name">${oneCategory.name}</span>
                     </div>
                 </t:loop>
             </div>
@@ -51,13 +51,13 @@
                     <t:pagelink page="product/promoted">Смотреть всю подборку<span/></t:pagelink>
                 </div>
 
-                <div class="grid-block cakes">
+                <div class="grid-block promo">
                     <t:loop source="products" value="oneProduct">
                         <div>
                             <t:pagelink page="product/index" context="oneProduct.id">
                                 <img src="${oneProduct.avatarUrlMedium}"/>
                             </t:pagelink>
-                            ${oneProduct.name}
+                            <span class="name">${oneProduct.name}</span>
                         </div>
                     </t:loop>
                 </div>
@@ -74,7 +74,7 @@
                         <t:pagelink page="catalog/index" context="oneCook.id">
                             <img src="${oneCook.avatarUrl}"/>
                         </t:pagelink>
-                        ${oneCook.name}
+                        <span class="name">${oneCook.name}</span>
                     </div>
                 </t:loop>
             </div>

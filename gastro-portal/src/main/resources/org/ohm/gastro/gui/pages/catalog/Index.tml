@@ -87,7 +87,7 @@
             <div class="row info">
                 <div class="col-sm-5 pic">
                     <t:if test="catalogOwner">
-                        <t:uploadfile type="CATALOG" responseSize="SIZE3" imageUrl="${catalog.avatarUrl}" class="pull-right"/>
+                        <t:uploadfile type="CATALOG" responseSize="SIZE3" imageUrl="${catalog.avatarUrl}" objectId="${catalog.id}" class="pull-right"/>
                         <t:parameter name="else">
                             <img class="pull-right" src="${catalog.avatarUrl}"/>
                         </t:parameter>
@@ -126,7 +126,7 @@
                         <h1><span>Товары</span></h1>
                         <t:pagelink page="catalog/products" t:context="catalog.id">Все товары<span/></t:pagelink>
                     </div>
-                    <div id="product-items" class="grid-block">
+                    <div id="product-items" class="grid-block products">
                         <t:loop source="products" value="oneProduct">
                             <t:product product="oneProduct" class="fixed" edit="catalogOwner"/>
                         </t:loop>

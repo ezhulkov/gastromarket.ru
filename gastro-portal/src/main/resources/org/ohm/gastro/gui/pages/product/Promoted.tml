@@ -6,7 +6,7 @@
                 <h1><span>Предложения недели</span></h1>
             </div>
 
-            <div id="product-items" class="grid-block">
+            <div id="product-items" class="grid-block products">
                 <t:loop source="products" value="oneProduct">
                     <t:product product="oneProduct" class="fixed"/>
                 </t:loop>

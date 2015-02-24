@@ -150,10 +150,10 @@ function initProductInCatalog(items) {
     });
     jQuery(items)
         .mouseenter(function () {
-            jQuery(this).find("img").css("opacity", "0.8");
+            jQuery(this).find("img").css("opacity", "1");
         })
         .mouseleave(function () {
-            jQuery(this).find("img").css("opacity", "1");
+            jQuery(this).find("img").css("opacity", "0.9");
         });
 }
 function initProductCatalogFixed() {
