@@ -832,14 +832,19 @@ div.username {
 }
 
 .cooks > div {
-    width: 210px;
+    width: 200px;
     height: 250px;
 }
 
 .cooks a {
-    width: 210px;
-    height: 210px;
+    opacity: 0.9;
+    width: 200px;
+    height: 200px;
     margin-bottom: 7px;
+}
+
+.cooks a:hover {
+    opacity: 1;
 }
 
 .cakes > div {
@@ -848,9 +853,14 @@ div.username {
 }
 
 .cakes a {
+    opacity: 0.9;
     width: 270px;
     height: 270px;
     margin-bottom: 18px;
+}
+
+.cakes a:hover {
+    opacity: 1;
 }
 
 .category > div {

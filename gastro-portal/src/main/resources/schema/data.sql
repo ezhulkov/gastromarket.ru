@@ -33,10 +33,10 @@ INSERT INTO person (id, email, password, type, date, status, referrer_id, anonym
 
 INSERT INTO category (id, name, parent_id) VALUES (1, 'Супы', NULL);
 INSERT INTO category (id, name, parent_id) VALUES (2, 'Напитки', NULL);
-INSERT INTO category (id, name, parent_id) VALUES (3, 'Выпечка и Десерты', NULL);
-INSERT INTO category (id, name, parent_id) VALUES (4, 'Фермерская Продукция', NULL);
+INSERT INTO category (id, name, parent_id) VALUES (3, 'Выпечка и десерты', NULL);
+INSERT INTO category (id, name, parent_id) VALUES (4, 'Фермерская еда', NULL);
 INSERT INTO category (id, name, parent_id) VALUES (5, 'Кейтеринг', NULL);
-INSERT INTO category (id, name, parent_id) VALUES (6, 'Закуски и Сэндвичи', NULL);
+INSERT INTO category (id, name, parent_id) VALUES (6, 'Закуски и бургеры', NULL);
 INSERT INTO category (id, name, parent_id) VALUES (7, 'Основные блюда', NULL);
 INSERT INTO category (id, name, parent_id) VALUES (8, 'Салаты', NULL);
 INSERT INTO category (id, name, parent_id) VALUES (9, 'Борщ', 1);
@@ -56,7 +56,7 @@ INSERT INTO category (id, name, parent_id) VALUES (23, 'Чай', 2);
 INSERT INTO category (id, name, parent_id) VALUES (25, 'Лимонады', 2);
 INSERT INTO category (id, name, parent_id) VALUES (26, 'Соки', 2);
 INSERT INTO category (id, name, parent_id) VALUES (27, 'Смузи', 2);
-INSERT INTO category (id, name, parent_id) VALUES (24, 'Кофе и Шоколад', 2);
+INSERT INTO category (id, name, parent_id) VALUES (24, 'Кофе и шоколад', 2);
 INSERT INTO category (id, name, parent_id) VALUES (28, 'Алкогольные напитки', 2);
 INSERT INTO category (id, name, parent_id) VALUES (29, 'Молочные коктейли', 2);
 INSERT INTO category (id, name, parent_id) VALUES (31, 'Капкейки', 3);
