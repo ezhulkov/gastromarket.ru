@@ -7,6 +7,8 @@ import org.ohm.gastro.service.ProductService;
 import org.ohm.gastro.service.ProductService.OrderType;
 import org.springframework.data.domain.Sort.Direction;
 
+import java.io.IOException;
+
 /**
  * Created by ezhulkov on 31.08.14.
  */
@@ -31,6 +33,7 @@ public class List extends ScrollableProducts {
     }
 
     public boolean onActivate(String token, String searchString) {
+        initScrollableContext(null, null, null, null);
         this.searchString = searchString;
         this.searchMode = true;
         return true;
@@ -51,6 +54,15 @@ public class List extends ScrollableProducts {
 
     public String getTitle() {
         return category == null ? getMessages().get("catalog.title") : category.getParent() == null ? category.getName() : category.getParent().getName() + " - " + category.getName();
+    }
+
+    @Override
+    public java.util.List<ProductEntity> getProducts() {
+        if (searchMode) return getProductService().searchProducts(searchString, from, to);
+        return super.getProducts();
+    }
+
+    public void onSubmitFromSearchForm() throws IOException {
     }
 
 }

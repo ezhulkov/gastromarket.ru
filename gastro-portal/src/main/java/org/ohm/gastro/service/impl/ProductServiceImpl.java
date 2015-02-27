@@ -1,5 +1,6 @@
 package org.ohm.gastro.service.impl;
 
+import com.beust.jcommander.internal.Lists;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Iterables;
@@ -69,10 +70,10 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
-    public List<ProductEntity> searchProducts(String query) {
+    public List<ProductEntity> searchProducts(String query, final int from, final int to) {
         if (StringUtils.isEmpty(query)) return Collections.emptyList();
         query = query.replaceAll("\\s", "|");
-        return productRepository.searchProducts(query);
+        return productRepository.searchProducts(query.toLowerCase(), from, to);
     }
 
     @Override
@@ -153,6 +154,7 @@ public class ProductServiceImpl implements ProductService, Logging {
     @Override
     public List<ProductEntity> findProductsForFrontend(CategoryEntity category, CatalogEntity catalog, OrderType orderType, Direction direction, int from, int to) {
         final int count = to - from;
+        if (count == 0) return Lists.newArrayList();
         final int page = from / count;
         final Sort sort = orderType == OrderType.NONE || orderType == null ? null : new Sort(direction, orderType.name().toLowerCase());
         return findProductsInternal(category, catalog, false, new PageRequest(page, count, sort));

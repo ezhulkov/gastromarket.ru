@@ -43,7 +43,7 @@ public interface ProductService extends ImageUploaderService<ProductEntity> {
 
     ProductEntity saveProduct(ProductEntity product);
 
-    List<ProductEntity> searchProducts(String query);
+    List<ProductEntity> searchProducts(String query, final int from, final int to);
 
     List<ProductEntity> findRecommendedProducts(final Long pid, final int count);
 

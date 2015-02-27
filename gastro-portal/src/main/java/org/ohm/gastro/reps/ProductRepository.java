@@ -32,16 +32,20 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
             "      (pr.hidden=false or :hidden is null)")
     Page<ProductEntity> findAllByParentCategory(@Param("category") CategoryEntity parentCategory, @Param("hidden") Boolean hidden, Pageable page);
 
-    @Query(value = "SELECT * FROM (" +
-            "       SELECT " +
-            "         p.*, " +
-            "         ts_rank_cd(to_tsvector('ru', (COALESCE(c.name,'') || ' ' || COALESCE(p.name,'') || ' ' || COALESCE(p.description,''))), to_tsquery(:q)) AS score " +
-            "       FROM product p JOIN category c ON c.id = p.category_id " +
-            "       WHERE (COALESCE(c.name,'') || ' ' || COALESCE(p.name,'') || ' ' || COALESCE(p.description,'')) @@ to_tsquery(:q) " +
-            "     ) s " +
-            "WHERE score > 0 " +
-            "ORDER BY score DESC", nativeQuery = true)
-    List<ProductEntity> searchProducts(@Param("q") String query);
+    @Query(value = "SELECT *\n" +
+            "FROM (\n" +
+            "       SELECT\n" +
+            "         P.*,\n" +
+            "         TS_RANK_CD(TO_TSVECTOR('RU', (COALESCE(C.NAME, '') || ' ' || COALESCE(P.NAME, '') || ' ' || COALESCE(P.DESCRIPTION, ''))), TO_TSQUERY(:q)) AS SCORE\n" +
+            "       FROM PRODUCT P JOIN CATEGORY C ON C.ID = P.CATEGORY_ID\n" +
+            "         LEFT JOIN CATEGORY PC ON PC.ID = C.PARENT_ID\n" +
+            "       WHERE LOWER((COALESCE(C.NAME, '') || ' ' || COALESCE(PC.NAME, '') || ' ' || COALESCE(P.NAME, '') || ' ' || COALESCE(P.DESCRIPTION, ''))) @@ TO_TSQUERY(:q)\n" +
+            "     ) S\n" +
+            "WHERE SCORE >= 0\n" +
+            "ORDER BY SCORE DESC\n" +
+            "OFFSET :o\n" +
+            "LIMIT :l", nativeQuery = true)
+    List<ProductEntity> searchProducts(@Param("q") String query, @Param("o") int offset, @Param("l") int limit);
 
     @Query("from ProductEntity where promoted=true")
     List<ProductEntity> findAllPromotedProducts();
