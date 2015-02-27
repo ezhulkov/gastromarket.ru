@@ -79,7 +79,7 @@ public class Cart extends BaseComponent {
             cartForm.recordError(bonusField, getMessages().get("insufficient.bonuses.error"));
             return null;
         }
-        newPurchase.setUsedBonuses(bonus);
+        newPurchase.setUsedBonuses((Integer) ObjectUtils.defaultIfNull(bonus, 1));
         getOrderService().placeOrder(newPurchase, getShoppingCart().getProducts());
         getShoppingCart().purge();
         return CartResults.class;

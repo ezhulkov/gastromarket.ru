@@ -9,9 +9,5 @@ COPY russian.affix /usr/share/postgresql/9.4/tsearch_data/russian.affix
 COPY russian.dict /usr/share/postgresql/9.4/tsearch_data/russian.dict
 COPY russian.stop /usr/share/postgresql/9.4/tsearch_data/russian.stop
 COPY postgresql.conf /etc/postgresql/9.4/main/postgresql.conf
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 EXPOSE 5432
-
-# CMD ["/bin/sh -c '/usr/bin/supervisord & /bin/zsh'"]
-CMD ["/bin/sh -c 'ls /usr/bin/supervisord'"]

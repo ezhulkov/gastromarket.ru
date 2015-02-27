@@ -117,6 +117,19 @@ public class UserServiceImpl implements UserService, Logging {
     }
 
     @Override
+    public void processFeedbackRequest(final String eMail, final String fullName, final String comment) {
+
+        logger.info("Feedback received");
+        logger.info("email: {}", eMail);
+        logger.info("fullName: {}", fullName);
+        logger.info("comment: {}", comment);
+
+        //todo
+        //send email
+
+    }
+
+    @Override
     public void signupSocial(UserEntity userProfile) {
 
         UserEntity existingUser = userRepository.findByEmail(userProfile.getEmail());

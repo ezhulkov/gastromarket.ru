@@ -822,6 +822,10 @@ div.username {
     text-overflow: ellipsis;
 }
 
+.intl-tel-input {
+    display: table-cell;
+}
+
 .grid-block.products > div,
 .grid-block.promo > div {
     margin: 7px;

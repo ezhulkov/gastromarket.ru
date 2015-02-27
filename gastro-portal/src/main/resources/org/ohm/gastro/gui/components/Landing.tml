@@ -40,9 +40,6 @@
                         <a class="modal-close" data-dismiss="modal"></a>
                     </div>
                     <div class="modal-body">
-                        <div class="row">
-                            <p class="modal-text">Если Вы кулинар и хотите подключиться к ГастроМаркет, полноценно использовать все возможности сайта и продавать приготовленную Вами еду, то оставьте заявку на подключение и мы обязательно с Вами свяжемся.</p>
-                        </div>
                         <t:zone t:id="applicationZone">
                             <t:delegate to="applicationFormBlock"/>
                         </t:zone>
@@ -56,6 +53,9 @@
                             </div>
                         </t:block>
                         <t:block t:id="applicationFormBlock">
+                            <div class="row">
+                                <p class="modal-text">Если Вы кулинар и хотите подключиться к ГастроМаркет, полноценно использовать все возможности сайта и продавать приготовленную Вами еду, то оставьте заявку на подключение и мы обязательно с Вами свяжемся.</p>
+                            </div>
                             <t:form t:zone="applicationZone" t:id="applicationForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
                                 <t:errors/>
                                 <div class="form-group">

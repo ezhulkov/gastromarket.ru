@@ -1,6 +1,6 @@
 CREATE ROLE gastro LOGIN INHERIT CREATEDB CREATEROLE;
 ALTER ROLE gastro PASSWORD 'gastro';
-CREATE DATABASE gastro_prod OWNER gastro TEMPLATE template0 LC_COLLATE 'ru_RU.UTF-8' LC_CTYPE 'ru_RU.UTF-8';
+CREATE DATABASE gastro OWNER gastro TEMPLATE template0 LC_COLLATE 'ru_RU.UTF-8' LC_CTYPE 'ru_RU.UTF-8';
 
 -- place russian* to /usr/share/postgresql/9.4/tsearch_data
 

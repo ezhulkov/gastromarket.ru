@@ -77,7 +77,7 @@
                     <div class="form-group">
                         <div class="col-sm-3"/>
                         <div class="col-sm-6">
-                            <t:label for="fullName">Ваше имя:</t:label>
+                            <t:label for="fullName">Ваше имя: *</t:label>
                             <input id="fullName" t:id="fullName" class="form-control"/>
                         </div>
                         <div class="col-sm-3"/>
@@ -85,7 +85,7 @@
                     <div class="form-group">
                         <div class="col-sm-3"/>
                         <div class="col-sm-6">
-                            <t:label for="mobilePhone">Телефон для связи:</t:label>
+                            <t:label for="mobilePhone">Телефон для связи: *</t:label>
                             <input id="mobilePhone" t:id="mobilePhone" class="form-control"/>
                         </div>
                         <div class="col-sm-3"/>
@@ -93,7 +93,7 @@
                     <div class="form-group">
                         <div class="col-sm-3"/>
                         <div class="col-sm-6">
-                            <t:label for="deliveryAddress">Адрес доставки:</t:label>
+                            <t:label for="deliveryAddress">Адрес доставки: *</t:label>
                             <input id="deliveryAddress" t:id="deliveryAddress" rows="2" class="form-control"/>
                         </div>
                         <div class="col-sm-3"/>
@@ -122,9 +122,15 @@
                         </div>
                         <div class="col-sm-3"/>
                     </div>
-
                     <input class="btn  btn-red" type="submit" value="Оформить заказ"/>
 
+                    <div class="form-group">
+                        <div class="col-sm-3"/>
+                        <div class="col-sm-6 label-checkbox-set">
+                            <i>* - обязательные поля</i>
+                        </div>
+                        <div class="col-sm-3"/>
+                    </div>
                 </t:form>
 
                 <t:parameter name="else">
@@ -146,6 +152,11 @@
                 } else {
                     jQuery(".bonus-field").addClass("hidden");
                 }
+            });
+            jQuery("#mobilePhone").intlTelInput({
+                onlyCountries: ["ru"],
+                defaultCountry: "ru",
+                utilsScript: "/js/intlTelInputUtils.min.js"
             });
         });
     </script>

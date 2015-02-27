@@ -24,6 +24,8 @@ public interface UserService extends UserDetailsService, ImageUploaderService<Us
 
     void processApplicationRequest(String eMail, String fullName, String about);
 
+    void processFeedbackRequest(String eMail, String fullName, String comment);
+
     void signupSocial(UserEntity userProfile);
 
 }
