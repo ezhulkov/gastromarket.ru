@@ -9,10 +9,10 @@ import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.Response;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.hibernate.Hibernate;
+import org.ohm.gastro.domain.OrderProductEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyEntity.Type;
-import org.ohm.gastro.domain.PurchaseProductEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.dto.ShoppingCart;
@@ -205,8 +205,8 @@ public abstract class BaseComponent {
         this.shoppingCart = shoppingCart;
     }
 
-    public PurchaseProductEntity createPurchaseItem(Long pid) {
-        final PurchaseProductEntity purchaseItem = new PurchaseProductEntity();
+    public OrderProductEntity createPurchaseItem(Long pid) {
+        final OrderProductEntity purchaseItem = new OrderProductEntity();
         final ProductEntity product = productService.findProduct(pid);
         Hibernate.initialize(product);
         Hibernate.initialize(product.getCatalog());

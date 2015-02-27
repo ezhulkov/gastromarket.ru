@@ -5,7 +5,7 @@ import com.google.common.collect.Lists;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.ohm.gastro.domain.CatalogEntity;
-import org.ohm.gastro.domain.PurchaseProductEntity;
+import org.ohm.gastro.domain.OrderProductEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +19,7 @@ public final class ShoppingCart {
 
     private boolean justAdded;
     private Block basketBlock;
-    private final List<PurchaseProductEntity> products = Lists.newLinkedList();
+    private final List<OrderProductEntity> products = Lists.newLinkedList();
 
     public Block getBasketBlock() {
         return basketBlock;
@@ -34,12 +34,12 @@ public final class ShoppingCart {
         return justAdded;
     }
 
-    public List<PurchaseProductEntity> getProducts() {
+    public List<OrderProductEntity> getProducts() {
         return ImmutableList.copyOf(products);
     }
 
-    public void addProduct(PurchaseProductEntity product) {
-        final PurchaseProductEntity purchaseItem = findPurchaseItem(product.getProduct().getId())
+    public void addProduct(OrderProductEntity product) {
+        final OrderProductEntity purchaseItem = findPurchaseItem(product.getProduct().getId())
                 .orElseGet(() -> {
                     products.add(product);
                     return product;
@@ -70,11 +70,11 @@ public final class ShoppingCart {
     }
 
     @Cached
-    public List<Map.Entry<CatalogEntity, List<PurchaseProductEntity>>> getCatalogs() {
+    public List<Map.Entry<CatalogEntity, List<OrderProductEntity>>> getCatalogs() {
         return Lists.newArrayList(products.stream().collect(Collectors.groupingBy(t -> t.getProduct().getCatalog())).entrySet());
     }
 
-    private Optional<PurchaseProductEntity> findPurchaseItem(Long pid) {
+    private Optional<OrderProductEntity> findPurchaseItem(Long pid) {
         return products.stream().filter(t -> t.getProduct().getId().equals(pid)).findFirst();
     }
 

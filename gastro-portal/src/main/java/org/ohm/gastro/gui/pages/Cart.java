@@ -10,8 +10,8 @@ import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
-import org.ohm.gastro.domain.PurchaseEntity;
-import org.ohm.gastro.domain.PurchaseProductEntity;
+import org.ohm.gastro.domain.OrderEntity;
+import org.ohm.gastro.domain.OrderProductEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.domain.UserEntity.Status;
 import org.ohm.gastro.domain.UserEntity.Type;
@@ -26,13 +26,13 @@ import java.util.Map;
 public class Cart extends BaseComponent {
 
     @Property
-    private PurchaseProductEntity oneProduct;
+    private OrderProductEntity oneProduct;
 
     @Property
-    private Map.Entry<CatalogEntity, List<PurchaseProductEntity>> oneCatalog;
+    private Map.Entry<CatalogEntity, List<OrderProductEntity>> oneCatalog;
 
     @Property
-    private PurchaseEntity newPurchase;
+    private OrderEntity newPurchase;
 
     @Property
     private Integer bonus;
@@ -75,18 +75,18 @@ public class Cart extends BaseComponent {
     }
 
     public Object onSuccessFromCartForm() {
-        if (isAuthenticated() && bonus > getAuthenticatedUser().getBonus()) {
+        if (isAuthenticated() && bonus != null && bonus > getAuthenticatedUser().getBonus()) {
             cartForm.recordError(bonusField, getMessages().get("insufficient.bonuses.error"));
             return null;
         }
-        newPurchase.setUsedBonuses((Integer) ObjectUtils.defaultIfNull(bonus, 1));
-        getOrderService().placeOrder(newPurchase, getShoppingCart().getProducts());
+        newPurchase.setUsedBonuses((Integer) ObjectUtils.defaultIfNull(bonus, 0));
+        getOrderService().placeOrder(newPurchase, getShoppingCart().getProducts(), );
         getShoppingCart().purge();
         return CartResults.class;
     }
 
     public void onPrepare() {
-        newPurchase = new PurchaseEntity();
+        newPurchase = new OrderEntity();
         if (isAuthenticated()) {
             newPurchase.setCustomer(getAuthenticatedUser());
         } else {

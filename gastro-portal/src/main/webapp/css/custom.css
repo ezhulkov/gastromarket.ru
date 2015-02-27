@@ -512,6 +512,10 @@ html > body div.t-error ul li {
     border-radius: 11px;
 }
 
+.text-red {
+    color: #e70500;
+}
+
 .red-link {
     color: #e70500;
     padding-top: 5px;

@@ -21,8 +21,8 @@ import java.util.List;
  * Created by ezhulkov on 24.08.14.
  */
 @Entity
-@Table(name = "purchase")
-public class PurchaseEntity extends AbstractBaseEntity {
+@Table(name = "orders")
+public class OrderEntity extends AbstractBaseEntity {
 
     public enum Status {
         NEW, ACCEPTED, READY, DELIVERED, CANCELLED, CLOSED
@@ -33,6 +33,9 @@ public class PurchaseEntity extends AbstractBaseEntity {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "order")
     @SequenceGenerator(initialValue = 1, allocationSize = 1, name = "order")
     private Long id;
+
+    @Column(name = "order_number")
+    private String orderNumber;
 
     @Column
     private String comment;
@@ -50,8 +53,8 @@ public class PurchaseEntity extends AbstractBaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private UserEntity customer;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "purchase")
-    private List<PurchaseProductEntity> products = Lists.newArrayList();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    private List<OrderProductEntity> products = Lists.newArrayList();
 
     @Override
     public Long getId() {
@@ -94,11 +97,11 @@ public class PurchaseEntity extends AbstractBaseEntity {
         this.customer = customer;
     }
 
-    public List<PurchaseProductEntity> getProducts() {
+    public List<OrderProductEntity> getProducts() {
         return products;
     }
 
-    public void setProducts(final List<PurchaseProductEntity> products) {
+    public void setProducts(final List<OrderProductEntity> products) {
         this.products = products;
     }
 
@@ -108,5 +111,13 @@ public class PurchaseEntity extends AbstractBaseEntity {
 
     public void setUsedBonuses(int usedBonuses) {
         this.usedBonuses = usedBonuses;
+    }
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(final String orderNumber) {
+        this.orderNumber = orderNumber;
     }
 }

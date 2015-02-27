@@ -14,8 +14,8 @@ import javax.persistence.Table;
  * Created by ezhulkov on 24.08.14.
  */
 @Entity
-@Table(name = "purchase_product")
-public class PurchaseProductEntity extends AbstractBaseEntity {
+@Table(name = "order_product")
+public class OrderProductEntity extends AbstractBaseEntity {
 
     @Id
     @Column(name = "id")
@@ -27,7 +27,7 @@ public class PurchaseProductEntity extends AbstractBaseEntity {
     private Integer price;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private PurchaseEntity purchase;
+    private OrderEntity order;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private ProductEntity product;
@@ -35,10 +35,10 @@ public class PurchaseProductEntity extends AbstractBaseEntity {
     @Column
     private int count = 1;
 
-    public PurchaseProductEntity() {
+    public OrderProductEntity() {
     }
 
-    public PurchaseProductEntity(Long id) {
+    public OrderProductEntity(Long id) {
         this.id = id;
     }
 
@@ -59,12 +59,12 @@ public class PurchaseProductEntity extends AbstractBaseEntity {
         this.price = price;
     }
 
-    public PurchaseEntity getPurchase() {
-        return purchase;
+    public OrderEntity getOrder() {
+        return order;
     }
 
-    public void setPurchase(PurchaseEntity purchase) {
-        this.purchase = purchase;
+    public void setOrder(OrderEntity order) {
+        this.order = order;
     }
 
     public ProductEntity getProduct() {
