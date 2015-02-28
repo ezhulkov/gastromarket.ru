@@ -26,6 +26,9 @@
                                     </t:if>
                                     <t:if test="admin">
                                         <li>
+                                            <t:pagelink page="admin/order/list">Все заказы</t:pagelink>
+                                        </li>
+                                        <li>
                                             <t:pagelink page="admin/category/list">Системные настройки</t:pagelink>
                                         </li>
                                     </t:if>

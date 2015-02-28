@@ -4,7 +4,36 @@
         <h1>Заказы</h1>
     </div>
 
-    <div class="empty">Заказов нет</div>
+    <t:form t:id="catalogForm" t:clientValidation="none" class="form form-horizontal edit" role="form">
+        <div class="form-group">
+            <div class="col-sm-4">
+                <t:select t:id="catalog" data-placeholder="Выберите каталог" class="form-control chosen-select"/>
+            </div>
+            <div class="col-sm-4">
+                <input class="btn btn-red" type="submit" value="Фильтровать"/>
+                <a href="/admin/order/list" class="btn btn-white">Сбросить фильтр</a>
+            </div>
+        </div>
+    </t:form>
+
+    <t:grid source="allOrders" row="oneOrder" reorder="orderNumber,datePrintable,usedBonuses,catalog,totalPrice,status" add="catalog,totalPrice" exclude="id,comment,date" t:mixins="GridSortingDisabled" class="table table-hover">
+        <t:parameter name="orderNumberCell">
+            <t:pageLink page="admin/order/index" context="oneOrder.id">${oneOrder.orderNumber}</t:pageLink>
+        </t:parameter>
+        <t:parameter name="usedBonusesCell">
+            <t:if test="oneOrder.usedBonuses">${oneOrder.usedBonuses}
+                <t:parameter name="else">-</t:parameter>
+            </t:if>
+        </t:parameter>
+        <t:parameter name="catalogCell">
+            <t:pageLink page="catalog/index" context="oneOrderCatalog.id">${oneOrderCatalog.name}</t:pageLink>
+        </t:parameter>
+        <t:parameter name="totalPriceCell">${totalPrice}</t:parameter>
+        <t:parameter name="statusCell"><span class="order-status status-${oneOrder.status}">${oneOrderStatus}</span></t:parameter>
+        <t:parameter name="empty">
+            <div class="empty">Нет данных</div>
+        </t:parameter>
+    </t:grid>
 
     <script>
         activate_menu('#order');

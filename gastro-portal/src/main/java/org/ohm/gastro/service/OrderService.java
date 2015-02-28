@@ -16,4 +16,8 @@ public interface OrderService {
 
     List<OrderEntity> findAllOrders(UserEntity customer, CatalogEntity catalog);
 
+    List<OrderEntity> findAllOrders(CatalogEntity catalog);
+
+    int getProductsPrice(List<OrderProductEntity> products);
+
 }

@@ -80,7 +80,7 @@ public class Cart extends BaseComponent {
             return null;
         }
         newPurchase.setUsedBonuses((Integer) ObjectUtils.defaultIfNull(bonus, 0));
-        getOrderService().placeOrder(newPurchase, getShoppingCart().getProducts(), );
+        getOrderService().placeOrder(newPurchase, getShoppingCart().getProducts(), newPurchase.getCustomer());
         getShoppingCart().purge();
         return CartResults.class;
     }

@@ -40,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public List<OrderEntity> placeOrder(OrderEntity totalOrder, List<OrderProductEntity> purchaseItems, final UserEntity customer) {
         final Integer totalPrice = getProductsPrice(purchaseItems);
-        customer.setBonus(customer.getBonus() - totalOrder.getUsedBonuses());
+        customer.setBonus(Math.max(0, customer.getBonus() - totalOrder.getUsedBonuses()));
         userRepository.save(customer);
         return purchaseItems.stream()
                 .collect(Collectors.groupingBy(t -> t.getProduct().getCatalog())).entrySet().stream()
@@ -58,7 +58,7 @@ public class OrderServiceImpl implements OrderService {
                     orderRepository.save(order);
                     products.stream().forEach(p -> p.setOrder(order));
                     orderProductRepository.save(products);
-                    order.setOrderNumber(CommonsUtils.ORDERDATE.get().format(new Date(System.currentTimeMillis())) + "-" + order.getId());
+                    order.setOrderNumber(CommonsUtils.ORDER_DATE.get().format(new Date(System.currentTimeMillis())) + "-" + order.getId());
                     return orderRepository.save(order);
                 })
                 .collect(Collectors.toList());
@@ -69,7 +69,13 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findAllByCatalogAndCustomer(customer, catalog);
     }
 
-    private int getProductsPrice(List<OrderProductEntity> products) {
+    @Override
+    public List<OrderEntity> findAllOrders(final CatalogEntity catalog) {
+        return orderRepository.findAllByCatalog(catalog);
+    }
+
+    @Override
+    public int getProductsPrice(List<OrderProductEntity> products) {
         return products.stream().collect(Collectors.summingInt(t -> t.getPrice() * t.getCount()));
     }
 

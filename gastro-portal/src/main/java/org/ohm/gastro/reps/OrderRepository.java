@@ -22,4 +22,12 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
             "order by p.date desc")
     List<OrderEntity> findAllByCatalogAndCustomer(@Param("customer") UserEntity customer, @Param("catalog") CatalogEntity catalog);
 
+    @Query("select p from OrderEntity p " +
+            "join p.products pp " +
+            "join pp.product pr " +
+            "join pr.catalog c " +
+            "where c=:catalog or :catalog is null " +
+            "order by p.date desc")
+    List<OrderEntity> findAllByCatalog(@Param("catalog") CatalogEntity catalog);
+
 }

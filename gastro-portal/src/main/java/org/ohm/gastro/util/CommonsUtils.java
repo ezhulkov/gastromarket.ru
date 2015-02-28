@@ -9,21 +9,21 @@ import java.util.function.Supplier;
  */
 public class CommonsUtils {
 
-    public static final ThreadLocal<DateFormat> ORDERDATE = new ThreadLocal<DateFormat>() {
+    public static final ThreadLocal<DateFormat> ORDER_DATE = new ThreadLocal<DateFormat>() {
         @Override
         protected DateFormat initialValue() {
             return new SimpleDateFormat("ddMMyyyy");
         }
     };
 
-    public static final ThreadLocal<DateFormat> GUIDATE = new ThreadLocal<DateFormat>() {
+    public static final ThreadLocal<DateFormat> GUI_DATE = new ThreadLocal<DateFormat>() {
         @Override
         protected DateFormat initialValue() {
             return new SimpleDateFormat("dd/MM/yyyy");
         }
     };
 
-    public static final ThreadLocal<DateFormat> GUIDATE_LONG = new ThreadLocal<DateFormat>() {
+    public static final ThreadLocal<DateFormat> GUI_DATE_LONG = new ThreadLocal<DateFormat>() {
         @Override
         protected DateFormat initialValue() {
             return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");

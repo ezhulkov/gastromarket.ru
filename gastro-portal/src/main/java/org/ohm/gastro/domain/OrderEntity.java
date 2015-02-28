@@ -1,6 +1,7 @@
 package org.ohm.gastro.domain;
 
 import com.google.common.collect.Lists;
+import org.ohm.gastro.util.CommonsUtils;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,7 +27,7 @@ import java.util.List;
 public class OrderEntity extends AbstractBaseEntity {
 
     public enum Status {
-        NEW, ACCEPTED, READY, DELIVERED, CANCELLED, CLOSED
+        NEW, ACCEPTED, READY, DELIVERED, CANCELLED
     }
 
     @Id
@@ -120,4 +122,9 @@ public class OrderEntity extends AbstractBaseEntity {
     public void setOrderNumber(final String orderNumber) {
         this.orderNumber = orderNumber;
     }
+
+    public String getDatePrintable() {
+        return CommonsUtils.GUI_DATE_LONG.get().format(new Date(date.getTime()));
+    }
+
 }

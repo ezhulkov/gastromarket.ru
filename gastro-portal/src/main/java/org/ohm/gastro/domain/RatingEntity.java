@@ -91,7 +91,7 @@ public class RatingEntity extends AbstractBaseEntity {
     }
 
     public String getDatePrintable() {
-        return CommonsUtils.GUIDATE_LONG.get().format(date);
+        return CommonsUtils.GUI_DATE_LONG.get().format(date);
     }
 
 }

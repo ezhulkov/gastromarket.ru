@@ -379,7 +379,7 @@ html > body div.t-error ul li {
     border: 2px solid #e70500;
     padding: 8px 25px;
     font-size: 16px;
-    margin: 5px;
+    margin: 0 5px;
     color: #e70500;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
@@ -406,7 +406,7 @@ html > body div.t-error ul li {
 .btn-red {
     padding: 8px 25px;
     font-size: 16px;
-    margin: 5px;
+    margin: 0 5px;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#e70500), to(#bd0400));
     background-image: -webkit-linear-gradient(top, #e70500, #bd0400);
     background-image: -moz-linear-gradient(top, #e70500, #bf0400);
@@ -1735,3 +1735,17 @@ div.catalog-edit-links .more-link {
     font-size: 20px;
     font-weight: bold;
 }
+
+.order-status {
+    border-radius: 3px;
+    padding: 3px 15px;
+    background-color: grey;
+    color:white;
+    font-size: 14px;
+}
+
+.status-NEW {background-color: red;}
+.status-ACCEPTED {background-color: green;}
+.status-READY {background-color: yellow;}
+.status-DELIVERED {background-color: blue;}
+.status-CANCELLED {background-color: grey;}
