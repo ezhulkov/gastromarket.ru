@@ -79,4 +79,14 @@ public class OrderServiceImpl implements OrderService {
         return products.stream().collect(Collectors.summingInt(t -> t.getPrice() * t.getCount()));
     }
 
+    @Override
+    public OrderEntity findOrder(final Long id) {
+        return orderRepository.findOne(id);
+    }
+
+    @Override
+    public void saveOrder(final OrderEntity order) {
+        orderRepository.save(order);
+    }
+
 }

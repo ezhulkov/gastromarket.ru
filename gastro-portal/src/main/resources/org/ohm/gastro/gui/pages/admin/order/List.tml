@@ -35,8 +35,4 @@
         </t:parameter>
     </t:grid>
 
-    <script>
-        activate_menu('#order');
-    </script>
-
 </t:adminlayout>

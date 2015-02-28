@@ -20,4 +20,8 @@ public interface OrderService {
 
     int getProductsPrice(List<OrderProductEntity> products);
 
+    OrderEntity findOrder(Long id);
+
+    void saveOrder(OrderEntity order);
+
 }
