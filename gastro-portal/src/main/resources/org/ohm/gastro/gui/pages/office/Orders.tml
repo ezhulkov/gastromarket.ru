@@ -1,0 +1,56 @@
+<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" floatingHeader="false">
+
+    <div class="office">
+        <div class="container">
+            <div class="title">
+                <h1><span>Мой профиль</span></h1>
+            </div>
+            <t:editObject t:id="editObject" showUpdate="true" autoFocus="literal:true">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="email">Адрес почты:</label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" type="text" value="${authenticatedUser.email}" disabled="disabled"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <t:label class="col-sm-3 control-label" for="fullName">Полное имя:</t:label>
+
+                            <div class="col-sm-9">
+                                <input t:id="fullName" class="form-control" type="text" placeholder="Полное имя"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3"/>
+
+                            <div class="col-sm-8 text-left">
+                                <h3>Сменить пароль:</h3>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <t:label class="col-sm-3 control-label" for="password1">Пароль:</t:label>
+
+                            <div class="col-sm-9">
+                                <input t:id="password1" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <t:label class="col-sm-3 control-label" for="password2">Повторите пароль:</t:label>
+
+                            <div class="col-sm-9">
+                                <input t:id="password2" class="form-control"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <t:uploadfile type="AVATAR" responseSize="SIZE3" imageUrl="${authenticatedUser.avatarUrl}"/>
+                    </div>
+                    <div class="col-sm-2"/>
+                </div>
+            </t:editObject>
+        </div>
+    </div>
+
+</t:htmllayout>

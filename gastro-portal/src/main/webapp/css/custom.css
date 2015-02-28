@@ -471,7 +471,8 @@ html > body div.t-error ul li {
     border: none;
     margin-bottom: 0;
     min-height: 55px;
-    background: transparent url("../img/header-bg.png") repeat-x;
+    background: white;
+    border-bottom: 1px solid #eee;
 }
 
 .navbar:after {
@@ -484,26 +485,37 @@ html > body div.t-error ul li {
     );
 }
 
-.navbar .logo {
-    padding-left: 12px;
+.navbar .container {
+    padding: 0 12px;
+}
+
+.navbar .header-img {
+    width: 28px;
+    height: 28px;
+    background: url(../img/header.png) no-repeat 0 0;
+    margin-right: 5px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1em;
+}
+
+.header-block {
+    position: relative;
+    line-height: 55px;
+    margin-left: 20px;
+}
+
+.basket span.header-img {
+    background-position-x: -56px;
+}
+
+.orders span.header-img {
+    background-position-x: -84px;
 }
 
 .navbar .container {
-    height: 48px;
-    line-height: 48px;
-    vertical-align: middle;
-}
-
-.navbar .basket {
-    position: relative;
-}
-
-.navbar .basket,
-.navbar .username,
-.navbar .login {
-    line-height: 52px;
-    padding-right: 20px;
-    cursor: pointer;
+    height: 55px;
+    line-height: 55px;
 }
 
 .avatar-small {
@@ -537,10 +549,6 @@ html > body div.t-error ul li {
 
 .red-link:hover {
     color: #bf0400;
-}
-
-div.username {
-    display: inline;
 }
 
 .multiple {
@@ -1741,12 +1749,26 @@ div.catalog-edit-links .more-link {
     border-radius: 3px;
     padding: 3px 15px;
     background-color: grey;
-    color:white;
+    color: white;
     font-size: 14px;
 }
 
-.status-NEW {background-color: red;}
-.status-ACCEPTED {background-color: green;}
-.status-READY {background-color: yellow;}
-.status-DELIVERED {background-color: blue;}
-.status-CANCELLED {background-color: grey;}
+.status-NEW {
+    background-color: red;
+}
+
+.status-ACCEPTED {
+    background-color: green;
+}
+
+.status-READY {
+    background-color: yellow;
+}
+
+.status-DELIVERED {
+    background-color: blue;
+}
+
+.status-CANCELLED {
+    background-color: grey;
+}

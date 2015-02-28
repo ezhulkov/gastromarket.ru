@@ -109,17 +109,17 @@ public abstract class BaseComponent {
     }
 
     public boolean isAdmin() {
-        UserDetails authenticatedUser = getAuthenticatedUser();
+        UserDetails authenticatedUser = getAuthenticatedUserOpt().orElse(null);
         return authenticatedUser != null && authenticatedUser.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ADMIN"));
     }
 
     public boolean isCook() {
-        UserDetails authenticatedUser = getAuthenticatedUser();
+        UserDetails authenticatedUser = getAuthenticatedUserOpt().orElse(null);
         return authenticatedUser != null && authenticatedUser.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("COOK"));
     }
 
     public boolean isUser() {
-        UserDetails authenticatedUser = getAuthenticatedUser();
+        UserDetails authenticatedUser = getAuthenticatedUserOpt().orElse(null);
         return authenticatedUser != null && authenticatedUser.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("USER"));
     }
 
