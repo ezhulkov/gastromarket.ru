@@ -25,7 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -109,18 +108,21 @@ public abstract class BaseComponent {
     }
 
     public boolean isAdmin() {
-        UserDetails authenticatedUser = getAuthenticatedUserOpt().orElse(null);
-        return authenticatedUser != null && authenticatedUser.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ADMIN"));
+        return getAuthenticatedUserOpt()
+                .map(t -> t.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ADMIN")))
+                .orElse(false);
     }
 
     public boolean isCook() {
-        UserDetails authenticatedUser = getAuthenticatedUserOpt().orElse(null);
-        return authenticatedUser != null && authenticatedUser.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("COOK"));
+        return getAuthenticatedUserOpt()
+                .map(t -> t.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("COOK")))
+                .orElse(false);
     }
 
     public boolean isUser() {
-        UserDetails authenticatedUser = getAuthenticatedUserOpt().orElse(null);
-        return authenticatedUser != null && authenticatedUser.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("USER"));
+        return getAuthenticatedUserOpt()
+                .map(t -> t.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("USER")))
+                .orElse(false);
     }
 
     public String getContextPath() {

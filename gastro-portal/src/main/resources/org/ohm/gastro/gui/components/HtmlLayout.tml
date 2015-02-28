@@ -34,10 +34,7 @@
     </script>
 </head>
 <body>
-<t:if test="floatingHeader">
-    <div class="header-stub"/>
-</t:if>
-<t:headerlayout floatingHeader="floatingHeader" header="header"/>
+<t:headerlayout header="header"/>
 <t:body/>
 <t:landing/>
 <t:footerlayout/>

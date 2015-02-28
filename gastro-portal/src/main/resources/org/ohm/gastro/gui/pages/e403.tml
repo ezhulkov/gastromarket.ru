@@ -1,4 +1,4 @@
-<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" floatingHeader="false" header="false">
+<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"  header="false">
 
     <div class="contacts">
         <div class="container">

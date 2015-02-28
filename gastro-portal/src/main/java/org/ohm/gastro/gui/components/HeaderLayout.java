@@ -18,10 +18,6 @@ public class HeaderLayout extends BaseComponent {
     private CatalogEntity oneCatalog;
 
     @Property
-    @Parameter(name = "floatingHeader", required = true)
-    private boolean floatingHeader;
-
-    @Property
     @Parameter(name = "header", required = true)
     private boolean header;
 
@@ -37,10 +33,6 @@ public class HeaderLayout extends BaseComponent {
         return getMessageService().getUnreadMessages(getAuthenticatedUser());
     }
 
-    public String getFloatClass() {
-        return floatingHeader ? "navbar-fixed-top" : "";
-    }
-
     public String getDeclProducts() {
         if (getShoppingCart().getProducts().size() == 1) return getMessages().get("one.product");
         if (getShoppingCart().getProducts().size() % 10 < 5) return getMessages().get("four.products");
@@ -49,6 +41,10 @@ public class HeaderLayout extends BaseComponent {
 
     public List<CatalogEntity> getCatalogs() {
         return getCatalogService().findAllCatalogs(getAuthenticatedUserOpt().orElse(null));
+    }
+
+    public String getHidden() {
+        return isCook() ? "hidden" : "";
     }
 
 }

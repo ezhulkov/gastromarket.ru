@@ -10,13 +10,13 @@
                     <a href="/catalog/list">Кулинары</a>
                 </li>
                 <li>
-                    <a href="about">О проекте</a>
+                    <a href="/about">О проекте</a>
                 </li>
                 <li>
-                    <a href="contacts">Контакты</a>
+                    <a href="/contacts">Контакты</a>
                 </li>
                 <li>
-                    <a href="/licence">Пользовательское соглашение</a>
+                    <a href="/license">Пользовательское соглашение</a>
                 </li>
                 <t:unless test="authenticated">
                     <li>
