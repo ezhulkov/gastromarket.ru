@@ -91,17 +91,17 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <p>
-                                                        <t:actionlink t:id="changeAccepted" t:zone="ordersZone" context="oneOrder.id" class="f20px dotted-link">В работе</t:actionlink>
+                                                        <t:actionlink t:id="changeStatusAccepted" t:zone="ordersZone" context="oneOrder.id" class="f20px dotted-link">В работе</t:actionlink>
                                                         <br/>
                                                         Вы уже связались с клиентом для уточнения деталей заказа и начали выполнять этот заказ.
                                                     </p>
                                                     <p>
-                                                        <t:actionlink t:id="changeReady" t:zone="ordersZone" context="oneOrder.id" class="f20px dotted-link">Выполнен</t:actionlink>
+                                                        <t:actionlink t:id="changeStatusReady" t:zone="ordersZone" context="oneOrder.id" class="f20px dotted-link">Выполнен</t:actionlink>
                                                         <br/>
                                                         Заказ полностью выполнен и доставлен клиенту, клиент погасил всю стоимость заказа.
                                                     </p>
                                                     <p>
-                                                        <t:actionlink t:id="changeCancelled" t:zone="ordersZone" context="oneOrder.id" class="f20px dotted-link">Отменен</t:actionlink>
+                                                        <t:actionlink t:id="changeStatusCancelled" t:zone="ordersZone" context="oneOrder.id" class="f20px dotted-link">Отменен</t:actionlink>
                                                         <br/>
                                                         По какой-либо причине выполнение заказа отменено.
                                                     </p>
@@ -139,6 +139,7 @@
             </t:grid>
             <script>
                 activate_menu('#${menuActivation}');
+                jQuery("body").removeClass("modal-open");
             </script>
         </t:block>
     </div>

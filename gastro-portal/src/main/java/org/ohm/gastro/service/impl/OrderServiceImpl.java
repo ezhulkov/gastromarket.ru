@@ -117,4 +117,10 @@ public class OrderServiceImpl implements OrderService {
         orderProductRepository.save(product);
     }
 
+    @Override
+    public void changeStatus(final OrderEntity oneOrder, final Status status) {
+        oneOrder.setStatus(status);
+        orderRepository.save(oneOrder);
+    }
+
 }

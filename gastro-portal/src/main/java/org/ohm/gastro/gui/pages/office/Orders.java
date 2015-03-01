@@ -42,7 +42,7 @@ public class Orders extends BaseComponent {
     public List<OrderEntity> getOrders() {
         return getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream()
                 .flatMap(t -> getOrderService().findAllOrders(t, filter).stream())
-                .sorted((t1, t2) -> t1.getDate().compareTo(t2.getDate()))
+                .sorted((t1, t2) -> t2.getDate().compareTo(t1.getDate()))
                 .collect(Collectors.toList());
     }
 
@@ -108,6 +108,25 @@ public class Orders extends BaseComponent {
 
     public boolean isStatusChangeAllowed() {
         return isCook() && (oneOrder.getStatus() == Status.ACCEPTED || oneOrder.getStatus() == Status.NEW);
+    }
+
+    public Block onActionFromChangeStatusAccepted(Long oid) {
+        return changeStatus(oid, Status.ACCEPTED);
+    }
+
+    public Block onActionFromChangeStatusCancelled(Long oid) {
+        return changeStatus(oid, Status.CANCELLED);
+    }
+
+    public Block onActionFromChangeStatusReady(Long oid) {
+        return changeStatus(oid, Status.READY);
+    }
+
+    private Block changeStatus(Long oid, OrderEntity.Status status) {
+        oneOrder = getOrderService().findOrder(oid);
+        if (!isStatusChangeAllowed()) return ordersBlock;
+        getOrderService().changeStatus(oneOrder, status);
+        return ordersBlock;
     }
 
 }
