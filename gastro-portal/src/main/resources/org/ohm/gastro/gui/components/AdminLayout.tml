@@ -1,6 +1,9 @@
 <t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" floatingHeader="literal:false">
 
     <div class="container office">
+        <div class="title">
+            <h1><span>Системные настройки</span></h1>
+        </div>
         <ul class="office-menu">
             <li id="category">
                 <t:pagelink page="admin/category/list">Категории</t:pagelink>

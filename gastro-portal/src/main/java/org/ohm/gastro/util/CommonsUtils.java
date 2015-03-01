@@ -12,7 +12,7 @@ public class CommonsUtils {
     public static final ThreadLocal<DateFormat> ORDER_DATE = new ThreadLocal<DateFormat>() {
         @Override
         protected DateFormat initialValue() {
-            return new SimpleDateFormat("ddMMyyyy");
+            return new SimpleDateFormat("ddMMyy");
         }
     };
 

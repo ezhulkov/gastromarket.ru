@@ -1,56 +1,105 @@
-<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" >
+<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="office">
-        <div class="container">
-            <div class="title">
-                <h1><span>Мой профиль</span></h1>
-            </div>
-            <t:editObject t:id="editObject" showUpdate="true" autoFocus="literal:true">
-                <div class="row">
-                    <div class="col-sm-8">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label" for="email">Адрес почты:</label>
-
-                            <div class="col-sm-9">
-                                <input class="form-control" type="text" value="${authenticatedUser.email}" disabled="disabled"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <t:label class="col-sm-3 control-label" for="fullName">Полное имя:</t:label>
-
-                            <div class="col-sm-9">
-                                <input t:id="fullName" class="form-control" type="text" placeholder="Полное имя"/>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-3"/>
-
-                            <div class="col-sm-8 text-left">
-                                <h3>Сменить пароль:</h3>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <t:label class="col-sm-3 control-label" for="password1">Пароль:</t:label>
-
-                            <div class="col-sm-9">
-                                <input t:id="password1" class="form-control"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <t:label class="col-sm-3 control-label" for="password2">Повторите пароль:</t:label>
-
-                            <div class="col-sm-9">
-                                <input t:id="password2" class="form-control"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-2">
-                        <t:uploadfile type="AVATAR" responseSize="SIZE3" imageUrl="${authenticatedUser.avatarUrl}"/>
-                    </div>
-                    <div class="col-sm-2"/>
-                </div>
-            </t:editObject>
+    <div class="container office ">
+        <div class="title">
+            <h1><span>Заказы</span></h1>
         </div>
+        <ul class="office-menu">
+            <li id="NEW">
+                <t:actionlink t:id="new" t:zone="ordersZone">Новые</t:actionlink>
+            </li>
+            <li id="ACCEPTED">
+                <t:actionlink t:id="accepted" t:zone="ordersZone">В работе</t:actionlink>
+            </li>
+            <li id="READY">
+                <t:actionlink t:id="ready" t:zone="ordersZone">Выполненные</t:actionlink>
+            </li>
+            <li id="ALL">
+                <t:actionlink t:id="all" t:zone="ordersZone">Все</t:actionlink>
+            </li>
+        </ul>
+        <br/>
+        <t:zone t:id="ordersZone">
+            <t:delegate to="ordersBlock"/>
+        </t:zone>
+        <t:block t:id="ordersBlock">
+            <t:grid source="orders" row="oneOrder" exclude="id,comment,status,date,usedBonuses,orderNumber,datePrintable" add="item" class="orders-table">
+                <t:parameter name="itemCell">
+                    <div class="row">
+                        <div class="col-sm-2"/>
+                        <div class="col-sm-8 order-body">
+                            <t:zone t:id="orderZone" id="${orderZoneId}">
+                                <t:delegate to="orderBlock"/>
+                            </t:zone>
+                            <t:block t:id="orderBlock">
+                                <div class="f30px">Заказ <b>№${oneOrder.orderNumber}</b>, общая стоимость <b>${totalPrice} &#x20bd;</b></div>
+                                <t:if test="oneOrder.usedBonuses">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <span class="used-bonuses pic-holder"><span class="purchase-edit"/>Оплата бонусными баллами на <b>${oneOrder.usedBonuses} &#x20bd;</b></span>
+                                        </div>
+                                    </div>
+                                </t:if>
+                                <div class="order-products">
+                                    <t:loop source="oneOrder.products" value="oneProduct">
+                                        <div class="order-product">
+                                            <a class="img" href="/product/${oneProduct.product.id}"><img class="pic pull-left" src="${oneProduct.product.avatarUrlSmall}"/></a>
+
+                                            <div class="order-product-row">
+                                                <div>
+                                                    <a class="f20px red" href="/product/${oneProduct.product.id}">${oneProduct.product.name}</a>
+                                                </div>
+                                            </div>
+                                            <div class="order-product-row">
+                                                <div class="f30px black price">${oneProduct.price} &#x20bd;</div>
+                                                <div class="count">
+                                                    <t:actionlink t:id="decProduct" t:zone="${orderZoneId}" context="[oneOrder.id,oneProduct.id]" class="dec purchase-edit"/>
+                                                    <input type="text" value="${oneProduct.count}" disabled="disabled"/>
+                                                    <t:actionlink t:id="incProduct" t:zone="${orderZoneId}" context="[oneOrder.id,oneProduct.id]" class="inc purchase-edit"/>
+                                                </div>
+                                                <div class="delete pic-holder">
+                                                    <span class="purchase-edit"/>
+                                                    <t:actionlink t:id="deleteProduct" t:zone="${orderZoneId}" context="[oneOrder.id,oneProduct.id]" class="f14px red">Удалить</t:actionlink>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t:loop>
+                                    <div class="info">
+                                        <div class="status">Статус: В работе</div>
+                                        <div class="new">Добавить новые товары</div>
+                                    </div>
+                                </div>
+                                <div class="order-info">
+                                    <div class="row">
+                                        <div class="col-sm-3">Заказчик:</div>
+                                        <div class="col-sm-8">${oneOrder.customer.fullName}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">Адрес доставки:</div>
+                                        <div class="col-sm-8">${oneOrder.customer.deliveryAddress}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">Телефон для связи:</div>
+                                        <div class="col-sm-8">${oneOrder.customer.mobilePhone}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">Комментарии к заказу:</div>
+                                        <div class="col-sm-8">${oneOrder.comment}</div>
+                                    </div>
+                                </div>
+                            </t:block>
+                        </div>
+                        <div class="col-sm-2"/>
+                    </div>
+                </t:parameter>
+                <t:parameter name="empty">
+                    Пустой список
+                </t:parameter>
+            </t:grid>
+            <script>
+                activate_menu('#${menuActivation}');
+            </script>
+        </t:block>
     </div>
 
 </t:htmllayout>

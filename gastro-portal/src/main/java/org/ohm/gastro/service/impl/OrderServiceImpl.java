@@ -89,4 +89,27 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.save(order);
     }
 
+    @Override
+    public void deleteProduct(final Long oid, final Long pid) {
+        final OrderEntity order = orderRepository.findOne(oid);
+        final OrderProductEntity product = orderProductRepository.findOne(pid);
+        order.getProducts().remove(product);
+        orderProductRepository.delete(product);
+        orderRepository.save(order);
+    }
+
+    @Override
+    public void incProduct(final Long oid, final Long pid) {
+        final OrderProductEntity product = orderProductRepository.findOne(pid);
+        product.setCount(product.getCount() + 1);
+        orderProductRepository.save(product);
+    }
+
+    @Override
+    public void decProduct(final Long oid, final Long pid) {
+        final OrderProductEntity product = orderProductRepository.findOne(pid);
+        product.setCount(Math.max(1, product.getCount() - 1));
+        orderProductRepository.save(product);
+    }
+
 }

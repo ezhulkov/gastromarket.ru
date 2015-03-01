@@ -1,65 +1,90 @@
 package org.ohm.gastro.gui.pages.office;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.tapestry5.annotations.Component;
+import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.corelib.components.PasswordField;
-import org.apache.tapestry5.corelib.components.TextField;
-import org.ohm.gastro.domain.UserEntity;
-import org.ohm.gastro.gui.AbstractServiceCallback;
-import org.ohm.gastro.gui.ServiceCallback;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.ohm.gastro.domain.OrderEntity;
+import org.ohm.gastro.domain.OrderEntity.Status;
+import org.ohm.gastro.domain.OrderProductEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
-import org.ohm.gastro.gui.pages.EditObjectPage;
-import org.ohm.gastro.service.EmptyPasswordException;
-import org.ohm.gastro.service.UserExistsException;
+
+import java.util.List;
 
 /**
  * Created by ezhulkov on 24.08.14.
  */
-public class Orders extends EditObjectPage<UserEntity> {
+public class Orders extends BaseComponent {
 
-    @Component(id = "fullName", parameters = {"value=object?.fullName", "validate=maxlength=64"})
-    private TextField fNameField;
+    @Inject
+    @Property
+    private Block ordersBlock;
 
-    @Component(id = "password1", parameters = {"value=newPassword1", "validate=maxlength=64"})
-    private PasswordField p1Field;
-
-    @Component(id = "password2", parameters = {"value=newPassword2", "validate=maxlength=64"})
-    private PasswordField p2Field;
+    @Inject
+    @Property
+    private Block orderBlock;
 
     @Property
-    private String newPassword1;
+    private OrderEntity oneOrder;
 
     @Property
-    private String newPassword2;
+    private OrderProductEntity oneProduct;
 
-    @Override
-    public ServiceCallback<UserEntity> getServiceCallback() {
-        return new AbstractServiceCallback<UserEntity>() {
+    @Property
+    private OrderEntity.Status filter;
 
-            @Override
-            public UserEntity findObject(String id) {
-                return getAuthenticatedUser();
-            }
-
-            @Override
-            public Class<? extends BaseComponent> updateObject(UserEntity user) {
-                if (StringUtils.isNotEmpty(newPassword1) && StringUtils.isNotEmpty(newPassword2)) {
-                    if (newPassword1.equals(newPassword2)) user.setPassword(getPasswordEncoder().encode(newPassword1));
-                    else getEditObject().getForm().recordError(p1Field, getMessages().get("error.password.mismatch"));
-                }
-
-                try {
-                    getUserService().createUser(user);
-                } catch (UserExistsException e) {
-                    getEditObject().getForm().recordError(getMessages().get("error.user.exists"));
-                } catch (EmptyPasswordException e) {
-                    getEditObject().getForm().recordError(p1Field, getMessages().get("error.password.empty"));
-                }
-                return Orders.class;
-            }
-
-        };
+    public String getMenuActivation() {
+        return filter == null ? "ALL" : filter.name();
     }
+
+    public List<OrderEntity> getOrders() {
+        return getOrderService().findAllOrders(null);
+    }
+
+    public Block onActionFromNew() {
+        this.filter = Status.NEW;
+        return ordersBlock;
+    }
+
+    public Block onActionFromAccepted() {
+        this.filter = Status.ACCEPTED;
+        return ordersBlock;
+    }
+
+    public Block onActionFromReady() {
+        this.filter = Status.READY;
+        return ordersBlock;
+    }
+
+    public Block onActionFromAll() {
+        this.filter = null;
+        return ordersBlock;
+    }
+
+    public int getTotalPrice() {
+        return getOrderService().getProductsPrice(oneOrder.getProducts());
+    }
+
+    public Block onActionFromDeleteProduct(Long oid, Long pid) {
+        oneOrder = getOrderService().findOrder(oid);
+        getOrderService().deleteProduct(oid, pid);
+        return orderBlock;
+    }
+
+    public Block onActionFromIncProduct(Long oid, Long pid) {
+        oneOrder = getOrderService().findOrder(oid);
+        getOrderService().incProduct(oid, pid);
+        return orderBlock;
+    }
+
+    public Block onActionFromDecProduct(Long oid, Long pid) {
+        oneOrder = getOrderService().findOrder(oid);
+        getOrderService().decProduct(oid, pid);
+        return orderBlock;
+    }
+
+    public String getOrderZoneId() {
+        return "zoneId" + oneOrder.getId();
+    }
+
 
 }

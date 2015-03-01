@@ -73,8 +73,38 @@ html > body div.t-error ul li {
     text-align: center;
 }
 
+.pic-holder {
+    position: relative;
+}
+
+.pic-holder > span:first-child {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.f20px {
+    font-size: 20px !important;
+}
+
+.f14px {
+    font-size: 14px !important;
+}
+
+.f30px {
+    font-size: 30px !important;
+}
+
+.black {
+    color: #000000 !important;
+}
+
+.red {
+    color: #e70500 !important;
+}
+
 .border {
-    border: 1px solid black;
+    border: 1px solid black !important;
 }
 
 .qq-upload-button-selector {
@@ -486,7 +516,13 @@ html > body div.t-error ul li {
     padding: 0 12px;
 }
 
-.navbar .header-img {
+.header-block {
+    position: relative;
+    line-height: 55px;
+    margin-left: 20px;
+}
+
+.navbar .pic-holder > span:first-child {
     width: 28px;
     height: 28px;
     background: url(../img/header.png) no-repeat 0 0;
@@ -496,18 +532,12 @@ html > body div.t-error ul li {
     line-height: 1em;
 }
 
-.header-block {
-    position: relative;
-    line-height: 55px;
-    margin-left: 20px;
-}
-
-.basket span.header-img {
-    background-position-x: -56px;
-}
-
-.orders span.header-img {
+.navbar .pic-holder.orders > span:first-child {
     background-position-x: -84px;
+}
+
+.navbar .pic-holder.basket > span:first-child {
+    background-position-x: -56px;
 }
 
 .navbar .container {
@@ -834,9 +864,12 @@ html > body div.t-error ul li {
     display: table-cell;
 }
 
-.grid-block.products > div,
-.grid-block.promo > div {
+.grid-block.products > div {
     margin: 7px;
+}
+
+.grid-block.promo > div {
+    margin: 8px;
 }
 
 .grid-block.category > div {
@@ -1650,88 +1683,6 @@ div.catalog-edit-links .more-link {
     color: #bd0400;
 }
 
-.purchase {
-    -webkit-box-shadow: 0 0 6px 2px #ddd;
-    -moz-box-shadow: 0 0 6px 2px #ddd;
-    box-shadow: 0 0 6px 2px #ddd;
-    background-color: #fff;
-    border: 1px solid #aaa;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin: 10px 0 20px 0;
-    height: 100px;
-    padding: 0;
-}
-
-.purchase .pic {
-    width: 100px;
-    height: 100px;
-}
-
-.purchase .data {
-    width: 675px;
-    height: 100px;
-    padding: 10px;
-}
-
-.purchase .controls {
-    margin-top: 10px;
-}
-
-.purchase .data .name a {
-    color: black;
-}
-
-.purchase .data .name {
-    font-size: 20px;
-}
-
-.purchase .data .price {
-    font-size: 30px;
-    font-weight: bold;
-}
-
-.purchase .del {
-    color: #bd0400;
-    font-size: 20px;
-    margin-top: 10px;
-    padding-right: 20px;
-}
-
-.purchase .del span {
-    width: 18px;
-    height: 18px;
-    display: inline-block;
-    background: url("../img/purchase-edit.png") no-repeat -41px 0;
-    margin-right: 10px;
-}
-
-.purchase .inc {
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-    background: url("../img/purchase-edit.png") no-repeat 0 0;
-    margin-left: 10px;
-    vertical-align: middle;
-}
-
-.purchase .dec {
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-    background: url("../img/purchase-edit.png") no-repeat -20px 0;
-    margin-right: 15px;
-    vertical-align: middle;
-}
-
-.purchase .count {
-    width: 70px;
-    height: 35px;
-    margin-top: 5px;
-    padding: 0 10px;
-    border-radius: 5px;
-}
-
 .cart-catalog .details {
     font-size: 20px;
 }
@@ -1767,4 +1718,134 @@ div.catalog-edit-links .more-link {
 
 .status-CANCELLED {
     background-color: grey;
+}
+
+.orders-table {
+    width: 100%;
+}
+
+.orders-table thead {
+    display: none;
+}
+
+.office .orders-table tr {
+    border: none;
+
+}
+
+.order-info .row {
+    margin-bottom: 8px;
+}
+
+.order-body {
+    border-bottom: 3px solid #eee;
+    padding: 20px 0;
+}
+
+.order-products {
+    background-color: #eee;
+    padding: 20px;
+    margin: 10px -20px;
+}
+
+.order-products .edit {
+    font-size: 20px;
+}
+
+.order-products .info {
+    display: table;
+    font-size: 20px;
+}
+
+.order-products .info > div {
+    display: table-cell;
+    height: 40px;
+    vertical-align: middle;
+    width: 270px;
+}
+
+.order-product {
+    position: relative;
+    height: 100px;
+    background: white;
+    border: 1px solid #aaa;
+    -webkit-box-shadow: 0 0 6px 2px #ddd;
+    -moz-box-shadow: 0 0 6px 2px #ddd;
+    box-shadow: 0 0 6px 2px #ddd;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.order-product .img {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+}
+
+.order-product-row {
+    height: 48px;
+    width: 720px;
+    margin-left: 100px;
+    display: table;
+}
+
+.order-product-row > div {
+    display: table-cell;
+    height: 40px;
+    vertical-align: middle;
+    padding: 8px 20px;
+}
+
+.order-product-row:last-child > div {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.order-product-row .price {
+    width: 180px;
+}
+
+.order-product-row .count {
+    width: 250px;
+}
+
+.order-product-row .count input {
+    width: 100px;
+    height: 30px;
+    padding: 0 10px;
+    border-radius: 5px;
+    margin: 0 10px;
+}
+
+.order-product-row .delete {
+    width: 300px;
+    text-align: right;
+}
+
+.purchase-edit {
+    width: 20px;
+    height: 19px;
+    background: url("../img/purchase-edit.png") no-repeat 0 0;
+    display: inline-block;
+}
+
+.pic-holder.delete > .purchase-edit {
+    background-position-x: -40px;
+}
+
+.pic-holder.used-bonuses > .purchase-edit {
+    background-position-x: -60px;
+}
+
+.purchase-edit.inc {
+    background-position-x: 0;
+    vertical-align: middle;
+}
+
+.purchase-edit.dec {
+    background-position-x: -20px;
+    vertical-align: middle;
 }

@@ -27,7 +27,7 @@ import java.util.List;
 public class OrderEntity extends AbstractBaseEntity {
 
     public enum Status {
-        NEW, ACCEPTED, READY, DELIVERED, CANCELLED
+        NEW, ACCEPTED, READY, CANCELLED
     }
 
     @Id

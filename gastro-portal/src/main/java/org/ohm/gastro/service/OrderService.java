@@ -24,4 +24,10 @@ public interface OrderService {
 
     void saveOrder(OrderEntity order);
 
+    void deleteProduct(Long oid, Long pid);
+
+    void incProduct(Long oid, Long pid);
+
+    void decProduct(Long oid, Long pid);
+
 }

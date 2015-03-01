@@ -23,30 +23,35 @@
                     <t:loop source="shoppingCart.catalogs" value="oneCatalog">
                         <div class="row cart-catalog">
                             <div class="col-sm-2"/>
-                            <div class="col-sm-8">
+                            <div class="col-sm-8 order-body">
                                 <div class="name">
                                     <t:pagelink page="catalog/index" t:context="oneCatalog.getKey().id">${oneCatalog.getKey().name}</t:pagelink>
                                 </div>
-                                <t:loop source="oneCatalog.getValue()" value="oneProduct">
-                                    <div class="purchase">
-                                        <a href="/product/${oneProduct.product.id}"><img class="pic pull-left" src="${oneProduct.product.avatarUrlSmall}"/></a>
+                                <div class="order-products">
+                                    <t:loop source="oneCatalog.getValue()" value="oneProduct">
+                                        <div class="order-product">
+                                            <a class="img" href="/product/${oneProduct.product.id}"><img class="pic pull-left" src="${oneProduct.product.avatarUrlSmall}"/></a>
 
-                                        <div class="data pull-right">
-                                            <div class="name"><a href="/product/${oneProduct.product.id}">${oneProduct.product.name}</a></div>
-                                            <div class="controls row">
-                                                <div class="price col-sm-3">${oneProduct.price} &#x20bd;</div>
-                                                <div class="col-sm-5">
-                                                    <t:actionlink t:id="decProduct" t:zone="purchaseZone" context="oneProduct.product.id" class="dec"/>
-                                                    <input type="text" value="${oneProduct.count}" class="count" disabled="disabled"/>
-                                                    <t:actionlink t:id="incProduct" t:zone="purchaseZone" context="oneProduct.product.id" class="inc"/>
+                                            <div class="order-product-row">
+                                                <div>
+                                                    <a class="f20px red" href="/product/${oneProduct.product.id}">${oneProduct.product.name}</a>
                                                 </div>
-                                                <div class="col-sm-4">
-                                                    <t:actionlink t:id="deleteProduct" t:zone="purchaseZone" context="oneProduct.product.id" class="del pull-right"><span/>Удалить</t:actionlink>
+                                            </div>
+                                            <div class="order-product-row">
+                                                <div class="f30px black price">${oneProduct.price} &#x20bd;</div>
+                                                <div class="count">
+                                                    <t:actionlink t:id="decProduct" t:zone="purchaseZone" context="oneProduct.product.id" class="dec purchase-edit"/>
+                                                    <input type="text" value="${oneProduct.count}" disabled="disabled"/>
+                                                    <t:actionlink t:id="incProduct" t:zone="purchaseZone" context="oneProduct.product.id" class="inc purchase-edit"/>
+                                                </div>
+                                                <div class="delete pic-holder">
+                                                    <span class="purchase-edit"/>
+                                                    <t:actionlink t:id="deleteProduct" t:zone="purchaseZone" context="oneProduct.product.id" class="f14px red">Удалить</t:actionlink>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </t:loop>
+                                    </t:loop>
+                                </div>
                                 <t:if test="oneCatalog.getKey().delivery">
                                     <h4>Доставка:</h4>
                                     <t:outputraw value="oneCatalogDelivery"/>

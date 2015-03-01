@@ -6,13 +6,13 @@
             <t:if test="header">
                 <div class="pull-right">
                     <t:if test="cook">
-                        <span class="header-block orders">
-                            <span class="header-img"/>
+                        <span class="header-block pic-holder orders">
+                            <span/>
                             <t:pagelink page="office/orders">Мои заказы</t:pagelink>
                         </span>
                     </t:if>
                     <t:if test="authenticated">
-                    <span class="header-block dropdown username">
+                    <span class="header-block pic-holder dropdown username">
                         <img class="avatar-small" src="${authenticatedUser.avatarUrlSmall}"/>&#160;
                         <a data-target="#" href="#userMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                             ${authenticatedUser.printableName}
@@ -45,12 +45,12 @@
                     </span>
                     </t:if>
                     <t:unless test="authenticated">
-                        <span class="header-block login">
-                            <span class="header-img"/>
+                        <span class="header-block pic-holder login">
+                            <span/>
                             <a href="#login" data-toggle="modal" class="login-link" data-target="#login">Войти или зарегистрироваться</a>
                         </span>
                     </t:unless>
-                    <t:zone elementName="span" t:id="basketZone" class="header-block basket ${hidden}">
+                    <t:zone elementName="span" t:id="basketZone" class="header-block pic-holder basket ${hidden}">
                         <t:unless test="cook">
                             <t:delegate to="basketBlock"/>
                         </t:unless>
@@ -63,7 +63,7 @@
     </nav>
 
     <t:block t:id="basketBlock">
-        <span class="header-img"/>
+        <span/>
         <t:if test="shoppingCart.products.size()">
             <t:pagelink page="cart">
                 ${shoppingCart.products.size()} ${declProducts}
@@ -72,7 +72,6 @@
                 <div class="dropdown-menu basket-show">
                     Товар добавлен в корзину. <br/>Вы можете продолжить поиск или перейти
                     <t:pagelink page="cart">к оформлению заказа</t:pagelink>
-                    .
                 </div>
             </t:if>
             <t:parameter name="else">
