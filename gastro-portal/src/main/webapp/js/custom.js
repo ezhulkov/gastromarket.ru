@@ -26,6 +26,7 @@ jQuery.noConflict();
 })();
 Event.observe(document, Tapestry.ZONE_UPDATED_EVENT, function (event) {
     initChosen(jQuery(this).find('select.chosen-select'));
+    initTitle(jQuery(this).find("div.title"));
 });
 jQuery(document).ready(function () {
     jQuery("ul.dropdown-menu").each(function (e) {

@@ -19,7 +19,7 @@
             </li>
         </ul>
         <br/>
-        <t:zone t:id="ordersZone">
+        <t:zone t:id="ordersZone" class="p-zone">
             <t:delegate to="ordersBlock"/>
         </t:zone>
         <t:block t:id="ordersBlock">
@@ -28,7 +28,7 @@
                     <div class="row">
                         <div class="col-sm-2"/>
                         <div class="col-sm-8 order-body">
-                            <t:zone t:id="orderZone" id="${orderZoneId}">
+                            <t:zone t:id="orderZone" id="${orderZoneId}" class="p-zone">
                                 <t:delegate to="orderBlock"/>
                             </t:zone>
                             <t:block t:id="orderBlock">
@@ -53,20 +53,61 @@
                                             <div class="order-product-row">
                                                 <div class="f30px black price">${oneProduct.price} &#x20bd;</div>
                                                 <div class="count">
-                                                    <t:actionlink t:id="decProduct" t:zone="${orderZoneId}" context="[oneOrder.id,oneProduct.id]" class="dec purchase-edit"/>
+                                                    <t:if test="statusChangeAllowed">
+                                                        <t:actionlink t:id="decProduct" t:zone="${orderZoneId}" context="[oneOrder.id,oneProduct.id]" class="dec purchase-edit"/>
+                                                    </t:if>
                                                     <input type="text" value="${oneProduct.count}" disabled="disabled"/>
-                                                    <t:actionlink t:id="incProduct" t:zone="${orderZoneId}" context="[oneOrder.id,oneProduct.id]" class="inc purchase-edit"/>
+                                                    <t:if test="statusChangeAllowed">
+                                                        <t:actionlink t:id="incProduct" t:zone="${orderZoneId}" context="[oneOrder.id,oneProduct.id]" class="inc purchase-edit"/>
+                                                    </t:if>
                                                 </div>
-                                                <div class="delete pic-holder">
-                                                    <span class="purchase-edit"/>
-                                                    <t:actionlink t:id="deleteProduct" t:zone="${orderZoneId}" context="[oneOrder.id,oneProduct.id]" class="f14px red">Удалить</t:actionlink>
-                                                </div>
+                                                <t:if test="statusChangeAllowed">
+                                                    <div class="delete pic-holder">
+                                                        <span class="purchase-edit"/>
+                                                        <t:actionlink t:id="deleteProduct" t:zone="${orderZoneId}" context="[oneOrder.id,oneProduct.id]" class="f14px red">Удалить</t:actionlink>
+                                                    </div>
+                                                </t:if>
                                             </div>
                                         </div>
                                     </t:loop>
                                     <div class="info">
-                                        <div class="status">Статус: В работе</div>
-                                        <div class="new">Добавить новые товары</div>
+                                        <div class="status">Статус:
+                                            <t:if test="statusChangeAllowed">
+                                                <a class="dotted-link" data-toggle="modal" data-target="#status">${oneOrderStatus.toLowerCase()}</a>
+                                                <t:parameter name="else">
+                                                    ${oneOrderStatus.toLowerCase()}
+                                                </t:parameter>
+                                            </t:if>
+                                        </div>
+                                    </div>
+                                    <div class="modal fade" id="status" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog application">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <div class="title">
+                                                        <h1><span>Смена статуса заказа</span></h1>
+                                                    </div>
+                                                    <a class="modal-close" data-dismiss="modal"></a>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>
+                                                        <t:actionlink t:id="changeAccepted" t:zone="ordersZone" context="oneOrder.id" class="f20px dotted-link">В работе</t:actionlink>
+                                                        <br/>
+                                                        Вы уже связались с клиентом для уточнения деталей заказа и начали выполнять этот заказ.
+                                                    </p>
+                                                    <p>
+                                                        <t:actionlink t:id="changeReady" t:zone="ordersZone" context="oneOrder.id" class="f20px dotted-link">Выполнен</t:actionlink>
+                                                        <br/>
+                                                        Заказ полностью выполнен и доставлен клиенту, клиент погасил всю стоимость заказа.
+                                                    </p>
+                                                    <p>
+                                                        <t:actionlink t:id="changeCancelled" t:zone="ordersZone" context="oneOrder.id" class="f20px dotted-link">Отменен</t:actionlink>
+                                                        <br/>
+                                                        По какой-либо причине выполнение заказа отменено.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="order-info">
@@ -93,7 +134,7 @@
                     </div>
                 </t:parameter>
                 <t:parameter name="empty">
-                    Пустой список
+                    <div class="empty">Пустой список</div>
                 </t:parameter>
             </t:grid>
             <script>

@@ -18,6 +18,8 @@ public interface OrderService {
 
     List<OrderEntity> findAllOrders(CatalogEntity catalog);
 
+    List<OrderEntity> findAllOrders(CatalogEntity catalog, OrderEntity.Status status);
+
     int getProductsPrice(List<OrderProductEntity> products);
 
     OrderEntity findOrder(Long id);

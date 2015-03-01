@@ -1018,6 +1018,14 @@ a.category-69 {
     border-bottom: 1px dashed #bd0400;
 }
 
+.dotted-link,
+.dotted-link:hover {
+    color: #bd0400;
+    border-bottom: 1px dashed #bd0400;
+    cursor: pointer;
+    text-decoration: none;
+}
+
 .office-menu a:hover {
     border-bottom: 1px dashed #bd0400;
     text-decoration: none;

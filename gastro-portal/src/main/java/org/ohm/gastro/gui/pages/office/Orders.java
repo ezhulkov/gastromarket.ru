@@ -1,6 +1,7 @@
 package org.ohm.gastro.gui.pages.office;
 
 import org.apache.tapestry5.Block;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.OrderEntity;
@@ -9,6 +10,7 @@ import org.ohm.gastro.domain.OrderProductEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 24.08.14.
@@ -30,6 +32,7 @@ public class Orders extends BaseComponent {
     private OrderProductEntity oneProduct;
 
     @Property
+    @Persist
     private OrderEntity.Status filter;
 
     public String getMenuActivation() {
@@ -37,7 +40,10 @@ public class Orders extends BaseComponent {
     }
 
     public List<OrderEntity> getOrders() {
-        return getOrderService().findAllOrders(null);
+        return getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream()
+                .flatMap(t -> getOrderService().findAllOrders(t, filter).stream())
+                .sorted((t1, t2) -> t1.getDate().compareTo(t2.getDate()))
+                .collect(Collectors.toList());
     }
 
     public Block onActionFromNew() {
@@ -66,19 +72,29 @@ public class Orders extends BaseComponent {
 
     public Block onActionFromDeleteProduct(Long oid, Long pid) {
         oneOrder = getOrderService().findOrder(oid);
+        if (!isStatusChangeAllowed()) return orderBlock;
         getOrderService().deleteProduct(oid, pid);
         return orderBlock;
     }
 
     public Block onActionFromIncProduct(Long oid, Long pid) {
         oneOrder = getOrderService().findOrder(oid);
+        if (!isStatusChangeAllowed()) return orderBlock;
         getOrderService().incProduct(oid, pid);
         return orderBlock;
     }
 
     public Block onActionFromDecProduct(Long oid, Long pid) {
         oneOrder = getOrderService().findOrder(oid);
+        if (!isStatusChangeAllowed()) return orderBlock;
         getOrderService().decProduct(oid, pid);
+        if (oneOrder.getUsedBonuses() > 0) {
+            int newPrice = getOrderService().getProductsPrice(oneOrder.getProducts());
+            if (oneOrder.getUsedBonuses() > newPrice) {
+                oneOrder.setUsedBonuses(newPrice);
+                getOrderService().saveOrder(oneOrder);
+            }
+        }
         return orderBlock;
     }
 
@@ -86,5 +102,12 @@ public class Orders extends BaseComponent {
         return "zoneId" + oneOrder.getId();
     }
 
+    public String getOneOrderStatus() {
+        return getMessages().get(oneOrder.getStatus().name());
+    }
+
+    public boolean isStatusChangeAllowed() {
+        return isCook() && (oneOrder.getStatus() == Status.ACCEPTED || oneOrder.getStatus() == Status.NEW);
+    }
 
 }

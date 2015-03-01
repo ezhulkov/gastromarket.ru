@@ -71,7 +71,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderEntity> findAllOrders(final CatalogEntity catalog) {
-        return orderRepository.findAllByCatalog(catalog);
+        return orderRepository.findAllByCatalog(catalog, null);
+    }
+
+    @Override
+    public List<OrderEntity> findAllOrders(final CatalogEntity catalog, final Status status) {
+        return orderRepository.findAllByCatalog(catalog, status);
     }
 
     @Override

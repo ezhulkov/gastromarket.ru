@@ -26,8 +26,8 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
             "join p.products pp " +
             "join pp.product pr " +
             "join pr.catalog c " +
-            "where c=:catalog or :catalog is null " +
+            "where (c=:catalog or :catalog is null) and (p.status=:status or :status is null) " +
             "order by p.date desc")
-    List<OrderEntity> findAllByCatalog(@Param("catalog") CatalogEntity catalog);
+    List<OrderEntity> findAllByCatalog(@Param("catalog") CatalogEntity catalog, @Param("status") OrderEntity.Status status);
 
 }
