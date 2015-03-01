@@ -1679,7 +1679,10 @@ div.catalog-edit-links .more-link {
 .attention p {
     font-size: 18px;
     text-align: center;
+}
 
+.bonus .attention {
+    margin: 20px 10px;
 }
 
 .cart-catalog {

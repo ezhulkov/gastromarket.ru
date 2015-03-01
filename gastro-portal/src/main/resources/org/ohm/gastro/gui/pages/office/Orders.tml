@@ -4,21 +4,23 @@
         <div class="title">
             <h1><span>Заказы</span></h1>
         </div>
-        <ul class="office-menu">
-            <li id="NEW">
-                <t:actionlink t:id="new" t:zone="ordersZone">Новые</t:actionlink>
-            </li>
-            <li id="ACCEPTED">
-                <t:actionlink t:id="accepted" t:zone="ordersZone">В работе</t:actionlink>
-            </li>
-            <li id="READY">
-                <t:actionlink t:id="ready" t:zone="ordersZone">Выполненные</t:actionlink>
-            </li>
-            <li id="ALL">
-                <t:actionlink t:id="all" t:zone="ordersZone">Все</t:actionlink>
-            </li>
-        </ul>
-        <br/>
+        <t:if test="cook">
+            <ul class="office-menu">
+                <li id="ALL">
+                    <t:actionlink t:id="all" t:zone="ordersZone">Все</t:actionlink>
+                </li>
+                <li id="NEW">
+                    <t:actionlink t:id="new" t:zone="ordersZone">Новые</t:actionlink>
+                </li>
+                <li id="ACCEPTED">
+                    <t:actionlink t:id="accepted" t:zone="ordersZone">В работе</t:actionlink>
+                </li>
+                <li id="READY">
+                    <t:actionlink t:id="ready" t:zone="ordersZone">Выполненные</t:actionlink>
+                </li>
+            </ul>
+            <br/>
+        </t:if>
         <t:zone t:id="ordersZone" class="p-zone">
             <t:delegate to="ordersBlock"/>
         </t:zone>

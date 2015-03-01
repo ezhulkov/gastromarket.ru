@@ -40,10 +40,11 @@ public class Orders extends BaseComponent {
     }
 
     public List<OrderEntity> getOrders() {
-        return getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream()
+        if (isCook()) return getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream()
                 .flatMap(t -> getOrderService().findAllOrders(t, filter).stream())
                 .sorted((t1, t2) -> t2.getDate().compareTo(t1.getDate()))
                 .collect(Collectors.toList());
+        return getOrderService().findAllOrders(getAuthenticatedUser(), null);
     }
 
     public Block onActionFromNew() {

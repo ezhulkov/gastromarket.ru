@@ -40,7 +40,6 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public List<OrderEntity> placeOrder(OrderEntity totalOrder, List<OrderProductEntity> purchaseItems, final UserEntity customer) {
         final Integer totalPrice = getProductsPrice(purchaseItems);
-        customer.setBonus(Math.max(0, customer.getBonus() - totalOrder.getUsedBonuses()));
         userRepository.save(customer);
         return purchaseItems.stream()
                 .collect(Collectors.groupingBy(t -> t.getProduct().getCatalog())).entrySet().stream()
@@ -119,6 +118,16 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void changeStatus(final OrderEntity oneOrder, final Status status) {
+        if (status == Status.CANCELLED) oneOrder.setUsedBonuses(0);
+        if (status == Status.READY) {
+            final UserEntity customer = oneOrder.getCustomer();
+            if (oneOrder.getUsedBonuses() > 0) {
+                customer.setBonus(Math.max(0, customer.getBonus() - oneOrder.getUsedBonuses()));
+            } else {
+                customer.setBonus((int) (customer.getBonus() + Math.ceil(getProductsPrice(oneOrder.getProducts()) * 0.03)));
+            }
+            userRepository.save(customer);
+        }
         oneOrder.setStatus(status);
         orderRepository.save(oneOrder);
     }

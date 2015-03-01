@@ -39,12 +39,27 @@ public class HeaderLayout extends BaseComponent {
         return getMessages().get("many.products");
     }
 
+    public String getDeclBonuses() {
+        final int bonuses = getBonuses();
+        if (bonuses == 1) return getMessages().get("one.bonus");
+        if (bonuses % 10 < 5) return getMessages().get("four.bonuses");
+        return getMessages().get("many.bonuses");
+    }
+
     public List<CatalogEntity> getCatalogs() {
         return getCatalogService().findAllCatalogs(getAuthenticatedUserOpt().orElse(null));
     }
 
     public String getHidden() {
         return isCook() ? "hidden" : "";
+    }
+
+    public boolean isShowBonuses() {
+        return !isAuthenticated() || isUser();
+    }
+
+    public int getBonuses() {
+        return getAuthenticatedUserOpt().map(t -> getUserService().getUserBonuses(t)).orElse(0);
     }
 
 }

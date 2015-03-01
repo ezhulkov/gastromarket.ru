@@ -11,38 +11,43 @@
                             <t:pagelink page="office/orders">Мои заказы</t:pagelink>
                         </span>
                     </t:if>
+                    <t:if test="showBonuses">
+                        <a href="#bonus" data-toggle="modal" data-target="#bonus">${bonuses} ${declBonuses}</a>
+                    </t:if>
                     <t:if test="authenticated">
-                    <span class="header-block pic-holder dropdown username">
-                        <img class="avatar-small" src="${authenticatedUser.avatarUrlSmall}"/>&#160;
-                        <a data-target="#" href="#userMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-                            ${authenticatedUser.printableName}
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <t:pagelink page="office/index" context="['UPDATE','0']">Мой профиль</t:pagelink>
-                            </li>
-                            <t:if test="cook">
+                        <span class="header-block pic-holder dropdown username">
+                            <img class="avatar-small" src="${authenticatedUser.avatarUrlSmall}"/>&#160;
+                            <a data-target="#" href="#userMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                                ${authenticatedUser.printableName}
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
                                 <li>
-                                    <t:pagelink page="office/orders">Мои заказы</t:pagelink>
+                                    <t:pagelink page="office/index" context="['UPDATE','0']">Мой профиль</t:pagelink>
                                 </li>
-                                <t:loop source="catalogs" value="oneCatalog">
+                                <t:if test="user">
                                     <li>
-                                        <t:pagelink page="catalog/index" t:context="oneCatalog.id">Каталог '${oneCatalog.name}'</t:pagelink>
+                                        <t:pagelink page="office/orders">Мои заказы</t:pagelink>
                                     </li>
-                                </t:loop>
-                            </t:if>
-                            <t:if test="admin">
-                                <li>
-                                    <t:pagelink page="admin/order/list">Все заказы</t:pagelink>
-                                </li>
-                                <li>
-                                    <t:pagelink page="admin/category/list">Системные настройки</t:pagelink>
-                                </li>
-                            </t:if>
-                            <li><a href="/logout">Выход</a></li>
-                        </ul>
-                    </span>
+                                </t:if>
+                                <t:if test="cook">
+                                    <t:loop source="catalogs" value="oneCatalog">
+                                        <li>
+                                            <t:pagelink page="catalog/index" t:context="oneCatalog.id">Каталог '${oneCatalog.name}'</t:pagelink>
+                                        </li>
+                                    </t:loop>
+                                </t:if>
+                                <t:if test="admin">
+                                    <li>
+                                        <t:pagelink page="admin/order/list">Все заказы</t:pagelink>
+                                    </li>
+                                    <li>
+                                        <t:pagelink page="admin/category/list">Системные настройки</t:pagelink>
+                                    </li>
+                                </t:if>
+                                <li><a href="/logout">Выход</a></li>
+                            </ul>
+                        </span>
                     </t:if>
                     <t:unless test="authenticated">
                         <span class="header-block pic-holder login">
@@ -85,5 +90,34 @@
     <t:unless test="authenticated">
         <t:loginUserModal/>
     </t:unless>
+
+    <t:if test="showBonuses">
+        <div class="modal fade" id="bonus" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog bonus">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="title">
+                            <h1><span>Бонусные баллы</span></h1>
+                        </div>
+                        <a class="modal-close" data-dismiss="modal"></a>
+                    </div>
+                    <div class="modal-body">
+                        <t:if test="authenticated">
+                            <p class="modal-text f20px">Сейчас на Вашем счету ${bonuses} ${declBonuses}</p>
+                        </t:if>
+                        <p class="modal-text">Каждый раз когда Вы совершаете покупку на Гастромаркет, мы возвращаем Вам 3 процента от стоимости заказа в виде бонусных баллов.</p>
+
+                        <p class="modal-text">Вы можете расплатиться баллами при размещении новых заказов.</p>
+
+                        <p class="modal-text">
+                            <a href="/userinfo" class="red-link">узнать подробности</a>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t:if>
+
 
 </div>

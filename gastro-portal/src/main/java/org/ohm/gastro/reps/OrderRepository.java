@@ -18,7 +18,7 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
             "join p.products pp " +
             "join pp.product pr " +
             "join pr.catalog c " +
-            "where p.customer=:customer and c=:catalog " +
+            "where p.customer=:customer and (c=:catalog or :catalog is null) " +
             "order by p.date desc")
     List<OrderEntity> findAllByCatalogAndCustomer(@Param("customer") UserEntity customer, @Param("catalog") CatalogEntity catalog);
 

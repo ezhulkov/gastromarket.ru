@@ -4,10 +4,12 @@ import com.google.common.base.Objects;
 import com.google.common.io.BaseEncoding;
 import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
+import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.domain.UserEntity.Status;
 import org.ohm.gastro.domain.UserEntity.Type;
 import org.ohm.gastro.reps.CatalogRepository;
+import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.reps.UserRepository;
 import org.ohm.gastro.service.EmptyPasswordException;
 import org.ohm.gastro.service.UserExistsException;
@@ -27,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import static org.scribe.utils.Preconditions.checkNotNull;
 
@@ -39,13 +42,15 @@ public class UserServiceImpl implements UserService, Logging {
 
     private final UserRepository userRepository;
     private final CatalogRepository catalogRepository;
+    private final OrderRepository orderRepository;
     private final PasswordEncoder passwordEncoder;
     private final Random random = new Random();
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, CatalogRepository catalogRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, CatalogRepository catalogRepository, final OrderRepository orderRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.catalogRepository = catalogRepository;
+        this.orderRepository = orderRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -146,6 +151,18 @@ public class UserServiceImpl implements UserService, Logging {
         Authentication authentication = new UsernamePasswordAuthenticationToken(existingUser, null, existingUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
+    }
+
+    @Override
+    public int getUserBonuses(final UserEntity user) {
+        if (user.getType() == Type.USER) {
+            final Integer userBonus = user.getBonus();
+            final Integer usedBonus = orderRepository.findAllByCatalogAndCustomer(user, null).stream()
+                    .filter(t -> t.getStatus() == OrderEntity.Status.NEW || t.getStatus() == OrderEntity.Status.ACCEPTED)
+                    .collect(Collectors.summingInt(OrderEntity::getUsedBonuses));
+            return Math.max(0, userBonus - usedBonus);
+        }
+        return 0;
     }
 
     @Override

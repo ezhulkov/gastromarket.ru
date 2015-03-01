@@ -75,7 +75,7 @@ public class Cart extends BaseComponent {
     }
 
     public Object onSuccessFromCartForm() {
-        if (isAuthenticated() && bonus != null && bonus > getAuthenticatedUser().getBonus()) {
+        if (isAuthenticated() && bonus != null && bonus > getUserService().getUserBonuses(getAuthenticatedUser())) {
             cartForm.recordError(bonusField, getMessages().get("insufficient.bonuses.error"));
             return null;
         }
@@ -111,8 +111,9 @@ public class Cart extends BaseComponent {
     }
 
     public String getBonusMessage() {
-        if (isAuthenticated()) return getAuthenticatedUser().getBonus() > 0 ?
-                getMessages().format("bonuses.message", getAuthenticatedUser().getBonus()) :
+        final int userBonuses = getUserService().getUserBonuses(getAuthenticatedUser());
+        if (isAuthenticated()) return userBonuses > 0 ?
+                getMessages().format("bonuses.message", userBonuses) :
                 getMessages().get("no.bonuses");
         return getMessages().get("no.bonuses");
     }
