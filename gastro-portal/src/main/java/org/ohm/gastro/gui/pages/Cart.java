@@ -114,8 +114,8 @@ public class Cart extends BaseComponent {
         final int userBonuses = getUserService().getUserBonuses(getAuthenticatedUser());
         if (isAuthenticated()) return userBonuses > 0 ?
                 getMessages().format("bonuses.message", userBonuses) :
-                getMessages().get("no.bonuses");
-        return getMessages().get("no.bonuses");
+                getMessages().get("no.bonuses.message");
+        return getMessages().get("no.bonuses.message");
     }
 
 }

@@ -39,10 +39,11 @@ public class HeaderLayout extends BaseComponent {
         return getMessages().get("many.products");
     }
 
-    public String getDeclBonuses() {
+    public String getBonusesMessage() {
         final int bonuses = getBonuses();
-        if (bonuses == 1) return getMessages().get("one.bonus");
-        if (bonuses % 10 < 5) return getMessages().get("four.bonuses");
+        if (bonuses == 0) return getMessages().get("no.bonuses");
+        if (bonuses == 1) return getMessages().format("one.bonus", bonuses);
+        if (bonuses % 10 < 5) return getMessages().format("four.bonuses", bonuses);
         return getMessages().get("many.bonuses");
     }
 

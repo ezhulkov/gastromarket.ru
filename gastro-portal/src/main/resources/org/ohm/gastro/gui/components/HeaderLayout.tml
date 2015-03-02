@@ -12,7 +12,7 @@
                         </span>
                     </t:if>
                     <t:if test="showBonuses">
-                        <a href="#bonus" data-toggle="modal" data-target="#bonus">${bonuses} ${declBonuses}</a>
+                        <a href="#bonus" data-toggle="modal" data-target="#bonus">${bonusesMessage}</a>
                     </t:if>
                     <t:if test="authenticated">
                         <span class="header-block pic-holder dropdown username">
@@ -103,7 +103,7 @@
                     </div>
                     <div class="modal-body">
                         <t:if test="authenticated">
-                            <p class="modal-text f20px">Сейчас на Вашем счету ${bonuses} ${declBonuses}</p>
+                            <p class="modal-text f20px">Сейчас на Вашем счету ${bonusesMessage.toLowerCase()}</p>
                         </t:if>
                         <p class="modal-text">Каждый раз когда Вы совершаете покупку на Гастромаркет, мы возвращаем Вам 3 процента от стоимости заказа в виде бонусных баллов.</p>
 
