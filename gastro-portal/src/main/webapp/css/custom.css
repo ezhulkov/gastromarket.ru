@@ -80,7 +80,7 @@ html > body div.t-error ul li {
 .pic-holder > span:first-child {
     display: inline-block;
     vertical-align: middle;
-    margin-right: 10px;
+    margin-right: 7px;
 }
 
 .f20px {
@@ -549,6 +549,7 @@ html > body div.t-error ul li {
     width: 23px;
     height: 23px;
     border-radius: 11px;
+    margin-right: 7px;
 }
 
 .text-red {
@@ -1416,6 +1417,13 @@ html div.office table.table td.toggle {
 
 .product-item .basket-add {
     margin: 15px 0 0 5px;
+}
+
+.pic-holder.basket-add > span {
+    width: 30px;
+    height: 30px;
+    background: url("../img/basket-add.png") no-repeat 0 0;
+    display: inline-block;
 }
 
 .product-modal-template .basket a {

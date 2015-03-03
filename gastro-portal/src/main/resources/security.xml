@@ -16,8 +16,10 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
     <http access-denied-page="/e403" use-expressions="true" auto-config="false">
         <intercept-url pattern="/office" access="hasAnyRole('COOK,ADMIN,USER')"/>
         <intercept-url pattern="/office/**" access="hasAnyRole('COOK,ADMIN,USER')"/>
-        <intercept-url pattern="/admin" access="hasRole('ADMIN')"/>
-        <intercept-url pattern="/admin/**" access="hasRole('ADMIN')"/>
+        <intercept-url pattern="/admin" access="hasAnyRole('ADMIN')"/>
+        <intercept-url pattern="/admin/**" access="hasAnyRole('ADMIN')"/>
+        <intercept-url pattern="/cook" access="hasAnyRole('ADMIN,COOK')"/>
+        <intercept-url pattern="/cook/**" access="hasAnyRole('ADMIN,COOK')"/>
         <intercept-url pattern="/" access="hasAnyRole('ROLE_ANONYMOUS,COOK,USER,ADMIN')"/>
         <intercept-url pattern="/index" access="hasAnyRole('ROLE_ANONYMOUS,COOK,USER,ADMIN')"/>
         <form-login login-page="/login" default-target-url="/index" always-use-default-target="true" authentication-failure-url="/login/error"

@@ -1,0 +1,24 @@
+<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <div class="container office ">
+        <div class="title">
+            <h1><span>Счета</span></h1>
+        </div>
+
+        <t:loop source="allCatalogs" value="oneCatalog">
+            <div class="f30px">${oneCatalog.name}</div>
+            <t:grid source="allBills" row="oneBill" t:mixins="GridSortingDisabled" exclude="id,datePrintable" reorder="date,count,total,bill,status" add="bill,total,count"
+                    class="table table-hover">
+                <t:parameter name="dateHeader">Период</t:parameter>
+                <t:parameter name="billHeader">Сумма к оплате, руб</t:parameter>
+                <t:parameter name="totalHeader">Оборот, руб</t:parameter>
+                <t:parameter name="countHeader">Выполненных заказов</t:parameter>
+                <t:parameter name="statusCell">
+                    <span class="order-status status-${oneBill.status}">${oneBillStatus}</span>
+                </t:parameter>
+            </t:grid>
+        </t:loop>
+
+    </div>
+
+</t:htmllayout>

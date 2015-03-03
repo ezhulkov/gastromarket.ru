@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -51,7 +51,7 @@ public class CatalogEntity extends AbstractBaseEntity {
     private boolean wasSetup = false;
 
     @Column
-    private Timestamp date = new Timestamp(System.currentTimeMillis());
+    private Date date = new Date(System.currentTimeMillis());
 
     @Column(name = "avatar_url")
     private String avatarUrl = "/img/avatar-stub.png";
@@ -77,11 +77,11 @@ public class CatalogEntity extends AbstractBaseEntity {
         this.id = id;
     }
 
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

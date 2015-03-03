@@ -1,5 +1,6 @@
 package org.ohm.gastro.reps;
 
+import org.ohm.gastro.domain.BillEntity;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.UserEntity;
@@ -29,5 +30,11 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
             "where (c=:catalog or :catalog is null) and (p.status=:status or :status is null) " +
             "order by p.date desc")
     List<OrderEntity> findAllByCatalog(@Param("catalog") CatalogEntity catalog, @Param("status") OrderEntity.Status status);
+
+    @Query("select o from OrderEntity o " +
+            "join o.bill b " +
+            "where b=:bill " +
+            "order by o.date asc")
+    List<OrderEntity> findAllByBill(@Param("bill") BillEntity bill);
 
 }

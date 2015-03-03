@@ -6,18 +6,18 @@
             <t:if test="header">
                 <div class="pull-right">
                     <t:if test="cook">
-                        <span class="header-block pic-holder orders">
+                        <t:pagelink class="header-block pic-holder orders" page="office/orders">
                             <span/>
-                            <t:pagelink page="office/orders">Мои заказы</t:pagelink>
-                        </span>
+                            Мои заказы
+                        </t:pagelink>
                     </t:if>
                     <t:if test="showBonuses">
                         <a href="#bonus" data-toggle="modal" data-target="#bonus">${bonusesMessage}</a>
                     </t:if>
                     <t:if test="authenticated">
                         <span class="header-block pic-holder dropdown username">
-                            <img class="avatar-small" src="${authenticatedUser.avatarUrlSmall}"/>&#160;
                             <a data-target="#" href="#userMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                                <img class="avatar-small" src="${authenticatedUser.avatarUrlSmall}"/>
                                 ${authenticatedUser.printableName}
                                 <span class="caret"></span>
                             </a>
@@ -36,10 +36,16 @@
                                             <t:pagelink page="catalog/index" t:context="oneCatalog.id">Каталог '${oneCatalog.name}'</t:pagelink>
                                         </li>
                                     </t:loop>
+                                    <li>
+                                        <t:pagelink page="cook/bills">Счета</t:pagelink>
+                                    </li>
                                 </t:if>
                                 <t:if test="admin">
                                     <li>
                                         <t:pagelink page="admin/order/list">Все заказы</t:pagelink>
+                                    </li>
+                                    <li>
+                                        <t:pagelink page="cook/bills">Все счета</t:pagelink>
                                     </li>
                                     <li>
                                         <t:pagelink page="admin/category/list">Системные настройки</t:pagelink>
@@ -50,12 +56,9 @@
                         </span>
                     </t:if>
                     <t:unless test="authenticated">
-                        <span class="header-block pic-holder login">
-                            <span/>
-                            <a href="#login" data-toggle="modal" class="login-link" data-target="#login">Войти или зарегистрироваться</a>
-                        </span>
+                        <a href="#login" data-toggle="modal" class="header-block pic-holder login-link" data-target="#login"><span/>Войти или зарегистрироваться</a>
                     </t:unless>
-                    <t:zone elementName="span" t:id="basketZone" class="header-block pic-holder basket ${hidden}">
+                    <t:zone elementName="span" t:id="basketZone" class="header-block ${hidden}">
                         <t:unless test="cook">
                             <t:delegate to="basketBlock"/>
                         </t:unless>
@@ -68,22 +71,22 @@
     </nav>
 
     <t:block t:id="basketBlock">
-        <span/>
-        <t:if test="shoppingCart.products.size()">
-            <t:pagelink page="cart">
+        <t:pagelink class="pic-holder basket" page="cart">
+            <span/>
+            <t:if test="shoppingCart.products.size()">
                 ${shoppingCart.products.size()} ${declProducts}
-            </t:pagelink>
-            <t:if test="shoppingCart.justAdded">
-                <div class="dropdown-menu basket-show">
-                    Товар добавлен в корзину. <br/>Вы можете продолжить поиск или перейти
-                    <t:pagelink page="cart">к оформлению заказа</t:pagelink>
-                </div>
+                <t:parameter name="else">
+                    <t:pagelink page="cart">
+                        В корзине пусто
+                    </t:pagelink>
+                </t:parameter>
             </t:if>
-            <t:parameter name="else">
-                <t:pagelink page="cart">
-                    В корзине пусто
-                </t:pagelink>
-            </t:parameter>
+        </t:pagelink>
+        <t:if test="shoppingCart.justAdded">
+            <div class="dropdown-menu basket-show">
+                Товар добавлен в корзину. <br/>Вы можете продолжить поиск или перейти
+                <t:pagelink page="cart">к оформлению заказа</t:pagelink>
+            </div>
         </t:if>
     </t:block>
 

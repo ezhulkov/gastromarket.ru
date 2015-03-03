@@ -388,4 +388,31 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="27" author="ezhulkov">
+        <createTable tableName="bill">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="catalog_id" type="java.sql.Types.BIGINT"/>
+            <column name="date" type="java.sql.Types.TIMESTAMP"/>
+            <column name="status" type="java.sql.Types.VARCHAR(16)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="bill" baseColumnNames="catalog_id"
+                constraintName="bill_catalog_fk" referencedTableName="catalog" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <createIndex tableName="bill" indexName="bill_cat_idx">
+            <column name="catalog_id"/>
+        </createIndex>
+        <addColumn tableName="orders">
+            <column name="bill_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="orders" baseColumnNames="bill_id"
+                constraintName="order_bill_fk" referencedTableName="bill" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <createIndex tableName="orders" indexName="order_bill_idx">
+            <column name="bill_id"/>
+        </createIndex>
+    </changeSet>
+
+
 </databaseChangeLog>
