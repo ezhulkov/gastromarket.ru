@@ -128,7 +128,7 @@ public class OrderServiceImpl implements OrderService {
         final List<BillEntity> bills = billRepository.findByCatalogOrderByDateAsc(catalog);
         bills.stream().forEach(bill -> {
             final List<OrderEntity> orders = orderRepository.findAllByBill(bill);
-            orders.stream().filter(t->t.)
+            orders.stream().filter(t->t.isClosed());
         });
         return bills;
     }
