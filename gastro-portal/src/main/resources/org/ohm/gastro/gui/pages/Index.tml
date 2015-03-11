@@ -40,7 +40,7 @@
                 <t:loop source="categories" value="oneCategory">
                     <div>
                         <t:pagelink page="product/list" context="oneCategory.id" class="category-${oneCategory.id}"/>
-                        <span class="name">${oneCategory.name}</span>
+                        <t:pagelink page="product/list" context="oneCategory.id" class="black-link"><span class="name f18px"> ${oneCategory.name}</span></t:pagelink>
                     </div>
                 </t:loop>
             </div>
@@ -57,7 +57,7 @@
                             <t:pagelink page="product/index" context="oneProduct.id">
                                 <img src="${oneProduct.avatarUrlMedium}"/>
                             </t:pagelink>
-                            <span class="name">${oneProduct.name}</span>
+                            <t:pagelink page="product/index" context="oneProduct.id" class="black-link"><span class="name f18px">${oneProduct.name}</span></t:pagelink>
                         </div>
                     </t:loop>
                 </div>
@@ -74,7 +74,7 @@
                         <t:pagelink page="catalog/index" context="oneCook.id">
                             <img src="${oneCook.avatarUrl}"/>
                         </t:pagelink>
-                        <span class="name">${oneCook.name}</span>
+                        <t:pagelink page="catalog/index" context="oneCook.id" class="black-link"><span class="name f18px">${oneCook.name}</span></t:pagelink>
                     </div>
                 </t:loop>
             </div>

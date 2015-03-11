@@ -91,6 +91,10 @@ html > body div.t-error ul li {
     font-size: 14px !important;
 }
 
+.f18px {
+    font-size: 18px !important;
+}
+
 .f30px {
     font-size: 30px !important;
 }
@@ -561,6 +565,15 @@ html > body div.t-error ul li {
     padding-top: 5px;
     font-size: 16px;
     cursor: pointer;
+}
+
+.black-link {
+    color: #000000;
+    cursor: pointer;
+}
+
+.black-link:hover {
+    color: #000000;
 }
 
 .remember-link {
