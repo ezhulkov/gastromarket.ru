@@ -560,6 +560,7 @@ html > body div.t-error ul li {
     color: #e70500;
     padding-top: 5px;
     font-size: 16px;
+    cursor: pointer;
 }
 
 .remember-link {
@@ -976,6 +977,7 @@ a.category-69 {
     background: transparent url("../img/category/sidedishes-small.jpg") repeat-x;
 }
 
+.billinfo .modal-dialog,
 .howto .modal-dialog {
     width: 1200px;
 }
@@ -1728,10 +1730,6 @@ div.catalog-edit-links .more-link {
 }
 
 .status-READY {
-    background-color: yellow;
-}
-
-.status-DELIVERED {
     background-color: blue;
 }
 

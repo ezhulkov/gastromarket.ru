@@ -139,7 +139,11 @@ public class OrderEntity extends AbstractBaseEntity {
     }
 
     public boolean isClosed() {
-        return status == Status.CANCELLED || status == Status.READY;
+        return status == Status.READY;
+    }
+
+    public int getTotalPrice() {
+        return getProducts().stream().mapToInt(t -> t.getCount() * t.getPrice()).sum();
     }
 
 }

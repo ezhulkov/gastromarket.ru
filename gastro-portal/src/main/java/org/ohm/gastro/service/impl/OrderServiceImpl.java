@@ -128,7 +128,15 @@ public class OrderServiceImpl implements OrderService {
         final List<BillEntity> bills = billRepository.findByCatalogOrderByDateAsc(catalog);
         bills.stream().forEach(bill -> {
             final List<OrderEntity> orders = orderRepository.findAllByBill(bill);
-            orders.stream().filter(t->t.isClosed());
+            final List<OrderEntity> closedOrders = orders.stream().filter(OrderEntity::isClosed).collect(Collectors.toList());
+            final int count = (int) closedOrders.size();
+            final int totalPrice = closedOrders.stream().mapToInt(OrderEntity::getTotalPrice).sum();
+            final int totalBonuses = closedOrders.stream().mapToInt(OrderEntity::getUsedBonuses).sum();
+            final int totalBill = Math.max(0, (int) Math.ceil(totalPrice * 0.01) - totalBonuses);
+            bill.setTotalOrderCount(count);
+            bill.setTotalPrice(totalPrice);
+            bill.setTotalBonuses(totalBonuses);
+            bill.setTotalBill(totalBill);
         });
         return bills;
     }
