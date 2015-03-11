@@ -57,7 +57,7 @@
                             <t:pagelink page="product/index" context="oneProduct.id">
                                 <img src="${oneProduct.avatarUrlMedium}"/>
                             </t:pagelink>
-                            <t:pagelink page="product/index" context="oneProduct.id" class="black-link"><span class="name f18px">${oneProduct.name}</span></t:pagelink>
+                            <t:pagelink page="product/index" context="oneProduct.id" class="black-link"><span class="name f20px">${oneProduct.name}</span></t:pagelink>
                         </div>
                     </t:loop>
                 </div>
