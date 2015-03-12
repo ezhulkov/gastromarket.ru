@@ -57,7 +57,7 @@ public class Bills extends BaseComponent {
     }
 
     public List<BillEntity> getAllBills() {
-        return getOrderService().findAllBills(catalog);
+        return getOrderService().findAllBills(catalog).stream().filter(t -> !t.isCurrentMonth()).collect(Collectors.toList());
     }
 
     public List<CatalogEntity> getAllCatalogs() {

@@ -18,7 +18,8 @@
             </div>
         </t:form>
 
-        <t:grid source="allOrders" row="oneOrder" reorder="orderNumber,datePrintable,usedBonuses,catalog,totalPrice,status" add="catalog" exclude="id,comment,date" t:mixins="GridSortingDisabled" class="table table-hover">
+        <t:grid source="allOrders" row="oneOrder" reorder="orderNumber,datePrintable,usedBonuses,catalog,totalPrice,status" add="catalog" exclude="id,comment,date,closed"
+                t:mixins="GridSortingDisabled" class="table table-hover">
             <t:parameter name="orderNumberCell">
                 <t:pageLink page="admin/order/index" context="oneOrder.id">${oneOrder.orderNumber}</t:pageLink>
             </t:parameter>

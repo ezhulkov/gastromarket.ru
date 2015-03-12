@@ -25,7 +25,7 @@
             <t:delegate to="ordersBlock"/>
         </t:zone>
         <t:block t:id="ordersBlock">
-            <t:grid source="orders" row="oneOrder" exclude="id,comment,status,date,usedBonuses,orderNumber,datePrintable" add="item" class="orders-table">
+            <t:grid source="orders" row="oneOrder" exclude="id,comment,status,date,usedBonuses,orderNumber,datePrintable,closed,totalPrice" add="item" class="orders-table">
                 <t:parameter name="itemCell">
                     <div class="row">
                         <div class="col-sm-2"/>

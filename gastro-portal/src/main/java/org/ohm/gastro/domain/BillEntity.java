@@ -1,6 +1,7 @@
 package org.ohm.gastro.domain;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.lang.time.DateUtils;
 import org.ohm.gastro.util.CommonsUtils;
 
 import javax.persistence.CascadeType;
@@ -17,8 +18,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 24.08.14.
@@ -49,15 +52,6 @@ public class BillEntity extends AbstractBaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     private CatalogEntity catalog;
-
-    @Transient
-    private int totalOrderCount;
-
-    @Transient
-    private int totalPrice;
-
-    @Transient
-    private int totalBonuses;
 
     @Transient
     private int totalBill;
@@ -103,28 +97,20 @@ public class BillEntity extends AbstractBaseEntity {
         this.catalog = catalog;
     }
 
-    public int getTotalOrderCount() {
-        return totalOrderCount;
+    public List<OrderEntity> getClosedOrders() {
+        return orders.stream().filter(OrderEntity::isClosed).collect(Collectors.toList());
     }
 
-    public void setTotalOrderCount(int totalOrderCount) {
-        this.totalOrderCount = totalOrderCount;
+    public int getOrderCount() {
+        return getClosedOrders().size();
     }
 
-    public int getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;
+    public int getTotalSales() {
+        return getClosedOrders().stream().mapToInt(OrderEntity::getTotalPrice).sum();
     }
 
     public int getTotalBonuses() {
-        return totalBonuses;
-    }
-
-    public void setTotalBonuses(int totalBonuses) {
-        this.totalBonuses = totalBonuses;
+        return getClosedOrders().stream().mapToInt(OrderEntity::getUsedBonuses).sum();
     }
 
     public int getTotalBill() {
@@ -136,7 +122,11 @@ public class BillEntity extends AbstractBaseEntity {
     }
 
     public String getDatePrintable() {
-        return CommonsUtils.GUI_DATE_LONG.get().format(new Date(date.getTime()));
+        return CommonsUtils.GUI_DATE.get().format(new Date(date.getTime()));
+    }
+
+    public boolean isCurrentMonth() {
+        return DateUtils.round(date, Calendar.MONTH).equals(DateUtils.round(new Date(), Calendar.MONTH));
     }
 
 }

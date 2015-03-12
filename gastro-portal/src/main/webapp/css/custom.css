@@ -995,6 +995,20 @@ a.category-69 {
     width: 1200px;
 }
 
+.billinfo .modal-dialog {
+    height: 80%;
+}
+
+.billinfo .info {
+    position: relative;
+}
+
+.billinfo .info .pay {
+    position: absolute;
+    top: 0;
+    right: 10px;
+}
+
 .howto div {
     text-align: center;
 }
@@ -1065,10 +1079,6 @@ a.category-69 {
 
 .office {
     min-height: 600px;
-}
-
-.office .t-data-grid {
-    margin-bottom: 100px;
 }
 
 .office table th {
