@@ -17,6 +17,9 @@ public class AppModule {
         configuration.add("/fonts/.*");
         configuration.add("/social/*");
         configuration.add("/upload/*");
+        configuration.add("/favicon.ico");
+        configuration.add("/robots.txt");
+        configuration.add("/sitemap.xml");
     }
 
     public void contributeApplicationStateManager(MappedConfiguration<Class, ApplicationStateContribution> configuration) {

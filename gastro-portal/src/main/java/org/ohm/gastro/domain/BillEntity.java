@@ -126,7 +126,7 @@ public class BillEntity extends AbstractBaseEntity {
     }
 
     public boolean isCurrentMonth() {
-        return DateUtils.round(date, Calendar.MONTH).equals(DateUtils.round(new Date(), Calendar.MONTH));
+        return DateUtils.truncate(date, Calendar.MONTH).equals(DateUtils.truncate(new Date(), Calendar.MONTH));
     }
 
 }

@@ -23,7 +23,7 @@
             <t:parameter name="datePrintableHeader">Период</t:parameter>
             <t:parameter name="totalBillHeader">К оплате, руб</t:parameter>
             <t:parameter name="totalSalesHeader">Оборот, руб</t:parameter>
-            <t:parameter name="totalBonusesHeader">Баллами, руб</t:parameter>
+            <t:parameter name="totalBonusesHeader">Бонусами, руб</t:parameter>
             <t:parameter name="orderCountHeader">Выполненных заказов</t:parameter>
             <t:parameter name="payHeader">Оплата</t:parameter>
             <t:parameter name="datePrintableCell">
@@ -60,7 +60,7 @@
                                 <div class="row info">
                                     <div class="col-sm-4">Оборот, руб: ${oneBill.totalSales}</div>
                                     <div class="clearfix"/>
-                                    <div class="col-sm-4">Оплата баллами: ${oneBill.totalBonuses}</div>
+                                    <div class="col-sm-4">Оплата бонусами: ${oneBill.totalBonuses}</div>
                                     <div class="clearfix"/>
                                     <div class="col-sm-4">Итого к оплате: ${oneBill.totalBill}</div>
                                     <div class="clearfix"/>
