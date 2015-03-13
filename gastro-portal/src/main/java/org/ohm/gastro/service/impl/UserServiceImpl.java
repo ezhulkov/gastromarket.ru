@@ -1,6 +1,7 @@
 package org.ohm.gastro.service.impl;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.io.BaseEncoding;
 import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
@@ -12,6 +13,7 @@ import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.reps.UserRepository;
 import org.ohm.gastro.service.EmptyPasswordException;
+import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.UserExistsException;
 import org.ohm.gastro.service.UserService;
 import org.ohm.gastro.trait.Logging;
@@ -44,14 +46,16 @@ public class UserServiceImpl implements UserService, Logging {
     private final CatalogRepository catalogRepository;
     private final OrderRepository orderRepository;
     private final PasswordEncoder passwordEncoder;
+    private final MailService mailService;
     private final Random random = new Random();
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, CatalogRepository catalogRepository, final OrderRepository orderRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, CatalogRepository catalogRepository, final OrderRepository orderRepository, PasswordEncoder passwordEncoder, MailService mailService) {
         this.userRepository = userRepository;
         this.catalogRepository = catalogRepository;
         this.orderRepository = orderRepository;
         this.passwordEncoder = passwordEncoder;
+        this.mailService = mailService;
     }
 
     @Override
@@ -103,8 +107,8 @@ public class UserServiceImpl implements UserService, Logging {
             user.setPassword(encPassword);
             userRepository.save(user);
             logger.debug("Setting new password {} for user {}", password, user);
-            //todo
-            //Send email
+            mailService.sendMailMessage(eMail, MailService.CHANGE_PASSWD, ImmutableMap.of("username", user.getFullName(),
+                                                                                          "password", password));
         }
     }
 

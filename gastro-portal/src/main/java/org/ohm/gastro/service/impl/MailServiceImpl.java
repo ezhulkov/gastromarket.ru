@@ -13,7 +13,7 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Component;
 
 import java.io.StringWriter;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -40,6 +40,9 @@ public class MailServiceImpl implements MailService, Logging {
         properties.setProperty("resource.loader", "class");
         properties.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
         properties.setProperty("velocimacro.library", "");
+        properties.put("runtime.log.logsystem.class", "org.apache.velocity.runtime.log.SimpleLog4JLogSystem");
+        properties.put("runtime.log.logsystem.log4j.category", "velocity");
+        properties.put("runtime.log.logsystem.log4j.logger", "velocity");
         this.velocityEngine = new VelocityEngine(properties);
         this.defaultFrom = defaultFrom;
         this.executorService = Executors.newFixedThreadPool(5);
@@ -50,14 +53,14 @@ public class MailServiceImpl implements MailService, Logging {
     }
 
     @Override
-    public void sendMailMessage(String recipient, String templateKey, HashMap<String, Object> params) {
+    public void sendMailMessage(String recipient, String templateKey, Map<String, String> params) {
 
         logger.info("Sending email to " + recipient + " using template " + templateKey);
 
         try (
                 final StringWriter stringWriter = new StringWriter();
         ) {
-            final String template = IOUtils.toString(getClass().getResourceAsStream(String.format(templatePath, templateKey)));
+            final String template = IOUtils.toString(getClass().getClassLoader().getResourceAsStream(String.format(templatePath, templateKey)));
             velocityEngine.evaluate(new VelocityContext(params), stringWriter, "LOG", template);
             final String messageBody = stringWriter.toString();
             final String title = getTitle(messageBody);

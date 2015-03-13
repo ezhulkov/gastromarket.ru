@@ -27,6 +27,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
@@ -126,7 +127,8 @@ public abstract class BaseComponent {
     }
 
     public String getContextPath() {
-        return globals.getServletContext().getContextPath();
+        final ServletContext servletContext = globals.getServletContext();
+        return servletContext.getContextPath();
     }
 
     public Request getRequest() {
