@@ -7,6 +7,7 @@ import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -87,6 +88,11 @@ public class MailServiceImpl implements MailService, Logging {
         }
 
 
+    }
+
+    @Override
+    public void sendAdminMessage(final String templateKey, final Map<String, String> params) throws MailException {
+        sendMailMessage("contacts@gastromarket.ru", templateKey, params);
     }
 
     private String getTitle(String messageBody) {

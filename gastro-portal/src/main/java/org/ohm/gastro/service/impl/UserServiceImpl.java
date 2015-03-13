@@ -120,8 +120,9 @@ public class UserServiceImpl implements UserService, Logging {
         logger.info("fullName: {}", fullName);
         logger.info("about: {}", about);
 
-        //todo
-        //send email
+        mailService.sendAdminMessage(MailService.NEW_APPLICATION, ImmutableMap.of("fullname", fullName,
+                                                                                  "email", eMail,
+                                                                                  "about", about));
 
     }
 
@@ -133,8 +134,9 @@ public class UserServiceImpl implements UserService, Logging {
         logger.info("fullName: {}", fullName);
         logger.info("comment: {}", comment);
 
-        //todo
-        //send email
+        mailService.sendAdminMessage(MailService.FEEDBACK, ImmutableMap.of("fullname", fullName,
+                                                                           "email", eMail,
+                                                                           "comment", comment));
 
     }
 
