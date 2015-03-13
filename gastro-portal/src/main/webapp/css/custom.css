@@ -1889,3 +1889,15 @@ div.catalog-edit-links .more-link {
     background-position-x: -20px;
     vertical-align: middle;
 }
+
+option.root {
+    font-weight: bold;
+}
+
+.chosen-results li.leaf {
+    padding-left: 30px;
+}
+
+.chosen-results li.root {
+    font-weight: bold;
+}

@@ -9,6 +9,7 @@ import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
+import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.RatingEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
@@ -140,16 +141,23 @@ public class Index extends BaseComponent {
         getCatalogService().rateCatalog(catalog, rateComment, 5, getAuthenticatedUserOpt().orElse(null));
     }
 
-    public int getProductsCount() {
-        return getProductService().findProductsForFrontendCount(catalog);
+    public String getProductsCount() {
+        return getDeclInfo("products", getProductService().findProductsForFrontendCount(catalog));
     }
 
-    public int getRatingCount() {
-        return getRatings().size();
+    public String getRatingCount() {
+        return getDeclInfo("ratings", getRatings().size());
     }
 
-    public int getOrderCount() {
-        return 1;
+    public String getOrderCount() {
+        return getDeclInfo("orders", getOrderService().findAllOrders(catalog, Status.READY).size());
+    }
+
+    private String getDeclInfo(String value, int count) {
+        if (count == 0) return getMessages().format(String.format("chef.info.no.%s", value), count);
+        if (count == 1) return getMessages().format(String.format("chef.info.one.%s", value), count);
+        if (count % 10 < 5) return getMessages().format(String.format("chef.info.four.%s", value), count);
+        return getMessages().format(String.format("chef.info.many.%s", value), count);
     }
 
 }

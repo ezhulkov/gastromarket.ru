@@ -112,9 +112,9 @@
                 </div>
             </div>
             <div class="row stat">
-                <span>Товаров: ${productsCount}</span>
-                <span>Отзывов: ${ratingCount}</span>
-                <span>Выполнено заказов: ${orderCount}</span>
+                <span>${productsCount}</span>
+                <span>${ratingCount}</span>
+                <span>${orderCount}</span>
             </div>
 
             <t:zone t:id="productsZone">

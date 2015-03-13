@@ -29,7 +29,9 @@ public class GenericSelectModel<T extends BaseEntity> extends AbstractSelectMode
                               String idField, PropertyAccess access) {
         idFieldAdapter = access.getAdapter(clazz).getPropertyAdapter(idField);
         labelFieldAdapter = access.getAdapter(clazz).getPropertyAdapter(labelField);
-        this.options = getOptionModel(list);
+        this.options = ImmutableList.copyOf(list.stream()
+                                                    .map(t -> new OptionModelImpl(labelFieldAdapter.get(t).toString(), t))
+                                                    .collect(Collectors.toList()));
         this.objects = ImmutableBiMap.copyOf(list.stream()
                                                      .collect(Collectors.toMap(t -> idFieldAdapter.get(t).toString(),
                                                                                t -> t)));
@@ -54,12 +56,6 @@ public class GenericSelectModel<T extends BaseEntity> extends AbstractSelectMode
     @Override
     public T toValue(String key) {
         return objects.get(key);
-    }
-
-    protected List<OptionModel> getOptionModel(Collection<T> list) {
-        return ImmutableList.copyOf(list.stream()
-                                            .map(t -> new OptionModelImpl(labelFieldAdapter.get(t).toString(), t))
-                                            .collect(Collectors.toList()));
     }
 
 }
