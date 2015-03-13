@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import static org.apache.commons.lang.ObjectUtils.defaultIfNull;
 import static org.scribe.utils.Preconditions.checkNotNull;
 
 /**
@@ -120,9 +121,9 @@ public class UserServiceImpl implements UserService, Logging {
         logger.info("fullName: {}", fullName);
         logger.info("about: {}", about);
 
-        mailService.sendAdminMessage(MailService.NEW_APPLICATION, ImmutableMap.of("fullname", fullName,
-                                                                                  "email", eMail,
-                                                                                  "about", about));
+        mailService.sendAdminMessage(MailService.NEW_APPLICATION, ImmutableMap.of("fullname", (String) defaultIfNull(fullName, ""),
+                                                                                  "email", (String) defaultIfNull(eMail, ""),
+                                                                                  "about", (String) defaultIfNull(about, "")));
 
     }
 
@@ -134,9 +135,9 @@ public class UserServiceImpl implements UserService, Logging {
         logger.info("fullName: {}", fullName);
         logger.info("comment: {}", comment);
 
-        mailService.sendAdminMessage(MailService.FEEDBACK, ImmutableMap.of("fullname", fullName,
-                                                                           "email", eMail,
-                                                                           "comment", comment));
+        mailService.sendAdminMessage(MailService.FEEDBACK, ImmutableMap.of("fullname", (String) defaultIfNull(fullName, ""),
+                                                                           "email", (String) defaultIfNull(eMail, ""),
+                                                                           "comment", (String) defaultIfNull(comment, "")));
 
     }
 
