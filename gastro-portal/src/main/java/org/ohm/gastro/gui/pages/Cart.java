@@ -37,6 +37,9 @@ public class Cart extends BaseComponent {
     @Property
     private Integer bonus;
 
+    @Property
+    private String eMail;
+
     @Inject
     @Property
     private Block purchaseBlock;
@@ -52,6 +55,9 @@ public class Cart extends BaseComponent {
 
     @Component(id = "mobilePhone", parameters = {"value=newPurchase.customer.mobilePhone", "validate=required"})
     private TextField mfField;
+
+    @Component(id = "eMail", parameters = {"value=eMail", "validate=required"})
+    private TextField emField;
 
     @Component(id = "bonus", parameters = {"value=bonus"})
     private TextField bonusField;
@@ -80,7 +86,7 @@ public class Cart extends BaseComponent {
             return null;
         }
         newPurchase.setUsedBonuses((Integer) ObjectUtils.defaultIfNull(bonus, 0));
-        getOrderService().placeOrder(newPurchase, getShoppingCart().getProducts(), newPurchase.getCustomer());
+        getOrderService().placeOrder(newPurchase, getShoppingCart().getProducts(), newPurchase.getCustomer(), eMail);
         getShoppingCart().purge();
         return CartResults.class;
     }

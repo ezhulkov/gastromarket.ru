@@ -12,38 +12,48 @@ import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.OrderProductRepository;
 import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.reps.UserRepository;
+import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.OrderService;
+import org.ohm.gastro.trait.Logging;
 import org.ohm.gastro.util.CommonsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import static org.apache.commons.lang.ObjectUtils.defaultIfNull;
 
 /**
  * Created by ezhulkov on 12.10.14.
  */
 @Component("orderService")
-public class OrderServiceImpl implements OrderService {
+public class OrderServiceImpl implements OrderService, Logging {
 
     private final OrderRepository orderRepository;
     private final OrderProductRepository orderProductRepository;
     private final UserRepository userRepository;
     private final BillRepository billRepository;
     private final CatalogRepository catalogRepository;
+    private final MailService mailService;
 
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, final OrderProductRepository orderProductRepository,
-                            UserRepository userRepository, BillRepository billRepository, CatalogRepository catalogRepository) {
+    public OrderServiceImpl(final OrderRepository orderRepository, final OrderProductRepository orderProductRepository,
+                            final UserRepository userRepository, final BillRepository billRepository,
+                            final CatalogRepository catalogRepository, final MailService mailService) {
         this.orderRepository = orderRepository;
         this.orderProductRepository = orderProductRepository;
         this.userRepository = userRepository;
         this.billRepository = billRepository;
         this.catalogRepository = catalogRepository;
+        this.mailService = mailService;
     }
 
     private Date getBillingPeriodStart(Date catalogCreationDate) {
@@ -67,10 +77,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public List<OrderEntity> placeOrder(OrderEntity totalOrder, List<OrderProductEntity> purchaseItems, final UserEntity customer) {
+    public List<OrderEntity> placeOrder(OrderEntity totalOrder, List<OrderProductEntity> purchaseItems, final UserEntity customer, final String eMail) {
         final Integer totalPrice = getProductsPrice(purchaseItems);
         userRepository.save(customer);
-        return purchaseItems.stream()
+        List<OrderEntity> orders = purchaseItems.stream()
                 .collect(Collectors.groupingBy(t -> t.getProduct().getCatalog())).entrySet().stream()
                 .map(t -> {
                     final CatalogEntity catalog = catalogRepository.findOne(t.getKey().getId());
@@ -101,6 +111,34 @@ public class OrderServiceImpl implements OrderService {
                     return orderRepository.save(order);
                 })
                 .collect(Collectors.toList());
+
+        try {
+            orders.stream().forEach(order -> {
+                if (!order.getProducts().isEmpty()) {
+                    final CatalogEntity catalog = catalogRepository.findOne(order.getProducts().get(0).getProduct().getCatalog().getId());
+                    final Map<String, Object> params = new HashMap<String, Object>() {
+                        {
+                            put("products", order.getProducts());
+                            put("ordernumber", order.getOrderNumber());
+                            put("customer", customer);
+                            put("customer_email", eMail);
+                            put("comment", defaultIfNull(order.getComment(), ""));
+                            put("cook", catalog);
+                            put("total", order.getTotalPrice());
+                            put("hasBonuses", order.getUsedBonuses() > 0);
+                            put("bonuses", order.getUsedBonuses());
+                        }
+                    };
+                    mailService.sendAdminMessage(MailService.NEW_ORDER_ADMIN, params);
+                    mailService.sendMailMessage(catalog.getUser().getEmail(), MailService.NEW_ORDER_COOK, params);
+                    mailService.sendMailMessage(eMail, MailService.NEW_ORDER_CUSTOMER, params);
+                }
+            });
+        } catch (MailException e) {
+            logger.error("", e);
+        }
+
+        return orders;
     }
 
     @Override
@@ -169,19 +207,29 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void changeStatus(final OrderEntity oneOrder, final Status status) {
-        if (status == Status.CANCELLED) oneOrder.setUsedBonuses(0);
+    public void changeStatus(final OrderEntity order, final Status status) {
+        if (status == Status.CANCELLED) order.setUsedBonuses(0);
         if (status == Status.READY) {
-            final UserEntity customer = oneOrder.getCustomer();
-            if (oneOrder.getUsedBonuses() > 0) {
-                customer.setBonus(Math.max(0, customer.getBonus() - oneOrder.getUsedBonuses()));
+            final UserEntity customer = order.getCustomer();
+            if (order.getUsedBonuses() > 0) {
+                customer.setBonus(Math.max(0, customer.getBonus() - order.getUsedBonuses()));
             } else {
-                customer.setBonus((int) (customer.getBonus() + Math.ceil(getProductsPrice(oneOrder.getProducts()) * 0.03)));
+                customer.setBonus((int) (customer.getBonus() + Math.ceil(getProductsPrice(order.getProducts()) * 0.03)));
             }
             userRepository.save(customer);
         }
-        oneOrder.setStatus(status);
-        orderRepository.save(oneOrder);
+        order.setStatus(status);
+        orderRepository.save(order);
+        final Map<String, Object> params = new HashMap<String, Object>() {
+            {
+                put("ordernumber", order.getOrderNumber());
+                put("status", status);
+            }
+        };
+        mailService.sendAdminMessage(MailService.NEW_ORDER_ADMIN, params);
+        if (order.getCustomer().getEmail() != null) {
+            mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.EDIT_ORDER, params);
+        }
     }
 
 }

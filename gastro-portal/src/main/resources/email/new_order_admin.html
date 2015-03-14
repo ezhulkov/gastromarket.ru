@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="content-type"/>
-    <title>Новый отзыв на Гастромаркет</title>
+    <title>Навый заказ на Гастромаркет</title>
 </head>
 <body>
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -31,15 +31,32 @@
                                     <tr>
                                         <td>
                                             <font color="#000000" size="5">
-                                                <b>Новый отзыв о работе сайта</b>
+                                                <b>Новый заказ</b>
                                             </font>
                                             <br>
                                             <br>
                                             <font color="#000000" size="3">
                                                 Привет, <br/>
-                                                Отзыв от $fullname<br/>
-                                                eMail: $email<br/>
-                                                Комментарий: $comment
+                                                На сайте Гастромаркет размещен новый заказ $ordernumber<br/>
+                                                Кулинар: $cook.name<br/>
+                                                Покупатель: $customer.fullName, eMail: $customer_email, телефон: $customer.mobilePhone<br/>
+                                                Адрес доставки: $customer.deliveryAddress<br/>
+                                                <br/>
+                                                <ul>
+                                                    #foreach( $product in $products )
+                                                    <li><a href="http://gastromarket.ru/product/$product.product.id">$product.product.name</a>, количество: $product.count, цена: $product.price рублей</li>
+                                                    #end
+                                                </ul>
+                                                <br/>
+                                                #if( $comment )
+                                                Комментарии к заказу: $comment<br/>
+                                                #end
+                                                <br/>
+                                                <br/>
+                                                <b>Общая стоимость заказа: $total рублей</b><br/>
+                                                #if( $hasBonuses )
+                                                Покупатель оплатил бонусными баллами, потратил %bonuses бонусов.
+                                                #end
                                             </font>
                                         </td>
                                     </tr>

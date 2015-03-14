@@ -121,9 +121,9 @@ public class UserServiceImpl implements UserService, Logging {
         logger.info("fullName: {}", fullName);
         logger.info("about: {}", about);
 
-        mailService.sendAdminMessage(MailService.NEW_APPLICATION, ImmutableMap.of("fullname", (String) defaultIfNull(fullName, ""),
-                                                                                  "email", (String) defaultIfNull(eMail, ""),
-                                                                                  "about", (String) defaultIfNull(about, "")));
+        mailService.sendAdminMessage(MailService.NEW_APPLICATION, ImmutableMap.of("fullname", defaultIfNull(fullName, ""),
+                                                                                  "email", defaultIfNull(eMail, ""),
+                                                                                  "about", defaultIfNull(about, "")));
 
     }
 
@@ -135,9 +135,9 @@ public class UserServiceImpl implements UserService, Logging {
         logger.info("fullName: {}", fullName);
         logger.info("comment: {}", comment);
 
-        mailService.sendAdminMessage(MailService.FEEDBACK, ImmutableMap.of("fullname", (String) defaultIfNull(fullName, ""),
-                                                                           "email", (String) defaultIfNull(eMail, ""),
-                                                                           "comment", (String) defaultIfNull(comment, "")));
+        mailService.sendAdminMessage(MailService.FEEDBACK, ImmutableMap.of("fullname", defaultIfNull(fullName, ""),
+                                                                           "email", defaultIfNull(eMail, ""),
+                                                                           "comment", defaultIfNull(comment, "")));
 
     }
 

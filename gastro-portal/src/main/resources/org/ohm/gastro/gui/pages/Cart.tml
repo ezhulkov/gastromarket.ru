@@ -98,6 +98,14 @@
                     <div class="form-group">
                         <div class="col-sm-3"/>
                         <div class="col-sm-6">
+                            <t:label for="eMail">Адрес электронной почты: *</t:label>
+                            <input id="eMail" t:id="eMail" class="form-control"/>
+                        </div>
+                        <div class="col-sm-3"/>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3"/>
+                        <div class="col-sm-6">
                             <t:label for="deliveryAddress">Адрес доставки: *</t:label>
                             <input id="deliveryAddress" t:id="deliveryAddress" rows="2" class="form-control"/>
                         </div>

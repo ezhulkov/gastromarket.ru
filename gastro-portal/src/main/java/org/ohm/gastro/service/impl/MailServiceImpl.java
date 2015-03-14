@@ -54,7 +54,7 @@ public class MailServiceImpl implements MailService, Logging {
     }
 
     @Override
-    public void sendMailMessage(String recipient, String templateKey, Map<String, String> params) {
+    public void sendMailMessage(String recipient, String templateKey, Map<String, Object> params) {
 
         logger.info("Sending email to " + recipient + " using template " + templateKey);
 
@@ -91,7 +91,7 @@ public class MailServiceImpl implements MailService, Logging {
     }
 
     @Override
-    public void sendAdminMessage(final String templateKey, final Map<String, String> params) throws MailException {
+    public void sendAdminMessage(final String templateKey, final Map<String, Object> params) throws MailException {
         sendMailMessage("contacts@gastromarket.ru", templateKey, params);
     }
 

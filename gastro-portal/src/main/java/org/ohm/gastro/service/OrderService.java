@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface OrderService {
 
-    List<OrderEntity> placeOrder(OrderEntity newOrder, List<OrderProductEntity> purchaseItems, final UserEntity customer);
+    List<OrderEntity> placeOrder(OrderEntity newOrder, List<OrderProductEntity> purchaseItems, final UserEntity customer, final String eMail);
 
     List<OrderEntity> findAllOrders(UserEntity customer, CatalogEntity catalog);
 
