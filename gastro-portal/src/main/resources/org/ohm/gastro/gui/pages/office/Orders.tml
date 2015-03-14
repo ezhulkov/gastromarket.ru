@@ -75,14 +75,14 @@
                                     <div class="info">
                                         <div class="status">Статус:
                                             <t:if test="statusChangeAllowed">
-                                                <a class="dotted-link" data-toggle="modal" data-target="#status">${oneOrderStatus.toLowerCase()}</a>
+                                                <a class="dotted-link" data-toggle="modal" data-target="#status${oneOrder.id}">${oneOrderStatus.toLowerCase()}</a>
                                                 <t:parameter name="else">
                                                     ${oneOrderStatus.toLowerCase()}
                                                 </t:parameter>
                                             </t:if>
                                         </div>
                                     </div>
-                                    <div class="modal fade" id="status" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal fade" id="status${oneOrder.id}" tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog application">
                                             <div class="modal-content">
                                                 <div class="modal-header">

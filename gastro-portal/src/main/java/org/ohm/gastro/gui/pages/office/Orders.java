@@ -108,7 +108,11 @@ public class Orders extends BaseComponent {
     }
 
     public boolean isStatusChangeAllowed() {
-        return isCook() && (oneOrder.getStatus() == Status.ACCEPTED || oneOrder.getStatus() == Status.NEW);
+        return isStatusChangeAllowed(oneOrder);
+    }
+
+    private boolean isStatusChangeAllowed(OrderEntity order) {
+        return isCook() && (order.getStatus() == Status.ACCEPTED || order.getStatus() == Status.NEW);
     }
 
     public Block onActionFromChangeStatusAccepted(Long oid) {
@@ -124,9 +128,9 @@ public class Orders extends BaseComponent {
     }
 
     private Block changeStatus(Long oid, OrderEntity.Status status) {
-        oneOrder = getOrderService().findOrder(oid);
-        if (!isStatusChangeAllowed()) return ordersBlock;
-        getOrderService().changeStatus(oneOrder, status);
+        final OrderEntity order = getOrderService().findOrder(oid);
+        if (!isStatusChangeAllowed(order)) return ordersBlock;
+        getOrderService().changeStatus(order, status);
         return ordersBlock;
     }
 

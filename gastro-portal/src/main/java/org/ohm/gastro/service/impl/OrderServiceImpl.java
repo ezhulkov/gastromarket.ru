@@ -35,6 +35,7 @@ import static org.apache.commons.lang.ObjectUtils.defaultIfNull;
  * Created by ezhulkov on 12.10.14.
  */
 @Component("orderService")
+@Transactional
 public class OrderServiceImpl implements OrderService, Logging {
 
     private final OrderRepository orderRepository;
@@ -76,7 +77,6 @@ public class OrderServiceImpl implements OrderService, Logging {
     }
 
     @Override
-    @Transactional
     public List<OrderEntity> placeOrder(OrderEntity totalOrder, List<OrderProductEntity> purchaseItems, final UserEntity customer, final String eMail) {
         final Integer totalPrice = getProductsPrice(purchaseItems);
         userRepository.save(customer);
@@ -226,7 +226,7 @@ public class OrderServiceImpl implements OrderService, Logging {
                 put("status", status);
             }
         };
-        mailService.sendAdminMessage(MailService.NEW_ORDER_ADMIN, params);
+        mailService.sendAdminMessage(MailService.EDIT_ORDER, params);
         if (order.getCustomer().getEmail() != null) {
             mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.EDIT_ORDER, params);
         }
