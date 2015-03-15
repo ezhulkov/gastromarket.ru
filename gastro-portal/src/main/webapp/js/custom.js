@@ -163,7 +163,7 @@ function initProductCatalogFixed() {
     jQuery(newItems).each(function (i, e) {
         var pic = jQuery(".pic", this);
         jQuery(".data", this).height(jQuery(this).height() - pic.height() - 20);
-    }).fadeIn(1000);
+    }).fadeIn(50);
     initBasket();
 }
 function initProductCatalogEdit() {
@@ -177,18 +177,23 @@ function initProductCatalogEdit() {
 function initProductCatalog(ajaxContainer) {
     var layoutFunction = function (target) {
         var newItems = jQuery("div.product-item", jQuery("div[id^='productsZone']"));
-        jQuery(newItems).css("display", "none");
-        jQuery(newItems).appendTo(target);
+        var existingItemIds = jQuery.map(jQuery("div.product-item", target), function (n, i) {
+            return jQuery(n).attr("id");
+        });
+        jQuery(newItems).each(function (i, e) {
+            var eid = jQuery(e).attr("id");
+            if (jQuery.inArray(eid, existingItemIds) < 0) jQuery(e).appendTo(target);
+        });
         jQuery(target).freetile({
             animate: false,
             selector: ".product-item",
             containerResize: false,
             callback: function () {
-                var items = jQuery("div.product-modal-trigger");
+                var items = jQuery("div.product-modal-trigger", target);
                 jQuery(items)
                     .filter(function () {
                         return jQuery(this).css("display") == "none";
-                    }).fadeIn(1000);
+                    }).fadeIn(100);
                 initProductInCatalog(items);
             }
         });

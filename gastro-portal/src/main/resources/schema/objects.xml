@@ -416,7 +416,7 @@
 
     <changeSet id="28" author="ezhulkov">
         <addColumn tableName="product">
-            <column name="unit" type="java.sql.Types.VARCHAR(8)"/>
+            <column name="unit" type="java.sql.Types.VARCHAR(16)"/>
         </addColumn>
     </changeSet>
 

@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.pages.product;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.gui.mixins.ScrollableProducts;
@@ -45,7 +46,7 @@ public class List extends ScrollableProducts {
     }
 
     public Object[] onPassivate() {
-        if (searchString != null) return new Object[]{"search", searchString};
+        if (StringUtils.isNotEmpty(searchString)) return new Object[]{"search", searchString};
         return new Object[]{
                 category == null ? null : category.getId(),
                 orderType == null ? null : orderType.name().toLowerCase(),

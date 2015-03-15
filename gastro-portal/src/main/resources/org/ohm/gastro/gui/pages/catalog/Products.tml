@@ -1,4 +1,4 @@
-<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" >
+<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
     <div class="catalog">
         <div class="container">
@@ -15,24 +15,19 @@
             <t:filter category="category" orderType="orderType" direction="direction" pageContext="/catalog/products/${catalog.id}"/>
 
             <div id="product-items" class="grid-block products"/>
-
             <t:zone t:id="productsZone">
                 <t:delegate to="productsBlock"/>
             </t:zone>
-
             <t:block t:id="productsBlock">
                 <t:loop source="products" value="oneProduct">
                     <t:product product="oneProduct" edit="catalogOwner"/>
                 </t:loop>
-                <t:if test="products">
-                    <t:if test="hasProducts">
-                        <div class="more-link">
-                            <t:actionlink t:id="fetchProducts" t:context="fetchContext" t:zone="productsZone" class="">Показать еще...</t:actionlink>
-                        </div>
-                    </t:if>
+                <t:if test="hasProducts">
+                    <div class="more-link">
+                        <t:actionlink t:id="fetchProducts" t:context="fetchContext" t:zone="productsZone" class="">Показать еще...</t:actionlink>
+                    </div>
                 </t:if>
             </t:block>
-
             <t:productModalTemplate/>
 
         </div>

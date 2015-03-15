@@ -1198,8 +1198,11 @@ html div.office table.table td.toggle {
 }
 
 /*Catalog*/
-.grid-block div.product-item {
+div.product-item.block {
     display: none;
+}
+
+.grid-block div.product-item {
     width: 270px;
     min-height: 350px;
     overflow: hidden;

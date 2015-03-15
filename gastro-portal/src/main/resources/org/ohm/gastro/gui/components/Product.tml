@@ -1,6 +1,6 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <t:zone t:id="productZone" id="${productZoneId}" class="product-item product-modal-trigger ${additionalClass}" data-productid="${product?.id}">
+    <t:zone t:id="productZone" id="${productZoneId}" class="product-item block product-modal-trigger ${additionalClass}" data-productid="${product?.id}">
         <t:delegate to="productBlock"/>
     </t:zone>
 

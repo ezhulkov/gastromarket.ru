@@ -26,7 +26,7 @@ import java.util.List;
 public class ProductEntity extends AbstractBaseEntity {
 
     public enum Unit {
-        KILO, HUNDRED_GRAM, LITRE, HUNDRED_MILLIS, PIECE
+        KILO, HUNDRED_GRAM, TWO_FIFTY_GRAM, LITRE, HUNDRED_MILLIS, TWO_FIFTY_MILLIS, PIECE
     }
 
     @Id

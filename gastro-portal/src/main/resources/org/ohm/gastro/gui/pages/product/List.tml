@@ -1,4 +1,4 @@
-<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"  title="prop:title">
+<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="prop:title">
 
     <div class="catalog">
         <div class="container">
@@ -21,11 +21,9 @@
             <t:filter category="category" orderType="orderType" direction="direction" pageContext="literal:/product/list"/>
 
             <div id="product-items" class="grid-block products"/>
-
             <t:zone t:id="productsZone">
                 <t:delegate to="productsBlock"/>
             </t:zone>
-
             <t:block t:id="productsBlock">
                 <t:loop source="products" value="oneProduct">
                     <t:product product="oneProduct"/>
@@ -36,16 +34,13 @@
                     </div>
                 </t:if>
             </t:block>
-
             <t:productModalTemplate/>
 
         </div>
     </div>
 
     <script>
-        jQuery(document).ready(function () {
-            initProductCatalog(jQuery("#productsZone"));
-        });
+        jQuery(initProductCatalog(jQuery("#productsZone")));
     </script>
 
 </t:htmlLayout>

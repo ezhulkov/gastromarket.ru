@@ -1,4 +1,4 @@
-<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" >
+<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
     <div class="catalogs">
         <div class="container">
@@ -14,7 +14,9 @@
                             <div class="chef text-right">
                                 <t:pagelink page="catalog/index" t:context="oneCatalog.id"><img class="pic" src="${oneCatalog.avatarUrlMedium}"/></t:pagelink>
 
-                                <div class="name"><t:pagelink page="catalog/index" t:context="oneCatalog.id">${oneCatalog.name}</t:pagelink></div>
+                                <div class="name">
+                                    <t:pagelink page="catalog/index" t:context="oneCatalog.id">${oneCatalog.name}</t:pagelink>
+                                </div>
                                 <div class="cats">${categories}</div>
                                 <div class="data-header pull-right">
                                     <t:pagelink page="catalog/index" t:context="oneCatalog.id">Весь каталог<span/></t:pagelink>
@@ -36,9 +38,7 @@
     </div>
 
     <script>
-        jQuery(document).ready(function () {
-            initProductCatalogFixed();
-        });
+        jQuery(initProductCatalogFixed);
     </script>
 
 </t:htmlLayout>
