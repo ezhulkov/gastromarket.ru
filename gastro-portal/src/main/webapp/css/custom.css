@@ -696,17 +696,17 @@ html > body div.t-error ul li {
     height: 453px;
     display: table-cell;
     width: 905px;
-    background: url("../img/landing-bg-2.png") center top no-repeat;
+    background: url("../img/landing-bg-2.jpg") center top no-repeat;
 }
 
 .landing > div:first-child {
-    background: url("../img/landing-bg-1.png") right 0 repeat-x;
+    background: url("../img/landing-bg-1.jpg") right 0 repeat-x;
     display: table-cell;
     width: auto;
 }
 
 .landing > div:last-child {
-    background: url("../img/landing-bg-3.png") left 0 repeat-x;
+    background: url("../img/landing-bg-3.jpg") left 0 repeat-x;
     display: table-cell;
     width: auto;
 }
