@@ -857,7 +857,7 @@ html > body div.t-error ul li {
 }
 
 .grid-block .name {
-    padding: 0 5px;
+    line-height: 25px;
 }
 
 .chefs .grid-block {
