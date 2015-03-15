@@ -52,4 +52,8 @@ public class Index extends BaseComponent {
         return getProductTags(product);
     }
 
+    public String getProductUnit() {
+        return getMessages().get(product.getUnit().name()).toLowerCase();
+    }
+
 }

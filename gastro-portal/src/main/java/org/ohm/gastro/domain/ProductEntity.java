@@ -5,6 +5,8 @@ import com.google.common.collect.Lists;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +25,10 @@ import java.util.List;
 @Table(name = "product")
 public class ProductEntity extends AbstractBaseEntity {
 
+    public enum Unit {
+        KILO, LITRE, PIECE
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "product")
@@ -37,6 +43,10 @@ public class ProductEntity extends AbstractBaseEntity {
 
     @Column
     private Integer price;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Unit unit = Unit.PIECE;
 
     @Column
     private boolean hidden = false;
@@ -174,4 +184,11 @@ public class ProductEntity extends AbstractBaseEntity {
         this.promoted = promoted;
     }
 
+    public Unit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(final Unit unit) {
+        this.unit = unit;
+    }
 }

@@ -1,5 +1,6 @@
 package org.ohm.gastro.service.impl;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.ohm.gastro.domain.BillEntity;
 import org.ohm.gastro.domain.CatalogEntity;
@@ -211,12 +212,14 @@ public class OrderServiceImpl implements OrderService, Logging {
         if (status == Status.CANCELLED) order.setUsedBonuses(0);
         if (status == Status.READY) {
             final UserEntity customer = order.getCustomer();
-            if (order.getUsedBonuses() > 0) {
-                customer.setBonus(Math.max(0, customer.getBonus() - order.getUsedBonuses()));
-            } else {
-                customer.setBonus((int) (customer.getBonus() + Math.ceil(getProductsPrice(order.getProducts()) * 0.03)));
+            if (StringUtils.isNotEmpty(customer.getEmail())) {
+                if (order.getUsedBonuses() > 0) {
+                    customer.setBonus(Math.max(0, customer.getBonus() - order.getUsedBonuses()));
+                } else {
+                    customer.setBonus((int) (customer.getBonus() + Math.ceil(getProductsPrice(order.getProducts()) * 0.03)));
+                }
+                userRepository.save(customer);
             }
-            userRepository.save(customer);
         }
         order.setStatus(status);
         orderRepository.save(order);

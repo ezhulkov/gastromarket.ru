@@ -49,9 +49,13 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-1"/>
-                                <div class="col-sm-10">
+                                <div class="col-sm-5">
                                     <t:label t:for="productPrice">Цена, руб:</t:label>
-                                    <input t:id="productPrice" class="form-control price"/>
+                                    <input t:id="productPrice" rows="4" class="form-control price"/>
+                                </div>
+                                <div class="col-sm-5">
+                                    <t:label t:for="productUnit">Единицы измерения:</t:label>
+                                    <t:select t:id="productUnit" class="form-control unit"/>
                                 </div>
                                 <div class="col-sm-1"/>
                             </div>

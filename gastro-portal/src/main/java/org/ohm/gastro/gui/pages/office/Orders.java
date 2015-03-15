@@ -134,4 +134,8 @@ public class Orders extends BaseComponent {
         return ordersBlock;
     }
 
+    public String getOneProductUnit() {
+        return getMessages().get(oneProduct.getProduct().getUnit().name()).toLowerCase();
+    }
+
 }

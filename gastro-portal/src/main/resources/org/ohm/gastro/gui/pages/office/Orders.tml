@@ -53,7 +53,7 @@
                                                 </div>
                                             </div>
                                             <div class="order-product-row">
-                                                <div class="f30px black price">${oneProduct.price} &#x20bd;</div>
+                                                <div class="f30px black price">${oneProduct.price} &#x20bd; <span class="unit f14px">${oneProductUnit}</span></div>
                                                 <div class="count">
                                                     <t:if test="statusChangeAllowed">
                                                         <t:actionlink t:id="decProduct" t:zone="${orderZoneId}" context="[oneOrder.id,oneProduct.id]" class="dec purchase-edit"/>

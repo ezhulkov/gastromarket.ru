@@ -1,4 +1,4 @@
-<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"  title="${product.name}">
+<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="${product.name}">
 
     <div class="product">
         <div class="container">
@@ -15,15 +15,17 @@
                 <div class="col-sm-6">
                     <img class="pull-right" src="${product.avatarUrl}"/>
                 </div>
-                <div class="col-sm-5 product-item">
+                <div class="col-sm-5 product-item page">
                     <span class="cook">
                         <img class="avatar-small" src="${product.catalog.avatarUrlSmall}"/>
                         <a href="/catalog/${product.catalog.id}">${product.catalog.name}</a>
                     </span>
 
                     <div>
-                        <span class="price pull-left">${product.price} &#x20bd;</span>
-                        <span class="basket-add pull-right"><img src="/img/basket-add.png"/><t:actionLink class="basket-add" t:zone="basketZone" t:context="product.id" t:id="purchase">В корзину</t:actionLink></span>
+                        <span class="price pull-left">${product.price} &#x20bd; <span class="unit">${productUnit}</span></span>
+                        <span class="basket-add pull-right">
+                            <t:actionLink class="pic-holder basket-add" t:zone="basketZone" t:context="product.id" t:id="purchase"><span/>В корзину</t:actionLink>
+                        </span>
                     </div>
                     <t:if test="description">
                         <span class="desc"><t:outputraw value="description"/></span>

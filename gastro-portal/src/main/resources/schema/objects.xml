@@ -414,5 +414,11 @@
         </createIndex>
     </changeSet>
 
+    <changeSet id="28" author="ezhulkov">
+        <addColumn tableName="product">
+            <column name="unit" type="java.sql.Types.VARCHAR(8)"/>
+        </addColumn>
+    </changeSet>
+
 
 </databaseChangeLog>

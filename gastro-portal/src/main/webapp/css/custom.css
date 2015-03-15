@@ -310,6 +310,10 @@ html > body div.t-error ul li {
     margin: 0 0 0 0;
 }
 
+.modal-body.product-create .unit {
+    height: 50px;
+}
+
 .breadcrumbs {
     width: 100%;
     text-align: center;
@@ -1240,6 +1244,10 @@ html div.office table.table td.toggle {
     overflow: hidden;
 }
 
+.product-item.page > div {
+    width: 370px;
+}
+
 .product-item .pic {
     height: 270px;
     cursor: pointer;
@@ -1278,6 +1286,16 @@ html div.office table.table td.toggle {
     word-wrap: break-word;
     text-align: left;
     position: relative;
+}
+
+.product-item .unit {
+    font-weight: normal;
+    font-size: 14px;
+    display: inline;
+}
+
+.product-item.page .price {
+    width: 250px;
 }
 
 .product-item span {
