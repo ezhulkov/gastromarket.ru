@@ -10,6 +10,7 @@ import java.util.Map;
 public interface MailService {
 
     public static final String CHANGE_PASSWD = "change_passwd";
+    public static final String NEW_CATALOG = "new_catalog";
     public static final String NEW_APPLICATION = "new_application";
     public static final String FEEDBACK = "feedback";
     public static final String NEW_ORDER_ADMIN = "new_order_admin";

@@ -77,8 +77,8 @@ public class UserServiceImpl implements UserService, Logging {
     }
 
     @Override
-    public UserEntity createUser(UserEntity user) throws UserExistsException, EmptyPasswordException {
-        if (StringUtils.isEmpty(user.getPassword())) throw new EmptyPasswordException();
+    public UserEntity createUser(UserEntity user, String password) throws UserExistsException, EmptyPasswordException {
+        if (StringUtils.isNotEmpty(password)) user.setPassword(passwordEncoder.encode(password));
         if (user.getId() == null) {
             if (userRepository.findByEmail(user.getEmail()) != null) throw new UserExistsException();
             if (Type.COOK.equals(user.getType())) {
@@ -86,6 +86,7 @@ public class UserServiceImpl implements UserService, Logging {
                 catalog.setUser(user);
                 catalog.setName("Каталог");
                 catalogRepository.save(catalog);
+                mailService.sendMailMessage(user.getEmail(), MailService.NEW_CATALOG, ImmutableMap.of("cook", user, "catalog", catalog, "password", password));
             }
         }
         return userRepository.save(user);

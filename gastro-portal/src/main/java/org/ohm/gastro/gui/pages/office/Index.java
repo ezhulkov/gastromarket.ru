@@ -50,7 +50,7 @@ public class Index extends EditObjectPage<UserEntity> {
                 }
 
                 try {
-                    getUserService().createUser(user);
+                    getUserService().createUser(user, newPassword1);
                 } catch (UserExistsException e) {
                     getEditObject().getForm().recordError(getMessages().get("error.user.exists"));
                 } catch (EmptyPasswordException e) {

@@ -1,6 +1,5 @@
 package org.ohm.gastro.gui.pages.admin.user;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
@@ -31,6 +30,9 @@ public class List extends EditObjectPage<UserEntity> {
     @Component(id = "email", parameters = {"value=object?.email", "validate=maxlength=64,required,email"})
     private TextField emailField;
 
+    @Component(id = "fullName", parameters = {"value=object?.fullName", "validate=maxlength=64"})
+    private TextField fnField;
+
     @Component(id = "password", parameters = {"value=newPassword", "validate=maxlength=64,required"})
     private PasswordField pwdField;
 
@@ -48,9 +50,8 @@ public class List extends EditObjectPage<UserEntity> {
 
             @Override
             public Class<? extends BaseComponent> addObject(UserEntity user) {
-                if (StringUtils.isNotEmpty(newPassword)) user.setPassword(passwordEncoder.encode(newPassword));
                 try {
-                    getUserService().createUser(user);
+                    getUserService().createUser(user, newPassword);
                 } catch (UserExistsException e) {
                     getEditObject().getForm().recordError(emailField, getMessages().get("error.user.exists"));
                 } catch (EmptyPasswordException e) {

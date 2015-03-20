@@ -21,6 +21,7 @@
                 <include>js/*.*</include>
                 <include>js/**/*.*</include>
                 <include>robots.txt</include>
+                <include>favicon.ico</include>
             </includes>
         </fileSet>
     </fileSets>

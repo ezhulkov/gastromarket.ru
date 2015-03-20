@@ -16,7 +16,7 @@ public interface UserService extends UserDetailsService, ImageUploaderService<Us
 
     UserEntity saveUser(UserEntity user);
 
-    UserEntity createUser(UserEntity user) throws UserExistsException, EmptyPasswordException;
+    UserEntity createUser(UserEntity user, String password) throws UserExistsException, EmptyPasswordException;
 
     UserEntity findUser(Long id);
 

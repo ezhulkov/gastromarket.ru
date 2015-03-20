@@ -1,6 +1,5 @@
 package org.ohm.gastro.gui.pages.admin.user;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
@@ -64,9 +63,8 @@ public class Index extends EditObjectPage<UserEntity> {
 
             @Override
             public Class<? extends BaseComponent> updateObject(UserEntity user) {
-                if (StringUtils.isNotEmpty(newPassword)) user.setPassword(getPasswordEncoder().encode(newPassword));
                 try {
-                    getUserService().createUser(user);
+                    getUserService().createUser(user, newPassword);
                 } catch (UserExistsException e) {
                     getEditObject().getForm().recordError("user exists");
                 } catch (EmptyPasswordException e) {
