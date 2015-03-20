@@ -51,7 +51,9 @@
         <to>contacts@gastromarket.ru</to>
         <from>noreply@gastromarket.ru</from>
         <subject>Portal Error</subject>
-        <layout class="ch.qos.logback.classic.html.HTMLLayout"/>
+        <layout class="org.ohm.gastro.util.HTMLLayout">
+            <pattern>%date%level%msg</pattern>
+        </layout>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>ERROR</level>
             <onMismatch>DENY</onMismatch>
@@ -76,6 +78,7 @@
 
     <root level="INFO">
         <appender-ref ref="${mvn.logging.appender}"/>
+        <appender-ref ref="EMAIL"/>
         <level value="INFO"/>
     </root>
 
