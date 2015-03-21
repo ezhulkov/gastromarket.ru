@@ -226,6 +226,7 @@ public class OrderServiceImpl implements OrderService, Logging {
         final Map<String, Object> params = new HashMap<String, Object>() {
             {
                 put("ordernumber", order.getOrderNumber());
+                put("catalog", order.getProducts().get(0).getProduct().getCatalog());
                 put("status", status);
             }
         };

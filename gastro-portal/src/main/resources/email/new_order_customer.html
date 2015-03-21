@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="content-type"/>
-    <title>Навый заказ на Гастромаркет</title>
+    <title>Навый заказ на ГастроМаркет</title>
 </head>
 <body>
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -18,7 +18,7 @@
                                     <tr>
                                         <td width="200">
                                             <a href="http://gastromarket.ru" target="_blank">
-                                                <img src="http://gastromarket.ru/img/logo.png" alt="Гастромаркет" border="0" style="display:block"/>
+                                                <img src="http://gastromarket.ru/img/logo.png" alt="ГастроМаркет" border="0" style="display:block"/>
                                             </a>
                                         </td>
                                         <td style="text-align: right;">
@@ -35,11 +35,14 @@
                                             </font>
                                             <br>
                                             <br>
+                                            <br>
+                                            <br>
                                             <font color="#000000" size="3">
-                                                Здравствуйте, $customer.fullName <br/>
-                                                На сайте Гастромаркет размещен новый заказ $ordernumber<br/>
+                                                Здравствуйте, $customer.fullName
+                                                <br/>
+                                                <br/>
+                                                Вы разместили заказ на сайте ГастроМаркет под номером $ordernumber<br/>
                                                 Кулинар: $cook.name<br/>
-                                                Покупатель: $customer.fullName, eMail: $customer_email, телефон: $customer.mobilePhone<br/>
                                                 Адрес доставки: $customer.deliveryAddress<br/>
                                                 <br/>
                                                 <ul>
@@ -55,7 +58,7 @@
                                                 <br/>
                                                 <b>Общая стоимость заказа: $total рублей</b><br/>
                                                 #if( $hasBonuses )
-                                                Покупатель оплатил бонусными баллами, потратил %bonuses бонусов.
+                                                Оплата бонусными баллами, Вы потратили %bonuses бонусов.
                                                 #end
                                             </font>
                                         </td>
