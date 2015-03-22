@@ -6,13 +6,14 @@ import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.RatingEntity;
 import org.ohm.gastro.domain.UserEntity;
+import org.ohm.gastro.reps.CatalogRepository;
 
 import java.util.List;
 
 /**
  * Created by ezhulkov on 21.08.14.
  */
-public interface CatalogService extends ImageUploaderService<CatalogEntity> {
+public interface CatalogService extends ImageUploaderService<CatalogEntity>, AltIdService<CatalogEntity, CatalogRepository> {
 
     List<CategoryEntity> findAllCategories();
 

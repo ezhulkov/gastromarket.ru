@@ -17,6 +17,7 @@ import org.ohm.gastro.reps.PropertyRepository;
 import org.ohm.gastro.reps.PropertyValueRepository;
 import org.ohm.gastro.reps.RatingRepository;
 import org.ohm.gastro.service.CatalogService;
+import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -35,7 +36,7 @@ import static org.scribe.utils.Preconditions.checkNotNull;
  */
 @Component("catalogService")
 @Transactional
-public class CatalogServiceImpl implements CatalogService {
+public class CatalogServiceImpl implements CatalogService, Logging {
 
     private final PropertyRepository propertyRepository;
     private final PropertyValueRepository propertyValueRepository;
@@ -147,7 +148,7 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Override
     public void saveCatalog(CatalogEntity catalog) {
-        catalogRepository.save(catalog);
+        saveWithAltId(catalog, catalogRepository);
     }
 
     @Override

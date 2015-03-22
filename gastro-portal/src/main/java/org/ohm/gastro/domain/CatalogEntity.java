@@ -21,13 +21,16 @@ import java.util.List;
  */
 @Entity
 @Table(name = "catalog")
-public class CatalogEntity extends AbstractBaseEntity {
+public class CatalogEntity extends AbstractAltIdEntity {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "catalog")
     @SequenceGenerator(initialValue = 1, allocationSize = 1, name = "catalog")
     private Long id;
+
+    @Column(name = "alt_id")
+    private String altId;
 
     @Column
     private String name;
@@ -77,6 +80,16 @@ public class CatalogEntity extends AbstractBaseEntity {
         this.id = id;
     }
 
+    @Override
+    public String getAltId() {
+        return altId == null ? id.toString() : altId;
+    }
+
+    @Override
+    public void setAltId(final String altId) {
+        this.altId = altId;
+    }
+
     public Date getDate() {
         return date;
     }
@@ -85,6 +98,7 @@ public class CatalogEntity extends AbstractBaseEntity {
         this.date = date;
     }
 
+    @Override
     public String getName() {
         return name;
     }
