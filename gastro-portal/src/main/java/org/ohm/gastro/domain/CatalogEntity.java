@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "catalog")
-public class CatalogEntity extends AbstractAltIdEntity {
+public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
 
     @Id
     @Column(name = "id")

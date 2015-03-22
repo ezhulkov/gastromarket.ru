@@ -55,6 +55,8 @@ public interface CatalogService extends ImageUploaderService<CatalogEntity>, Alt
 
     CatalogEntity findCatalog(Long id);
 
+    CatalogEntity findCatalog(String altId);
+
     List<CategoryEntity> findAllRootCategories(CatalogEntity catalog);
 
     List<RatingEntity> findAllRatings(CatalogEntity user);

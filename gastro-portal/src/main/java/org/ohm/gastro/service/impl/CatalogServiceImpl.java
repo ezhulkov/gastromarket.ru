@@ -163,6 +163,11 @@ public class CatalogServiceImpl implements CatalogService, Logging {
     }
 
     @Override
+    public CatalogEntity findCatalog(final String altId) {
+        return findByAltId(altId, catalogRepository);
+    }
+
+    @Override
     public List<CategoryEntity> findAllRootCategories(CatalogEntity catalog) {
         List<ProductEntity> allByCategoryAndCatalog = productRepository.findAllByCategoryAndCatalog(null, catalog, false, null).getContent();
         return allByCategoryAndCatalog.stream()

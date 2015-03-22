@@ -74,13 +74,13 @@ public class Index extends BaseComponent {
         return catalogFormBlock;
     }
 
-    public boolean onActivate(Long pid) {
+    public boolean onActivate(String pid) {
         catalog = getCatalogService().findCatalog(pid);
         return true;
     }
 
     public Object[] onPassivate() {
-        return new Object[]{catalog.getId()};
+        return new Object[]{catalog.getAltId()};
     }
 
     public Consumer<ProductEntity> getProductSetter() {

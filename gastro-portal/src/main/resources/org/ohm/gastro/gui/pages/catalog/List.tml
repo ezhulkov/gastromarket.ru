@@ -12,14 +12,14 @@
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="chef text-right">
-                                <t:pagelink page="catalog/index" t:context="oneCatalog.id"><img class="pic" src="${oneCatalog.avatarUrlMedium}"/></t:pagelink>
+                                <t:pagelink page="catalog/index" t:context="oneCatalog.altId"><img class="pic" src="${oneCatalog.avatarUrlMedium}"/></t:pagelink>
 
                                 <div class="name">
-                                    <t:pagelink page="catalog/index" t:context="oneCatalog.id">${oneCatalog.name}</t:pagelink>
+                                    <t:pagelink page="catalog/index" t:context="oneCatalog.altId">${oneCatalog.name}</t:pagelink>
                                 </div>
                                 <div class="cats">${categories}</div>
                                 <div class="data-header pull-right">
-                                    <t:pagelink page="catalog/index" t:context="oneCatalog.id">Весь каталог<span/></t:pagelink>
+                                    <t:pagelink page="catalog/products" t:context="oneCatalog.altId">Весь каталог<span/></t:pagelink>
                                 </div>
                             </div>
                         </div>
