@@ -45,11 +45,11 @@
                                 <div class="order-products">
                                     <t:loop source="oneOrder.products" value="oneProduct">
                                         <div class="order-product">
-                                            <a class="img" href="/product/${oneProduct.product.id}"><img class="pic pull-left" src="${oneProduct.product.avatarUrlSmall}"/></a>
+                                            <a class="img" href="/product/${oneProduct.product.altId}"><img class="pic pull-left" src="${oneProduct.product.avatarUrlSmall}"/></a>
 
                                             <div class="order-product-row">
                                                 <div>
-                                                    <a class="f20px red" href="/product/${oneProduct.product.id}">${oneProduct.product.name}</a>
+                                                    <a class="f20px red" href="/product/${oneProduct.product.altId}">${oneProduct.product.name}</a>
                                                 </div>
                                             </div>
                                             <div class="order-product-row">

@@ -5,7 +5,6 @@ import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -14,7 +13,7 @@ import java.util.List;
 /**
  * Created by ezhulkov on 21.08.14.
  */
-public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
+public interface ProductRepository extends AltIdRepository<ProductEntity> {
 
     @Query("from ProductEntity pr " +
             "where (pr.category=:category or :category is null) and " +

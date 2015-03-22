@@ -88,7 +88,7 @@ public class ProductServiceImpl implements ProductService, Logging {
             description = description.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
             product.setDescription(description);
         }
-        return productRepository.saveAndFlush(product);
+        return saveWithAltId(product, productRepository);
     }
 
     @Override
@@ -144,6 +144,11 @@ public class ProductServiceImpl implements ProductService, Logging {
     @Override
     public ProductEntity findProduct(Long id) {
         return productRepository.findOne(id);
+    }
+
+    @Override
+    public ProductEntity findProduct(final String altId) {
+        return findByAltId(altId, productRepository);
     }
 
     @Override

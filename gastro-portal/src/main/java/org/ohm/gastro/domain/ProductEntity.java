@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "product")
-public class ProductEntity extends AbstractBaseEntity {
+public class ProductEntity extends AbstractBaseEntity implements AltIdEntity {
 
     public enum Unit {
         KILO, HUNDRED_GRAM, TWO_FIFTY_GRAM, LITRE, HUNDRED_MILLIS, TWO_FIFTY_MILLIS, PIECE
@@ -34,6 +34,9 @@ public class ProductEntity extends AbstractBaseEntity {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "product")
     @SequenceGenerator(initialValue = 1, allocationSize = 1, name = "product")
     private Long id;
+
+    @Column(name = "alt_id")
+    private String altId;
 
     @Column
     private String name;
@@ -86,6 +89,16 @@ public class ProductEntity extends AbstractBaseEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String getAltId() {
+        return altId == null ? id.toString() : altId;
+    }
+
+    @Override
+    public void setAltId(final String altId) {
+        this.altId = altId;
     }
 
     public String getAvatarUrl() {

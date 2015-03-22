@@ -1291,6 +1291,7 @@ div.product-item.block {
     position: relative;
 }
 
+.order-product-row .unit,
 .product-item .unit {
     font-weight: normal;
     font-size: 14px;
@@ -1866,7 +1867,7 @@ div.catalog-edit-links .more-link {
 }
 
 .order-product-row .price {
-    width: 180px;
+    width: 250px;
 }
 
 .order-product-row .count {

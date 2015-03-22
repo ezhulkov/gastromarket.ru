@@ -25,20 +25,20 @@
                             <div class="col-sm-2"/>
                             <div class="col-sm-8 order-body">
                                 <div class="name">
-                                    <t:pagelink page="catalog/index" t:context="oneCatalog.getKey().id">${oneCatalog.getKey().name}</t:pagelink>
+                                    <t:pagelink page="catalog/index" t:context="oneCatalog.getKey().altId">${oneCatalog.getKey().name}</t:pagelink>
                                 </div>
                                 <div class="order-products">
                                     <t:loop source="oneCatalog.getValue()" value="oneProduct">
                                         <div class="order-product">
-                                            <a class="img" href="/product/${oneProduct.product.id}"><img class="pic pull-left" src="${oneProduct.product.avatarUrlSmall}"/></a>
+                                            <a class="img" href="/product/${oneProduct.product.altId}"><img class="pic pull-left" src="${oneProduct.product.avatarUrlSmall}"/></a>
 
                                             <div class="order-product-row">
                                                 <div>
-                                                    <a class="f20px red" href="/product/${oneProduct.product.id}">${oneProduct.product.name}</a>
+                                                    <a class="f20px red" href="/product/${oneProduct.product.altId}">${oneProduct.product.name}</a>
                                                 </div>
                                             </div>
                                             <div class="order-product-row">
-                                                <div class="f30px black price">${oneProduct.price} &#x20bd;</div>
+                                                <div class="f30px black price">${oneProduct.price} &#x20bd; <span class="unit">${oneProductUnit}</span></div>
                                                 <div class="count">
                                                     <t:actionlink t:id="decProduct" t:zone="purchaseZone" context="oneProduct.product.id" class="dec purchase-edit"/>
                                                     <input type="text" value="${oneProduct.count}" disabled="disabled"/>

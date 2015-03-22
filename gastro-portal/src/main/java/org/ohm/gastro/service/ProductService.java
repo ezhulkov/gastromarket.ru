@@ -5,6 +5,7 @@ import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.TagEntity;
+import org.ohm.gastro.reps.ProductRepository;
 import org.springframework.data.domain.Sort.Direction;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.Map;
 /**
  * Created by ezhulkov on 21.08.14.
  */
-public interface ProductService extends ImageUploaderService<ProductEntity> {
+public interface ProductService extends ImageUploaderService<ProductEntity>, AltIdService<ProductEntity, ProductRepository> {
 
     public static int PRODUCTS_PER_PAGE = 8;
 
@@ -28,6 +29,8 @@ public interface ProductService extends ImageUploaderService<ProductEntity> {
     int findProductsForFrontendCount(CatalogEntity catalog);
 
     ProductEntity findProduct(Long id);
+
+    ProductEntity findProduct(String altId);
 
     List<ProductEntity> findPromotedProducts();
 

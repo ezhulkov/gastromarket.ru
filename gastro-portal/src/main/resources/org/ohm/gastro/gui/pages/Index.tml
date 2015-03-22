@@ -54,10 +54,10 @@
                 <div class="grid-block promo">
                     <t:loop source="products" value="oneProduct">
                         <div>
-                            <t:pagelink page="product/index" context="oneProduct.id">
+                            <t:pagelink page="product/index" context="oneProduct.altId">
                                 <img src="${oneProduct.avatarUrlMedium}"/>
                             </t:pagelink>
-                            <t:pagelink page="product/index" context="oneProduct.id" class="black-link"><span class="name f20px">${oneProduct.name}</span></t:pagelink>
+                            <t:pagelink page="product/index" context="oneProduct.altId" class="black-link"><span class="name f20px">${oneProduct.name}</span></t:pagelink>
                         </div>
                     </t:loop>
                 </div>
@@ -71,10 +71,10 @@
             <div class="grid-block cooks">
                 <t:loop source="cooks" value="oneCook">
                     <div>
-                        <t:pagelink page="catalog/index" context="oneCook.id">
+                        <t:pagelink page="catalog/index" context="oneCook.altId">
                             <img src="${oneCook.avatarUrl}"/>
                         </t:pagelink>
-                        <t:pagelink page="catalog/index" context="oneCook.id" class="black-link"><span class="name f18px">${oneCook.name}</span></t:pagelink>
+                        <t:pagelink page="catalog/index" context="oneCook.altId" class="black-link"><span class="name f18px">${oneCook.name}</span></t:pagelink>
                     </div>
                 </t:loop>
             </div>

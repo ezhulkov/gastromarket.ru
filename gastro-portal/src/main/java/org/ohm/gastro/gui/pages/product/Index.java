@@ -22,13 +22,13 @@ public class Index extends BaseComponent {
     @Property
     private TagEntity oneTag;
 
-    public boolean onActivate(Long pid) {
+    public boolean onActivate(String pid) {
         product = getProductService().findProduct(pid);
         return true;
     }
 
     public Object[] onPassivate() {
-        return new Object[]{product.getId()};
+        return new Object[]{product.getAltId()};
     }
 
     @Cached

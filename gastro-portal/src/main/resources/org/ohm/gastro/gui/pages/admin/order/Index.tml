@@ -85,7 +85,7 @@
                         <img src="${oneProduct.product.avatarUrlSmall}"/>
                     </t:parameter>
                     <t:parameter name="nameCell">
-                        <t:pageLink page="product/index" context="oneProduct.product.id">${oneProduct.product.name}</t:pageLink>
+                        <t:pageLink page="product/index" context="oneProduct.product.altId">${oneProduct.product.name}</t:pageLink>
                     </t:parameter>
                     <t:parameter name="empty">
                         <div class="empty">Нет данных</div>

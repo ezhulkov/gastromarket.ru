@@ -14,26 +14,8 @@ public interface AltIdService<T extends AltIdEntity, R extends AltIdRepository<T
     @Transactional(propagation = Propagation.MANDATORY)
     default T saveWithAltId(T object, R repository) {
         if (object.getId() == null) repository.save(object);
-        int count = 0;
-        T existingObject;
-        boolean duplicate;
-        do {
-            String altId = String.format("%s%s", object.transliterate(), count++ == 0 ? "" : ("_" + count));
-            existingObject = repository.findByAltId(altId);
-            if (existingObject != null && !object.equals(existingObject)) {
-                duplicate = true;
-            } else {
-                object.setAltId(altId);
-                try {
-                    repository.save(object);
-                    duplicate = false;
-                } catch (Exception e) {
-                    logger.error("", e);
-                    duplicate = true;
-                }
-            }
-        } while (duplicate);
-        return object;
+        object.setAltId(String.format("%s-%s", object.getId(), object.transliterate()));
+        return repository.save(object);
     }
 
     default T findByAltId(String altId, R repository) {

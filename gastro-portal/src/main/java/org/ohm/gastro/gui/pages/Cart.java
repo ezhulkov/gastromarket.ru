@@ -124,4 +124,8 @@ public class Cart extends BaseComponent {
         return getMessages().get("no.bonuses.message");
     }
 
+    public String getOneProductUnit() {
+        return getMessages().get(oneProduct.getProduct().getUnit().name()).toLowerCase();
+    }
+
 }

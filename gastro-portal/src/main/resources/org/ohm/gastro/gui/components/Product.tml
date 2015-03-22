@@ -26,10 +26,10 @@
             <img class="product-image" src="${product.avatarUrlMedium}"/>
         </div>
         <div class="data">
-            <span class="name wrapword"><a href="/product/${product.id}">${product.name}</a></span>
+            <span class="name wrapword"><a href="/product/${product.altId}">${product.name}</a></span>
                 <span class="cook">
                     <img class="avatar-small" src="${product.catalog.avatarUrlSmall}"/>
-                    <a href="/catalog/${product.catalog.id}">${product.catalog.name}</a>
+                    <a href="/catalog/${product.catalog.altId}">${product.catalog.name}</a>
                 </span>
             <t:if test="description">
                 <span class="desc wrapword"><t:outputraw value="description"/></span>
@@ -49,7 +49,7 @@
                 </t:if>
                 <a href="/product/list/${product.category.id}">${product.category.name}</a>
             </div>
-            <div class="name wrapword"><a href="/product/${product.id}">${product.name}</a></div>
+            <div class="name wrapword"><a href="/product/${product.altId}">${product.name}</a></div>
             <div class="image">${product.avatarUrl}</div>
             <div class="desc">
                 <t:if test="description">
@@ -62,9 +62,9 @@
             <div class="basket"><a class="pic-holder basket-add" data-productid="${product.id}"><span/>В корзину</a></div>
             <div class="cook">
                 <img class="avatar-small" src="${product.catalog.avatarUrlSmall}"/>
-                <a href="/product/${product.catalog.id}">${product.catalog.name}</a>
+                <a href="/product/${product.catalog.altId}">${product.catalog.name}</a>
             </div>
-            <div class="url">/product/${product.id}</div>
+            <div class="url">/product/${product.altId}</div>
             <div class="tags">
                 <ul>
                     <t:loop source="productTags" value="oneTag">
@@ -80,7 +80,7 @@
         <ul>
             <t:loop source="recommendedProducts" value="oneProduct">
                 <li>
-                    <a href="/product/${oneProduct.id}"><img src="${oneProduct.avatarUrlSmall}"/></a>
+                    <a href="/product/${oneProduct.altId}"><img src="${oneProduct.avatarUrlSmall}"/></a>
                 </li>
             </t:loop>
         </ul>

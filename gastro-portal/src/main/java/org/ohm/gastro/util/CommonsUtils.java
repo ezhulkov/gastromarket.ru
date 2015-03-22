@@ -16,7 +16,6 @@ public class CommonsUtils {
             put(' ', "-");
             put('–', "-");
             put('=', "-");
-            put(' ', "-");
             put('&', "n");
             put('№', "N");
             put('а', "a");
