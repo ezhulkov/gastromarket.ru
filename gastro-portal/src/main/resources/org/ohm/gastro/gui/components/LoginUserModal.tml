@@ -169,7 +169,7 @@
                     </t:form>
                 </t:block>
                 <div class="row">
-                    <p class="modal-text">Регистрируясь, вы соглашаетесь c <a href="license" target="_tab" class="red-link">условиями пользовательского соглашения</a></p>
+                    <p class="modal-text">Регистрируясь, вы соглашаетесь c <a href="/license" target="_tab" class="red-link">условиями пользовательского соглашения</a></p>
                 </div>
             </div>
         </div>

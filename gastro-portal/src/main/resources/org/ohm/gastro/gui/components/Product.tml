@@ -62,7 +62,7 @@
             <div class="basket"><a class="pic-holder basket-add" data-productid="${product.id}"><span/>В корзину</a></div>
             <div class="cook">
                 <img class="avatar-small" src="${product.catalog.avatarUrlSmall}"/>
-                <a href="/product/${product.catalog.altId}">${product.catalog.name}</a>
+                <a href="/catalog/${product.catalog.altId}">${product.catalog.name}</a>
             </div>
             <div class="url">/product/${product.altId}</div>
             <div class="tags">
