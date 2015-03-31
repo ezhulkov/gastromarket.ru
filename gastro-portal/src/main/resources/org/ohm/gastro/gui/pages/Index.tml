@@ -131,7 +131,7 @@
     </div>
 
     <script>
-        initMainPage();
+        jQuery(initMainPage);
     </script>
 
 </t:htmllayout>

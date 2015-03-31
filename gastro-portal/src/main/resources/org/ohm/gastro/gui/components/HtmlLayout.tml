@@ -1,22 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
 <head>
-    <meta charset="utf-8"/>
     <title>gastromarket.ru - ${title}</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="viewport" content="width=1200"/>
     <meta name="description" content="Заказывайте вкусную еду у первоклассных кулинаров"/>
     <meta name="author" content="gastromarket.ru"/>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="/css/chosen.min.css" rel="stylesheet"/>
-    <link href="/css/intlTelInput.css" rel="stylesheet" />
-    <link href="/css/custom.min.css" rel="stylesheet"/>
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <meta name="rating" content="General" />
+    <meta name="robots" content="all" />
+
     <script src="/js/jquery-1.11.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/chosen.jquery.min.js"></script>
@@ -25,13 +19,25 @@
     <script src="/js/intlTelInput.min.js"></script>
     <script src="/js/custom.min.js"></script>
     <script type="text/template" id="qq-template">
-    <div class="qq-uploader-selector qq-uploader">
-        <div class="qq-upload-button-selector"/>
-        <div class="qq-upload-list-selector hidden">
-            <div class="qq-edit-filename-selector"/>
+        <div class="qq-uploader-selector qq-uploader">
+            <div class="qq-upload-button-selector"/>
+                <div class="qq-upload-list-selector hidden">
+                <div class="qq-edit-filename-selector"/>
+            </div>
         </div>
-    </div>
     </script>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/css/chosen.min.css" rel="stylesheet"/>
+    <link href="/css/intlTelInput.css" rel="stylesheet" />
+    <link href="/css/custom.min.css" rel="stylesheet"/>
+    <!--<link href="/css/custom.min.css" rel="stylesheet"/>-->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
 </head>
 <body>
 <t:headerlayout header="header"/>

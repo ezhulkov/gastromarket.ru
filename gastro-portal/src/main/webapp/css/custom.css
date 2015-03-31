@@ -83,6 +83,10 @@ html > body div.t-error ul li {
     margin-right: 7px;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 .f20px {
     font-size: 20px !important;
 }
@@ -483,7 +487,7 @@ html > body div.t-error ul li {
 }
 
 .container {
-    width: 1200px;
+    /*max-width: 1200px;*/
     padding-right: 0;
     padding-left: 0;
 }
@@ -1849,7 +1853,7 @@ div.catalog-edit-links .more-link {
 
 .order-product-row {
     height: 48px;
-    width: 720px;
+    width: 680px;
     margin-left: 100px;
     display: table;
 }
@@ -1883,7 +1887,7 @@ div.catalog-edit-links .more-link {
 }
 
 .order-product-row .delete {
-    width: 300px;
+    width: 260px;
     text-align: right;
 }
 
@@ -1922,4 +1926,7 @@ option.root {
 
 .chosen-results li.root {
     font-weight: bold;
+}
+
+.rub {
 }

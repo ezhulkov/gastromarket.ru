@@ -38,7 +38,7 @@
                                                 </div>
                                             </div>
                                             <div class="order-product-row">
-                                                <div class="f30px black price">${oneProduct.price} &#x20bd; <span class="unit">${oneProductUnit}</span></div>
+                                                <div class="f30px black bold price">${oneProduct.price} р <span class="unit">${oneProductUnit}</span></div>
                                                 <div class="count">
                                                     <t:actionlink t:id="decProduct" t:zone="purchaseZone" context="oneProduct.product.id" class="dec purchase-edit"/>
                                                     <input type="text" value="${oneProduct.count}" disabled="disabled"/>
@@ -67,7 +67,7 @@
                     <div class="row cart-catalog total">
                         <div class="col-sm-2"/>
                         <div class="col-sm-8">
-                            Общая стоимость заказа без учета доставки: <span style="font-size: 30px">${shoppingCart.totalPrice} &#x20bd;</span>
+                            Общая стоимость заказа без учета доставки: <span style="font-size: 30px">${shoppingCart.totalPrice} р</span>
                         </div>
                         <div class="col-sm-2"/>
                     </div>
