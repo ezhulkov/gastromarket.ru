@@ -25,7 +25,7 @@ public class List extends BaseComponent {
 
     @Cached
     public java.util.List<CatalogEntity> getCatalogs() {
-        return getCatalogService().findAllCatalogs().stream().filter(t -> t.getProducts().size() > 0).collect(Collectors.toList());
+        return getCatalogService().findAllActiveCatalogs();
     }
 
     public java.util.List<ProductEntity> getProducts() {

@@ -1,22 +1,2 @@
-User-Agent: Yandex
-Disallow:/search*
-Disallow:/basket*
-Disallow:/sitemap*
-Disallow:/office*
-Disallow:/errors*
-Disallow: *ajax*
-Disallow: *jsessionid=*
-Clean-param: jsessionid /*
-Host: gastromarket.ru
-
-User-Agent: *
-Disallow:/search
-Disallow:/basket
-Disallow:/sitemap
-Disallow:/office
-Disallow:/errors
-Disallow: *ajax*
-Disallow: *jsessionid=*
-Clean-param: jsessionid /*
-
-Sitemap: http://www.kindershopping.ru/sitemap.xml
+User-agent: *
+Disallow: /

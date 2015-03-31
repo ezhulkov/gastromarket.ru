@@ -52,7 +52,7 @@ public class Index extends BaseComponent {
 
     @Cached
     public List<CatalogEntity> getCooks() {
-        return getCatalogService().findAllCatalogs().stream().limit(5).collect(Collectors.toList());
+        return getCatalogService().findAllActiveCatalogs().stream().limit(5).collect(Collectors.toList());
     }
 
     @Cached

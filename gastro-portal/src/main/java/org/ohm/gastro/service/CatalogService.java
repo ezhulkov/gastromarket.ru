@@ -45,6 +45,8 @@ public interface CatalogService extends ImageUploaderService<CatalogEntity>, Alt
 
     List<CatalogEntity> findAllCatalogs();
 
+    List<CatalogEntity> findAllActiveCatalogs();
+
     List<CatalogEntity> findAllCatalogs(UserEntity user);
 
     void deleteCatalog(Long id);

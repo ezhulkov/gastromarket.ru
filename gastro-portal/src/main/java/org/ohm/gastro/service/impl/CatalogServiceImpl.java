@@ -136,6 +136,11 @@ public class CatalogServiceImpl implements CatalogService, Logging {
     }
 
     @Override
+    public List<CatalogEntity> findAllActiveCatalogs() {
+        return catalogRepository.findAllActive();
+    }
+
+    @Override
     public List<CatalogEntity> findAllCatalogs(UserEntity user) {
         if (user == null) return Lists.newArrayList();
         return catalogRepository.findAllByUser(user);
