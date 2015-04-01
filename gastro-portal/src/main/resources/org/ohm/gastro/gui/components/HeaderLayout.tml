@@ -8,7 +8,7 @@
                     <t:if test="cook">
                         <t:pagelink class="header-block pic-holder orders" page="office/orders">
                             <span/>
-                            Мои заказы
+                            Заказы
                         </t:pagelink>
                     </t:if>
                     <t:if test="showBonuses">

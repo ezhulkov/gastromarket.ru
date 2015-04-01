@@ -16,15 +16,21 @@
     </t:block>
 
     <t:block t:id="productBlock">
-        <div style="height: ${height}px" class="pic">
-            <t:if test="editMode">
+        <t:if test="editMode">
+            <div style="height: ${height}px" class="pic pic-product-edit upload-file" data-objectid="${product.id}" data-type="PRODUCT" data-size="SIZE2">
                 <div class="edit-block">
+                    <div class="uploader-button"/>
                     <t:actionlink t:id="edit" t:context="product.id" t:zone="${editZoneId}" class="edit"/>
                     <t:actionlink t:id="delete" t:context="product.id" t:zone="${productZoneId}" class="delete"/>
                 </div>
-            </t:if>
-            <img class="product-image" src="${product.avatarUrlMedium}"/>
-        </div>
+                <img class="product-image" src="${product.avatarUrlMedium}"/>
+            </div>
+        </t:if>
+        <t:unless test="editMode">
+            <div style="height: ${height}px" class="pic">
+                <img class="product-image" src="${product.avatarUrlMedium}"/>
+            </div>
+        </t:unless>
         <div class="data">
             <span class="name wrapword"><a href="/product/${product.altId}">${product.name}</a></span>
                 <span class="cook">

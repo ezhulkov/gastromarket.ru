@@ -1280,17 +1280,25 @@ div.product-item.block {
     background: url("../img/product-edit.png") no-repeat;
     width: 49px;
     height: 49px;
-    display: inline-block;
-    margin: 30px 8px;
+    position: absolute;
 }
 
 .edit-block .edit {
     background-position: 0 0;
+    top: 78px;
+    left: 105px;
 }
 
 .edit-block .delete {
     background-position: -98px 0;
     z-index: 25;
+    top: 78px;
+    right: 40px;
+}
+
+.edit-block div.qq-uploader-selector {
+    top: 78px !important;
+    left: 40px !important;
 }
 
 .product-item .data {
