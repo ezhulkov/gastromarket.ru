@@ -19,7 +19,7 @@
                                 </div>
                                 <div class="cats">${categories}</div>
                                 <div class="data-header pull-right">
-                                    <t:pagelink page="catalog/products" t:context="oneCatalog.altId">Весь каталог<span/></t:pagelink>
+                                    <t:pagelink page="catalog/products" t:context="oneCatalog.altId">Показать всё меню<span/></t:pagelink>
                                 </div>
                             </div>
                         </div>
