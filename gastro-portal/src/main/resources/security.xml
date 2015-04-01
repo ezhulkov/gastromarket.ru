@@ -24,7 +24,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
         <intercept-url pattern="/index" access="hasAnyRole('ROLE_ANONYMOUS,COOK,USER,ADMIN')"/>
         <form-login login-page="/login" default-target-url="/index" always-use-default-target="true" authentication-failure-url="/login/error"
                 login-processing-url="/j_security_check" authentication-success-handler-ref="authenticationSuccessHandler"/>
-        <logout logout-url="/logout" invalidate-session="true" success-handler-ref="logoutSuccessHandler"/>
+        <logout logout-url="/logout" invalidate-session="true" delete-cookies="true" success-handler-ref="logoutSuccessHandler"/>
         <remember-me user-service-ref="userService" key="b6cNMFz1W8BFNDQPmPg2cuXJamNgCmOc"/>
     </http>
 

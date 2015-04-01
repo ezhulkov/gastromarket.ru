@@ -11,8 +11,15 @@ public class Login extends BaseComponent {
     @Property
     private boolean error;
 
-    public void onActivate(boolean error) {
+    public Class onActivate() {
+        if (isAuthenticated()) return Index.class;
+        return null;
+    }
+
+    public Class onActivate(boolean error) {
+        if (isAuthenticated()) return Index.class;
         this.error = error;
+        return null;
     }
 
 }
