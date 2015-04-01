@@ -3,7 +3,6 @@ package org.ohm.gastro.service;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
-import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.reps.ProductRepository;
 import org.springframework.data.domain.Sort.Direction;
@@ -22,36 +21,32 @@ public interface ProductService extends ImageUploaderService<ProductEntity>, Alt
         NAME, PRICE, NONE
     }
 
-    List<ProductEntity> findAllProducts(CategoryEntity category, CatalogEntity catalog, Boolean hidden);
+    List<ProductEntity> findAllProducts(final CategoryEntity category, final CatalogEntity catalog, final Boolean hidden);
 
-    List<ProductEntity> findProductsForFrontend(CategoryEntity category, CatalogEntity catalog, OrderType orderType, Direction direction, int from, int to);
+    List<ProductEntity> findProductsForFrontend(final CategoryEntity category, final CatalogEntity catalog, final OrderType orderType, final Direction direction, final int from, final int to);
 
-    int findProductsForFrontendCount(CatalogEntity catalog);
+    int findProductsForFrontendCount(final CatalogEntity catalog);
 
-    ProductEntity findProduct(Long id);
+    ProductEntity findProduct(final Long id);
 
-    ProductEntity findProduct(String altId);
+    ProductEntity findProduct(final String altId);
 
     List<ProductEntity> findPromotedProducts();
 
-    List<ProductEntity> findAllProducts();
+    List<TagEntity> findAllTags(final ProductEntity product);
 
-    List<TagEntity> findAllTags(ProductEntity product, PropertyEntity property);
+    void deleteProduct(final Long id);
 
-    List<TagEntity> findAllTags(ProductEntity product);
+    ProductEntity saveProduct(final ProductEntity product, final Map<Long, String> propValues, final Map<Long, String[]> listValues);
 
-    void deleteProduct(Long id);
-
-    ProductEntity saveProduct(ProductEntity product, Map<Long, String> propValues, Map<Long, String[]> listValues);
-
-    ProductEntity saveProduct(ProductEntity product);
+    ProductEntity saveProduct(final ProductEntity product);
 
     List<ProductEntity> searchProducts(String query, final int from, final int to);
 
     List<ProductEntity> findRecommendedProducts(final Long pid, final int count);
 
-    void promoteProduct(Long pid);
+    void promoteProduct(final Long pid);
 
-    void publishProduct(Long pid);
+    void publishProduct(final Long pid);
 
 }

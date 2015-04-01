@@ -8,6 +8,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.ProductEntity;
@@ -74,8 +75,9 @@ public class Index extends BaseComponent {
         return catalogFormBlock;
     }
 
-    public boolean onActivate(String pid) {
+    public Object onActivate(String pid) {
         catalog = getCatalogService().findCatalog(pid);
+        if (catalog == null) return new HttpError(404, "Page not found.");
         return true;
     }
 

@@ -8,7 +8,6 @@ import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
-import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.reps.ProductRepository;
 import org.ohm.gastro.reps.TagRepository;
@@ -127,16 +126,6 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
-    public List<TagEntity> findAllTags(ProductEntity product, PropertyEntity property) {
-        return tagRepository.findAllByProductAndProperty(product, property);
-    }
-
-    @Override
-    public List<ProductEntity> findAllProducts() {
-        return productRepository.findAll();
-    }
-
-    @Override
     public List<ProductEntity> findPromotedProducts() {
         return productRepository.findAllPromotedProducts();
     }
@@ -179,7 +168,12 @@ public class ProductServiceImpl implements ProductService, Logging {
 
     @Override
     public List<ProductEntity> findRecommendedProducts(final Long pid, final int count) {
-        return productRepository.findAll().stream().limit(count).collect(Collectors.toList());
+        final ProductEntity product = productRepository.findOne(pid);
+        final CategoryEntity category = product.getCategory();
+        final CategoryEntity parentCategory = category.getParent() == null ? category : category.getParent();
+        return productRepository.findAllByParentCategory(parentCategory, false, null).getContent().stream()
+                .filter(p -> !p.equals(product))
+                .limit(count).collect(Collectors.toList());
     }
 
     @Override

@@ -43,15 +43,6 @@
                         <t:zone t:id="applicationZone">
                             <t:delegate to="applicationFormBlock"/>
                         </t:zone>
-                        <t:block t:id="applicationResultBlock">
-                            <div class="modal-body result">
-                                <div class="row">
-                                    <p class="modal-text"><b>Спасибо, мы получили заявку и свяжемся с Вами в ближайшее время</b></p>
-
-                                    <p class="modal-text"><a data-dismiss="modal" href="#" class="red-link">Продолжить работу</a></p>
-                                </div>
-                            </div>
-                        </t:block>
                         <t:block t:id="applicationFormBlock">
                             <div class="row">
                                 <p class="modal-text">Если Вы кулинар и хотите подключиться к ГастроМаркет, полноценно использовать все возможности сайта и продавать приготовленную Вами еду, то оставьте заявку на подключение и мы обязательно с Вами свяжемся.</p>

@@ -5,6 +5,7 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.services.PropertyAccess;
 import org.apache.tapestry5.services.ApplicationGlobals;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.Response;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
@@ -49,6 +50,9 @@ public abstract class BaseComponent {
 
     @Inject
     private PropertyAccess access;
+
+    @Inject
+    private PageRenderLinkSource pageLinkSource;
 
     @Inject
     private Messages messages;
@@ -207,6 +211,14 @@ public abstract class BaseComponent {
 
     public void setShoppingCart(ShoppingCart shoppingCart) {
         this.shoppingCart = shoppingCart;
+    }
+
+    public PageRenderLinkSource getPageLinkSource() {
+        return pageLinkSource;
+    }
+
+    public ApplicationGlobals getGlobals() {
+        return globals;
     }
 
     public OrderProductEntity createPurchaseItem(Long pid) {

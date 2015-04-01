@@ -4,6 +4,7 @@ import org.apache.commons.lang.ObjectUtils;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
@@ -22,8 +23,9 @@ public class Index extends BaseComponent {
     @Property
     private TagEntity oneTag;
 
-    public boolean onActivate(String pid) {
+    public Object onActivate(String pid) {
         product = getProductService().findProduct(pid);
+        if (product == null) return new HttpError(404, "Page not found.");
         return true;
     }
 

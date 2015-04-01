@@ -4,6 +4,7 @@ import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.pages.AppResults;
 
 /**
  * Created by ezhulkov on 23.08.14.
@@ -20,9 +21,6 @@ public class Landing extends BaseComponent {
     private String fullName;
 
     @Inject
-    private Block applicationResultBlock;
-
-    @Inject
     @Property
     private Block applicationFormBlock;
 
@@ -33,10 +31,10 @@ public class Landing extends BaseComponent {
         error = true;
     }
 
-    public Block onSubmitFromApplicationForm() {
+    public Object onSubmitFromApplicationForm() {
         if (error) return applicationFormBlock;
         getUserService().processApplicationRequest(eMail, fullName, about);
-        return applicationResultBlock;
+        return getPageLinkSource().createPageRenderLinkWithContext(AppResults.class, eMail);
     }
 
 }

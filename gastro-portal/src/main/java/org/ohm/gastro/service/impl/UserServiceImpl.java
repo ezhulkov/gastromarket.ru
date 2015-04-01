@@ -87,6 +87,8 @@ public class UserServiceImpl implements UserService, Logging {
                 catalog.setName("Каталог");
                 catalogRepository.save(catalog);
                 mailService.sendMailMessage(user.getEmail(), MailService.NEW_CATALOG, ImmutableMap.of("cook", user, "catalog", catalog, "password", password));
+            } else if (Type.USER.equals(user.getType())) {
+                mailService.sendMailMessage(user.getEmail(), MailService.NEW_USER, ImmutableMap.of("user", user, "password", password));
             }
         }
         return userRepository.save(user);
