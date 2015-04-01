@@ -84,7 +84,7 @@
         </t:pagelink>
         <t:if test="shoppingCart.justAdded">
             <div class="dropdown-menu basket-show">
-                Товар добавлен в корзину. <br/>Вы можете продолжить поиск или перейти
+                Блюдо добавлено в корзину. <br/>Вы можете продолжить поиск или перейти
                 <t:pagelink page="cart">к оформлению заказа</t:pagelink>
             </div>
         </t:if>

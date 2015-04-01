@@ -33,6 +33,13 @@
                         <t:actionlink t:id="fetchProducts" t:context="fetchContext" t:zone="productsZone" class="">Показать еще...</t:actionlink>
                     </div>
                 </t:if>
+                <t:unless test="wasProducts">
+                    <div class="row">
+                        <div class="text-center f20px">
+                            В выбранной категории пока ничего нет
+                        </div>
+                    </div>
+                </t:unless>
             </t:block>
             <t:productModalTemplate/>
 

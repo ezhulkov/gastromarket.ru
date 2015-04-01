@@ -31,6 +31,9 @@ public abstract class ScrollableProducts extends BaseComponent {
     protected boolean hasProducts = false;
 
     @Property
+    protected boolean wasProducts = true;
+
+    @Property
     protected int from = 0;
 
     @Inject
@@ -57,6 +60,7 @@ public abstract class ScrollableProducts extends BaseComponent {
     public java.util.List<ProductEntity> getProducts() {
         final java.util.List<ProductEntity> products = getProductService().findProductsForFrontend(category, catalog, orderType, direction, from, to);
         hasProducts = !products.isEmpty();
+        wasProducts = from != 0 || !products.isEmpty();
         return products;
     }
 

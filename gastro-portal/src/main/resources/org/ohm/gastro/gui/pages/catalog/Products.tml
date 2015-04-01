@@ -5,7 +5,7 @@
             <div class="title">
                 <h1><span>${catalog.name}</span></h1>
                 <t:if test="catalogOwner">
-                    <a data-toggle="modal" data-target="#pr-new" href="#pr-new">Создать товар<span/></a>
+                    <a data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо<span/></a>
                 </t:if>
             </div>
             <t:if test="catalogOwner">

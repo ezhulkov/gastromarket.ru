@@ -23,7 +23,7 @@ public class CategorySelectModel extends GenericSelectModel<CategoryEntity> {
                                                     .flatMap(t -> Stream.concat(Stream.of(t), t.getChildren().stream()))
                                                     .map(t -> new OptionModelImpl((t.getParent() == null ? "" : t.getParent().getName() + " - ") + t.getName(),
                                                                                   t,
-                                                                                  t.getChildren().isEmpty() ? "leaf" : "root"))
+                                                                                  t.getParent() == null ? "root" : "leaf"))
                                                     .collect(Collectors.toList()));
         this.objects = ImmutableBiMap.copyOf(list.stream()
                                                      .flatMap(t -> Stream.concat(Stream.of(t), t.getChildren().stream()))

@@ -60,7 +60,6 @@ INSERT INTO category (id, name, parent_id) VALUES (24, 'Кофе и шокола
 INSERT INTO category (id, name, parent_id) VALUES (28, 'Алкогольные напитки', 2);
 INSERT INTO category (id, name, parent_id) VALUES (29, 'Молочные коктейли', 2);
 INSERT INTO category (id, name, parent_id) VALUES (31, 'Капкейки', 3);
-INSERT INTO category (id, name, parent_id) VALUES (32, 'Торты', 3);
 INSERT INTO category (id, name, parent_id) VALUES (33, 'Мороженое', 3);
 INSERT INTO category (id, name, parent_id) VALUES (34, 'Пироги', 3);
 INSERT INTO category (id, name, parent_id) VALUES (35, 'Маффины', 3);
@@ -99,6 +98,7 @@ INSERT INTO category (id, name, parent_id) VALUES (70, 'Бисквитные т�
 INSERT INTO category (id, name, parent_id) VALUES (71, 'Вафельные торты', 68);
 INSERT INTO category (id, name, parent_id) VALUES (72, 'Песочные торты', 68);
 INSERT INTO category (id, name, parent_id) VALUES (73, 'Творожные торты', 68);
+INSERT INTO category (id, name, parent_id) VALUES (74, 'Другие', 68);
 
 --
 -- Data for Name: property; Type: TABLE DATA; Schema: public; Owner: gastro
@@ -476,7 +476,7 @@ INSERT INTO category_property (category_id, property_id) VALUES (73, 8);
 -- Data for Name: hibernate_sequences; Type: TABLE DATA; Schema: public; Owner: gastro
 --
 
-INSERT INTO hibernate_sequences (sequence_name, sequence_next_hi_value) VALUES ('category', 74);
+INSERT INTO hibernate_sequences (sequence_name, sequence_next_hi_value) VALUES ('category', 75);
 INSERT INTO hibernate_sequences (sequence_name, sequence_next_hi_value) VALUES ('property', 10);
 INSERT INTO hibernate_sequences (sequence_name, sequence_next_hi_value) VALUES ('property_value', 267);
 

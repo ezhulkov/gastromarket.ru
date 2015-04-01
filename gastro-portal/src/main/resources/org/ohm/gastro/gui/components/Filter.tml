@@ -5,7 +5,7 @@
                 <a data-target="#" href="#sortMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">${categoryName}</a>
                 <ul class="dropdown-menu multi-level" role="menu">
                     <li>
-                        <a href="${pageContext}">Все товары</a>
+                        <a href="${pageContext}">Все меню</a>
                     </li>
                     <t:loop source="categories" value="oneCategory">
                         <t:if test="oneCategory.children">

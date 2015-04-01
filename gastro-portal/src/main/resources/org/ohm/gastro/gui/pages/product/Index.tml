@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="title">
-                <h1><span>Похожие товары</span></h1>
+                <h1><span>Наши рекоммендации</span></h1>
             </div>
             <div id="product-items" class="grid-block products">
                 <t:loop source="recommendedProducts" value="oneProduct">

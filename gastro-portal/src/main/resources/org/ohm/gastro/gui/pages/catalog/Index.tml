@@ -11,7 +11,7 @@
                         <a class="catalog-edit-link" data-toggle="modal" data-target="#catalog-edit" href="#catalog-edit">Редактировать страницу<span/></a>
                     </div>
                     <div class="more-link">
-                        <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить товар<span/></a>
+                        <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо<span/></a>
                     </div>
                 </div>
                 <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>
@@ -41,7 +41,7 @@
                                             <div class="col-sm-10">
                                                 <t:label for="name">Как Вы хотите назвать свой каталог на сайте?</t:label>
                                                 <div class="catalog-tip">
-                                                    У каждого кулинара на сайте есть свой каталог в котором он размещает товары.
+                                                    У каждого кулинара на сайте есть свой каталог в котором он размещает блюда.
                                                     Названием каталога, например, может быть название Вашей компании.
                                                 </div>
                                                 <input t:id="name" class="form-control"/>
@@ -53,7 +53,7 @@
                                             <div class="col-sm-10">
                                                 <t:label for="desc">Расскажите немного о себе:</t:label>
                                                 <div class="catalog-tip">
-                                                    Расскажите о себе как о кулинере - как давно Вы готовите, любимые блюда и кухни.<br/>
+                                                    Расскажите о себе как о кулинаре - как давно Вы готовите, любимые блюда и кухни.<br/>
                                                     Помните, что доверие покупателей к кулинару повышается, если они узнают о Вашей работе.
                                                 </div>
                                                 <input t:id="desc" rows="3" class="form-control"/>
@@ -64,6 +64,9 @@
                                             <div class="col-sm-1"/>
                                             <div class="col-sm-10">
                                                 <t:label for="delivery">Условия доставки:</t:label>
+                                                <div class="catalog-tip">
+                                                    Доставка готовых блюд осуществляется Вами, опишите в этом условия доставки.
+                                                </div>
                                                 <input t:id="delivery" rows="2" class="form-control"/>
                                             </div>
                                             <div class="col-sm-1"/>
@@ -72,6 +75,9 @@
                                             <div class="col-sm-1"/>
                                             <div class="col-sm-10">
                                                 <t:label for="payment">Условия оплаты:</t:label>
+                                                <div class="catalog-tip">
+                                                    Напишите, например, есть ли у Вас предоплата, принимаете банковские переводы или оплата происходит наличными при передаче заказа.
+                                                </div>
                                                 <input t:id="payment" rows="2" class="form-control"/>
                                             </div>
                                             <div class="col-sm-1"/>
@@ -131,8 +137,8 @@
             <t:block t:id="productsBlock">
                 <t:if test="products">
                     <div class="title">
-                        <h1><span>Товары</span></h1>
-                        <t:pagelink page="catalog/products" t:context="catalog.id">Все товары<span/></t:pagelink>
+                        <h1><span>Блюда</span></h1>
+                        <t:pagelink page="catalog/products" t:context="catalog.id">Показать всё меню<span/></t:pagelink>
                     </div>
                     <div id="product-items" class="grid-block products">
                         <t:loop source="products" value="oneProduct">
