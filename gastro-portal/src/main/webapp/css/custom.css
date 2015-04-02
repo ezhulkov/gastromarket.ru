@@ -443,7 +443,7 @@ html > body div.t-error ul li {
 
 .btn-white {
     border: 2px solid #e70500;
-    padding: 8px 25px;
+    padding: 7px 25px;
     font-size: 16px;
     margin: 0 5px;
     color: #e70500;
@@ -1023,6 +1023,10 @@ a.category-68 {
 
 a.category-69 {
     background: transparent url("../img/category/sidedishes-small.jpg") repeat-x;
+}
+
+.delete-product .modal-dialog {
+    width: 500px;
 }
 
 .billinfo .modal-dialog,

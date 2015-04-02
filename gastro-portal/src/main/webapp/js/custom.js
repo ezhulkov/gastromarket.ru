@@ -156,7 +156,7 @@ function productRightScroll(pid) {
 }
 
 function initProductInCatalog(items) {
-    jQuery(items).find("a.delete").click(function (event) {
+    jQuery(items).find("a.deleteConfirm").click(function (event) {
         var productMain = jQuery(this).closest(".product-item");
         productMain.fadeOut(300, function () {
             jQuery(this).remove();

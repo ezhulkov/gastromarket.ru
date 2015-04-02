@@ -88,9 +88,8 @@ public class Product extends BaseComponent {
         return recommendedBlock;
     }
 
-    public Block onActionFromDelete(Long pid) {
+    public void onActionFromDelete(Long pid) {
         getProductService().deleteProduct(pid);
-        return null;
     }
 
     public Block onActionFromEdit(Long pid) {

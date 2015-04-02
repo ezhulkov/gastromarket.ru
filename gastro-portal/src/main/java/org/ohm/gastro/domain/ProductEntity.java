@@ -52,7 +52,7 @@ public class ProductEntity extends AbstractBaseEntity implements AltIdEntity {
     private Unit unit = Unit.PIECE;
 
     @Column(name = "unit_value")
-    private int unitValue = 0;
+    private int unitValue = 1;
 
     @Column
     private boolean hidden = false;
