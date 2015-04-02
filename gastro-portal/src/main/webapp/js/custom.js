@@ -37,12 +37,21 @@ jQuery(document).ready(function () {
         margin = margin + "px";
         jQuery(this).css("margin-left", margin);
     });
+    jQuery("body").addClass(isMobile() ? "mobile" : "desktop");
     jQuery(".tip").tooltip({placement: "bottom"});
     initChosen(jQuery("select.chosen-select"));
     initLoginModal();
     initTitle(jQuery("div.title"));
     initFineUploader(jQuery("div.upload-file"));
 });
+function isMobile() {
+    var ua = navigator.userAgent.toLowerCase(),
+        isIOS = ua.match(/(iphone|ipod|ipad)/),
+        isAmazon = ua.match(/(silk|kindle)/i),
+        isAndroid = ua.match(/android/);
+    return isIOS || isAmazon || isAndroid || ua.match(/(blackberry|bb10|mobi|tablet|playbook|opera mini|nexus 7)/i);
+}
+
 function initMainPage() {
     var current = Math.floor(Math.random() * 8) + 1;
     var zindex = 1;
@@ -59,21 +68,25 @@ function initMainPage() {
     jQuery(".main-img-after.main" + current).fadeIn(0);
     setTimeout(nextBackground, 5000);
 }
+
 function activate_menu(el) {
     jQuery(el).closest(".office-menu").find(".sel").removeClass("sel");
     jQuery(el).addClass("sel");
 }
+
 function initTitle(el) {
     jQuery(el).each(function (i, e) {
         var h = jQuery(e).find("h1,h2");
         jQuery(h).css("width", realTitleWidth(jQuery(h)) + 50);
     });
 }
+
 function initChosen(el) {
     jQuery(el).chosen({"width": "100%"}).on('change', function (e) {
         this.fire(Tapestry.ACTION_EVENT, e);
     });
 }
+
 function showProductModal(pid) {
     var modal = jQuery("#product-modal-template");
     var productMain = jQuery("div[data-productid='" + pid + "']:first");
@@ -129,16 +142,19 @@ function showProductModal(pid) {
     //Download recommended
     triggerEvent(jQuery(".recommended-link", productMain).get(0), 'click');
 }
+
 function productLeftScroll(pid) {
     var productMain = jQuery("div[data-productid='" + pid + "']:first");
     pid = productMain.prev().attr("data-productid");
     if (pid != undefined) showProductModal(pid);
 }
+
 function productRightScroll(pid) {
     var productMain = jQuery("div[data-productid='" + pid + "']:first");
     var pid = productMain.next().attr("data-productid");
     if (pid != undefined) showProductModal(pid);
 }
+
 function initProductInCatalog(items) {
     jQuery(items).find("a.delete").click(function (event) {
         var productMain = jQuery(this).closest(".product-item");
@@ -158,6 +174,7 @@ function initProductInCatalog(items) {
             jQuery(this).find("img").css("opacity", "0.9");
         });
 }
+
 function initProductCatalogFixed() {
     var newItems = jQuery("div.product-item.fixed");
     initProductInCatalog(newItems);
@@ -167,6 +184,7 @@ function initProductCatalogFixed() {
     }).fadeIn(50);
     initBasket();
 }
+
 function initProductCatalogEdit() {
     jQuery(".product-item")
         .mouseenter(function () {
@@ -175,6 +193,7 @@ function initProductCatalogEdit() {
             jQuery("div.pic .edit-block", this).css("display", "none");
         })
 }
+
 function initProductCatalog(ajaxContainer) {
     var layoutFunction = function (target) {
         var newItems = jQuery("div.product-item", jQuery("div[id^='productsZone']"));
@@ -215,6 +234,7 @@ function initProductCatalog(ajaxContainer) {
         }
     });
 }
+
 function initBasket() {
     Event.observe(jQuery("span[id^='basketZone']").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
         jQuery(".basket-show").show()
@@ -227,14 +247,17 @@ function initBasket() {
             .delay(2000).fadeOut(1000);
     });
 }
+
 function initProductsEdit() {
     jQuery("div.product-edit-modal").each(function (i, e) {
         initProductEdit(e);
     });
 }
+
 function initProductEdit(el) {
     toggleProductEdit(el, false);
 }
+
 function addMoreProperties(product, el) {
     var listBlock = jQuery(el, product);
     var lastList = jQuery('select:last', listBlock);
@@ -242,6 +265,7 @@ function addMoreProperties(product, el) {
     jQuery(newList).insertAfter(lastList);
     initChosen(jQuery(newList));
 }
+
 function toggleProductEdit(el, closeModal) {
     if (closeModal) {
         modal = jQuery(el).closest(".product-edit-modal");
@@ -260,6 +284,7 @@ function toggleProductEdit(el, closeModal) {
     initTitle(jQuery("div.title", el));
     initFineUploader(jQuery(el).find("div.upload-file"));
 }
+
 function initLoginModal() {
     var hideAll = function () {
         jQuery(".modal-dialog.login").hide();
@@ -290,9 +315,11 @@ function initLoginModal() {
         jQuery(".modal-dialog.application").show();
     });
 }
+
 function showModalResult(block) {
     jQuery(block).find(".data").hide();
 }
+
 function initFineUploader(el) {
     jQuery(el).each(function (i, e) {
         var button = jQuery(".uploader-button", e);
@@ -304,7 +331,7 @@ function initFineUploader(el) {
                 endpoint: '/upload?file_type=' + fileType + '&object_id=' + objectId
             },
             validation: {
-                allowedExtensions: ['jpeg', 'jpg'],
+                allowedExtensions: ['jpeg', 'jpg', 'png'],
                 sizeLimit: 10485760,
                 itemLimit: 1
             }
@@ -313,6 +340,7 @@ function initFineUploader(el) {
         });
     })
 }
+
 function realTitleWidth(obj) {
     var clone = obj.clone();
     clone.css("visibility", "hidden");
@@ -321,6 +349,7 @@ function realTitleWidth(obj) {
     clone.remove();
     return width;
 }
+
 function triggerEvent(element, eventName) {
     if (document.createEvent) {
         var evt = document.createEvent('HTMLEvents');

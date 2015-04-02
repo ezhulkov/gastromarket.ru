@@ -55,7 +55,7 @@ public class Index extends BaseComponent {
     }
 
     public String getProductUnit() {
-        return getMessages().get(product.getUnit().name()).toLowerCase();
+        return getMessages().format(product.getUnit().name() + "_TEXT", product.getUnitValue()).toLowerCase();
     }
 
 }

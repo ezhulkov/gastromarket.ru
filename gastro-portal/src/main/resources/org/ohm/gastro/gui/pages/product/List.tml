@@ -28,11 +28,13 @@
                 <t:loop source="products" value="oneProduct">
                     <t:product product="oneProduct"/>
                 </t:loop>
-                <t:if test="hasProducts">
-                    <div class="more-link">
-                        <t:actionlink t:id="fetchProducts" t:context="fetchContext" t:zone="productsZone" class="">Показать еще...</t:actionlink>
-                    </div>
-                </t:if>
+                <div class="more-products">
+                    <t:if test="hasProducts">
+                        <div class="more-link">
+                            <t:actionlink t:id="fetchProducts" t:context="fetchContext" t:zone="productsZone" class="">Показать еще...</t:actionlink>
+                        </div>
+                    </t:if>
+                </div>
                 <t:unless test="wasProducts">
                     <div class="row">
                         <div class="text-center f20px">

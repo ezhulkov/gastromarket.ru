@@ -57,7 +57,6 @@ INSERT INTO category (id, name, parent_id) VALUES (25, 'Лимонады', 2);
 INSERT INTO category (id, name, parent_id) VALUES (26, 'Соки', 2);
 INSERT INTO category (id, name, parent_id) VALUES (27, 'Смузи', 2);
 INSERT INTO category (id, name, parent_id) VALUES (24, 'Кофе и шоколад', 2);
-INSERT INTO category (id, name, parent_id) VALUES (28, 'Алкогольные напитки', 2);
 INSERT INTO category (id, name, parent_id) VALUES (29, 'Молочные коктейли', 2);
 INSERT INTO category (id, name, parent_id) VALUES (31, 'Капкейки', 3);
 INSERT INTO category (id, name, parent_id) VALUES (33, 'Мороженое', 3);

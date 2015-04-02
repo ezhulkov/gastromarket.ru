@@ -429,5 +429,20 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="30" author="ezhulkov">
+        <addColumn tableName="product">
+            <column name="unit_value" type="java.sql.Types.INTEGER"/>
+        </addColumn>
+        <sql>
+            update product set unit='GRAM',unit_value='1000' where unit='KILO';
+            update product set unit='GRAM',unit_value='100' where unit='HUNDRED_GRAM';
+            update product set unit='GRAM',unit_value='250' where unit='TWO_FIFTY_GRAM';
+            update product set unit='GRAM',unit_value='250' where unit='TWO_FIFTY_GRAM';
+            update product set unit='LITRE',unit_value='1000' where unit='LITRE';
+            update product set unit='LITRE',unit_value='100' where unit='HUNDRED_MILLIS';
+            update product set unit='LITRE',unit_value='250' where unit='TWO_FIFTY_MILLIS';
+            update product set unit_value='0' where unit='PIECE';
+        </sql>
+    </changeSet>
 
 </databaseChangeLog>

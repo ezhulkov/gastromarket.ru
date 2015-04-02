@@ -38,7 +38,7 @@
                                                 </div>
                                             </div>
                                             <div class="order-product-row">
-                                                <div class="f30px black bold price">${oneProduct.price} р <span class="unit">${oneProductUnit}</span></div>
+                                                <div class="f30px black bold price">${oneProduct.price} <span class="rub"/> <span class="unit">${oneProductUnit}</span></div>
                                                 <div class="count">
                                                     <t:actionlink t:id="decProduct" t:zone="purchaseZone" context="oneProduct.product.id" class="dec purchase-edit"/>
                                                     <input type="text" value="${oneProduct.count}" disabled="disabled"/>

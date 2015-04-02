@@ -26,7 +26,7 @@ import java.util.List;
 public class ProductEntity extends AbstractBaseEntity implements AltIdEntity {
 
     public enum Unit {
-        KILO, HUNDRED_GRAM, TWO_FIFTY_GRAM, LITRE, HUNDRED_MILLIS, TWO_FIFTY_MILLIS, PIECE
+        PIECE, LITRE, GRAM
     }
 
     @Id
@@ -50,6 +50,9 @@ public class ProductEntity extends AbstractBaseEntity implements AltIdEntity {
     @Column
     @Enumerated(EnumType.STRING)
     private Unit unit = Unit.PIECE;
+
+    @Column(name = "unit_value")
+    private int unitValue = 0;
 
     @Column
     private boolean hidden = false;
@@ -204,4 +207,17 @@ public class ProductEntity extends AbstractBaseEntity implements AltIdEntity {
     public void setUnit(final Unit unit) {
         this.unit = unit;
     }
+
+    public int getUnitValue() {
+        return unitValue;
+    }
+
+    public Boolean isPromoted() {
+        return promoted;
+    }
+
+    public void setUnitValue(int unitValue) {
+        this.unitValue = unitValue;
+    }
+
 }

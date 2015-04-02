@@ -38,6 +38,19 @@ body {
     margin-top: 55px;
 }
 
+.rub {
+    display: inline !important;
+    padding-right: 10px;
+}
+
+body.desktop .rub:after {
+    content: "₽";
+}
+
+body.mobile .rub:after {
+    content: "руб";
+}
+
 h1, h2, h3 {
     font-family: "PT Serif", serif;
     text-align: center;
@@ -109,6 +122,11 @@ html > body div.t-error ul li {
 
 .red {
     color: #e70500 !important;
+}
+
+.za {
+    line-height: 50px;
+    vertical-align: middle;
 }
 
 .border {
@@ -376,6 +394,10 @@ html > body div.t-error ul li {
 .data-header {
     height: 70px;
     margin: 30px 0;
+}
+
+.more-products {
+    height: 50px;
 }
 
 .more-link {
@@ -1308,8 +1330,7 @@ div.product-item.block {
     position: relative;
 }
 
-.order-product-row .unit,
-.product-item .unit {
+.price .unit {
     font-weight: normal;
     font-size: 14px;
     display: inline;

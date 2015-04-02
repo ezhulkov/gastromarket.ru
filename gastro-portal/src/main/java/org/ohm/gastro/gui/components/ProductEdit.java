@@ -75,6 +75,9 @@ public class ProductEdit extends BaseComponent {
     @Component(id = "productDescription", parameters = {"value=product.description", "validate=maxlength=1024"})
     private TextArea descField;
 
+    @Component(id = "productUnitValue", parameters = {"value=product.unitValue", "validate=maxlength=64,min=0,max=10000"})
+    private TextField pUnitValueField;
+
     @Component(id = "productUnit", parameters = {"value=product.unit", "validate=required"})
     private Select pUnitField;
 

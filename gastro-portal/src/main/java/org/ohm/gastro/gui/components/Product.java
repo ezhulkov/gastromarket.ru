@@ -98,4 +98,8 @@ public class Product extends BaseComponent {
         return editBlock;
     }
 
+    public String getProductUnit() {
+        return getMessages().format(product.getUnit().name() + "_TEXT", product.getUnitValue()).toLowerCase();
+    }
+
 }
