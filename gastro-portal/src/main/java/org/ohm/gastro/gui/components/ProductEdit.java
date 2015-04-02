@@ -217,6 +217,7 @@ public class ProductEdit extends BaseComponent {
                 origProduct.setDescription(product.getDescription());
                 origProduct.setCategory(category);
                 origProduct.setUnit(product.getUnit());
+                origProduct.setUnitValue(product.getUnitValue());
                 product = getProductService().saveProduct(origProduct);
                 this.stage = Stage.PROP;
             } else if (currentStage == Stage.PROP) {

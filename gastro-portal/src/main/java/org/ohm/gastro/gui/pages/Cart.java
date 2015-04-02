@@ -124,6 +124,13 @@ public class Cart extends BaseComponent {
         return getMessages().get("no.bonuses.message");
     }
 
+    public String getBonusPromoMessage() {
+        final Integer totalPrice = getShoppingCart().getTotalPrice();
+        final int bonuses = getOrderService().getBonuses(totalPrice);
+        if (bonuses == 1) return getMessages().format("cart.bonuses.message.one", bonuses);
+        else return getMessages().format("cart.bonuses.message.many", bonuses);
+    }
+
     public String getOneProductUnit() {
         return getMessages().get(oneProduct.getProduct().getUnit().name()).toLowerCase();
     }

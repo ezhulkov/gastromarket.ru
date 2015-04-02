@@ -28,6 +28,8 @@ public interface OrderService {
 
     int getProductsPrice(List<OrderProductEntity> products);
 
+    int getBonuses(int price);
+
     OrderEntity findOrder(Long id);
 
     void saveOrder(OrderEntity order);

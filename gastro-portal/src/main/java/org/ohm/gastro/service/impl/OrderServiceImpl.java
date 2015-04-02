@@ -175,6 +175,11 @@ public class OrderServiceImpl implements OrderService, Logging {
     }
 
     @Override
+    public int getBonuses(int price) {
+        return (int) Math.ceil(price * 0.03);
+    }
+
+    @Override
     public OrderEntity findOrder(final Long id) {
         return orderRepository.findOne(id);
     }
@@ -216,7 +221,7 @@ public class OrderServiceImpl implements OrderService, Logging {
                 if (order.getUsedBonuses() > 0) {
                     customer.setBonus(Math.max(0, customer.getBonus() - order.getUsedBonuses()));
                 } else {
-                    customer.setBonus((int) (customer.getBonus() + Math.ceil(getProductsPrice(order.getProducts()) * 0.03)));
+                    customer.setBonus((int) (customer.getBonus() + getBonuses(getProductsPrice(order.getProducts()))));
                 }
                 userRepository.save(customer);
             }

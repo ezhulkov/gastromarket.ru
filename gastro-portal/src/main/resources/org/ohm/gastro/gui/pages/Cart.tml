@@ -13,7 +13,9 @@
                     <div class="attention">
                         <h2>Хотите совершать покупки бесплатно?</h2>
 
-                        <p>Пройдите <a href="#login" class="signup-link" data-toggle="modal" data-target="#login">простую регистрацию</a> на ГастроМаркет, приглашайте друзей, оставляйте отзывы о работе кулинаров, копите и расплачивайтесь бонусными баллами на ГастроМаркет.</p>
+                        <p>Пройдите
+                            <a href="#login" class="signup-link" data-toggle="modal" data-target="#login">простую регистрацию</a> на ГастроМаркет, приглашайте друзей, оставляйте отзывы о работе кулинаров, копите и расплачивайтесь бонусными баллами на ГастроМаркет.
+                        </p>
                     </div>
                 </t:unless>
                 <t:zone t:id="purchaseZone">
@@ -64,17 +66,24 @@
                             <div class="col-sm-2"/>
                         </div>
                     </t:loop>
-                    <div class="row cart-catalog total">
+                    <div class="row total">
                         <div class="col-sm-2"/>
                         <div class="col-sm-8">
-                            Общая стоимость заказа без учета доставки: <span style="font-size: 30px">${shoppingCart.totalPrice} р</span>
+                            Общая стоимость заказа без учета доставки: <span class="f30px">${shoppingCart.totalPrice} р</span>
+                        </div>
+                        <div class="col-sm-2"/>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2"/>
+                        <div class="col-sm-8 f14px">
+                            Оплатив заказ вы можете получить ${bonusPromoMessage}
                         </div>
                         <div class="col-sm-2"/>
                     </div>
                 </t:block>
 
                 <div class="title">
-                    <h2><span>Оформление заказа</span></h2>
+                    <h2><span>Контактные данные</span></h2>
                 </div>
 
                 <t:form t:id="cartForm" t:autofocus="false" t:clientValidation="none" class="form form-horizontal edit" role="form">
@@ -130,7 +139,8 @@
                                 <input id="bonus" t:id="bonus" class="form-control" placeholder="${bonusMessage}"/>
                             </t:if>
                             <t:unless test="authenticated">
-                                Пройдите <a href="#login" class="signup-link" data-toggle="modal" data-target="#login">простую регистрацию</a> для того, чтобы расплачиваться бонусными баллами
+                                Пройдите
+                                <a href="#login" class="signup-link" data-toggle="modal" data-target="#login">простую регистрацию</a> для того, чтобы расплачиваться бонусными баллами
                             </t:unless>
                         </div>
                         <div class="col-sm-3"/>
