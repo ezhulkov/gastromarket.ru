@@ -44,12 +44,7 @@
                     </div>
                 </div>
                 <div class="col-sm-2">
-                    <t:if test="cook">
-                        <t:uploadfile hide="true" type="AVATAR" responseSize="SIZE3" imageUrl="${avatarUrl}"/>
-                        <t:parameter name="else">
-                            <t:uploadfile type="AVATAR" responseSize="SIZE3" imageUrl="${authenticatedUser.avatarUrl}"/>
-                        </t:parameter>
-                    </t:if>
+                    <t:uploadfile type="AVATAR" responseSize="SIZE3" imageUrl="${avatarUrl}"/>
                 </div>
                 <div class="col-sm-2"/>
             </div>
