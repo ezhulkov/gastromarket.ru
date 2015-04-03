@@ -17,13 +17,15 @@
                     <t:if test="authenticated">
                         <span class="header-block pic-holder dropdown username">
                             <a data-target="#" href="#userMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-                                <img class="avatar-small" src="${authenticatedUser.avatarUrlSmall}"/>
+                                <img class="avatar-small" src="${avatarUrl}"/>
                                 ${authenticatedUser.printableName}
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
-                                    <t:pagelink page="office/index" context="['UPDATE','0']">Мой профиль</t:pagelink>
+                                    <t:unless test="cook">
+                                        <t:pagelink page="office/index" context="['UPDATE','0']">Мой профиль</t:pagelink>
+                                    </t:unless>
                                 </li>
                                 <t:if test="user">
                                     <li>
@@ -33,11 +35,11 @@
                                 <t:if test="cook">
                                     <t:loop source="catalogs" value="oneCatalog">
                                         <li>
-                                            <t:pagelink page="catalog/index" t:context="oneCatalog.id">Каталог '${oneCatalog.name}'</t:pagelink>
+                                            <t:pagelink page="catalog/index" t:context="oneCatalog.id">Страница '${oneCatalog.name}'</t:pagelink>
                                         </li>
                                     </t:loop>
                                     <li>
-                                        <t:pagelink page="cook/bills">Счета</t:pagelink>
+                                        <t:pagelink page="cook/bills">Мои счета</t:pagelink>
                                     </li>
                                 </t:if>
                                 <t:if test="admin">
@@ -51,7 +53,12 @@
                                         <t:pagelink page="admin/category/list">Системные настройки</t:pagelink>
                                     </li>
                                 </t:if>
-                                <li><a href="/logout">Выход</a></li>
+                                <li>
+                                    <t:if test="cook">
+                                        <t:pagelink page="office/index" context="['UPDATE','0']">Настройки</t:pagelink>
+                                    </t:if>
+                                </li>
+                                <li><a href="/logout" class="red">Выход</a></li>
                             </ul>
                         </span>
                     </t:if>

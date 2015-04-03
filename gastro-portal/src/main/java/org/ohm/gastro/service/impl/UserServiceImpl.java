@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService, Logging {
             if (Type.COOK.equals(user.getType())) {
                 CatalogEntity catalog = new CatalogEntity();
                 catalog.setUser(user);
-                catalog.setName("Каталог");
+                catalog.setName("Страница кулинара '" + user.getFullName() + "'");
                 catalogRepository.save(catalog);
                 mailService.sendMailMessage(user.getEmail(), MailService.NEW_CATALOG, ImmutableMap.of("cook", user, "catalog", catalog, "password", password));
             } else if (Type.USER.equals(user.getType())) {

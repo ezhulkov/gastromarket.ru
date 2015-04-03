@@ -32,4 +32,8 @@ public class UploadFile extends BaseComponent {
     @Parameter(name = "class", defaultPrefix = BindingConstants.LITERAL)
     private String additionalClass;
 
+    @Property
+    @Parameter(name = "hide", defaultPrefix = BindingConstants.LITERAL, value = "false")
+    private boolean hide;
+
 }

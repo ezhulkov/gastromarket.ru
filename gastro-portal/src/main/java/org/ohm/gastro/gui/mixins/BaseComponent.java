@@ -114,20 +114,19 @@ public abstract class BaseComponent {
 
     public boolean isAdmin() {
         return getAuthenticatedUserOpt()
-                .map(t -> t.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ADMIN")))
+                .map(UserEntity::isAdmin)
                 .orElse(false);
     }
 
     public boolean isCook() {
         return getAuthenticatedUserOpt()
-                .map(t -> t.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("COOK")))
+                .map(UserEntity::isCook)
                 .orElse(false);
     }
 
     public boolean isUser() {
-        return getAuthenticatedUserOpt()
-                .map(t -> t.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("USER")))
-                .orElse(false);
+        final Optional<UserEntity> userOpt = getAuthenticatedUserOpt();
+        return !userOpt.isPresent() || userOpt.map(UserEntity::isUser).orElse(false);
     }
 
     public String getContextPath() {

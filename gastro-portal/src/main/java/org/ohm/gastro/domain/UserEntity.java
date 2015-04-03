@@ -255,6 +255,18 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
         this.avatarUrlMedium = avatarUrlMedium;
     }
 
+    public boolean isUser() {
+        return getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("USER"));
+    }
+
+    public boolean isCook() {
+        return getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("COOK"));
+    }
+
+    public boolean isAdmin() {
+        return getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ADMIN"));
+    }
+
     @Override
     public String toString() {
         return "UserEntity{" +

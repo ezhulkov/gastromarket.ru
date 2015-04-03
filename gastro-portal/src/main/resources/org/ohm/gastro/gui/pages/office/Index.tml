@@ -2,7 +2,7 @@
 
     <div class="container office">
         <div class="title">
-            <h1><span>Мой профиль</span></h1>
+            <h1><span>Профиль пользователя</span></h1>
         </div>
         <t:editObject t:id="editObject" showUpdate="true" autoFocus="literal:true">
             <div class="row">
@@ -44,7 +44,12 @@
                     </div>
                 </div>
                 <div class="col-sm-2">
-                    <t:uploadfile type="AVATAR" responseSize="SIZE3" imageUrl="${authenticatedUser.avatarUrl}"/>
+                    <t:if test="cook">
+                        <t:uploadfile hide="true" type="AVATAR" responseSize="SIZE3" imageUrl="${avatarUrl}"/>
+                        <t:parameter name="else">
+                            <t:uploadfile type="AVATAR" responseSize="SIZE3" imageUrl="${authenticatedUser.avatarUrl}"/>
+                        </t:parameter>
+                    </t:if>
                 </div>
                 <div class="col-sm-2"/>
             </div>

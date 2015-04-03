@@ -13,6 +13,7 @@ import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.RatingEntity;
+import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.function.Consumer;
@@ -136,7 +137,10 @@ public class Index extends BaseComponent {
 
     @Cached
     public boolean isCommentAllowed() {
-        return getAuthenticatedUserOpt().map(t -> getOrderService().findAllOrders(t, catalog).size()).orElse(0) > 0;
+        return getAuthenticatedUserOpt()
+                .filter(UserEntity::isUser)
+                .map(t -> getOrderService().findAllOrders(t, catalog).size())
+                .orElse(0) > 0;
     }
 
     public void onSuccessFromRateForm() {

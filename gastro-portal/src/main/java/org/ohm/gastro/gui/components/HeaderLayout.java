@@ -1,10 +1,12 @@
 package org.ohm.gastro.gui.components;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
+import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.List;
@@ -56,11 +58,22 @@ public class HeaderLayout extends BaseComponent {
     }
 
     public boolean isShowBonuses() {
-        return !isAuthenticated() || isUser();
+        return isUser();
     }
 
     public int getBonuses() {
         return getAuthenticatedUserOpt().map(t -> getUserService().getUserBonuses(t)).orElse(0);
+    }
+
+    public String getAvatarUrl() {
+        if (!isCook()) {
+            return getAuthenticatedUser().getAvatarUrlSmall();
+        } else {
+            final UserEntity user = getAuthenticatedUser();
+            final List<CatalogEntity> allCatalogs = getCatalogService().findAllCatalogs(user);
+            if (CollectionUtils.isEmpty(allCatalogs)) return user.getAvatarUrlSmall();
+            else return allCatalogs.get(0).getAvatarUrlSmall();
+        }
     }
 
 }
