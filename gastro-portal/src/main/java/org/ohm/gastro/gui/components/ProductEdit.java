@@ -35,8 +35,46 @@ import java.util.stream.Collectors;
 public class ProductEdit extends BaseComponent {
 
     public enum Stage {
-        DESC, PROP, PHOTO
+        DESC() {
+            @Override
+            public Stage getPrevStage() {
+                return null;
+            }
+
+            @Override
+            public Stage getNextStage() {
+                return PROP;
+            }
+        },
+        PROP() {
+            @Override
+            public Stage getPrevStage() {
+                return DESC;
+            }
+
+            @Override
+            public Stage getNextStage() {
+                return PHOTO;
+            }
+        },
+        PHOTO() {
+            @Override
+            public Stage getPrevStage() {
+                return PROP;
+            }
+
+            @Override
+            public Stage getNextStage() {
+                return null;
+            }
+        };
+
+        public abstract Stage getPrevStage();
+
+        public abstract Stage getNextStage();
     }
+
+    private boolean goBack = false;
 
     @Property
     private boolean error = false;
@@ -138,6 +176,11 @@ public class ProductEdit extends BaseComponent {
         return "";
     }
 
+    public String getPrevCaption() {
+        if (stage == Stage.PROP) return getMessages().get("go.back");
+        return "";
+    }
+
     public java.util.List<PropertyValueEntity> getPropertyValues() {
         return getCatalogService().findAllValues(oneProperty);
     }
@@ -208,6 +251,11 @@ public class ProductEdit extends BaseComponent {
         closeImmediately = false;
     }
 
+    public void onSelectedFromSaveAndPrev() {
+        closeImmediately = false;
+        goBack = true;
+    }
+
     public void onSubmitFromEditProductForm(Long pid, @RequestParameter(value = "stage", allowBlank = true) Stage currentStage) {
         if (!error) {
             final ProductEntity origProduct = pid != null ? getProductService().findProduct(pid) : product;
@@ -219,7 +267,6 @@ public class ProductEdit extends BaseComponent {
                 origProduct.setUnit(product.getUnit());
                 origProduct.setUnitValue(product.getUnitValue());
                 product = getProductService().saveProduct(origProduct);
-                this.stage = Stage.PROP;
             } else if (currentStage == Stage.PROP) {
                 Map<Long, String> propValues = getRequest().getParameterNames().stream()
                         .filter(t -> t.startsWith("prop-"))
@@ -232,8 +279,9 @@ public class ProductEdit extends BaseComponent {
                         .collect(Collectors.toMap(Long::parseLong, key -> getRequest().getParameters("list-" + key)
                         ));
                 product = getProductService().saveProduct(origProduct, propValues, listValues);
-                this.stage = Stage.PHOTO;
             }
+            if (goBack) this.stage = this.stage.getPrevStage();
+            else this.stage = this.stage.getNextStage();
             if (closeImmediately) this.stage = Stage.DESC;
             if (!editProduct && closeImmediately) {
                 product = new ProductEntity();

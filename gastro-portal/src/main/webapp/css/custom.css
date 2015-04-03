@@ -410,6 +410,7 @@ html > body div.t-error ul li {
 .more-link a,
 .data-header a,
 .title a {
+    background-color: white;
     border: 2px solid #bd0400;
     color: #bd0400;
     font-size: 16px;
@@ -889,6 +890,11 @@ html > body div.t-error ul li {
 
 .grid-block .name {
     line-height: 25px;
+}
+
+.grid-block .cook {
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .chefs .grid-block {

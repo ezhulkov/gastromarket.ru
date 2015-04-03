@@ -124,6 +124,9 @@
                             </div>
                         </div>
                         <div class="row">
+                            <t:if test="prevCaption">
+                                <input class="btn btn-red" t:type="submit" t:id="saveAndPrev" value="${prevCaption}"/>
+                            </t:if>
                             <input class="btn btn-red" t:type="submit" t:id="saveAndClose" value="${saveCaption}"/>
                             <t:if test="nextCaption">
                                 <input class="btn btn-red" t:type="submit" t:id="saveAndNext" value="${nextCaption}"/>
