@@ -15,25 +15,27 @@
         </script>
     </t:block>
 
-    <div class="modal fade delete-product" id="deleteProduct${product.id}" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="title">
-                        <h1><span>Удалить блюдо?</span></h1>
+    <t:if test="editMode">
+        <div class="modal fade delete-product" id="deleteProduct${product.id}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="title">
+                            <h1><span>Удалить блюдо?</span></h1>
+                        </div>
+                        <a class="modal-close" data-dismiss="modal"></a>
                     </div>
-                    <a class="modal-close" data-dismiss="modal"></a>
-                </div>
-                <div class="modal-body" style="text-align: center;">
-                    <br/>
-                    <t:actionlink t:id="delete" t:context="product.id" class="btn btn-red deleteConfirm" style="display: inline;">Удалить</t:actionlink>
-                    <a href="#" class="btn btn-white" style="display: inline;" data-dismiss="modal">Отмена</a>
-                    <br/>
-                    <br/>
+                    <div class="modal-body" style="text-align: center;">
+                        <br/>
+                        <t:actionlink t:id="delete" t:context="product.id" class="btn btn-red deleteConfirm" style="display: inline;">Удалить</t:actionlink>
+                        <a href="#" class="btn btn-white" style="display: inline;" data-dismiss="modal">Отмена</a>
+                        <br/>
+                        <br/>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </t:if>
 
     <t:block t:id="productBlock">
         <t:if test="editMode">
@@ -41,7 +43,7 @@
                 <div class="edit-block">
                     <div class="uploader-button"/>
                     <t:actionlink t:id="edit" t:context="product.id" t:zone="${editZoneId}" class="edit"/>
-                    <a href="#howto" data-toggle="modal" class="delete" data-target="#deleteProduct${product.id}"/>
+                    <a href="#delete" data-toggle="modal" class="delete" data-target="#deleteProduct${product.id}"/>
                 </div>
                 <img class="product-image" src="${product.avatarUrlMedium}"/>
             </div>

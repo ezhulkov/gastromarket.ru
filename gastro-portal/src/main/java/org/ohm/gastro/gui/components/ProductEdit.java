@@ -22,6 +22,7 @@ import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.gui.misc.CategorySelectModel;
 import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.pages.product.Index;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -127,6 +128,9 @@ public class ProductEdit extends BaseComponent {
 
     @Parameter(name = "catalog", required = true, allowNull = true)
     private CatalogEntity catalog;
+
+    @Parameter(name = "reloadPage", required = false, allowNull = false, value = "false")
+    private boolean reloadPage;
 
     @Parameter(name = "productsBlock", required = false, allowNull = false)
     private Block productsBlock;
@@ -256,7 +260,7 @@ public class ProductEdit extends BaseComponent {
         goBack = true;
     }
 
-    public void onSubmitFromEditProductForm(Long pid, @RequestParameter(value = "stage", allowBlank = true) Stage currentStage) {
+    public Object onSubmitFromEditProductForm(Long pid, @RequestParameter(value = "stage", allowBlank = true) Stage currentStage) {
         if (!error) {
             final ProductEntity origProduct = pid != null ? getProductService().findProduct(pid) : product;
             if (currentStage == Stage.DESC) {
@@ -282,7 +286,10 @@ public class ProductEdit extends BaseComponent {
             }
             if (goBack) this.stage = this.stage.getPrevStage();
             else this.stage = this.stage.getNextStage();
-            if (closeImmediately) this.stage = Stage.DESC;
+            if (closeImmediately) {
+                this.stage = Stage.DESC;
+                if (reloadPage) return Index.class;
+            }
             if (!editProduct && closeImmediately) {
                 product = new ProductEntity();
             }
@@ -294,6 +301,7 @@ public class ProductEdit extends BaseComponent {
             product = pid != null ? getProductService().findProduct(pid) : new ProductEntity();
             ajaxResponseRenderer.addRender(getProductZone(), productEditBlock);
         }
+        return null;
     }
 
 }

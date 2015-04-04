@@ -57,7 +57,7 @@
                             <t:pagelink page="product/index" context="oneProduct.altId">
                                 <img src="${oneProduct.avatarUrlMedium}"/>
                             </t:pagelink>
-                            <t:pagelink page="product/index" context="oneProduct.altId" class="black-link"><span class="name f20px">${oneProduct.name}</span></t:pagelink>
+                            <t:pagelink page="product/index" context="oneProduct.altId" class="black-link"><div class="name f20px">${oneProduct.name}</div></t:pagelink>
                         </div>
                     </t:loop>
                 </div>
@@ -74,7 +74,7 @@
                         <t:pagelink page="catalog/index" context="oneCook.altId">
                             <img src="${oneCook.avatarUrl}"/>
                         </t:pagelink>
-                        <t:pagelink page="catalog/index" context="oneCook.altId" class="black-link"><span class="name f18px">${oneCook.name}</span></t:pagelink>
+                        <t:pagelink page="catalog/index" context="oneCook.altId" class="black-link"><div class="name f18px">${oneCook.name}</div></t:pagelink>
                     </div>
                 </t:loop>
             </div>

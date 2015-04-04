@@ -4,6 +4,7 @@ import org.apache.commons.lang.ObjectUtils;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.TagEntity;
@@ -22,6 +23,10 @@ public class Index extends BaseComponent {
 
     @Property
     private TagEntity oneTag;
+
+    @Property
+    @Inject
+    private Block productBlock;
 
     public Object onActivate(String pid) {
         product = getProductService().findProduct(pid);
@@ -56,6 +61,11 @@ public class Index extends BaseComponent {
 
     public String getProductUnit() {
         return getMessages().format(product.getUnit().name() + "_TEXT", product.getUnitValue()).toLowerCase();
+    }
+
+    @Cached
+    public boolean isCatalogOwner() {
+        return product.getCatalog().getUser().equals(getAuthenticatedUserOpt().orElse(null));
     }
 
 }
