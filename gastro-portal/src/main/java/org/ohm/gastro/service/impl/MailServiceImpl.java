@@ -13,6 +13,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PreDestroy;
 import java.io.StringWriter;
 import java.util.Map;
 import java.util.Properties;
@@ -51,6 +52,11 @@ public class MailServiceImpl implements MailService, Logging {
         mailSender.setHost("localhost");
         mailSender.setDefaultEncoding("UTF-8");
         this.mailSender = mailSender;
+    }
+
+    @PreDestroy
+    public void shutdown() {
+        executorService.shutdownNow();
     }
 
     @Override
