@@ -1,6 +1,6 @@
 package org.ohm.gastro.service.impl;
 
-import com.beust.jcommander.internal.Lists;
+import com.google.common.collect.Lists;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.service.MediaImportService;
 import org.ohm.gastro.service.social.InstagramApi;
