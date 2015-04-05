@@ -1,0 +1,16 @@
+{
+  "meta": {"code": 200},
+  "data": {
+    "username": "ezhulkov",
+    "bio": "human being",
+    "website": "http:\/\/www.eugenezhulkov.com",
+    "profile_picture": "https:\/\/instagramimages-a.akamaihd.net\/profiles\/profile_39949484_75sq_1334314429.jpg",
+    "full_name": "Eugene Zhulkov",
+    "counts": {
+      "media": 192,
+      "followed_by": 134,
+      "follows": 56
+    },
+    "id": "39949484"
+  }
+}

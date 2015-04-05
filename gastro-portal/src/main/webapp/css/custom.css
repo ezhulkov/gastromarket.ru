@@ -711,6 +711,10 @@ html > body div.t-error ul li {
     background-position: -124px 0;
 }
 
+.social-big a.in {
+    background-position: -186px 0;
+}
+
 .footer .copyright {
     color: #928e83;
     padding: 10px 0 10px 0;

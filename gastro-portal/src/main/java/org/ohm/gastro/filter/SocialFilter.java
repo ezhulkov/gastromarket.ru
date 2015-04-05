@@ -27,12 +27,12 @@ public class SocialFilter extends BaseApplicationFilter {
             throws ServletException, IOException {
 
         try {
-            String rqType = (String) ObjectUtils.defaultIfNull(httpServletRequest.getParameter("type"), "direct");
-            String socialNetwork = httpServletRequest.getParameter("social");
+            final String rqType = (String) ObjectUtils.defaultIfNull(httpServletRequest.getParameter("type"), "direct");
+            final String socialNetwork = httpServletRequest.getParameter("social");
             Logging.logger.info("Calling SocialFilter with parameters rqType: {}, socialNetwork {}", rqType, socialNetwork);
 
-            SocialSource socialSource = ApplicationContextHolder.getBean(SocialSource.class, socialNetwork);
-            OAuthService authService = socialSource.getAuthService();
+            final SocialSource socialSource = ApplicationContextHolder.getBean(SocialSource.class, socialNetwork);
+            final OAuthService authService = socialSource.getAuthService();
             if ("direct".equals(rqType)) {
                 String authUrl = authService.getAuthorizationUrl(null);
                 httpServletResponse.sendRedirect(authUrl);

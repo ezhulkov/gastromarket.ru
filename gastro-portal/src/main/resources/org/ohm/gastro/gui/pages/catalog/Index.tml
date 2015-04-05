@@ -14,27 +14,10 @@
                         <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо<span/></a>
                     </div>
                     <div class="more-link">
-                        <a class="product-edit-link" data-toggle="modal" data-target="#pr-export" href="#pr-export">Импортировать<span/></a>
+                        <t:pagelink class="product-edit-link" page="office/import">Импортировать <span/></t:pagelink>
                     </div>
                 </div>
                 <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>
-                <div class="modal fade" id="pr-export" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog application">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <div class="title">
-                                    <h1><span>Импорт готового меню</span></h1>
-                                </div>
-                                <a class="modal-close" data-dismiss="modal"></a>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <p class="modal-text">Выберите социальную сеть, где у Вас уже есть готовый каталог блюд</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="modal fade edit" id="catalog-edit" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
