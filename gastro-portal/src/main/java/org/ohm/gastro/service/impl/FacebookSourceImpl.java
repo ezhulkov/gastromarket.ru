@@ -30,6 +30,11 @@ public final class FacebookSourceImpl extends OAuthSocialSourceImpl<FacebookApi>
     }
 
     @Override
+    public String getSocialSourceName() {
+        return "Facebook";
+    }
+
+    @Override
     public UserEntity getUserProfile(Token token) {
         Response response = null;
         try {

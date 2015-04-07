@@ -7,7 +7,7 @@
             </div>
             <div class="row">
                 <div class="row">
-                    <p class="modal-text">Выберите социальную сеть, где у Вас уже есть готовый каталог блюд</p>
+                    <p class="modal-text">Выберите социальную сеть, где у Вас уже есть готовый каталог блюд:</p>
                 </div>
                 <div class="row">
                     <div class="col-sm-12 social-big">
@@ -18,6 +18,27 @@
                         </ul>
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                <t:if test="socialCodes">
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <p class="modal-text">Отметьте блюда, которые Вы бы хотели импортировать на свою страницу в ГастроМаркете:</p>
+                    <t:loop source="socialCodes" value="socialCode">
+                        <div class="import-source">
+                            <div class="title">
+                                <h2><span>${socialName}</span></h2>
+                            </div>
+                            <ul>
+                                <t:loop source="elements" value="oneElement">
+                                    <li>${oneElement.name}</li>
+                                </t:loop>
+                            </ul>
+                        </div>
+                    </t:loop>
+                </t:if>
             </div>
         </div>
     </div>

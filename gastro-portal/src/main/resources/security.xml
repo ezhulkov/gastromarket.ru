@@ -25,7 +25,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
         <form-login login-page="/login" default-target-url="/index" always-use-default-target="true" authentication-failure-url="/login/error"
                 login-processing-url="/j_security_check" authentication-success-handler-ref="authenticationSuccessHandler"/>
         <logout logout-url="/logout" invalidate-session="true" delete-cookies="true" success-handler-ref="logoutSuccessHandler"/>
-        <remember-me user-service-ref="userService" key="b6cNMFz1W8BFNDQPmPg2cuXJamNgCmOc"/>
+        <remember-me services-ref="rememberMeServices"/>
     </http>
 
     <authentication-manager alias="authenticationManager">
@@ -43,5 +43,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
     <beans:bean id="logoutSuccessHandler" class="org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler">
         <beans:property name="useReferer" value="true"/>
     </beans:bean>
+
+    <beans:bean id="rememberMeServices" class="org.ohm.gastro.service.impl.GmTokenBasedRememberMeServices"/>
 
 </beans:beans>

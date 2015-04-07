@@ -9,6 +9,8 @@ import org.scribe.oauth.OAuthService;
  */
 public interface SocialSource {
 
+    String getSocialSourceName();
+
     UserEntity getUserProfile(Token token);
 
     OAuthService getAuthService();

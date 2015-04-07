@@ -4,15 +4,19 @@ import java.util.concurrent.Callable;
 
 public class Throwables {
 
-    public static interface ExceptionWrapper<E> {
+    public interface ExceptionWrapper<E> {
         E wrap(Exception e);
+    }
+
+    public interface ThrowableRunnable {
+        void run() throws Exception;
     }
 
     public static <T> T propagate(Callable<T> callable) throws RuntimeException {
         return propagate(callable, RuntimeException::new);
     }
 
-    public static void propagate(RunnableTh runnable) throws RuntimeException {
+    public static void propagate(ThrowableRunnable runnable) throws RuntimeException {
         propagate(runnable, RuntimeException::new);
     }
 
@@ -26,7 +30,7 @@ public class Throwables {
         }
     }
 
-    public static <E extends Throwable> void propagate(RunnableTh runnable, ExceptionWrapper<E> wrapper) throws E {
+    public static <E extends Throwable> void propagate(ThrowableRunnable runnable, ExceptionWrapper<E> wrapper) throws E {
         try {
             runnable.run();
         } catch (RuntimeException e) {

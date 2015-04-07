@@ -272,6 +272,7 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
         return "UserEntity{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
+                ", fullName='" + fullName + '\'' +
                 '}';
     }
 

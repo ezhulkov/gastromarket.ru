@@ -1,5 +1,7 @@
 package org.ohm.gastro.gui.mixins;
 
+import com.google.common.collect.Maps;
+import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -16,14 +18,17 @@ import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyEntity.Type;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.domain.UserEntity;
+import org.ohm.gastro.filter.SocialFilter;
 import org.ohm.gastro.gui.dto.ShoppingCart;
 import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.MessageService;
 import org.ohm.gastro.service.OrderService;
 import org.ohm.gastro.service.ProductService;
 import org.ohm.gastro.service.UserService;
+import org.scribe.model.Token;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -59,6 +64,9 @@ public abstract class BaseComponent {
 
     @Inject
     private ApplicationGlobals globals;
+
+    @Inject
+    private ApplicationContext applicationContext;
 
     @Inject
     private PropertyAccess propertyAccess;
@@ -220,6 +228,10 @@ public abstract class BaseComponent {
         return globals;
     }
 
+    public ApplicationContext getApplicationContext() {
+        return applicationContext;
+    }
+
     public OrderProductEntity createPurchaseItem(Long pid) {
         final OrderProductEntity purchaseItem = new OrderProductEntity();
         final ProductEntity product = productService.findProduct(pid);
@@ -229,6 +241,19 @@ public abstract class BaseComponent {
         purchaseItem.setPrice(product.getPrice());
         purchaseItem.setProduct(product);
         return purchaseItem;
+    }
+
+    @Cached
+    public Map<String, Token> getTokens() {
+        final Object tokensMap = httpServletRequest.getSession().getAttribute(SocialFilter.TOKENS);
+        if (tokensMap != null && tokensMap instanceof Map) {
+            return (Map<String, Token>) tokensMap;
+        }
+        return Maps.newHashMap();
+    }
+
+    public Optional<Token> getToken(String code) {
+        return Optional.of(getTokens().get(code));
     }
 
 }

@@ -31,6 +31,11 @@ public final class VkontakteSourceImpl extends OAuthSocialSourceImpl<VkontakteAp
     }
 
     @Override
+    public String getSocialSourceName() {
+        return "Вконтакте";
+    }
+
+    @Override
     public UserEntity getUserProfile(Token token) {
         Response response = null;
         try {
