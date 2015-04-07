@@ -7,6 +7,7 @@ import org.ohm.gastro.service.social.InstagramApi;
 import org.ohm.gastro.service.social.InstagramMediaResponse;
 import org.ohm.gastro.service.social.MediaAlbum;
 import org.ohm.gastro.service.social.MediaElement;
+import org.ohm.gastro.service.social.MediaResponse;
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
 import org.scribe.model.Token;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 08.01.15.
@@ -65,17 +67,24 @@ public final class InstagramSourceImpl extends OAuthSocialSourceImpl<InstagramAp
     }
 
     @Override
-    public List<MediaElement> getElements(Token token) {
+    public MediaResponse getElements(Token token) {
         Response response = null;
         try {
             final OAuthRequest request = new OAuthRequest(Verb.GET, String.format(MEDIA_ENDPOINT, extractUserId(token)));
             getAuthService().signRequest(token, request);
             response = request.send();
-            InstagramMediaResponse medias = mapper.readValue(response.getBody(), InstagramMediaResponse.class);
-            System.out.println(medias);
-
+            final InstagramMediaResponse medias = mapper.readValue(response.getBody(), InstagramMediaResponse.class);
+            final MediaResponse mediaResponse = new MediaResponse(medias.getPagination().getNextUrl(),
+                                                                  medias.getData().stream()
+                                                                          .filter(t -> "image".equals(t.getType()))
+                                                                          .map(t -> new MediaElement(t.getLink(),
+                                                                                                     t.getImages().getStandardResolution().getUrl(),
+                                                                                                     t.getCaption() == null ? "" : t.getCaption().getText()))
+                                                                          .collect(Collectors.toList()));
+            logger.debug("Instagram parsed response {}", mediaResponse);
+            return mediaResponse;
         } catch (Exception e) {
-            logger.error("Error parsing raw {}, response {}", token == null ? null : token.getRawResponse(), response == null ? null : response.getBody());
+            logger.error("Error parsing response {}", response == null ? null : response.getBody());
             logger.error("", e);
         }
         return null;

@@ -894,9 +894,7 @@ html > body div.t-error ul li {
 
 .grid-block .name {
     line-height: 25px;
-}
-
-.grid-block .cook {
+    padding: 0 10px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -918,6 +916,16 @@ html > body div.t-error ul li {
     white-space: nowrap;
     text-align: center;
     text-overflow: ellipsis;
+}
+
+.grid-block > div img {
+    opacity: 0.9;
+
+}
+
+.grid-block > div:hover img {
+    opacity: 1;
+
 }
 
 .intl-tel-input {
@@ -945,28 +953,29 @@ html > body div.t-error ul li {
     display: block;
 }
 
+.import > div {
+    width: 210px;
+    height: 250px;
+}
+
+.import img {
+    height: 210px;
+}
+
 .cooks > div {
     width: 210px;
     height: 250px;
 }
 
 .cooks a {
-    opacity: 0.9;
     width: 210px;
     height: 210px;
     margin-bottom: 5px;
     overflow: hidden;
 }
 
-.cooks a:hover {
-    opacity: 1;
-}
-
 .cooks .name {
     width: 210px;
-    padding: 0 10px;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .promo > div {
@@ -975,21 +984,13 @@ html > body div.t-error ul li {
 }
 
 .promo a {
-    opacity: 0.9;
     width: 270px;
     height: 270px;
     margin-bottom: 18px;
 }
 
-.promo a:hover {
-    opacity: 1;
-}
-
 .promo .name {
     width: 270px;
-    padding: 0 10px;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .category > div {
@@ -997,55 +998,50 @@ html > body div.t-error ul li {
     height: 186px;
 }
 
-.category a {
-    opacity: 0.9;
+.category img {
     height: 145px;
     width: 100%;
     margin-bottom: 7px;
     overflow: hidden;
 }
 
-.category a:hover {
-    opacity: 1;
-}
-
-a.category-1 {
+.category-1 {
     background: transparent url("../img/category/soup-small.jpg") repeat-x;
 }
 
-a.category-2 {
+.category-2 {
     background: transparent url("../img/category/lemonade-small.jpg") repeat-x;
 }
 
-a.category-3 {
+.category-3 {
     background: transparent url("../img/category/dessert-small.jpg") repeat-x;
 }
 
-a.category-4 {
+.category-4 {
     background: transparent url("../img/category/country-small.jpg") repeat-x;
 }
 
-a.category-5 {
+.category-5 {
     background: transparent url("../img/category/catering-small.jpg") repeat-x;
 }
 
-a.category-6 {
+.category-6 {
     background: transparent url("../img/category/burger-small.jpg") repeat-x;
 }
 
-a.category-7 {
+.category-7 {
     background: transparent url("../img/category/steak-small.jpg") repeat-x;
 }
 
-a.category-8 {
+.category-8 {
     background: transparent url("../img/category/salad-small.jpg") repeat-x;
 }
 
-a.category-68 {
+.category-68 {
     background: transparent url("../img/category/cake-small.jpg") repeat-x;
 }
 
-a.category-69 {
+.category-69 {
     background: transparent url("../img/category/sidedishes-small.jpg") repeat-x;
 }
 

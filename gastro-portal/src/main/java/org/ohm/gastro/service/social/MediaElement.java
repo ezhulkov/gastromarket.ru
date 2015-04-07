@@ -5,26 +5,26 @@ package org.ohm.gastro.service.social;
  */
 public class MediaElement {
 
-    private final String name;
+    private final String link;
     private final String avatarUrl;
-    private final String text;
+    private final String caption;
 
-    public MediaElement(final String name, final String avatarUrl, final String text) {
-        this.name = name;
+    public MediaElement(final String link, final String avatarUrl, final String caption) {
+        this.link = link;
         this.avatarUrl = avatarUrl;
-        this.text = text;
+        this.caption = caption;
     }
 
-    public String getName() {
-        return name;
+    public String getLink() {
+        return link;
     }
 
     public String getAvatarUrl() {
         return avatarUrl;
     }
 
-    public String getText() {
-        return text;
+    public String getCaption() {
+        return caption;
     }
 
 }

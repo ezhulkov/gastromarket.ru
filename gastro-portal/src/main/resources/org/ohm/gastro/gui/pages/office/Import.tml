@@ -31,11 +31,19 @@
                             <div class="title">
                                 <h2><span>${socialName}</span></h2>
                             </div>
-                            <ul>
-                                <t:loop source="elements" value="oneElement">
-                                    <li>${oneElement.name}</li>
+                            <div class="grid-block import">
+                                <t:loop source="elements.mediaElements" value="oneElement">
+                                    <div>
+                                        <img src="${oneElement.avatarUrl}"/>
+                                        <a href="${oneElement.link}" target="_blank" class="black-link">
+                                            <div class="name f18px">${oneElement.caption}</div>
+                                        </a>
+                                    </div>
+                                    <t:parameter name="empty">
+                                        <div class="empty">Не получилось загрузить данные</div>
+                                    </t:parameter>
                                 </t:loop>
-                            </ul>
+                            </div>
                         </div>
                     </t:loop>
                 </t:if>

@@ -1,7 +1,7 @@
 package org.ohm.gastro.service;
 
 import org.ohm.gastro.service.social.MediaAlbum;
-import org.ohm.gastro.service.social.MediaElement;
+import org.ohm.gastro.service.social.MediaResponse;
 import org.scribe.model.Token;
 
 import java.util.List;
@@ -13,6 +13,6 @@ public interface MediaImportService extends SocialSource {
 
     List<MediaAlbum> getAlbums(Token token);
 
-    List<MediaElement> getElements(Token token);
+    MediaResponse getElements(Token token);
 
 }
