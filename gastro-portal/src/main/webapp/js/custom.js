@@ -336,7 +336,8 @@ function initFineUploader(el) {
                 itemLimit: 1
             }
         }).on("complete", function (id, name, responseJSON, xhr) {
-            jQuery(e).find("img").attr("src", xhr[respSize]);
+            var d = new Date();
+            jQuery(e).find("img").attr("src", xhr[respSize] + "?" + d.getTime());
         });
     })
 }
@@ -351,11 +352,13 @@ function realTitleWidth(obj) {
 }
 
 function triggerEvent(element, eventName) {
-    if (document.createEvent) {
-        var evt = document.createEvent('HTMLEvents');
-        evt.initEvent(eventName, true, true);
-        return element.dispatchEvent(evt);
-    } else if (element.fireEvent) {
-        return element.fireEvent('on' + eventName);
+    if (element && eventName) {
+        if (document.createEvent) {
+            var evt = document.createEvent('HTMLEvents');
+            evt.initEvent(eventName, true, true);
+            return element.dispatchEvent(evt);
+        } else if (element.fireEvent) {
+            return element.fireEvent('on' + eventName);
+        }
     }
 }

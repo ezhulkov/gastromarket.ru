@@ -69,11 +69,10 @@ public class Index extends BaseComponent {
         return catalogFormBlock;
     }
 
-    public Block onSuccessFromCatalogForm() {
+    public Class onSuccessFromCatalogForm() {
         getCatalogService().saveCatalog(catalog);
         getCatalogService().setupCatalog(catalog);
-        closeImmediately = true;
-        return catalogFormBlock;
+        return Index.class;
     }
 
     public Object onActivate(String pid) {

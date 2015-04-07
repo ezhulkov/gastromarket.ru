@@ -12,9 +12,9 @@
 
                 <div class="breadcrumbs">
                     <t:if test="product.category.parent">
-                        <a href="/catalog/list/${product.category.parent?.id}">${product.category.parent?.name}</a> <span> / </span>
+                        <a href="/product/list/${product.category.parent?.id}">${product.category.parent?.name}</a> <span> / </span>
                     </t:if>
-                    <a href="/catalog/list/${product.category.id}">${product.category.name}</a>
+                    <a href="/product/list/${product.category.id}">${product.category.name}</a>
                 </div>
                 <div class="row info">
                     <div class="col-sm-6 product-item big-picture">
