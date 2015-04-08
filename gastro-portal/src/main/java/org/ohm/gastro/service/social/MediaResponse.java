@@ -1,5 +1,7 @@
 package org.ohm.gastro.service.social;
 
+import com.google.common.collect.Lists;
+
 import java.util.List;
 
 /**
@@ -8,11 +10,11 @@ import java.util.List;
 public class MediaResponse {
 
     private final String context;
-    private final List<MediaElement> mediaElements;
+    private final List<MediaElement> mediaElements = Lists.newArrayList();
 
     public MediaResponse(final String context, final List<MediaElement> mediaElements) {
         this.context = context;
-        this.mediaElements = mediaElements;
+        if (mediaElements != null) this.mediaElements.addAll(mediaElements);
     }
 
     public String getContext() {

@@ -13,8 +13,10 @@ import java.util.List;
  */
 public interface MediaImportService extends SocialSource {
 
+    @Nonnull
     List<MediaAlbum> getAlbums(@Nonnull Token token);
 
+    @Nonnull
     MediaResponse getElements(@Nonnull Token token, @Nullable Object context);
 
 }

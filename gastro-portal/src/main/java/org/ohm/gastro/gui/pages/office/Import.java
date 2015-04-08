@@ -2,8 +2,10 @@ package org.ohm.gastro.gui.pages.office;
 
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.service.MediaImportService;
 import org.ohm.gastro.service.SocialSource;
@@ -11,6 +13,10 @@ import org.ohm.gastro.service.social.MediaElement;
 import org.ohm.gastro.service.social.MediaResponse;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -28,7 +34,26 @@ public class Import extends BaseComponent {
     @Inject
     private Block elementsBlock;
 
+    @Property
+    @Inject
+    private Block elementBlock;
+
+    @Property
+    private CatalogEntity catalog;
+
+    @Persist
+    private Map<String, Set<MediaElement>> cachedElements;
+
     private String context;
+
+    public void onActivate(Long cid) {
+        catalog = getCatalogService().findCatalog(cid);
+        if (cachedElements == null) cachedElements = new HashMap<>();
+    }
+
+    public Long onPassivate() {
+        return catalog == null ? null : catalog.getId();
+    }
 
     @Cached
     public Collection<String> getSocialCodes() {
@@ -41,14 +66,28 @@ public class Import extends BaseComponent {
         return getApplicationContext().getBean(socialCode, MediaImportService.class).getSocialSourceName();
     }
 
+    @Cached
     public MediaResponse getElements() {
-        return getToken(socialCode)
+        final MediaResponse mediaResponse = getToken(socialCode)
                 .map(token -> getApplicationContext().getBean(socialCode, MediaImportService.class).getElements(token, context))
                 .orElse(null);
+        synchronized (Import.class) {
+            Set<MediaElement> mediaElements = cachedElements.get(socialCode);
+            if (mediaElements == null) {
+                mediaElements = new HashSet<>();
+                cachedElements.put(socialCode, mediaElements);
+            }
+            mediaElements.addAll(mediaResponse.getMediaElements());
+        }
+        return mediaResponse;
     }
 
     public String getElementsZone() {
         return "elementsZone" + socialCode;
+    }
+
+    public String getElementZone() {
+        return "elementZone" + oneElement.getLink();
     }
 
     public Block onActionFromInitialFetchElements(String socialCode) {
@@ -61,6 +100,17 @@ public class Import extends BaseComponent {
         this.socialCode = socialCode;
         this.context = context;
         return elementsBlock;
+    }
+
+    public Block onActionFromCheckElement(String socialCode, String link) {
+        this.socialCode = socialCode;
+        this.oneElement = cachedElements.get(socialCode).stream().filter(t -> t.getLink().equals(link)).findFirst().get();
+        this.oneElement.toggle();
+        return elementBlock;
+    }
+
+    public boolean isChecked() {
+        return cachedElements.get(socialCode).stream().filter(t -> t.equals(oneElement)).findFirst().get().isChecked();
     }
 
 }

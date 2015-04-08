@@ -46,7 +46,7 @@ a {
     text-align: center;
     height: 50px;
     width: 50px;
-    margin: 0 auto;
+    margin: 2px auto;
     background: url("../img/spinner.gif") no-repeat;
     background-size: 50px;
 }
@@ -932,7 +932,7 @@ html > body div.t-error ul li {
 }
 
 .grid-block > div img {
-    opacity: 0.9;
+    opacity: 0.95;
 
 }
 
@@ -959,7 +959,6 @@ html > body div.t-error ul li {
 
 .grid-block a {
     display: block;
-    margin-bottom: 7px;
 }
 
 .grid-block a {
@@ -975,6 +974,10 @@ html > body div.t-error ul li {
     height: 210px;
     cursor: pointer;
     margin-bottom: 7px;
+}
+
+.import .element-item .checked_true {
+    background: transparent url("../img/product-edit.png") no-repeat;
 }
 
 div.element-item {

@@ -343,7 +343,7 @@ function initFineUploader(el) {
 }
 function initImportPage() {
     jQuery(".import-source").each(function (i, e) {
-        Event.observe(jQuery(".elements-zone", e).get(0), Tapestry.ZONE_UPDATED_EVENT, function () {
+        Event.observe(jQuery("div.elements-zone", e).get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
             var target = jQuery(".grid-block.import", e);
             jQuery(".element-item", e).appendTo(target);
             jQuery(".element-item", target).filter(function () {

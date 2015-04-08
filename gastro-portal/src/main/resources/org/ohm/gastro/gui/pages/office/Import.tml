@@ -38,12 +38,17 @@
                             </t:zone>
                             <t:block t:id="elementsBlock">
                                 <t:loop source="elements.mediaElements" value="oneElement">
-                                    <div class="element-item">
-                                        <img src="${oneElement.avatarUrl}"/>
+                                    <t:zone id="${elementZone}" class="element-item">
+                                        <t:delegate to="elementBlock"/>
+                                    </t:zone>
+                                    <t:block t:id="elementBlock">
+                                        <t:actionlink t:id="checkElement" t:context="[socialCode,oneElement.link]" t:zone="${elementZone}">
+                                            <img src="${oneElement.avatarUrl}" class="checked_${checked}"/>
+                                        </t:actionlink>
                                         <a href="${oneElement.link}" target="_blank" class="black-link">
                                             <div class="name f18px">${oneElement.caption}</div>
                                         </a>
-                                    </div>
+                                    </t:block>
                                 </t:loop>
                                 <div class="more-elements">
                                     <t:if test="elements.context">

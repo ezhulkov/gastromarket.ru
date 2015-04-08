@@ -65,11 +65,13 @@ public final class VkontakteSourceImpl extends OAuthSocialSourceImpl<VkontakteAp
         return null;
     }
 
+    @Nonnull
     @Override
     public List<MediaAlbum> getAlbums(@Nonnull Token token) {
         return Lists.newArrayList();
     }
 
+    @Nonnull
     @Override
     public MediaResponse getElements(@Nonnull Token token, @Nullable Object context) {
         return new MediaResponse(null, null);

@@ -64,11 +64,13 @@ public final class InstagramSourceImpl extends OAuthSocialSourceImpl<InstagramAp
         return null;
     }
 
+    @Nonnull
     @Override
     public List<MediaAlbum> getAlbums(@Nonnull Token token) {
         return Lists.newArrayList();
     }
 
+    @Nonnull
     @Override
     public MediaResponse getElements(@Nonnull Token token, @Nullable Object context) {
         Response response = null;
