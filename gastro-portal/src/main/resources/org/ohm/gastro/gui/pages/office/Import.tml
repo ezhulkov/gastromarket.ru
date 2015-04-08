@@ -25,7 +25,7 @@
                     <br/>
                     <br/>
 
-                    <p class="modal-text">Отметьте блюда, которые Вы бы хотели импортировать на свою страницу в ГастроМаркете:</p>
+                    <p class="modal-text">Отметьте блюда, которые Вы бы хотели добавить на свою страницу в ГастроМаркете,<br/> и нажмите кнопку "Импортировать" внизу страницы:</p>
                     <t:loop source="socialCodes" value="socialCode">
                         <div class="import-source">
                             <div class="title">
@@ -43,7 +43,10 @@
                                     </t:zone>
                                     <t:block t:id="elementBlock">
                                         <t:actionlink t:id="checkElement" t:context="[socialCode,oneElement.link]" t:zone="${elementZone}">
-                                            <img src="${oneElement.avatarUrl}" class="checked_${checked}"/>
+                                            <img src="${oneElement.avatarUrl}"/>
+                                            <t:if test="checked">
+                                                <span class="checked"/>
+                                            </t:if>
                                         </t:actionlink>
                                         <a href="${oneElement.link}" target="_blank" class="black-link">
                                             <div class="name f18px">${oneElement.caption}</div>
@@ -62,6 +65,15 @@
                             </t:block>
                         </div>
                     </t:loop>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <p class="modal-text">Начать импорт выбранных элементов на Вашу страницу '${catalog.name}'</p>
+
+                    <p class="modal-text">
+                        <t:actionlink t:id="import" class="btn btn-red btn-lg">Импортировать</t:actionlink>
+                    </p>
                 </t:if>
             </div>
         </div>

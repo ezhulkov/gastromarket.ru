@@ -976,12 +976,18 @@ html > body div.t-error ul li {
     margin-bottom: 7px;
 }
 
-.import .element-item .checked_true {
-    background: transparent url("../img/product-edit.png") no-repeat;
+.import .element-item .checked {
+    position: absolute;
+    top: 60px;
+    left: 80px;
+    width: 49px;
+    height: 49px;
+    background: transparent url("../img/product-edit.png") no-repeat -147px 0;
 }
 
 div.element-item {
     display: none;
+    position: relative;
 }
 
 .cooks > div {

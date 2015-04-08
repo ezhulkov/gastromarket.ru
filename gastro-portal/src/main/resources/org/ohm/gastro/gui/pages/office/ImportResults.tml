@@ -1,0 +1,17 @@
+<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <div class="contacts">
+        <div class="container">
+            <div class="title">
+                <h1><span>Импорт каталога блюд</span></h1>
+            </div>
+            <div class="row">
+                <div class="row">
+                    <p class="modal-text">Результаты</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</t:htmlLayout>

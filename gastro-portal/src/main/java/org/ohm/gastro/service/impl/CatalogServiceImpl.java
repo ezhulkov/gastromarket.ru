@@ -6,6 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
+import org.ohm.gastro.domain.ProductEntity.Unit;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.RatingEntity;
@@ -17,6 +18,7 @@ import org.ohm.gastro.reps.PropertyRepository;
 import org.ohm.gastro.reps.PropertyValueRepository;
 import org.ohm.gastro.reps.RatingRepository;
 import org.ohm.gastro.service.CatalogService;
+import org.ohm.gastro.service.social.MediaElement;
 import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -24,9 +26,11 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Nonnull;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.scribe.utils.Preconditions.checkNotNull;
@@ -197,6 +201,19 @@ public class CatalogServiceImpl implements CatalogService, Logging {
         ratingEntity.setDate(new Timestamp(System.currentTimeMillis()));
         ratingEntity.setRating(rating);
         ratingRepository.save(ratingEntity);
+    }
+
+    @Override
+    public void importProducts(@Nonnull final Map<String, Set<MediaElement>> cachedElements, @Nonnull final CatalogEntity catalog) {
+        cachedElements.entrySet().stream().flatMap(t -> t.getValue().stream()).filter(MediaElement::isChecked).forEach(element -> {
+            ProductEntity product = new ProductEntity();
+            product.setCatalog(catalog);
+            product.setName(element.getCaption());
+            product.setUnit(Unit.PIECE);
+            product.setUnitValue(1);
+            product.setPrice(0);
+            productRepository.save(product);
+        });
     }
 
     @Override

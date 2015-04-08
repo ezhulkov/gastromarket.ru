@@ -27,7 +27,7 @@
                                 <div class="col-sm-1"/>
                                 <div class="col-sm-10">
                                     <t:label t:for="productCategory">Категория:</t:label>
-                                    <t:select t:id="productCategory" class="form-control chosen-select"/>
+                                    <t:select t:id="productCategory" data-placeholder="Выберите категорию блюда" class="form-control chosen-select"/>
                                 </div>
                                 <div class="col-sm-1"/>
                             </div>

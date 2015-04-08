@@ -113,4 +113,9 @@ public class Import extends BaseComponent {
         return cachedElements.get(socialCode).stream().filter(t -> t.equals(oneElement)).findFirst().get().isChecked();
     }
 
+    public Class onActionFromImport() {
+        getCatalogService().importProducts(cachedElements,catalog);
+        return ImportResults.class;
+    }
+
 }

@@ -170,6 +170,7 @@ public class ProductServiceImpl implements ProductService, Logging {
     public List<ProductEntity> findRecommendedProducts(final Long pid, final int count) {
         final ProductEntity product = productRepository.findOne(pid);
         final CategoryEntity category = product.getCategory();
+        if (category == null) return Lists.newArrayList();
         final CategoryEntity parentCategory = category.getParent() == null ? category : category.getParent();
         return productRepository.findAllByParentCategory(parentCategory, false, null).getContent().stream()
                 .filter(p -> !p.equals(product))

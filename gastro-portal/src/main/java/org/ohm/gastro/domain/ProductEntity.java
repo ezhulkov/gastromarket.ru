@@ -66,7 +66,7 @@ public class ProductEntity extends AbstractBaseEntity implements AltIdEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private CatalogEntity catalog;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     private CategoryEntity category;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
