@@ -341,7 +341,25 @@ function initFineUploader(el) {
         });
     })
 }
-
+function initImportPage() {
+    jQuery(".import-source").each(function (i, e) {
+        Event.observe(jQuery(".elements-zone", e).get(0), Tapestry.ZONE_UPDATED_EVENT, function () {
+            var target = jQuery(".grid-block.import", e);
+            jQuery(".element-item", e).appendTo(target);
+            jQuery(".element-item", target).filter(function () {
+                return jQuery(this).css("display") == "none";
+            }).fadeIn(100);
+            jQuery(".more-elements .more-link a", e).unbind('click').bind('click', function (btn) {
+                jQuery(btn.target).closest("div.more-link").hide();
+                jQuery(".spinner.fetch", e).removeClass("hidden");
+                triggerEvent(jQuery("a.fetch", e).get(0), "click");
+            });
+        });
+        setTimeout(function () {
+            triggerEvent(jQuery("a.initial-fetch", e).get(0), "click")
+        }, 500);
+    });
+}
 function realTitleWidth(obj) {
     var clone = obj.clone();
     clone.css("visibility", "hidden");

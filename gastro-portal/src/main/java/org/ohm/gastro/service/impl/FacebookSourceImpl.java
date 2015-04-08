@@ -1,7 +1,11 @@
 package org.ohm.gastro.service.impl;
 
+import com.google.common.collect.Lists;
 import org.ohm.gastro.domain.UserEntity;
+import org.ohm.gastro.service.MediaImportService;
 import org.ohm.gastro.service.social.FacebookUserProfile;
+import org.ohm.gastro.service.social.MediaAlbum;
+import org.ohm.gastro.service.social.MediaResponse;
 import org.scribe.builder.api.FacebookApi;
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
@@ -11,11 +15,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
+
 /**
  * Created by ezhulkov on 08.01.15.
  */
 @Component("fb")
-public final class FacebookSourceImpl extends OAuthSocialSourceImpl<FacebookApi> {
+public final class FacebookSourceImpl extends OAuthSocialSourceImpl<FacebookApi> implements MediaImportService {
 
     private final static String REST_API_URL = "https://graph.facebook.com/me";
     private final static String AVATAR_SMALL = "https://graph.facebook.com/%s/picture";
@@ -54,6 +62,16 @@ public final class FacebookSourceImpl extends OAuthSocialSourceImpl<FacebookApi>
             logger.error("", e);
         }
         return null;
+    }
+
+    @Override
+    public List<MediaAlbum> getAlbums(@Nonnull Token token) {
+        return Lists.newArrayList();
+    }
+
+    @Override
+    public MediaResponse getElements(@Nonnull Token token, @Nullable Object context) {
+        return new MediaResponse(null, null);
     }
 
 }

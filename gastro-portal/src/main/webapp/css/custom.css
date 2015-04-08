@@ -38,6 +38,19 @@ body {
     margin-top: 55px;
 }
 
+a {
+    cursor: pointer;
+}
+
+.spinner {
+    text-align: center;
+    height: 50px;
+    width: 50px;
+    margin: 0 auto;
+    background: url("../img/spinner.gif") no-repeat;
+    background-size: 50px;
+}
+
 .rub {
     display: inline !important;
     padding-right: 10px;
@@ -960,6 +973,12 @@ html > body div.t-error ul li {
 
 .import img {
     height: 210px;
+    cursor: pointer;
+    margin-bottom: 7px;
+}
+
+div.element-item {
+    display: none;
 }
 
 .cooks > div {

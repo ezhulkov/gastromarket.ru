@@ -1,7 +1,9 @@
 package org.ohm.gastro.gui.pages.office;
 
+import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.service.MediaImportService;
 import org.ohm.gastro.service.SocialSource;
@@ -22,6 +24,12 @@ public class Import extends BaseComponent {
     @Property
     private MediaElement oneElement;
 
+    @Property
+    @Inject
+    private Block elementsBlock;
+
+    private String context;
+
     @Cached
     public Collection<String> getSocialCodes() {
         return getTokens().keySet().stream()
@@ -35,8 +43,24 @@ public class Import extends BaseComponent {
 
     public MediaResponse getElements() {
         return getToken(socialCode)
-                .map(token -> getApplicationContext().getBean(socialCode, MediaImportService.class).getElements(token))
+                .map(token -> getApplicationContext().getBean(socialCode, MediaImportService.class).getElements(token, context))
                 .orElse(null);
+    }
+
+    public String getElementsZone() {
+        return "elementsZone" + socialCode;
+    }
+
+    public Block onActionFromInitialFetchElements(String socialCode) {
+        this.socialCode = socialCode;
+        this.context = null;
+        return elementsBlock;
+    }
+
+    public Block onActionFromFetchElements(String socialCode, String context) {
+        this.socialCode = socialCode;
+        this.context = context;
+        return elementsBlock;
     }
 
 }

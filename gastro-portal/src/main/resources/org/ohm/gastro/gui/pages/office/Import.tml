@@ -31,24 +31,39 @@
                             <div class="title">
                                 <h2><span>${socialName}</span></h2>
                             </div>
-                            <div class="grid-block import">
+                            <div class="grid-block import"/>
+                            <t:zone id="${elementsZone}" class="elements-zone">
+                                <div class="spinner"/>
+                                <t:actionlink t:id="initialFetchElements" t:context="socialCode" t:zone="${elementsZone}" class="hidden initial-fetch"/>
+                            </t:zone>
+                            <t:block t:id="elementsBlock">
                                 <t:loop source="elements.mediaElements" value="oneElement">
-                                    <div>
+                                    <div class="element-item">
                                         <img src="${oneElement.avatarUrl}"/>
                                         <a href="${oneElement.link}" target="_blank" class="black-link">
                                             <div class="name f18px">${oneElement.caption}</div>
                                         </a>
                                     </div>
-                                    <t:parameter name="empty">
-                                        <div class="empty">Не получилось загрузить данные</div>
-                                    </t:parameter>
                                 </t:loop>
-                            </div>
+                                <div class="more-elements">
+                                    <t:if test="elements.context">
+                                        <div class="more-link">
+                                            <a>Загрузить еще...</a>
+                                        </div>
+                                        <div class="spinner fetch hidden"/>
+                                        <t:actionlink t:id="fetchElements" t:context="[socialCode,elements.context]" t:zone="${elementsZone}" class="hidden fetch"/>
+                                    </t:if>
+                                </div>
+                            </t:block>
                         </div>
                     </t:loop>
                 </t:if>
             </div>
         </div>
     </div>
+
+    <script>
+        jQuery(initImportPage());
+    </script>
 
 </t:htmlLayout>

@@ -1,6 +1,7 @@
 package org.ohm.gastro.service.impl;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.service.MediaImportService;
 import org.ohm.gastro.service.social.InstagramApi;
@@ -16,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -62,15 +65,18 @@ public final class InstagramSourceImpl extends OAuthSocialSourceImpl<InstagramAp
     }
 
     @Override
-    public List<MediaAlbum> getAlbums(Token token) {
+    public List<MediaAlbum> getAlbums(@Nonnull Token token) {
         return Lists.newArrayList();
     }
 
     @Override
-    public MediaResponse getElements(Token token) {
+    public MediaResponse getElements(@Nonnull Token token, @Nullable Object context) {
         Response response = null;
         try {
-            final OAuthRequest request = new OAuthRequest(Verb.GET, String.format(MEDIA_ENDPOINT, extractUserId(token)));
+            final String paging = context == null ? null : context.toString();
+            final OAuthRequest request = new OAuthRequest(Verb.GET, StringUtils.isEmpty(paging) ?
+                    String.format(MEDIA_ENDPOINT, extractUserId(token)) :
+                    paging);
             getAuthService().signRequest(token, request);
             response = request.send();
             final InstagramMediaResponse medias = mapper.readValue(response.getBody(), InstagramMediaResponse.class);
