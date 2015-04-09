@@ -445,4 +445,11 @@
         </sql>
     </changeSet>
 
+    <changeSet id="31" author="ezhulkov">
+        <addColumn tableName="product">
+            <column name="was_setup" type="java.sql.Types.BOOLEAN" defaultValueBoolean="false"/>
+        </addColumn>
+        <dropColumn tableName="product" columnName="hidden"/>
+    </changeSet>
+
 </databaseChangeLog>

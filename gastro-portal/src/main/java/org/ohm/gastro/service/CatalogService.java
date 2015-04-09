@@ -7,11 +7,8 @@ import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.RatingEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.reps.CatalogRepository;
-import org.ohm.gastro.service.social.MediaElement;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by ezhulkov on 21.08.14.
@@ -67,7 +64,5 @@ public interface CatalogService extends ImageUploaderService<CatalogEntity>, Alt
     List<RatingEntity> findAllRatings(CatalogEntity user);
 
     void rateCatalog(final CatalogEntity catalog, final String comment, final int rating, final UserEntity user);
-
-    void importProducts(Map<String, Set<MediaElement>> cachedElements, CatalogEntity catalog);
 
 }

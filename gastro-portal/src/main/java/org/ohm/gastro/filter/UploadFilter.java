@@ -1,7 +1,6 @@
 package org.ohm.gastro.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.ImmutableMap;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -38,9 +37,6 @@ import static org.ohm.gastro.misc.Throwables.propagate;
  */
 public class UploadFilter extends BaseApplicationFilter implements Logging {
 
-    private final static String IMAGE_DESTINATION_URL = "imageDestinationUrl";
-    private final static String IMAGE_DESTINATION_PATH = "imageDestinationPath";
-    private final static String IMAGE_NAME_TEMPLATE = "%s_%s_%s.jpg";
     private final static ObjectMapper objectMapper = new ObjectMapper();
 
     private volatile Collection<ImageUploaderService> uploaderServices;
@@ -48,23 +44,7 @@ public class UploadFilter extends BaseApplicationFilter implements Logging {
     private static String imageDestinationPath;
     private static String imageDestinationUrl;
 
-    private final static Map<FileType, Map<ImageSize, Integer[]>> sizes = new ImmutableMap.Builder<FileType, Map<ImageSize, Integer[]>>()
-            .put(FileType.AVATAR, new ImmutableMap.Builder<ImageSize, Integer[]>()
-                    .put(ImageSize.SIZE1, new Integer[]{23, 23})
-                    .put(ImageSize.SIZE2, new Integer[]{100, 100})
-                    .put(ImageSize.SIZE3, new Integer[]{210, 210})
-                    .build())
-            .put(FileType.PRODUCT, new ImmutableMap.Builder<ImageSize, Integer[]>()
-                    .put(ImageSize.SIZE1, new Integer[]{100, 100})
-                    .put(ImageSize.SIZE2, new Integer[]{270, 270})
-                    .put(ImageSize.SIZE3, new Integer[]{430, 310})
-                    .build())
-            .put(FileType.CATALOG, new ImmutableMap.Builder<ImageSize, Integer[]>()
-                    .put(ImageSize.SIZE1, new Integer[]{23, 23})
-                    .put(ImageSize.SIZE2, new Integer[]{100, 100})
-                    .put(ImageSize.SIZE3, new Integer[]{210, 210})
-                    .build())
-            .build();
+
 
     protected void initFilterBean() throws ServletException {
         super.initFilterBean();

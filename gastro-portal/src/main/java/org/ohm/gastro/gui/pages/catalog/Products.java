@@ -10,6 +10,7 @@ import org.ohm.gastro.gui.mixins.ScrollableProducts;
 import org.ohm.gastro.service.ProductService.OrderType;
 import org.springframework.data.domain.Sort.Direction;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 /**
@@ -60,6 +61,11 @@ public class Products extends ScrollableProducts {
 
     public Consumer<ProductEntity> getProductSetter() {
         return productEntity -> editedProduct = productEntity;
+    }
+
+    @Override
+    protected List<ProductEntity> getProductsInternal() {
+        return isCatalogOwner() ? getProductService().findAllProducts(category, catalog) : super.getProductsInternal();
     }
 
 }

@@ -34,7 +34,7 @@ public class Index extends EditObjectPage<CatalogEntity> {
 
     @Cached
     public java.util.List<ProductEntity> getProducts() {
-        return getProductService().findAllProducts(null, getObject(), null);
+        return getProductService().findAllProducts(null, getObject());
     }
 
     @Override

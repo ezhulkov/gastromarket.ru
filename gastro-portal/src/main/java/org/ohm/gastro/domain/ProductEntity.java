@@ -55,9 +55,6 @@ public class ProductEntity extends AbstractBaseEntity implements AltIdEntity {
     private int unitValue = 1;
 
     @Column
-    private boolean hidden = false;
-
-    @Column
     private Timestamp date = new Timestamp(System.currentTimeMillis());
 
     @Column
@@ -72,12 +69,14 @@ public class ProductEntity extends AbstractBaseEntity implements AltIdEntity {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
     private List<TagEntity> values = Lists.newArrayList();
 
+    @Column(name = "was_setup")
+    private boolean wasSetup = false;
+
     @Column(name = "avatar_url")
     private String avatarUrl = "/img/product-stub.png";
 
     @Column(name = "avatar_url_medium")
     private String avatarUrlMedium = "/img/product-stub-medium.png";
-
 
     @Column(name = "avatar_url_small")
     private String avatarUrlSmall = "/img/product-stub-small.png";
@@ -126,14 +125,6 @@ public class ProductEntity extends AbstractBaseEntity implements AltIdEntity {
 
     public void setAvatarUrlSmall(final String avatarUrlSmall) {
         this.avatarUrlSmall = avatarUrlSmall;
-    }
-
-    public boolean isHidden() {
-        return hidden;
-    }
-
-    public void setHidden(final boolean hidden) {
-        this.hidden = hidden;
     }
 
     public String getName() {
@@ -218,6 +209,14 @@ public class ProductEntity extends AbstractBaseEntity implements AltIdEntity {
 
     public void setUnitValue(int unitValue) {
         this.unitValue = unitValue;
+    }
+
+    public boolean isWasSetup() {
+        return wasSetup;
+    }
+
+    public void setWasSetup(final boolean wasSetup) {
+        this.wasSetup = wasSetup;
     }
 
 }

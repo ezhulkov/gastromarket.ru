@@ -18,18 +18,18 @@ public interface ProductRepository extends AltIdRepository<ProductEntity> {
     @Query("from ProductEntity pr " +
             "where (pr.category=:category or :category is null) and " +
             "      (pr.catalog=:catalog or :catalog is null) and " +
-            "      (pr.hidden=false or :hidden is null)")
-    Page<ProductEntity> findAllByCategoryAndCatalog(@Param("category") CategoryEntity category, @Param("catalog") CatalogEntity catalog, @Param("hidden") Boolean hidden, Pageable page);
+            "      (pr.wasSetup=true or :wasSetup is null)")
+    Page<ProductEntity> findAllByCategoryAndCatalog(@Param("category") CategoryEntity category, @Param("catalog") CatalogEntity catalog, @Param("wasSetup") Boolean wasSetup, Pageable page);
 
-    @Query("select count(*) from ProductEntity where catalog=:catalog and hidden=false")
+    @Query("select count(*) from ProductEntity where catalog=:catalog and wasSetup=false")
     int findCountCatalog(@Param("catalog") CatalogEntity catalog);
 
     @Query("select pr from ProductEntity pr " +
             "join pr.category c " +
             "left join c.parent p " +
             "where (p=:category or c=:category) and " +
-            "      (pr.hidden=false or :hidden is null)")
-    Page<ProductEntity> findAllByParentCategory(@Param("category") CategoryEntity parentCategory, @Param("hidden") Boolean hidden, Pageable page);
+            "      (pr.wasSetup=true or :wasSetup is null)")
+    Page<ProductEntity> findAllByParentCategory(@Param("category") CategoryEntity parentCategory, @Param("wasSetup") Boolean wasSetup, Pageable page);
 
     @Query(value = "SELECT *\n" +
             "FROM (\n" +

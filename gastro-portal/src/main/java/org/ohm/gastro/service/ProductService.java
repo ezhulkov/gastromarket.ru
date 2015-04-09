@@ -5,10 +5,12 @@ import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.reps.ProductRepository;
+import org.ohm.gastro.service.social.MediaElement;
 import org.springframework.data.domain.Sort.Direction;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by ezhulkov on 21.08.14.
@@ -21,7 +23,7 @@ public interface ProductService extends ImageUploaderService<ProductEntity>, Alt
         NAME, PRICE, NONE
     }
 
-    List<ProductEntity> findAllProducts(final CategoryEntity category, final CatalogEntity catalog, final Boolean hidden);
+    List<ProductEntity> findAllProducts(final CategoryEntity category, final CatalogEntity catalog);
 
     List<ProductEntity> findProductsForFrontend(final CategoryEntity category, final CatalogEntity catalog, final OrderType orderType, final Direction direction, final int from, final int to);
 
@@ -47,6 +49,6 @@ public interface ProductService extends ImageUploaderService<ProductEntity>, Alt
 
     void promoteProduct(final Long pid);
 
-    void publishProduct(final Long pid);
+    void importProducts(Map<String, Set<MediaElement>> cachedElements, CatalogEntity catalog);
 
 }

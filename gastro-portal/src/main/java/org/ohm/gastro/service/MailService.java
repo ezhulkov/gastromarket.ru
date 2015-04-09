@@ -13,6 +13,7 @@ public interface MailService {
     String NEW_CATALOG = "new_catalog";
     String NEW_USER = "new_user";
     String NEW_APPLICATION = "new_application";
+    String NEW_APPLICATION_COOK = "new_application_cook";
     String FEEDBACK = "feedback";
     String NEW_ORDER_ADMIN = "new_order_admin";
     String NEW_ORDER_COOK = "new_order_cook";

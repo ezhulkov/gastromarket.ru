@@ -114,7 +114,7 @@ public class Import extends BaseComponent {
     }
 
     public Class onActionFromImport() {
-        getCatalogService().importProducts(cachedElements,catalog);
+        getProductService().importProducts(cachedElements, catalog);
         return ImportResults.class;
     }
 

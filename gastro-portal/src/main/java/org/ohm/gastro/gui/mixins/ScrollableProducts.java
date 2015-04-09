@@ -57,8 +57,12 @@ public abstract class ScrollableProducts extends BaseComponent {
         return productsBlock;
     }
 
+    protected java.util.List<ProductEntity> getProductsInternal() {
+        return getProductService().findProductsForFrontend(category, catalog, orderType, direction, from, to);
+    }
+
     public java.util.List<ProductEntity> getProducts() {
-        final java.util.List<ProductEntity> products = getProductService().findProductsForFrontend(category, catalog, orderType, direction, from, to);
+        final java.util.List<ProductEntity> products = getProductsInternal();
         hasProducts = !products.isEmpty();
         wasProducts = from != 0 || !products.isEmpty();
         return products;

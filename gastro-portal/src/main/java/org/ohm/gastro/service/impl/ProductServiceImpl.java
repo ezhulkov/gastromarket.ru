@@ -8,11 +8,13 @@ import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
+import org.ohm.gastro.domain.ProductEntity.Unit;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.reps.ProductRepository;
 import org.ohm.gastro.reps.TagRepository;
 import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.ProductService;
+import org.ohm.gastro.service.social.MediaElement;
 import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -22,12 +24,14 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -87,6 +91,7 @@ public class ProductServiceImpl implements ProductService, Logging {
             description = description.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
             product.setDescription(description);
         }
+        product.setWasSetup(true);
         return saveWithAltId(product, productRepository);
     }
 
@@ -141,8 +146,8 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
-    public List<ProductEntity> findAllProducts(CategoryEntity category, CatalogEntity catalog, Boolean hidden) {
-        return findProductsInternal(category, catalog, hidden, null);
+    public List<ProductEntity> findAllProducts(CategoryEntity category, CatalogEntity catalog) {
+        return findProductsInternal(category, catalog, null, null);
     }
 
     @Override
@@ -151,7 +156,7 @@ public class ProductServiceImpl implements ProductService, Logging {
         if (count == 0) return Lists.newArrayList();
         final int page = from / count;
         final Sort sort = orderType == OrderType.NONE || orderType == null ? null : new Sort(direction, orderType.name().toLowerCase());
-        return findProductsInternal(category, catalog, false, new PageRequest(page, count, sort));
+        return findProductsInternal(category, catalog, true, new PageRequest(page, count, sort));
     }
 
     @Override
@@ -159,11 +164,11 @@ public class ProductServiceImpl implements ProductService, Logging {
         return productRepository.findCountCatalog(catalog);
     }
 
-    private List<ProductEntity> findProductsInternal(CategoryEntity category, CatalogEntity catalog, Boolean hidden, Pageable page) {
+    private List<ProductEntity> findProductsInternal(CategoryEntity category, CatalogEntity catalog, Boolean wasSetup, Pageable page) {
         if (category != null && category.getChildren().size() > 0) {
-            return productRepository.findAllByParentCategory(category, hidden, page).getContent();
+            return productRepository.findAllByParentCategory(category, wasSetup, page).getContent();
         }
-        return productRepository.findAllByCategoryAndCatalog(category, catalog, hidden, page).getContent();
+        return productRepository.findAllByCategoryAndCatalog(category, catalog, wasSetup, page).getContent();
     }
 
     @Override
@@ -185,10 +190,18 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
-    public void publishProduct(Long pid) {
-        final ProductEntity product = productRepository.findOne(pid);
-        product.setHidden(!product.isHidden());
-        productRepository.saveAndFlush(product);
+    public void importProducts(@Nonnull final Map<String, Set<MediaElement>> cachedElements, @Nonnull final CatalogEntity catalog) {
+        cachedElements.entrySet().stream().flatMap(t -> t.getValue().stream()).filter(MediaElement::isChecked).forEach(element -> {
+
+            ProductEntity product = new ProductEntity();
+            product.setCatalog(catalog);
+            product.setName(element.getCaption());
+            product.setUnit(Unit.PIECE);
+            product.setUnitValue(1);
+            product.setPrice(0);
+
+            productRepository.save(product);
+        });
     }
 
 }
