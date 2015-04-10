@@ -54,4 +54,12 @@ public class MediaElement {
         return link != null ? link.hashCode() : 0;
     }
 
+    @Override
+    public String toString() {
+        return "MediaElement{" +
+                "link='" + link + '\'' +
+                ", avatarUrl='" + avatarUrl + '\'' +
+                '}';
+    }
+
 }

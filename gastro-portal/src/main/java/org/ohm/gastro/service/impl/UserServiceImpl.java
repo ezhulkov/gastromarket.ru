@@ -15,6 +15,7 @@ import org.ohm.gastro.reps.UserRepository;
 import org.ohm.gastro.service.EmptyPasswordException;
 import org.ohm.gastro.service.ImageService.FileType;
 import org.ohm.gastro.service.ImageService.ImageSize;
+import org.ohm.gastro.service.ImageUploader;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.UserExistsException;
 import org.ohm.gastro.service.UserService;
@@ -43,6 +44,7 @@ import static org.scribe.utils.Preconditions.checkNotNull;
  */
 @Component("userService")
 @Transactional
+@ImageUploader(FileType.AVATAR)
 public class UserServiceImpl implements UserService, Logging {
 
     private final UserRepository userRepository;
@@ -198,11 +200,6 @@ public class UserServiceImpl implements UserService, Logging {
 
         return userRepository.save(user);
 
-    }
-
-    @Override
-    public boolean test(FileType fileType) {
-        return fileType == FileType.AVATAR;
     }
 
 }

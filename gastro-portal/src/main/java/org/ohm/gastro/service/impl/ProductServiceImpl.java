@@ -18,6 +18,7 @@ import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.ImageService;
 import org.ohm.gastro.service.ImageService.FileType;
 import org.ohm.gastro.service.ImageService.ImageSize;
+import org.ohm.gastro.service.ImageUploader;
 import org.ohm.gastro.service.ProductService;
 import org.ohm.gastro.service.social.MediaElement;
 import org.ohm.gastro.trait.Logging;
@@ -49,6 +50,7 @@ import static org.scribe.utils.Preconditions.checkNotNull;
  */
 @Component
 @Transactional
+@ImageUploader(FileType.PRODUCT)
 public class ProductServiceImpl implements ProductService, Logging {
 
     private final ProductRepository productRepository;
@@ -87,11 +89,6 @@ public class ProductServiceImpl implements ProductService, Logging {
         if (StringUtils.isEmpty(query)) return Collections.emptyList();
         query = query.replaceAll("\\s", "|");
         return productRepository.searchProducts(query.toLowerCase(), from, to);
-    }
-
-    @Override
-    public boolean test(FileType fileType) {
-        return fileType == FileType.PRODUCT;
     }
 
     @Override
@@ -208,6 +205,7 @@ public class ProductServiceImpl implements ProductService, Logging {
     public void importProducts(@Nonnull final Map<String, Set<MediaElement>> cachedElements, @Nonnull final CatalogEntity catalog) {
         cachedElements.entrySet().stream().flatMap(t -> t.getValue().stream()).filter(MediaElement::isChecked).forEach(element -> {
             Throwables.propagate(() -> {
+                logger.info("Importing {} product", element);
                 ProductEntity product = new ProductEntity();
                 product.setCatalog(catalog);
                 product.setName(element.getCaption());
@@ -216,7 +214,7 @@ public class ProductServiceImpl implements ProductService, Logging {
                 product.setPrice(0);
                 product.setWasSetup(false);
                 productRepository.save(product);
-                final File file = File.createTempFile("gm", "import");
+                final File file = File.createTempFile("gastromarket", "import");
                 FileUtils.copyURLToFile(new URL(element.getAvatarUrl()), file);
                 imageService.resizeImagePack(file,
                                              FileType.PRODUCT,

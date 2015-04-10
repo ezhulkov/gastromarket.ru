@@ -2,14 +2,17 @@ package org.ohm.gastro.service.impl;
 
 import com.google.common.collect.ImmutableMap;
 import org.ohm.gastro.service.ImageService;
+import org.ohm.gastro.service.ImageUploader;
 import org.ohm.gastro.service.ImageUploaderService;
 import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -21,6 +24,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.ohm.gastro.misc.Throwables.propagate;
+import static org.springframework.aop.framework.AopProxyUtils.ultimateTargetClass;
 
 /**
  * Created by ezhulkov on 09.04.15.
@@ -49,26 +53,32 @@ public class ImageServiceImpl implements ImageService {
 
     private final String imageDestinationPath;
     private final String imageDestinationUrl;
-    private Map<String, ImageUploaderService> imageUploaderServiceMap;
+    private final ApplicationContext applicationContext;
+    private Map<FileType, ImageUploaderService> imageUploaderServiceMap;
 
     @Autowired
     public ImageServiceImpl(@Value("${image.dest.path}") String imageDestinationPath,
-                            @Value("${image.dest.url}") String imageDestinationUrl) {
+                            @Value("${image.dest.url}") String imageDestinationUrl,
+                            ApplicationContext applicationContext) {
         this.imageDestinationPath = imageDestinationPath;
         this.imageDestinationUrl = imageDestinationUrl;
-        this.imageUploaderServiceMap = imageUploaderServiceMap;
+        this.applicationContext = applicationContext;
     }
 
-    @Autowired
-    public void setImageUploaderServiceMap(Map<String, ImageUploaderService> imageUploaderServiceMap) {
-        this.imageUploaderServiceMap = imageUploaderServiceMap;
+    @PostConstruct
+    public void init() {
+        this.imageUploaderServiceMap = applicationContext.getBeansOfType(ImageUploaderService.class)
+                .values().stream()
+                .collect(Collectors.toMap(bean -> ultimateTargetClass(bean).getAnnotation(ImageUploader.class).value(),
+                                          bean -> bean));
+        System.out.println(imageUploaderServiceMap);
     }
 
     public Map<ImageSize, String> resizeImagePack(@Nonnull File file, @Nonnull FileType fileType, @Nullable String objectId) throws IOException {
 
         final BufferedImage image = ImageIO.read(file);
 
-        Logging.logger.info("Image uploaded file {}, fileType {}, objectId {} ", file, fileType, objectId);
+        Logging.logger.debug("Resizing image {}, fileType {}, objectId {} ", file, fileType, objectId);
 
         final Map<ImageSize, Integer[]> fileSizes = sizes.get(fileType);
         Map<ImageSize, String> imageUrls = fileSizes.entrySet().stream()
@@ -84,7 +94,7 @@ public class ImageServiceImpl implements ImageService {
 
         Logging.logger.debug("Final image set {}", imageUrls);
 
-        imageUploaderServiceMap.get(fileType.name()).processUploadedImages(objectId, imageUrls);
+        imageUploaderServiceMap.get(fileType).processUploadedImages(objectId, imageUrls);
 
         return imageUrls;
 

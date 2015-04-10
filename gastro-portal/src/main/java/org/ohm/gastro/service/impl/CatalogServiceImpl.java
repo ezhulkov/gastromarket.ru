@@ -19,6 +19,7 @@ import org.ohm.gastro.reps.RatingRepository;
 import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.ImageService.FileType;
 import org.ohm.gastro.service.ImageService.ImageSize;
+import org.ohm.gastro.service.ImageUploader;
 import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -38,6 +39,7 @@ import static org.scribe.utils.Preconditions.checkNotNull;
  */
 @Component("catalogService")
 @Transactional
+@ImageUploader(FileType.CATALOG)
 public class CatalogServiceImpl implements CatalogService, Logging {
 
     private final PropertyRepository propertyRepository;
@@ -214,11 +216,6 @@ public class CatalogServiceImpl implements CatalogService, Logging {
 
         return catalogRepository.saveAndFlush(catalog);
 
-    }
-
-    @Override
-    public boolean test(FileType fileType) {
-        return fileType == FileType.CATALOG;
     }
 
 }
