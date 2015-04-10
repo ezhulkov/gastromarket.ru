@@ -80,12 +80,12 @@ public final class VkontakteSourceImpl extends OAuthSocialSourceImpl<VkontakteAp
             Map map = mapper.readValue(token.getRawResponse(), Map.class);
             OAuthRequest request = new OAuthRequest(Verb.GET, String.format(REST_ALBUM_URL, map.get("user_id").toString()));
             response = request.send();
-            final VkontakteAlbumsResponse vkontakteAlbumsResponse = mapper.readValue(response.getBody(), VkontakteAlbumsResponse.class);
-            return vkontakteAlbumsResponse.getResponse().stream()
+            final VkontakteAlbumsResponse albums = mapper.readValue(response.getBody(), VkontakteAlbumsResponse.class);
+            return albums.getResponse().stream()
                     .map(t -> new MediaAlbum(t.getThumbSrc(), t.getTitle(), t.getId(), t.getSize()))
                     .collect(Collectors.toList());
         } catch (Exception e) {
-            logger.error("Error parsing raw {}, response {}", token.getRawResponse(), response == null ? null : response.getBody());
+            logger.error("Error parsing response {}", response == null ? null : response.getBody());
             logger.error("", e);
         }
         return Lists.newArrayList();
@@ -100,12 +100,12 @@ public final class VkontakteSourceImpl extends OAuthSocialSourceImpl<VkontakteAp
                 Map map = mapper.readValue(token.getRawResponse(), Map.class);
                 OAuthRequest request = new OAuthRequest(Verb.GET, String.format(REST_IMAGE_URL, map.get("user_id").toString(), albumId));
                 response = request.send();
-                final VkontakteImagesResponse vkontakteImagesResponse = mapper.readValue(response.getBody(), VkontakteImagesResponse.class);
-                return new MediaResponse(null, vkontakteImagesResponse.getResponse().stream()
+                final VkontakteImagesResponse images = mapper.readValue(response.getBody(), VkontakteImagesResponse.class);
+                return new MediaResponse(null, images.getResponse().stream()
                         .map(t -> new MediaElement(t.getLink(), t.getImageUrl(), t.getText()))
                         .collect(Collectors.toList()));
             } catch (Exception e) {
-                logger.error("Error parsing raw {}, response {}", token.getRawResponse(), response == null ? null : response.getBody());
+                logger.error("Error parsing response {}", response == null ? null : response.getBody());
                 logger.error("", e);
             }
         }

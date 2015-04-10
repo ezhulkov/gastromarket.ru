@@ -1,10 +1,14 @@
 package org.ohm.gastro.service.impl;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.service.MediaImportService;
+import org.ohm.gastro.service.social.FacebookAlbumsResponse;
+import org.ohm.gastro.service.social.FacebookImagesResponse;
 import org.ohm.gastro.service.social.FacebookUserProfile;
 import org.ohm.gastro.service.social.MediaAlbum;
+import org.ohm.gastro.service.social.MediaElement;
 import org.ohm.gastro.service.social.MediaResponse;
 import org.scribe.builder.api.FacebookApi;
 import org.scribe.model.OAuthRequest;
@@ -18,6 +22,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 08.01.15.
@@ -25,7 +30,9 @@ import java.util.List;
 @Component("fb")
 public final class FacebookSourceImpl extends OAuthSocialSourceImpl<FacebookApi> implements MediaImportService {
 
-    private final static String REST_API_URL = "https://graph.facebook.com/me";
+    private final static String REST_AUTH_URL = "https://graph.facebook.com/me";
+    private final static String REST_ALBUM_URL = "https://graph.facebook.com/v2.3/%s/albums?fields=id,name,count&limit=1000";
+    private final static String REST_IMAGE_URL = "https://graph.facebook.com/v2.3/%s/photos?fields=images,link,name&limit=1000";
     private final static String AVATAR_SMALL = "https://graph.facebook.com/%s/picture";
     private final static String AVATAR_BIG = "https://graph.facebook.com/%s/picture?type=large";
 
@@ -46,7 +53,7 @@ public final class FacebookSourceImpl extends OAuthSocialSourceImpl<FacebookApi>
     public UserEntity getUserProfile(Token token) {
         Response response = null;
         try {
-            OAuthRequest request = new OAuthRequest(Verb.GET, REST_API_URL);
+            OAuthRequest request = new OAuthRequest(Verb.GET, REST_AUTH_URL);
             getAuthService().signRequest(token, request);
             response = request.send();
             FacebookUserProfile profile = mapper.readValue(response.getBody(), FacebookUserProfile.class);
@@ -67,13 +74,41 @@ public final class FacebookSourceImpl extends OAuthSocialSourceImpl<FacebookApi>
     @Nonnull
     @Override
     public List<MediaAlbum> getAlbums(@Nonnull Token token) {
+        Response response = null;
+        try {
+            OAuthRequest request = new OAuthRequest(Verb.GET, String.format(REST_ALBUM_URL, "me"));
+            getAuthService().signRequest(token, request);
+            response = request.send();
+            final FacebookAlbumsResponse albums = mapper.readValue(response.getBody(), FacebookAlbumsResponse.class);
+            return albums.getResponse().stream()
+                    .map(t -> new MediaAlbum("", t.getName(), t.getId(), t.getCount()))
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            logger.error("Error parsing response {}", response == null ? null : response.getBody());
+            logger.error("", e);
+        }
         return Lists.newArrayList();
     }
 
     @Nonnull
     @Override
     public MediaResponse getImages(@Nonnull Token token, @Nullable String albumId, @Nullable Object context) {
-        return new MediaResponse(null, null);
+        if (StringUtils.isNotEmpty(albumId)) {
+            Response response = null;
+            try {
+                OAuthRequest request = new OAuthRequest(Verb.GET, String.format(REST_IMAGE_URL, albumId));
+                getAuthService().signRequest(token, request);
+                response = request.send();
+                final FacebookImagesResponse images = mapper.readValue(response.getBody(), FacebookImagesResponse.class);
+                return new MediaResponse(null, images.getResponse().stream()
+                        .map(t -> new MediaElement(t.getLink(), t.getImages().get(0).getSource(), t.getName()))
+                        .collect(Collectors.toList()));
+            } catch (Exception e) {
+                logger.error("Error parsing response {}", response == null ? null : response.getBody());
+                logger.error("", e);
+            }
+        }
+        return new MediaResponse(null, Lists.newArrayList());
     }
 
 }
