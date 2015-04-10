@@ -17,6 +17,6 @@ public interface MediaImportService extends SocialSource {
     List<MediaAlbum> getAlbums(@Nonnull Token token);
 
     @Nonnull
-    MediaResponse getElements(@Nonnull Token token, @Nullable Object context);
+    MediaResponse getImages(@Nonnull Token token, @Nullable String albumId, @Nullable Object context);
 
 }

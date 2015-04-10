@@ -985,6 +985,21 @@ html > body div.t-error ul li {
     background: transparent url("../img/product-edit.png") no-repeat -147px 0;
 }
 
+ul.albums {
+    list-style: none;
+}
+
+ul.albums li {
+    display: inline-block;
+    padding: 10px 20px;
+    -webkit-box-shadow: 0 0 6px 2px #ddd;
+    -moz-box-shadow: 0 0 6px 2px #ddd;
+    box-shadow: 0 0 6px 2px #ddd;
+    background-color: #fff;
+    margin: 5px;
+    border: 1px solid #aaa;
+}
+
 div.element-item {
     display: none;
     position: relative;

@@ -72,7 +72,7 @@ public final class FacebookSourceImpl extends OAuthSocialSourceImpl<FacebookApi>
 
     @Nonnull
     @Override
-    public MediaResponse getElements(@Nonnull Token token, @Nullable Object context) {
+    public MediaResponse getImages(@Nonnull Token token, @Nullable String albumId, @Nullable Object context) {
         return new MediaResponse(null, null);
     }
 

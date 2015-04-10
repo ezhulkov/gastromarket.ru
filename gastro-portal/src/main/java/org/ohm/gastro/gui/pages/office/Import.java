@@ -10,12 +10,14 @@ import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.service.MediaImportService;
 import org.ohm.gastro.service.SocialSource;
+import org.ohm.gastro.service.social.MediaAlbum;
 import org.ohm.gastro.service.social.MediaElement;
 import org.ohm.gastro.service.social.MediaResponse;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -41,6 +43,12 @@ public class Import extends BaseComponent {
 
     @Property
     private CatalogEntity catalog;
+
+    @Property
+    private String albumId;
+
+    @Property
+    private MediaAlbum album;
 
     @Persist
     private Map<String, Set<MediaElement>> cachedElements;
@@ -68,9 +76,15 @@ public class Import extends BaseComponent {
     }
 
     @Cached
+    public List<MediaAlbum> getAlbums() {
+        return getToken(socialCode).map(token -> getApplicationContext().getBean(socialCode, MediaImportService.class).getAlbums(token))
+                .orElse(null);
+    }
+
+    @Cached
     public MediaResponse getElements() {
         final MediaResponse mediaResponse = getToken(socialCode)
-                .map(token -> getApplicationContext().getBean(socialCode, MediaImportService.class).getElements(token, context))
+                .map(token -> getApplicationContext().getBean(socialCode, MediaImportService.class).getImages(token, albumId, context))
                 .orElse(null);
         synchronized (Import.class) {
             Set<MediaElement> mediaElements = cachedElements.get(socialCode);
@@ -117,6 +131,12 @@ public class Import extends BaseComponent {
     public Link onActionFromImport() {
         getProductService().importProducts(cachedElements, catalog);
         return getPageLinkSource().createPageRenderLinkWithContext(ImportResults.class, catalog.getId());
+    }
+
+    public Block onActionFromSelectAlbum(String albumId, String socialCode) {
+        this.albumId = albumId;
+        this.socialCode = socialCode;
+        return elementsBlock;
     }
 
 }

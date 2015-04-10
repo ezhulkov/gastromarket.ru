@@ -31,6 +31,17 @@
                             <div class="title">
                                 <h2><span>${socialName}</span></h2>
                             </div>
+                            <t:if test="albums">
+                                <p class="modal-text">Выберите один из альбомов:</p>
+
+                                <ul class="albums">
+                                    <t:loop source="albums" value="album">
+                                        <li>
+                                            <t:actionlink t:id="selectAlbum" t:context="[album.id,socialCode]" t:zone="${elementsZone}">${album.name}</t:actionlink>
+                                        </li>
+                                    </t:loop>
+                                </ul>
+                            </t:if>
                             <div class="grid-block import"/>
                             <t:zone id="${elementsZone}" class="elements-zone">
                                 <div class="spinner"/>
@@ -68,8 +79,6 @@
                     <br/>
                     <br/>
                     <br/>
-
-                    <p class="modal-text">Начать импорт выбранных элементов на Вашу страницу '${catalog.name}'</p>
 
                     <p class="modal-text">
                         <t:actionlink t:id="import" class="btn btn-red btn-lg">Импортировать</t:actionlink>

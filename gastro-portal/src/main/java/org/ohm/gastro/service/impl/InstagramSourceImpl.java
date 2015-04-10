@@ -30,8 +30,8 @@ import java.util.stream.Collectors;
 @Component("in")
 public final class InstagramSourceImpl extends OAuthSocialSourceImpl<InstagramApi> implements MediaImportService {
 
-    private final static String USER_ENDPOINT = "https://api.instagram.com/v1/users/%s";
-    private final static String MEDIA_ENDPOINT = "https://api.instagram.com/v1/users/%s/media/recent";
+    private final static String REST_AUTH_URL = "https://api.instagram.com/v1/users/%s";
+    private final static String REST_PHOTO_URL = "https://api.instagram.com/v1/users/%s/media/recent";
 
     @Autowired
     public InstagramSourceImpl(@Value("${in.api.key}") String apiKey,
@@ -50,7 +50,7 @@ public final class InstagramSourceImpl extends OAuthSocialSourceImpl<InstagramAp
     public UserEntity getUserProfile(Token token) {
         Response response = null;
         try {
-            final OAuthRequest request = new OAuthRequest(Verb.GET, String.format(USER_ENDPOINT, extractUserId(token)));
+            final OAuthRequest request = new OAuthRequest(Verb.GET, String.format(REST_AUTH_URL, extractUserId(token)));
             getAuthService().signRequest(token, request);
             response = request.send();
             final Map userMap = mapper.readValue(response.getBody(), Map.class);
@@ -72,12 +72,12 @@ public final class InstagramSourceImpl extends OAuthSocialSourceImpl<InstagramAp
 
     @Nonnull
     @Override
-    public MediaResponse getElements(@Nonnull Token token, @Nullable Object context) {
+    public MediaResponse getImages(@Nonnull Token token, @Nullable String albumId, @Nullable Object context) {
         Response response = null;
         try {
             final String paging = context == null ? null : context.toString();
             final OAuthRequest request = new OAuthRequest(Verb.GET, StringUtils.isEmpty(paging) ?
-                    String.format(MEDIA_ENDPOINT, extractUserId(token)) :
+                    String.format(REST_PHOTO_URL, extractUserId(token)) :
                     paging);
             getAuthService().signRequest(token, request);
             response = request.send();
@@ -95,7 +95,7 @@ public final class InstagramSourceImpl extends OAuthSocialSourceImpl<InstagramAp
             logger.error("Error parsing response {}", response == null ? null : response.getBody());
             logger.error("", e);
         }
-        return null;
+        return new MediaResponse(null, Lists.newArrayList());
     }
 
     private String extractUserId(Token token) throws IOException {
