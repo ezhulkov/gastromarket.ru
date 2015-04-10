@@ -1,6 +1,7 @@
 package org.ohm.gastro.gui.pages.office;
 
 import org.apache.tapestry5.Block;
+import org.apache.tapestry5.Link;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
@@ -113,9 +114,9 @@ public class Import extends BaseComponent {
         return cachedElements.get(socialCode).stream().filter(t -> t.equals(oneElement)).findFirst().get().isChecked();
     }
 
-    public Class onActionFromImport() {
+    public Link onActionFromImport() {
         getProductService().importProducts(cachedElements, catalog);
-        return ImportResults.class;
+        return getPageLinkSource().createPageRenderLinkWithContext(ImportResults.class, catalog.getId());
     }
 
 }

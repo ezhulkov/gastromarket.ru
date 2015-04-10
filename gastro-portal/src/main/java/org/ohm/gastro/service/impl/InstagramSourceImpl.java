@@ -89,7 +89,7 @@ public final class InstagramSourceImpl extends OAuthSocialSourceImpl<InstagramAp
                                                                                                      t.getImages().getStandardResolution().getUrl(),
                                                                                                      t.getCaption() == null ? "" : t.getCaption().getText()))
                                                                           .collect(Collectors.toList()));
-            logger.debug("Instagram parsed response {}", mediaResponse);
+            logger.info("Instagram parsed response {}", mediaResponse.getMediaElements() == null ? 0 : mediaResponse.getMediaElements().size());
             return mediaResponse;
         } catch (Exception e) {
             logger.error("Error parsing response {}", response == null ? null : response.getBody());
