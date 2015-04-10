@@ -49,4 +49,6 @@ public interface ProductRepository extends AltIdRepository<ProductEntity> {
     @Query("from ProductEntity where promoted=true")
     List<ProductEntity> findAllPromotedProducts();
 
+    List<ProductEntity> findAllByWasSetupAndCatalog(boolean wasSetup, CatalogEntity catalog);
+
 }

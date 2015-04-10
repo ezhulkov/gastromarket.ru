@@ -13,6 +13,8 @@ import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.reps.UserRepository;
 import org.ohm.gastro.service.EmptyPasswordException;
+import org.ohm.gastro.service.ImageService.FileType;
+import org.ohm.gastro.service.ImageService.ImageSize;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.UserExistsException;
 import org.ohm.gastro.service.UserService;

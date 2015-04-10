@@ -8,6 +8,7 @@ import org.ohm.gastro.reps.ProductRepository;
 import org.ohm.gastro.service.social.MediaElement;
 import org.springframework.data.domain.Sort.Direction;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,7 +18,9 @@ import java.util.Set;
  */
 public interface ProductService extends ImageUploaderService<ProductEntity>, AltIdService<ProductEntity, ProductRepository> {
 
-    public static int PRODUCTS_PER_PAGE = 8;
+    int PRODUCTS_PER_PAGE = 8;
+
+    List<ProductEntity> findAllRawProducts(@Nonnull CatalogEntity catalog);
 
     public enum OrderType {
         NAME, PRICE, NONE

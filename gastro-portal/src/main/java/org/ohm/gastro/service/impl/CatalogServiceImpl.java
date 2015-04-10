@@ -17,6 +17,8 @@ import org.ohm.gastro.reps.PropertyRepository;
 import org.ohm.gastro.reps.PropertyValueRepository;
 import org.ohm.gastro.reps.RatingRepository;
 import org.ohm.gastro.service.CatalogService;
+import org.ohm.gastro.service.ImageService.FileType;
+import org.ohm.gastro.service.ImageService.ImageSize;
 import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;

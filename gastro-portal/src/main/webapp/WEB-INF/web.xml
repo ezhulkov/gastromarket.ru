@@ -11,14 +11,6 @@
         <param-value>classpath:gastro-portal.xml classpath:security.xml</param-value>
     </context-param>
     <context-param>
-        <param-name>imageDestinationUrl</param-name>
-        <param-value>${mvn.image.url}</param-value>
-    </context-param>
-    <context-param>
-        <param-name>imageDestinationPath</param-name>
-        <param-value>${mvn.image.path}</param-value>
-    </context-param>
-    <context-param>
         <param-name>tapestry.app-package</param-name>
         <param-value>org.ohm.gastro.gui</param-value>
     </context-param>

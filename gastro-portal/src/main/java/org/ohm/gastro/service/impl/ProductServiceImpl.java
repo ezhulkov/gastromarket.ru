@@ -4,15 +4,20 @@ import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.ProductEntity.Unit;
 import org.ohm.gastro.domain.TagEntity;
+import org.ohm.gastro.misc.Throwables;
 import org.ohm.gastro.reps.ProductRepository;
 import org.ohm.gastro.reps.TagRepository;
 import org.ohm.gastro.service.CatalogService;
+import org.ohm.gastro.service.ImageService;
+import org.ohm.gastro.service.ImageService.FileType;
+import org.ohm.gastro.service.ImageService.ImageSize;
 import org.ohm.gastro.service.ProductService;
 import org.ohm.gastro.service.social.MediaElement;
 import org.ohm.gastro.trait.Logging;
@@ -25,6 +30,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Nonnull;
+import java.io.File;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -47,14 +54,17 @@ public class ProductServiceImpl implements ProductService, Logging {
     private final ProductRepository productRepository;
     private final TagRepository tagRepository;
     private final CatalogService catalogService;
+    private final ImageService imageService;
 
     @Autowired
     public ProductServiceImpl(final ProductRepository productRepository,
                               final TagRepository tagRepository,
-                              final CatalogService catalogService) {
+                              final CatalogService catalogService,
+                              final ImageService imageService) {
         this.productRepository = productRepository;
         this.tagRepository = tagRepository;
         this.catalogService = catalogService;
+        this.imageService = imageService;
     }
 
     @Override
@@ -146,6 +156,11 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
+    public List<ProductEntity> findAllRawProducts(@Nonnull CatalogEntity catalog) {
+        return productRepository.findAllByWasSetupAndCatalog(false, catalog);
+    }
+
+    @Override
     public List<ProductEntity> findAllProducts(CategoryEntity category, CatalogEntity catalog) {
         return findProductsInternal(category, catalog, null, null);
     }
@@ -192,15 +207,21 @@ public class ProductServiceImpl implements ProductService, Logging {
     @Override
     public void importProducts(@Nonnull final Map<String, Set<MediaElement>> cachedElements, @Nonnull final CatalogEntity catalog) {
         cachedElements.entrySet().stream().flatMap(t -> t.getValue().stream()).filter(MediaElement::isChecked).forEach(element -> {
-
-            ProductEntity product = new ProductEntity();
-            product.setCatalog(catalog);
-            product.setName(element.getCaption());
-            product.setUnit(Unit.PIECE);
-            product.setUnitValue(1);
-            product.setPrice(0);
-
-            productRepository.save(product);
+            Throwables.propagate(() -> {
+                ProductEntity product = new ProductEntity();
+                product.setCatalog(catalog);
+                product.setName(element.getCaption());
+                product.setUnit(Unit.PIECE);
+                product.setUnitValue(1);
+                product.setPrice(0);
+                product.setWasSetup(false);
+                productRepository.save(product);
+                final File file = File.createTempFile("gm", "import");
+                FileUtils.copyURLToFile(new URL(element.getAvatarUrl()), file);
+                imageService.resizeImagePack(file,
+                                             FileType.PRODUCT,
+                                             product.getId().toString());
+            });
         });
     }
 

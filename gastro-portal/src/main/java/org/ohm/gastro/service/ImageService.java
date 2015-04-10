@@ -1,12 +1,20 @@
 package org.ohm.gastro.service;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
+
 /**
  * Created by ezhulkov on 09.04.15.
  */
 public interface ImageService {
 
-    public enum ImageSize {SIZE1, SIZE2, SIZE3}
+    enum ImageSize {SIZE1, SIZE2, SIZE3}
 
-    public enum FileType {AVATAR, PRODUCT, CATALOG}
+    enum FileType {AVATAR, PRODUCT, CATALOG}
+
+    Map<ImageSize, String> resizeImagePack(@Nonnull File file, @Nonnull FileType fileType, @Nullable String objectId) throws IOException;
 
 }
