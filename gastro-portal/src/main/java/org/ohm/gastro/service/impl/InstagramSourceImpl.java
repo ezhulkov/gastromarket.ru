@@ -64,6 +64,11 @@ public final class InstagramSourceImpl extends OAuthSocialSourceImpl<InstagramAp
         return null;
     }
 
+    @Override
+    public boolean isAlbumsRequired() {
+        return false;
+    }
+
     @Nonnull
     @Override
     public List<MediaAlbum> getAlbums(@Nonnull Token token) {
@@ -80,18 +85,18 @@ public final class InstagramSourceImpl extends OAuthSocialSourceImpl<InstagramAp
                     String.format(REST_PHOTO_URL, extractUserId(token)) :
                     paging);
             getAuthService().signRequest(token, request);
+            logger.info("Getting images from in, url: {}", request.toString());
             response = request.send();
             final InstagramMediaResponse medias = mapper.readValue(response.getBody(), InstagramMediaResponse.class);
-            final MediaResponse mediaResponse = new MediaResponse(medias.getPagination().getNextUrl(),
-                                                                  medias.getData().stream()
-                                                                          .filter(t -> "image".equals(t.getType()))
-                                                                          .map(t -> new MediaElement(t.getId(), t.getLink(),
-                                                                                                     t.getCaption() == null ? "" : t.getCaption().getText(),
-                                                                                                     t.getImages().getStandardResolution().getUrl(),
-                                                                                                     t.getImages().getLowResolution().getUrl()))
-                                                                          .collect(Collectors.toList()));
-            logger.info("Instagram parsed response {}", mediaResponse.getMediaElements() == null ? 0 : mediaResponse.getMediaElements().size());
-            return mediaResponse;
+            List<MediaElement> elements = medias.getData().stream()
+                    .filter(t -> "image".equals(t.getType()))
+                    .map(t -> new MediaElement(t.getId(), t.getLink(),
+                                               t.getCaption() == null ? "" : t.getCaption().getText(),
+                                               t.getImages().getStandardResolution().getUrl(),
+                                               t.getImages().getLowResolution().getUrl()))
+                    .collect(Collectors.toList());
+            logger.info("Images from in, size {}", elements.size());
+            return new MediaResponse(medias.getPagination().getNextUrl(), elements);
         } catch (Exception e) {
             logger.error("Error parsing response {}", response == null ? null : response.getBody());
             logger.error("", e);

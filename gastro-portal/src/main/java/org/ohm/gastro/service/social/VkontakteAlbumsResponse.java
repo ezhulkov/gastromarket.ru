@@ -2,6 +2,7 @@ package org.ohm.gastro.service.social;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.collect.Lists;
 
 import java.util.List;
 
@@ -12,27 +13,40 @@ import java.util.List;
 public class VkontakteAlbumsResponse {
 
     @JsonProperty("response")
-    private List<Item> response;
+    private Response response;
 
-    public List<Item> getResponse() {
+    public Response getResponse() {
         return response;
     }
 
-    public void setResponse(List<Item> response) {
+    public void setResponse(final Response response) {
         this.response = response;
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class Response {
+
+        @JsonProperty("items")
+        private List<Item> items = Lists.newArrayList();
+
+        public List<Item> getItems() {
+            return items;
+        }
+
+        public void setItems(final List<Item> items) {
+            this.items = items;
+        }
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Item {
 
-        @JsonProperty("aid")
+        @JsonProperty("id")
         private String id;
         @JsonProperty("title")
         private String title;
         @JsonProperty("size")
         private int size;
-        @JsonProperty("thumb_src")
-        private String thumbSrc;
 
         public String getId() {
             return id;
@@ -56,14 +70,6 @@ public class VkontakteAlbumsResponse {
 
         public void setSize(int size) {
             this.size = size;
-        }
-
-        public String getThumbSrc() {
-            return thumbSrc;
-        }
-
-        public void setThumbSrc(String thumbSrc) {
-            this.thumbSrc = thumbSrc;
         }
 
     }

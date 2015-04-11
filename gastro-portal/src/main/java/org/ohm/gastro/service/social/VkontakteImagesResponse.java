@@ -12,44 +12,58 @@ import java.util.List;
 public class VkontakteImagesResponse {
 
     @JsonProperty("response")
-    private List<Item> response;
+    private Response response;
 
-    public List<Item> getResponse() {
+    public Response getResponse() {
         return response;
     }
 
-    public void setResponse(List<Item> response) {
+    public void setResponse(final Response response) {
         this.response = response;
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class Response {
+
+        @JsonProperty("items")
+        private List<Item> items;
+
+        public List<Item> getItems() {
+            return items;
+        }
+
+        public void setItems(final List<Item> items) {
+            this.items = items;
+        }
+
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Item {
 
-        @JsonProperty("pid")
-        private String pid;
+        @JsonProperty("id")
+        private String id;
         @JsonProperty("owner_id")
         private String ownerId;
         @JsonProperty("text")
         private String text;
-        @JsonProperty("src_xxbig")
+        @JsonProperty("photo_604")
         private String imageUrl;
-        @JsonProperty("src_big")
-        private String imageUrlSmall;
 
-        public String getPid() {
-            return pid;
+        public String getId() {
+            return id;
         }
 
-        public void setPid(final String pid) {
-            this.pid = pid;
+        public void setId(final String id) {
+            this.id = id;
         }
 
-        public String getImageUrlSmall() {
-            return imageUrlSmall;
+        public String getOwnerId() {
+            return ownerId;
         }
 
-        public void setImageUrlSmall(final String imageUrlSmall) {
-            this.imageUrlSmall = imageUrlSmall;
+        public void setOwnerId(final String ownerId) {
+            this.ownerId = ownerId;
         }
 
         public String getImageUrl() {
@@ -61,7 +75,7 @@ public class VkontakteImagesResponse {
         }
 
         public String getLink() {
-            return String.format("http://vk.com/photo%s_%s", ownerId, pid);
+            return String.format("http://vk.com/photo%s_%s", ownerId, id);
         }
 
         public String getText() {

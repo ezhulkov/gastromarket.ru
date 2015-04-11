@@ -7,24 +7,12 @@ import org.apache.commons.lang.StringUtils;
  */
 public class MediaAlbum {
 
-    private final String avatarUrl;
     private final String name;
     private final String id;
-    private final int size;
 
-    public MediaAlbum(String avatarUrl, final String name, final String id, int size) {
-        this.avatarUrl = avatarUrl;
+    public MediaAlbum(final String id, final String name) {
         this.name = name;
         this.id = id;
-        this.size = size;
-    }
-
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
-
-    public int getSize() {
-        return size;
     }
 
     public String getName() {

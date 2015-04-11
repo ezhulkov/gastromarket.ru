@@ -33,8 +33,8 @@ import java.util.stream.Collectors;
 public final class VkontakteSourceImpl extends OAuthSocialSourceImpl<VkontakteApi> implements MediaImportService {
 
     private final static String REST_AUTH_URL = "https://api.vk.com/method/users.get?uids=%s&fields=uid,first_name,last_name,photo,photo_big";
-    private final static String REST_ALBUM_URL = "https://api.vk.com/method/photos.getAlbums?owner_id=%s&need_covers=1";
-    private final static String REST_IMAGE_URL = "https://api.vk.com/method/photos.get?owner_id=%s&album_id=%s";
+    private final static String REST_ALBUM_URL = "https://api.vk.com/method/photos.getAlbums?v=5.29&owner_id=%s";
+    private final static String REST_IMAGE_URL = "https://api.vk.com/method/photos.get?v=5.29&owner_id=%s&album_id=%s";
 
     @Autowired
     public VkontakteSourceImpl(@Value("${vk.api.key}") String apiKey,
@@ -72,6 +72,11 @@ public final class VkontakteSourceImpl extends OAuthSocialSourceImpl<VkontakteAp
         return null;
     }
 
+    @Override
+    public boolean isAlbumsRequired() {
+        return true;
+    }
+
     @Nonnull
     @Override
     public List<MediaAlbum> getAlbums(@Nonnull Token token) {
@@ -79,11 +84,15 @@ public final class VkontakteSourceImpl extends OAuthSocialSourceImpl<VkontakteAp
         try {
             Map map = mapper.readValue(token.getRawResponse(), Map.class);
             OAuthRequest request = new OAuthRequest(Verb.GET, String.format(REST_ALBUM_URL, map.get("user_id").toString()));
+            logger.info("Getting albums from vk, url: {}", request.toString());
             response = request.send();
             final VkontakteAlbumsResponse albums = mapper.readValue(response.getBody(), VkontakteAlbumsResponse.class);
-            return albums.getResponse().stream()
-                    .map(t -> new MediaAlbum(t.getThumbSrc(), t.getTitle(), t.getId(), t.getSize()))
+            if (albums == null || albums.getResponse() == null || albums.getResponse().getItems() == null) return Lists.newArrayList();
+            List<MediaAlbum> result = albums.getResponse().getItems().stream()
+                    .map(t -> new MediaAlbum(t.getId(), t.getTitle()))
                     .collect(Collectors.toList());
+            logger.info("Albums from vk, size {}", result.size());
+            return result;
         } catch (Exception e) {
             logger.error("Error parsing response {}", response == null ? null : response.getBody());
             logger.error("", e);
@@ -99,11 +108,15 @@ public final class VkontakteSourceImpl extends OAuthSocialSourceImpl<VkontakteAp
             try {
                 Map map = mapper.readValue(token.getRawResponse(), Map.class);
                 OAuthRequest request = new OAuthRequest(Verb.GET, String.format(REST_IMAGE_URL, map.get("user_id").toString(), albumId));
+                logger.info("Getting images from vk, url: {}", request.toString());
                 response = request.send();
                 final VkontakteImagesResponse images = mapper.readValue(response.getBody(), VkontakteImagesResponse.class);
-                return new MediaResponse(null, images.getResponse().stream()
-                        .map(t -> new MediaElement(t.getPid(), t.getLink(), t.getText(), t.getImageUrl(), t.getImageUrlSmall()))
-                        .collect(Collectors.toList()));
+                if (images == null || images.getResponse() == null || images.getResponse().getItems() == null) return new MediaResponse(null, Lists.newArrayList());
+                List<MediaElement> elements = images.getResponse().getItems().stream()
+                        .map(t -> new MediaElement(t.getId(), t.getLink(), t.getText(), t.getImageUrl(), t.getImageUrl()))
+                        .collect(Collectors.toList());
+                logger.info("Images from vk, size {}", elements.size());
+                return new MediaResponse(null, elements);
             } catch (Exception e) {
                 logger.error("Error parsing response {}", response == null ? null : response.getBody());
                 logger.error("", e);

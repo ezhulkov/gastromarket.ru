@@ -31,16 +31,24 @@
                             <div class="title">
                                 <h2><span>${socialName}</span></h2>
                             </div>
-                            <t:if test="albums">
-                                <p class="modal-text">Выберите один из альбомов:</p>
+                            <t:if test="albumsRequired">
+                                <t:if test="albums">
+                                    <p class="modal-text">Выберите один из альбомов:</p>
 
-                                <ul class="albums">
-                                    <t:loop source="albums" value="album">
-                                        <li>
-                                            <t:actionlink t:id="selectAlbum" t:context="[album.id,socialCode]" t:zone="${elementsZone}" class="album">${album.name}</t:actionlink>
-                                        </li>
-                                    </t:loop>
-                                </ul>
+                                    <ul class="albums">
+                                        <t:loop source="albums" value="album">
+                                            <li>
+                                                <t:actionlink t:id="selectAlbum" t:context="[album.id,socialCode]" t:zone="${elementsZone}" class="album">${album.name}</t:actionlink>
+                                            </li>
+                                        </t:loop>
+                                    </ul>
+                                    <t:parameter name="else">
+                                        <p class="modal-text">
+                                            <b>Ошибка - не получилось импортировать ни одного альбома, возможно они скрыты настройками приватности.</b><br/>
+                                            Пожалуйста, измените настройки альбома в социальной сети ${socialName} и повторите попытку снова.
+                                        </p>
+                                    </t:parameter>
+                                </t:if>
                             </t:if>
                             <div class="grid-block import"/>
                             <t:zone id="${elementsZone}" class="elements-zone">

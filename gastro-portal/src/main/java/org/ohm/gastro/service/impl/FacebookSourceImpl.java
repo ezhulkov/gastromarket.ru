@@ -71,6 +71,11 @@ public final class FacebookSourceImpl extends OAuthSocialSourceImpl<FacebookApi>
         return null;
     }
 
+    @Override
+    public boolean isAlbumsRequired() {
+        return true;
+    }
+
     @Nonnull
     @Override
     public List<MediaAlbum> getAlbums(@Nonnull Token token) {
@@ -78,11 +83,15 @@ public final class FacebookSourceImpl extends OAuthSocialSourceImpl<FacebookApi>
         try {
             OAuthRequest request = new OAuthRequest(Verb.GET, String.format(REST_ALBUM_URL, "me"));
             getAuthService().signRequest(token, request);
+            logger.info("Getting albums from fb, url: {}", request.toString());
             response = request.send();
             final FacebookAlbumsResponse albums = mapper.readValue(response.getBody(), FacebookAlbumsResponse.class);
-            return albums.getResponse().stream()
-                    .map(t -> new MediaAlbum("", t.getName(), t.getId(), t.getCount()))
+            if (albums == null || albums.getResponse() == null) return Lists.newArrayList();
+            List<MediaAlbum> result = albums.getResponse().stream()
+                    .map(t -> new MediaAlbum(t.getId(), t.getName()))
                     .collect(Collectors.toList());
+            logger.info("Albums from fb, size {}", result.size());
+            return result;
         } catch (Exception e) {
             logger.error("Error parsing response {}", response == null ? null : response.getBody());
             logger.error("", e);
@@ -98,13 +107,17 @@ public final class FacebookSourceImpl extends OAuthSocialSourceImpl<FacebookApi>
             try {
                 OAuthRequest request = new OAuthRequest(Verb.GET, String.format(REST_IMAGE_URL, albumId));
                 getAuthService().signRequest(token, request);
+                logger.info("Getting images from fb, url: {}", request.toString());
                 response = request.send();
                 final FacebookImagesResponse images = mapper.readValue(response.getBody(), FacebookImagesResponse.class);
-                return new MediaResponse(null, images.getResponse().stream()
+                if (images == null || images.getResponse() == null) return new MediaResponse(null, Lists.newArrayList());
+                List<MediaElement> elements = images.getResponse().stream()
                         .map(t -> new MediaElement(t.getId(), t.getLink(), t.getName(),
                                                    t.getImages().get(0).getSource(),
                                                    t.getImages().get(t.getImages().size() - 1).getSource()))
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toList());
+                logger.info("Images from fb, size {}", elements.size());
+                return new MediaResponse(null, elements);
             } catch (Exception e) {
                 logger.error("Error parsing response {}", response == null ? null : response.getBody());
                 logger.error("", e);

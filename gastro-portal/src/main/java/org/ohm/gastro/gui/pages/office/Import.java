@@ -77,11 +77,13 @@ public class Import extends BaseComponent {
         return getApplicationContext().getBean(socialCode, MediaImportService.class).getSocialSourceName();
     }
 
+    public boolean isAlbumsRequired() {
+        return getApplicationContext().getBean(socialCode, MediaImportService.class).isAlbumsRequired();
+    }
+
     @Cached(watch = "socialCode")
     public List<MediaAlbum> getAlbums() {
-        List<MediaAlbum> albums = getToken(socialCode).map(token -> getApplicationContext().getBean(socialCode, MediaImportService.class).getAlbums(token)).orElse(null);
-        logger.info("Albums from {}, size {}", socialCode, albums.size());
-        return albums;
+        return getToken(socialCode).map(token -> getApplicationContext().getBean(socialCode, MediaImportService.class).getAlbums(token)).orElse(null);
     }
 
     @Cached
@@ -97,7 +99,6 @@ public class Import extends BaseComponent {
             }
             mediaElements.addAll(mediaResponse.getMediaElements());
         }
-        logger.info("Images from {}, size {}", socialCode, mediaResponse.getMediaElements().size());
         return mediaResponse;
     }
 
