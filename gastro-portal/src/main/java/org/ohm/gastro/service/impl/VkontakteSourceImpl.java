@@ -102,7 +102,7 @@ public final class VkontakteSourceImpl extends OAuthSocialSourceImpl<VkontakteAp
                 response = request.send();
                 final VkontakteImagesResponse images = mapper.readValue(response.getBody(), VkontakteImagesResponse.class);
                 return new MediaResponse(null, images.getResponse().stream()
-                        .map(t -> new MediaElement(t.getLink(), t.getImageUrl(), t.getText()))
+                        .map(t -> new MediaElement(t.getPid(), t.getLink(), t.getText(), t.getImageUrl(), t.getImageUrlSmall()))
                         .collect(Collectors.toList()));
             } catch (Exception e) {
                 logger.error("Error parsing response {}", response == null ? null : response.getBody());

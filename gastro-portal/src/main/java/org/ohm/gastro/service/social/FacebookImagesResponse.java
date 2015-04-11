@@ -25,12 +25,22 @@ public class FacebookImagesResponse {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Item {
 
+        @JsonProperty("id")
+        private String id;
         @JsonProperty("link")
         private String link;
         @JsonProperty("name")
         private String name;
         @JsonProperty("images")
         private List<Image> images;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(final String id) {
+            this.id = id;
+        }
 
         public String getLink() {
             return link;

@@ -987,6 +987,7 @@ html > body div.t-error ul li {
 
 ul.albums {
     list-style: none;
+    text-align: center;
 }
 
 ul.albums li {

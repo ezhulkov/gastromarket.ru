@@ -85,9 +85,10 @@ public final class InstagramSourceImpl extends OAuthSocialSourceImpl<InstagramAp
             final MediaResponse mediaResponse = new MediaResponse(medias.getPagination().getNextUrl(),
                                                                   medias.getData().stream()
                                                                           .filter(t -> "image".equals(t.getType()))
-                                                                          .map(t -> new MediaElement(t.getLink(),
+                                                                          .map(t -> new MediaElement(t.getId(), t.getLink(),
+                                                                                                     t.getCaption() == null ? "" : t.getCaption().getText(),
                                                                                                      t.getImages().getStandardResolution().getUrl(),
-                                                                                                     t.getCaption() == null ? "" : t.getCaption().getText()))
+                                                                                                     t.getImages().getLowResolution().getUrl()))
                                                                           .collect(Collectors.toList()));
             logger.info("Instagram parsed response {}", mediaResponse.getMediaElements() == null ? 0 : mediaResponse.getMediaElements().size());
             return mediaResponse;

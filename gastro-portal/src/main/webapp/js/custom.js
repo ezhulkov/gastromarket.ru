@@ -358,6 +358,9 @@ function initImportPage() {
         setTimeout(function () {
             triggerEvent(jQuery("a.initial-fetch", e).get(0), "click")
         }, 500);
+        jQuery(".album").bind('click',function(){
+            jQuery(this).closest(".import-source").find(".grid-block.import").find(".element-item").remove();
+        })
     });
 }
 function realTitleWidth(obj) {

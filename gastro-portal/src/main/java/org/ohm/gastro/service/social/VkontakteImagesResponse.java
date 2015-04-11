@@ -33,6 +33,24 @@ public class VkontakteImagesResponse {
         private String text;
         @JsonProperty("src_xxbig")
         private String imageUrl;
+        @JsonProperty("src_big")
+        private String imageUrlSmall;
+
+        public String getPid() {
+            return pid;
+        }
+
+        public void setPid(final String pid) {
+            this.pid = pid;
+        }
+
+        public String getImageUrlSmall() {
+            return imageUrlSmall;
+        }
+
+        public void setImageUrlSmall(final String imageUrlSmall) {
+            this.imageUrlSmall = imageUrlSmall;
+        }
 
         public String getImageUrl() {
             return imageUrl;

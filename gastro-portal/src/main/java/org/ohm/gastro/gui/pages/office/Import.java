@@ -66,19 +66,22 @@ public class Import extends BaseComponent {
 
     @Cached
     public Collection<String> getSocialCodes() {
-        return getTokens().keySet().stream()
+        Collection<String> codes = getTokens().keySet().stream()
                 .filter(t -> getApplicationContext().getBean(t, SocialSource.class) instanceof MediaImportService)
                 .collect(Collectors.toList());
+        logger.info("Social sources for user {}", codes);
+        return codes;
     }
 
     public String getSocialName() {
         return getApplicationContext().getBean(socialCode, MediaImportService.class).getSocialSourceName();
     }
 
-    @Cached
+    @Cached(watch = "socialCode")
     public List<MediaAlbum> getAlbums() {
-        return getToken(socialCode).map(token -> getApplicationContext().getBean(socialCode, MediaImportService.class).getAlbums(token))
-                .orElse(null);
+        List<MediaAlbum> albums = getToken(socialCode).map(token -> getApplicationContext().getBean(socialCode, MediaImportService.class).getAlbums(token)).orElse(null);
+        logger.info("Albums from {}, size {}", socialCode, albums.size());
+        return albums;
     }
 
     @Cached
@@ -94,6 +97,7 @@ public class Import extends BaseComponent {
             }
             mediaElements.addAll(mediaResponse.getMediaElements());
         }
+        logger.info("Images from {}, size {}", socialCode, mediaResponse.getMediaElements().size());
         return mediaResponse;
     }
 
@@ -102,7 +106,7 @@ public class Import extends BaseComponent {
     }
 
     public String getElementZone() {
-        return "elementZone" + oneElement.getLink();
+        return "elementZone" + oneElement.getId();
     }
 
     public Block onActionFromInitialFetchElements(String socialCode) {
@@ -117,9 +121,9 @@ public class Import extends BaseComponent {
         return elementsBlock;
     }
 
-    public Block onActionFromCheckElement(String socialCode, String link) {
+    public Block onActionFromCheckElement(String socialCode, String iid) {
         this.socialCode = socialCode;
-        this.oneElement = cachedElements.get(socialCode).stream().filter(t -> t.getLink().equals(link)).findFirst().get();
+        this.oneElement = cachedElements.get(socialCode).stream().filter(t -> t.getId().equals(iid)).findFirst().get();
         this.oneElement.toggle();
         return elementBlock;
     }

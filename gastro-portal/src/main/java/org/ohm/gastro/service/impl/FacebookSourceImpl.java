@@ -101,7 +101,9 @@ public final class FacebookSourceImpl extends OAuthSocialSourceImpl<FacebookApi>
                 response = request.send();
                 final FacebookImagesResponse images = mapper.readValue(response.getBody(), FacebookImagesResponse.class);
                 return new MediaResponse(null, images.getResponse().stream()
-                        .map(t -> new MediaElement(t.getLink(), t.getImages().get(0).getSource(), t.getName()))
+                        .map(t -> new MediaElement(t.getId(), t.getLink(), t.getName(),
+                                                   t.getImages().get(0).getSource(),
+                                                   t.getImages().get(t.getImages().size() - 1).getSource()))
                         .collect(Collectors.toList()));
             } catch (Exception e) {
                 logger.error("Error parsing response {}", response == null ? null : response.getBody());

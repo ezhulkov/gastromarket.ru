@@ -1,20 +1,34 @@
 package org.ohm.gastro.service.social;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * Created by ezhulkov on 05.04.15.
  */
 public class MediaElement {
 
+    private final String id;
     private final String link;
     private final String avatarUrl;
+    private final String avatarUrlSmall;
     private final String caption;
 
     private boolean checked = false;
 
-    public MediaElement(final String link, final String avatarUrl, final String caption) {
+    public MediaElement(final String id, final String link, final String caption, final String avatarUrl, final String avatarUrlSmall) {
+        this.id = id;
         this.link = link;
         this.avatarUrl = avatarUrl;
+        this.avatarUrlSmall = avatarUrlSmall;
         this.caption = caption;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getAvatarUrlSmall() {
+        return avatarUrlSmall;
     }
 
     public String getLink() {
@@ -26,7 +40,7 @@ public class MediaElement {
     }
 
     public String getCaption() {
-        return caption;
+        return StringUtils.isEmpty(caption) ? "Фотография" : caption;
     }
 
     public boolean isChecked() {
@@ -57,8 +71,10 @@ public class MediaElement {
     @Override
     public String toString() {
         return "MediaElement{" +
-                "link='" + link + '\'' +
+                "id='" + id + '\'' +
+                ", link='" + link + '\'' +
                 ", avatarUrl='" + avatarUrl + '\'' +
+                ", avatarUrlSmall='" + avatarUrlSmall + '\'' +
                 '}';
     }
 

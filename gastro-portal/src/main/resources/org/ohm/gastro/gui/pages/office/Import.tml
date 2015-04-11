@@ -37,7 +37,7 @@
                                 <ul class="albums">
                                     <t:loop source="albums" value="album">
                                         <li>
-                                            <t:actionlink t:id="selectAlbum" t:context="[album.id,socialCode]" t:zone="${elementsZone}">${album.name}</t:actionlink>
+                                            <t:actionlink t:id="selectAlbum" t:context="[album.id,socialCode]" t:zone="${elementsZone}" class="album">${album.name}</t:actionlink>
                                         </li>
                                     </t:loop>
                                 </ul>
@@ -53,8 +53,8 @@
                                         <t:delegate to="elementBlock"/>
                                     </t:zone>
                                     <t:block t:id="elementBlock">
-                                        <t:actionlink t:id="checkElement" t:context="[socialCode,oneElement.link]" t:zone="${elementZone}">
-                                            <img src="${oneElement.avatarUrl}"/>
+                                        <t:actionlink t:id="checkElement" t:context="[socialCode,oneElement.id]" t:zone="${elementZone}">
+                                            <img src="${oneElement.avatarUrlSmall}"/>
                                             <t:if test="checked">
                                                 <span class="checked"/>
                                             </t:if>

@@ -35,7 +35,7 @@ public class SocialFilter extends BaseApplicationFilter {
         try {
             final String rqType = (String) ObjectUtils.defaultIfNull(httpServletRequest.getParameter("type"), "direct");
             final String socialNetwork = httpServletRequest.getParameter("social");
-            Logging.logger.info("Calling SocialFilter with parameters rqType: {}, socialNetwork {}", rqType, socialNetwork);
+            Logging.logger.debug("Calling SocialFilter with parameters rqType: {}, socialNetwork {}", rqType, socialNetwork);
 
             final SocialSource socialSource = ApplicationContextHolder.getBean(SocialSource.class, socialNetwork);
             final OAuthService authService = socialSource.getAuthService();
