@@ -36,10 +36,10 @@
                 <h1><span>Заказ еды для любого события</span></h1>
             </div>
 
-            <div class="grid-block category">
+            <div class="grid-block categories">
                 <t:loop source="categories" value="oneCategory">
                     <div>
-                        <t:pagelink page="product/list" context="oneCategory.id" class="">
+                        <t:pagelink page="product/list" context="oneCategory.id" class="category">
                             <img class="category-${oneCategory.id}"/>
                         </t:pagelink>
                         <t:pagelink page="product/list" context="oneCategory.id" class="black-link"><span class="name f18px"> ${oneCategory.name}</span></t:pagelink>

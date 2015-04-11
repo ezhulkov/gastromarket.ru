@@ -953,8 +953,12 @@ html > body div.t-error ul li {
     margin: 8px;
 }
 
-.grid-block.category > div {
+.grid-block.categories > div {
     margin: 15px;
+}
+
+.grid-block.categories > div .category {
+    margin-bottom: 5px;
 }
 
 .grid-block a {
@@ -1037,12 +1041,12 @@ div.element-item {
     width: 270px;
 }
 
-.category > div {
+.categories > div {
     width: 200px;
     height: 186px;
 }
 
-.category img {
+.categories img {
     height: 145px;
     width: 100%;
     overflow: hidden;
@@ -1338,7 +1342,6 @@ div.product-item.block {
     color: #bd0400;
     font-size: 14px;
     display: inline;
-    margin-left: 5px;
 }
 
 .product-item > div {
@@ -1537,6 +1540,11 @@ div.product-item.block {
 .block2 .desc {
     max-height: 200px;
     overflow: scroll;
+}
+
+.product-item .product-name a {
+    color: black;
+    font-size: 20px;
 }
 
 .product-item .tags ul,

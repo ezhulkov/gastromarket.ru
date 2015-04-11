@@ -54,7 +54,7 @@
             </div>
         </t:unless>
         <div class="data">
-            <span class="name wrapword"><a href="/product/${product.altId}">${product.name}</a></span>
+            <span class="product-name wrapword"><a href="/product/${product.altId}">${product.name}</a></span>
                 <span class="cook">
                     <img class="avatar-small" src="${product.catalog.avatarUrlSmall}"/>
                     <a href="/catalog/${product.catalog.altId}">${product.catalog.name}</a>
