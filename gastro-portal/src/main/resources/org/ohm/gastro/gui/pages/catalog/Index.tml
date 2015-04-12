@@ -222,7 +222,7 @@
                 if (${catalogOwner}) {
                     initProductCatalogEdit();
                 }
-            }
+            };
             init();
             Event.observe(jQuery("#productsZone").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
                 init();

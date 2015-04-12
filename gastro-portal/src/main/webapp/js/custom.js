@@ -173,6 +173,13 @@ function initProductInCatalog(items) {
         .mouseleave(function () {
             jQuery(this).find("img").css("opacity", "0.9");
         });
+    jQuery(".data", items).bind('click', function (e) {
+        if (e.target.nodeName.toLowerCase() != 'a') {
+            var url = "/product/" + jQuery(this).closest("div.product-item").attr("data-productaltid");
+            window.location = url;
+        }
+        e.stopPropagation();
+    });
 }
 
 function initProductCatalogFixed() {
@@ -358,7 +365,7 @@ function initImportPage() {
         setTimeout(function () {
             triggerEvent(jQuery("a.initial-fetch", e).get(0), "click")
         }, 500);
-        jQuery(".album").bind('click',function(){
+        jQuery(".album").bind('click', function () {
             jQuery(this).closest(".import-source").find(".grid-block.import").find(".element-item").remove();
         })
     });
