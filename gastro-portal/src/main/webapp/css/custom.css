@@ -992,6 +992,7 @@ html > body div.t-error ul li {
 ul.albums {
     list-style: none;
     text-align: center;
+    padding: 0;
 }
 
 ul.albums li {
@@ -1384,7 +1385,7 @@ div.product-item.block {
 .edit-block .edit {
     background-position: 0 0;
     top: 78px;
-    left: 105px;
+    left: 110px;
 }
 
 .edit-block .delete {

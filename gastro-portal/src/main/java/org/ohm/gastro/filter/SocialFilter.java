@@ -27,6 +27,7 @@ import java.util.Map;
 public class SocialFilter extends BaseApplicationFilter {
 
     public final static String TOKENS = "TOKENS";
+    public final static String REDIRECT = "REDIRECT";
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain)
@@ -40,19 +41,22 @@ public class SocialFilter extends BaseApplicationFilter {
             final SocialSource socialSource = ApplicationContextHolder.getBean(SocialSource.class, socialNetwork);
             final OAuthService authService = socialSource.getAuthService();
             if ("direct".equals(rqType)) {
-                String authUrl = authService.getAuthorizationUrl(null);
+                final String authUrl = authService.getAuthorizationUrl(null);
                 httpServletResponse.sendRedirect(authUrl);
+                httpServletRequest.getSession(true).setAttribute(REDIRECT, httpServletRequest.getHeader("referer"));
             } else if ("callback".equals(rqType)) {
-                String oAuth2Code = httpServletRequest.getParameter("code");
+                final String sessionRedirect = (String) httpServletRequest.getSession(true).getAttribute(REDIRECT);
+                final String redirect = sessionRedirect == null || sessionRedirect.contains("/login") ? "" : sessionRedirect;
+                final String oAuth2Code = httpServletRequest.getParameter("code");
                 if (oAuth2Code == null) {
                     Logging.logger.error("Empty oAuth2Code from callback call");
                     httpServletResponse.sendRedirect("/");
                     return;
                 }
-                Verifier verifier = new Verifier(oAuth2Code);
-                Token token = authService.getAccessToken(null, verifier);
+                final Verifier verifier = new Verifier(oAuth2Code);
+                final Token token = authService.getAccessToken(null, verifier);
                 Logging.logger.info("Got access token {}", token);
-                UserEntity userProfile = socialSource.getUserProfile(token);
+                final UserEntity userProfile = socialSource.getUserProfile(token);
                 if (userProfile == null) {
                     Logging.logger.error("Empty UserProfile from social source call");
                     httpServletResponse.sendRedirect("/");
@@ -77,7 +81,7 @@ public class SocialFilter extends BaseApplicationFilter {
                     }
                     tokens.put(socialNetwork, token);
                 }
-                httpServletResponse.sendRedirect((String) ObjectUtils.defaultIfNull(httpServletRequest.getHeader("referer"), ""));
+                httpServletResponse.sendRedirect(redirect);
             }
         } catch (Exception e) {
             Logging.logger.error("", e);
