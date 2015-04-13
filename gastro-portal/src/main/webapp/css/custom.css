@@ -1051,6 +1051,7 @@ div.element-item {
     height: 145px;
     width: 100%;
     overflow: hidden;
+    display: block;
 }
 
 .category-1 {
