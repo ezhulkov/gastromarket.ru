@@ -42,10 +42,11 @@ public class SocialFilter extends BaseApplicationFilter {
             final OAuthService authService = socialSource.getAuthService();
             if ("direct".equals(rqType)) {
                 final String authUrl = authService.getAuthorizationUrl(null);
-                httpServletResponse.sendRedirect(authUrl);
                 httpServletRequest.getSession(true).setAttribute(REDIRECT, httpServletRequest.getHeader("referer"));
+                httpServletResponse.sendRedirect(authUrl);
             } else if ("callback".equals(rqType)) {
-                final String sessionRedirect = (String) httpServletRequest.getSession(true).getAttribute(REDIRECT);
+                final HttpSession session = httpServletRequest.getSession();
+                final String sessionRedirect = (String) session.getAttribute(REDIRECT);
                 final String redirect = sessionRedirect == null || sessionRedirect.contains("/login") ? "" : sessionRedirect;
                 final String oAuth2Code = httpServletRequest.getParameter("code");
                 if (oAuth2Code == null) {
@@ -72,7 +73,6 @@ public class SocialFilter extends BaseApplicationFilter {
                     }
                     userService.signupSocial(userProfile);
                 }
-                final HttpSession session = httpServletRequest.getSession();
                 if (session != null) {
                     Map<String, Token> tokens = (Map<String, Token>) session.getAttribute(TOKENS);
                     if (tokens == null) {
