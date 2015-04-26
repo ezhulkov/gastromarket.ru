@@ -83,5 +83,5 @@
   - copy: src=nginx/nginx.conf dest=/etc/nginx/nginx.conf owner=nginx group=nginx mode=0644
   - copy: src=nginx/nginx-block.conf dest=/etc/nginx/nginx-block.conf owner=nginx group=nginx mode=0644
   - copy: src=nginx/nginx-core.conf dest=/etc/nginx/nginx-core.conf owner=nginx group=nginx mode=0644
-  - copy: src=nginx/nginx dest=/etc/init.d/nginx owner=root group=root mode=0644
+  - copy: src=nginx/nginx dest=/etc/init.d/nginx owner=root group=root mode=0744
   - service: name=nginx state=started
