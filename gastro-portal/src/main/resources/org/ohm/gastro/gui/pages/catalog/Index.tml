@@ -185,23 +185,23 @@
                     </div>
                 </div>
             </div>
-            <t:if test="ratings">
+            <t:if test="comments">
                 <ul class="ratings">
-                    <t:loop source="ratings" value="oneRating">
+                    <t:loop source="comments" value="oneComment">
                         <li class="row">
                             <div class="col-sm-1"/>
                             <div class="col-sm-2 pic text-right">
-                                <img src="${oneRating.author.avatarUrlMedium}"/>
+                                <img src="${oneComment.author.avatarUrlMedium}"/>
                             </div>
                             <div class="col-sm-6">
                                 <div class="date">
-                                    ${oneRating.datePrintable}
+                                    ${oneComment.datePrintable}
                                 </div>
                                 <div class="name">
-                                    ${oneRating.author.fullName}
+                                    ${oneComment.author.fullName}
                                 </div>
                                 <div class="text">
-                                    <t:outputraw value="oneRatingComment"/>
+                                    <t:outputraw value="oneCommentText"/>
                                 </div>
                             </div>
                         </li>

@@ -10,9 +10,9 @@ import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.CatalogEntity;
+import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.ProductEntity;
-import org.ohm.gastro.domain.RatingEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
@@ -37,7 +37,7 @@ public class Index extends BaseComponent {
     private ProductEntity editedProduct;
 
     @Property
-    private RatingEntity oneRating;
+    private CommentEntity oneComment;
 
     @Property
     private String rateComment;
@@ -92,8 +92,8 @@ public class Index extends BaseComponent {
     }
 
     @Cached
-    public java.util.List<RatingEntity> getRatings() {
-        return getCatalogService().findAllRatings(catalog);
+    public java.util.List<CommentEntity> getComments() {
+        return getCatalogService().findAllComments(catalog);
     }
 
     @Cached
@@ -125,8 +125,8 @@ public class Index extends BaseComponent {
         return desc;
     }
 
-    public String getOneRatingComment() {
-        String text = (String) ObjectUtils.defaultIfNull(oneRating.getComment(), "");
+    public String getOneCommentText() {
+        String text = (String) ObjectUtils.defaultIfNull(oneComment.getText(), "");
         text = text.replaceAll("\\n", "<br/>");
         return text;
     }
@@ -145,7 +145,7 @@ public class Index extends BaseComponent {
     }
 
     public void onSuccessFromRateForm() {
-        getCatalogService().rateCatalog(catalog, rateComment, 5, getAuthenticatedUserOpt().orElse(null));
+        getCatalogService().rateCatalog(catalog, rateComment, 0, getAuthenticatedUserOpt().orElse(null));
     }
 
     public String getProductsCount() {
@@ -153,7 +153,7 @@ public class Index extends BaseComponent {
     }
 
     public String getRatingCount() {
-        return getDeclInfo("ratings", getRatings().size());
+        return getDeclInfo("ratings", getComments().size());
     }
 
     public String getOrderCount() {

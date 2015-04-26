@@ -1,0 +1,2 @@
+[portal]
+192.168.50.5 ansible_ssh_user=vagrant ansible_ssh_private_key_file=./bootstrap/vagrant/.vagrant/machines/default/virtualbox/private_key ansible_sudo=true

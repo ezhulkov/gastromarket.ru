@@ -3,31 +3,37 @@ package org.ohm.gastro.service.impl;
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CategoryEntity;
+import org.ohm.gastro.domain.CommentEntity;
+import org.ohm.gastro.domain.LogEntity;
+import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
-import org.ohm.gastro.domain.RatingEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.CategoryRepository;
+import org.ohm.gastro.reps.CommentRepository;
+import org.ohm.gastro.reps.LogRepository;
 import org.ohm.gastro.reps.ProductRepository;
 import org.ohm.gastro.reps.PropertyRepository;
 import org.ohm.gastro.reps.PropertyValueRepository;
-import org.ohm.gastro.reps.RatingRepository;
 import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.ImageService.FileType;
 import org.ohm.gastro.service.ImageService.ImageSize;
 import org.ohm.gastro.service.ImageUploader;
 import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -47,7 +53,16 @@ public class CatalogServiceImpl implements CatalogService, Logging {
     private final CategoryRepository categoryRepository;
     private final CatalogRepository catalogRepository;
     private final ProductRepository productRepository;
-    private final RatingRepository ratingRepository;
+    private final CommentRepository commentRepository;
+    private final LogRepository logRepository;
+
+    private final int historyDays;
+    private final float retentionCoeff;
+    private final float posRatingCoeff;
+    private final float negRatingCoeff;
+    private final float transactionCoeff;
+    private final float productionCoeff;
+    private final float productsCoeff;
 
     @Autowired
     public CatalogServiceImpl(PropertyRepository propertyRepository,
@@ -55,13 +70,29 @@ public class CatalogServiceImpl implements CatalogService, Logging {
                               CategoryRepository categoryRepository,
                               CatalogRepository catalogRepository,
                               ProductRepository productRepository,
-                              RatingRepository ratingRepository) {
+                              CommentRepository commentRepository,
+                              LogRepository logRepository,
+                              @Value("rating.history.days") int historyDays,
+                              @Value("rating.retention.coeff") float retentionCoeff,
+                              @Value("rating.pos.rating.coeff") float posRatingCoeff,
+                              @Value("rating.neg.rating.coeff") float negRatingCoeff,
+                              @Value("rating.transaction.coeff") float transactionCoeff,
+                              @Value("rating.production.coeff") float productionCoeff,
+                              @Value("rating.products.coeff") float productsCoeff) {
         this.propertyRepository = propertyRepository;
         this.propertyValueRepository = propertyValueRepository;
         this.categoryRepository = categoryRepository;
         this.catalogRepository = catalogRepository;
         this.productRepository = productRepository;
-        this.ratingRepository = ratingRepository;
+        this.commentRepository = commentRepository;
+        this.logRepository = logRepository;
+        this.historyDays = historyDays;
+        this.retentionCoeff = retentionCoeff;
+        this.posRatingCoeff = posRatingCoeff;
+        this.negRatingCoeff = negRatingCoeff;
+        this.transactionCoeff = transactionCoeff;
+        this.productionCoeff = productionCoeff;
+        this.productsCoeff = productsCoeff;
     }
 
     @Override
@@ -187,20 +218,56 @@ public class CatalogServiceImpl implements CatalogService, Logging {
     }
 
     @Override
-    public List<RatingEntity> findAllRatings(CatalogEntity catalog) {
-        return ratingRepository.findAllByCatalogOrderByIdDesc(catalog);
+    public List<CommentEntity> findAllComments(CatalogEntity catalog) {
+        return commentRepository.findAllByCatalogOrderByIdDesc(catalog);
     }
 
     @Override
-    public void rateCatalog(final CatalogEntity catalog, final String comment, final int rating, final UserEntity user) {
-        if (StringUtils.isEmpty(comment) || user == null) return;
-        RatingEntity ratingEntity = new RatingEntity();
-        ratingEntity.setCatalog(catalog);
-        ratingEntity.setAuthor(user);
-        ratingEntity.setComment(comment);
-        ratingEntity.setDate(new Timestamp(System.currentTimeMillis()));
-        ratingEntity.setRating(rating);
-        ratingRepository.save(ratingEntity);
+    public void rateCatalog(final CatalogEntity catalog, final String text, final int rating, final UserEntity user) {
+
+        if (StringUtils.isEmpty(text) || user == null) return;
+        CommentEntity commentEntity = new CommentEntity();
+        commentEntity.setCatalog(catalog);
+        commentEntity.setAuthor(user);
+        commentEntity.setText(text);
+        commentEntity.setDate(new Timestamp(System.currentTimeMillis()));
+        commentEntity.setRating(rating);
+        commentRepository.save(commentEntity);
+
+    }
+
+    @Override
+    public void updateRating(final CatalogEntity catalog) {
+
+        final Date fromDate = DateUtils.addDays(new Date(), -historyDays);
+        final List<CommentEntity> ratings = commentRepository.findAllRatings(catalog);
+        final List<LogEntity> catalogOps = logRepository.findAll(catalog.getUser(), catalog, fromDate);
+
+        final int productsCount = catalog.getReadyProducts().size();
+        final int retentionCount = logRepository.findAll(catalog.getUser(), fromDate, Type.LOGIN).size();
+        final int posCount = (int) ratings.stream().filter(t -> t.getRating() > 0).count();
+        final int negCount = (int) ratings.stream().filter(t -> t.getRating() < 0).count();
+        final int totalSum = (int) catalogOps.stream().filter(t -> t.getType() == Type.ORDER_DONE).mapToLong(LogEntity::getCount).sum();
+        final int doneCount = (int) catalogOps.stream().filter(t -> t.getType() == Type.ORDER_DONE).count();
+        final int cancelledCount = (int) catalogOps.stream().filter(t -> t.getType() == Type.ORDER_CANCELLED).count();
+
+        logger.info("Updating rating for {}", catalog);
+
+        catalog.setRating(calcRating(productsCount, retentionCount, posCount, negCount, doneCount, cancelledCount, totalSum));
+
+        catalogRepository.save(catalog);
+
+    }
+
+    private int calcRating(final int productsCount, final int retentionCount, final int posCount, final int negCount, final int doneCount, final int cancelledCount, final int totalSum) {
+        return (int) (
+                productsCount * productsCoeff +
+                        retentionCount * retentionCoeff +
+                        posCount * posRatingCoeff +
+                        negCount * negRatingCoeff +
+                        doneCount / cancelledCount * productionCoeff +
+                        totalSum * transactionCoeff
+        );
     }
 
     @Override

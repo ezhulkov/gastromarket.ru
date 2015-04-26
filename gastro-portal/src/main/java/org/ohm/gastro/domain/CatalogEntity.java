@@ -15,6 +15,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 27.08.14.
@@ -46,6 +47,9 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
 
     @Column
     private Integer rating = 0;
+
+    @Column(name = "rating_date")
+    private Date ratingDate = new Date();
 
     @Column(name = "basket_min")
     private Integer basketMin = 0;
@@ -193,6 +197,10 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
 
     public void setWasSetup(final boolean wasSetup) {
         this.wasSetup = wasSetup;
+    }
+
+    public List<ProductEntity> getReadyProducts() {
+        return products.stream().filter(ProductEntity::isWasSetup).collect(Collectors.toList());
     }
 
 }

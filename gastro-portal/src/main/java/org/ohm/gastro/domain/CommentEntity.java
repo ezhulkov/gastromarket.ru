@@ -17,17 +17,17 @@ import java.sql.Timestamp;
  * Created by ezhulkov on 27.08.14.
  */
 @Entity
-@Table(name = "rating")
-public class RatingEntity extends AbstractBaseEntity {
+@Table(name = "comment")
+public class CommentEntity extends AbstractBaseEntity {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "rating")
-    @SequenceGenerator(initialValue = 1, allocationSize = 1, name = "rating")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "comment")
+    @SequenceGenerator(initialValue = 1, allocationSize = 1, name = "comment")
     private Long id;
 
     @Column
-    private String comment;
+    private String text;
 
     @Column
     private Integer rating;
@@ -50,12 +50,12 @@ public class RatingEntity extends AbstractBaseEntity {
         this.id = id;
     }
 
-    public String getComment() {
-        return comment;
+    public String getText() {
+        return text;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setText(final String text) {
+        this.text = text;
     }
 
     public Integer getRating() {
