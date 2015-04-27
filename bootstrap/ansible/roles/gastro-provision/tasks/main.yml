@@ -60,7 +60,7 @@
   - copy: src=postgres/russian.stop dest=/usr/share/postgresql/9.4/tsearch_data/russian.stop owner=postgres group=postgres mode=0644
   - copy: src=postgres/postgresql.conf dest=/etc/postgresql/9.4/main/postgresql.conf owner=postgres group=postgres mode=0644
   - copy: src=postgres/init.sql dest=/etc/postgresql/9.4/main/init.sql owner=postgres group=postgres mode=0644
-  - service: name=postgresql state=started
+  - service: name=postgresql state=started  enabled=yes
   - shell: sudo -u postgres psql -f /etc/postgresql/9.4/main/init.sql
 
 #Nginx
@@ -84,4 +84,7 @@
   - copy: src=nginx/nginx-block.conf dest=/etc/nginx/nginx-block.conf owner=nginx group=nginx mode=0644
   - copy: src=nginx/nginx-core.conf dest=/etc/nginx/nginx-core.conf owner=nginx group=nginx mode=0644
   - copy: src=nginx/nginx dest=/etc/init.d/nginx owner=root group=root mode=0744
-  - service: name=nginx state=started
+  - file: path={{ item }} state=directory mode=0755 group=nginx owner=nginx
+    with_items:
+      - "/var/lib/nginx/cache"
+  - service: name=nginx state=started enabled=yes
