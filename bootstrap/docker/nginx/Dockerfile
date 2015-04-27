@@ -1,9 +1,0 @@
-FROM ezhulkov/gm-basic:latest
-MAINTAINER Eugene Zhulkov ezhulkov@gmail.com
-
-
-
-EXPOSE 80
-
-
-# ./configure --prefix=/usr/local/nginx --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --pid-path=/run/nginx.pid --lock-path=/run/lock/subsys/nginx --user=nginx --group=nginx --with-file-aio --with-ipv6 --with-http_ssl_module --with-http_realip_module --with-http_addition_module --with-http_gzip_static_module --with-http_stub_status_module --with-pcre --with-debug --add-module=/root/nginx/nginx_upload_module-2.2.0
