@@ -3,4 +3,4 @@ postfix=-dev
 tomcat_opts=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
 
 [portal]
-192.168.50.5 ansible_ssh_user=vagrant ansible_ssh_private_key_file=./bootstrap/vagrant/.vagrant/machines/default/virtualbox/private_key ansible_sudo=true
+gastromarket-dev.ru ansible_ssh_user=vagrant ansible_ssh_private_key_file=./bootstrap/vagrant/.vagrant/machines/default/virtualbox/private_key ansible_sudo=true
