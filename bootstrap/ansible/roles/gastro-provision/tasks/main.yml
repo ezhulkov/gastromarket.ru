@@ -44,8 +44,8 @@
 #Tomcat7
   - apt: name=tomcat7
   - service: name=tomcat7 state=stopped
-  - copy: src=tomcat7/tomcat7 dest=/etc/default/tomcat7 owner=tomcat7 group=tomcat7 mode=0644
-  - copy: src=tomcat7/server.xml dest=/etc/tomcat7/server.xml owner=tomcat7 group=tomcat7 mode=0644
+  - template: src=tomcat7/tomcat7 dest=/etc/default/tomcat7 owner=tomcat7 group=tomcat7 mode=0644
+  - template: src=tomcat7/server.xml dest=/etc/tomcat7/server.xml owner=tomcat7 group=tomcat7 mode=0644
 
 #Postgres
   - shell: apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 7FCC7D46ACCC4CF8
@@ -80,7 +80,7 @@
             --with-http_stub_status_module --with-pcre --with-debug --add-module=/root/distr/nginx_upload_module-2.2.0 && \
             make && \
             make install
-  - copy: src=nginx/nginx.conf dest=/etc/nginx/nginx.conf owner=nginx group=nginx mode=0644
+  - template: src=nginx/nginx.conf dest=/etc/nginx/nginx.conf owner=nginx group=nginx mode=0644
   - copy: src=nginx/nginx-block.conf dest=/etc/nginx/nginx-block.conf owner=nginx group=nginx mode=0644
   - copy: src=nginx/nginx-core.conf dest=/etc/nginx/nginx-core.conf owner=nginx group=nginx mode=0644
   - copy: src=nginx/nginx dest=/etc/init.d/nginx owner=root group=root mode=0744

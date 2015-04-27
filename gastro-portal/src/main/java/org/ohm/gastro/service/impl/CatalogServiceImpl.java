@@ -72,13 +72,13 @@ public class CatalogServiceImpl implements CatalogService, Logging {
                               ProductRepository productRepository,
                               CommentRepository commentRepository,
                               LogRepository logRepository,
-                              @Value("rating.history.days") int historyDays,
-                              @Value("rating.retention.coeff") float retentionCoeff,
-                              @Value("rating.pos.rating.coeff") float posRatingCoeff,
-                              @Value("rating.neg.rating.coeff") float negRatingCoeff,
-                              @Value("rating.transaction.coeff") float transactionCoeff,
-                              @Value("rating.production.coeff") float productionCoeff,
-                              @Value("rating.products.coeff") float productsCoeff) {
+                              @Value("${rating.history.days}") int historyDays,
+                              @Value("${rating.retention.coeff}") float retentionCoeff,
+                              @Value("${rating.pos.rating.coeff}") float posRatingCoeff,
+                              @Value("${rating.neg.rating.coeff}") float negRatingCoeff,
+                              @Value("${rating.transaction.coeff}") float transactionCoeff,
+                              @Value("${rating.production.coeff}") float productionCoeff,
+                              @Value("${rating.products.coeff}") float productsCoeff) {
         this.propertyRepository = propertyRepository;
         this.propertyValueRepository = propertyValueRepository;
         this.categoryRepository = categoryRepository;

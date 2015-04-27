@@ -1,2 +1,6 @@
+[all:vars]
+postfix=
+tomcat_opts=
+
 [portal]
 gastromarket.ru ansible_ssh_user=eugenezh

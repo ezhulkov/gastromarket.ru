@@ -12,7 +12,7 @@
                 pathname="conf/tomcat-users.xml"/>
     </GlobalNamingResources>
     <Service name="Catalina">
-        <Connector port="8080" address="0.0.0.0" proxyPort="80" proxyName="gastromarket.ru" protocol="HTTP/1.1"
+        <Connector port="8080" address="0.0.0.0" proxyPort="80" proxyName="gastromarket{{ postfix }}.ru" protocol="HTTP/1.1"
                 connectionTimeout="20000"
                 URIEncoding="UTF-8"
                 redirectPort="8443"/>

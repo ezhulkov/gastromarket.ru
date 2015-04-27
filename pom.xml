@@ -30,12 +30,18 @@
 
     <profiles>
         <profile>
-            <id>dev</id>
+            <id>local</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
                 <mvn.properties.file>build-local.properties</mvn.properties.file>
+            </properties>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <mvn.properties.file>build-dev.properties</mvn.properties.file>
             </properties>
         </profile>
         <profile>
