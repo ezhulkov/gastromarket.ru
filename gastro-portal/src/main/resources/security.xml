@@ -36,7 +36,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
 
     <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>
 
-    <beans:bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+    <beans:bean id="authenticationSuccessHandler" class="org.ohm.gastro.service.impl.AuthSuccessfulHandler">
         <beans:property name="useReferer" value="true"/>
     </beans:bean>
 

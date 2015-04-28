@@ -168,6 +168,8 @@ public class UserServiceImpl implements UserService, Logging {
         Authentication authentication = new UsernamePasswordAuthenticationToken(existingUser, null, existingUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
+        afterSuccessfulLogin(userProfile);
+
     }
 
     @Override
@@ -180,6 +182,14 @@ public class UserServiceImpl implements UserService, Logging {
             return Math.max(0, userBonus - usedBonus);
         }
         return 0;
+    }
+
+    @Override
+    public void afterSuccessfulLogin(final UserEntity user) {
+
+        logger.info("User {} successful logged in", user);
+
+
     }
 
     @Override

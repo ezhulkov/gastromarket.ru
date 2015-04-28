@@ -30,6 +30,7 @@ public interface UserService extends UserDetailsService, ImageUploaderService<Us
 
     int getUserBonuses(UserEntity user);
 
+    void afterSuccessfulLogin(UserEntity user);
 
 
 }
