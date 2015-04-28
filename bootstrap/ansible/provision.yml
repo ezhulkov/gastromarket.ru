@@ -1,6 +1,8 @@
----
-  - hosts: portal
-    gather_facts: false
-    sudo: yes
-    roles:
-      - gastro-provision
+- hosts: all
+  sudo: yes
+  gather_facts: no
+- include: provision-general.yml
+- include: provision-java.yml
+- include: provision-nginx.yml
+- include: provision-postgres.yml
+- include: provision-tomcat.yml

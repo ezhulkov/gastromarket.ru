@@ -1,5 +1,6 @@
 [all:vars]
-postfix=
+dns_postfix=
+nginx_send_file=on
 tomcat_opts=
 
 [portal]

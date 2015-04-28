@@ -1,5 +1,6 @@
 [all:vars]
-postfix=-dev
+dns_postfix=-dev
+nginx_send_file=off
 tomcat_opts=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
 
 [portal]
