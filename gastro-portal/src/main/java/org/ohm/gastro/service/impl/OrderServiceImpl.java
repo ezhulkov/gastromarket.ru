@@ -14,9 +14,9 @@ import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.OrderProductRepository;
 import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.reps.UserRepository;
-import org.ohm.gastro.service.LogService;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.OrderService;
+import org.ohm.gastro.service.RatingService;
 import org.ohm.gastro.trait.Logging;
 import org.ohm.gastro.util.CommonsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,20 +47,20 @@ public class OrderServiceImpl implements OrderService, Logging {
     private final BillRepository billRepository;
     private final CatalogRepository catalogRepository;
     private final MailService mailService;
-    private final LogService logService;
+    private final RatingService ratingService;
 
     @Autowired
     public OrderServiceImpl(final OrderRepository orderRepository, final OrderProductRepository orderProductRepository,
                             final UserRepository userRepository, final BillRepository billRepository,
                             final CatalogRepository catalogRepository, final MailService mailService,
-                            final LogService logService) {
+                            final RatingService ratingService) {
         this.orderRepository = orderRepository;
         this.orderProductRepository = orderProductRepository;
         this.userRepository = userRepository;
         this.billRepository = billRepository;
         this.catalogRepository = catalogRepository;
         this.mailService = mailService;
-        this.logService = logService;
+        this.ratingService = ratingService;
     }
 
     private Date getBillingPeriodStart(Date catalogCreationDate) {
@@ -224,7 +224,7 @@ public class OrderServiceImpl implements OrderService, Logging {
                 }
                 userRepository.save(customer);
             }
-            logService.registerEvent(Type.ORDER_DONE, order.getCatalog());
+            ratingService.registerEvent(Type.ORDER_DONE, order.getCatalog());
         }
         order.setStatus(status);
         orderRepository.save(order);

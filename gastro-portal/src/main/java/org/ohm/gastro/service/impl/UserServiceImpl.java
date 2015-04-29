@@ -17,8 +17,8 @@ import org.ohm.gastro.service.EmptyPasswordException;
 import org.ohm.gastro.service.ImageService.FileType;
 import org.ohm.gastro.service.ImageService.ImageSize;
 import org.ohm.gastro.service.ImageUploader;
-import org.ohm.gastro.service.LogService;
 import org.ohm.gastro.service.MailService;
+import org.ohm.gastro.service.RatingService;
 import org.ohm.gastro.service.UserExistsException;
 import org.ohm.gastro.service.UserService;
 import org.ohm.gastro.trait.Logging;
@@ -54,19 +54,19 @@ public class UserServiceImpl implements UserService, Logging {
     private final CatalogRepository catalogRepository;
     private final OrderRepository orderRepository;
     private final PasswordEncoder passwordEncoder;
-    private final LogService logService;
+    private final RatingService ratingService;
     private final MailService mailService;
     private final Random random = new Random();
 
     @Autowired
     public UserServiceImpl(final UserRepository userRepository, final CatalogRepository catalogRepository,
                            final OrderRepository orderRepository, final PasswordEncoder passwordEncoder,
-                           final LogService logService, final MailService mailService) {
+                           final RatingService ratingService, final MailService mailService) {
         this.userRepository = userRepository;
         this.catalogRepository = catalogRepository;
         this.orderRepository = orderRepository;
         this.passwordEncoder = passwordEncoder;
-        this.logService = logService;
+        this.ratingService = ratingService;
         this.mailService = mailService;
     }
 
@@ -195,7 +195,7 @@ public class UserServiceImpl implements UserService, Logging {
     public void afterSuccessfulLogin(@Nonnull final UserDetails user) {
 
         logger.info("User {} successful logged in", user);
-        if (user instanceof UserEntity) logService.registerEvent(LogEntity.Type.LOGIN, (UserEntity) user);
+        if (user instanceof UserEntity) ratingService.registerEvent(LogEntity.Type.LOGIN, (UserEntity) user);
 
     }
 

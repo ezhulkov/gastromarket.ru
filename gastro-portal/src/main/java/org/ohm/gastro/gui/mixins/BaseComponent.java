@@ -24,6 +24,7 @@ import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.MessageService;
 import org.ohm.gastro.service.OrderService;
 import org.ohm.gastro.service.ProductService;
+import org.ohm.gastro.service.RatingService;
 import org.ohm.gastro.service.UserService;
 import org.scribe.model.Token;
 import org.slf4j.Logger;
@@ -76,6 +77,9 @@ public abstract class BaseComponent {
 
     @Inject
     private CatalogService catalogService;
+
+    @Inject
+    private RatingService ratingService;
 
     @Inject
     private ProductService productService;
@@ -230,6 +234,10 @@ public abstract class BaseComponent {
 
     public ApplicationContext getApplicationContext() {
         return applicationContext;
+    }
+
+    public RatingService getRatingService() {
+        return ratingService;
     }
 
     public OrderProductEntity createPurchaseItem(Long pid) {

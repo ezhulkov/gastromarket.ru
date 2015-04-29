@@ -93,7 +93,7 @@ public class Index extends BaseComponent {
 
     @Cached
     public java.util.List<CommentEntity> getComments() {
-        return getCatalogService().findAllComments(catalog);
+        return getRatingService().findAllComments(catalog);
     }
 
     @Cached
@@ -145,7 +145,7 @@ public class Index extends BaseComponent {
     }
 
     public void onSuccessFromRateForm() {
-        getCatalogService().rateCatalog(catalog, rateComment, 0, getAuthenticatedUserOpt().orElse(null));
+        getRatingService().rateCatalog(catalog, rateComment, 0, getAuthenticatedUserOpt().orElse(null));
     }
 
     public String getProductsCount() {

@@ -2,7 +2,6 @@ package org.ohm.gastro.service;
 
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CategoryEntity;
-import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.UserEntity;
@@ -60,11 +59,5 @@ public interface CatalogService extends ImageUploaderService<CatalogEntity>, Alt
     CatalogEntity findCatalog(String altId);
 
     List<CategoryEntity> findAllRootCategories(CatalogEntity catalog);
-
-    List<CommentEntity> findAllComments(CatalogEntity user);
-
-    void rateCatalog(final CatalogEntity catalog, final String comment, final int rating, final UserEntity user);
-
-    void updateRating(final CatalogEntity catalog);
 
 }
