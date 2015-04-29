@@ -1,6 +1,5 @@
 package org.ohm.gastro.gui.pages.admin.order;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
@@ -45,14 +44,6 @@ public class List extends BaseComponent {
 
     public java.util.List<OrderEntity> getAllOrders() {
         return getOrderService().findAllOrders(catalog);
-    }
-
-    public CatalogEntity getOneOrderCatalog() {
-        return CollectionUtils.isEmpty(oneOrder.getProducts()) ? null : oneOrder.getProducts().get(0).getProduct().getCatalog();
-    }
-
-    public int getTotalPrice() {
-        return getOrderService().getProductsPrice(oneOrder.getProducts());
     }
 
     public String getOneOrderStatus() {

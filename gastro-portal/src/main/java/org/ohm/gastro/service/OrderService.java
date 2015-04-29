@@ -26,8 +26,6 @@ public interface OrderService {
 
     List<BillEntity> findAllBills(CatalogEntity catalog);
 
-    int getProductsPrice(List<OrderProductEntity> products);
-
     int getBonuses(int price);
 
     OrderEntity findOrder(Long id);

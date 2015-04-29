@@ -1,8 +1,6 @@
 package org.ohm.gastro.gui.pages.admin.order;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.tapestry5.annotations.Property;
-import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderProductEntity;
 import org.ohm.gastro.gui.AbstractServiceCallback;
@@ -27,16 +25,8 @@ public class Index extends EditObjectPage<OrderEntity> {
         };
     }
 
-    public CatalogEntity getOrderCatalog() {
-        return CollectionUtils.isEmpty(getObject().getProducts()) ? null : getObject().getProducts().get(0).getProduct().getCatalog();
-    }
-
     public String getOrderStatus() {
         return getMessages().get(getObject().getStatus().toString());
-    }
-
-    public int getOrderTotalPrice() {
-        return getOrderService().getProductsPrice(getObject().getProducts());
     }
 
 }

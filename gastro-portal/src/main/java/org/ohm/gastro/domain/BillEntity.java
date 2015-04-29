@@ -106,7 +106,7 @@ public class BillEntity extends AbstractBaseEntity {
     }
 
     public int getTotalSales() {
-        return getClosedOrders().stream().mapToInt(OrderEntity::getTotalPrice).sum();
+        return getClosedOrders().stream().mapToInt(OrderEntity::getOrderTotalPrice).sum();
     }
 
     public int getTotalBonuses() {

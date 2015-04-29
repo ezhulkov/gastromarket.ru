@@ -25,7 +25,7 @@
             <t:delegate to="ordersBlock"/>
         </t:zone>
         <t:block t:id="ordersBlock">
-            <t:grid source="orders" row="oneOrder" exclude="id,comment,status,date,usedBonuses,orderNumber,datePrintable,closed,totalPrice" add="item" class="orders-table">
+            <t:grid source="orders" row="oneOrder" exclude="id,comment,status,date,usedBonuses,orderNumber,datePrintable,closed,orderTotalPrice" add="item" class="orders-table">
                 <t:parameter name="itemCell">
                     <div class="row">
                         <div class="col-sm-2"/>
@@ -34,7 +34,7 @@
                                 <t:delegate to="orderBlock"/>
                             </t:zone>
                             <t:block t:id="orderBlock">
-                                <div class="f30px">Заказ <b>№${oneOrder.orderNumber}</b>, общая стоимость <b>${totalPrice} р</b></div>
+                                <div class="f30px">Заказ <b>№${oneOrder.orderNumber}</b>, общая стоимость <b>${oneOrder.orderTotalPrice} р</b></div>
                                 <t:if test="oneOrder.usedBonuses">
                                     <div class="row">
                                         <div class="col-sm-12">

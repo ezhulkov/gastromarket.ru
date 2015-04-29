@@ -67,10 +67,6 @@ public class Orders extends BaseComponent {
         return ordersBlock;
     }
 
-    public int getTotalPrice() {
-        return getOrderService().getProductsPrice(oneOrder.getProducts());
-    }
-
     public Block onActionFromDeleteProduct(Long oid, Long pid) {
         oneOrder = getOrderService().findOrder(oid);
         if (!isStatusChangeAllowed()) return orderBlock;
@@ -90,7 +86,7 @@ public class Orders extends BaseComponent {
         if (!isStatusChangeAllowed()) return orderBlock;
         getOrderService().decProduct(oid, pid);
         if (oneOrder.getUsedBonuses() > 0) {
-            int newPrice = getOrderService().getProductsPrice(oneOrder.getProducts());
+            int newPrice = oneOrder.getOrderTotalPrice();
             if (oneOrder.getUsedBonuses() > newPrice) {
                 oneOrder.setUsedBonuses(newPrice);
                 getOrderService().saveOrder(oneOrder);

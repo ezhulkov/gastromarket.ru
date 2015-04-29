@@ -18,7 +18,7 @@
             </div>
         </t:form>
 
-        <t:grid source="allOrders" row="oneOrder" reorder="orderNumber,datePrintable,usedBonuses,catalog,totalPrice,status" add="catalog" exclude="id,comment,date,closed"
+        <t:grid source="allOrders" row="oneOrder" reorder="orderNumber,datePrintable,usedBonuses,catalog,orderTotalPrice,status" add="catalog" exclude="id,comment,date,closed"
                 t:mixins="GridSortingDisabled" class="table table-hover">
             <t:parameter name="orderNumberCell">
                 <t:pageLink page="admin/order/index" context="oneOrder.id">${oneOrder.orderNumber}</t:pageLink>
@@ -29,9 +29,8 @@
                 </t:if>
             </t:parameter>
             <t:parameter name="catalogCell">
-                <t:pageLink page="catalog/index" context="oneOrderCatalog.id">${oneOrderCatalog.name}</t:pageLink>
+                <t:pageLink page="catalog/index" context="oneOrder.catalog.id">${oneOrder.catalog.name}</t:pageLink>
             </t:parameter>
-            <t:parameter name="totalPriceCell">${totalPrice}</t:parameter>
             <t:parameter name="statusCell"><span class="order-status status-${oneOrder.status}">${oneOrderStatus}</span></t:parameter>
             <t:parameter name="empty">
                 <div class="empty">Нет данных</div>

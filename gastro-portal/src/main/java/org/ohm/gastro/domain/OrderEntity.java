@@ -1,6 +1,7 @@
 package org.ohm.gastro.domain;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.collections.CollectionUtils;
 import org.ohm.gastro.util.CommonsUtils;
 
 import javax.persistence.Column;
@@ -142,8 +143,12 @@ public class OrderEntity extends AbstractBaseEntity {
         return status == Status.READY;
     }
 
-    public int getTotalPrice() {
-        return getProducts().stream().mapToInt(t -> t.getCount() * t.getPrice()).sum();
+    public int getOrderTotalPrice() {
+        return products.stream().mapToInt(t -> t.getCount() * t.getPrice()).sum();
+    }
+
+    public CatalogEntity getCatalog() {
+        return CollectionUtils.isEmpty(products) ? null : products.get(0).getProduct().getCatalog();
     }
 
 }

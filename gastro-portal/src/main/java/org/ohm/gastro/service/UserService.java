@@ -1,8 +1,10 @@
 package org.ohm.gastro.service;
 
 import org.ohm.gastro.domain.UserEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -30,7 +32,7 @@ public interface UserService extends UserDetailsService, ImageUploaderService<Us
 
     int getUserBonuses(UserEntity user);
 
-    void afterSuccessfulLogin(UserEntity user);
+    void afterSuccessfulLogin(@Nonnull UserDetails user);
 
 
 }

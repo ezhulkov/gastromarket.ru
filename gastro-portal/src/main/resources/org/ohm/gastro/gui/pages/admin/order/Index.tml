@@ -9,7 +9,7 @@
             <label class="col-sm-2 control-label">Исполнитель:</label>
 
             <div class="col-sm-9">
-                <input class="form-control" type="text" value="${orderCatalog.name}"/>
+                <input class="form-control" type="text" value="${object.catalog?.name}"/>
             </div>
         </div>
         <div class="form-group">
@@ -23,7 +23,7 @@
             <label class="col-sm-2 control-label">Стоимость:</label>
 
             <div class="col-sm-9">
-                <input class="form-control" type="text" value="${orderTotalPrice}"/>
+                <input class="form-control" type="text" value="${object.orderTotalPrice}"/>
             </div>
         </div>
         <div class="form-group">

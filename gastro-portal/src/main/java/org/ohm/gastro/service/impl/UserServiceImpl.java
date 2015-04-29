@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.io.BaseEncoding;
 import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
+import org.ohm.gastro.domain.LogEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.domain.UserEntity.Status;
@@ -16,6 +17,7 @@ import org.ohm.gastro.service.EmptyPasswordException;
 import org.ohm.gastro.service.ImageService.FileType;
 import org.ohm.gastro.service.ImageService.ImageSize;
 import org.ohm.gastro.service.ImageUploader;
+import org.ohm.gastro.service.LogService;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.UserExistsException;
 import org.ohm.gastro.service.UserService;
@@ -31,6 +33,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -51,15 +54,19 @@ public class UserServiceImpl implements UserService, Logging {
     private final CatalogRepository catalogRepository;
     private final OrderRepository orderRepository;
     private final PasswordEncoder passwordEncoder;
+    private final LogService logService;
     private final MailService mailService;
     private final Random random = new Random();
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, CatalogRepository catalogRepository, final OrderRepository orderRepository, PasswordEncoder passwordEncoder, MailService mailService) {
+    public UserServiceImpl(final UserRepository userRepository, final CatalogRepository catalogRepository,
+                           final OrderRepository orderRepository, final PasswordEncoder passwordEncoder,
+                           final LogService logService, final MailService mailService) {
         this.userRepository = userRepository;
         this.catalogRepository = catalogRepository;
         this.orderRepository = orderRepository;
         this.passwordEncoder = passwordEncoder;
+        this.logService = logService;
         this.mailService = mailService;
     }
 
@@ -185,10 +192,10 @@ public class UserServiceImpl implements UserService, Logging {
     }
 
     @Override
-    public void afterSuccessfulLogin(final UserEntity user) {
+    public void afterSuccessfulLogin(@Nonnull final UserDetails user) {
 
         logger.info("User {} successful logged in", user);
-
+        if (user instanceof UserEntity) logService.registerEvent(LogEntity.Type.LOGIN, (UserEntity) user);
 
     }
 

@@ -16,7 +16,7 @@ import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.CategoryRepository;
 import org.ohm.gastro.reps.CommentRepository;
-import org.ohm.gastro.reps.LogRepository;
+import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.reps.ProductRepository;
 import org.ohm.gastro.reps.PropertyRepository;
 import org.ohm.gastro.reps.PropertyValueRepository;
@@ -24,6 +24,7 @@ import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.ImageService.FileType;
 import org.ohm.gastro.service.ImageService.ImageSize;
 import org.ohm.gastro.service.ImageUploader;
+import org.ohm.gastro.service.LogService;
 import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -54,7 +55,8 @@ public class CatalogServiceImpl implements CatalogService, Logging {
     private final CatalogRepository catalogRepository;
     private final ProductRepository productRepository;
     private final CommentRepository commentRepository;
-    private final LogRepository logRepository;
+    private final OrderRepository orderRepository;
+    private final LogService logService;
 
     private final int historyDays;
     private final float retentionCoeff;
@@ -71,7 +73,7 @@ public class CatalogServiceImpl implements CatalogService, Logging {
                               CatalogRepository catalogRepository,
                               ProductRepository productRepository,
                               CommentRepository commentRepository,
-                              LogRepository logRepository,
+                              OrderRepository orderRepository, LogService logService,
                               @Value("${rating.history.days}") int historyDays,
                               @Value("${rating.retention.coeff}") float retentionCoeff,
                               @Value("${rating.pos.rating.coeff}") float posRatingCoeff,
@@ -85,7 +87,8 @@ public class CatalogServiceImpl implements CatalogService, Logging {
         this.catalogRepository = catalogRepository;
         this.productRepository = productRepository;
         this.commentRepository = commentRepository;
-        this.logRepository = logRepository;
+        this.orderRepository = orderRepository;
+        this.logService = logService;
         this.historyDays = historyDays;
         this.retentionCoeff = retentionCoeff;
         this.posRatingCoeff = posRatingCoeff;
@@ -241,31 +244,31 @@ public class CatalogServiceImpl implements CatalogService, Logging {
 
         final Date fromDate = DateUtils.addDays(new Date(), -historyDays);
         final List<CommentEntity> ratings = commentRepository.findAllRatings(catalog);
-        final List<LogEntity> catalogOps = logRepository.findAll(catalog.getUser(), catalog, fromDate);
+        final List<LogEntity> catalogOps = logService.findEvents(catalog.getUser(), catalog, fromDate);
 
         final int productsCount = catalog.getReadyProducts().size();
-        final int retentionCount = logRepository.findAll(catalog.getUser(), fromDate, Type.LOGIN).size();
+        final int retentionCount = logService.findEvents(catalog.getUser(), fromDate, Type.LOGIN).size();
         final int posCount = (int) ratings.stream().filter(t -> t.getRating() > 0).count();
         final int negCount = (int) ratings.stream().filter(t -> t.getRating() < 0).count();
         final int totalSum = (int) catalogOps.stream().filter(t -> t.getType() == Type.ORDER_DONE).mapToLong(LogEntity::getCount).sum();
-        final int doneCount = (int) catalogOps.stream().filter(t -> t.getType() == Type.ORDER_DONE).count();
-        final int cancelledCount = (int) catalogOps.stream().filter(t -> t.getType() == Type.ORDER_CANCELLED).count();
+        final int doneOrdersCount = (int) catalogOps.stream().filter(t -> t.getType() == Type.ORDER_DONE).count();
+        final int totalOrdersCount = orderRepository.findAllByCatalog(catalog, null).size();
 
         logger.info("Updating rating for {}", catalog);
 
-        catalog.setRating(calcRating(productsCount, retentionCount, posCount, negCount, doneCount, cancelledCount, totalSum));
+        catalog.setRating(calcRating(productsCount, retentionCount, posCount, negCount, doneOrdersCount, totalOrdersCount, totalSum));
 
         catalogRepository.save(catalog);
 
     }
 
-    private int calcRating(final int productsCount, final int retentionCount, final int posCount, final int negCount, final int doneCount, final int cancelledCount, final int totalSum) {
+    private int calcRating(final int productsCount, final int retentionCount, final int posCount, final int negCount, final int doneCount, final int allCount, final int totalSum) {
         return (int) (
                 productsCount * productsCoeff +
                         retentionCount * retentionCoeff +
                         posCount * posRatingCoeff +
                         negCount * negRatingCoeff +
-                        doneCount / cancelledCount * productionCoeff +
+                        doneCount / allCount * productionCoeff +
                         totalSum * transactionCoeff
         );
     }

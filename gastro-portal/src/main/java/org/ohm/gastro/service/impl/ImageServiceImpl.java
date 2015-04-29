@@ -71,7 +71,6 @@ public class ImageServiceImpl implements ImageService {
                 .values().stream()
                 .collect(Collectors.toMap(bean -> ultimateTargetClass(bean).getAnnotation(ImageUploader.class).value(),
                                           bean -> bean));
-        System.out.println(imageUploaderServiceMap);
     }
 
     public Map<ImageSize, String> resizeImagePack(@Nonnull File file, @Nonnull FileType fileType, @Nullable String objectId) throws IOException {

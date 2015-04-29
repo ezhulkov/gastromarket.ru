@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.ohm.gastro.domain.BillEntity;
 import org.ohm.gastro.domain.CatalogEntity;
+import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.OrderProductEntity;
@@ -13,6 +14,7 @@ import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.OrderProductRepository;
 import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.reps.UserRepository;
+import org.ohm.gastro.service.LogService;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.OrderService;
 import org.ohm.gastro.trait.Logging;
@@ -45,17 +47,20 @@ public class OrderServiceImpl implements OrderService, Logging {
     private final BillRepository billRepository;
     private final CatalogRepository catalogRepository;
     private final MailService mailService;
+    private final LogService logService;
 
     @Autowired
     public OrderServiceImpl(final OrderRepository orderRepository, final OrderProductRepository orderProductRepository,
                             final UserRepository userRepository, final BillRepository billRepository,
-                            final CatalogRepository catalogRepository, final MailService mailService) {
+                            final CatalogRepository catalogRepository, final MailService mailService,
+                            final LogService logService) {
         this.orderRepository = orderRepository;
         this.orderProductRepository = orderProductRepository;
         this.userRepository = userRepository;
         this.billRepository = billRepository;
         this.catalogRepository = catalogRepository;
         this.mailService = mailService;
+        this.logService = logService;
     }
 
     private Date getBillingPeriodStart(Date catalogCreationDate) {
@@ -79,7 +84,7 @@ public class OrderServiceImpl implements OrderService, Logging {
 
     @Override
     public List<OrderEntity> placeOrder(OrderEntity totalOrder, List<OrderProductEntity> purchaseItems, final UserEntity customer, final String eMail) {
-        final Integer totalPrice = getProductsPrice(purchaseItems);
+        final Integer totalPrice = purchaseItems.stream().mapToInt(t -> t.getCount() * t.getPrice()).sum();
         userRepository.save(customer);
         List<OrderEntity> orders = purchaseItems.stream()
                 .collect(Collectors.groupingBy(t -> t.getProduct().getCatalog())).entrySet().stream()
@@ -88,7 +93,6 @@ public class OrderServiceImpl implements OrderService, Logging {
                     final Date billingPeriodStart = getBillingPeriodStart(catalog.getDate());
                     final Date billingPeriodEnd = getBillingPeriodEnd(catalog.getDate());
                     final List<OrderProductEntity> products = t.getValue();
-                    final int orderPrice = getProductsPrice(products);
                     final OrderEntity order = new OrderEntity();
                     BillEntity bill = billRepository.findByCatalogAndDateBetween(catalog, billingPeriodStart, billingPeriodEnd);
                     if (bill == null) {
@@ -98,11 +102,11 @@ public class OrderServiceImpl implements OrderService, Logging {
                         bill.setCatalog(catalog);
                         billRepository.save(bill);
                     }
-                    order.setUsedBonuses(Math.min(totalOrder.getUsedBonuses() * orderPrice / totalPrice, orderPrice));
                     order.setComment(totalOrder.getComment());
                     order.setDate(new Timestamp(System.currentTimeMillis()));
                     order.setCustomer(totalOrder.getCustomer());
                     order.setProducts(products);
+                    order.setUsedBonuses(Math.min(totalOrder.getUsedBonuses() * order.getOrderTotalPrice() / totalPrice, order.getOrderTotalPrice()));
                     order.setBill(bill);
                     order.setStatus(Status.NEW);
                     orderRepository.save(order);
@@ -125,7 +129,7 @@ public class OrderServiceImpl implements OrderService, Logging {
                             put("customer_email", eMail);
                             put("comment", defaultIfNull(order.getComment(), ""));
                             put("cook", catalog);
-                            put("total", order.getTotalPrice());
+                            put("total", order.getOrderTotalPrice());
                             put("hasBonuses", order.getUsedBonuses() > 0);
                             put("bonuses", order.getUsedBonuses());
                         }
@@ -167,11 +171,6 @@ public class OrderServiceImpl implements OrderService, Logging {
         final List<BillEntity> bills = billRepository.findByCatalogOrderByDateAsc(catalog);
         bills.stream().forEach(bill -> bill.setTotalBill(0));
         return bills;
-    }
-
-    @Override
-    public int getProductsPrice(List<OrderProductEntity> products) {
-        return products.stream().collect(Collectors.summingInt(t -> t.getPrice() * t.getCount()));
     }
 
     @Override
@@ -221,10 +220,11 @@ public class OrderServiceImpl implements OrderService, Logging {
                 if (order.getUsedBonuses() > 0) {
                     customer.setBonus(Math.max(0, customer.getBonus() - order.getUsedBonuses()));
                 } else {
-                    customer.setBonus((int) (customer.getBonus() + getBonuses(getProductsPrice(order.getProducts()))));
+                    customer.setBonus((int) (customer.getBonus() + getBonuses(order.getOrderTotalPrice())));
                 }
                 userRepository.save(customer);
             }
+            logService.registerEvent(Type.ORDER_DONE, order.getCatalog());
         }
         order.setStatus(status);
         orderRepository.save(order);
