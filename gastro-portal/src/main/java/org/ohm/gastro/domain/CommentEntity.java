@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by ezhulkov on 27.08.14.
@@ -33,7 +33,7 @@ public class CommentEntity extends AbstractBaseEntity {
     private Integer rating;
 
     @Column
-    private Timestamp date = new Timestamp(System.currentTimeMillis());
+    private Date date = new Date();
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private CatalogEntity catalog;
@@ -82,11 +82,11 @@ public class CommentEntity extends AbstractBaseEntity {
         this.author = author;
     }
 
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

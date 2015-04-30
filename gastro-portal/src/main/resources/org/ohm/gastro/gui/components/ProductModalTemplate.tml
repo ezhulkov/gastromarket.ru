@@ -28,7 +28,7 @@
             </div>
             <div class="block3">
                 <div class="data recommended">
-                    Наши рекоммендации:
+                    Наши рекомендации:
                     <t:zone t:id="recommendedProductsZone">
 
                     </t:zone>

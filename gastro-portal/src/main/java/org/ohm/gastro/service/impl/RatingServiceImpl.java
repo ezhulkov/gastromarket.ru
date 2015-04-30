@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -81,10 +80,11 @@ public class RatingServiceImpl implements RatingService, Logging {
     }
 
     @Override
-    public void registerEvent(Type type, CatalogEntity catalog) {
+    public void registerEvent(Type type, CatalogEntity catalog, long count) {
         final LogEntity log = new LogEntity();
         log.setDate(new Date());
         log.setType(type);
+        log.setCount(count);
         log.setUser(catalog.getUser());
         log.setCatalog(catalog);
         logRepository.save(log);
@@ -108,7 +108,7 @@ public class RatingServiceImpl implements RatingService, Logging {
         commentEntity.setCatalog(catalog);
         commentEntity.setAuthor(user);
         commentEntity.setText(text);
-        commentEntity.setDate(new Timestamp(System.currentTimeMillis()));
+        commentEntity.setDate(new Date());
         commentEntity.setRating(rating);
         commentRepository.save(commentEntity);
 

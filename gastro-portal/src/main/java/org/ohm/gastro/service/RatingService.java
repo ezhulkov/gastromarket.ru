@@ -16,7 +16,7 @@ public interface RatingService {
 
     void registerEvent(LogEntity.Type type, UserEntity user);
 
-    void registerEvent(LogEntity.Type type, CatalogEntity catalog);
+    void registerEvent(Type type, CatalogEntity catalog, long orderTotalPrice);
 
     List<LogEntity> findEvents(UserEntity user, CatalogEntity catalog, Date dateFrom);
 

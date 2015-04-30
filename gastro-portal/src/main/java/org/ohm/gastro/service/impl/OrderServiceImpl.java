@@ -224,7 +224,7 @@ public class OrderServiceImpl implements OrderService, Logging {
                 }
                 userRepository.save(customer);
             }
-            ratingService.registerEvent(Type.ORDER_DONE, order.getCatalog());
+            ratingService.registerEvent(Type.ORDER_DONE, order.getCatalog(), order.getOrderTotalPrice());
         }
         order.setStatus(status);
         orderRepository.save(order);
