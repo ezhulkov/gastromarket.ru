@@ -44,6 +44,8 @@ public interface ProductService extends ImageUploaderService<ProductEntity>, Alt
 
     ProductEntity saveProduct(final ProductEntity product, final Map<Long, String> propValues, final Map<Long, String[]> listValues);
 
+    ProductEntity createProduct(final ProductEntity product);
+
     ProductEntity saveProduct(final ProductEntity product);
 
     List<ProductEntity> searchProducts(String query, final int from, final int to);

@@ -20,6 +20,7 @@ import org.ohm.gastro.service.ImageService.FileType;
 import org.ohm.gastro.service.ImageService.ImageSize;
 import org.ohm.gastro.service.ImageUploader;
 import org.ohm.gastro.service.ProductService;
+import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.social.MediaElement;
 import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,6 +104,7 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
+    @RatingModifier
     public void deleteProduct(Long id) {
         productRepository.delete(id);
     }
@@ -130,6 +132,12 @@ public class ProductServiceImpl implements ProductService, Logging {
                 .map(tagCreator)
                 .forEach(tagRepository::save);
         return product;
+    }
+
+    @Override
+    @RatingModifier
+    public ProductEntity createProduct(final ProductEntity product) {
+        return saveProduct(product);
     }
 
     @Override

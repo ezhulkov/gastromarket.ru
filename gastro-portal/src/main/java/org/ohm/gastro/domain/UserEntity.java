@@ -87,7 +87,7 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
     private Type type = Type.USER;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-    private List<CatalogEntity> cooks = Lists.newArrayList();
+    private List<CatalogEntity> catalogs = Lists.newArrayList();
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     private UserEntity referrer;
@@ -141,12 +141,12 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
         this.type = type;
     }
 
-    public List<CatalogEntity> getCooks() {
-        return cooks;
+    public List<CatalogEntity> getCatalogs() {
+        return catalogs;
     }
 
-    public void setCooks(List<CatalogEntity> cooks) {
-        this.cooks = cooks;
+    public void setCatalogs(List<CatalogEntity> catalogs) {
+        this.catalogs = catalogs;
     }
 
     @Override

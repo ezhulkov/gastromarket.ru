@@ -3,6 +3,7 @@ package org.ohm.gastro.service.impl;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,7 @@ import java.io.IOException;
  * Created by ezhulkov on 29.04.15.
  */
 @Component
+@DependsOn({"userService"})
 public class AuthSuccessfulHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
     private final UserService userService;

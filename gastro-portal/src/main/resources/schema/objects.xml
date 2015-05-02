@@ -469,4 +469,11 @@
         <renameColumn tableName="comment" oldColumnName="comment" newColumnName="text"/>
     </changeSet>
 
+    <changeSet id="33" author="ezhulkov">
+        <addColumn tableName="catalog">
+            <column name="level" type="java.sql.Types.INTEGER"/>
+            <column name="type" type="java.sql.Types.VARCHAR(16)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

@@ -16,6 +16,7 @@ import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.reps.UserRepository;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.OrderService;
+import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingService;
 import org.ohm.gastro.trait.Logging;
 import org.ohm.gastro.util.CommonsUtils;
@@ -212,6 +213,7 @@ public class OrderServiceImpl implements OrderService, Logging {
     }
 
     @Override
+    @RatingModifier
     public void changeStatus(final OrderEntity order, final Status status) {
         if (status == Status.CANCELLED) order.setUsedBonuses(0);
         if (status == Status.READY) {

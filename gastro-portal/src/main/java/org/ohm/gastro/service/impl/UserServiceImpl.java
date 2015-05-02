@@ -18,6 +18,7 @@ import org.ohm.gastro.service.ImageService.FileType;
 import org.ohm.gastro.service.ImageService.ImageSize;
 import org.ohm.gastro.service.ImageUploader;
 import org.ohm.gastro.service.MailService;
+import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingService;
 import org.ohm.gastro.service.UserExistsException;
 import org.ohm.gastro.service.UserService;
@@ -59,13 +60,16 @@ public class UserServiceImpl implements UserService, Logging {
     private final Random random = new Random();
 
     @Autowired
-    public UserServiceImpl(final UserRepository userRepository, final CatalogRepository catalogRepository,
-                           final OrderRepository orderRepository, final PasswordEncoder passwordEncoder,
-                           final RatingService ratingService, final MailService mailService) {
-        this.userRepository = userRepository;
+    public UserServiceImpl(final UserRepository userRepository,
+                           final CatalogRepository catalogRepository,
+                           final OrderRepository orderRepository,
+                           final PasswordEncoder passwordEncoder,
+                           final RatingService ratingService,
+                           final MailService mailService) {
         this.catalogRepository = catalogRepository;
         this.orderRepository = orderRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
         this.ratingService = ratingService;
         this.mailService = mailService;
     }
@@ -192,6 +196,7 @@ public class UserServiceImpl implements UserService, Logging {
     }
 
     @Override
+    @RatingModifier
     public void afterSuccessfulLogin(@Nonnull final UserDetails user) {
 
         logger.info("User {} successful logged in", user);

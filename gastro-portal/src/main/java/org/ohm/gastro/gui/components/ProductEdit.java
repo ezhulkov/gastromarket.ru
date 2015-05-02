@@ -270,7 +270,8 @@ public class ProductEdit extends BaseComponent {
                 origProduct.setCategory(category);
                 origProduct.setUnit(product.getUnit());
                 origProduct.setUnitValue(product.getUnitValue());
-                product = getProductService().saveProduct(origProduct);
+                if (origProduct.getId() != null) product = getProductService().saveProduct(origProduct);
+                else product = getProductService().createProduct(origProduct);
             } else if (currentStage == Stage.PROP) {
                 Map<Long, String> propValues = getRequest().getParameterNames().stream()
                         .filter(t -> t.startsWith("prop-"))

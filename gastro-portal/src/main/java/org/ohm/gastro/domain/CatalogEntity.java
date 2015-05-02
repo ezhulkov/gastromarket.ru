@@ -5,6 +5,8 @@ import com.google.common.collect.Lists;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +26,10 @@ import java.util.stream.Collectors;
 @Table(name = "catalog")
 public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
 
+    public enum Type {
+        PRIVATE, COMPANY
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "catalog")
@@ -37,6 +43,10 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
     private String name;
 
     @Column
+    @Enumerated(EnumType.STRING)
+    private Type type;
+
+    @Column
     private String description;
 
     @Column
@@ -47,6 +57,9 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
 
     @Column
     private Integer rating = 0;
+
+    @Column
+    private Integer level = 1;
 
     @Column(name = "rating_date")
     private Date ratingDate = new Date();
@@ -201,6 +214,40 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
 
     public List<ProductEntity> getReadyProducts() {
         return products.stream().filter(ProductEntity::isWasSetup).collect(Collectors.toList());
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(final Integer level) {
+        this.level = level;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(final Type type) {
+        this.type = type;
+    }
+
+    public Date getRatingDate() {
+        return ratingDate;
+    }
+
+    public void setRatingDate(final Date ratingDate) {
+        this.ratingDate = ratingDate;
+    }
+
+    @Override
+    public String toString() {
+        return "CatalogEntity{" +
+                "id=" + id +
+                ", rating=" + rating +
+                ", level=" + level +
+                ", name='" + name + '\'' +
+                '}';
     }
 
 }
