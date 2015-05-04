@@ -36,14 +36,29 @@
 body {
     font-family: "PT Sans", sans-serif;
     margin-top: 55px;
+    padding: 0 !important;
 }
 
 a {
     cursor: pointer;
 }
 
+body.modal-open {
+    overflow: visible;
+}
+
 .container {
-    width: 1170px!important;
+    width: 1170px !important;
+}
+
+.container-flex {
+    width: 100%;
+}
+
+@media (max-width: 1200px) {
+    .container-flex {
+        width: 1170px;
+    }
 }
 
 .spinner {
@@ -787,7 +802,6 @@ html > body div.t-error ul li {
 .main-img {
     padding-top: 70px;
     height: 500px;
-    width: 100%;
     display: block;
     position: relative;
 }

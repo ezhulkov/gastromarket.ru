@@ -1,4 +1,4 @@
-<footer xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="footer container">
+<footer xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="footer container-flex">
 
     <div>
         <div class="col-sm-12 menu">

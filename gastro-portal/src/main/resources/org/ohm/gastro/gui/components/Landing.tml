@@ -1,4 +1,4 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="container">
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="container-flex">
     <t:unless test="authenticated">
         <div class="landing">
             <div></div>
