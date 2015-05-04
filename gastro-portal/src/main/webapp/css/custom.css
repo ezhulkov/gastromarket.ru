@@ -1431,6 +1431,10 @@ div.product-item.block {
     text-align: left;
 }
 
+.product-modal-template .modal-dialog {
+    width: 920px;
+}
+
 .product-modal-template .modal-close {
     background: url("../img/modal-close-inv.png") no-repeat;
     position: absolute;
@@ -1457,6 +1461,11 @@ div.product-item.block {
     top: 50%;
 }
 
+.product-modal-template .product-image {
+    width: 560px;
+    height: 404px;
+}
+
 .wrapword {
     white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
     white-space: -pre-wrap; /* Opera 4-6 */
@@ -1469,7 +1478,7 @@ div.product-item.block {
 }
 
 .product-modal-template .blocks {
-    width: 770px;
+    width: 920px;
 }
 
 .product-modal-template .blocks > div {
@@ -1483,7 +1492,7 @@ div.product-item.block {
 }
 
 .block1 {
-    width: 430px;
+    width: 560px;
     min-height: 510px;
     float: left;
     overflow: hidden;
@@ -1500,7 +1509,7 @@ div.product-item.block {
     width: 330px;
     min-height: 100px;
     float: right;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 .block1 .data,
@@ -1541,7 +1550,7 @@ div.product-item.block {
 
 .block2 .desc {
     max-height: 200px;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 .product-item .product-name a {
@@ -1609,7 +1618,7 @@ div.product-item.block {
 }
 
 .block3 .recommended {
-    overflow: scroll;
+    overflow: hidden;
 }
 
 .block3 .recommended ul {

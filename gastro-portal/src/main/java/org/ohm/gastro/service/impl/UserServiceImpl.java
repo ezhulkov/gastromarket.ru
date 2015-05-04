@@ -36,6 +36,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Nonnull;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -198,10 +199,15 @@ public class UserServiceImpl implements UserService, Logging {
 
     @Override
     @RatingModifier
-    public void afterSuccessfulLogin(@Nonnull @RatingTarget final UserDetails user) {
+    public void afterSuccessfulLogin(@Nonnull @RatingTarget final UserDetails userDetails) {
 
-        logger.info("User {} successful logged in", user);
-        if (user instanceof UserEntity) ratingService.registerEvent(LogEntity.Type.LOGIN, (UserEntity) user);
+        if (userDetails instanceof UserEntity) {
+            UserEntity user = (UserEntity) userDetails;
+            logger.info("User {} successful logged in", user);
+            user.setLoginDate(new Date());
+            saveUser(user);
+            ratingService.registerEvent(LogEntity.Type.LOGIN, user);
+        }
 
     }
 

@@ -474,6 +474,12 @@
             <column name="level" type="java.sql.Types.INTEGER"/>
             <column name="type" type="java.sql.Types.VARCHAR(16)"/>
         </addColumn>
+        <sql>
+            update catalog set type='PRIVATE';
+        </sql>
+        <addColumn tableName="user">
+            <column name="login_date" type="java.sql.Types.TIMESTAMP"/>
+        </addColumn>
     </changeSet>
 
 </databaseChangeLog>

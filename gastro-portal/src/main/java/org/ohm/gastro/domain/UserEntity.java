@@ -19,8 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -67,7 +67,10 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
     private Status status = Status.ENABLED;
 
     @Column
-    private Timestamp date = new Timestamp(System.currentTimeMillis());
+    private Date date = new Date();
+
+    @Column(name = "login_date")
+    private Date loginDate;
 
     @Column
     private Integer bonus = 0;
@@ -179,12 +182,20 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
         return status == Status.ENABLED;
     }
 
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Date getLoginDate() {
+        return loginDate;
+    }
+
+    public void setLoginDate(final Date loginDate) {
+        this.loginDate = loginDate;
     }
 
     public boolean isAnonymous() {
