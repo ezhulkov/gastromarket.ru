@@ -1,6 +1,6 @@
-<footer xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="footer">
+<footer xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="footer container">
 
-    <div class="container">
+    <div>
         <div class="col-sm-12 menu">
             <ul>
                 <li>
