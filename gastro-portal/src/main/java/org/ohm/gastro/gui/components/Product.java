@@ -89,7 +89,8 @@ public class Product extends BaseComponent {
     }
 
     public void onActionFromDelete(Long pid) {
-        getProductService().deleteProduct(pid);
+        ProductEntity product = getProductService().findProduct(pid);
+        getProductService().deleteProduct(pid, product.getCatalog());
     }
 
     public Block onActionFromEdit(Long pid) {

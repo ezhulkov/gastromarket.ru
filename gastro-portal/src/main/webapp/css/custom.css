@@ -2060,3 +2060,23 @@ option.root {
     color: grey;
     margin-bottom: 3px;
 }
+
+.glyphicon-thumbs-0 {
+    display: none;
+}
+
+.glyphicon-thumbs-1:before {
+    content: "\e125";
+}
+
+.glyphicon-thumbs-1 {
+    margin-right: 5px;
+}
+
+.glyphicon-thumbs--1:before {
+    content: "\e126";
+}
+
+.glyphicon-thumbs--1 {
+    margin-right: 5px;
+}

@@ -23,7 +23,8 @@ public class LogEntity extends AbstractBaseEntity {
     public enum Type {
         LOGIN,
         ORDER_DONE,
-        ORDER_CANCELLED
+        ORDER_CANCELLED,
+        RATING_CHANGE
     }
 
     @Id

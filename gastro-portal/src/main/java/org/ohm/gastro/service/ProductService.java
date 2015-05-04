@@ -40,11 +40,11 @@ public interface ProductService extends ImageUploaderService<ProductEntity>, Alt
 
     List<TagEntity> findAllTags(final ProductEntity product);
 
-    void deleteProduct(final Long id);
+    void deleteProduct(final Long id, final CatalogEntity catalog);
 
     ProductEntity saveProduct(final ProductEntity product, final Map<Long, String> propValues, final Map<Long, String[]> listValues);
 
-    ProductEntity createProduct(final ProductEntity product);
+    ProductEntity createProduct(final ProductEntity product, final CatalogEntity catalog);
 
     ProductEntity saveProduct(final ProductEntity product);
 

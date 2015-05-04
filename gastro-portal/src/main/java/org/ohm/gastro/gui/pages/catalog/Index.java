@@ -13,7 +13,6 @@ import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.ProductEntity;
-import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.function.Consumer;
@@ -45,6 +44,9 @@ public class Index extends BaseComponent {
     @Inject
     @Property
     private Block productsBlock;
+
+    @Property
+    private boolean opinion = true;
 
     @Inject
     @Property
@@ -139,13 +141,13 @@ public class Index extends BaseComponent {
     @Cached
     public boolean isCommentAllowed() {
         return getAuthenticatedUserOpt()
-                .filter(UserEntity::isUser)
+                .filter(t -> t.isUser() || t.isAdmin())
                 .map(t -> getOrderService().findAllOrders(t, catalog).size())
                 .orElse(0) > 0;
     }
 
     public void onSuccessFromRateForm() {
-        getRatingService().rateCatalog(catalog, rateComment, 0, getAuthenticatedUserOpt().orElse(null));
+        getRatingService().rateCatalog(catalog, rateComment, opinion ? 1 : -1, getAuthenticatedUserOpt().orElse(null));
     }
 
     public String getProductsCount() {
@@ -165,6 +167,14 @@ public class Index extends BaseComponent {
         if (count == 1) return getMessages().format(String.format("chef.info.one.%s", value), count);
         if (count % 10 < 5) return getMessages().format(String.format("chef.info.four.%s", value), count);
         return getMessages().format(String.format("chef.info.many.%s", value), count);
+    }
+
+    public boolean getLike() {
+        return true;
+    }
+
+    public boolean getDislike() {
+        return false;
     }
 
 }

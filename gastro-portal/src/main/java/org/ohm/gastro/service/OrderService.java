@@ -38,6 +38,6 @@ public interface OrderService {
 
     void decProduct(Long oid, Long pid);
 
-    void changeStatus(OrderEntity oneOrder, Status status);
+    void changeStatus(OrderEntity oneOrder, Status status, CatalogEntity catalog);
 
 }

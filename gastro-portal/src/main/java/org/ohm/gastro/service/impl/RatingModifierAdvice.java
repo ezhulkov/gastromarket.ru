@@ -1,9 +1,11 @@
 package org.ohm.gastro.service.impl;
 
+import com.google.common.collect.Lists;
+import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.UserEntity;
-import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.RatingService;
+import org.ohm.gastro.service.RatingTarget;
 import org.ohm.gastro.service.UserService;
 import org.ohm.gastro.trait.Logging;
 import org.springframework.aop.AfterReturningAdvice;
@@ -13,7 +15,8 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PreDestroy;
 import java.lang.reflect.Method;
-import java.util.Optional;
+import java.lang.reflect.Parameter;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -47,13 +50,31 @@ public class RatingModifierAdvice implements AfterReturningAdvice, Logging {
         final CatalogService catalogService = applicationContext.getBean(CatalogService.class);
         final UserService userService = applicationContext.getBean(UserService.class);
 
-        final Optional<UserEntity> userOpt = BaseComponent.getAuthenticatedUser(userService);
-        userOpt.ifPresent(user -> {
+        final Method realMethod = method.getDeclaringClass().isInterface() ?
+                target.getClass().getDeclaredMethod(method.getName(), method.getParameterTypes()) :
+                method;
+
+        int i;
+        final Parameter[] parameters = realMethod.getParameters();
+        for (i = 0; i < parameters.length; i++) {
+            Parameter parameter = parameters[i];
+            if (parameter.getAnnotation(RatingTarget.class) != null) {
+                break;
+            }
+        }
+
+        if (i == parameters.length || i > args.length) return;
+        final Object targetObject = args[i];
+        final List<CatalogEntity> catalogs = targetObject instanceof CatalogEntity ?
+                Lists.newArrayList((CatalogEntity) targetObject) :
+                targetObject instanceof UserEntity ? catalogService.findAllCatalogs((UserEntity) targetObject) : null;
+
+        if (catalogs != null) {
             synchronized (this) {
                 if (scheduledFuture != null) scheduledFuture.cancel(false);
                 scheduledFuture = scheduledExecutorService.schedule((Runnable) () -> {
                                                                         try {
-                                                                            catalogService.findAllCatalogs(user).forEach(ratingService::updateRating);
+                                                                            catalogs.forEach(ratingService::updateRating);
                                                                         } catch (Exception ex) {
                                                                             logger.error("", ex);
                                                                         }
@@ -61,7 +82,7 @@ public class RatingModifierAdvice implements AfterReturningAdvice, Logging {
                                                                     5000,
                                                                     TimeUnit.MILLISECONDS);
             }
-        });
+        }
 
     }
 

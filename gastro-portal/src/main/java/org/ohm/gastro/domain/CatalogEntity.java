@@ -61,9 +61,6 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
     @Column
     private Integer level = 1;
 
-    @Column(name = "rating_date")
-    private Date ratingDate = new Date();
-
     @Column(name = "basket_min")
     private Integer basketMin = 0;
 
@@ -230,14 +227,6 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
 
     public void setType(final Type type) {
         this.type = type;
-    }
-
-    public Date getRatingDate() {
-        return ratingDate;
-    }
-
-    public void setRatingDate(final Date ratingDate) {
-        this.ratingDate = ratingDate;
     }
 
     @Override

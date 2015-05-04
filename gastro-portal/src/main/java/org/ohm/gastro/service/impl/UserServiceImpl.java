@@ -20,6 +20,7 @@ import org.ohm.gastro.service.ImageUploader;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingService;
+import org.ohm.gastro.service.RatingTarget;
 import org.ohm.gastro.service.UserExistsException;
 import org.ohm.gastro.service.UserService;
 import org.ohm.gastro.trait.Logging;
@@ -197,7 +198,7 @@ public class UserServiceImpl implements UserService, Logging {
 
     @Override
     @RatingModifier
-    public void afterSuccessfulLogin(@Nonnull final UserDetails user) {
+    public void afterSuccessfulLogin(@Nonnull @RatingTarget final UserDetails user) {
 
         logger.info("User {} successful logged in", user);
         if (user instanceof UserEntity) ratingService.registerEvent(LogEntity.Type.LOGIN, (UserEntity) user);

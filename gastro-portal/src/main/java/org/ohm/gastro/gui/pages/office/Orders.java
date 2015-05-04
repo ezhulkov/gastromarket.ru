@@ -126,7 +126,7 @@ public class Orders extends BaseComponent {
     private Block changeStatus(Long oid, OrderEntity.Status status) {
         final OrderEntity order = getOrderService().findOrder(oid);
         if (!isStatusChangeAllowed(order)) return ordersBlock;
-        getOrderService().changeStatus(order, status);
+        getOrderService().changeStatus(order, status, order.getCatalog());
         return ordersBlock;
     }
 

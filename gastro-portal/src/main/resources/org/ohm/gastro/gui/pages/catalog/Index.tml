@@ -149,9 +149,7 @@
 
             <div class="title">
                 <h1><span>Отзывы о кулинаре</span></h1>
-                <t:if test="user">
-                    <a href="#rate" data-toggle="modal" data-target="#rate">Оставить отзыв</a>
-                </t:if>
+                <a href="#rate" data-toggle="modal" data-target="#rate">Оставить отзыв</a>
             </div>
 
 
@@ -167,7 +165,22 @@
                         <div class="modal-body">
                             <t:if test="commentAllowed">
                                 <t:form t:id="rateForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
-                                    <t:errors/>
+                                    <div class="form-group">
+                                        <div class="col-sm-1"/>
+                                        <t:radiogroup t:id="opinion" value="opinion">
+                                            <div class="col-sm-6">
+                                                <t:label for="like">Мне понравилась работа кулинара</t:label>
+                                                &nbsp;
+                                                <t:radio t:id="like"/>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <t:label for="dislike">Нет, было плохо</t:label>
+                                                &nbsp;
+                                                <t:radio t:id="dislike"/>
+                                            </div>
+                                        </t:radiogroup>
+                                        <div class="col-sm-1"/>
+                                    </div>
                                     <div class="form-group">
                                         <div class="col-sm-1"/>
                                         <div class="col-sm-10">
@@ -201,6 +214,7 @@
                                     ${oneComment.author.fullName}
                                 </div>
                                 <div class="text">
+                                    <span class="glyphicon glyphicon-thumbs-${oneComment.rating}" aria-hidden="true"/>
                                     <t:outputraw value="oneCommentText"/>
                                 </div>
                             </div>

@@ -18,6 +18,7 @@ import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.OrderService;
 import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingService;
+import org.ohm.gastro.service.RatingTarget;
 import org.ohm.gastro.trait.Logging;
 import org.ohm.gastro.util.CommonsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -214,7 +215,7 @@ public class OrderServiceImpl implements OrderService, Logging {
 
     @Override
     @RatingModifier
-    public void changeStatus(final OrderEntity order, final Status status) {
+    public void changeStatus(final OrderEntity order, final Status status, @RatingTarget final CatalogEntity catalog) {
         if (status == Status.CANCELLED) order.setUsedBonuses(0);
         if (status == Status.READY) {
             final UserEntity customer = order.getCustomer();
@@ -226,14 +227,14 @@ public class OrderServiceImpl implements OrderService, Logging {
                 }
                 userRepository.save(customer);
             }
-            ratingService.registerEvent(Type.ORDER_DONE, order.getCatalog(), order.getOrderTotalPrice());
+            ratingService.registerEvent(Type.ORDER_DONE, catalog, order.getOrderTotalPrice());
         }
         order.setStatus(status);
         orderRepository.save(order);
         final Map<String, Object> params = new HashMap<String, Object>() {
             {
                 put("ordernumber", order.getOrderNumber());
-                put("catalog", order.getProducts().get(0).getProduct().getCatalog());
+                put("catalog", catalog);
                 put("status", status);
             }
         };

@@ -16,6 +16,7 @@ import org.ohm.gastro.reps.LogRepository;
 import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingService;
+import org.ohm.gastro.service.RatingTarget;
 import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -114,7 +115,7 @@ public class RatingServiceImpl implements RatingService, Logging {
 
     @Override
     @RatingModifier
-    public void rateCatalog(final CatalogEntity catalog, final String text, final int rating, final UserEntity user) {
+    public void rateCatalog(@RatingTarget final CatalogEntity catalog, final String text, final int rating, final UserEntity user) {
 
         if (StringUtils.isEmpty(text) || user == null) return;
         CommentEntity commentEntity = new CommentEntity();
@@ -144,9 +145,12 @@ public class RatingServiceImpl implements RatingService, Logging {
         final int doneOrdersCount = (int) catalogOps.stream().filter(t -> t.getType() == Type.ORDER_DONE).count();
         final int totalOrdersCount = orderRepository.findAllByCatalog(catalog, null).size();
 
+        final Integer prevLevel = catalog.getLevel();
         catalog.setRating(calcRating(productsCount, retentionCount, posCount, negCount, doneOrdersCount, totalOrdersCount, totalSum));
         catalog.setLevel(levelMap.get(catalog.getRating()));
         logger.info("Rating for catalog {} changed", catalog);
+
+        if (!catalog.getLevel().equals(prevLevel)) registerEvent(Type.RATING_CHANGE, catalog, catalog.getLevel());
 
         catalogRepository.save(catalog);
 
@@ -158,13 +162,12 @@ public class RatingServiceImpl implements RatingService, Logging {
     }
 
     private int calcRating(final int productsCount, final int retentionCount, final int posCount, final int negCount, final int doneCount, final int allCount, final int totalSum) {
-        return (int) (
-                productsCount * productsCoeff +
-                        retentionCount * retentionCoeff +
-                        posCount * posRatingCoeff +
-                        negCount * negRatingCoeff +
-                        doneCount / allCount * productionCoeff +
-                        totalSum * transactionCoeff
+        return (int) Math.max(0, productsCount * productsCoeff +
+                                      retentionCount * retentionCoeff +
+                                      posCount * posRatingCoeff +
+                                      negCount * negRatingCoeff +
+                                      (allCount == 0 ? 0 : (doneCount / allCount * productionCoeff)) +
+                                      totalSum * transactionCoeff
         );
     }
 

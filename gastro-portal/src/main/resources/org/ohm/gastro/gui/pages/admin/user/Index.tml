@@ -34,9 +34,15 @@
             <a data-toggle="modal" data-target="#create" href="#create">Добавить каталог<span/></a>
         </div>
         <t:grid source="catalogs" row="oneCatalog"
-                reorder="name,date,rating,products,del"
-                add="del,products" exclude="id,basketMin,wasSetup,description,delivery,avatarUrl,avatarUrlMedium,avatarUrlSmall,payment,altId"
+                reorder="name,type,date,user,rating,level,products,del"
+                add="user,del,products" exclude="id,basketMin,wasSetup,description,delivery,avatarUrl,avatarUrlMedium,avatarUrlSmall,payment,altId"
                 t:mixins="GridSortingDisabled" class="table table-hover">
+            <t:parameter name="nameHeader">
+                Название
+            </t:parameter>
+            <t:parameter name="userCell">
+                <t:pagelink t:page="admin/user/index" t:context="['UPDATE',oneCatalog.user.id]">${oneCatalog.user.email}</t:pagelink>
+            </t:parameter>
             <t:parameter name="delCell">
                 <t:actionlink t:id="delete" context="oneCatalog.id"><span class="glyphicon glyphicon-remove"/></t:actionlink>
             </t:parameter>
