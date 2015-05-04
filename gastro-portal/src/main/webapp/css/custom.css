@@ -1363,8 +1363,8 @@ div.product-item.block {
 }
 
 .product-item.big-picture .pic {
-    height: 310px;
-    width: 430px;
+    height: 404px;
+    width: 560px;
 }
 
 .product-item .pic .edit-block {
@@ -1595,6 +1595,7 @@ div.product-item.block {
     font-weight: bold;
 }
 
+.basket-block .price,
 .product-modal-template .price {
     font-size: 30px;
     font-weight: bold;

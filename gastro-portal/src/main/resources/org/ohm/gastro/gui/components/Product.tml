@@ -63,7 +63,9 @@
                 <span class="desc wrapword"><t:outputraw value="description"/></span>
             </t:if>
             <div class="basket-block">
-                <span class="price pull-left">${product.price} <span class="rub"/></span>
+                <div class="price pull-left">
+                    <span class="price">${product.price} <span class="rub"/></span> <span class="unit">${productUnit}</span>
+                </div>
                 <span class="basket-add pull-right">
                     <t:actionLink class="pic-holder basket-add" t:zone="basketZone" t:context="product.id" t:id="purchase"><span/>В корзину</t:actionLink>
                 </span>
