@@ -40,7 +40,7 @@ public class List extends BaseComponent {
     }
 
     public String getCategories() {
-        return getProductService().findProductsForFrontend(null, oneCatalog, null, null, -1, -1).stream()
+        return getProductService().findProductsForFrontend(null, oneCatalog, null, null, 0, Integer.MAX_VALUE).stream()
                 .map(ProductEntity::getCategory)
                 .map(t -> t.getParent() == null ? t : t.getParent())
                 .distinct()
