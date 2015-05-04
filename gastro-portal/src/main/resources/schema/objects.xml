@@ -477,7 +477,7 @@
         <sql>
             update catalog set type='PRIVATE';
         </sql>
-        <addColumn tableName="user">
+        <addColumn tableName="person">
             <column name="login_date" type="java.sql.Types.TIMESTAMP"/>
         </addColumn>
     </changeSet>

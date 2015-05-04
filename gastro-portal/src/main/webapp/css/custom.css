@@ -57,7 +57,7 @@ body.modal-open {
 
 @media (max-width: 1200px) {
     .container-flex {
-        width: 1170px;
+        width: 1200px;
     }
 }
 
@@ -1338,6 +1338,8 @@ div.product-item.block {
 
 .grid-block div.product-item .basket-block {
     width: 240px;
+    height: 55px;
+    margin-top: 10px;
 }
 
 .grid-block div.product-item.fixed .basket-block {
@@ -1346,7 +1348,7 @@ div.product-item.block {
 }
 
 .grid-block div.product-item.fixed .desc {
-    max-height: 60px;
+    max-height: 40px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -1554,7 +1556,7 @@ div.product-item.block {
 .block1 .bottom {
     position: absolute;
     bottom: 25px;
-    width: 390px;
+    width: 500px;
 }
 
 .block1 .category {
@@ -1613,10 +1615,24 @@ div.product-item.block {
     font-weight: bold;
 }
 
+.basket-block {
+    position: relative;
+}
+
+.basket-block .price {
+    line-height: 20px;
+}
+
 .basket-block .price,
 .product-modal-template .price {
     font-size: 30px;
     font-weight: bold;
+}
+
+.basket-block .basket-add {
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 
 .product-item .basket-add {
