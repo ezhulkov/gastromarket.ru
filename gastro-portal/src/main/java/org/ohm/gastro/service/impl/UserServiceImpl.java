@@ -202,7 +202,7 @@ public class UserServiceImpl implements UserService, Logging {
     public void afterSuccessfulLogin(@Nonnull @RatingTarget final UserDetails userDetails) {
 
         if (userDetails instanceof UserEntity) {
-            UserEntity user = (UserEntity) userDetails;
+            UserEntity user = userRepository.findByEmail(((UserEntity) userDetails).getEmail());
             logger.info("User {} successful logged in", user);
             user.setLoginDate(new Date());
             saveUser(user);
