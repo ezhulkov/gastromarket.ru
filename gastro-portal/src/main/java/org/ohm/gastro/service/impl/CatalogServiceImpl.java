@@ -154,11 +154,6 @@ public class CatalogServiceImpl implements CatalogService, Logging {
     }
 
     @Override
-    public void setupCatalog(final CatalogEntity catalog) {
-        catalogRepository.save(catalog);
-    }
-
-    @Override
     public CatalogEntity findCatalog(Long id) {
         return catalogRepository.findOne(id);
     }

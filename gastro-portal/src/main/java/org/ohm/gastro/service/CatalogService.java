@@ -54,8 +54,6 @@ public interface CatalogService extends ImageUploaderService<CatalogEntity>, Alt
 
     void saveCatalog(CatalogEntity catalog);
 
-    void setupCatalog(CatalogEntity catalog);
-
     CatalogEntity findCatalog(Long id);
 
     CatalogEntity findCatalog(String altId);

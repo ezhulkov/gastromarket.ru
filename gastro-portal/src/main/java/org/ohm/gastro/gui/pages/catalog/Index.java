@@ -3,10 +3,7 @@ package org.ohm.gastro.gui.pages.catalog;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
-import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.corelib.components.TextArea;
-import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.CatalogEntity;
@@ -51,31 +48,6 @@ public class Index extends BaseComponent {
     @Inject
     @Property
     private Block catalogFormBlock;
-
-    @Component(id = "name", parameters = {"value=catalog?.name", "validate=maxlength=64,required"})
-    private TextField nameField;
-
-    @Component(id = "desc", parameters = {"value=catalog?.description", "validate=maxlength=512,required"})
-    private TextArea descField;
-
-    @Component(id = "delivery", parameters = {"value=catalog?.delivery", "validate=maxlength=512,required"})
-    private TextArea deliveryField;
-
-    @Component(id = "payment", parameters = {"value=catalog?.payment", "validate=maxlength=256"})
-    private TextArea pmtField;
-
-    @Component(id = "basketMin", parameters = {"value=catalog?.basketMin"})
-    private TextField bmField;
-
-    public Block onFailureFromCatalogForm() {
-        return catalogFormBlock;
-    }
-
-    public Class onSuccessFromCatalogForm() {
-        getCatalogService().saveCatalog(catalog);
-        getCatalogService().setupCatalog(catalog);
-        return Index.class;
-    }
 
     public Object onActivate(String pid) {
         catalog = getCatalogService().findCatalog(pid);

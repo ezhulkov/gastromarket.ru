@@ -377,16 +377,6 @@ html > body div.t-error ul li {
     height: 50px;
 }
 
-.breadcrumbs {
-    width: 100%;
-    text-align: center;
-}
-
-.breadcrumbs a {
-    font-size: 14px;
-    color: #444;
-}
-
 .title {
     position: relative;
 }
@@ -2132,4 +2122,8 @@ option.root {
 
 .wizard {
     margin: 20px 0 10px 0;
+}
+
+.wizard-upload {
+    margin-top: 8px;
 }

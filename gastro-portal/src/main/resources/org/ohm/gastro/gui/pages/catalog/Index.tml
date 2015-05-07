@@ -7,9 +7,6 @@
             </div>
             <t:if test="catalogOwner">
                 <div class="catalog-edit-links">
-                    <!--<div class="more-link">-->
-                        <!--<a class="catalog-edit-link" data-toggle="modal" data-target="#catalog-edit" href="#catalog-edit">Редактировать страницу<span/></a>-->
-                    <!--</div>-->
                     <div class="more-link">
                         <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо<span/></a>
                     </div>
@@ -18,83 +15,6 @@
                     </div>
                 </div>
                 <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>
-                <div class="modal fade edit" id="catalog-edit" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <div class="title">
-                                    <h1><span>Редактировать страницу</span></h1>
-                                </div>
-                                <a class="modal-close" data-dismiss="modal"></a>
-                            </div>
-                            <div class="modal-body">
-                                <t:zone t:id="catalogEditZone">
-                                    <t:delegate to="catalogFormBlock"/>
-                                </t:zone>
-                                <t:block t:id="catalogFormBlock">
-                                    <t:form t:zone="catalogEditZone" t:id="catalogForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
-                                        <t:errors/>
-                                        <div class="form-group">
-                                            <div class="col-sm-1"/>
-                                            <div class="col-sm-10">
-                                                <t:label for="name">Как Вы хотите назвать свою страницу на сайте?</t:label>
-                                                <div class="catalog-tip">
-                                                    У каждого кулинара есть своя страница где он размещает блюда и информацию о себе.
-                                                    Названием страницы, например, может быть название Вашей компании или просто Ваше имя.
-                                                </div>
-                                                <input t:id="name" class="form-control"/>
-                                            </div>
-                                            <div class="col-sm-1"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-1"/>
-                                            <div class="col-sm-10">
-                                                <t:label for="desc">Расскажите немного о себе:</t:label>
-                                                <div class="catalog-tip">
-                                                    Расскажите о себе как о кулинаре - как давно Вы готовите, любимые блюда и кухни.<br/>
-                                                    Помните, что доверие покупателей к кулинару повышается, если они узнают о Вашей работе.
-                                                </div>
-                                                <input t:id="desc" rows="3" class="form-control"/>
-                                            </div>
-                                            <div class="col-sm-1"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-1"/>
-                                            <div class="col-sm-10">
-                                                <t:label for="delivery">Условия доставки:</t:label>
-                                                <div class="catalog-tip">
-                                                    Доставка готовых блюд осуществляется Вами, опишите в этом условия доставки.
-                                                </div>
-                                                <input t:id="delivery" rows="2" class="form-control"/>
-                                            </div>
-                                            <div class="col-sm-1"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-1"/>
-                                            <div class="col-sm-10">
-                                                <t:label for="payment">Условия оплаты:</t:label>
-                                                <div class="catalog-tip">
-                                                    Напишите, например, есть ли у Вас предоплата, принимаете банковские переводы или оплата происходит наличными при передаче заказа.
-                                                </div>
-                                                <input t:id="payment" rows="2" class="form-control"/>
-                                            </div>
-                                            <div class="col-sm-1"/>
-                                        </div>
-                                        <div class="form-group hidden">
-                                            <div class="col-sm-1"/>
-                                            <div class="col-sm-10">
-                                                <t:label for="basketMin">Минимальная стоимость заказа, руб:</t:label>
-                                                <input t:id="basketMin" class="form-control"/>
-                                            </div>
-                                            <div class="col-sm-1"/>
-                                        </div>
-                                        <input class="btn btn-red" type="submit" value="Сохранить"/>
-                                    </t:form>
-                                </t:block>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </t:if>
             <div class="row info">
                 <div class="col-sm-5 pic">

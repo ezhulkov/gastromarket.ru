@@ -10,6 +10,7 @@ import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.CatalogEntity;
+import org.ohm.gastro.domain.CatalogEntity.Type;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.Objects;
@@ -28,6 +29,10 @@ public class Wizard extends BaseComponent {
 
     @Inject
     @Property
+    private Block step1Block;
+
+    @Inject
+    @Property
     private Block step2;
 
     @Inject
@@ -39,7 +44,10 @@ public class Wizard extends BaseComponent {
     private Block step4;
 
     @Component
-    private Form wizardForm;
+    private Form wizardForm1;
+
+    @Component
+    private Form wizardForm2;
 
     @Component(id = "desc", parameters = {"value=catalog.description", "validate=maxlength=4096,required"})
     private TextArea descField;
@@ -49,6 +57,9 @@ public class Wizard extends BaseComponent {
 
     @Component(id = "payment", parameters = {"value=catalog.payment", "validate=maxlength=4096"})
     private TextArea pmtField;
+
+    @Component(id = "name", parameters = {"value=catalog.name", "validate=maxlength=512,required"})
+    private TextField nameField;
 
     @Component(id = "basketMin", parameters = {"value=catalog.basketMin"})
     private TextField bmField;
@@ -84,10 +95,14 @@ public class Wizard extends BaseComponent {
         getCatalogService().saveCatalog(catalog);
     }
 
-    public void onSubmitFromWizardForm() {
-        if (wizardForm.getHasErrors()) return;
+    public void onSubmitFromWizardForm1() {
+        if (wizardForm1.getHasErrors()) return;
         catalog.setWizardStep(Math.min(catalog.getWizardStep() + 1, catalog.getMaxWizardStep()));
         getCatalogService().saveCatalog(catalog);
+    }
+
+    public void onSubmitFromWizardForm2() {
+        onSubmitFromWizardForm1();
     }
 
     public String getStepDescription() {
@@ -100,6 +115,22 @@ public class Wizard extends BaseComponent {
 
     public String getDescText() {
         return getMessages().get("desc.text." + catalog.getType().name().toLowerCase());
+    }
+
+    public String getNameLabel() {
+        return getMessages().get("name.label." + catalog.getType().name().toLowerCase());
+    }
+
+    public Block onActionFromPrivateCook() {
+        catalog.setType(Type.PRIVATE);
+        getCatalogService().saveCatalog(catalog);
+        return step1Block;
+    }
+
+    public Block onActionFromCompanyCook() {
+        catalog.setType(Type.COMPANY);
+        getCatalogService().saveCatalog(catalog);
+        return step1Block;
     }
 
 }

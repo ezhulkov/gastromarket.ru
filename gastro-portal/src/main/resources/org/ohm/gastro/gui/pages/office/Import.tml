@@ -6,9 +6,8 @@
                 <h1><span>Импорт каталога блюд</span></h1>
             </div>
             <div class="row">
-                <div class="row">
-                    <p class="modal-text">Выберите социальную сеть, где у Вас уже есть готовый каталог блюд:</p>
-                </div>
+                <p class="modal-text">Выберите социальную сеть, где у Вас уже есть готовый каталог блюд:</p>
+
                 <div class="row">
                     <div class="col-sm-12 social-big">
                         <ul>
