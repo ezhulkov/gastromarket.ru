@@ -14,6 +14,8 @@ import java.util.List;
  */
 public interface CatalogService extends ImageUploaderService<CatalogEntity>, AltIdService<CatalogEntity, CatalogRepository> {
 
+    public static final int MAX_WIZARD_STEP = 4;
+
     List<CategoryEntity> findAllCategories();
 
     List<CategoryEntity> findAllRootCategories();

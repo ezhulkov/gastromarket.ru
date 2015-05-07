@@ -165,6 +165,10 @@ html > body div.t-error ul li {
     border: 1px solid black !important;
 }
 
+.center {
+    text-align: center !important;
+}
+
 .qq-upload-button-selector {
     width: 49px;
     height: 49px;
@@ -1286,6 +1290,7 @@ html div.office table.table td.toggle {
 .product .container,
 .info .container,
 .cart .container,
+.wizard .container,
 .contacts .container {
     min-height: 300px;
     margin-bottom: 100px;
@@ -2123,4 +2128,8 @@ option.root {
 
 .glyphicon-thumbs--1 {
     margin-right: 5px;
+}
+
+.wizard {
+    margin: 20px 0 10px 0;
 }

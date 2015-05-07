@@ -16,85 +16,87 @@
             </div>
         </t:form>
 
-        <div class="f30px">${catalog.name}</div>
-        <t:grid source="allBills" row="oneBill" t:mixins="GridSortingDisabled" exclude="id,date,currentMonth" reorder="datePrintable,orderCount,totalSales,totalBonuses,totalBill,status"
-                add="pay"
-                class="table table-hover">
-            <t:parameter name="datePrintableHeader">Период</t:parameter>
-            <t:parameter name="totalBillHeader">К оплате, руб</t:parameter>
-            <t:parameter name="totalSalesHeader">Оборот, руб</t:parameter>
-            <t:parameter name="totalBonusesHeader">Бонусами, руб</t:parameter>
-            <t:parameter name="orderCountHeader">Выполненных заказов</t:parameter>
-            <t:parameter name="payHeader">Оплата</t:parameter>
-            <t:parameter name="datePrintableCell">
-                <a class="red-link" data-toggle="modal" data-target="#billModal${oneBill.id}">${oneBill.datePrintable}</a>
+        <t:if test="catalog">
+            <div class="f30px">${catalog.name}</div>
+            <t:grid source="allBills" row="oneBill" t:mixins="GridSortingDisabled" exclude="id,date,currentMonth" reorder="datePrintable,orderCount,totalSales,totalBonuses,totalBill,status"
+                    add="pay"
+                    class="table table-hover">
+                <t:parameter name="datePrintableHeader">Период</t:parameter>
+                <t:parameter name="totalBillHeader">К оплате, руб</t:parameter>
+                <t:parameter name="totalSalesHeader">Оборот, руб</t:parameter>
+                <t:parameter name="totalBonusesHeader">Бонусами, руб</t:parameter>
+                <t:parameter name="orderCountHeader">Выполненных заказов</t:parameter>
+                <t:parameter name="payHeader">Оплата</t:parameter>
+                <t:parameter name="datePrintableCell">
+                    <a class="red-link" data-toggle="modal" data-target="#billModal${oneBill.id}">${oneBill.datePrintable}</a>
 
-                <div class="modal fade billinfo" id="billModal${oneBill.id}" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog application">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <div class="title">
-                                    <h1><span>Детали счёта</span></h1>
+                    <div class="modal fade billinfo" id="billModal${oneBill.id}" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog application">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <div class="title">
+                                        <h1><span>Детали счёта</span></h1>
+                                    </div>
+                                    <a class="modal-close" data-dismiss="modal"></a>
                                 </div>
-                                <a class="modal-close" data-dismiss="modal"></a>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-sm-12">Каталог: ${catalog.name}</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">Период: ${oneBill.datePrintable}</div>
-                                </div>
-                                <t:grid source="orders" row="oneOrder" t:mixins="GridSortingDisabled"
-                                        exclude="id,comment,date,closed"
-                                        reorder="orderNumber,datePrintable,totalPrice,usedBonuses,status"
-                                        class="table table-hover">
-                                    <t:parameter name="orderNumberCell">
-                                        ${oneOrder.orderNumber}
-                                    </t:parameter>
-                                    <t:parameter name="statusCell"><span class="order-status status-${oneOrder.status}">${oneOrderStatus}</span></t:parameter>
-                                    <t:parameter name="empty">
-                                        <div class="empty">Нет данных</div>
-                                    </t:parameter>
-                                </t:grid>
-                                <div class="row info">
-                                    <div class="col-sm-4">Оборот, руб: ${oneBill.totalSales}</div>
-                                    <div class="clearfix"/>
-                                    <div class="col-sm-4">Оплата бонусами: ${oneBill.totalBonuses}</div>
-                                    <div class="clearfix"/>
-                                    <div class="col-sm-4">Итого к оплате: ${oneBill.totalBill}</div>
-                                    <div class="clearfix"/>
-                                    <a href="#" class="btn btn-red pay">Оплатить счет</a>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">Каталог: ${catalog.name}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">Период: ${oneBill.datePrintable}</div>
+                                    </div>
+                                    <t:grid source="orders" row="oneOrder" t:mixins="GridSortingDisabled"
+                                            exclude="id,comment,date,closed"
+                                            reorder="orderNumber,datePrintable,totalPrice,usedBonuses,status"
+                                            class="table table-hover">
+                                        <t:parameter name="orderNumberCell">
+                                            ${oneOrder.orderNumber}
+                                        </t:parameter>
+                                        <t:parameter name="statusCell"><span class="order-status status-${oneOrder.status}">${oneOrderStatus}</span></t:parameter>
+                                        <t:parameter name="empty">
+                                            <div class="empty">Нет данных</div>
+                                        </t:parameter>
+                                    </t:grid>
+                                    <div class="row info">
+                                        <div class="col-sm-4">Оборот, руб: ${oneBill.totalSales}</div>
+                                        <div class="clearfix"/>
+                                        <div class="col-sm-4">Оплата бонусами: ${oneBill.totalBonuses}</div>
+                                        <div class="clearfix"/>
+                                        <div class="col-sm-4">Итого к оплате: ${oneBill.totalBill}</div>
+                                        <div class="clearfix"/>
+                                        <a href="#" class="btn btn-red pay">Оплатить счет</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </t:parameter>
-            <t:parameter name="countCell">
-                ${oneBill.orderCount}
-            </t:parameter>
-            <t:parameter name="totalCell">
-                ${oneBill.totalSales}
-            </t:parameter>
-            <t:parameter name="bonusCell">
-                ${oneBill.totalBonuses}
-            </t:parameter>
-            <t:parameter name="billCell">
-                ${oneBill.totalBill}
-            </t:parameter>
-            <t:parameter name="statusCell">
-                <span class="order-status status-${oneBill.status}">${oneBillStatus}</span>
-            </t:parameter>
-            <t:parameter name="payCell">
-                <t:if test="oneBill.status.name().equals('NEW')">
-                    Оплатить
-                </t:if>
-            </t:parameter>
-            <t:parameter name="empty">
-                <div class="empty">Нет данных</div>
-            </t:parameter>
-        </t:grid>
+                </t:parameter>
+                <t:parameter name="countCell">
+                    ${oneBill.orderCount}
+                </t:parameter>
+                <t:parameter name="totalCell">
+                    ${oneBill.totalSales}
+                </t:parameter>
+                <t:parameter name="bonusCell">
+                    ${oneBill.totalBonuses}
+                </t:parameter>
+                <t:parameter name="billCell">
+                    ${oneBill.totalBill}
+                </t:parameter>
+                <t:parameter name="statusCell">
+                    <span class="order-status status-${oneBill.status}">${oneBillStatus}</span>
+                </t:parameter>
+                <t:parameter name="payCell">
+                    <t:if test="oneBill.status.name().equals('NEW')">
+                        Оплатить
+                    </t:if>
+                </t:parameter>
+                <t:parameter name="empty">
+                    <div class="empty">Нет данных</div>
+                </t:parameter>
+            </t:grid>
+        </t:if>
 
     </div>
 

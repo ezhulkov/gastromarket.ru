@@ -7,9 +7,9 @@
             </div>
             <t:if test="catalogOwner">
                 <div class="catalog-edit-links">
-                    <div class="more-link">
-                        <a class="catalog-edit-link" data-toggle="modal" data-target="#catalog-edit" href="#catalog-edit">Редактировать страницу<span/></a>
-                    </div>
+                    <!--<div class="more-link">-->
+                        <!--<a class="catalog-edit-link" data-toggle="modal" data-target="#catalog-edit" href="#catalog-edit">Редактировать страницу<span/></a>-->
+                    <!--</div>-->
                     <div class="more-link">
                         <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо<span/></a>
                     </div>

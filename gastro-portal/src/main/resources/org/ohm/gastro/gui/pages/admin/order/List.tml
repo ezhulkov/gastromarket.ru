@@ -18,24 +18,27 @@
             </div>
         </t:form>
 
-        <t:grid source="allOrders" row="oneOrder" reorder="orderNumber,datePrintable,usedBonuses,catalog,orderTotalPrice,status" add="catalog" exclude="id,comment,date,closed"
-                t:mixins="GridSortingDisabled" class="table table-hover">
-            <t:parameter name="orderNumberCell">
-                <t:pageLink page="admin/order/index" context="oneOrder.id">${oneOrder.orderNumber}</t:pageLink>
-            </t:parameter>
-            <t:parameter name="usedBonusesCell">
-                <t:if test="oneOrder.usedBonuses">${oneOrder.usedBonuses}
-                    <t:parameter name="else">-</t:parameter>
-                </t:if>
-            </t:parameter>
-            <t:parameter name="catalogCell">
-                <t:pageLink page="catalog/index" context="oneOrder.catalog.id">${oneOrder.catalog.name}</t:pageLink>
-            </t:parameter>
-            <t:parameter name="statusCell"><span class="order-status status-${oneOrder.status}">${oneOrderStatus}</span></t:parameter>
-            <t:parameter name="empty">
-                <div class="empty">Нет данных</div>
-            </t:parameter>
-        </t:grid>
+        <t:if test="catalog">
+            <div class="f30px">${catalog.name}</div>
+            <t:grid source="allOrders" row="oneOrder" reorder="orderNumber,datePrintable,usedBonuses,catalog,orderTotalPrice,status" add="catalog" exclude="id,comment,date,closed"
+                    t:mixins="GridSortingDisabled" class="table table-hover">
+                <t:parameter name="orderNumberCell">
+                    <t:pageLink page="admin/order/index" context="oneOrder.id">${oneOrder.orderNumber}</t:pageLink>
+                </t:parameter>
+                <t:parameter name="usedBonusesCell">
+                    <t:if test="oneOrder.usedBonuses">${oneOrder.usedBonuses}
+                        <t:parameter name="else">-</t:parameter>
+                    </t:if>
+                </t:parameter>
+                <t:parameter name="catalogCell">
+                    <t:pageLink page="catalog/index" context="oneOrder.catalog.id">${oneOrder.catalog.name}</t:pageLink>
+                </t:parameter>
+                <t:parameter name="statusCell"><span class="order-status status-${oneOrder.status}">${oneOrderStatus}</span></t:parameter>
+                <t:parameter name="empty">
+                    <div class="empty">Нет данных</div>
+                </t:parameter>
+            </t:grid>
+        </t:if>
 
     </div>
 

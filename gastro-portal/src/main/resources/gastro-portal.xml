@@ -63,6 +63,8 @@
                 <prop key="hibernate.connection.autocommit">false</prop>
                 <prop key="hibernate.cache.use_second_level_cache">false</prop>
                 <prop key="hibernate.cache.use_query_cache">false</prop>
+                <prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
+                <prop key="javax.persistence.validation.mode">none</prop>
             </props>
         </property>
     </bean>

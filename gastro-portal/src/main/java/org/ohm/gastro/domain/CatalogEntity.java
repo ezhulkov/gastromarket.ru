@@ -1,6 +1,7 @@
 package org.ohm.gastro.domain;
 
 import com.google.common.collect.Lists;
+import org.ohm.gastro.service.CatalogService;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,6 +18,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -55,6 +57,9 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
     @Column
     private String payment;
 
+    @Column(name = "wizard_step")
+    private Integer wizardStep = 1;
+
     @Column
     private Integer rating = 0;
 
@@ -63,9 +68,6 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
 
     @Column(name = "basket_min")
     private Integer basketMin = 0;
-
-    @Column(name = "was_setup")
-    private boolean wasSetup = false;
 
     @Column
     private Date date = new Date(System.currentTimeMillis());
@@ -202,11 +204,7 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
     }
 
     public boolean isWasSetup() {
-        return wasSetup;
-    }
-
-    public void setWasSetup(final boolean wasSetup) {
-        this.wasSetup = wasSetup;
+        return Objects.equals(getMaxWizardStep(), wizardStep);
     }
 
     public List<ProductEntity> getReadyProducts() {
@@ -227,6 +225,18 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
 
     public void setType(final Type type) {
         this.type = type;
+    }
+
+    public Integer getWizardStep() {
+        return wizardStep;
+    }
+
+    public void setWizardStep(Integer wizardStep) {
+        this.wizardStep = wizardStep;
+    }
+
+    public Integer getMaxWizardStep() {
+        return CatalogService.MAX_WIZARD_STEP;
     }
 
     @Override

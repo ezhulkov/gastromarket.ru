@@ -44,6 +44,37 @@
 <t:headerlayout header="header"/>
 <t:body/>
 <t:landing/>
+<t:if test="newCatalog">
+    <div class="modal fade" id="setup" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog bonus">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="title">
+                        <h1><span>Настройка страницы</span></h1>
+                    </div>
+                    <a class="modal-close" data-dismiss="modal"></a>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-text">
+                        Здравствуйте, ${newCatalog.user.fullName}!
+                    </p>
+                    <p class="modal-text">
+                        Мы рады Вас видеть на ГастроМаркет и уже создали персональную страницу, где Вы сможете разместить информацию о себе, Ваших блюдах и услугах.
+                    </p>
+                    <p class="modal-text">
+                        Как только Вы завершите заполнять эту страницу, мы сразу подключим её в общий каталог и её увидят тысячи посетителей ГастроМаркет!
+                    </p>
+                    <p class="modal-text center">
+                        <t:pagelink page="catalog/wizard" context="newCatalog.id" class="red-link">Перейти к настройке персональной страницы</t:pagelink>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        jQuery("#setup").modal('show');
+    </script>
+</t:if>
 <t:footerlayout/>
 <!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter29411415 = new Ya.Metrika({id:29411415, webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/29411415" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
 <script>

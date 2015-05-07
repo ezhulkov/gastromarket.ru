@@ -1,6 +1,7 @@
 package org.ohm.gastro.gui.mixins;
 
 import com.google.common.collect.Maps;
+import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
@@ -65,6 +66,9 @@ public abstract class BaseComponent {
 
     @Inject
     private ApplicationGlobals globals;
+
+    @Inject
+    private ComponentResources componentResources;
 
     @Inject
     private ApplicationContext applicationContext;
@@ -188,6 +192,10 @@ public abstract class BaseComponent {
 
     public PasswordEncoder getPasswordEncoder() {
         return passwordEncoder;
+    }
+
+    public ComponentResources getComponentResources() {
+        return componentResources;
     }
 
     public java.util.List<TagEntity> getProductTags(ProductEntity product) {

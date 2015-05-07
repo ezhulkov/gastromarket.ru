@@ -14,7 +14,7 @@ public interface CatalogRepository extends AltIdRepository<CatalogEntity> {
     List<CatalogEntity> findAllByUser(UserEntity user);
 
     @Query("select distinct c from CatalogEntity c join c.user u join c.products p " +
-            "where c.wasSetup=true and u.status='ENABLED' and size(p)>0")
+            "where c.wizardStep=4 and u.status='ENABLED' and size(p)>0")
     List<CatalogEntity> findAllActive();
 
 }

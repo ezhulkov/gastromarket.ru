@@ -155,7 +155,6 @@ public class CatalogServiceImpl implements CatalogService, Logging {
 
     @Override
     public void setupCatalog(final CatalogEntity catalog) {
-        catalog.setWasSetup(true);
         catalogRepository.save(catalog);
     }
 

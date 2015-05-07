@@ -1,0 +1,92 @@
+<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="${catalog.name}">
+
+    <div class="wizard">
+        <div class="container">
+            <t:unless test="lastStep">
+                <div class="title">
+                    <h1><span>Настройка страницы</span></h1>
+                </div>
+            </t:unless>
+            <t:if test="lastStep">
+                <div class="title">
+                    <h1><span>Настройка завершена</span></h1>
+                </div>
+            </t:if>
+            <div class="breadcrumbs">
+                Шаг ${catalog.wizardStep} из ${catalog.maxWizardStep} - ${stepDescription}
+            </div>
+            <br/>
+            <t:delegate to="currentStepBlock"/>
+        </div>
+    </div>
+
+    <t:block id="step1">
+
+
+    </t:block>
+    <t:block id="step2">
+        <t:form t:id="wizardForm" t:clientValidation="none" class="form form-horizontal edit wizard" t:autofocus="false" role="form">
+            <t:errors/>
+            <div class="form-group">
+                <div class="col-sm-1"/>
+                <div class="col-sm-10">
+                    <t:label for="desc">${descLabel}:</t:label>
+                    <div class="catalog-tip">
+                        ${descText}<br/>
+                        Помните, что доверие покупателей повышается, если они узнают о Вашей работе.
+                    </div>
+                    <input t:id="desc" rows="6" class="form-control"/>
+                </div>
+                <div class="col-sm-1"/>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-1"/>
+                <div class="col-sm-10">
+                    <t:label for="delivery">Условия доставки:</t:label>
+                    <div class="catalog-tip">
+                        Доставка готовых блюд осуществляется Вами, опишите здесь условия доставки.
+                    </div>
+                    <input t:id="delivery" rows="6" class="form-control"/>
+                </div>
+                <div class="col-sm-1"/>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-1"/>
+                <div class="col-sm-10">
+                    <t:label for="payment">Условия оплаты:</t:label>
+                    <div class="catalog-tip">
+                        Напишите, например, есть ли у Вас предоплата, принимаете банковские переводы или оплата происходит наличными при передаче заказа.
+                    </div>
+                    <input t:id="payment" rows="5" class="form-control"/>
+                </div>
+                <div class="col-sm-1"/>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-1"/>
+                <div class="col-sm-10">
+                    <t:label for="basketMin">Минимальная стоимость заказа, руб:</t:label>
+                    <div class="catalog-tip">
+                        Мы попросим покупателя дополнить заказ, если стоимость заказа меньше указанной
+                    </div>
+                    <input t:id="basketMin" class="form-control"/>
+                </div>
+                <div class="col-sm-1"/>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-1"/>
+                <div class="col-sm-10">
+                    <t:actionlink t:id="goPrev" class="btn btn-red pull-left">&lt; Назад</t:actionlink>
+                    <input class="btn btn-red pull-right" t:type="submit" t:id="saveAndNext" value="Далее &gt;"/>
+                </div>
+                <div class="col-sm-1"/>
+            </div>
+        </t:form>
+    </t:block>
+    <t:block id="step3">
+
+    </t:block>
+    <t:block id="step4">
+        <t:pagelink page="catalog/index" context="catalog.id" class="red-link">Перейти на страницу '${catalog.name}'</t:pagelink>
+    </t:block>
+
+</t:htmlLayout>

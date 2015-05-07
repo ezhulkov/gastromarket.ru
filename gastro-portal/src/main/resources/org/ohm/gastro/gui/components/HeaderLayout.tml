@@ -119,8 +119,8 @@
 
                         <p class="modal-text">Вы можете расплатиться баллами при размещении новых заказов.</p>
 
-                        <p class="modal-text">
-                            <a href="/userinfo" class="red-link">узнать подробности</a>
+                        <p class="modal-text center">
+                            <a href="/userinfo" class="red-link">Узнать подробности</a>
                         </p>
 
                     </div>

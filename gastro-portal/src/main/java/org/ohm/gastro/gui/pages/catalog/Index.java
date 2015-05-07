@@ -80,6 +80,7 @@ public class Index extends BaseComponent {
     public Object onActivate(String pid) {
         catalog = getCatalogService().findCatalog(pid);
         if (catalog == null) return new HttpError(404, "Page not found.");
+        if (!catalog.isWasSetup()) return getPageLinkSource().createPageRenderLinkWithContext(Wizard.class, catalog.getId());
         return true;
     }
 

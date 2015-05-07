@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.pages.cook;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
@@ -37,7 +38,8 @@ public class Bills extends BaseComponent {
     private Select pCatalogField;
 
     public boolean onActivate() {
-        catalog = getCatalogService().findAllCatalogs().get(0);
+        final List<CatalogEntity> allCatalogs = getCatalogService().findAllCatalogs();
+        catalog = CollectionUtils.isEmpty(allCatalogs) ? null : allCatalogs.get(0);
         return true;
     }
 
