@@ -7,7 +7,7 @@
                         <h1><span>Редактировать</span></h1>
                     </t:if>
                     <t:unless test="editProduct">
-                        <h1><span>Создать</span></h1>
+                        <h1><span>Новое блюдо</span></h1>
                     </t:unless>
                 </div>
                 <a class="modal-close" data-dismiss="modal"></a>

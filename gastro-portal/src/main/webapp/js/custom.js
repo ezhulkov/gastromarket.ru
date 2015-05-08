@@ -370,6 +370,15 @@ function initImportPage() {
         })
     });
 }
+function initWizardPage() {
+    var step1 = jQuery("div.step1-zone");
+    if (step1.length != 0) {
+        step1.show();
+        Event.observe(step1.get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
+            jQuery("div.step1-zone").fadeIn(100);
+        });
+    }
+}
 function realTitleWidth(obj) {
     var clone = obj.clone();
     clone.css("visibility", "hidden");

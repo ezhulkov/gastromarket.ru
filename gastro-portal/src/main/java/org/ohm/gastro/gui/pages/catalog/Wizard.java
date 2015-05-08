@@ -11,6 +11,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CatalogEntity.Type;
+import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.Objects;
@@ -19,6 +20,9 @@ import java.util.Objects;
  * Created by ezhulkov on 31.08.14.
  */
 public class Wizard extends BaseComponent {
+
+    @Property
+    private ProductEntity oneProduct;
 
     @Property
     private CatalogEntity catalog;
@@ -43,11 +47,18 @@ public class Wizard extends BaseComponent {
     @Property
     private Block step4;
 
+    @Inject
+    @Property
+    protected Block productsBlock;
+
     @Component
     private Form wizardForm1;
 
     @Component
     private Form wizardForm2;
+
+    @Component(id = "fullName", parameters = {"value=authenticatedUser?.fullName", "validate=maxlength=64"})
+    private TextField fNameField;
 
     @Component(id = "desc", parameters = {"value=catalog.description", "validate=maxlength=4096,required"})
     private TextArea descField;
@@ -90,8 +101,17 @@ public class Wizard extends BaseComponent {
         return Objects.equals(catalog.getWizardStep(), catalog.getMaxWizardStep());
     }
 
+    public void onActionFromGoPrev2() {
+        onActionFromGoPrev();
+    }
+
     public void onActionFromGoPrev() {
         catalog.setWizardStep(Math.max(catalog.getWizardStep() - 1, 0));
+        getCatalogService().saveCatalog(catalog);
+    }
+
+    public void onActionFromGoNext() {
+        catalog.setWizardStep(Math.min(catalog.getWizardStep() + 1, catalog.getMaxWizardStep()));
         getCatalogService().saveCatalog(catalog);
     }
 
@@ -99,6 +119,7 @@ public class Wizard extends BaseComponent {
         if (wizardForm1.getHasErrors()) return;
         catalog.setWizardStep(Math.min(catalog.getWizardStep() + 1, catalog.getMaxWizardStep()));
         getCatalogService().saveCatalog(catalog);
+        getUserService().saveUser(getAuthenticatedUser());
     }
 
     public void onSubmitFromWizardForm2() {
@@ -131,6 +152,10 @@ public class Wizard extends BaseComponent {
         catalog.setType(Type.COMPANY);
         getCatalogService().saveCatalog(catalog);
         return step1Block;
+    }
+
+    public java.util.List<ProductEntity> getProducts() {
+        return getProductService().findAllProducts(null, catalog);
     }
 
 }

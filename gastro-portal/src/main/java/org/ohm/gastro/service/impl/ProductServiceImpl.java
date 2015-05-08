@@ -215,7 +215,7 @@ public class ProductServiceImpl implements ProductService, Logging {
         cachedElements.entrySet().stream().flatMap(t -> t.getValue().stream()).filter(MediaElement::isChecked).forEach(element -> {
             Throwables.propagate(() -> {
                 logger.info("Importing {} product", element);
-                ProductEntity product = new ProductEntity();
+                final ProductEntity product = new ProductEntity();
                 product.setCatalog(catalog);
                 product.setName(element.getCaption());
                 product.setUnit(Unit.PIECE);

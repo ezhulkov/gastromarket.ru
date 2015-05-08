@@ -3,7 +3,7 @@
     file: path={{ item }} state=directory mode=0777 group=root owner=root
     with_items:
       - "/var/log/gastro"
-      - "/var/lib/gastro"
+      - "/var/lib/gastro/media"
 
   - hostname: name=gastromarket.ru
   - locale_gen: name=en_US.UTF-8 state=present

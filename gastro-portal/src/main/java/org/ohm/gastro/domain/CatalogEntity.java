@@ -18,7 +18,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -204,7 +203,7 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
     }
 
     public boolean isWasSetup() {
-        return Objects.equals(getMaxWizardStep(), wizardStep);
+        return wizardStep != null && wizardStep >= getMaxWizardStep();
     }
 
     public List<ProductEntity> getReadyProducts() {

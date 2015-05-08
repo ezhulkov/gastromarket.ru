@@ -9,18 +9,19 @@
             </t:unless>
             <t:if test="lastStep">
                 <div class="title">
-                    <h1><span>Настройка завершена</span></h1>
+                    <h2><span>Всё готово!</span></h2>
+                    <t:pagelink page="catalog/index" context="catalog.id">Перейти на страницу<span/></t:pagelink>
                 </div>
             </t:if>
             <p class="modal-text">
                 Шаг ${catalog.wizardStep} из ${catalog.maxWizardStep} - ${stepDescription}
             </p>
-            <br/>
             <t:delegate to="currentStepBlock"/>
         </div>
     </div>
 
     <t:block id="step1">
+        <br/>
         <t:form t:id="wizardForm1" t:clientValidation="none" class="form form-horizontal edit wizard" t:autofocus="false" role="form">
             <t:errors/>
             <div class="row">
@@ -46,7 +47,7 @@
             <br/>
             <br/>
             <br/>
-            <t:zone t:id="step1Zone">
+            <t:zone t:id="step1Zone" class="step1-zone">
                 <t:delegate to="step1Block"/>
             </t:zone>
             <t:block t:id="step1Block">
@@ -54,7 +55,29 @@
                     <div class="form-group">
                         <div class="col-sm-1"/>
                         <div class="col-sm-10">
+                            <label for="email">Адрес почты:</label>
+                            <input class="form-control" type="text" value="${authenticatedUser.email}" disabled="disabled"/>
+                        </div>
+                        <div class="col-sm-1"/>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-1"/>
+                        <div class="col-sm-10">
+                            <t:label for="fullName">Полное имя:</t:label>
+                            <div class="catalog-tip">
+                                Представьтесь, пожалуйста, как Вас зовут?
+                            </div>
+                            <input t:id="fullName" class="form-control"/>
+                        </div>
+                        <div class="col-sm-1"/>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-1"/>
+                        <div class="col-sm-10">
                             <t:label for="desc">${nameLabel}:</t:label>
+                            <div class="catalog-tip">
+                                Как бы Вы хотели, чтобы называлась Ваша страница? Примеры - 'Кулинар Сергей Петров' или 'Кондитерская SmartCakes'
+                            </div>
                             <input t:id="name" rows="6" class="form-control"/>
                         </div>
                         <div class="col-sm-1"/>
@@ -71,6 +94,7 @@
         </t:form>
     </t:block>
     <t:block id="step2">
+        <br/>
         <t:form t:id="wizardForm2" t:clientValidation="none" class="form form-horizontal edit wizard" t:autofocus="false" role="form">
             <t:errors/>
             <div class="form-group">
@@ -137,12 +161,110 @@
                 <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо<span/></a>
             </div>
             <div class="more-link">
-                <t:pagelink class="product-edit-link" page="office/import" context="catalog.id">Импортировать из социальных сетей<span/></t:pagelink>
+                <t:pagelink class="product-edit-link" page="office/import" context="catalog.id">Импортировать<span/></t:pagelink>
             </div>
         </div>
+        <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>
+
+        <div id="product-items" class="grid-block products"/>
+        <t:zone t:id="productsZone">
+            <t:delegate to="productsBlock"/>
+        </t:zone>
+        <t:block t:id="productsBlock">
+            <t:loop source="products" value="oneProduct">
+                <t:product product="oneProduct" edit="true"/>
+            </t:loop>
+        </t:block>
+        <t:productModalTemplate/>
+
+        <form class="form form-horizontal edit wizard" role="form">
+            <div class="form-group">
+                <div class="col-sm-1"/>
+                <div class="col-sm-10">
+                    <t:actionlink t:id="goPrev2" class="btn btn-red pull-left">&lt; Назад</t:actionlink>
+                    <t:actionlink t:id="goNext" class="btn btn-red pull-right">Завершить настройку &gt;</t:actionlink>
+                </div>
+                <div class="col-sm-1"/>
+            </div>
+        </form>
+
+        <script type="text/javascript">
+            var productsZone = jQuery("#productsZone");
+            initProductCatalog(productsZone);
+            initProductCatalogEdit();
+            Event.observe(productsZone.get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
+                initProductCatalogEdit();
+            });
+        </script>
+
     </t:block>
     <t:block id="step4">
-        <t:pagelink page="catalog/index" context="catalog.id" class="red-link">Перейти на страницу '${catalog.name}'</t:pagelink>
+
+        <div class="simple-text">
+            <h2>Каким образом я получу новых покупателей?</h2>
+
+            <p>
+                Каталог блюд и кулинаров в ГастроМаркет разрабатывается прежде всего для покупателей - мы хотим предоставить для них удобный инструмент для поиска, выбора и сравнения блюд.
+                Мы считаем, что если дать покупателю удобный инструмент поиска и собрать на одной площадке большой каталог качественных блюд от различных кулинаров, то и средний чек заказа будет увеличиваться.
+                Можно привести аналогию с большими торговыми центрами, когда все рестораны быстрого питания обычно собирают в фудкортах. Практика показывает, что в этом случае доход увеличивается.
+            </p>
+
+            <p>
+                Но самое главное это то, что у команды ГастроМаркет есть большой опыт в организации и создании Интернет-проектов, мы будет размещать эффективную рекламу,
+                интересные статьи на тематических ресурсах, оптимизировать сайт для эффективной индексации поисковиками, стимулировать продажи и развивать лояльную аудиторию.
+                Все наши действия приведут в итоге к увеличению покупателей и, как следствие, к увеличению Вашей прибыли.
+            </p>
+
+            <h2>Почему покупатели будут выбирать именно меня?</h2>
+
+            <p>
+                Покупатели делают свой выбор на основании множества критериев.
+                Например, на выбор может влиять качество Вашей фотографии или полнота описания страницы и блюд.
+                Однако, самый главный критерий качества для покупателя - это репутация кулинара.
+                На ГастроМаркет сделана сложная система рейтингов, которая учитывает количество положительных и отрицательных отзывов,
+                общий оборот кулинара и как часто он заходит на сайт - в общем около 8 различных параметров, которые автоматически пересчитываются.
+                Более подробно о системе рейтингов можно почитать на <a href="/about" class="red-link">этой странице</a>.
+            </p>
+
+            <p>
+                Так что улучшение своей репутации в Ваших руках - добросовестно выполняйте заказы, получайте положительные отзывы и Ваш рейтинг в системе будет расти.
+            </p>
+
+            <h2>На каких условиях я могу использовать ГастроМаркет?</h2>
+
+            <p>
+                Мы считаем, что труд кулинара должен хорошо вознаграждаться и не просим каких-либо денег заранее - у нас нет ежемесячных подписок за использование или продажи привилигированных мест в поиске.
+                Все что мы попросим - это 10 процентов от уже совершенных через ГастроМаркет заказов, когда покупатель уже расплатился с Вами и деньги у Вас "в кармане".
+                Эти деньги пойдут на развитие и поддержание сервиса, привлечение новых покупателей и добавление новых функций.
+            </p>
+
+            <p>
+                Также стоит сказать, что первые 3 месяца использования совершенно бесплатны для Кулинара - у Вас есть возможность попробовать сервис, завершить первые заказы и
+                начать улучшать репутацию совершенно бесплатно.
+            </p>
+
+            <h2>Как мне лучше оформить свою страницу?</h2>
+
+            <p>
+                Попробуйте собрать качественные фотографии Ваших кулинарных шедевров, добавьте полное описание блюд - ингредиенты, категория, название и текст.
+                Если у Вас уже есть готовый каталог блюд в Инстаграмме, Вконтакте или Фейсбуке, то можно сэкономить время и импортировать этот каталог.
+                Помните, что чем больше и качественнее выбор, тем с большим удовольствием покупатели будут разглядывать Вашу страницу.
+            </p>
+        </div>
+
+        <br/>
+        <br/>
+
+        <p class="modal-text f20px">Команда ГастроМаркет желает Вам успехов и всегда готова помочь!</p>
+
     </t:block>
+
+    <div class="container-flex main-img" style="display: block; height: 300px;">
+        <div class="main-img-after main5" style="display: block;"/>
+    </div>
+
+    <script>
+        initWizardPage();
+    </script>
 
 </t:htmlLayout>

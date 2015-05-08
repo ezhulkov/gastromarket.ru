@@ -1280,10 +1280,14 @@ html div.office table.table td.toggle {
 .product .container,
 .info .container,
 .cart .container,
-.wizard .container,
+.about .container,
 .contacts .container {
     min-height: 300px;
     margin-bottom: 100px;
+}
+
+.wizard .container {
+    min-height: 769px;
 }
 
 .catalog .search {
@@ -2125,5 +2129,9 @@ option.root {
 }
 
 .wizard-upload {
-    margin-top: 8px;
+    margin-top: 9px;
+}
+
+.step1-zone {
+    display: none;
 }
