@@ -1,7 +1,6 @@
 package org.ohm.gastro.service;
 
 import org.ohm.gastro.domain.CatalogEntity;
-import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.UserEntity;
@@ -16,33 +15,21 @@ public interface CatalogService extends ImageUploaderService<CatalogEntity>, Alt
 
     public static final int MAX_WIZARD_STEP = 4;
 
-    List<CategoryEntity> findAllCategories();
-
-    List<CategoryEntity> findAllRootCategories();
-
     List<PropertyEntity> findAllProperties();
 
     List<PropertyValueEntity> findAllValues(PropertyEntity property);
-
-    CategoryEntity findCategory(Long id);
 
     PropertyEntity findProperty(Long id);
 
     PropertyValueEntity findPropertyValue(Long id);
 
-    CategoryEntity saveCategory(CategoryEntity category);
-
     PropertyEntity saveProperty(PropertyEntity property);
 
     PropertyValueEntity savePropertyValue(PropertyValueEntity value);
 
-    void deleteCategory(Long id);
-
     void deleteProperty(Long id);
 
     void deletePropertyValue(Long id);
-
-    List<PropertyEntity> findAllProperties(CategoryEntity object);
 
     List<CatalogEntity> findAllCatalogs();
 
@@ -57,7 +44,5 @@ public interface CatalogService extends ImageUploaderService<CatalogEntity>, Alt
     CatalogEntity findCatalog(Long id);
 
     CatalogEntity findCatalog(String altId);
-
-    List<CategoryEntity> findAllRootCategories(CatalogEntity catalog);
 
 }

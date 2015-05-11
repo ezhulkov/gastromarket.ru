@@ -63,9 +63,6 @@ public class ProductEntity extends AbstractBaseEntity implements AltIdEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private CatalogEntity catalog;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    private CategoryEntity category;
-
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
     private List<TagEntity> values = Lists.newArrayList();
 
@@ -157,14 +154,6 @@ public class ProductEntity extends AbstractBaseEntity implements AltIdEntity {
 
     public void setValues(List<TagEntity> values) {
         this.values = values;
-    }
-
-    public CategoryEntity getCategory() {
-        return category;
-    }
-
-    public void setCategory(CategoryEntity category) {
-        this.category = category;
     }
 
     public String getDescription() {

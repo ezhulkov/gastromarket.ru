@@ -491,4 +491,24 @@
         </sql>
     </changeSet>
 
+    <changeSet id="35" author="ezhulkov">
+        <dropTable tableName="category_property"/>
+        <sql>update product set category=null;</sql>
+        <dropTable tableName="category"/>
+        <addColumn tableName="property">
+            <column name="tag" type="java.sql.Types.VARCHAR(16)"/>
+            <column name="mandatory" type="java.sql.Types.BOOLEAN"/>
+            <column name="parent_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="property" baseColumnNames="parent_id"
+                constraintName="prop_parent_fk" referencedTableName="property"
+                referencedColumnNames="id" onDelete="CASCADE"/>
+        <createIndex tableName="property" indexName="property_parent_idx">
+            <column name="parent_id"/>
+        </createIndex>
+        <createIndex tableName="property" indexName="property_tag_idx">
+            <column name="tag"/>
+        </createIndex>
+    </changeSet>
+
 </databaseChangeLog>

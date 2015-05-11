@@ -11,9 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -43,18 +41,23 @@ public class PropertyEntity extends AbstractBaseEntity {
     @Enumerated(EnumType.STRING)
     private Type type = Type.TEXT;
 
-    @ManyToMany(cascade = CascadeType.REFRESH,
-                fetch = FetchType.LAZY)
-    @JoinTable(name = "category_property",
-               joinColumns = {@JoinColumn(name = "property_id")},
-               inverseJoinColumns = {@JoinColumn(name = "category_id")})
-    private List<CategoryEntity> categories = Lists.newArrayList();
+    @Column
+    private boolean mandatory = false;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "property")
     private List<PropertyValueEntity> values = Lists.newArrayList();
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    private PropertyEntity parent;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = PropertyEntity.class, mappedBy = "parent")
+    private List<PropertyEntity> children;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "property")
     private List<TagEntity> products = Lists.newArrayList();
+
+    @Column
+    private String tag;
 
     @Override
     public Long getId() {
@@ -63,6 +66,46 @@ public class PropertyEntity extends AbstractBaseEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<TagEntity> getProducts() {
+        return products;
+    }
+
+    public void setProducts(final List<TagEntity> products) {
+        this.products = products;
+    }
+
+    public boolean isMandatory() {
+        return mandatory;
+    }
+
+    public void setMandatory(final boolean mandatory) {
+        this.mandatory = mandatory;
+    }
+
+    public PropertyEntity getParent() {
+        return parent;
+    }
+
+    public void setParent(final PropertyEntity parent) {
+        this.parent = parent;
+    }
+
+    public List<PropertyEntity> getChildren() {
+        return children;
+    }
+
+    public void setChildren(final List<PropertyEntity> children) {
+        this.children = children;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(final String tag) {
+        this.tag = tag;
     }
 
     public String getName() {
@@ -81,28 +124,12 @@ public class PropertyEntity extends AbstractBaseEntity {
         this.type = type;
     }
 
-    public List<CategoryEntity> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<CategoryEntity> categories) {
-        this.categories = categories;
-    }
-
     public List<PropertyValueEntity> getValues() {
         return values;
     }
 
     public void setValues(List<PropertyValueEntity> values) {
         this.values = values;
-    }
-
-    public List<TagEntity> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<TagEntity> products) {
-        this.products = products;
     }
 
     @Override
