@@ -38,7 +38,7 @@
         </div>
 
         <t:grid source="values" row="onePropertyValue"
-                exclude="id"
+                exclude="id,name,altId"
                 add="del"
                 reorder="value,tag,del"
                 t:mixins="GridSortingDisabled" class="table table-hover">

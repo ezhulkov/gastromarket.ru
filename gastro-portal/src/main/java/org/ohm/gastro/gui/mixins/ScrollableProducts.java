@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.mixins;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.annotations.OnEvent;
@@ -53,7 +54,7 @@ public abstract class ScrollableProducts extends BaseComponent {
         this.direction = direction;
         this.from = from;
         this.to = from + ProductService.PRODUCTS_PER_PAGE;
-        this.propertyValue = pid == null ? null : getCatalogService().findPropertyValue(pid);
+        this.propertyValue = pid == null ? null : getPropertyService().findPropertyValue(pid);
         return productsBlock;
     }
 
@@ -68,14 +69,14 @@ public abstract class ScrollableProducts extends BaseComponent {
         return products;
     }
 
-    protected void initScrollableContext(Long pid, Long catId, OrderType orderType, Direction direction) {
-        final String context = pid == null ? "empty" : pid.toString();
+    protected void initScrollableContext(String pid, Long catId, OrderType orderType, Direction direction) {
+        final String context = (String) ObjectUtils.defaultIfNull(pid, "empty");
         if (!context.equals(prevContext)) {
             this.from = 0;
             this.to = ProductService.PRODUCTS_PER_PAGE;
             prevContext = context;
         }
-        this.propertyValue = pid == null ? null : getCatalogService().findPropertyValue(pid);
+        this.propertyValue = pid == null ? null : getPropertyService().findPropertyValue(pid);
         this.catalog = catId == null ? null : getCatalogService().findCatalog(catId);
         this.direction = direction;
         this.orderType = orderType;

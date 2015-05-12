@@ -44,7 +44,7 @@ public class Index extends BaseComponent {
 
     @Cached
     public List<PropertyValueEntity> getPropertyValues() {
-        return getCatalogService().findAllRootValues(PropertyValueEntity.Tag.ROOT);
+        return getPropertyService().findAllValues(PropertyValueEntity.Tag.ROOT);
     }
 
     public Link onSubmitFromSearchForm() throws IOException {

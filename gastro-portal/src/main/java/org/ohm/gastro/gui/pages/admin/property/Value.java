@@ -46,18 +46,18 @@ public class Value extends EditObjectPage<PropertyValueEntity> {
 
             @Override
             public PropertyValueEntity findObject(String id) {
-                return getCatalogService().findPropertyValue(Long.parseLong(id));
+                return getPropertyService().findPropertyValue(Long.parseLong(id));
             }
 
             @Override
             public Class<? extends BaseComponent> deleteObject(PropertyValueEntity object) {
-                getCatalogService().deletePropertyValue(object.getId());
+                getPropertyService().deletePropertyValue(object.getId());
                 return Index.class;
             }
 
             @Override
             public Class<? extends BaseComponent> updateObject(PropertyValueEntity object) {
-                getCatalogService().savePropertyValue(object);
+                getPropertyService().savePropertyValue(object);
                 return Value.class;
             }
         };
@@ -65,11 +65,11 @@ public class Value extends EditObjectPage<PropertyValueEntity> {
 
     @Cached
     public GenericSelectModel<PropertyValueEntity> getValueModel() {
-        return new GenericSelectModel<>(getCatalogService().findAllValues(), PropertyValueEntity.class, "value", "id", getPropertyAccess());
+        return new GenericSelectModel<>(getPropertyService().findAllLeafValues(getObject().getProperty()), PropertyValueEntity.class, "value", "id", getPropertyAccess());
     }
 
     public void onSubmitFromCreateValueForm() {
-        getCatalogService().attachPropertyValue(getObject(), propertyValue);
+        getPropertyService().attachPropertyValue(getObject(), propertyValue);
     }
 
     public void onSubmitFromAttachValueForm() {
@@ -77,7 +77,7 @@ public class Value extends EditObjectPage<PropertyValueEntity> {
     }
 
     public void onActionFromDetach(Long id) {
-        getCatalogService().detachPropertyValue(getObject(), getCatalogService().findPropertyValue(id));
+        getPropertyService().detachPropertyValue(getObject(), getPropertyService().findPropertyValue(id));
     }
 
 }

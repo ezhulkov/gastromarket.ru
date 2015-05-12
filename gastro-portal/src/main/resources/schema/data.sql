@@ -45,6 +45,7 @@ INSERT INTO property (id, name, type) VALUES (9, 'Формат', 'LIST');
 
 -- INSERT INTO hibernate_sequences (sequence_name, sequence_next_hi_value) VALUES ('category', 75);
 INSERT INTO hibernate_sequences (sequence_name, sequence_next_hi_value) VALUES ('property', 10);
+INSERT INTO hibernate_sequences (sequence_name, sequence_next_hi_value) VALUES ('person', 2);
 INSERT INTO hibernate_sequences (sequence_name, sequence_next_hi_value) VALUES ('property_value', 275);
 
 --

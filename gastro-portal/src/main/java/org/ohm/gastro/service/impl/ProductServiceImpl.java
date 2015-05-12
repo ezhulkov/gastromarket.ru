@@ -20,6 +20,7 @@ import org.ohm.gastro.service.ImageService.FileType;
 import org.ohm.gastro.service.ImageService.ImageSize;
 import org.ohm.gastro.service.ImageUploader;
 import org.ohm.gastro.service.ProductService;
+import org.ohm.gastro.service.PropertyService;
 import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingTarget;
 import org.ohm.gastro.service.social.MediaElement;
@@ -58,16 +59,19 @@ public class ProductServiceImpl implements ProductService, Logging {
     private final ProductRepository productRepository;
     private final TagRepository tagRepository;
     private final CatalogService catalogService;
+    private final PropertyService propertyService;
     private final ImageService imageService;
 
     @Autowired
     public ProductServiceImpl(final ProductRepository productRepository,
                               final TagRepository tagRepository,
                               final CatalogService catalogService,
+                              final PropertyService propertyService,
                               final ImageService imageService) {
         this.productRepository = productRepository;
         this.tagRepository = tagRepository;
         this.catalogService = catalogService;
+        this.propertyService = propertyService;
         this.imageService = imageService;
     }
 
@@ -118,7 +122,7 @@ public class ProductServiceImpl implements ProductService, Logging {
             TagEntity productValue = new TagEntity();
             productValue.setProduct(product);
             productValue.setData(t.getValue());
-            productValue.setProperty(catalogService.findProperty(t.getKey()));
+            productValue.setProperty(propertyService.findProperty(t.getKey()));
             return productValue;
         };
         propValues.entrySet().stream()
@@ -176,7 +180,7 @@ public class ProductServiceImpl implements ProductService, Logging {
         final int count = to - from;
         if (count == 0) return Lists.newArrayList();
         final int page = from / count;
-        final Sort sort = orderType == OrderType.NONE || orderType == null ? null : new Sort(direction, orderType.name().toLowerCase());
+        final Sort sort = orderType == OrderType.NONE || orderType == null ? null : new Sort(direction, "pr." + orderType.name().toLowerCase());
         return findProductsInternal(propertyValue, catalog, true, new PageRequest(page, count, sort));
     }
 
@@ -185,12 +189,8 @@ public class ProductServiceImpl implements ProductService, Logging {
         return productRepository.findCountCatalog(catalog);
     }
 
-    private List<ProductEntity> findProductsInternal(PropertyValueEntity propertyValue, CatalogEntity catalog, Boolean wasSetup, Pageable page) {
-//        if (property != null && property.getChildren().size() > 0) {
-//            return productRepository.findAllByParentCategory(category, wasSetup, page).getContent();
-//        }
-//        return productRepository.findAllByCategoryAndCatalog(category, catalog, wasSetup, page).getContent();
-        return null;
+    private List<ProductEntity> findProductsInternal(PropertyValueEntity value, CatalogEntity catalog, Boolean wasSetup, Pageable page) {
+        return productRepository.findAllByRootValueAndCatalog(value, catalog, wasSetup, page).getContent();
     }
 
     @Override

@@ -110,10 +110,14 @@
             </column>
             <column name="product_id" type="java.sql.Types.BIGINT"/>
             <column name="property_id" type="java.sql.Types.BIGINT"/>
+            <column name="value_id" type="java.sql.Types.BIGINT"/>
             <column name="data" type="java.sql.Types.VARCHAR(64)"/>
         </createTable>
         <addForeignKeyConstraint baseTableName="product_property" baseColumnNames="product_id"
                 constraintName="pv_prod_fk" referencedTableName="product" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="product_property" baseColumnNames="value_id"
+                constraintName="pv_val_fk" referencedTableName="property_value" referencedColumnNames="id"
                 onDelete="CASCADE"/>
         <addForeignKeyConstraint baseTableName="product_property" baseColumnNames="property_id"
                 constraintName="pv_prop_fk" referencedTableName="property" referencedColumnNames="id"
@@ -123,6 +127,9 @@
         </createIndex>
         <createIndex tableName="product_property" indexName="pr_val_prop_idx">
             <column name="property_id"/>
+        </createIndex>
+        <createIndex tableName="product_property" indexName="pr_val_val_idx">
+            <column name="value_id"/>
         </createIndex>
     </changeSet>
 
@@ -496,11 +503,14 @@
         <sql>update product set category_id=null;</sql>
         <dropForeignKeyConstraint baseTableName="product" constraintName="prod_category_fk"/>
         <dropTable tableName="category"/>
+        <dropColumn tableName="product" columnName="category_id"/>
         <addColumn tableName="property">
             <column name="mandatory" type="java.sql.Types.BOOLEAN"/>
         </addColumn>
         <addColumn tableName="property_value">
             <column name="tag" type="java.sql.Types.VARCHAR(16)"/>
+            <column name="alt_id" type="java.sql.Types.VARCHAR(256)"/>
+            <column name="root_value" type="java.sql.Types.BOOLEAN" defaultValueBoolean="true"/>
         </addColumn>
         <createTable tableName="value_value">
             <column name="parent_id" type="java.sql.Types.BIGINT"/>

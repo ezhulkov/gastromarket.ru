@@ -18,7 +18,7 @@
                 </div>
             </t:unless>
 
-            <t:filter category="category" orderType="orderType" direction="direction" pageContext="literal:/product/list"/>
+            <t:filter value="propertyValue" orderType="orderType" direction="direction" pageContext="literal:/product/list"/>
 
             <div id="product-items" class="grid-block products"/>
             <t:zone t:id="productsZone">
@@ -26,7 +26,8 @@
             </t:zone>
             <t:block t:id="productsBlock">
                 <t:loop source="products" value="oneProduct">
-                    <t:product product="oneProduct"/>
+                    ${oneProduct.name}
+                    <!--<t:product product="oneProduct"/>-->
                 </t:loop>
                 <div class="more-products">
                     <t:if test="hasProducts">

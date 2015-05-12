@@ -27,8 +27,8 @@ public class List extends ScrollableProducts {
         return true;
     }
 
-    public boolean onActivate(Long cid) {
-        return onActivate(cid, OrderType.NONE, null);
+    public boolean onActivate(String pid) {
+        return onActivate(pid, OrderType.NONE, null);
     }
 
     public boolean onActivate(String token, String searchString) {
@@ -38,8 +38,8 @@ public class List extends ScrollableProducts {
         return true;
     }
 
-    public boolean onActivate(Long cid, ProductService.OrderType orderType, Direction direction) {
-        initScrollableContext(cid, null, orderType, direction);
+    public boolean onActivate(String pid, ProductService.OrderType orderType, Direction direction) {
+        initScrollableContext(pid, null, orderType, direction);
         return true;
     }
 
@@ -52,12 +52,9 @@ public class List extends ScrollableProducts {
     }
 
     public String getTitle() {
-//        return propertyValue == null ?
-//                getMessages().get("catalog.title") :
-//                propertyValue.getParent() == null ?
-//                        propertyValue.getValue() :
-//                        propertyValue.getParent().getValue() + " - " + propertyValue.getValue();
-        return null;
+        return propertyValue == null ?
+                getMessages().get("catalog.title") :
+                propertyValue.getValue();
     }
 
     @Override

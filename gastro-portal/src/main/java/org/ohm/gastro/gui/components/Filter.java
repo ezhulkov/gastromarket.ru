@@ -3,7 +3,6 @@ package org.ohm.gastro.gui.components;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
-import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.PropertyValueEntity.Tag;
 import org.ohm.gastro.gui.mixins.BaseComponent;
@@ -16,10 +15,10 @@ import org.springframework.data.domain.Sort.Direction;
 public class Filter extends BaseComponent {
 
     @Property
-    private PropertyValueEntity oneProperty;
+    private PropertyValueEntity oneValue;
 
-    @Parameter(name = "property", allowNull = true, required = true)
-    private PropertyEntity property;
+    @Parameter(name = "value", allowNull = true, required = true)
+    private PropertyValueEntity value;
 
     @Parameter(name = "orderType", allowNull = true, required = true)
     private OrderType orderType;
@@ -33,16 +32,16 @@ public class Filter extends BaseComponent {
     private String pageContext;
 
     @Cached
-    public java.util.List<PropertyValueEntity> getProperties() {
-        return getCatalogService().findAllRootValues(Tag.ROOT);
+    public java.util.List<PropertyValueEntity> getValues() {
+        return getPropertyService().findAllValues(Tag.ROOT);
     }
 
     public String getPropertyName() {
-        return property == null ? getMessages().get("property.select") : property.getName().toLowerCase();
+        return value == null ? getMessages().get("property.select") : value.getName().toLowerCase();
     }
 
     public String getPropertyId() {
-        return property == null ? "$N" : property.getId().toString();
+        return value == null ? "$N" : value.getAltId();
     }
 
     public String getOrderMessage() {

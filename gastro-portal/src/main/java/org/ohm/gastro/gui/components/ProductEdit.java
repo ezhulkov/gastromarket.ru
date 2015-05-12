@@ -160,7 +160,7 @@ public class ProductEdit extends BaseComponent {
     }
 
     public java.util.List<PropertyValueEntity> getPropertyValues() {
-        return getCatalogService().findAllValues(oneProperty);
+        return getPropertyService().findAllRootValues(oneProperty);
     }
 
     public String getValueType() {

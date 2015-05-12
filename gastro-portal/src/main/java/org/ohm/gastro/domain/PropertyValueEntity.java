@@ -24,7 +24,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "property_value")
-public class PropertyValueEntity extends AbstractBaseEntity {
+public class PropertyValueEntity extends AbstractBaseEntity implements AltIdEntity {
 
     public enum Tag {
         ROOT
@@ -38,6 +38,12 @@ public class PropertyValueEntity extends AbstractBaseEntity {
 
     @Column
     private String value;
+
+    @Column(name = "alt_id")
+    private String altId;
+
+    @Column(name = "root_value")
+    private Boolean rootValue = true;
 
     @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinTable(name = "value_value",
@@ -59,6 +65,21 @@ public class PropertyValueEntity extends AbstractBaseEntity {
     @Column
     @Enumerated(EnumType.STRING)
     private Tag tag;
+
+    @Override
+    public String getName() {
+        return value;
+    }
+
+    @Override
+    public String getAltId() {
+        return altId == null ? id.toString() : altId;
+    }
+
+    @Override
+    public void setAltId(String altId) {
+        this.altId = altId;
+    }
 
     @Override
     public Long getId() {
@@ -107,6 +128,14 @@ public class PropertyValueEntity extends AbstractBaseEntity {
 
     public void setTag(Tag tag) {
         this.tag = tag;
+    }
+
+    public Boolean isRootValue() {
+        return rootValue;
+    }
+
+    public void setRootValue(Boolean rootValue) {
+        this.rootValue = rootValue;
     }
 
     @Override

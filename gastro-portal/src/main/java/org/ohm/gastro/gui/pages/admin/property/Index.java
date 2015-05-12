@@ -44,18 +44,18 @@ public class Index extends EditObjectPage<PropertyEntity> {
 
             @Override
             public PropertyEntity findObject(String id) {
-                return getCatalogService().findProperty(Long.parseLong(id));
+                return getPropertyService().findProperty(Long.parseLong(id));
             }
 
             @Override
             public Class<? extends BaseComponent> deleteObject(PropertyEntity object) {
-                getCatalogService().deleteProperty(object.getId());
+                getPropertyService().deleteProperty(object.getId());
                 return List.class;
             }
 
             @Override
             public Class<? extends BaseComponent> updateObject(PropertyEntity object) {
-                getCatalogService().saveProperty(object);
+                getPropertyService().saveProperty(object);
                 return Index.class;
             }
         };
@@ -63,7 +63,7 @@ public class Index extends EditObjectPage<PropertyEntity> {
 
     @Cached
     public java.util.List<PropertyValueEntity> getValues() {
-        return getCatalogService().findAllValues(getObject());
+        return getPropertyService().findAllRootValues(getObject());
     }
 
     public boolean isList() {
@@ -72,11 +72,11 @@ public class Index extends EditObjectPage<PropertyEntity> {
 
     public void onSubmitFromValueForm() {
         propertyValue.setProperty(getObject());
-        getCatalogService().savePropertyValue(propertyValue);
+        getPropertyService().savePropertyValue(propertyValue);
     }
 
     public void onActionFromDelete(Long id) {
-        getCatalogService().deletePropertyValue(id);
+        getPropertyService().deletePropertyValue(id);
     }
 
 }

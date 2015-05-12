@@ -25,6 +25,7 @@ import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.MessageService;
 import org.ohm.gastro.service.OrderService;
 import org.ohm.gastro.service.ProductService;
+import org.ohm.gastro.service.PropertyService;
 import org.ohm.gastro.service.RatingService;
 import org.ohm.gastro.service.UserService;
 import org.scribe.model.Token;
@@ -81,6 +82,9 @@ public abstract class BaseComponent {
 
     @Inject
     private CatalogService catalogService;
+
+    @Inject
+    private PropertyService propertyService;
 
     @Inject
     private RatingService ratingService;
@@ -206,7 +210,7 @@ public abstract class BaseComponent {
                 .map(t -> {
                     Type type = t.getKey().getType();
                     String data = Type.LIST.equals(type) ?
-                            t.getValue().stream().map(k -> getCatalogService().findPropertyValue(Long.parseLong(k.getData())).getValue()).collect(Collectors.joining(", ")) :
+                            t.getValue().stream().map(k -> getPropertyService().findPropertyValue(Long.parseLong(k.getData())).getValue()).collect(Collectors.joining(", ")) :
                             t.getValue().stream().map(TagEntity::getData).collect(Collectors.joining());
                     TagEntity tag = new TagEntity();
                     tag.setData(data);
@@ -214,6 +218,10 @@ public abstract class BaseComponent {
                     return tag;
                 })
                 .collect(Collectors.toList());
+    }
+
+    public PropertyService getPropertyService() {
+        return propertyService;
     }
 
     public OrderService getOrderService() {

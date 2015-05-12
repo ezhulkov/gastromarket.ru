@@ -5,13 +5,11 @@ import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Select;
 import org.apache.tapestry5.corelib.components.TextField;
-import org.apache.tapestry5.ioc.annotations.InjectService;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.gui.AbstractServiceCallback;
 import org.ohm.gastro.gui.ServiceCallback;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.EditObjectPage;
-import org.ohm.gastro.service.CatalogService;
 
 /**
  * Created by ezhulkov on 24.08.14.
@@ -21,9 +19,6 @@ public class List extends EditObjectPage<PropertyEntity> {
     @Property
     private PropertyEntity oneProperty;
 
-    @InjectService("catalogService")
-    private CatalogService catalogService;
-
     @Component(id = "name", parameters = {"value=object?.name", "validate=maxlength=64,required"})
     private TextField nameField;
 
@@ -32,7 +27,7 @@ public class List extends EditObjectPage<PropertyEntity> {
 
     @Cached
     public java.util.List getProperties() {
-        return catalogService.findAllProperties();
+        return getPropertyService().findAllProperties();
     }
 
     @Override
@@ -41,7 +36,7 @@ public class List extends EditObjectPage<PropertyEntity> {
 
             @Override
             public Class<? extends BaseComponent> addObject(PropertyEntity property) {
-                catalogService.saveProperty(property);
+                getPropertyService().saveProperty(property);
                 return List.class;
             }
 
@@ -54,7 +49,7 @@ public class List extends EditObjectPage<PropertyEntity> {
     }
 
     public void onActionFromDelete(Long id) {
-        catalogService.deleteProperty(id);
+        getPropertyService().deleteProperty(id);
     }
 
 }

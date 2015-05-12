@@ -32,11 +32,11 @@ public class Products extends ScrollableProducts {
         return onActivate(catId, null);
     }
 
-    public boolean onActivate(String catId, Long pid) {
+    public boolean onActivate(String catId, String pid) {
         return onActivate(catId, pid, null, null);
     }
 
-    public boolean onActivate(String catId, Long pid, OrderType orderType, Direction direction) {
+    public boolean onActivate(String catId, String pid, OrderType orderType, Direction direction) {
         CatalogEntity cat = getCatalogService().findCatalog(catId);
         initScrollableContext(pid, cat.getId(), orderType, direction);
         return true;

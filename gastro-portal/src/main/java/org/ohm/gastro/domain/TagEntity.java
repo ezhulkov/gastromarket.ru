@@ -26,6 +26,9 @@ public class TagEntity extends AbstractBaseEntity {
     @Column
     private String data;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    private PropertyValueEntity value;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private PropertyEntity property;
 
@@ -71,6 +74,14 @@ public class TagEntity extends AbstractBaseEntity {
 
     public void setProduct(ProductEntity product) {
         this.product = product;
+    }
+
+    public PropertyValueEntity getValue() {
+        return value;
+    }
+
+    public void setValue(PropertyValueEntity value) {
+        this.value = value;
     }
 
 }

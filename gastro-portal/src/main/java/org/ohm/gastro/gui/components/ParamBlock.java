@@ -24,7 +24,7 @@ public class ParamBlock extends BaseComponent {
     private TagEntity tag;
 
     public java.util.List<PropertyValueEntity> getPropertyValues() {
-        return getCatalogService().findAllValues(property);
+        return getPropertyService().findAllRootValues(property);
     }
 
     public boolean isTagSelected() {
