@@ -52,11 +52,12 @@ public class List extends ScrollableProducts {
     }
 
     public String getTitle() {
-        return propertyValue == null ?
-                getMessages().get("catalog.title") :
-                propertyValue.getParent() == null ?
-                        propertyValue.getValue() :
-                        propertyValue.getParent().getValue() + " - " + propertyValue.getValue();
+//        return propertyValue == null ?
+//                getMessages().get("catalog.title") :
+//                propertyValue.getParent() == null ?
+//                        propertyValue.getValue() :
+//                        propertyValue.getParent().getValue() + " - " + propertyValue.getValue();
+        return null;
     }
 
     @Override

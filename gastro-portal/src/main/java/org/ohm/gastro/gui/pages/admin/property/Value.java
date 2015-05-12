@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.pages.admin.property;
 
+import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Select;
@@ -7,6 +8,7 @@ import org.apache.tapestry5.corelib.components.TextField;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.gui.AbstractServiceCallback;
 import org.ohm.gastro.gui.ServiceCallback;
+import org.ohm.gastro.gui.misc.GenericSelectModel;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.EditObjectPage;
 
@@ -29,6 +31,9 @@ public class Value extends EditObjectPage<PropertyValueEntity> {
 
     @Component(id = "tag", parameters = {"value=object?.tag"})
     private Select tagField;
+
+    @Component(id = "propertyValues", parameters = {"model=valueModel", "encoder=valueModel", "value=propertyValue"})
+    private Select propsField;
 
     @Override
     public void activated() {
@@ -58,13 +63,21 @@ public class Value extends EditObjectPage<PropertyValueEntity> {
         };
     }
 
-    public void onSubmitFromValueForm() {
-        propertyValue.setProperty(getObject().getProperty());
-        getCatalogService().savePropertyValue(propertyValue);
+    @Cached
+    public GenericSelectModel<PropertyValueEntity> getValueModel() {
+        return new GenericSelectModel<>(getCatalogService().findAllValues(), PropertyValueEntity.class, "value", "id", getPropertyAccess());
     }
 
-    public void onActionFromDelete(Long id) {
-        getCatalogService().deletePropertyValue(id);
+    public void onSubmitFromCreateValueForm() {
+        getCatalogService().attachPropertyValue(getObject(), propertyValue);
+    }
+
+    public void onSubmitFromAttachValueForm() {
+        onSubmitFromCreateValueForm();
+    }
+
+    public void onActionFromDetach(Long id) {
+        getCatalogService().detachPropertyValue(getObject(), getCatalogService().findPropertyValue(id));
     }
 
 }

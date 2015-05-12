@@ -501,13 +501,20 @@
         </addColumn>
         <addColumn tableName="property_value">
             <column name="tag" type="java.sql.Types.VARCHAR(16)"/>
-            <column name="parent_id" type="java.sql.Types.BIGINT"/>
         </addColumn>
-        <addForeignKeyConstraint baseTableName="property_value" baseColumnNames="parent_id"
-                constraintName="prop_value_parent_fk" referencedTableName="property_value"
+        <createTable tableName="value_value">
+            <column name="parent_id" type="java.sql.Types.BIGINT"/>
+            <column name="child_id" type="java.sql.Types.BIGINT"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="value_value" baseColumnNames="parent_id"
+                constraintName="value_value_parent_fk" referencedTableName="property_value"
                 referencedColumnNames="id" onDelete="CASCADE"/>
-        <createIndex tableName="property_value" indexName="prop_value_parent_idx">
+        <addForeignKeyConstraint baseTableName="value_value" baseColumnNames="child_id"
+                constraintName="value_value_child_fk" referencedTableName="property_value"
+                referencedColumnNames="id" onDelete="CASCADE"/>
+        <createIndex tableName="value_value" indexName="value_value_parent_idx">
             <column name="parent_id"/>
+            <column name="child_id"/>
         </createIndex>
         <createIndex tableName="property_value" indexName="prop_value_tag_idx">
             <column name="tag"/>

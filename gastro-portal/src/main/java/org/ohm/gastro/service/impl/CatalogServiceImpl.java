@@ -128,6 +128,29 @@ public class CatalogServiceImpl implements CatalogService, Logging {
     }
 
     @Override
+    public List<PropertyValueEntity> findAllValues() {
+        return propertyValueRepository.findAll(new Sort("value"));
+    }
+
+    @Override
+    public void attachPropertyValue(PropertyValueEntity parent, PropertyValueEntity child) {
+        child.setProperty(parent.getProperty());
+        child.getParents().add(parent);
+        propertyValueRepository.save(child);
+    }
+
+    @Override
+    public void detachPropertyValue(PropertyValueEntity parent, PropertyValueEntity child) {
+
+        parent.getChildren().remove(child);
+        child.getParents().remove(parent);
+
+        propertyValueRepository.save(parent);
+        propertyValueRepository.save(child);
+
+    }
+
+    @Override
     public CatalogEntity processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
 
         checkNotNull(objectId, "ObjectId should not be null");

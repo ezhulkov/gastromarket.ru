@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface CatalogService extends ImageUploaderService<CatalogEntity>, AltIdService<CatalogEntity, CatalogRepository> {
 
-    public static final int MAX_WIZARD_STEP = 4;
+    int MAX_WIZARD_STEP = 4;
 
     List<PropertyEntity> findAllProperties();
 
@@ -46,5 +46,11 @@ public interface CatalogService extends ImageUploaderService<CatalogEntity>, Alt
     CatalogEntity findCatalog(String altId);
 
     List<PropertyValueEntity> findAllRootValues(PropertyValueEntity.Tag root);
+
+    List<PropertyValueEntity> findAllValues();
+
+    void attachPropertyValue(PropertyValueEntity parent, PropertyValueEntity child);
+
+    void detachPropertyValue(PropertyValueEntity parent, PropertyValueEntity child);
 
 }

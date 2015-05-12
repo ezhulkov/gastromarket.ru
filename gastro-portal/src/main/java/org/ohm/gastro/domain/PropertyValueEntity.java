@@ -11,8 +11,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.List;
@@ -37,13 +39,21 @@ public class PropertyValueEntity extends AbstractBaseEntity {
     @Column
     private String value;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    private PropertyValueEntity parent;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "parent")
+    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JoinTable(name = "value_value",
+            joinColumns = @JoinColumn(name = "parent_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "child_id", referencedColumnName = "id")
+    )
     private List<PropertyValueEntity> children = Lists.newArrayList();
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JoinTable(name = "value_value",
+            joinColumns = @JoinColumn(name = "child_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "parent_id", referencedColumnName = "id")
+    )
+    private List<PropertyValueEntity> parents = Lists.newArrayList();
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private PropertyEntity property;
 
     @Column
@@ -59,20 +69,20 @@ public class PropertyValueEntity extends AbstractBaseEntity {
         this.id = id;
     }
 
-    public PropertyValueEntity getParent() {
-        return parent;
-    }
-
-    public void setParent(PropertyValueEntity parent) {
-        this.parent = parent;
-    }
-
     public List<PropertyValueEntity> getChildren() {
         return children;
     }
 
     public void setChildren(List<PropertyValueEntity> children) {
         this.children = children;
+    }
+
+    public List<PropertyValueEntity> getParents() {
+        return parents;
+    }
+
+    public void setParents(List<PropertyValueEntity> parents) {
+        this.parents = parents;
     }
 
     public String getValue() {
