@@ -3,7 +3,6 @@ package org.ohm.gastro.gui.components;
 import com.google.common.collect.Lists;
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
-import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -15,17 +14,14 @@ import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.ohm.gastro.domain.CatalogEntity;
-import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.TagEntity;
-import org.ohm.gastro.gui.misc.CategorySelectModel;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.product.Index;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -99,9 +95,6 @@ public class ProductEdit extends BaseComponent {
     @Property
     private Block productEditBlock;
 
-    @Property
-    private CategoryEntity category;
-
     @Inject
     private AjaxResponseRenderer ajaxResponseRenderer;
 
@@ -119,9 +112,6 @@ public class ProductEdit extends BaseComponent {
 
     @Component(id = "productUnit", parameters = {"value=product.unit", "validate=required"})
     private Select pUnitField;
-
-    @Component(id = "productCategory", parameters = {"model=categoryModel", "encoder=categoryModel", "value=category"})
-    private Select pCategoryField;
 
     @Component(id = "stage", parameters = {"value=stage"})
     private Hidden pStageField;
@@ -153,22 +143,6 @@ public class ProductEdit extends BaseComponent {
     @Parameter(defaultPrefix = BindingConstants.PROP, allowNull = true, required = false)
     private ProductEntity product;
 
-    @Cached
-    public CategorySelectModel getCategoryModel() {
-        return new CategorySelectModel(getAllCategories(), getPropertyAccess());
-    }
-
-    @Cached
-    public List<CategoryEntity> getAllCategories() {
-        return getCatalogService().findAllRootCategories();
-    }
-
-    @Cached
-    public CategoryEntity getFirstCategory() {
-        final CategoryEntity firstCategory = getAllCategories().get(0);
-        return firstCategory.getChildren().size() == 0 ? firstCategory : firstCategory.getChildren().get(0);
-    }
-
     public String getSaveCaption() {
         if (editProduct) return getMessages().get("save.product");
         return getMessages().get("create.product");
@@ -187,12 +161,6 @@ public class ProductEdit extends BaseComponent {
 
     public java.util.List<PropertyValueEntity> getPropertyValues() {
         return getCatalogService().findAllValues(oneProperty);
-    }
-
-    public java.util.List<PropertyEntity> getCategoryProperties() {
-        java.util.List<PropertyEntity> allProperties = getCatalogService().findAllProperties(category);
-        Collections.sort(allProperties, (o1, o2) -> o1.getType().compareTo(o2.getType()));
-        return allProperties;
     }
 
     public String getValueType() {
@@ -226,19 +194,13 @@ public class ProductEdit extends BaseComponent {
     private void beginRender() {
         if (product == null || product.getId() == null) {
             product = new ProductEntity();
-        } else {
-            category = product.getCategory();
         }
     }
 
     public void onPrepareFromEditProductForm() {
         if (product == null || product.getId() == null) {
-            category = getFirstCategory();
             product = new ProductEntity();
-            product.setCategory(getFirstCategory());
             product.setCatalog(catalog);
-        } else {
-            category = product.getCategory();
         }
     }
 
@@ -267,7 +229,6 @@ public class ProductEdit extends BaseComponent {
                 origProduct.setName(product.getName());
                 origProduct.setPrice(product.getPrice());
                 origProduct.setDescription(product.getDescription());
-                origProduct.setCategory(category);
                 origProduct.setUnit(product.getUnit());
                 origProduct.setUnitValue(product.getUnitValue());
                 if (origProduct.getId() != null) product = getProductService().saveProduct(origProduct);

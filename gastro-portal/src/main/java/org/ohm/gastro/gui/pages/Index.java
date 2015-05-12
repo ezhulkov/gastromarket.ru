@@ -2,14 +2,15 @@ package org.ohm.gastro.gui.pages;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.tapestry5.EventContext;
+import org.apache.tapestry5.Link;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.HttpError;
 import org.apache.tapestry5.services.URLEncoder;
 import org.ohm.gastro.domain.CatalogEntity;
-import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
+import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class Index extends BaseComponent {
     private String searchString = "";
 
     @Property
-    private CategoryEntity oneCategory;
+    private PropertyValueEntity onePropertyValue;
 
     @Property
     private CatalogEntity oneCook;
@@ -42,12 +43,14 @@ public class Index extends BaseComponent {
     }
 
     @Cached
-    public List<CategoryEntity> getCategories() {
-        return getCatalogService().findAllRootCategories();
+    public List<PropertyValueEntity> getPropertyValues() {
+        return getCatalogService().findAllRootValues(PropertyValueEntity.Tag.ROOT);
     }
 
-    public void onSubmitFromSearchForm() throws IOException {
-        getResponse().sendRedirect("/product/list/search/" + urlEncoder.encode((String) ObjectUtils.defaultIfNull(searchString, "")));
+    public Link onSubmitFromSearchForm() throws IOException {
+        return getPageLinkSource().createPageRenderLinkWithContext(org.ohm.gastro.gui.pages.product.List.class,
+                                                                   "search",
+                                                                   ObjectUtils.defaultIfNull(searchString, ""));
     }
 
     @Cached

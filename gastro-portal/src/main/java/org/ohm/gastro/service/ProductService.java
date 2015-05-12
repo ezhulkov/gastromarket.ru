@@ -1,8 +1,8 @@
 package org.ohm.gastro.service;
 
 import org.ohm.gastro.domain.CatalogEntity;
-import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
+import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.reps.ProductRepository;
 import org.ohm.gastro.service.social.MediaElement;
@@ -22,13 +22,13 @@ public interface ProductService extends ImageUploaderService<ProductEntity>, Alt
 
     List<ProductEntity> findAllRawProducts(@Nonnull CatalogEntity catalog);
 
-    public enum OrderType {
+    enum OrderType {
         NAME, PRICE, NONE
     }
 
-    List<ProductEntity> findAllProducts(final CategoryEntity category, final CatalogEntity catalog);
+    List<ProductEntity> findAllProducts(final PropertyValueEntity propertyValue, final CatalogEntity catalog);
 
-    List<ProductEntity> findProductsForFrontend(final CategoryEntity category, final CatalogEntity catalog, final OrderType orderType, final Direction direction, final int from, final int to);
+    List<ProductEntity> findProductsForFrontend(final PropertyValueEntity property, final CatalogEntity catalog, final OrderType orderType, final Direction direction, final int from, final int to);
 
     int findProductsForFrontendCount(final CatalogEntity catalog);
 

@@ -493,20 +493,23 @@
 
     <changeSet id="35" author="ezhulkov">
         <dropTable tableName="category_property"/>
-        <sql>update product set category=null;</sql>
+        <sql>update product set category_id=null;</sql>
+        <dropForeignKeyConstraint baseTableName="product" constraintName="prod_category_fk"/>
         <dropTable tableName="category"/>
         <addColumn tableName="property">
-            <column name="tag" type="java.sql.Types.VARCHAR(16)"/>
             <column name="mandatory" type="java.sql.Types.BOOLEAN"/>
+        </addColumn>
+        <addColumn tableName="property_value">
+            <column name="tag" type="java.sql.Types.VARCHAR(16)"/>
             <column name="parent_id" type="java.sql.Types.BIGINT"/>
         </addColumn>
-        <addForeignKeyConstraint baseTableName="property" baseColumnNames="parent_id"
-                constraintName="prop_parent_fk" referencedTableName="property"
+        <addForeignKeyConstraint baseTableName="property_value" baseColumnNames="parent_id"
+                constraintName="prop_value_parent_fk" referencedTableName="property_value"
                 referencedColumnNames="id" onDelete="CASCADE"/>
-        <createIndex tableName="property" indexName="property_parent_idx">
+        <createIndex tableName="property_value" indexName="prop_value_parent_idx">
             <column name="parent_id"/>
         </createIndex>
-        <createIndex tableName="property" indexName="property_tag_idx">
+        <createIndex tableName="property_value" indexName="prop_value_tag_idx">
             <column name="tag"/>
         </createIndex>
     </changeSet>

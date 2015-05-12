@@ -48,7 +48,7 @@ public class CatalogServiceImpl implements CatalogService, Logging {
 
     @Override
     public List<PropertyEntity> findAllProperties() {
-        return propertyRepository.findAll(new Sort(Direction.ASC, "name"));
+        return propertyRepository.findAll(new Sort("type", "name"));
     }
 
     @Override
@@ -120,6 +120,11 @@ public class CatalogServiceImpl implements CatalogService, Logging {
     @Override
     public CatalogEntity findCatalog(final String altId) {
         return findByAltId(altId, catalogRepository);
+    }
+
+    @Override
+    public List<PropertyValueEntity> findAllRootValues(PropertyValueEntity.Tag tag) {
+        return propertyValueRepository.findAllByTag(tag);
     }
 
     @Override

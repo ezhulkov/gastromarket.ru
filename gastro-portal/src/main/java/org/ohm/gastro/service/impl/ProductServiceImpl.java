@@ -7,9 +7,9 @@ import com.google.common.collect.Lists;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
-import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.ProductEntity.Unit;
+import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.misc.Throwables;
 import org.ohm.gastro.reps.ProductRepository;
@@ -167,17 +167,17 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
-    public List<ProductEntity> findAllProducts(CategoryEntity category, CatalogEntity catalog) {
-        return findProductsInternal(category, catalog, null, null);
+    public List<ProductEntity> findAllProducts(PropertyValueEntity propertyValue, CatalogEntity catalog) {
+        return findProductsInternal(propertyValue, catalog, null, null);
     }
 
     @Override
-    public List<ProductEntity> findProductsForFrontend(CategoryEntity category, CatalogEntity catalog, OrderType orderType, Direction direction, int from, int to) {
+    public List<ProductEntity> findProductsForFrontend(PropertyValueEntity propertyValue, CatalogEntity catalog, OrderType orderType, Direction direction, int from, int to) {
         final int count = to - from;
         if (count == 0) return Lists.newArrayList();
         final int page = from / count;
         final Sort sort = orderType == OrderType.NONE || orderType == null ? null : new Sort(direction, orderType.name().toLowerCase());
-        return findProductsInternal(category, catalog, true, new PageRequest(page, count, sort));
+        return findProductsInternal(propertyValue, catalog, true, new PageRequest(page, count, sort));
     }
 
     @Override
@@ -185,22 +185,24 @@ public class ProductServiceImpl implements ProductService, Logging {
         return productRepository.findCountCatalog(catalog);
     }
 
-    private List<ProductEntity> findProductsInternal(CategoryEntity category, CatalogEntity catalog, Boolean wasSetup, Pageable page) {
-        if (category != null && category.getChildren().size() > 0) {
-            return productRepository.findAllByParentCategory(category, wasSetup, page).getContent();
-        }
-        return productRepository.findAllByCategoryAndCatalog(category, catalog, wasSetup, page).getContent();
+    private List<ProductEntity> findProductsInternal(PropertyValueEntity propertyValue, CatalogEntity catalog, Boolean wasSetup, Pageable page) {
+//        if (property != null && property.getChildren().size() > 0) {
+//            return productRepository.findAllByParentCategory(category, wasSetup, page).getContent();
+//        }
+//        return productRepository.findAllByCategoryAndCatalog(category, catalog, wasSetup, page).getContent();
+        return null;
     }
 
     @Override
     public List<ProductEntity> findRecommendedProducts(final Long pid, final int count) {
-        final ProductEntity product = productRepository.findOne(pid);
-        final CategoryEntity category = product.getCategory();
-        if (category == null) return Lists.newArrayList();
-        final CategoryEntity parentCategory = category.getParent() == null ? category : category.getParent();
-        return productRepository.findAllByParentCategory(parentCategory, false, null).getContent().stream()
-                .filter(p -> !p.equals(product))
-                .limit(count).collect(Collectors.toList());
+//        final ProductEntity product = productRepository.findOne(pid);
+//        final CategoryEntity category = product.getCategory();
+//        if (category == null) return Lists.newArrayList();
+//        final CategoryEntity parentCategory = category.getParent() == null ? category : category.getParent();
+//        return productRepository.findAllByParentCategory(parentCategory, false, null).getContent().stream()
+//                .filter(p -> !p.equals(product))
+//                .limit(count).collect(Collectors.toList());
+        return null;
     }
 
     @Override

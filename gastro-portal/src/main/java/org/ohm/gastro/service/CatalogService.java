@@ -45,4 +45,6 @@ public interface CatalogService extends ImageUploaderService<CatalogEntity>, Alt
 
     CatalogEntity findCatalog(String altId);
 
+    List<PropertyValueEntity> findAllRootValues(PropertyValueEntity.Tag root);
+
 }

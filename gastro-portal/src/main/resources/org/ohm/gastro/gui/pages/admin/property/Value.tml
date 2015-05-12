@@ -1,43 +1,32 @@
 <t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
     <div class="data-header">
-        <h1>Свойство "${object?.name}"</h1>
+        <h1>Значение свойства "${object.property?.name}" - "${object?.value}"</h1>
     </div>
 
     <t:editObject t:id="editObject" showUpdate="true" showDelete="true" autoFocus="literal:true">
         <div class="form-group">
-            <label class="col-sm-2 control-label" for="type">Тип:</label>
+            <t:label class="col-sm-2 control-label" for="value">Значение:</t:label>
 
             <div class="col-sm-10">
-                <input id="type" class="form-control" type="text" disabled="disabled" value="${object?.type}"/>
+                <input t:id="value" class="form-control" type="text" placeholder="Значение свойства"/>
             </div>
         </div>
         <div class="form-group">
-            <t:label class="col-sm-2 control-label" for="name">Название:</t:label>
+            <t:label class="col-sm-2 control-label" for="tag">Тег:</t:label>
 
             <div class="col-sm-10">
-                <input t:id="name" class="form-control" type="text" placeholder="Название свойства"/>
+                <select t:id="tag" class="form-control" data-placeholder="Выберите тег"/>
             </div>
         </div>
-        <t:if test="list">
-            <div class="form-group">
-                <t:label class="col-sm-2 control-label" for="mandatory">Обязательный:</t:label>
-
-                <div class="col-sm-10">
-                    <input t:id="mandatory" style="margin-top:13px;"/>
-                </div>
-            </div>
-        </t:if>
     </t:editObject>
 
-    <t:if test="list">
-
+    <t:unless test="object.parent">
         <div class="data-header">
-            <h1>Значения свойства</h1>
+            <h1>Значения свойств 2-го уровня</h1>
             <a data-toggle="modal" data-target="#create" href="#create">Добавить значение<span/></a>
         </div>
-
-        <t:grid source="values" row="onePropertyValue"
+        <t:grid source="object.children" row="onePropertyValue"
                 exclude="id"
                 add="del"
                 reorder="value,tag,del"
@@ -52,7 +41,6 @@
                 <div class="empty">Нет данных</div>
             </t:parameter>
         </t:grid>
-
         <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -78,8 +66,7 @@
                 </div>
             </div>
         </div>
-
-    </t:if>
+    </t:unless>
 
     <script>
         activate_menu('#property');

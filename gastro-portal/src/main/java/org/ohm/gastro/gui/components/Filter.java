@@ -3,7 +3,9 @@ package org.ohm.gastro.gui.components;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
-import org.ohm.gastro.domain.CategoryEntity;
+import org.ohm.gastro.domain.PropertyEntity;
+import org.ohm.gastro.domain.PropertyValueEntity;
+import org.ohm.gastro.domain.PropertyValueEntity.Tag;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.service.ProductService.OrderType;
 import org.springframework.data.domain.Sort.Direction;
@@ -14,10 +16,10 @@ import org.springframework.data.domain.Sort.Direction;
 public class Filter extends BaseComponent {
 
     @Property
-    private CategoryEntity oneCategory;
+    private PropertyValueEntity oneProperty;
 
-    @Parameter(name = "category", allowNull = true, required = true)
-    private CategoryEntity category;
+    @Parameter(name = "property", allowNull = true, required = true)
+    private PropertyEntity property;
 
     @Parameter(name = "orderType", allowNull = true, required = true)
     private OrderType orderType;
@@ -31,16 +33,16 @@ public class Filter extends BaseComponent {
     private String pageContext;
 
     @Cached
-    public java.util.List<CategoryEntity> getCategories() {
-        return getCatalogService().findAllRootCategories();
+    public java.util.List<PropertyValueEntity> getProperties() {
+        return getCatalogService().findAllRootValues(Tag.ROOT);
     }
 
-    public String getCategoryName() {
-        return category == null ? getMessages().get("category.select") : category.getName().toLowerCase();
+    public String getPropertyName() {
+        return property == null ? getMessages().get("property.select") : property.getName().toLowerCase();
     }
 
-    public String getCategoryId() {
-        return category == null ? "$N" : category.getId().toString();
+    public String getPropertyId() {
+        return property == null ? "$N" : property.getId().toString();
     }
 
     public String getOrderMessage() {

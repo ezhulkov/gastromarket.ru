@@ -5,9 +5,6 @@
             <h1><span>Системные настройки</span></h1>
         </div>
         <ul class="office-menu">
-            <li id="category">
-                <t:pagelink page="admin/category/list">Категории</t:pagelink>
-            </li>
             <li id="property">
                 <t:pagelink page="admin/property/list">Свойства</t:pagelink>
             </li>

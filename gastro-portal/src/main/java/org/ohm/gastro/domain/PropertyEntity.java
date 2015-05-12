@@ -11,7 +11,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -39,25 +38,16 @@ public class PropertyEntity extends AbstractBaseEntity {
 
     @Column
     @Enumerated(EnumType.STRING)
-    private Type type = Type.TEXT;
+    private Type type = Type.LIST;
 
     @Column
-    private boolean mandatory = false;
+    private Boolean mandatory = false;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "property")
     private List<PropertyValueEntity> values = Lists.newArrayList();
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    private PropertyEntity parent;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = PropertyEntity.class, mappedBy = "parent")
-    private List<PropertyEntity> children;
-
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "property")
     private List<TagEntity> products = Lists.newArrayList();
-
-    @Column
-    private String tag;
 
     @Override
     public Long getId() {
@@ -76,36 +66,12 @@ public class PropertyEntity extends AbstractBaseEntity {
         this.products = products;
     }
 
-    public boolean isMandatory() {
+    public Boolean getMandatory() {
         return mandatory;
     }
 
-    public void setMandatory(final boolean mandatory) {
+    public void setMandatory(final Boolean mandatory) {
         this.mandatory = mandatory;
-    }
-
-    public PropertyEntity getParent() {
-        return parent;
-    }
-
-    public void setParent(final PropertyEntity parent) {
-        this.parent = parent;
-    }
-
-    public List<PropertyEntity> getChildren() {
-        return children;
-    }
-
-    public void setChildren(final List<PropertyEntity> children) {
-        this.children = children;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(final String tag) {
-        this.tag = tag;
     }
 
     public String getName() {

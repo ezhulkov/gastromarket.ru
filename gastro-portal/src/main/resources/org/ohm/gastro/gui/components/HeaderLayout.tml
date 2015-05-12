@@ -50,7 +50,7 @@
                                         <t:pagelink page="cook/bills">Все счета</t:pagelink>
                                     </li>
                                     <li>
-                                        <t:pagelink page="admin/category/list">Системные настройки</t:pagelink>
+                                        <t:pagelink page="admin/property/list">Системные настройки</t:pagelink>
                                     </li>
                                 </t:if>
                                 <li>
