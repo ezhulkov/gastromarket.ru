@@ -13,8 +13,8 @@
                                 <a href="${pageContext}/${oneValue.altId}">${oneValue.name}</a>
 
                                 <div class="dropdown-menu">
-                                    <t:loop source="oneValue.children" value="oneValue">
-                                        <a href="${pageContext}/${oneValue.altId}">${oneValue.name}</a>
+                                    <t:loop source="oneValue.children" value="oneChildValue">
+                                        <a href="${pageContext}/${oneValue.altId}/${oneChildValue.altId}">${oneChildValue.name}</a>
                                     </t:loop>
                                 </div>
                             </li>
@@ -32,16 +32,16 @@
                 <span class="order order-${direction}"></span>
                 <ul class="dropdown-menu" role="menu">
                     <li>
-                        <a href="${pageContext}/${propertyId}/name/asc">по имени возрастая</a>
+                        <a href="${pageContext}/${parentPropertyId}/${propertyId}/name/asc">по имени возрастая</a>
                     </li>
                     <li>
-                        <a href="${pageContext}/${propertyId}/name/desc">по имени убывая</a>
+                        <a href="${pageContext}/${parentPropertyId}/${propertyId}/name/desc">по имени убывая</a>
                     </li>
                     <li>
-                        <a href="${pageContext}/${propertyId}/price/asc">по цене возрастая</a>
+                        <a href="${pageContext}/${parentPropertyId}/${propertyId}/price/asc">по цене возрастая</a>
                     </li>
                     <li>
-                        <a href="${pageContext}/${propertyId}/price/desc">по цене убывая</a>
+                        <a href="${pageContext}/${parentPropertyId}/${propertyId}/price/desc">по цене убывая</a>
                     </li>
                 </ul>
             </div>

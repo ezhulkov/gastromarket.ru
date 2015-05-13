@@ -2,23 +2,11 @@
 
     <div class="catalog">
         <div class="container">
-            <t:if test="searchMode">
-                <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="search-form">
-                    <div class="col-sm-1"/>
-                    <div class="col-sm-10 search-bar">
-                        <input t:id="search" t:value="searchString" t:type="TextField" placeholder="Поиск"/>
-                        <input type="submit" value=""/>
-                    </div>
-                    <div class="col-sm-1"/>
-                </t:form>
-            </t:if>
-            <t:unless test="searchMode">
-                <div class="title">
-                    <h1><span>${title}</span></h1>
-                </div>
-            </t:unless>
+            <div class="title">
+                <h1><span>${title}</span></h1>
+            </div>
 
-            <t:filter value="propertyValue" orderType="orderType" direction="direction" pageContext="literal:/product/list"/>
+            <t:filter parentValue="parentPropertyValue" value="propertyValue" orderType="orderType" direction="direction" pageContext="literal:/product/list"/>
 
             <div id="product-items" class="grid-block products"/>
             <t:zone t:id="productsZone">
@@ -26,8 +14,7 @@
             </t:zone>
             <t:block t:id="productsBlock">
                 <t:loop source="products" value="oneProduct">
-                    ${oneProduct.name}
-                    <!--<t:product product="oneProduct"/>-->
+                    <t:product product="oneProduct"/>
                 </t:loop>
                 <div class="more-products">
                     <t:if test="hasProducts">

@@ -20,6 +20,9 @@ public abstract class ScrollableProducts extends BaseComponent {
     protected PropertyValueEntity propertyValue = null;
 
     @Property
+    protected PropertyValueEntity parentPropertyValue = null;
+
+    @Property
     protected CatalogEntity catalog = null;
 
     @Property
@@ -69,7 +72,7 @@ public abstract class ScrollableProducts extends BaseComponent {
         return products;
     }
 
-    protected void initScrollableContext(String pid, Long catId, OrderType orderType, Direction direction) {
+    protected void initScrollableContext(String ppid, String pid, Long catId, OrderType orderType, Direction direction) {
         final String context = (String) ObjectUtils.defaultIfNull(pid, "empty");
         if (!context.equals(prevContext)) {
             this.from = 0;
@@ -77,6 +80,7 @@ public abstract class ScrollableProducts extends BaseComponent {
             prevContext = context;
         }
         this.propertyValue = pid == null ? null : getPropertyService().findPropertyValue(pid);
+        this.parentPropertyValue = ppid == null ? null : getPropertyService().findPropertyValue(ppid);
         this.catalog = catId == null ? null : getCatalogService().findCatalog(catId);
         this.direction = direction;
         this.orderType = orderType;

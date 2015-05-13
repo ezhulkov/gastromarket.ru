@@ -45,6 +45,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.scribe.utils.Preconditions.checkNotNull;
 
@@ -195,14 +196,12 @@ public class ProductServiceImpl implements ProductService, Logging {
 
     @Override
     public List<ProductEntity> findRecommendedProducts(final Long pid, final int count) {
-//        final ProductEntity product = productRepository.findOne(pid);
-//        final CategoryEntity category = product.getCategory();
-//        if (category == null) return Lists.newArrayList();
-//        final CategoryEntity parentCategory = category.getParent() == null ? category : category.getParent();
-//        return productRepository.findAllByParentCategory(parentCategory, false, null).getContent().stream()
-//                .filter(p -> !p.equals(product))
-//                .limit(count).collect(Collectors.toList());
-        return null;
+        final ProductEntity product = productRepository.findOne(pid);
+        return product.getValues().stream()
+                .flatMap(t -> t.getValue().isRootValue() ? Stream.of(t.getValue()) : t.getValue().getParents().stream()).distinct()
+                .flatMap(t -> productRepository.findAllByRootValueAndCatalog(t, null, true, new PageRequest(0, count)).getContent().stream()).distinct()
+                .filter(t -> !t.equals(product))
+                .collect(Collectors.toList());
     }
 
     @Override

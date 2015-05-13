@@ -17,8 +17,14 @@ public class Filter extends BaseComponent {
     @Property
     private PropertyValueEntity oneValue;
 
+    @Property
+    private PropertyValueEntity oneChildValue;
+
     @Parameter(name = "value", allowNull = true, required = true)
     private PropertyValueEntity value;
+
+    @Parameter(name = "parentValue", allowNull = true, required = true)
+    private PropertyValueEntity parentValue;
 
     @Parameter(name = "orderType", allowNull = true, required = true)
     private OrderType orderType;
@@ -42,6 +48,10 @@ public class Filter extends BaseComponent {
 
     public String getPropertyId() {
         return value == null ? "$N" : value.getAltId();
+    }
+
+    public String getParentPropertyId() {
+        return parentValue == null ? "$N" : parentValue.getAltId();
     }
 
     public String getOrderMessage() {

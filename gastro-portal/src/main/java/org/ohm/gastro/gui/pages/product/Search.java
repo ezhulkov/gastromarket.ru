@@ -1,16 +1,19 @@
 package org.ohm.gastro.gui.pages.product;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.gui.mixins.ScrollableProducts;
-import org.ohm.gastro.service.ProductService;
 import org.ohm.gastro.service.ProductService.OrderType;
 import org.springframework.data.domain.Sort.Direction;
 
 /**
  * Created by ezhulkov on 31.08.14.
  */
-public class List extends ScrollableProducts {
+public class Search extends ScrollableProducts {
+
+    @Property
+    private String searchString = "";
 
     @Property
     private ProductEntity oneProduct;
@@ -27,16 +30,20 @@ public class List extends ScrollableProducts {
         return onActivate(null, pid, OrderType.NONE, null);
     }
 
-    public boolean onActivate(String ppid, String pid) {
-        return onActivate(ppid, pid, OrderType.NONE, null);
+    public boolean onActivate(String token, String searchString) {
+        initScrollableContext(null, null, null, null, null);
+        this.searchString = searchString;
+        this.searchMode = true;
+        return true;
     }
 
-    public boolean onActivate(String ppid, String pid, ProductService.OrderType orderType, Direction direction) {
+    public boolean onActivate(String ppid, String pid, OrderType orderType, Direction direction) {
         initScrollableContext(ppid, pid, null, orderType, direction);
         return true;
     }
 
     public Object[] onPassivate() {
+        if (StringUtils.isNotEmpty(searchString)) return new Object[]{"search", searchString};
         return new Object[]{
                 parentPropertyValue == null ? null : parentPropertyValue.getAltId(),
                 propertyValue == null ? null : propertyValue.getAltId(),
@@ -48,6 +55,12 @@ public class List extends ScrollableProducts {
         return propertyValue == null ?
                 getMessages().get("catalog.title") :
                 (parentPropertyValue == null ? "" : parentPropertyValue.getValue() + " - ") + propertyValue.getValue();
+    }
+
+    @Override
+    public java.util.List<ProductEntity> getProducts() {
+        if (searchMode) return getProductService().searchProducts(searchString, from, to);
+        return super.getProducts();
     }
 
 }

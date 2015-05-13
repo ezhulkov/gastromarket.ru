@@ -9,12 +9,6 @@
                 <div class="title">
                     <h1><span>${product.name}</span></h1>
                 </div>
-                <p class="modal-text">
-                    <t:if test="product.category?.parent">
-                        <a href="/product/list/${product.category?.parent?.id}" class="black-link">${product.category?.parent?.name}</a> <span> / </span>
-                    </t:if>
-                    <a class="black-link" href="/product/list/${product.category?.id}">${product.category?.name}</a>
-                </p>
                 <div class="row info">
                     <div class="col-sm-6 product-item big-picture">
                         <t:if test="catalogOwner">
@@ -71,7 +65,7 @@
     </div>
 
     <t:if test="catalogOwner">
-        <t:productEdit modalId="pr-edit" product="product" productBlock="productBlock" productZoneId="literal:productZone" catalog="product.catalog" reloadPage="true"/>
+        <!--<t:productEdit modalId="pr-edit" product="product" productBlock="productBlock" productZoneId="literal:productZone" catalog="product.catalog" reloadPage="true"/>-->
     </t:if>
 
     <script>

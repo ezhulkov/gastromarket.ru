@@ -4,6 +4,7 @@ import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
+import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -64,6 +65,7 @@ public class Product extends BaseComponent {
         return (int) (270 - (product == null ? 0 : product.getId() % 7 * 6));
     }
 
+    @Cached
     public List<TagEntity> getProductTags() {
         return getProductTags(product);
     }
