@@ -23,7 +23,7 @@ public class Filter extends BaseComponent {
     @Parameter(name = "value", allowNull = true, required = true)
     private PropertyValueEntity value;
 
-    @Parameter(name = "parentValue", allowNull = true, required = true)
+    @Parameter(name = "parentValue", allowNull = true, required = false)
     private PropertyValueEntity parentValue;
 
     @Parameter(name = "orderType", allowNull = true, required = true)
