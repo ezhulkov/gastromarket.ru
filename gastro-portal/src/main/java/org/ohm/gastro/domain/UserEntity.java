@@ -2,6 +2,8 @@ package org.ohm.gastro.domain;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,6 +30,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "person")
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
     public enum Type {
@@ -90,9 +93,11 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
     private Type type = Type.USER;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
     private List<CatalogEntity> catalogs = Lists.newArrayList();
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
     private UserEntity referrer;
 
     @Override

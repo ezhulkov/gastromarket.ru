@@ -1,6 +1,8 @@
 package org.ohm.gastro.domain;
 
 import com.google.common.collect.Lists;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,6 +25,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "product")
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class ProductEntity extends AbstractBaseEntity implements AltIdEntity {
 
     public enum Unit {
@@ -61,9 +64,11 @@ public class ProductEntity extends AbstractBaseEntity implements AltIdEntity {
     private Boolean promoted = false;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
     private CatalogEntity catalog;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
+    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
     private List<TagEntity> values = Lists.newArrayList();
 
     @Column(name = "was_setup")

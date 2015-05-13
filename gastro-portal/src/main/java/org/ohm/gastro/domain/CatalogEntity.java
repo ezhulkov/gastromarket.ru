@@ -1,6 +1,8 @@
 package org.ohm.gastro.domain;
 
 import com.google.common.collect.Lists;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.ohm.gastro.service.CatalogService;
 
 import javax.persistence.CascadeType;
@@ -25,6 +27,7 @@ import java.util.stream.Collectors;
  */
 @Entity
 @Table(name = "catalog")
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
 
     public enum Type {
@@ -81,9 +84,11 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
     private String avatarUrlSmall = "/img/avatar-stub-small.png";
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
     private UserEntity user;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = ProductEntity.class, mappedBy = "catalog", orphanRemoval = true)
+    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
     private List<ProductEntity> products = Lists.newArrayList();
 
     @Override

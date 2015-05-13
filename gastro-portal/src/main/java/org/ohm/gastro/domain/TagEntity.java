@@ -1,5 +1,8 @@
 package org.ohm.gastro.domain;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "product_property")
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class TagEntity extends AbstractBaseEntity {
 
     @Id
@@ -27,12 +31,15 @@ public class TagEntity extends AbstractBaseEntity {
     private String data;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
     private PropertyValueEntity value;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
     private PropertyEntity property;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
     private ProductEntity product;
 
     public TagEntity() {

@@ -180,7 +180,7 @@ public class ProductServiceImpl implements ProductService, Logging {
         final int count = to - from;
         if (count == 0) return Lists.newArrayList();
         final int page = from / count;
-        final Sort sort = orderType == OrderType.NONE || orderType == null ? null : new Sort(direction, "pr." + orderType.name().toLowerCase());
+        final Sort sort = orderType == OrderType.NONE || orderType == null ? null : new Sort(direction, orderType.name().toLowerCase());
         return findProductsInternal(propertyValue, catalog, true, new PageRequest(page, count, sort));
     }
 

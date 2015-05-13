@@ -1,5 +1,7 @@
 package org.ohm.gastro.domain;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.ohm.gastro.util.CommonsUtils;
 
 import javax.persistence.Column;
@@ -18,6 +20,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "comment")
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class CommentEntity extends AbstractBaseEntity {
 
     @Id
@@ -36,9 +39,11 @@ public class CommentEntity extends AbstractBaseEntity {
     private Date date = new Date();
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
     private CatalogEntity catalog;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
     private UserEntity author;
 
     @Override
