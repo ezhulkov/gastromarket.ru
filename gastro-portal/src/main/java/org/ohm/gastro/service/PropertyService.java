@@ -13,6 +13,8 @@ public interface PropertyService extends AltIdService<PropertyValueEntity, Prope
 
     List<PropertyEntity> findAllProperties();
 
+    List<PropertyEntity> findAllProperties(boolean mandatory);
+
     PropertyEntity findProperty(Long id);
 
     PropertyValueEntity findPropertyValue(Long id);

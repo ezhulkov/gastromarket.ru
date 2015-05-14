@@ -37,6 +37,11 @@ public class PropertyServiceImpl implements PropertyService, Logging {
     }
 
     @Override
+    public List<PropertyEntity> findAllProperties(boolean mandatory) {
+        return propertyRepository.findAllByMandatory(mandatory);
+    }
+
+    @Override
     public List<PropertyValueEntity> findAllRootValues(PropertyEntity property) {
         return propertyValueRepository.findAllByPropertyAndRootValue(property, true, new Sort(Direction.DESC, "value"));
     }

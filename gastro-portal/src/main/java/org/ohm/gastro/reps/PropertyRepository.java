@@ -19,4 +19,7 @@ public interface PropertyRepository extends JpaRepository<PropertyEntity, Long> 
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     List<PropertyEntity> findAllProperties(@Param("product") ProductEntity oneProduct);
 
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    List<PropertyEntity> findAllByMandatory(boolean mandatory);
+
 }

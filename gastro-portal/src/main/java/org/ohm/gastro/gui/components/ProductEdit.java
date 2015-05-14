@@ -2,6 +2,7 @@ package org.ohm.gastro.gui.components;
 
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
+import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -12,9 +13,11 @@ import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
+import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.product.Index;
 
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -48,14 +51,8 @@ public class ProductEdit extends BaseComponent {
     @Property
     private boolean goBack;
 
-//    @Property
-//    private PropertyEntity oneProperty;
-//
-//    @Property
-//    private PropertyValueEntity oneValue;
-//
-//    @Property
-//    private TagEntity oneTag;
+    @Property
+    private PropertyEntity oneProperty;
 
     @Component(id = "productPrice", parameters = {"value=product.price", "validate=required"})
     private TextField pPriceField;
@@ -102,34 +99,16 @@ public class ProductEdit extends BaseComponent {
     @Component(id = "descForm")
     private Form descForm;
 
-    //    public java.util.List<PropertyValueEntity> getPropertyValues() {
-//        return getPropertyService().findAllRootValues(oneProperty);
-//    }
-//
-//    public String getValueType() {
-//        return oneProperty.getType().toString().toLowerCase();
-//    }
-//
-//    public String getProductTagValue() {
-//        return editProduct ?
-//                getProductTags(product).stream()
-//                        .filter(t -> t.getProperty().equals(oneProperty))
-//                        .map(TagEntity::getData)
-//                        .findFirst().orElse("") :
-//                "";
-//    }
-//
-//    public List<TagEntity> getProductListValues() {
-//        return editProduct ?
-//                getProductTags(product).stream()
-//                        .filter(t -> t.getProperty().getType() == PropertyEntity.Type.LIST)
-//                        .filter(t -> t.getProperty().equals(oneProperty))
-//                        .flatMap(t -> Arrays.stream(t.getData().split(", ")))
-//                        .map(t -> new TagEntity(t, oneProperty))
-//                        .collect(Collectors.toList()) :
-//                Lists.newArrayList();
-//    }
-//
+    @Cached
+    public List<PropertyEntity> getMandatoryProperties() {
+        return getPropertyService().findAllProperties(true);
+    }
+
+    @Cached
+    public List<PropertyEntity> getOptionalProperties() {
+        return getPropertyService().findAllProperties(false);
+    }
+
     public String getProductEditZone() {
         return editProduct ? "productEditZone" + product.getId() : "productZoneNew";
     }
@@ -137,50 +116,6 @@ public class ProductEdit extends BaseComponent {
     public Long getProductId() {
         return product == null || product.getId() == null ? null : product.getId();
     }
-
-//    public Object onSubmitFromEditProductForm(Long pid, @RequestParameter(value = "stage", allowBlank = true) Stage currentStage) {
-//        if (!error) {
-//            final ProductEntity origProduct = pid != null ? getProductService().findProduct(pid) : product;
-//            if (currentStage == Stage.DESC) {
-//                origProduct.setName(product.getName());
-//                origProduct.setPrice(product.getPrice());
-//                origProduct.setDescription(product.getDescription());
-//                origProduct.setUnit(product.getUnit());
-//                origProduct.setUnitValue(product.getUnitValue());
-//                if (origProduct.getId() != null) product = getProductService().saveProduct(origProduct);
-//                else product = getProductService().createProduct(origProduct, catalog);
-//            } else if (currentStage == Stage.PROP) {
-//                Map<Long, String> propValues = getRequest().getParameterNames().stream()
-//                        .filter(t -> t.startsWith("prop-"))
-//                        .map(t -> t.substring("prop-".length(), t.length()))
-//                        .collect(Collectors.toMap(Long::parseLong, key -> getRequest().getParameter("prop-" + key)
-//                        ));
-//                Map<Long, String[]> listValues = getRequest().getParameterNames().stream()
-//                        .filter(t -> t.startsWith("list-"))
-//                        .map(t -> t.substring("list-".length(), t.length()))
-//                        .collect(Collectors.toMap(Long::parseLong, key -> getRequest().getParameters("list-" + key)
-//                        ));
-//                product = getProductService().saveProduct(origProduct, propValues, listValues);
-//            }
-//            if (goBack) this.stage = this.stage.getPrevStage();
-//            else this.stage = this.stage.getNextStage();
-//            if (closeImmediately) {
-//                this.stage = Stage.DESC;
-//                if (reloadPage) return Index.class;
-//            }
-//            if (!editProduct && closeImmediately) {
-//                product = new ProductEntity();
-//            }
-//            if (productsBlock != null) ajaxResponseRenderer.addRender("productsZone", productsBlock);
-//            if (productEditBlock != null) ajaxResponseRenderer.addRender(getProductZone(), productEditBlock);
-//            if (productBlock != null) ajaxResponseRenderer.addRender(productZoneId, productBlock);
-//        } else {
-//            closeImmediately = false;
-//            product = pid != null ? getProductService().findProduct(pid) : new ProductEntity();
-//            ajaxResponseRenderer.addRender(getProductZone(), productEditBlock);
-//        }
-//        return null;
-//    }
 
     //Description section
     public void onPrepareFromDescForm() {
@@ -233,13 +168,11 @@ public class ProductEdit extends BaseComponent {
         final Map<Long, String> propValues = getRequest().getParameterNames().stream()
                 .filter(t -> t.startsWith("prop-"))
                 .map(t -> t.substring("prop-".length(), t.length()))
-                .collect(Collectors.toMap(Long::parseLong, key -> getRequest().getParameter("prop-" + key)
-                ));
+                .collect(Collectors.toMap(Long::parseLong, key -> getRequest().getParameter("prop-" + key)));
         final Map<Long, String[]> listValues = getRequest().getParameterNames().stream()
                 .filter(t -> t.startsWith("list-"))
                 .map(t -> t.substring("list-".length(), t.length()))
-                .collect(Collectors.toMap(Long::parseLong, key -> getRequest().getParameters("list-" + key)
-                ));
+                .collect(Collectors.toMap(Long::parseLong, key -> getRequest().getParameters("list-" + key)));
         getProductService().saveProduct(product, propValues, listValues);
         if (goBack || closeImmediately) getAjaxResponseRenderer().addRender(getProductEditZone(), editDescBlock);
         else getAjaxResponseRenderer().addRender(getProductEditZone(), editPhotoBlock);

@@ -74,50 +74,16 @@
                 <t:block t:id="editPropsBlock">
                     <t:form t:id="propsForm" t:context="[productId]" t:zone="${productEditZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
                         <t:errors/>
-                        <!--<t:loop source="properties" value="oneProperty" formState="NONE">-->
-                        <!--<div class="form-group">-->
-                        <!--<div class="col-sm-1"/>-->
-                        <!--<t:if test="oneProperty.type.toString().equals('LIST')">-->
-                        <!--<div class="col-sm-9 property-select" id="list${oneProperty.id}">-->
-                        <!--<label for="prop-${oneProperty.id}">${oneProperty.name}:</label>-->
-                        <!--<t:if test="productListValues">-->
-                        <!--<t:loop source="productListValues" value="oneTag" formState="NONE">-->
-                        <!--<select name="list-${oneProperty.id}" class="form-control chosen-select">-->
-                        <!--<option value="">&nbsp;</option>-->
-                        <!--<t:loop source="propertyValues" value="oneValue" formState="NONE">-->
-                        <!--<t:if test="oneTag.data.equals(oneValue.value)">-->
-                        <!--<option selected="selected" value="${oneValue.id}">${oneValue.value}</option>-->
-                        <!--<t:parameter name="else">-->
-                        <!--<option value="${oneValue.id}">${oneValue.value}</option>-->
-                        <!--</t:parameter>-->
-                        <!--</t:if>-->
-                        <!--</t:loop>-->
-                        <!--</select>-->
-                        <!--</t:loop>-->
-                        <!--</t:if>-->
-                        <!--<t:unless test="productListValues">-->
-                        <!--<select name="list-${oneProperty.id}" class="form-control chosen-select">-->
-                        <!--<option value="">&nbsp;</option>-->
-                        <!--<t:loop source="propertyValues" value="oneValue" formState="NONE">-->
-                        <!--<option value="${oneValue.id}">${oneValue.value}</option>-->
-                        <!--</t:loop>-->
-                        <!--</select>-->
-                        <!--</t:unless>-->
-                        <!--</div>-->
-                        <!--<div class="col-sm-1 more">-->
-                        <!--<a href="#" onclick="javascript:addMoreProperties('#${modalId}','#list${oneProperty.id}')"-->
-                        <!--data="${oneProperty.id}" class="glyphicon glyphicon-plus more-btn"/>-->
-                        <!--</div>-->
-                        <!--</t:if>-->
-                        <!--<t:unless test="oneProperty.type.toString().equals('LIST')">-->
-                        <!--<div class="col-sm-10">-->
-                        <!--<label for="prop-${oneProperty.id}">${oneProperty.name}:</label>-->
-                        <!--<input class="form-control" type="${valueType}" id="prop-${oneProperty.id}" name="prop-${oneProperty.id}" value="${productTagValue}"/>-->
-                        <!--</div>-->
-                        <!--</t:unless>-->
-                        <!--<div class="col-sm-1"/>-->
-                        <!--</div>-->
-                        <!--</t:loop>-->
+                        <t:loop source="mandatoryProperties" value="oneProperty" formState="NONE">
+                            <t:propertyEdit property="oneProperty" product="product" modalId="modalId"/>
+                        </t:loop>
+                        <t:if test="optionalProperties">
+                            <t:loop source="optionalProperties" value="oneProperty" formState="NONE">
+                                <t:propertyEdit property="oneProperty" product="product" modalId="modalId"/>
+                            </t:loop>
+                        </t:if>
+                        <br/>
+
                         <div class="row">
                             <input class="btn btn-red" t:type="submit" t:id="saveAndBack2" value="&lt; Назад"/>
                             <input class="btn btn-red" t:type="submit" t:id="saveAndClose2" value="Сохранить и закрыть"/>
