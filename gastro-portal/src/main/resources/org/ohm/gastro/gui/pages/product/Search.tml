@@ -11,7 +11,11 @@
                 <div class="col-sm-1"/>
             </t:form>
 
-            <t:filter pageContext="literal:/product/search"/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
 
             <div id="product-items" class="grid-block products"/>
             <t:zone t:id="productsZone">

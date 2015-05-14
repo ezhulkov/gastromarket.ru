@@ -20,7 +20,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "comment")
-@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class CommentEntity extends AbstractBaseEntity {
 
     @Id
@@ -39,11 +39,11 @@ public class CommentEntity extends AbstractBaseEntity {
     private Date date = new Date();
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private CatalogEntity catalog;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private UserEntity author;
 
     @Override

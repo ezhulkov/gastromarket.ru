@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "property")
-@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class PropertyEntity extends AbstractBaseEntity {
 
     public enum Type {
@@ -47,11 +47,11 @@ public class PropertyEntity extends AbstractBaseEntity {
     private Boolean mandatory = false;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "property")
-    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<PropertyValueEntity> values = Lists.newArrayList();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "property")
-    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<TagEntity> products = Lists.newArrayList();
 
     @Override

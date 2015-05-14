@@ -197,8 +197,9 @@ html > body div.t-error ul li {
 }
 
 .upload-file.PRODUCT {
-    width: 430px;
-    height: 310px;
+    width: 560px;
+    height: 404px;
+    margin: 0 auto;
 }
 
 .upload-file div.qq-uploader-selector {
@@ -1421,11 +1422,11 @@ div.product-item.block {
 }
 
 .big-picture .edit-block .edit {
-    left: 220px;
+    left: 290px;
 }
 
 .big-picture .edit-block div.qq-uploader-selector {
-    left: 160px !important;
+    left: 220px !important;
 }
 
 .product-item .data {

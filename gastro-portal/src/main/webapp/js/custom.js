@@ -254,17 +254,6 @@ function initBasket() {
             .delay(2000).fadeOut(1000);
     });
 }
-
-function initProductsEdit() {
-    jQuery("div.product-edit-modal").each(function (i, e) {
-        initProductEdit(e);
-    });
-}
-
-function initProductEdit(el) {
-    toggleProductEdit(el, false);
-}
-
 function addMoreProperties(product, el) {
     var listBlock = jQuery(el, product);
     var lastList = jQuery('select:last', listBlock);
@@ -272,26 +261,6 @@ function addMoreProperties(product, el) {
     jQuery(newList).insertAfter(lastList);
     initChosen(jQuery(newList));
 }
-
-function toggleProductEdit(el, closeModal) {
-    if (closeModal) {
-        modal = jQuery(el).closest(".product-edit-modal");
-        modal.modal('hide');
-        initProductEdit(modal);
-        jQuery("body").removeClass("modal-open");
-    } else {
-        jQuery(".product-details", el).addClass("hidden");
-        jQuery(".properties-details", el).addClass("hidden");
-        jQuery(".photo-details", el).addClass("hidden");
-        var type = jQuery(el).find("input[name='stage']").attr('value');
-        if (type == 'DESC') jQuery(".product-details", el).removeClass("hidden");
-        if (type == 'PROP') jQuery(".properties-details", el).removeClass("hidden");
-        if (type == 'PHOTO') jQuery(".photo-details", el).removeClass("hidden");
-    }
-    initTitle(jQuery("div.title", el));
-    initFineUploader(jQuery(el).find("div.upload-file"));
-}
-
 function initLoginModal() {
     var hideAll = function () {
         jQuery(".modal-dialog.login").hide();

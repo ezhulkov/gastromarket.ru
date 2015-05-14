@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  */
 @Entity
 @Table(name = "catalog")
-@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
 
     public enum Type {
@@ -84,11 +84,11 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
     private String avatarUrlSmall = "/img/avatar-stub-small.png";
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private UserEntity user;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = ProductEntity.class, mappedBy = "catalog", orphanRemoval = true)
-    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<ProductEntity> products = Lists.newArrayList();
 
     @Override

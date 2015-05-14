@@ -1,28 +1,20 @@
 package org.ohm.gastro.gui.components;
 
-import com.google.common.collect.Lists;
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.annotations.RequestParameter;
-import org.apache.tapestry5.corelib.components.Hidden;
+import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.corelib.components.Select;
 import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
-import org.ohm.gastro.domain.PropertyEntity;
-import org.ohm.gastro.domain.PropertyValueEntity;
-import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.product.Index;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -32,71 +24,38 @@ import java.util.stream.Collectors;
 public class ProductEdit extends BaseComponent {
 
     public enum Stage {
-        DESC() {
-            @Override
-            public Stage getPrevStage() {
-                return null;
-            }
-
-            @Override
-            public Stage getNextStage() {
-                return PROP;
-            }
-        },
-        PROP() {
-            @Override
-            public Stage getPrevStage() {
-                return DESC;
-            }
-
-            @Override
-            public Stage getNextStage() {
-                return PHOTO;
-            }
-        },
-        PHOTO() {
-            @Override
-            public Stage getPrevStage() {
-                return PROP;
-            }
-
-            @Override
-            public Stage getNextStage() {
-                return null;
-            }
-        };
-
-        public abstract Stage getPrevStage();
-
-        public abstract Stage getNextStage();
+        DESC, PROP, PHOTO
     }
 
-    private boolean goBack = false;
+    @Inject
+    @Property
+    private Block editDescBlock;
+
+    @Inject
+    @Property
+    private Block editPropsBlock;
+
+    @Inject
+    @Property
+    private Block editPhotoBlock;
 
     @Property
     private boolean error = false;
 
     @Property
-    private Stage stage = Stage.DESC;
-
-    @Property
     private boolean closeImmediately;
 
     @Property
-    private PropertyEntity oneProperty;
+    private boolean goBack;
 
-    @Property
-    private PropertyValueEntity oneValue;
-
-    @Property
-    private TagEntity oneTag;
-
-    @Inject
-    @Property
-    private Block productEditBlock;
-
-    @Inject
-    private AjaxResponseRenderer ajaxResponseRenderer;
+//    @Property
+//    private PropertyEntity oneProperty;
+//
+//    @Property
+//    private PropertyValueEntity oneValue;
+//
+//    @Property
+//    private TagEntity oneTag;
 
     @Component(id = "productPrice", parameters = {"value=product.price", "validate=required"})
     private TextField pPriceField;
@@ -112,9 +71,6 @@ public class ProductEdit extends BaseComponent {
 
     @Component(id = "productUnit", parameters = {"value=product.unit", "validate=required"})
     private Select pUnitField;
-
-    @Component(id = "stage", parameters = {"value=stage"})
-    private Hidden pStageField;
 
     @Parameter(name = "catalog", required = true, allowNull = true)
     private CatalogEntity catalog;
@@ -143,127 +99,167 @@ public class ProductEdit extends BaseComponent {
     @Parameter(defaultPrefix = BindingConstants.PROP, allowNull = true, required = false)
     private ProductEntity product;
 
-    public String getSaveCaption() {
-        if (editProduct) return getMessages().get("save.product");
-        return getMessages().get("create.product");
-    }
+    @Component(id = "descForm")
+    private Form descForm;
 
-    public String getNextCaption() {
-        if (stage == Stage.DESC) return editProduct ? getMessages().get("edit.props") : getMessages().get("add.props");
-        if (stage == Stage.PROP) return editProduct ? getMessages().get("edit.photo") : getMessages().get("add.photo");
-        return "";
-    }
-
-    public String getPrevCaption() {
-        if (stage == Stage.PROP) return getMessages().get("go.back");
-        return "";
-    }
-
-    public java.util.List<PropertyValueEntity> getPropertyValues() {
-        return getPropertyService().findAllRootValues(oneProperty);
-    }
-
-    public String getValueType() {
-        return oneProperty.getType().toString().toLowerCase();
-    }
-
-    public String getProductTagValue() {
-        return editProduct ?
-                getProductTags(product).stream()
-                        .filter(t -> t.getProperty().equals(oneProperty))
-                        .map(TagEntity::getData)
-                        .findFirst().orElse("") :
-                "";
-    }
-
-    public List<TagEntity> getProductListValues() {
-        return editProduct ?
-                getProductTags(product).stream()
-                        .filter(t -> t.getProperty().getType() == PropertyEntity.Type.LIST)
-                        .filter(t -> t.getProperty().equals(oneProperty))
-                        .flatMap(t -> Arrays.stream(t.getData().split(", ")))
-                        .map(t -> new TagEntity(t, oneProperty))
-                        .collect(Collectors.toList()) :
-                Lists.newArrayList();
-    }
-
-    public String getProductZone() {
+    //    public java.util.List<PropertyValueEntity> getPropertyValues() {
+//        return getPropertyService().findAllRootValues(oneProperty);
+//    }
+//
+//    public String getValueType() {
+//        return oneProperty.getType().toString().toLowerCase();
+//    }
+//
+//    public String getProductTagValue() {
+//        return editProduct ?
+//                getProductTags(product).stream()
+//                        .filter(t -> t.getProperty().equals(oneProperty))
+//                        .map(TagEntity::getData)
+//                        .findFirst().orElse("") :
+//                "";
+//    }
+//
+//    public List<TagEntity> getProductListValues() {
+//        return editProduct ?
+//                getProductTags(product).stream()
+//                        .filter(t -> t.getProperty().getType() == PropertyEntity.Type.LIST)
+//                        .filter(t -> t.getProperty().equals(oneProperty))
+//                        .flatMap(t -> Arrays.stream(t.getData().split(", ")))
+//                        .map(t -> new TagEntity(t, oneProperty))
+//                        .collect(Collectors.toList()) :
+//                Lists.newArrayList();
+//    }
+//
+    public String getProductEditZone() {
         return editProduct ? "productEditZone" + product.getId() : "productZoneNew";
     }
 
-    private void beginRender() {
-        if (product == null || product.getId() == null) {
-            product = new ProductEntity();
-        }
+    public Long getProductId() {
+        return product == null || product.getId() == null ? null : product.getId();
     }
 
-    public void onPrepareFromEditProductForm() {
+//    public Object onSubmitFromEditProductForm(Long pid, @RequestParameter(value = "stage", allowBlank = true) Stage currentStage) {
+//        if (!error) {
+//            final ProductEntity origProduct = pid != null ? getProductService().findProduct(pid) : product;
+//            if (currentStage == Stage.DESC) {
+//                origProduct.setName(product.getName());
+//                origProduct.setPrice(product.getPrice());
+//                origProduct.setDescription(product.getDescription());
+//                origProduct.setUnit(product.getUnit());
+//                origProduct.setUnitValue(product.getUnitValue());
+//                if (origProduct.getId() != null) product = getProductService().saveProduct(origProduct);
+//                else product = getProductService().createProduct(origProduct, catalog);
+//            } else if (currentStage == Stage.PROP) {
+//                Map<Long, String> propValues = getRequest().getParameterNames().stream()
+//                        .filter(t -> t.startsWith("prop-"))
+//                        .map(t -> t.substring("prop-".length(), t.length()))
+//                        .collect(Collectors.toMap(Long::parseLong, key -> getRequest().getParameter("prop-" + key)
+//                        ));
+//                Map<Long, String[]> listValues = getRequest().getParameterNames().stream()
+//                        .filter(t -> t.startsWith("list-"))
+//                        .map(t -> t.substring("list-".length(), t.length()))
+//                        .collect(Collectors.toMap(Long::parseLong, key -> getRequest().getParameters("list-" + key)
+//                        ));
+//                product = getProductService().saveProduct(origProduct, propValues, listValues);
+//            }
+//            if (goBack) this.stage = this.stage.getPrevStage();
+//            else this.stage = this.stage.getNextStage();
+//            if (closeImmediately) {
+//                this.stage = Stage.DESC;
+//                if (reloadPage) return Index.class;
+//            }
+//            if (!editProduct && closeImmediately) {
+//                product = new ProductEntity();
+//            }
+//            if (productsBlock != null) ajaxResponseRenderer.addRender("productsZone", productsBlock);
+//            if (productEditBlock != null) ajaxResponseRenderer.addRender(getProductZone(), productEditBlock);
+//            if (productBlock != null) ajaxResponseRenderer.addRender(productZoneId, productBlock);
+//        } else {
+//            closeImmediately = false;
+//            product = pid != null ? getProductService().findProduct(pid) : new ProductEntity();
+//            ajaxResponseRenderer.addRender(getProductZone(), productEditBlock);
+//        }
+//        return null;
+//    }
+
+    //Description section
+    public void onPrepareFromDescForm() {
         if (product == null || product.getId() == null) {
             product = new ProductEntity();
             product.setCatalog(catalog);
         }
     }
 
-    public void onFailureFromEditProductForm() {
-        error = true;
+    public void onFailureFromDescForm() {
+        this.error = true;
     }
 
     public void onSelectedFromSaveAndClose() {
-        closeImmediately = true;
-        stage = Stage.DESC;
+        this.closeImmediately = true;
     }
 
-    public void onSelectedFromSaveAndNext() {
-        closeImmediately = false;
+    public Object onSubmitFromDescForm(Long pid) {
+        if (!error) {
+            final ProductEntity origProduct = pid != null ? getProductService().findProduct(pid) : product;
+            origProduct.setName(product.getName());
+            origProduct.setPrice(product.getPrice());
+            origProduct.setDescription(product.getDescription());
+            origProduct.setUnit(product.getUnit());
+            origProduct.setUnitValue(product.getUnitValue());
+            if (origProduct.getId() != null) product = getProductService().saveProduct(origProduct);
+            else product = getProductService().createProduct(origProduct, catalog);
+            if (productsBlock != null) getAjaxResponseRenderer().addRender("productsZone", productsBlock);
+            if (productBlock != null) getAjaxResponseRenderer().addRender(productZoneId, productBlock);
+            getAjaxResponseRenderer().addRender(getProductEditZone(), closeImmediately ? editDescBlock : editPropsBlock);
+            if (closeImmediately && reloadPage) return Index.class;
+        } else {
+            closeImmediately = false;
+            getAjaxResponseRenderer().addRender(getProductEditZone(), editDescBlock);
+        }
+        return null;
     }
 
-    public void onSelectedFromSaveAndPrev() {
-        closeImmediately = false;
+    //Properties section
+    public void onSelectedFromSaveAndBack2() {
         goBack = true;
     }
 
-    public Object onSubmitFromEditProductForm(Long pid, @RequestParameter(value = "stage", allowBlank = true) Stage currentStage) {
-        if (!error) {
-            final ProductEntity origProduct = pid != null ? getProductService().findProduct(pid) : product;
-            if (currentStage == Stage.DESC) {
-                origProduct.setName(product.getName());
-                origProduct.setPrice(product.getPrice());
-                origProduct.setDescription(product.getDescription());
-                origProduct.setUnit(product.getUnit());
-                origProduct.setUnitValue(product.getUnitValue());
-                if (origProduct.getId() != null) product = getProductService().saveProduct(origProduct);
-                else product = getProductService().createProduct(origProduct, catalog);
-            } else if (currentStage == Stage.PROP) {
-                Map<Long, String> propValues = getRequest().getParameterNames().stream()
-                        .filter(t -> t.startsWith("prop-"))
-                        .map(t -> t.substring("prop-".length(), t.length()))
-                        .collect(Collectors.toMap(Long::parseLong, key -> getRequest().getParameter("prop-" + key)
-                        ));
-                Map<Long, String[]> listValues = getRequest().getParameterNames().stream()
-                        .filter(t -> t.startsWith("list-"))
-                        .map(t -> t.substring("list-".length(), t.length()))
-                        .collect(Collectors.toMap(Long::parseLong, key -> getRequest().getParameters("list-" + key)
-                        ));
-                product = getProductService().saveProduct(origProduct, propValues, listValues);
-            }
-            if (goBack) this.stage = this.stage.getPrevStage();
-            else this.stage = this.stage.getNextStage();
-            if (closeImmediately) {
-                this.stage = Stage.DESC;
-                if (reloadPage) return Index.class;
-            }
-            if (!editProduct && closeImmediately) {
-                product = new ProductEntity();
-            }
-            if (productsBlock != null) ajaxResponseRenderer.addRender("productsZone", productsBlock);
-            if (productEditBlock != null) ajaxResponseRenderer.addRender(getProductZone(), productEditBlock);
-            if (productBlock != null) ajaxResponseRenderer.addRender(productZoneId, productBlock);
-        } else {
-            closeImmediately = false;
-            product = pid != null ? getProductService().findProduct(pid) : new ProductEntity();
-            ajaxResponseRenderer.addRender(getProductZone(), productEditBlock);
-        }
-        return null;
+    public void onSelectedFromSaveAndClose2() {
+        onSelectedFromSaveAndClose();
+    }
+
+    public Object onSubmitFromPropsForm(Long pid) {
+        product = getProductService().findProduct(pid);
+        final Map<Long, String> propValues = getRequest().getParameterNames().stream()
+                .filter(t -> t.startsWith("prop-"))
+                .map(t -> t.substring("prop-".length(), t.length()))
+                .collect(Collectors.toMap(Long::parseLong, key -> getRequest().getParameter("prop-" + key)
+                ));
+        final Map<Long, String[]> listValues = getRequest().getParameterNames().stream()
+                .filter(t -> t.startsWith("list-"))
+                .map(t -> t.substring("list-".length(), t.length()))
+                .collect(Collectors.toMap(Long::parseLong, key -> getRequest().getParameters("list-" + key)
+                ));
+        getProductService().saveProduct(product, propValues, listValues);
+        if (goBack || closeImmediately) getAjaxResponseRenderer().addRender(getProductEditZone(), editDescBlock);
+        else getAjaxResponseRenderer().addRender(getProductEditZone(), editPhotoBlock);
+        return closeImmediately && reloadPage ? Index.class : null;
+    }
+
+    //Photo section
+    public void onSelectedFromSaveAndBack3() {
+        onSelectedFromSaveAndBack2();
+    }
+
+    public void onSelectedFromSaveAndClose3() {
+        onSelectedFromSaveAndClose();
+    }
+
+    public Object onSubmitFromPhotoForm(Long pid) {
+        product = getProductService().findProduct(pid);
+        if (goBack) getAjaxResponseRenderer().addRender(getProductEditZone(), editPropsBlock);
+        if (closeImmediately) getAjaxResponseRenderer().addRender(getProductEditZone(), editDescBlock);
+        return closeImmediately && reloadPage ? Index.class : null;
     }
 
 }

@@ -7,11 +7,10 @@
     <t:zone t:id="editZone" id="${editZoneId}"/>
 
     <t:block t:id="editBlock">
-        <!--<t:productEdit modalId="pr-${product.id}" product="product" productBlock="productBlock" productZoneId="${productZoneId}" catalog="product.catalog"/>-->
+        <t:productEdit modalId="pr-${product.id}" product="product" productBlock="productBlock" productZoneId="${productZoneId}" catalog="product.catalog"/>
         <script>
-            //            var pe = jQuery("#pr-${product.id}");
-            //            pe.modal('show');
-            //            initProductEdit(pe);
+            var pe = jQuery("#pr-${product.id}");
+            pe.modal('show');
         </script>
     </t:block>
 

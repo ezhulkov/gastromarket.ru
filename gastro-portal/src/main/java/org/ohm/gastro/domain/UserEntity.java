@@ -30,7 +30,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "person")
-@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
     public enum Type {
@@ -93,11 +93,11 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
     private Type type = Type.USER;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<CatalogEntity> catalogs = Lists.newArrayList();
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private UserEntity referrer;
 
     @Override

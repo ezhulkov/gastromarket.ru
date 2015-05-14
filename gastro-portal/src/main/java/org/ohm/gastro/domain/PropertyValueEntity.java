@@ -26,7 +26,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "property_value")
-@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class PropertyValueEntity extends AbstractBaseEntity implements AltIdEntity {
 
     public enum Tag {
@@ -53,7 +53,7 @@ public class PropertyValueEntity extends AbstractBaseEntity implements AltIdEnti
             joinColumns = @JoinColumn(name = "parent_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "child_id", referencedColumnName = "id")
     )
-    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<PropertyValueEntity> children = Lists.newArrayList();
 
     @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
@@ -61,11 +61,11 @@ public class PropertyValueEntity extends AbstractBaseEntity implements AltIdEnti
             joinColumns = @JoinColumn(name = "child_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "parent_id", referencedColumnName = "id")
     )
-    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<PropertyValueEntity> parents = Lists.newArrayList();
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private PropertyEntity property;
 
     @Column

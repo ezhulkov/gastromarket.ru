@@ -18,7 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "product_property")
-@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class TagEntity extends AbstractBaseEntity {
 
     @Id
@@ -31,15 +31,15 @@ public class TagEntity extends AbstractBaseEntity {
     private String data;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private PropertyValueEntity value;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private PropertyEntity property;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private ProductEntity product;
 
     public TagEntity() {
