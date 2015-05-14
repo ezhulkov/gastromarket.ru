@@ -20,21 +20,21 @@ public class Filter extends BaseComponent {
     @Property
     private PropertyValueEntity oneChildValue;
 
-    @Parameter(name = "value", allowNull = true, required = true)
+    @Parameter(name = "value", allowNull = true, required = false)
     private PropertyValueEntity value;
 
     @Parameter(name = "parentValue", allowNull = true, required = false)
     private PropertyValueEntity parentValue;
 
-    @Parameter(name = "orderType", allowNull = true, required = true)
+    @Parameter(name = "orderType", allowNull = true, required = false)
     private OrderType orderType;
 
     @Property
-    @Parameter(name = "direction", allowNull = true, required = true)
+    @Parameter(name = "direction", allowNull = true, required = false)
     private Direction direction;
 
     @Property
-    @Parameter(name = "pageContext", allowNull = false, required = true)
+    @Parameter(name = "pageContext", allowNull = false, required = false)
     private String pageContext;
 
     @Cached

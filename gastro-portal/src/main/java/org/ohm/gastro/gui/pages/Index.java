@@ -1,6 +1,5 @@
 package org.ohm.gastro.gui.pages;
 
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.tapestry5.EventContext;
 import org.apache.tapestry5.Link;
 import org.apache.tapestry5.annotations.Cached;
@@ -12,6 +11,7 @@ import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.pages.product.Search;
 
 import java.io.IOException;
 import java.util.List;
@@ -48,9 +48,7 @@ public class Index extends BaseComponent {
     }
 
     public Link onSubmitFromSearchForm() throws IOException {
-        return getPageLinkSource().createPageRenderLinkWithContext(org.ohm.gastro.gui.pages.product.List.class,
-                                                                   "search",
-                                                                   ObjectUtils.defaultIfNull(searchString, ""));
+        return getPageLinkSource().createPageRenderLinkWithContext(Search.class, Search.processSearchString(searchString));
     }
 
     @Cached

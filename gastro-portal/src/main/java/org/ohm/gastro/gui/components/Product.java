@@ -65,7 +65,7 @@ public class Product extends BaseComponent {
         return (int) (270 - (product == null ? 0 : product.getId() % 7 * 6));
     }
 
-    @Cached
+    @Cached(watch = "product")
     public List<TagEntity> getProductTags() {
         return getProductTags(product);
     }

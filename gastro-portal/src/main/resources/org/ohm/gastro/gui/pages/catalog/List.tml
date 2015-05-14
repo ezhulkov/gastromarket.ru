@@ -17,7 +17,7 @@
                                 <div class="name">
                                     <t:pagelink page="catalog/index" t:context="oneCatalog.altId">${oneCatalog.name}</t:pagelink>
                                 </div>
-                                <div class="cats">${categories}</div>
+                                <div class="cats">${rootProperties}</div>
                                 <div class="data-header pull-right">
                                     <t:pagelink page="catalog/products" t:context="oneCatalog.altId">Показать всё меню<span/></t:pagelink>
                                 </div>

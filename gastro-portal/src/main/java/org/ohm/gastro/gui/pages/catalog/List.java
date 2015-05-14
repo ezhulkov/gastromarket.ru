@@ -42,7 +42,7 @@ public class List extends BaseComponent {
         return getProductService().findProductsForFrontend(null, oneCatalog, null, null, 0, 3);
     }
 
-    public String getCategories() {
+    public String getRootProperties() {
         return getProductService().findProductsForFrontend(null, oneCatalog, null, null, 0, Integer.MAX_VALUE).stream()
                 .flatMap(t -> t.getValues().stream())
                 .map(TagEntity::getValue)
