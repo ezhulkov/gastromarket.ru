@@ -82,7 +82,7 @@ function initTitle(el) {
 }
 
 function initChosen(el) {
-    jQuery(el).chosen({"width": "100%"}).on('change', function (e) {
+    jQuery(el).chosen({"width": "100%", allow_single_deselect: true}).on('change', function (e) {
         this.fire(Tapestry.ACTION_EVENT, e);
     });
 }
@@ -347,6 +347,27 @@ function initWizardPage() {
             jQuery("div.step1-zone").fadeIn(100);
         });
     }
+}
+function initPropEdit() {
+    jQuery("select.parent-value").on('change', function (evt, params) {
+        var container = jQuery(this).next(".chosen-container");
+        var subSelect = jQuery("#sub-list-" + params.selected);
+        if (subSelect.length) {
+            jQuery(container).animate({width: 250}, {
+                duration: 230,
+                step: function (now, fx) {
+                    jQuery(container).attr('style', 'width: ' + now + 'px!important');
+                }
+            });
+        } else {
+            jQuery(container).animate({width: 510}, {
+                duration: 230,
+                step: function (now, fx) {
+                    jQuery(container).attr('style', 'width: ' + now + 'px!important');
+                }
+            });
+        }
+    });
 }
 function realTitleWidth(obj) {
     var clone = obj.clone();

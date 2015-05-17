@@ -39,4 +39,6 @@ public interface PropertyService extends AltIdService<PropertyValueEntity, Prope
 
     void detachPropertyValue(PropertyValueEntity parent, PropertyValueEntity child);
 
+    List<PropertyValueEntity> findAllChildrenValues(PropertyValueEntity object);
+
 }

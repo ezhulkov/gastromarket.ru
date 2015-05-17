@@ -1235,11 +1235,6 @@ html div.office table.table td.img {
     overflow: hidden;
 }
 
-.properties-details .more-btn {
-    margin-top: 38px;
-}
-
-.product-create .more a,
 .office td.del a,
 .office td.toggle a {
     text-decoration: none;
@@ -1257,8 +1252,12 @@ html div.office table.table td.toggle {
     padding: 10px 0 !important;
 }
 
-.office .more {
-    padding-top: 37px !important;
+.more-btn:hover {
+    text-decoration: none;
+}
+
+.more-btn {
+    padding-top: 37px;
 }
 
 .office td.user,
@@ -2135,4 +2134,12 @@ option.root {
 
 .step1-zone {
     display: none;
+}
+
+.child-value {
+    display: none;
+}
+
+.search-choice-close {
+    margin-top: 3px;
 }

@@ -45,7 +45,7 @@ public interface ProductRepository extends AltIdRepository<ProductEntity> {
             "                                      COALESCE(P.DESCRIPTION, '')),\n" +
             "                    TO_TSQUERY(:q)) AS SCORE\n" +
             "       FROM PRODUCT P\n" +
-            "         LEFT JOIN PRODUCT_PROPERTY TAG ON TAG.PRODUCT_ID = P.ID\n" +
+            "         LEFT JOIN TAGS TAG ON TAG.PRODUCT_ID = P.ID\n" +
             "         LEFT JOIN PROPERTY_VALUE V1 ON V1.ID = TAG.VALUE_ID\n" +
             "       WHERE LOWER(COALESCE(V1.VALUE, '') || ' ' ||\n" +
             "                   COALESCE(P.NAME, '') || ' ' ||\n" +

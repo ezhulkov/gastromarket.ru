@@ -531,4 +531,8 @@
         </createIndex>
     </changeSet>
 
+    <changeSet id="36" author="ezhulkov">
+        <renameTable oldTableName="product_property" newTableName="tags"/>
+    </changeSet>
+
 </databaseChangeLog>

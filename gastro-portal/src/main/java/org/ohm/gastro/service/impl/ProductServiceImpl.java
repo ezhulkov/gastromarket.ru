@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.ProductEntity.Unit;
+import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.misc.Throwables;
@@ -120,11 +121,16 @@ public class ProductServiceImpl implements ProductService, Logging {
         saveProduct(product);
         tagRepository.deleteAllValues(product);
         final Function<Entry<Long, String>, TagEntity> tagCreator = t -> {
-            TagEntity productValue = new TagEntity();
-            productValue.setProduct(product);
-            productValue.setData(t.getValue());
-            productValue.setProperty(propertyService.findProperty(t.getKey()));
-            return productValue;
+            final PropertyEntity property = propertyService.findProperty(t.getKey());
+            final TagEntity tag = new TagEntity();
+            tag.setProduct(product);
+            tag.setProperty(property);
+            if (property.getType() == PropertyEntity.Type.LIST) {
+                tag.setValue(propertyService.findPropertyValue(t.getValue()));
+            } else {
+                tag.setData(t.getValue());
+            }
+            return tag;
         };
         propValues.entrySet().stream()
                 .filter(t -> StringUtils.isNotEmpty(t.getValue()))
@@ -198,6 +204,7 @@ public class ProductServiceImpl implements ProductService, Logging {
     public List<ProductEntity> findRecommendedProducts(final Long pid, final int count) {
         final ProductEntity product = productRepository.findOne(pid);
         return product.getValues().stream()
+                .filter(t -> t.getValue() != null)
                 .flatMap(t -> t.getValue().isRootValue() ? Stream.of(t.getValue()) : t.getValue().getParents().stream()).distinct()
                 .flatMap(t -> productRepository.findAllByRootValueAndCatalog(t, null, true, new PageRequest(0, count)).getContent().stream()).distinct()
                 .filter(t -> !t.equals(product))

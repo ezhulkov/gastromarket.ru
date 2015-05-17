@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.components;
 
+import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.ProductEntity;
@@ -33,10 +34,17 @@ public class PropertyEdit extends BaseComponent {
     private PropertyValueEntity oneValue;
 
     @Property
+    private PropertyValueEntity oneChildValue;
+
+    @Property
     private TagEntity oneTag;
 
     public java.util.List<PropertyValueEntity> getPropertyValues() {
         return getPropertyService().findAllRootValues(property);
+    }
+
+    public List<PropertyValueEntity> getParentPropertyValues() {
+        return getPropertyValues().stream().filter(t -> !t.getChildren().isEmpty()).collect(Collectors.toList());
     }
 
     public String getValueType() {
@@ -50,6 +58,7 @@ public class PropertyEdit extends BaseComponent {
                 .findFirst().orElse("");
     }
 
+    @Cached(watch = "oneValue")
     public List<TagEntity> getProductListValues() {
         return getProductTags(product).stream()
                 .filter(t -> t.getProperty().getType() == PropertyEntity.Type.LIST)

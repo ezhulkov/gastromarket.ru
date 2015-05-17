@@ -17,7 +17,7 @@ import javax.persistence.Table;
  * Created by ezhulkov on 24.08.14.
  */
 @Entity
-@Table(name = "product_property")
+@Table(name = "tags")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class TagEntity extends AbstractBaseEntity {
 

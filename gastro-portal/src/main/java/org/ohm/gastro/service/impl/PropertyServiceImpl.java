@@ -108,4 +108,9 @@ public class PropertyServiceImpl implements PropertyService, Logging {
         propertyValueRepository.save(child);
     }
 
+    @Override
+    public List<PropertyValueEntity> findAllChildrenValues(final PropertyValueEntity value) {
+        return propertyValueRepository.findAllChildrenValues(value);
+    }
+
 }

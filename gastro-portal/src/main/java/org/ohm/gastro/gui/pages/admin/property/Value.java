@@ -80,4 +80,8 @@ public class Value extends EditObjectPage<PropertyValueEntity> {
         getPropertyService().detachPropertyValue(getObject(), getPropertyService().findPropertyValue(id));
     }
 
+    public java.util.List<PropertyValueEntity> getPropertyValues() {
+        return getPropertyService().findAllChildrenValues(getObject());
+    }
+
 }

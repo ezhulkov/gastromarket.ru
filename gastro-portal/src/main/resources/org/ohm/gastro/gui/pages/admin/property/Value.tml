@@ -27,7 +27,7 @@
             <a data-toggle="modal" data-target="#attach" href="#attach">Присоединить<span/></a>
             <a data-toggle="modal" data-target="#create" href="#create">Создать<span/></a>
         </div>
-        <t:grid source="object.children" row="onePropertyValue"
+        <t:grid source="propertyValues" row="onePropertyValue"
                 exclude="id,name,altId"
                 add="del"
                 reorder="value,tag,del"
