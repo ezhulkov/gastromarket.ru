@@ -351,22 +351,25 @@ function initWizardPage() {
 function initPropEdit() {
     jQuery("select.parent-value").on('change', function (evt, params) {
         var container = jQuery(this).next(".chosen-container");
-        var subSelect = jQuery("#sub-list-" + params.selected);
-        if (subSelect.length) {
-            jQuery(container).animate({width: 250}, {
-                duration: 230,
-                step: function (now, fx) {
-                    jQuery(container).attr('style', 'width: ' + now + 'px!important');
-                }
-            });
+        var len;
+        var subSelect;
+        if (params == undefined) {
+            len = 510;
         } else {
-            jQuery(container).animate({width: 510}, {
-                duration: 230,
-                step: function (now, fx) {
-                    jQuery(container).attr('style', 'width: ' + now + 'px!important');
-                }
-            });
+            subSelect = jQuery("#sub-list-" + params.selected);
+            len = subSelect.length ? 230 : 510;
         }
+        jQuery(container).animate({width: len}, {
+            duration: 100,
+            step: function (now, fx) {
+                jQuery(container).attr('style', 'width: ' + now + 'px!important');
+            },
+            complete: function () {
+                if (subSelect.length) {
+                    subSelect.chosen();
+                }
+            }
+        });
     });
 }
 function realTitleWidth(obj) {
