@@ -213,7 +213,7 @@ html > body div.t-error ul li {
 }
 
 .chosen-container {
-    display: block;
+    display: inline-block;
 }
 
 .simple-text {

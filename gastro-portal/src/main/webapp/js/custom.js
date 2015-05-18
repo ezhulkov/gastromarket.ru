@@ -350,6 +350,7 @@ function initWizardPage() {
 }
 function initPropEdit() {
     jQuery("select.parent-value").on('change', function (evt, params) {
+        var propId = jQuery(this).attr("data-property");
         var container = jQuery(this).next(".chosen-container");
         var len;
         var subSelect;
@@ -357,15 +358,19 @@ function initPropEdit() {
             len = 510;
         } else {
             subSelect = jQuery("#sub-list-" + params.selected);
-            len = subSelect.length ? 230 : 510;
+            len = subSelect.length ? 250 : 510;
         }
+        jQuery("select[name='sub-list-" + propId + "']").next(".chosen-container").remove();
         jQuery(container).animate({width: len}, {
             duration: 100,
             step: function (now, fx) {
                 jQuery(container).attr('style', 'width: ' + now + 'px!important');
             },
             complete: function () {
-                if (subSelect.length) {
+                if (subSelect != undefined && subSelect.length) {
+                    subSelect.on("chosen:ready", function (evt2, params2) {
+                        jQuery(this).next(".chosen-container").attr('style', 'width: 250px!important;margin-left:10px;');
+                    });
                     subSelect.chosen();
                 }
             }
