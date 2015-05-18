@@ -360,7 +360,7 @@ function initPropEdit() {
             subSelect = jQuery("#sub-list-" + params.selected);
             len = subSelect.length ? 250 : 510;
         }
-        jQuery("select[name='sub-list-" + propId + "']").next(".chosen-container").remove();
+        jQuery("select[name='sub-list-" + propId + "']").chosen("destroy").css("display","none");
         jQuery(container).animate({width: len}, {
             duration: 100,
             step: function (now, fx) {
