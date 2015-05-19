@@ -101,12 +101,12 @@ public class ProductEdit extends BaseComponent {
 
     @Cached
     public List<PropertyEntity> getMandatoryProperties() {
-        return getPropertyService().findAllProperties(true);
+        return getPropertyService().findAllProperties(true).stream().sorted((o1, o2) -> o1.getType().compareTo(o2.getType())).collect(Collectors.toList());
     }
 
     @Cached
     public List<PropertyEntity> getOptionalProperties() {
-        return getPropertyService().findAllProperties(false);
+        return getPropertyService().findAllProperties(false).stream().sorted((o1, o2) -> o1.getType().compareTo(o2.getType())).collect(Collectors.toList());
     }
 
     public String getProductEditZone() {
@@ -170,8 +170,8 @@ public class ProductEdit extends BaseComponent {
                 .map(t -> t.substring("prop-".length(), t.length()))
                 .collect(Collectors.toMap(Long::parseLong, key -> getRequest().getParameter("prop-" + key)));
         final Map<Long, String[]> listValues = getRequest().getParameterNames().stream()
-                .filter(t -> t.startsWith("list-"))
-                .map(t -> t.substring("list-".length(), t.length()))
+                .filter(t -> t.startsWith("list-") || t.startsWith("sub-list-"))
+                .map(t -> t.replaceAll("sub-", "").replaceAll("list-", ""))
                 .collect(Collectors.toMap(Long::parseLong, key -> getRequest().getParameters("list-" + key)));
         getProductService().saveProduct(product, propValues, listValues);
         if (goBack || closeImmediately) getAjaxResponseRenderer().addRender(getProductEditZone(), editDescBlock);

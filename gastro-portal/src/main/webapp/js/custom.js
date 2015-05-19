@@ -82,9 +82,7 @@ function initTitle(el) {
 }
 
 function initChosen(el) {
-    jQuery(el).chosen({"width": "100%", allow_single_deselect: true}).on('change', function (e) {
-        this.fire(Tapestry.ACTION_EVENT, e);
-    });
+    jQuery(el).chosen({"width": "100%", allow_single_deselect: true});
 }
 
 function showProductModal(pid) {
@@ -254,12 +252,13 @@ function initBasket() {
             .delay(2000).fadeOut(1000);
     });
 }
-function addMoreProperties(product, el) {
-    var listBlock = jQuery(el, product);
-    var lastList = jQuery('select:last', listBlock);
-    var newList = jQuery(lastList).clone();
-    jQuery(newList).insertAfter(lastList);
-    initChosen(jQuery(newList));
+function addMoreProperties(el) {
+    var listBlock = jQuery(el);
+    var lastBlock = jQuery('div.block:last', listBlock);
+    var newBlock = jQuery(lastBlock).clone();
+    jQuery(newBlock).find(".chosen-container").remove();
+    initPropEdit(jQuery("select.chosen-select", newBlock));
+    jQuery(newBlock).insertAfter(lastBlock);
 }
 function initLoginModal() {
     var hideAll = function () {
@@ -348,33 +347,41 @@ function initWizardPage() {
         });
     }
 }
-function initPropEdit() {
-    jQuery("select.parent-value").on('change', function (evt, params) {
+function initPropEdit(el) {
+    initChosen(el);
+    jQuery(el).on('change', function (evt, params) {
         var propId = jQuery(this).attr("data-property");
-        var container = jQuery(this).next(".chosen-container");
-        var len;
-        var subSelect;
-        if (params == undefined) {
-            len = 510;
-        } else {
-            subSelect = jQuery("#sub-list-" + params.selected);
-            len = subSelect.length ? 250 : 510;
-        }
-        jQuery("select[name='sub-list-" + propId + "']").chosen("destroy").css("display","none");
-        jQuery(container).animate({width: len}, {
-            duration: 100,
-            step: function (now, fx) {
-                jQuery(container).attr('style', 'width: ' + now + 'px!important');
-            },
-            complete: function () {
-                if (subSelect != undefined && subSelect.length) {
-                    subSelect.on("chosen:ready", function (evt2, params2) {
-                        jQuery(this).next(".chosen-container").attr('style', 'width: 250px!important;margin-left:10px;');
-                    });
-                    subSelect.chosen();
-                }
+        var block = jQuery(this).closest("div.block");
+        var container = jQuery(this, block).next(".chosen-container");
+        var subSelect = jQuery("#sub-list-" + (params == undefined || params.length == 0 ? "none" : params.selected), block);
+        var len = subSelect.length ? 250 : 510;
+        var showSubSelect = function () {
+            if (subSelect.length != 0) {
+                subSelect.on("chosen:ready", function () {
+                    jQuery(this).next(".chosen-container").attr('style', 'width: 250px!important;margin-left:10px;');
+                });
+                initChosen(subSelect);
             }
-        });
+        };
+        //Destroy prev subs selected
+        jQuery("select[name='sub-list-" + propId + "']", block)
+            .filter(function () {
+                return jQuery(this).data('chosen') != undefined;
+            })
+            .chosen("destroy")
+            .css("display", "none");
+        //Animate main select
+        if (jQuery(container).innerWidth() != len) {
+            jQuery(container).animate({width: len}, {
+                duration: 100,
+                step: function (now, fx) {
+                    jQuery(container).attr('style', 'width: ' + now + 'px!important');
+                },
+                complete: showSubSelect
+            });
+        } else {
+            showSubSelect();
+        }
     });
 }
 function realTitleWidth(obj) {
