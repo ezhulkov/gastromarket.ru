@@ -1,5 +1,7 @@
 package org.ohm.gastro.gui.components;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
@@ -17,6 +19,7 @@ import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.product.Index;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -168,12 +171,26 @@ public class ProductEdit extends BaseComponent {
         final Map<Long, String> propValues = getRequest().getParameterNames().stream()
                 .filter(t -> t.startsWith("prop-"))
                 .map(t -> t.substring("prop-".length(), t.length()))
-                .collect(Collectors.toMap(Long::parseLong, key -> getRequest().getParameter("prop-" + key)));
-        final Map<Long, String[]> listValues = getRequest().getParameterNames().stream()
-                .filter(t -> t.startsWith("list-") || t.startsWith("sub-list-"))
-                .map(t -> t.replaceAll("sub-", "").replaceAll("list-", ""))
-                .collect(Collectors.toMap(Long::parseLong, key -> getRequest().getParameters("list-" + key)));
-        getProductService().saveProduct(product, propValues, listValues);
+                .filter(t -> StringUtils.isNotEmpty(getRequest().getParameter("prop-" + t)))
+                .collect(Collectors.toMap(Long::parseLong, key -> getRequest().getParameter("prop-" + key), (s, a) -> s));
+        final List<Long[]> listValues = getRequest().getParameterNames().stream()
+                .filter(t -> t.startsWith("list-"))
+                .filter(t -> ArrayUtils.isNotEmpty(getRequest().getParameters(t)) && StringUtils.isNotEmpty(getRequest().getParameters(t)[0]))
+                .flatMap(t -> {
+                    final String[] split = t.split("-");
+                    final Long valueId = Long.parseLong(split[1]);
+                    return Arrays.stream(getRequest().getParameters(t)).map(v -> {
+                        final String subList = "sublist-" + valueId + "-" + split[2];
+                        final String subValue = getRequest().getParameter(subList);
+                        return StringUtils.isEmpty(subValue) ? new Long[]{valueId} : new Long[]{valueId, Long.parseLong(subValue)};
+                    });
+                }).collect(Collectors.toList());
+
+//        System.out.println(propValues);
+        System.out.println(listValues);
+//        System.out.println(subListValues);
+
+//        getProductService().saveProduct(product, propValues, listValues);
         if (goBack || closeImmediately) getAjaxResponseRenderer().addRender(getProductEditZone(), editDescBlock);
         else getAjaxResponseRenderer().addRender(getProductEditZone(), editPhotoBlock);
         return closeImmediately && reloadPage ? Index.class : null;

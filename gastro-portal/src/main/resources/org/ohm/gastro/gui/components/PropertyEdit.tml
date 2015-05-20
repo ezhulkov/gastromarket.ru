@@ -4,7 +4,7 @@
         <div class="col-sm-10 property-select" id="edit-list-${property.id}">
             <label for="prop-${property.id}">${property.name}:</label><br/>
 
-            <div class="block">
+            <div class="prop-edit-block">
                 <!--<t:if test="productListValues">-->
                 <!--<t:loop source="productListValues" value="oneTag" formState="NONE">-->
                 <!--<select name="list-${property.id}" class="form-control chosen-select">-->
@@ -21,22 +21,22 @@
                 <!--</t:loop>-->
                 <!--</t:if>-->
 
-                <t:unless test="productListValues">
-                    <select name="list-${property.id}" data-property="${property.id}" data-placeholder="Выберите значение" class="chosen-select parent-value">
+                <!--<t:unless test="productListValues">-->
+                <select name="list-${property.id}-0" data-property="${property.id}" data-placeholder="Выберите значение" class="chosen-select parent-value">
+                    <option value=""/>
+                    <t:loop source="propertyValues" value="oneValue" formState="NONE">
+                        <option value="${oneValue.id}">${oneValue.value}</option>
+                    </t:loop>
+                </select>
+                <t:loop source="parentPropertyValues" value="oneValue" formState="NONE">
+                    <select name="sublist-${property.id}-0" id="sublist-${oneValue.id}" data-placeholder="Выберите значение" class="child-value">
                         <option value=""/>
-                        <t:loop source="propertyValues" value="oneValue" formState="NONE">
-                            <option value="${oneValue.id}">${oneValue.value}</option>
+                        <t:loop source="oneValue.children" value="oneChildValue" formState="NONE">
+                            <option value="${oneChildValue.id}">${oneChildValue.value}</option>
                         </t:loop>
                     </select>
-                    <t:loop source="parentPropertyValues" value="oneValue" formState="NONE">
-                        <select name="sub-list-${property.id}" id="sub-list-${oneValue.id}" data-placeholder="Выберите значение" class="child-value">
-                            <option value=""/>
-                            <t:loop source="oneValue.children" value="oneChildValue" formState="NONE">
-                                <option value="${oneChildValue.id}">${oneChildValue.value}</option>
-                            </t:loop>
-                        </select>
-                    </t:loop>
-                </t:unless>
+                </t:loop>
+                <!--</t:unless>-->
             </div>
         </div>
         <div class="col-sm-1 more">

@@ -1,3 +1,4 @@
+var counter = 0;
 jQuery.noConflict();
 (function () {
     var isBootstrapEvent = false;
@@ -252,14 +253,6 @@ function initBasket() {
             .delay(2000).fadeOut(1000);
     });
 }
-function addMoreProperties(el) {
-    var listBlock = jQuery(el);
-    var lastBlock = jQuery('div.block:last', listBlock);
-    var newBlock = jQuery(lastBlock).clone();
-    jQuery(newBlock).find(".chosen-container").remove();
-    initPropEdit(jQuery("select.chosen-select", newBlock));
-    jQuery(newBlock).insertAfter(lastBlock);
-}
 function initLoginModal() {
     var hideAll = function () {
         jQuery(".modal-dialog.login").hide();
@@ -347,41 +340,57 @@ function initWizardPage() {
         });
     }
 }
-function initPropEdit(el) {
-    initChosen(el);
-    jQuery(el).on('change', function (evt, params) {
-        var propId = jQuery(this).attr("data-property");
-        var block = jQuery(this).closest("div.block");
-        var container = jQuery(this, block).next(".chosen-container");
-        var subSelect = jQuery("#sub-list-" + (params == undefined || params.length == 0 ? "none" : params.selected), block);
-        var len = subSelect.length ? 250 : 510;
-        var showSubSelect = function () {
-            if (subSelect.length != 0) {
-                subSelect.on("chosen:ready", function () {
-                    jQuery(this).next(".chosen-container").attr('style', 'width: 250px!important;margin-left:10px;');
-                });
-                initChosen(subSelect);
-            }
-        };
-        //Destroy prev subs selected
-        jQuery("select[name='sub-list-" + propId + "']", block)
-            .filter(function () {
-                return jQuery(this).data('chosen') != undefined;
-            })
-            .chosen("destroy")
-            .css("display", "none");
-        //Animate main select
-        if (jQuery(container).innerWidth() != len) {
-            jQuery(container).animate({width: len}, {
-                duration: 100,
-                step: function (now, fx) {
-                    jQuery(container).attr('style', 'width: ' + now + 'px!important');
-                },
-                complete: showSubSelect
+function addMoreProperties(el) {
+    var listBlock = jQuery(el);
+    var lastBlock = jQuery('div.prop-edit-block:last', listBlock);
+    var newBlock = jQuery(lastBlock).clone();
+    jQuery(newBlock).find(".chosen-container").remove();
+    initPropEdit(newBlock);
+    jQuery(newBlock).insertAfter(lastBlock);
+}
+function initPropEdit(blocks) {
+    jQuery(blocks).each(function (i, block) {
+        counter++;
+        var select = jQuery("select", block).each(function (i, select) {
+            var selectName = jQuery(select).attr("name");
+            jQuery(select).attr("name", selectName.substring(0, selectName.lastIndexOf("-")) + "-" + counter);
+        });
+        jQuery("select.parent-value", this).each(function (i, parentSelect) {
+            initChosen(jQuery(parentSelect));
+            jQuery(parentSelect).on('change', function (evt, params) {
+                var propId = jQuery(this).attr("data-property");
+                var container = jQuery(this).next(".chosen-container");
+                var subSelect = jQuery("#sublist-" + (params == undefined || params.length == 0 ? "none" : params.selected), block);
+                var len = subSelect.length ? 250 : 510;
+                var showSubSelect = function () {
+                    if (subSelect.length != 0) {
+                        subSelect.on("chosen:ready", function () {
+                            jQuery(this).next(".chosen-container").attr('style', 'width: 250px!important;margin-left:10px;');
+                        });
+                        initChosen(subSelect);
+                    }
+                };
+                //Destroy prev subs selected
+                jQuery("select[name^='sublist-" + propId + "-']", block)
+                    .filter(function () {
+                        return jQuery(this).data('chosen') != undefined;
+                    })
+                    .chosen("destroy")
+                    .css("display", "none");
+                //Animate main select
+                if (jQuery(container).innerWidth() != len) {
+                    jQuery(container).animate({width: len}, {
+                        duration: 100,
+                        step: function (now, fx) {
+                            jQuery(container).attr('style', 'width: ' + now + 'px!important');
+                        },
+                        complete: showSubSelect
+                    });
+                } else {
+                    showSubSelect();
+                }
             });
-        } else {
-            showSubSelect();
-        }
+        });
     });
 }
 function realTitleWidth(obj) {

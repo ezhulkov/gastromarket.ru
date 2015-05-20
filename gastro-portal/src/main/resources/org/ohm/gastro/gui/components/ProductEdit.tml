@@ -103,7 +103,7 @@
                         </div>
                     </t:form>
                     <script>
-                        initPropEdit(jQuery("select.parent-value"));
+                        initPropEdit(jQuery("div.prop-edit-block"));
                     </script>
                 </t:block>
                 <t:block t:id="editPhotoBlock">
