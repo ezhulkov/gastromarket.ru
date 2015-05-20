@@ -13,6 +13,9 @@ import org.apache.tapestry5.corelib.components.Select;
 import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.javatuples.Pair;
+import org.javatuples.Tuple;
+import org.javatuples.Unit;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
@@ -173,16 +176,17 @@ public class ProductEdit extends BaseComponent {
                 .map(t -> t.substring("prop-".length(), t.length()))
                 .filter(t -> StringUtils.isNotEmpty(getRequest().getParameter("prop-" + t)))
                 .collect(Collectors.toMap(Long::parseLong, key -> getRequest().getParameter("prop-" + key), (s, a) -> s));
-        final List<Long[]> listValues = getRequest().getParameterNames().stream()
+        final List<Tuple> listValues = getRequest().getParameterNames().stream()
                 .filter(t -> t.startsWith("list-"))
                 .filter(t -> ArrayUtils.isNotEmpty(getRequest().getParameters(t)) && StringUtils.isNotEmpty(getRequest().getParameters(t)[0]))
                 .flatMap(t -> {
                     final String[] split = t.split("-");
-                    final Long valueId = Long.parseLong(split[1]);
+                    final Long propId = Long.parseLong(split[1]);
                     return Arrays.stream(getRequest().getParameters(t)).map(v -> {
-                        final String subList = "sublist-" + valueId + "-" + split[2];
-                        final String subValue = getRequest().getParameter(subList);
-                        return StringUtils.isEmpty(subValue) ? new Long[]{valueId} : new Long[]{valueId, Long.parseLong(subValue)};
+                        final String subList = "sublist-" + propId + "-" + split[2];
+                        final Long valueId = Long.parseLong(v);
+                        final String subValueId = getRequest().getParameter(subList);
+                        return StringUtils.isEmpty(subValueId) ? new Unit<>(valueId) : new Pair<>(valueId, Long.parseLong(subValueId));
                     });
                 }).collect(Collectors.toList());
 
