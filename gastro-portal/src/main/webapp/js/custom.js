@@ -360,7 +360,7 @@ function initPropEdit(blocks) {
             jQuery(parentSelect).on('change', function (evt, params) {
                 var propId = jQuery(this).attr("data-property");
                 var container = jQuery(this).next(".chosen-container");
-                var subSelect = jQuery("#sublist-" + (params == undefined || params.length == 0 ? "none" : params.selected), block);
+                var subSelect = jQuery("select[name^='sublist-" + (params == undefined || params.length == 0 ? "none" : params.selected) + "']", block);
                 var len = subSelect.length ? 250 : 510;
                 var showSubSelect = function () {
                     if (subSelect.length != 0) {
@@ -371,7 +371,7 @@ function initPropEdit(blocks) {
                     }
                 };
                 //Destroy prev subs selected
-                jQuery("select[name^='sublist-" + propId + "-']", block)
+                jQuery("select.sublist-" + propId, block)
                     .filter(function () {
                         return jQuery(this).data('chosen') != undefined;
                     })

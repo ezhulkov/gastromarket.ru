@@ -1,11 +1,10 @@
 package org.ohm.gastro.service.impl;
 
 import com.google.common.base.Objects;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.javatuples.Tuple;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.ProductEntity.Unit;
@@ -37,14 +36,10 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Nonnull;
 import java.io.File;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -117,31 +112,43 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
-    public ProductEntity saveProduct(ProductEntity product, Map<Long, String> propValues, Map<Long, String[]> listValues) {
+    public ProductEntity saveProduct(ProductEntity product, Map<Long, String> propValues, List<Tuple> listValues) {
         saveProduct(product);
         tagRepository.deleteAllValues(product);
-        final Function<Entry<Long, String>, TagEntity> tagCreator = t -> {
-            final PropertyEntity property = propertyService.findProperty(t.getKey());
-            final TagEntity tag = new TagEntity();
-            tag.setProduct(product);
-            tag.setProperty(property);
-            if (property.getType() == PropertyEntity.Type.LIST) {
-                tag.setValue(propertyService.findPropertyValue(t.getValue()));
-            } else {
-                tag.setData(t.getValue());
-            }
-            return tag;
-        };
         propValues.entrySet().stream()
-                .filter(t -> StringUtils.isNotEmpty(t.getValue()))
-                .map(tagCreator)
+                .map(t -> {
+                    final PropertyEntity property = propertyService.findProperty(t.getKey());
+                    final TagEntity tag = new TagEntity();
+                    tag.setProduct(product);
+                    tag.setProperty(property);
+                    tag.setData(t.getValue());
+                    return tag;
+                })
                 .forEach(tagRepository::save);
-        listValues.entrySet().stream()
-                .map(t -> Arrays.stream(t.getValue()).map(v -> ImmutableMap.of(t.getKey(), v)).collect(Collectors.toList()))
-                .flatMap(Collection::stream)
-                .map(t -> Iterables.getFirst(t.entrySet(), null))
-                .filter(t -> StringUtils.isNotEmpty(t.getValue()))
-                .map(tagCreator)
+        listValues.stream()
+                .flatMap(t -> {
+                    final Long parentValueId = (Long) t.getValue(0);
+                    final Long childValueId = t.getSize() == 2 ? (Long) t.getValue(1) : null;
+                    final PropertyValueEntity parentValue = propertyService.findPropertyValue(parentValueId);
+                    final PropertyEntity property = parentValue.getProperty();
+                    final TagEntity parentTag = new TagEntity();
+                    final TagEntity childTag;
+                    parentTag.setProduct(product);
+                    parentTag.setProperty(property);
+                    parentTag.setValue(parentValue);
+                    if (childValueId != null) {
+                        final PropertyValueEntity childValue = propertyService.findPropertyValue(childValueId);
+                        childTag = new TagEntity();
+                        childTag.setProduct(product);
+                        childTag.setProperty(property);
+                        childTag.setValue(childValue);
+                        childTag.setData(parentValueId.toString());
+                    } else {
+                        childTag = null;
+                    }
+                    return Lists.newArrayList(parentTag, childTag).stream();
+                })
+                .filter(t -> t != null)
                 .forEach(tagRepository::save);
         return product;
     }

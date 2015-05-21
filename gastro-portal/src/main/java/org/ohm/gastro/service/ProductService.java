@@ -1,5 +1,6 @@
 package org.ohm.gastro.service;
 
+import org.javatuples.Tuple;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
@@ -42,7 +43,7 @@ public interface ProductService extends ImageUploaderService<ProductEntity>, Alt
 
     void deleteProduct(final Long id, final CatalogEntity catalog);
 
-    ProductEntity saveProduct(final ProductEntity product, final Map<Long, String> propValues, final Map<Long, String[]> listValues);
+    ProductEntity saveProduct(final ProductEntity product, final Map<Long, String> propValues, final List<Tuple> listValues);
 
     ProductEntity createProduct(final ProductEntity product, final CatalogEntity catalog);
 

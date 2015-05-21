@@ -170,6 +170,7 @@ public class ProductEdit extends BaseComponent {
     }
 
     public Object onSubmitFromPropsForm(Long pid) {
+
         product = getProductService().findProduct(pid);
         final Map<Long, String> propValues = getRequest().getParameterNames().stream()
                 .filter(t -> t.startsWith("prop-"))
@@ -181,20 +182,14 @@ public class ProductEdit extends BaseComponent {
                 .filter(t -> ArrayUtils.isNotEmpty(getRequest().getParameters(t)) && StringUtils.isNotEmpty(getRequest().getParameters(t)[0]))
                 .flatMap(t -> {
                     final String[] split = t.split("-");
-                    final Long propId = Long.parseLong(split[1]);
                     return Arrays.stream(getRequest().getParameters(t)).map(v -> {
-                        final String subList = "sublist-" + propId + "-" + split[2];
                         final Long valueId = Long.parseLong(v);
+                        final String subList = "sublist-" + valueId + "-" + split[2];
                         final String subValueId = getRequest().getParameter(subList);
                         return StringUtils.isEmpty(subValueId) ? new Unit<>(valueId) : new Pair<>(valueId, Long.parseLong(subValueId));
                     });
                 }).collect(Collectors.toList());
-
-//        System.out.println(propValues);
-        System.out.println(listValues);
-//        System.out.println(subListValues);
-
-//        getProductService().saveProduct(product, propValues, listValues);
+        getProductService().saveProduct(product, propValues, listValues);
         if (goBack || closeImmediately) getAjaxResponseRenderer().addRender(getProductEditZone(), editDescBlock);
         else getAjaxResponseRenderer().addRender(getProductEditZone(), editPhotoBlock);
         return closeImmediately && reloadPage ? Index.class : null;

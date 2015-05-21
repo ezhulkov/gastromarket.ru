@@ -29,7 +29,7 @@
                     </t:loop>
                 </select>
                 <t:loop source="parentPropertyValues" value="oneValue" formState="NONE">
-                    <select name="sublist-${property.id}-0" id="sublist-${oneValue.id}" data-placeholder="Выберите значение" class="child-value">
+                    <select name="sublist-${oneValue.id}-0" data-placeholder="Выберите значение" class="child-value sublist-${property.id}">
                         <option value=""/>
                         <t:loop source="oneValue.children" value="oneChildValue" formState="NONE">
                             <option value="${oneChildValue.id}">${oneChildValue.value}</option>
