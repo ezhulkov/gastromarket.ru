@@ -13,7 +13,7 @@
                                 <a href="${pageContext}/${oneValue.altId}">${oneValue.name}</a>
 
                                 <div class="dropdown-menu">
-                                    <t:loop source="oneValue.children" value="oneChildValue">
+                                    <t:loop source="childrenValues" value="oneChildValue">
                                         <a href="${pageContext}/${oneValue.altId}/${oneChildValue.altId}">${oneChildValue.name}</a>
                                     </t:loop>
                                 </div>

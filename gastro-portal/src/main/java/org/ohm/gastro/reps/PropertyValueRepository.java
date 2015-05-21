@@ -24,6 +24,9 @@ public interface PropertyValueRepository extends AltIdRepository<PropertyValueEn
 
     @Query("select distinct pv from PropertyValueEntity pv join pv.parents pp where pp=:parent")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    List<PropertyValueEntity> findAllChildrenValues(@Param("parent") PropertyValueEntity parent);
+    List<PropertyValueEntity> findAllChildrenValues(@Param("parent") PropertyValueEntity parent, Sort sort);
+
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    List<PropertyValueEntity> findAllByProperty(PropertyEntity property, Sort sort);
 
 }

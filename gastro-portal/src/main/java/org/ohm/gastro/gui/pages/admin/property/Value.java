@@ -12,6 +12,8 @@ import org.ohm.gastro.gui.misc.GenericSelectModel;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.EditObjectPage;
 
+import java.util.stream.Collectors;
+
 /**
  * Created by ezhulkov on 24.08.14.
  */
@@ -65,7 +67,13 @@ public class Value extends EditObjectPage<PropertyValueEntity> {
 
     @Cached
     public GenericSelectModel<PropertyValueEntity> getValueModel() {
-        return new GenericSelectModel<>(getPropertyService().findAllLeafValues(getObject().getProperty()), PropertyValueEntity.class, "value", "id", getPropertyAccess());
+        final java.util.List<PropertyValueEntity> allValues = getPropertyService()
+                .findAllValues(getObject().getProperty()).stream()
+                .filter(t -> t.getChildren().isEmpty())
+                .filter(t -> !t.equals(getObject()))
+                .filter(t -> !t.getParents().contains(getObject()))
+                .collect(Collectors.toList());
+        return new GenericSelectModel<>(allValues, PropertyValueEntity.class, "value", "id", getPropertyAccess());
     }
 
     public void onSubmitFromCreateValueForm() {

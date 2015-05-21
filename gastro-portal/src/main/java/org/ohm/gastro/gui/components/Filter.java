@@ -9,6 +9,8 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.service.ProductService.OrderType;
 import org.springframework.data.domain.Sort.Direction;
 
+import java.util.List;
+
 /**
  * Created by ezhulkov on 14.02.15.
  */
@@ -56,6 +58,10 @@ public class Filter extends BaseComponent {
 
     public String getOrderMessage() {
         return orderType == null ? getMessages().get(OrderType.NONE.name()) : getMessages().get(orderType.name());
+    }
+
+    public List<PropertyValueEntity> getChildrenValues() {
+        return getPropertyService().findAllChildrenValues(oneValue);
     }
 
 }

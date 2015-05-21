@@ -37,11 +37,14 @@
 
         <t:grid source="values" row="onePropertyValue"
                 exclude="id,name,altId"
-                add="del"
-                reorder="value,tag,del"
+                add="children,del"
+                reorder="value,children,tag,del"
                 t:mixins="GridSortingDisabled" class="table table-hover">
             <t:parameter name="valueCell">
                 <t:pagelink page="admin/property/value" context="['UPDATE',onePropertyValue.id]">${onePropertyValue.value}</t:pagelink>
+            </t:parameter>
+            <t:parameter name="childrenCell">
+                ${children}
             </t:parameter>
             <t:parameter name="delCell">
                 <t:actionlink t:id="delete" context="onePropertyValue.id" class="glyphicon glyphicon-remove"/>

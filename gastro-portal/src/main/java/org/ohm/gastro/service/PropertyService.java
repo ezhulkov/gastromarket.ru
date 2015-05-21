@@ -33,12 +33,14 @@ public interface PropertyService extends AltIdService<PropertyValueEntity, Prope
 
     List<PropertyValueEntity> findAllLeafValues(PropertyEntity property);
 
+    List<PropertyValueEntity> findAllValues(PropertyEntity property);
+
     List<PropertyValueEntity> findAllValues(PropertyValueEntity.Tag root);
+
+    List<PropertyValueEntity> findAllChildrenValues(PropertyValueEntity object);
 
     void attachPropertyValue(PropertyValueEntity parent, PropertyValueEntity child);
 
     void detachPropertyValue(PropertyValueEntity parent, PropertyValueEntity child);
-
-    List<PropertyValueEntity> findAllChildrenValues(PropertyValueEntity object);
 
 }

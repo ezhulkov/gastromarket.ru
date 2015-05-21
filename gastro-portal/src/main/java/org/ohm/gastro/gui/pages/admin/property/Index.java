@@ -13,6 +13,8 @@ import org.ohm.gastro.gui.ServiceCallback;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.EditObjectPage;
 
+import java.util.stream.Collectors;
+
 /**
  * Created by ezhulkov on 24.08.14.
  */
@@ -77,6 +79,10 @@ public class Index extends EditObjectPage<PropertyEntity> {
 
     public void onActionFromDelete(Long id) {
         getPropertyService().deletePropertyValue(id);
+    }
+
+    public String getChildren() {
+        return getPropertyService().findAllChildrenValues(onePropertyValue).stream().map(PropertyValueEntity::getValue).collect(Collectors.joining(", "));
     }
 
 }
