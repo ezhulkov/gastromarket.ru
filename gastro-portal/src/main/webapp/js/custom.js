@@ -82,8 +82,8 @@ function initTitle(el) {
     });
 }
 
-function initChosen(el) {
-    jQuery(el).chosen({"width": "100%", allow_single_deselect: true});
+function initChosen(el, onReady) {
+    jQuery(el).on("chosen:ready", onReady).chosen({"width": "100%", allow_single_deselect: true});
 }
 
 function showProductModal(pid) {
@@ -355,21 +355,13 @@ function initPropEdit(blocks) {
             var selectName = jQuery(select).attr("name");
             jQuery(select).attr("name", selectName.substring(0, selectName.lastIndexOf("-")) + "-" + counter);
         });
-        jQuery("select.parent-value", this).each(function (i, parentSelect) {
+        jQuery("select.parent-value", block).each(function (i, parentSelect) {
             initChosen(jQuery(parentSelect));
             jQuery(parentSelect).on('change', function (evt, params) {
                 var propId = jQuery(this).attr("data-property");
                 var container = jQuery(this).next(".chosen-container");
                 var subSelect = jQuery("select[name^='sublist-" + (params == undefined || params.length == 0 ? "none" : params.selected) + "']", block);
                 var len = subSelect.length ? 250 : 510;
-                var showSubSelect = function () {
-                    if (subSelect.length != 0) {
-                        subSelect.on("chosen:ready", function () {
-                            jQuery(this).next(".chosen-container").attr('style', 'width: 250px!important;margin-left:10px;');
-                        });
-                        initChosen(subSelect);
-                    }
-                };
                 //Destroy prev subs selected
                 jQuery("select.sublist-" + propId, block)
                     .filter(function () {
@@ -384,15 +376,30 @@ function initPropEdit(blocks) {
                         step: function (now, fx) {
                             jQuery(container).attr('style', 'width: ' + now + 'px!important');
                         },
-                        complete: showSubSelect
+                        complete: function () {
+                            showSubSelect(subSelect);
+                        }
                     });
                 } else {
-                    showSubSelect();
+                    showSubSelect(subSelect);
                 }
             });
         });
+        jQuery("select.child-value.show-true", block).each(function (i, subSelect) {
+            jQuery(this).closest("div.prop-edit-block")
+                .find("select.parent-value").next(".chosen-container")
+                .attr('style', 'width: 250px!important');
+            showSubSelect(subSelect);
+        });
     });
 }
+function showSubSelect(el) {
+    if (el != undefined && el.length != 0) {
+        initChosen(el, function () {
+            jQuery(this).next(".chosen-container").attr('style', 'width: 250px!important;margin-left:10px;');
+        });
+    }
+};
 function realTitleWidth(obj) {
     var clone = obj.clone();
     clone.css("visibility", "hidden");

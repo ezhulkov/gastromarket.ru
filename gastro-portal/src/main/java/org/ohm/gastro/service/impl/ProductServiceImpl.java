@@ -126,7 +126,7 @@ public class ProductServiceImpl implements ProductService, Logging {
                 })
                 .forEach(tagRepository::save);
         listValues.stream()
-                .flatMap(t -> {
+                .forEach(t -> {
                     final Long parentValueId = (Long) t.getValue(0);
                     final Long childValueId = t.getSize() == 2 ? (Long) t.getValue(1) : null;
                     final PropertyValueEntity parentValue = propertyService.findPropertyValue(parentValueId);
@@ -136,20 +136,17 @@ public class ProductServiceImpl implements ProductService, Logging {
                     parentTag.setProduct(product);
                     parentTag.setProperty(property);
                     parentTag.setValue(parentValue);
+                    tagRepository.save(parentTag);
                     if (childValueId != null) {
                         final PropertyValueEntity childValue = propertyService.findPropertyValue(childValueId);
                         childTag = new TagEntity();
                         childTag.setProduct(product);
                         childTag.setProperty(property);
                         childTag.setValue(childValue);
-                        childTag.setData(parentValueId.toString());
-                    } else {
-                        childTag = null;
+                        childTag.setData(parentTag.getId().toString());
+                        tagRepository.save(childTag);
                     }
-                    return Lists.newArrayList(parentTag, childTag).stream();
-                })
-                .filter(t -> t != null)
-                .forEach(tagRepository::save);
+                });
         return product;
     }
 

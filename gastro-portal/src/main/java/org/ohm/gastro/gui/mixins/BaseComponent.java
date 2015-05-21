@@ -210,7 +210,7 @@ public abstract class BaseComponent {
                 .map(t -> {
                     Type type = t.getKey().getType();
                     String data = Type.LIST == type ?
-                            t.getValue().stream().filter(k -> k.getValue() != null).map(k -> k.getValue().getName()).collect(Collectors.joining(", ")) :
+                            t.getValue().stream().filter(k -> k.getValue() != null).map(k -> k.getValue().getName()).distinct().collect(Collectors.joining(", ")) :
                             t.getValue().stream().map(TagEntity::getData).collect(Collectors.joining());
                     TagEntity tag = new TagEntity();
                     tag.setData(data);
