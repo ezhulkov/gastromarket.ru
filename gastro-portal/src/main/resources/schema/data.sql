@@ -1,369 +1,175 @@
 --liquibase formatted sql
 --changeset author:initial-data
 
---
--- PostgreSQL database dump
---
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = ON;
-SET check_function_bodies = FALSE;
-SET client_min_messages = WARNING;
-
-SET search_path = public, pg_catalog;
-
---
--- Data for Name: person; Type: TABLE DATA; Schema: public; Owner: gastro
---
-
-INSERT INTO person (id, email, password, type, date, status, referrer_id, anonymous, full_name, delivery_address, mobile_phone, bonus, avatar_url, avatar_url_small, avatar_url_medium) VALUES
-  (1, 'ezhulkov@gmail.com', 'aa9304926e54bf318a40dc9cb936e62f86327f987461178b01a85ae5a500bd43639908f104ae7d5f', 'ADMIN', NULL, 'ENABLED', NULL, FALSE, 'Eugene Zhulkov', NULL, NULL, 0,
-   'https://graph.facebook.com/885115111540609/picture?type=large', 'https://graph.facebook.com/885115111540609/picture', 'https://graph.facebook.com/885115111540609/picture?type=large');
-
---
--- Data for Name: property; Type: TABLE DATA; Schema: public; Owner: gastro
---
-
-INSERT INTO property (id, name, type) VALUES (1, 'Кухня', 'LIST');
-INSERT INTO property (id, name, type) VALUES (2, 'Ингредиенты', 'LIST');
-INSERT INTO property (id, name, type) VALUES (5, 'Вес', 'NUMBER');
-INSERT INTO property (id, name, type) VALUES (6, 'Объем', 'NUMBER');
-INSERT INTO property (id, name, type) VALUES (7, 'Калорийность', 'NUMBER');
-INSERT INTO property (id, name, type) VALUES (8, 'Предпочтения', 'LIST');
-INSERT INTO property (id, name, type) VALUES (9, 'Формат', 'LIST');
-
-
---
--- Data for Name: category_property; Type: TABLE DATA; Schema: public; Owner: gastro
---
-
---
--- Data for Name: hibernate_sequences; Type: TABLE DATA; Schema: public; Owner: gastro
---
-
--- INSERT INTO hibernate_sequences (sequence_name, sequence_next_hi_value) VALUES ('category', 75);
-INSERT INTO hibernate_sequences (sequence_name, sequence_next_hi_value) VALUES ('property', 10);
-INSERT INTO hibernate_sequences (sequence_name, sequence_next_hi_value) VALUES ('person', 2);
-INSERT INTO hibernate_sequences (sequence_name, sequence_next_hi_value) VALUES ('property_value', 275);
-
---
--- Data for Name: message; Type: TABLE DATA; Schema: public; Owner: gastro
---
-
-
-
---
--- Data for Name: product; Type: TABLE DATA; Schema: public; Owner: gastro
---
-
-
-
---
--- Data for Name: product_property; Type: TABLE DATA; Schema: public; Owner: gastro
---
-
-
-
---
--- Data for Name: property_value; Type: TABLE DATA; Schema: public; Owner: gastro
---
-
-INSERT INTO property_value (id, property_id, value) VALUES (1, 1, 'Русская');
-INSERT INTO property_value (id, property_id, value) VALUES (2, 1, 'Японская');
-INSERT INTO property_value (id, property_id, value) VALUES (3, 1, 'Китайская');
-INSERT INTO property_value (id, property_id, value) VALUES (4, 1, 'Юго-Восточная Азия');
-INSERT INTO property_value (id, property_id, value) VALUES (5, 1, 'Грузинская');
-INSERT INTO property_value (id, property_id, value) VALUES (6, 1, 'Армянская');
-INSERT INTO property_value (id, property_id, value) VALUES (7, 1, 'Азербайджанская');
-INSERT INTO property_value (id, property_id, value) VALUES (8, 1, 'Итальянская');
-INSERT INTO property_value (id, property_id, value) VALUES (9, 1, 'Испанская');
-INSERT INTO property_value (id, property_id, value) VALUES (10, 1, 'Мексиканская');
-INSERT INTO property_value (id, property_id, value) VALUES (11, 1, 'Средиземноморская');
-INSERT INTO property_value (id, property_id, value) VALUES (12, 1, 'Французская');
-INSERT INTO property_value (id, property_id, value) VALUES (13, 1, 'Узбекская');
-INSERT INTO property_value (id, property_id, value) VALUES (15, 8, 'Детское меню');
-INSERT INTO property_value (id, property_id, value) VALUES (14, 8, 'Вегетарианская еда');
-INSERT INTO property_value (id, property_id, value) VALUES (16, 8, 'Постная еда');
-INSERT INTO property_value (id, property_id, value) VALUES (17, 8, 'Низкокалорийная еда');
-INSERT INTO property_value (id, property_id, value) VALUES (267, 1, 'Украинская');
-INSERT INTO property_value (id, property_id, value) VALUES (268, 8, 'Спортивная диета');
-INSERT INTO property_value (id, property_id, value) VALUES (269, 1, 'Осетинская');
-INSERT INTO property_value (id, property_id, value) VALUES (270, 9, 'Корпоратив');
-INSERT INTO property_value (id, property_id, value) VALUES (272, 9, 'Детские праздники');
-INSERT INTO property_value (id, property_id, value) VALUES (271, 9, 'Свадьбы и юбилеи');
-INSERT INTO property_value (id, property_id, value) VALUES (273, 9, 'Фуршеты');
-INSERT INTO property_value (id, property_id, value) VALUES (274, 9, 'Шведский стол');
-INSERT INTO property_value (id, property_id, value) VALUES (18, 2, 'Cыр «альметте» с йогуртом');
-INSERT INTO property_value (id, property_id, value) VALUES (19, 2, 'Абрикосы');
-INSERT INTO property_value (id, property_id, value) VALUES (20, 2, 'Авокадо');
-INSERT INTO property_value (id, property_id, value) VALUES (21, 2, 'Ананас');
-INSERT INTO property_value (id, property_id, value) VALUES (22, 2, 'Ананас консервированный');
-INSERT INTO property_value (id, property_id, value) VALUES (23, 2, 'Анис (бадьян)');
-INSERT INTO property_value (id, property_id, value) VALUES (24, 2, 'Анчоусы');
-INSERT INTO property_value (id, property_id, value) VALUES (25, 2, 'Апельсины');
-INSERT INTO property_value (id, property_id, value) VALUES (26, 2, 'Багет французский');
-INSERT INTO property_value (id, property_id, value) VALUES (27, 2, 'Базилик');
-INSERT INTO property_value (id, property_id, value) VALUES (28, 2, 'Баклажаны');
-INSERT INTO property_value (id, property_id, value) VALUES (29, 2, 'Баранина');
-INSERT INTO property_value (id, property_id, value) VALUES (30, 2, 'Бекон');
-INSERT INTO property_value (id, property_id, value) VALUES (31, 2, 'Белокочанная капуста');
-INSERT INTO property_value (id, property_id, value) VALUES (32, 2, 'Бисквитная основа для торта');
-INSERT INTO property_value (id, property_id, value) VALUES (33, 2, 'Бобы астурийские (фасоль белая)');
-INSERT INTO property_value (id, property_id, value) VALUES (34, 2, 'Ваниль');
-INSERT INTO property_value (id, property_id, value) VALUES (35, 2, 'Ванильный стручок');
-INSERT INTO property_value (id, property_id, value) VALUES (36, 2, 'Варенье');
-INSERT INTO property_value (id, property_id, value) VALUES (37, 2, 'Ветчина');
-INSERT INTO property_value (id, property_id, value) VALUES (38, 2, 'Вино белое сухое');
-INSERT INTO property_value (id, property_id, value) VALUES (39, 2, 'Вишня');
-INSERT INTO property_value (id, property_id, value) VALUES (40, 2, 'Вода');
-INSERT INTO property_value (id, property_id, value) VALUES (41, 2, 'Говядина');
-INSERT INTO property_value (id, property_id, value) VALUES (42, 2, 'Горчица');
-INSERT INTO property_value (id, property_id, value) VALUES (43, 2, 'Горчица дижонская');
-INSERT INTO property_value (id, property_id, value) VALUES (44, 2, 'Горчица зернистая');
-INSERT INTO property_value (id, property_id, value) VALUES (45, 2, 'Грибы белые');
-INSERT INTO property_value (id, property_id, value) VALUES (46, 2, 'Грибы свежие');
-INSERT INTO property_value (id, property_id, value) VALUES (47, 2, 'Груши');
-INSERT INTO property_value (id, property_id, value) VALUES (48, 2, 'Джем ежевичный');
-INSERT INTO property_value (id, property_id, value) VALUES (49, 2, 'Джин');
-INSERT INTO property_value (id, property_id, value) VALUES (50, 2, 'Дрожжи свежие');
-INSERT INTO property_value (id, property_id, value) VALUES (51, 2, 'Дрожжи сухие');
-INSERT INTO property_value (id, property_id, value) VALUES (52, 2, 'Дыня');
-INSERT INTO property_value (id, property_id, value) VALUES (53, 2, 'Ежевика');
-INSERT INTO property_value (id, property_id, value) VALUES (54, 2, 'Ежевика замороженная');
-INSERT INTO property_value (id, property_id, value) VALUES (55, 2, 'Ерш речной');
-INSERT INTO property_value (id, property_id, value) VALUES (56, 2, 'Желатин');
-INSERT INTO property_value (id, property_id, value) VALUES (57, 2, 'Желе из красной смородины');
-INSERT INTO property_value (id, property_id, value) VALUES (58, 2, 'Желток яичный');
-INSERT INTO property_value (id, property_id, value) VALUES (59, 2, 'Жир');
-INSERT INTO property_value (id, property_id, value) VALUES (60, 2, 'Жир бараний');
-INSERT INTO property_value (id, property_id, value) VALUES (61, 2, 'Жир говяжий');
-INSERT INTO property_value (id, property_id, value) VALUES (62, 2, 'Жир свиной');
-INSERT INTO property_value (id, property_id, value) VALUES (63, 2, 'Зеленый горошек');
-INSERT INTO property_value (id, property_id, value) VALUES (64, 2, 'Зеленый горошек замороженный');
-INSERT INTO property_value (id, property_id, value) VALUES (65, 2, 'Зеленый горошек стручковый');
-INSERT INTO property_value (id, property_id, value) VALUES (66, 2, 'Зефир');
-INSERT INTO property_value (id, property_id, value) VALUES (67, 2, 'Изюм');
-INSERT INTO property_value (id, property_id, value) VALUES (68, 2, 'Икра');
-INSERT INTO property_value (id, property_id, value) VALUES (69, 2, 'Икра горбуши');
-INSERT INTO property_value (id, property_id, value) VALUES (70, 2, 'Икра морских ежей');
-INSERT INTO property_value (id, property_id, value) VALUES (71, 2, 'Икра щуки');
-INSERT INTO property_value (id, property_id, value) VALUES (72, 2, 'Имбирь');
-INSERT INTO property_value (id, property_id, value) VALUES (73, 2, 'Имбирь тертый');
-INSERT INTO property_value (id, property_id, value) VALUES (74, 2, 'Индейка');
-INSERT INTO property_value (id, property_id, value) VALUES (75, 2, 'Индейка копченая');
-INSERT INTO property_value (id, property_id, value) VALUES (76, 2, 'Инжир');
-INSERT INTO property_value (id, property_id, value) VALUES (77, 2, 'Йогурт');
-INSERT INTO property_value (id, property_id, value) VALUES (78, 2, 'Йогурт ванильный');
-INSERT INTO property_value (id, property_id, value) VALUES (79, 2, 'Йогурт греческий');
-INSERT INTO property_value (id, property_id, value) VALUES (80, 2, 'Йогурт клубничный');
-INSERT INTO property_value (id, property_id, value) VALUES (81, 2, 'Йогурт малиновый');
-INSERT INTO property_value (id, property_id, value) VALUES (82, 2, 'Йогурт натуральный');
-INSERT INTO property_value (id, property_id, value) VALUES (83, 2, 'Йогурт натуральный обезжиренный');
-INSERT INTO property_value (id, property_id, value) VALUES (84, 2, 'Йогурт фруктовый');
-INSERT INTO property_value (id, property_id, value) VALUES (85, 2, 'Йоркская ветчина');
-INSERT INTO property_value (id, property_id, value) VALUES (86, 2, 'Капуста краснокочанная');
-INSERT INTO property_value (id, property_id, value) VALUES (87, 2, 'Капуста цветная');
-INSERT INTO property_value (id, property_id, value) VALUES (88, 2, 'Картофель');
-INSERT INTO property_value (id, property_id, value) VALUES (89, 2, 'Картофель египетский молодой');
-INSERT INTO property_value (id, property_id, value) VALUES (90, 2, 'Квас хлебный');
-INSERT INTO property_value (id, property_id, value) VALUES (91, 2, 'Кефир 1%-ый');
-INSERT INTO property_value (id, property_id, value) VALUES (92, 2, 'Кефир 2,5%-ый');
-INSERT INTO property_value (id, property_id, value) VALUES (93, 2, 'Кефир 3,2%-ый');
-INSERT INTO property_value (id, property_id, value) VALUES (94, 2, 'Килька');
-INSERT INTO property_value (id, property_id, value) VALUES (95, 2, 'Кислота лимонная');
-INSERT INTO property_value (id, property_id, value) VALUES (96, 2, 'Колбаса деревенская');
-INSERT INTO property_value (id, property_id, value) VALUES (97, 2, 'Корень сельдерея');
-INSERT INTO property_value (id, property_id, value) VALUES (98, 2, 'Кофе натуральный');
-INSERT INTO property_value (id, property_id, value) VALUES (99, 2, 'Креветки очищенные');
-INSERT INTO property_value (id, property_id, value) VALUES (100, 2, 'Крупа манная');
-INSERT INTO property_value (id, property_id, value) VALUES (101, 2, 'Куриные желудки');
-INSERT INTO property_value (id, property_id, value) VALUES (102, 2, 'Лавровый лист');
-INSERT INTO property_value (id, property_id, value) VALUES (103, 2, 'Ликер ежевичный');
-INSERT INTO property_value (id, property_id, value) VALUES (104, 2, 'Лимоны');
-INSERT INTO property_value (id, property_id, value) VALUES (105, 2, 'Листья цикория');
-INSERT INTO property_value (id, property_id, value) VALUES (106, 2, 'Лук зеленый');
-INSERT INTO property_value (id, property_id, value) VALUES (107, 2, 'Лук репчатый');
-INSERT INTO property_value (id, property_id, value) VALUES (108, 2, 'Лук салатный');
-INSERT INTO property_value (id, property_id, value) VALUES (109, 2, 'Лук-порей');
-INSERT INTO property_value (id, property_id, value) VALUES (110, 2, 'Лук-шалот');
-INSERT INTO property_value (id, property_id, value) VALUES (111, 2, 'Майонез');
-INSERT INTO property_value (id, property_id, value) VALUES (112, 2, 'Маслины');
-INSERT INTO property_value (id, property_id, value) VALUES (113, 2, 'Масло арахисовое');
-INSERT INTO property_value (id, property_id, value) VALUES (114, 2, 'Масло оливковое');
-INSERT INTO property_value (id, property_id, value) VALUES (115, 2, 'Масло растительное');
-INSERT INTO property_value (id, property_id, value) VALUES (116, 2, 'Масло рафинированное');
-INSERT INTO property_value (id, property_id, value) VALUES (117, 2, 'Масло сливочное');
-INSERT INTO property_value (id, property_id, value) VALUES (118, 2, 'Масло сливочное топленое');
-INSERT INTO property_value (id, property_id, value) VALUES (119, 2, 'Мед');
-INSERT INTO property_value (id, property_id, value) VALUES (120, 2, 'Мед цветочный');
-INSERT INTO property_value (id, property_id, value) VALUES (121, 2, 'Миндаль жареный');
-INSERT INTO property_value (id, property_id, value) VALUES (122, 2, 'Молоко');
-INSERT INTO property_value (id, property_id, value) VALUES (123, 2, 'Молоко кислое');
-INSERT INTO property_value (id, property_id, value) VALUES (124, 2, 'Морковь');
-INSERT INTO property_value (id, property_id, value) VALUES (125, 2, 'Мука пшеничная');
-INSERT INTO property_value (id, property_id, value) VALUES (126, 2, 'Мясной бульон');
-INSERT INTO property_value (id, property_id, value) VALUES (127, 2, 'Настой фруктовый');
-INSERT INTO property_value (id, property_id, value) VALUES (128, 2, 'Нога баранья');
-INSERT INTO property_value (id, property_id, value) VALUES (129, 2, 'Нога говяжья');
-INSERT INTO property_value (id, property_id, value) VALUES (130, 2, 'Нога телячья');
-INSERT INTO property_value (id, property_id, value) VALUES (131, 2, 'Ножки куриные');
-INSERT INTO property_value (id, property_id, value) VALUES (132, 2, 'Овощной бульон');
-INSERT INTO property_value (id, property_id, value) VALUES (133, 2, 'Огурцы маринованные');
-INSERT INTO property_value (id, property_id, value) VALUES (134, 2, 'Огурцы соленые');
-INSERT INTO property_value (id, property_id, value) VALUES (135, 2, 'Орегано');
-INSERT INTO property_value (id, property_id, value) VALUES (136, 2, 'Орех мускатный');
-INSERT INTO property_value (id, property_id, value) VALUES (137, 2, 'Орехи');
-INSERT INTO property_value (id, property_id, value) VALUES (138, 2, 'Орехи грецкие');
-INSERT INTO property_value (id, property_id, value) VALUES (139, 2, 'Паста томатная');
-INSERT INTO property_value (id, property_id, value) VALUES (140, 2, 'Перец болгарский');
-INSERT INTO property_value (id, property_id, value) VALUES (141, 2, 'Перец желтый свежий');
-INSERT INTO property_value (id, property_id, value) VALUES (142, 2, 'Перец зеленый');
-INSERT INTO property_value (id, property_id, value) VALUES (143, 2, 'Перец красный молотый');
-INSERT INTO property_value (id, property_id, value) VALUES (144, 2, 'Перец розовый');
-INSERT INTO property_value (id, property_id, value) VALUES (145, 2, 'Перец халапеньо');
-INSERT INTO property_value (id, property_id, value) VALUES (146, 2, 'Перец черный молотый');
-INSERT INTO property_value (id, property_id, value) VALUES (147, 2, 'Перец чили');
-INSERT INTO property_value (id, property_id, value) VALUES (148, 2, 'Персики');
-INSERT INTO property_value (id, property_id, value) VALUES (149, 2, 'Петрушка');
-INSERT INTO property_value (id, property_id, value) VALUES (150, 2, 'Печень трески');
-INSERT INTO property_value (id, property_id, value) VALUES (151, 2, 'Печенье «юбилейное»');
-INSERT INTO property_value (id, property_id, value) VALUES (152, 2, 'Помидоры');
-INSERT INTO property_value (id, property_id, value) VALUES (153, 2, 'Помидоры черри');
-INSERT INTO property_value (id, property_id, value) VALUES (154, 2, 'Порошок даши');
-INSERT INTO property_value (id, property_id, value) VALUES (155, 2, 'Пюре абрикосовое');
-INSERT INTO property_value (id, property_id, value) VALUES (156, 2, 'Пюре ежевичное');
-INSERT INTO property_value (id, property_id, value) VALUES (157, 2, 'Ревень');
-INSERT INTO property_value (id, property_id, value) VALUES (158, 2, 'Редис');
-INSERT INTO property_value (id, property_id, value) VALUES (159, 2, 'Редька');
-INSERT INTO property_value (id, property_id, value) VALUES (160, 2, 'Репа');
-INSERT INTO property_value (id, property_id, value) VALUES (161, 2, 'Рис');
-INSERT INTO property_value (id, property_id, value) VALUES (162, 2, 'Рис длиннозерный');
-INSERT INTO property_value (id, property_id, value) VALUES (163, 2, 'Ром');
-INSERT INTO property_value (id, property_id, value) VALUES (164, 2, 'Рыба холодного копчения');
-INSERT INTO property_value (id, property_id, value) VALUES (165, 2, 'Салат зеленый');
-INSERT INTO property_value (id, property_id, value) VALUES (166, 2, 'Салатная заправка');
-INSERT INTO property_value (id, property_id, value) VALUES (167, 2, 'Салатная смесь «афиша–еда»');
-INSERT INTO property_value (id, property_id, value) VALUES (168, 2, 'Сахар');
-INSERT INTO property_value (id, property_id, value) VALUES (169, 2, 'Сахар ванильный');
-INSERT INTO property_value (id, property_id, value) VALUES (170, 2, 'Свекла');
-INSERT INTO property_value (id, property_id, value) VALUES (171, 2, 'Сливки 20%-ные');
-INSERT INTO property_value (id, property_id, value) VALUES (172, 2, 'Сливки 30%-ные');
-INSERT INTO property_value (id, property_id, value) VALUES (173, 2, 'Сливки 35%-ные');
-INSERT INTO property_value (id, property_id, value) VALUES (174, 2, 'Сливки 40%-ные');
-INSERT INTO property_value (id, property_id, value) VALUES (175, 2, 'Сок лимонный');
-INSERT INTO property_value (id, property_id, value) VALUES (176, 2, 'Сок юдзу');
-INSERT INTO property_value (id, property_id, value) VALUES (177, 2, 'Сок яблочный');
-INSERT INTO property_value (id, property_id, value) VALUES (178, 2, 'Соль');
-INSERT INTO property_value (id, property_id, value) VALUES (179, 2, 'Соус «южный»');
-INSERT INTO property_value (id, property_id, value) VALUES (180, 2, 'Соус вустерширский');
-INSERT INTO property_value (id, property_id, value) VALUES (181, 2, 'Соус грибной');
-INSERT INTO property_value (id, property_id, value) VALUES (182, 2, 'Соус ежевичный');
-INSERT INTO property_value (id, property_id, value) VALUES (183, 2, 'Сыр');
-INSERT INTO property_value (id, property_id, value) VALUES (184, 2, 'Сыр домашний');
-INSERT INTO property_value (id, property_id, value) VALUES (185, 2, 'Сыр пармезан тертый');
-INSERT INTO property_value (id, property_id, value) VALUES (186, 2, 'Сыр фета');
-INSERT INTO property_value (id, property_id, value) VALUES (187, 2, 'Сыр эдам');
-INSERT INTO property_value (id, property_id, value) VALUES (188, 2, 'Сыр эмменталь');
-INSERT INTO property_value (id, property_id, value) VALUES (189, 2, 'Творог');
-INSERT INTO property_value (id, property_id, value) VALUES (190, 2, 'Творог 1,8%-ый');
-INSERT INTO property_value (id, property_id, value) VALUES (191, 2, 'Телятина');
-INSERT INTO property_value (id, property_id, value) VALUES (192, 2, 'Тесто дрожжевое');
-INSERT INTO property_value (id, property_id, value) VALUES (193, 2, 'Тимьян');
-INSERT INTO property_value (id, property_id, value) VALUES (194, 2, 'Тмин');
-INSERT INTO property_value (id, property_id, value) VALUES (195, 2, 'Тунец консервированный в собственном соку');
-INSERT INTO property_value (id, property_id, value) VALUES (196, 2, 'Угорь');
-INSERT INTO property_value (id, property_id, value) VALUES (197, 2, 'Укроп');
-INSERT INTO property_value (id, property_id, value) VALUES (198, 2, 'Уксус');
-INSERT INTO property_value (id, property_id, value) VALUES (199, 2, 'Уксус бальзамический');
-INSERT INTO property_value (id, property_id, value) VALUES (200, 2, 'Уксус винный');
-INSERT INTO property_value (id, property_id, value) VALUES (201, 2, 'Уксус рисовый');
-INSERT INTO property_value (id, property_id, value) VALUES (202, 2, 'Уксус яблочный');
-INSERT INTO property_value (id, property_id, value) VALUES (203, 2, 'Улитки');
-INSERT INTO property_value (id, property_id, value) VALUES (204, 2, 'Урюк');
-INSERT INTO property_value (id, property_id, value) VALUES (205, 2, 'Утка');
-INSERT INTO property_value (id, property_id, value) VALUES (206, 2, 'Фарш мясной');
-INSERT INTO property_value (id, property_id, value) VALUES (207, 2, 'Фарш палтуса');
-INSERT INTO property_value (id, property_id, value) VALUES (208, 2, 'Фарш свиной');
-INSERT INTO property_value (id, property_id, value) VALUES (209, 2, 'Фасоль зеленая стручковая');
-INSERT INTO property_value (id, property_id, value) VALUES (210, 2, 'Филе индейки');
-INSERT INTO property_value (id, property_id, value) VALUES (211, 2, 'Филе куриное');
-INSERT INTO property_value (id, property_id, value) VALUES (212, 2, 'Филе морского черта');
-INSERT INTO property_value (id, property_id, value) VALUES (213, 2, 'Филе морской щуки');
-INSERT INTO property_value (id, property_id, value) VALUES (214, 2, 'Финики');
-INSERT INTO property_value (id, property_id, value) VALUES (215, 2, 'Фрукты');
-INSERT INTO property_value (id, property_id, value) VALUES (216, 2, 'Хек');
-INSERT INTO property_value (id, property_id, value) VALUES (217, 2, 'Хлеб белый');
-INSERT INTO property_value (id, property_id, value) VALUES (218, 2, 'Хлеб бородинский');
-INSERT INTO property_value (id, property_id, value) VALUES (219, 2, 'Хлеб содовый');
-INSERT INTO property_value (id, property_id, value) VALUES (220, 2, 'Хлопья кукурузные');
-INSERT INTO property_value (id, property_id, value) VALUES (221, 2, 'Хмели-сунели');
-INSERT INTO property_value (id, property_id, value) VALUES (222, 2, 'Хрен');
-INSERT INTO property_value (id, property_id, value) VALUES (223, 2, 'Цветки цукини');
-INSERT INTO property_value (id, property_id, value) VALUES (224, 2, 'Цедра апельсина');
-INSERT INTO property_value (id, property_id, value) VALUES (225, 2, 'Цедра лимонная');
-INSERT INTO property_value (id, property_id, value) VALUES (226, 2, 'Цицмати');
-INSERT INTO property_value (id, property_id, value) VALUES (227, 2, 'Цукаты');
-INSERT INTO property_value (id, property_id, value) VALUES (228, 2, 'Цукини');
-INSERT INTO property_value (id, property_id, value) VALUES (229, 2, 'Цыпленок');
-INSERT INTO property_value (id, property_id, value) VALUES (230, 2, 'Чабрец');
-INSERT INTO property_value (id, property_id, value) VALUES (231, 2, 'Черника');
-INSERT INTO property_value (id, property_id, value) VALUES (232, 2, 'Чернослив');
-INSERT INTO property_value (id, property_id, value) VALUES (233, 2, 'Чеснок');
-INSERT INTO property_value (id, property_id, value) VALUES (234, 2, 'Чечевица');
-INSERT INTO property_value (id, property_id, value) VALUES (235, 2, 'Чоризо');
-INSERT INTO property_value (id, property_id, value) VALUES (236, 2, 'Шалфей');
-INSERT INTO property_value (id, property_id, value) VALUES (237, 2, 'Шампанское сухое');
-INSERT INTO property_value (id, property_id, value) VALUES (238, 2, 'Шампиньоны');
-INSERT INTO property_value (id, property_id, value) VALUES (239, 2, 'Шафран');
-INSERT INTO property_value (id, property_id, value) VALUES (240, 2, 'Шафран имеретинский');
-INSERT INTO property_value (id, property_id, value) VALUES (241, 2, 'Шоколад горький');
-INSERT INTO property_value (id, property_id, value) VALUES (242, 2, 'Шпик');
-INSERT INTO property_value (id, property_id, value) VALUES (243, 2, 'Шпинат');
-INSERT INTO property_value (id, property_id, value) VALUES (244, 2, 'Шпроты');
-INSERT INTO property_value (id, property_id, value) VALUES (245, 2, 'Щавель');
-INSERT INTO property_value (id, property_id, value) VALUES (246, 2, 'Щавель маринованный');
-INSERT INTO property_value (id, property_id, value) VALUES (247, 2, 'Щечки говяжьи');
-INSERT INTO property_value (id, property_id, value) VALUES (248, 2, 'Щечки свиные');
-INSERT INTO property_value (id, property_id, value) VALUES (249, 2, 'Щечки телячьи');
-INSERT INTO property_value (id, property_id, value) VALUES (250, 2, 'Щука');
-INSERT INTO property_value (id, property_id, value) VALUES (251, 2, 'Щупальце осьминога');
-INSERT INTO property_value (id, property_id, value) VALUES (252, 2, 'Экстракт ванильный');
-INSERT INTO property_value (id, property_id, value) VALUES (253, 2, 'Экстракт кофейный');
-INSERT INTO property_value (id, property_id, value) VALUES (254, 2, 'Экстракт миндаля');
-INSERT INTO property_value (id, property_id, value) VALUES (255, 2, 'Экстракт мясной');
-INSERT INTO property_value (id, property_id, value) VALUES (256, 2, 'Эль имбирный');
-INSERT INTO property_value (id, property_id, value) VALUES (257, 2, 'Эспрессо');
-INSERT INTO property_value (id, property_id, value) VALUES (258, 2, 'Эссенция ванильная');
-INSERT INTO property_value (id, property_id, value) VALUES (259, 2, 'Эстрагона листья');
-INSERT INTO property_value (id, property_id, value) VALUES (260, 2, 'Яблоки');
-INSERT INTO property_value (id, property_id, value) VALUES (261, 2, 'Ягоды замороженные');
-INSERT INTO property_value (id, property_id, value) VALUES (262, 2, 'Ягоды свежие');
-INSERT INTO property_value (id, property_id, value) VALUES (263, 2, 'Язык говяжий');
-INSERT INTO property_value (id, property_id, value) VALUES (264, 2, 'Яичный белок');
-INSERT INTO property_value (id, property_id, value) VALUES (265, 2, 'Яйцо куриное');
-INSERT INTO property_value (id, property_id, value) VALUES (266, 2, 'Яйцо перепелиное');
-
-
---
--- Data for Name: purchase; Type: TABLE DATA; Schema: public; Owner: gastro
---
-
-
-
---
--- Data for Name: purchase_product; Type: TABLE DATA; Schema: public; Owner: gastro
---
-
-
-
---
--- Data for Name: rating; Type: TABLE DATA; Schema: public; Owner: gastro
---
-
-
-
---
--- PostgreSQL database dump complete
---
+INSERT INTO property_value (id, property_id, value) VALUES (18, 11, 'Сливочный сыр');
+INSERT INTO property_value (id, property_id, value) VALUES (19, 11, 'Абрикосы');
+INSERT INTO property_value (id, property_id, value) VALUES (20, 11, 'Авокадо');
+INSERT INTO property_value (id, property_id, value) VALUES (21, 11, 'Ананас');
+INSERT INTO property_value (id, property_id, value) VALUES (24, 11, 'Анчоусы');
+INSERT INTO property_value (id, property_id, value) VALUES (25, 11, 'Апельсины');
+INSERT INTO property_value (id, property_id, value) VALUES (26, 11, 'Багет французский');
+INSERT INTO property_value (id, property_id, value) VALUES (27, 11, 'Базилик');
+INSERT INTO property_value (id, property_id, value) VALUES (28, 11, 'Баклажаны');
+INSERT INTO property_value (id, property_id, value) VALUES (29, 11, 'Баранина');
+INSERT INTO property_value (id, property_id, value) VALUES (30, 11, 'Бекон');
+INSERT INTO property_value (id, property_id, value) VALUES (31, 11, 'Белокочанная капуста');
+INSERT INTO property_value (id, property_id, value) VALUES (32, 11, 'Бисквитная основа для торта');
+INSERT INTO property_value (id, property_id, value) VALUES (33, 11, 'Фасоль');
+INSERT INTO property_value (id, property_id, value) VALUES (34, 11, 'Ваниль');
+INSERT INTO property_value (id, property_id, value) VALUES (36, 11, 'Варенье');
+INSERT INTO property_value (id, property_id, value) VALUES (37, 11, 'Ветчина');
+INSERT INTO property_value (id, property_id, value) VALUES (38, 11, 'Вино белое сухое');
+INSERT INTO property_value (id, property_id, value) VALUES (39, 11, 'Вишня');
+INSERT INTO property_value (id, property_id, value) VALUES (40, 11, 'Вода');
+INSERT INTO property_value (id, property_id, value) VALUES (41, 11, 'Говядина');
+INSERT INTO property_value (id, property_id, value) VALUES (42, 11, 'Горчица');
+INSERT INTO property_value (id, property_id, value) VALUES (46, 11, 'Грибы');
+INSERT INTO property_value (id, property_id, value) VALUES (47, 11, 'Груши');
+INSERT INTO property_value (id, property_id, value) VALUES (48, 11, 'Джем');
+INSERT INTO property_value (id, property_id, value) VALUES (50, 11, 'Дрожжи');
+INSERT INTO property_value (id, property_id, value) VALUES (52, 11, 'Дыня');
+INSERT INTO property_value (id, property_id, value) VALUES (53, 11, 'Ежевика');
+INSERT INTO property_value (id, property_id, value) VALUES (55, 11, 'Ёрш речной');
+INSERT INTO property_value (id, property_id, value) VALUES (56, 11, 'Желатин');
+INSERT INTO property_value (id, property_id, value) VALUES (58, 11, 'Желток яичный');
+INSERT INTO property_value (id, property_id, value) VALUES (63, 11, 'Зеленый горошек');
+INSERT INTO property_value (id, property_id, value) VALUES (66, 11, 'Зефир');
+INSERT INTO property_value (id, property_id, value) VALUES (67, 11, 'Изюм');
+INSERT INTO property_value (id, property_id, value) VALUES (68, 11, 'Икра');
+INSERT INTO property_value (id, property_id, value) VALUES (72, 11, 'Имбирь');
+INSERT INTO property_value (id, property_id, value) VALUES (74, 11, 'Индейка');
+INSERT INTO property_value (id, property_id, value) VALUES (76, 11, 'Инжир');
+INSERT INTO property_value (id, property_id, value) VALUES (77, 11, 'Йогурт');
+INSERT INTO property_value (id, property_id, value) VALUES (86, 11, 'Капуста краснокочанная');
+INSERT INTO property_value (id, property_id, value) VALUES (87, 11, 'Капуста цветная');
+INSERT INTO property_value (id, property_id, value) VALUES (88, 11, 'Картофель');
+INSERT INTO property_value (id, property_id, value) VALUES (90, 11, 'Квас хлебный');
+INSERT INTO property_value (id, property_id, value) VALUES (91, 11, 'Кефир');
+INSERT INTO property_value (id, property_id, value) VALUES (94, 11, 'Килька');
+INSERT INTO property_value (id, property_id, value) VALUES (95, 11, 'Кислота лимонная');
+INSERT INTO property_value (id, property_id, value) VALUES (96, 11, 'Колбаса деревенская');
+INSERT INTO property_value (id, property_id, value) VALUES (97, 11, 'Корень сельдерея');
+INSERT INTO property_value (id, property_id, value) VALUES (98, 11, 'Кофе натуральный');
+INSERT INTO property_value (id, property_id, value) VALUES (99, 11, 'Креветки очищенные');
+INSERT INTO property_value (id, property_id, value) VALUES (100, 11, 'Крупа манная');
+INSERT INTO property_value (id, property_id, value) VALUES (101, 11, 'Куриные желудки');
+INSERT INTO property_value (id, property_id, value) VALUES (102, 11, 'Лавровый лист');
+INSERT INTO property_value (id, property_id, value) VALUES (103, 11, 'Ликер ежевичный');
+INSERT INTO property_value (id, property_id, value) VALUES (104, 11, 'Лимоны');
+INSERT INTO property_value (id, property_id, value) VALUES (105, 11, 'Листья цикория');
+INSERT INTO property_value (id, property_id, value) VALUES (106, 11, 'Лук зеленый');
+INSERT INTO property_value (id, property_id, value) VALUES (107, 11, 'Лук репчатый');
+INSERT INTO property_value (id, property_id, value) VALUES (108, 11, 'Лук салатный');
+INSERT INTO property_value (id, property_id, value) VALUES (109, 11, 'Лук-порей');
+INSERT INTO property_value (id, property_id, value) VALUES (110, 11, 'Лук-шалот');
+INSERT INTO property_value (id, property_id, value) VALUES (111, 11, 'Майонез');
+INSERT INTO property_value (id, property_id, value) VALUES (112, 11, 'Маслины');
+INSERT INTO property_value (id, property_id, value) VALUES (113, 11, 'Масло арахисовое');
+INSERT INTO property_value (id, property_id, value) VALUES (114, 11, 'Масло оливковое');
+INSERT INTO property_value (id, property_id, value) VALUES (115, 11, 'Масло растительное');
+INSERT INTO property_value (id, property_id, value) VALUES (116, 11, 'Масло рафинированное');
+INSERT INTO property_value (id, property_id, value) VALUES (117, 11, 'Масло сливочное');
+INSERT INTO property_value (id, property_id, value) VALUES (118, 11, 'Масло сливочное топленое');
+INSERT INTO property_value (id, property_id, value) VALUES (119, 11, 'Мед');
+INSERT INTO property_value (id, property_id, value) VALUES (121, 11, 'Миндаль');
+INSERT INTO property_value (id, property_id, value) VALUES (122, 11, 'Молоко');
+INSERT INTO property_value (id, property_id, value) VALUES (124, 11, 'Морковь');
+INSERT INTO property_value (id, property_id, value) VALUES (125, 11, 'Мука пшеничная');
+INSERT INTO property_value (id, property_id, value) VALUES (126, 11, 'Мясной бульон');
+INSERT INTO property_value (id, property_id, value) VALUES (131, 11, 'Ножки куриные');
+INSERT INTO property_value (id, property_id, value) VALUES (132, 11, 'Овощной бульон');
+INSERT INTO property_value (id, property_id, value) VALUES (133, 11, 'Огурцы маринованные');
+INSERT INTO property_value (id, property_id, value) VALUES (134, 11, 'Огурцы соленые');
+INSERT INTO property_value (id, property_id, value) VALUES (136, 11, 'Орех мускатный');
+INSERT INTO property_value (id, property_id, value) VALUES (137, 11, 'Орехи');
+INSERT INTO property_value (id, property_id, value) VALUES (138, 11, 'Орехи грецкие');
+INSERT INTO property_value (id, property_id, value) VALUES (139, 11, 'Паста томатная');
+INSERT INTO property_value (id, property_id, value) VALUES (140, 11, 'Перец болгарский');
+INSERT INTO property_value (id, property_id, value) VALUES (141, 11, 'Перец желтый свежий');
+INSERT INTO property_value (id, property_id, value) VALUES (142, 11, 'Перец зеленый');
+INSERT INTO property_value (id, property_id, value) VALUES (143, 11, 'Перец красный молотый');
+INSERT INTO property_value (id, property_id, value) VALUES (144, 11, 'Перец розовый');
+INSERT INTO property_value (id, property_id, value) VALUES (145, 11, 'Перец халапеньо');
+INSERT INTO property_value (id, property_id, value) VALUES (146, 11, 'Перец черный молотый');
+INSERT INTO property_value (id, property_id, value) VALUES (147, 11, 'Перец чили');
+INSERT INTO property_value (id, property_id, value) VALUES (148, 11, 'Персики');
+INSERT INTO property_value (id, property_id, value) VALUES (149, 11, 'Петрушка');
+INSERT INTO property_value (id, property_id, value) VALUES (150, 11, 'Печень трески');
+INSERT INTO property_value (id, property_id, value) VALUES (151, 11, 'Печенье');
+INSERT INTO property_value (id, property_id, value) VALUES (152, 11, 'Помидоры');
+INSERT INTO property_value (id, property_id, value) VALUES (158, 11, 'Редис');
+INSERT INTO property_value (id, property_id, value) VALUES (159, 11, 'Редька');
+INSERT INTO property_value (id, property_id, value) VALUES (160, 11, 'Репа');
+INSERT INTO property_value (id, property_id, value) VALUES (161, 11, 'Рис');
+INSERT INTO property_value (id, property_id, value) VALUES (163, 11, 'Ром');
+INSERT INTO property_value (id, property_id, value) VALUES (164, 11, 'Рыба холодного копчения');
+INSERT INTO property_value (id, property_id, value) VALUES (165, 11, 'Салат зеленый');
+INSERT INTO property_value (id, property_id, value) VALUES (168, 11, 'Сахар');
+INSERT INTO property_value (id, property_id, value) VALUES (169, 11, 'Сахар ванильный');
+INSERT INTO property_value (id, property_id, value) VALUES (170, 11, 'Свекла');
+INSERT INTO property_value (id, property_id, value) VALUES (171, 11, 'Сливки');
+INSERT INTO property_value (id, property_id, value) VALUES (175, 11, 'Сок лимонный');
+INSERT INTO property_value (id, property_id, value) VALUES (177, 11, 'Сок яблочный');
+INSERT INTO property_value (id, property_id, value) VALUES (178, 11, 'Соль');
+INSERT INTO property_value (id, property_id, value) VALUES (180, 11, 'Соус');
+INSERT INTO property_value (id, property_id, value) VALUES (183, 11, 'Сыр');
+INSERT INTO property_value (id, property_id, value) VALUES (184, 11, 'Сыр домашний');
+INSERT INTO property_value (id, property_id, value) VALUES (185, 11, 'Сыр пармезан тертый');
+INSERT INTO property_value (id, property_id, value) VALUES (186, 11, 'Сыр фета');
+INSERT INTO property_value (id, property_id, value) VALUES (187, 11, 'Сыр эдам');
+INSERT INTO property_value (id, property_id, value) VALUES (188, 11, 'Сыр эмменталь');
+INSERT INTO property_value (id, property_id, value) VALUES (189, 11, 'Творог');
+INSERT INTO property_value (id, property_id, value) VALUES (191, 11, 'Телятина');
+INSERT INTO property_value (id, property_id, value) VALUES (192, 11, 'Тесто дрожжевое');
+INSERT INTO property_value (id, property_id, value) VALUES (193, 11, 'Тимьян');
+INSERT INTO property_value (id, property_id, value) VALUES (194, 11, 'Тмин');
+INSERT INTO property_value (id, property_id, value) VALUES (195, 11, 'Тунец консервированный в собственном соку');
+INSERT INTO property_value (id, property_id, value) VALUES (196, 11, 'Угорь');
+INSERT INTO property_value (id, property_id, value) VALUES (197, 11, 'Укроп');
+INSERT INTO property_value (id, property_id, value) VALUES (198, 11, 'Уксус');
+INSERT INTO property_value (id, property_id, value) VALUES (199, 11, 'Уксус бальзамический');
+INSERT INTO property_value (id, property_id, value) VALUES (200, 11, 'Уксус винный');
+INSERT INTO property_value (id, property_id, value) VALUES (201, 11, 'Уксус рисовый');
+INSERT INTO property_value (id, property_id, value) VALUES (202, 11, 'Уксус яблочный');
+INSERT INTO property_value (id, property_id, value) VALUES (203, 11, 'Улитки');
+INSERT INTO property_value (id, property_id, value) VALUES (204, 11, 'Урюк');
+INSERT INTO property_value (id, property_id, value) VALUES (205, 11, 'Утка');
+INSERT INTO property_value (id, property_id, value) VALUES (206, 11, 'Фарш мясной');
+INSERT INTO property_value (id, property_id, value) VALUES (209, 11, 'Фасоль зеленая стручковая');
+INSERT INTO property_value (id, property_id, value) VALUES (210, 11, 'Филе птицы');
+INSERT INTO property_value (id, property_id, value) VALUES (212, 11, 'Филе рыбное');
+INSERT INTO property_value (id, property_id, value) VALUES (214, 11, 'Финики');
+INSERT INTO property_value (id, property_id, value) VALUES (215, 11, 'Фрукты');
+INSERT INTO property_value (id, property_id, value) VALUES (216, 11, 'Хек');
+INSERT INTO property_value (id, property_id, value) VALUES (217, 11, 'Хлеб белый');
+INSERT INTO property_value (id, property_id, value) VALUES (218, 11, 'Хлеб бородинский');
+INSERT INTO property_value (id, property_id, value) VALUES (219, 11, 'Хлеб содовый');
+INSERT INTO property_value (id, property_id, value) VALUES (220, 11, 'Хлопья кукурузные');
+INSERT INTO property_value (id, property_id, value) VALUES (221, 11, 'Хмели-сунели');
+INSERT INTO property_value (id, property_id, value) VALUES (222, 11, 'Хрен');
+INSERT INTO property_value (id, property_id, value) VALUES (223, 11, 'Цветки цукини');
+INSERT INTO property_value (id, property_id, value) VALUES (224, 11, 'Цедра апельсина');
+INSERT INTO property_value (id, property_id, value) VALUES (225, 11, 'Цедра лимонная');
+INSERT INTO property_value (id, property_id, value) VALUES (227, 11, 'Цукаты');
+INSERT INTO property_value (id, property_id, value) VALUES (228, 11, 'Цукини');
+INSERT INTO property_value (id, property_id, value) VALUES (231, 11, 'Черника');
+INSERT INTO property_value (id, property_id, value) VALUES (232, 11, 'Чернослив');
+INSERT INTO property_value (id, property_id, value) VALUES (233, 11, 'Чеснок');
+INSERT INTO property_value (id, property_id, value) VALUES (234, 11, 'Чечевица');
+INSERT INTO property_value (id, property_id, value) VALUES (236, 11, 'Шалфей');
+INSERT INTO property_value (id, property_id, value) VALUES (238, 11, 'Шампиньоны');
+INSERT INTO property_value (id, property_id, value) VALUES (239, 11, 'Шафран');
+INSERT INTO property_value (id, property_id, value) VALUES (241, 11, 'Шоколад горький');
+INSERT INTO property_value (id, property_id, value) VALUES (242, 11, 'Шпик');
+INSERT INTO property_value (id, property_id, value) VALUES (243, 11, 'Шпинат');
+INSERT INTO property_value (id, property_id, value) VALUES (244, 11, 'Шпроты');
+INSERT INTO property_value (id, property_id, value) VALUES (245, 11, 'Щавель');
+INSERT INTO property_value (id, property_id, value) VALUES (250, 11, 'Щука');
+INSERT INTO property_value (id, property_id, value) VALUES (251, 11, 'Щупальце осьминога');
+INSERT INTO property_value (id, property_id, value) VALUES (257, 11, 'Эспрессо');
+INSERT INTO property_value (id, property_id, value) VALUES (260, 11, 'Яблоки');
+INSERT INTO property_value (id, property_id, value) VALUES (261, 11, 'Ягоды');
+INSERT INTO property_value (id, property_id, value) VALUES (263, 11, 'Язык говяжий');
+INSERT INTO property_value (id, property_id, value) VALUES (264, 11, 'Яичный белок');
+INSERT INTO property_value (id, property_id, value) VALUES (265, 11, 'Яйцо куриное');
+INSERT INTO property_value (id, property_id, value) VALUES (266, 11, 'Яйцо перепелиное');
