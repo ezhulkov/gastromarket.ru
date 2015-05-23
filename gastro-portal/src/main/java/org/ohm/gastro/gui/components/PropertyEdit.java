@@ -50,8 +50,12 @@ public class PropertyEdit extends BaseComponent {
         return getPropertyService().findAllRootValues(property);
     }
 
-    public List<PropertyValueEntity> getRootPropertyValues() {
-        return getPropertyValues().stream().filter(t -> !t.getChildren().isEmpty()).collect(Collectors.toList());
+    public List<PropertyValueEntity> getRootValues() {
+        return getPropertyValues().stream().filter(PropertyValueEntity::isRootValue).collect(Collectors.toList());
+    }
+
+    public List<PropertyValueEntity> getChildrenValues() {
+        return getPropertyService().findAllChildrenValues(oneValue);
     }
 
     public String getValueType() {

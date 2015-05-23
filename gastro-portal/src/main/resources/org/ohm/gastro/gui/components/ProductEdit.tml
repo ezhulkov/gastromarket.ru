@@ -53,11 +53,11 @@
 
                                 <div class="f20px za">за</div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                                 <t:label t:for="productUnitValue">Количество:</t:label>
                                 <input t:id="productUnitValue" class="form-control price"/>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-3">
                                 <t:label t:for="productUnit">Единицы:</t:label>
                                 <t:select t:id="productUnit" class="form-control unit"/>
                             </div>
