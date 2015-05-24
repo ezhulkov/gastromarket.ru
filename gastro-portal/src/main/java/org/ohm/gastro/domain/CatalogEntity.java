@@ -75,13 +75,13 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
     private Date date = new Date(System.currentTimeMillis());
 
     @Column(name = "avatar_url")
-    private String avatarUrl = "/img/avatar-stub.png";
+    private String avatarUrl = "/img/avatar-stub-270x270.png";
 
     @Column(name = "avatar_url_medium")
-    private String avatarUrlMedium = "/img/avatar-stub-medium.png";
+    private String avatarUrlMedium = "/img/avatar-stub-100x100.png";
 
     @Column(name = "avatar_url_small")
-    private String avatarUrlSmall = "/img/avatar-stub-small.png";
+    private String avatarUrlSmall = "/img/avatar-stub-23x23.png";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)

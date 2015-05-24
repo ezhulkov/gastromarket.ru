@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.ohm.gastro.util.CommonsUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -79,14 +80,14 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
     private Integer bonus = 0;
 
     @Column(name = "avatar_url")
-    private String avatarUrl = "/img/avatar-stub.png";
+    private String avatarUrl = "/img/avatar-stub-210x210.png";
 
     @Column(name = "avatar_url_medium")
-    private String avatarUrlMedium = "/img/avatar-stub-medium.png";
+    private String avatarUrlMedium = "/img/avatar-stub-100x100.png";
 
 
     @Column(name = "avatar_url_small")
-    private String avatarUrlSmall = "/img/avatar-stub-small.png";
+    private String avatarUrlSmall = "/img/avatar-stub-23x23.png";
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -281,6 +282,10 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
     public boolean isAdmin() {
         return getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ADMIN"));
+    }
+
+    public String getLoginDatePrintable() {
+        return CommonsUtils.GUI_DATE_LONG.get().format(loginDate);
     }
 
     @Override

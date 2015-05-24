@@ -1,5 +1,47 @@
 @import "../include/var";
 
 .catalog-item {
+  padding: 30px 0 20px 0;
+  .data-header {
+    margin: 5px 0 0 0;
+    height: auto;
+    a {
+      margin: 0;
+    }
+  }
+  .name {
+    color: $blackTextColor;
+    font-size: $f30px;
+  }
+  .root-categories {
+    color: $greyTextColor;
+    font-size: $f18px;
+  }
+  .bottom {
+    padding-top: 10px;
+  }
+  .description {
+    font-size: $f16px;
+    max-height: 84px;
+    overflow: hidden;
+  }
+  .badges {
+    height: 45px;
+    margin: 20px 0;
+  }
+  .ratings {
+    margin: 10px 0;
+    font-size: $f18px;
+    color: $greyTextColor;
+    .pos {
+      color: $redTextColor;
+    }
+    .neg {
+      color: $blackTextColor;
+    }
+  }
+}
 
+.catalog-item:nth-child(odd) {
+  background-color: #f5f5f5;
 }

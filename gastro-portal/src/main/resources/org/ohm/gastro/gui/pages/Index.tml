@@ -1,95 +1,91 @@
 <t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="index">
-        <div class="container-flex main-img">
-            <div class="main-img-after main1"/>
-            <div class="main-img-after main2"/>
-            <div class="main-img-after main3"/>
-            <div class="main-img-after main4"/>
-            <div class="main-img-after main5"/>
-            <div class="main-img-after main6"/>
-            <div class="main-img-after main7"/>
-            <div class="main-img-after main8"/>
-            <div class="data">
-                <h1>Всё готово!</h1>
+    <div class="container-flex main-img">
+        <div class="main-img-after main1"/>
+        <div class="main-img-after main2"/>
+        <div class="main-img-after main3"/>
+        <div class="main-img-after main4"/>
+        <div class="main-img-after main5"/>
+        <div class="main-img-after main6"/>
+        <div class="main-img-after main7"/>
+        <div class="main-img-after main8"/>
+        <div class="data">
+            <h1>Всё готово!</h1>
 
-                <h2>Заказывайте вкусную еду у первоклассных кулинаров</h2>
+            <h2>Заказывайте вкусную еду у первоклассных кулинаров</h2>
 
-                <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="search-form">
-                    <div class="col-sm-1"/>
-                    <div class="col-sm-10 search-bar">
-                        <input t:id="search" t:value="searchString" t:type="TextField" placeholder="Поиск"/>
-                        <input type="submit" value=""/>
-                    </div>
-                    <div class="col-sm-1"/>
-                </t:form>
-
-                <div class="row">
-                    <a href="#howto" data-toggle="modal" class="btn btn-red btn-howto" data-target="#howto">Как это работает?</a>
+            <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="search-form">
+                <div class="col-sm-1"/>
+                <div class="col-sm-10 search-bar">
+                    <input t:id="search" t:value="searchString" t:type="TextField" placeholder="Поиск"/>
+                    <input type="submit" value=""/>
                 </div>
+                <div class="col-sm-1"/>
+            </t:form>
 
+            <div class="row">
+                <a href="#howto" data-toggle="modal" class="btn btn-red btn-howto" data-target="#howto">Как это работает?</a>
             </div>
+
         </div>
-        <div class="container">
-
-            <div class="title">
-                <h1><span>Заказ еды для любого события</span></h1>
-            </div>
-
-            <div class="grid-block categories">
-                <t:loop source="propertyValues" value="onePropertyValue">
-                    <div class="item">
-                        <t:pagelink page="product/list" context="onePropertyValue.altId" class="category">
-                            <img class="category-garniry category-${onePropertyValue.altId}"/>
-                        </t:pagelink>
-                        <t:pagelink page="product/list" context="onePropertyValue.altId" class="name f18px">
-                            ${onePropertyValue.name}
-                        </t:pagelink>
-                    </div>
-                </t:loop>
-            </div>
-
-            <t:if test="products">
-                <div class="title">
-                    <h1><span>Предложения недели</span></h1>
-                    <t:pagelink page="product/promoted">Смотреть всю подборку<span/></t:pagelink>
-                </div>
-
-                <div class="grid-block promo">
-                    <t:loop source="products" value="oneProduct">
-                        <div class="item">
-                            <t:pagelink page="product/index" context="oneProduct.altId">
-                                <img src="${oneProduct.avatarUrlMedium}"/>
-                            </t:pagelink>
-                            <t:pagelink page="product/index" context="oneProduct.altId" class="name f20px">
-                                ${oneProduct.name}
-                            </t:pagelink>
-                        </div>
-                    </t:loop>
-                </div>
-            </t:if>
-
-            <div class="title">
-                <h1><span>Кулинары</span></h1>
-                <t:pagelink page="catalog/list">Все кулинары<span/></t:pagelink>
-            </div>
-
-            <div class="grid-block cooks">
-                <t:loop source="cooks" value="oneCook">
-                    <div class="item">
-                        <t:pagelink page="catalog/index" context="oneCook.altId">
-                            <img src="${oneCook.avatarUrl}"/>
-                        </t:pagelink>
-                        <t:pagelink page="catalog/index" context="oneCook.altId" class="name f18px">
-                            ${oneCook.name}
-                        </t:pagelink>
-                    </div>
-                </t:loop>
-            </div>
-        </div>
-        <div class="vgap"/>
     </div>
+    <div class="container">
 
+        <div class="title">
+            <h1><span>Заказ еды для любого события</span></h1>
+        </div>
+
+        <div class="grid-block categories">
+            <t:loop source="propertyValues" value="onePropertyValue">
+                <div class="item">
+                    <t:pagelink page="product/list" context="onePropertyValue.altId" class="category">
+                        <img class="category-${onePropertyValue.altId}"/>
+                    </t:pagelink>
+                    <t:pagelink page="product/list" context="onePropertyValue.altId" class="name f18px">
+                        ${onePropertyValue.name}
+                    </t:pagelink>
+                </div>
+            </t:loop>
+        </div>
+
+        <t:if test="products">
+            <div class="title">
+                <h1><span>Предложения недели</span></h1>
+                <t:pagelink page="product/promoted">Смотреть всю подборку<span/></t:pagelink>
+            </div>
+
+            <div class="grid-block promo">
+                <t:loop source="products" value="oneProduct">
+                    <div class="item">
+                        <t:pagelink page="product/index" context="oneProduct.altId">
+                            <img src="${oneProduct.avatarUrlMedium}"/>
+                        </t:pagelink>
+                        <t:pagelink page="product/index" context="oneProduct.altId" class="name f20px">
+                            ${oneProduct.name}
+                        </t:pagelink>
+                    </div>
+                </t:loop>
+            </div>
+        </t:if>
+
+        <div class="title">
+            <h1><span>Кулинары</span></h1>
+            <t:pagelink page="catalog/list">Все кулинары<span/></t:pagelink>
+        </div>
+
+        <div class="grid-block cooks">
+            <t:loop source="cooks" value="oneCook">
+                <div class="item">
+                    <t:pagelink page="catalog/index" context="oneCook.altId">
+                        <img src="${oneCook.avatarUrl}"/>
+                    </t:pagelink>
+                    <t:pagelink page="catalog/index" context="oneCook.altId" class="name f18px">
+                        ${oneCook.name}
+                    </t:pagelink>
+                </div>
+            </t:loop>
+        </div>
+    </div>
     <div class="modal fade howto" id="howto" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

@@ -1,57 +1,51 @@
 <t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="catalogs">
-        <div class="container">
-            <div class="title">
-                <h1><span>Кулинары</span></h1>
-            </div>
+    <div class="container">
+        <div class="title">
+            <h1><span>Кулинары</span></h1>
         </div>
-        <t:loop source="catalogs" value="oneCatalog">
-            <div class="catalog-item">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-3 border">
-                            1
-
+    </div>
+    <t:loop source="catalogs" value="oneCatalog">
+        <div class="catalog-item">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3 text-right">
+                        <t:pagelink page="catalog/index" t:context="oneCatalog.altId"><img class="pic" src="${oneCatalog.avatarUrl}"/></t:pagelink>
+                    </div>
+                    <div class="col-sm-9 text-left">
+                        <t:pagelink page="catalog/index" t:context="oneCatalog.altId" class="name">${oneCatalog.name}</t:pagelink>
+                        <div class="root-categories">${rootProperties}</div>
+                        <div class="badges"></div>
+                        <div class="ratings">
+                            Рейтинг: <span class="black-text">${oneCatalog.level}</span>&nbsp;
+                            Отзывы:
+                            <t:if test="hasRatings">
+                                <span class="pos">+${posRatings}</span> / <span class="neg">-${negRatings}</span>
+                                <t:parameter name="else">
+                                    <span class="no">нет отзывов</span>
+                                </t:parameter>
+                            </t:if>
                         </div>
-                        <div class="col-sm-9 border">
-                            2
+                        <div class="description">
+                            <t:outputraw value="description"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row bottom">
+                    <div class="col-sm-3 text-right">
+                        <div class="grey-text f16px">Последний вход на сайт:</div>
+                        <div class="grey-text f16px">${oneCatalog.user.loginDatePrintable}</div>
+                    </div>
+                    <div class="col-sm-9 text-left">
+                        <div class="data-header">
+                            <t:pagelink page="catalog/products" t:context="oneCatalog.altId">Показать всё меню <span/></t:pagelink>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--<div class="chefs">-->
-            <!--<div class="container">-->
-            <!--<div class="row">-->
-            <!--<div class="col-sm-3">-->
-            <!--<div class="chef text-right">-->
-            <!--<t:pagelink page="catalog/index" t:context="oneCatalog.altId"><img class="pic" src="${oneCatalog.avatarUrlMedium}"/></t:pagelink>-->
+        </div>
+    </t:loop>
 
-            <!--<div class="name">-->
-            <!--<t:pagelink page="catalog/index" t:context="oneCatalog.altId">${oneCatalog.name}</t:pagelink>-->
-            <!--</div>-->
-            <!--<div class="cats">${rootProperties}</div>-->
-            <!--<div class="data-header pull-right">-->
-            <!--<t:pagelink page="catalog/products" t:context="oneCatalog.altId">Показать всё меню<span/></t:pagelink>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="col-sm-9">-->
-            <!--<div id="product-items" class="grid-block products">-->
-            <!--<t:loop source="products" value="oneProduct">-->
-            <!--<t:product product="oneProduct" class="fixed"/>-->
-            <!--</t:loop>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-        </t:loop>
-        <t:productmodaltemplate/>
-    </div>
-
-    <script>
-        jQuery(initProductCatalogFixed);
-    </script>
+    <t:productmodaltemplate/>
 
 </t:htmlLayout>

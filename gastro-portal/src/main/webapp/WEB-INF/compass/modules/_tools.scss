@@ -17,24 +17,24 @@ body.mobile .rub:after {
   font-weight: bold;
 }
 
-.f20px {
-  font-size: 20px !important;
-}
-
 .f14px {
-  font-size: 14px !important;
+  font-size: $f14px !important;
 }
 
 .f16px {
-  font-size: 14px !important;
+  font-size: $f16px !important;
 }
 
 .f18px {
-  font-size: 18px !important;
+  font-size: $f18px !important;
+}
+
+.f20px {
+  font-size: $f20px !important;
 }
 
 .f30px {
-  font-size: 30px !important;
+  font-size: $f30px !important;
 }
 
 .black-text {
@@ -43,6 +43,14 @@ body.mobile .rub:after {
 
 .black-text:hover {
   color: $blackTextColor;
+}
+
+.grey-text {
+  color: $greyTextColor;
+}
+
+.grey-text:hover {
+  color: $greyTextColor;
 }
 
 .red-text {
@@ -75,11 +83,6 @@ body.mobile .rub:after {
   margin-right: $gap;
 }
 
-.vgap {
-  display: block;
-  height: $vgap;
-}
-
 .pic-holder.delete > .purchase-edit {
   background-position-x: -40px;
 }
@@ -93,4 +96,13 @@ body.mobile .rub:after {
   height: 30px;
   background: url("../img/basket-add.png") no-repeat 0 0;
   display: inline-block;
+}
+
+.spinner {
+  text-align: center;
+  height: 50px;
+  width: 50px;
+  margin: 2px auto;
+  background: url("../img/spinner.gif") no-repeat;
+  background-size: 50px;
 }

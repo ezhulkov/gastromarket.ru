@@ -66,3 +66,36 @@ h3 {
   text-align: left;
   font-size: 20px;
 }
+
+.page {
+  min-height: 300px;
+  margin-bottom: $bigVGap;
+}
+
+.container {
+  width: 1170px !important;
+}
+
+.container-flex {
+  width: 100%;
+}
+
+div.t-error {
+  border: none !important;
+  font-size: 16px !important;
+  color: #e70500 !important;
+  font-weight: bold !important;
+  margin: 0 0 5px 0 !important;
+
+  ul {
+    list-style-type: none !important;
+    li {
+      text-align: center !important;
+    }
+  }
+
+}
+
+.t-banner, .t-error-icon {
+  display: none !important;
+}

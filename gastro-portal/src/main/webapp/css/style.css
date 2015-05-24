@@ -59,6 +59,37 @@ h3 {
   font-size: 20px;
 }
 
+.page {
+  min-height: 300px;
+  margin-bottom: 100px;
+}
+
+.container {
+  width: 1170px !important;
+}
+
+.container-flex {
+  width: 100%;
+}
+
+div.t-error {
+  border: none !important;
+  font-size: 16px !important;
+  color: #e70500 !important;
+  font-weight: bold !important;
+  margin: 0 0 5px 0 !important;
+}
+div.t-error ul {
+  list-style-type: none !important;
+}
+div.t-error ul li {
+  text-align: center !important;
+}
+
+.t-banner, .t-error-icon {
+  display: none !important;
+}
+
 .rub {
   display: inline !important;
   padding-right: 10px;
@@ -76,20 +107,20 @@ body.mobile .rub:after {
   font-weight: bold;
 }
 
-.f20px {
-  font-size: 20px !important;
-}
-
 .f14px {
   font-size: 14px !important;
 }
 
 .f16px {
-  font-size: 14px !important;
+  font-size: 16px !important;
 }
 
 .f18px {
   font-size: 18px !important;
+}
+
+.f20px {
+  font-size: 20px !important;
 }
 
 .f30px {
@@ -97,11 +128,19 @@ body.mobile .rub:after {
 }
 
 .black-text {
-  color: #000000 !important;
+  color: #333 !important;
 }
 
 .black-text:hover {
-  color: #000000;
+  color: #333;
+}
+
+.grey-text {
+  color: #8a8a8a;
+}
+
+.grey-text:hover {
+  color: #8a8a8a;
 }
 
 .red-text {
@@ -113,7 +152,7 @@ body.mobile .rub:after {
 }
 
 .border {
-  border: 1px solid #000000 !important;
+  border: 1px solid #333 !important;
 }
 
 .center {
@@ -134,11 +173,6 @@ body.mobile .rub:after {
   margin-right: 10px;
 }
 
-.vgap {
-  display: block;
-  height: 50px;
-}
-
 .pic-holder.delete > .purchase-edit {
   background-position-x: -40px;
 }
@@ -154,14 +188,6 @@ body.mobile .rub:after {
   display: inline-block;
 }
 
-.container {
-  width: 1170px !important;
-}
-
-.container-flex {
-  width: 100%;
-}
-
 .spinner {
   text-align: center;
   height: 50px;
@@ -173,22 +199,6 @@ body.mobile .rub:after {
 
 *:focus {
   outline: 0 !important;
-}
-
-html > body div.t-error {
-  border: none;
-  font-size: 16px;
-  color: #e70500;
-  font-weight: bold;
-  margin: 0 0 5px 0;
-}
-
-html > body div.t-error ul {
-  list-style-type: none;
-}
-
-html > body div.t-error ul li {
-  text-align: center;
 }
 
 .za {
@@ -224,11 +234,6 @@ html > body div.t-error ul li {
 
 .simple-text h2 * {
   font-size: 20px;
-}
-
-.t-banner,
-.t-error-icon {
-  display: none !important;
 }
 
 .modal-text {
@@ -729,17 +734,6 @@ html div.office table.table td.toggle {
 
 .office td.fullName {
   width: 300px;
-}
-
-.catalog .container,
-.product .container,
-.info .container,
-.cart .container,
-.about .container,
-.catalogs .container,
-.contacts .container {
-  min-height: 300px;
-  margin-bottom: 100px;
 }
 
 .wizard .container {
@@ -1272,10 +1266,6 @@ div.product-item.block {
   padding: 10px 0;
 }
 
-.chefs:nth-child(odd) {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(whitesmoke), to(whitesmoke));
-}
-
 .chefs .chef {
   padding: 8px 10px 0 0;
 }
@@ -1587,6 +1577,52 @@ option.root {
   margin-top: 3px;
 }
 
+.catalog-item {
+  padding: 30px 0 20px 0;
+}
+.catalog-item .data-header {
+  margin: 5px 0 0 0;
+  height: auto;
+}
+.catalog-item .data-header a {
+  margin: 0;
+}
+.catalog-item .name {
+  color: #333;
+  font-size: 30px;
+}
+.catalog-item .root-categories {
+  color: #8a8a8a;
+  font-size: 18px;
+}
+.catalog-item .bottom {
+  padding-top: 10px;
+}
+.catalog-item .description {
+  font-size: 16px;
+  max-height: 84px;
+  overflow: hidden;
+}
+.catalog-item .badges {
+  height: 45px;
+  margin: 20px 0;
+}
+.catalog-item .ratings {
+  margin: 10px 0;
+  font-size: 18px;
+  color: #8a8a8a;
+}
+.catalog-item .ratings .pos {
+  color: #e70500;
+}
+.catalog-item .ratings .neg {
+  color: #333;
+}
+
+.catalog-item:nth-child(odd) {
+  background-color: #f5f5f5;
+}
+
 body.modal-open {
   overflow: visible;
 }
@@ -1829,7 +1865,7 @@ body.modal-open {
 }
 .title h1.line:after, .title h2.line:after {
   content: "";
-  border-top: 1px solid #bdbdbd;
+  border-top: 1px solid #8a8a8a;
   position: absolute;
   left: -25%;
   top: 75%;
@@ -1850,7 +1886,7 @@ body.modal-open {
 .more-link a,
 .data-header a,
 .title a {
-  background-color: white;
+  background-color: transparent;
   border: 2px solid #bd0400;
   color: #bd0400;
   font-size: 16px;
@@ -1982,7 +2018,7 @@ body.modal-open {
   padding: 0 10px;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #000000;
+  color: #333;
 }
 .grid-block a {
   display: block;
