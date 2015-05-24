@@ -2031,6 +2031,10 @@ body.modal-open {
 .grid-block.cooks .item .name {
   line-height: 40px;
 }
+.grid-block.cooks .item img {
+  height: 210px;
+  width: 210px;
+}
 
 .grid-block.products .item {
   margin: 7px;
