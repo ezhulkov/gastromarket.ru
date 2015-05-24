@@ -61,13 +61,13 @@
                             <div class="row">
                                 <p class="modal-text"><b>Спасибо, мы получили отзыв и постараемся в ближайшее время его обработать</b></p>
 
-                                <p class="modal-text"><a data-dismiss="modal" href="#" class="red-link">Продолжить работу</a></p>
+                                <p class="modal-text"><a data-dismiss="modal" href="#" class="red-text">Продолжить работу</a></p>
                             </div>
                         </div>
                     </t:block>
                     <t:block t:id="feedbackFormBlock">
                         <div class="row">
-                            <p class="modal-text">Если у Вас возникли вопросы, пожелания или жалобы по работе нашего проекта, напишите нам, пожалуйста, на адрес <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет отзыв" class="red-link">contacts@gastromarket.ru</a> или оставьте комментарий ниже</p>
+                            <p class="modal-text">Если у Вас возникли вопросы, пожелания или жалобы по работе нашего проекта, напишите нам, пожалуйста, на адрес <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет отзыв" class="red-text">contacts@gastromarket.ru</a> или оставьте комментарий ниже</p>
                         </div>
                         <t:form t:zone="feedbackZone" t:id="feedbackForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
                             <t:errors/>

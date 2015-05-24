@@ -158,7 +158,7 @@
 
                 <t:parameter name="else">
                     <div class="empty">
-                        В корзине пока ничего нет, начните поиск в <a href="product/list" class="red-link f20px">каталоге</a>
+                        В корзине пока ничего нет, начните поиск в <a href="product/list" class="red-text f20px">каталоге</a>
                     </div>
                 </t:parameter>
 

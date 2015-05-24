@@ -27,7 +27,7 @@
             <div class="row">
                 <div class="col-sm-2"/>
                 <div class="col-sm-4">
-                    <t:actionlink t:id="privateCook" class="red-link f20px" t:zone="step1Zone">
+                    <t:actionlink t:id="privateCook" class="red-text f20px" t:zone="step1Zone">
                         <img src="/img/private-cook.jpg" class="img-circle"/>
                         <br/>
                         <br/>
@@ -35,7 +35,7 @@
                     </t:actionlink>
                 </div>
                 <div class="col-sm-4">
-                    <t:actionlink t:id="companyCook" class="red-link f20px" t:zone="step1Zone">
+                    <t:actionlink t:id="companyCook" class="red-text f20px" t:zone="step1Zone">
                         <img src="/img/company-cook.jpg" class="img-circle"/>
                         <br/>
                         <br/>
@@ -223,7 +223,7 @@
                 Однако, самый главный критерий качества для покупателя - это репутация кулинара.
                 На ГастроМаркет сделана сложная система рейтингов, которая учитывает количество положительных и отрицательных отзывов,
                 общий оборот кулинара и как часто он заходит на сайт - в общем около 8 различных параметров, которые автоматически пересчитываются.
-                Более подробно о системе рейтингов можно почитать на <a href="/about" class="red-link">этой странице</a>.
+                Более подробно о системе рейтингов можно почитать на <a href="/about" class="red-text">этой странице</a>.
             </p>
 
             <p>

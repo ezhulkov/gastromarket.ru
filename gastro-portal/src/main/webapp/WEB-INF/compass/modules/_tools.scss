@@ -1,0 +1,66 @@
+@import "../include/var";
+
+.rub {
+  display: inline !important;
+  padding-right: 10px;
+}
+
+body.desktop .rub:after {
+  content: "₽";
+}
+
+body.mobile .rub:after {
+  content: "руб";
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.f20px {
+  font-size: 20px !important;
+}
+
+.f14px {
+  font-size: 14px !important;
+}
+
+.f16px {
+  font-size: 14px !important;
+}
+
+.f18px {
+  font-size: 18px !important;
+}
+
+.f30px {
+  font-size: 30px !important;
+}
+
+.black-text {
+  color: $blackTextColor !important;
+}
+
+.black-text:hover {
+  color: $blackTextColor;
+}
+
+.red-text {
+  color: $redTextColor !important;
+}
+
+.red-text:hover {
+  color: $redTextColor !important;
+}
+
+.border {
+  border: 1px solid $redTextColor !important;
+}
+
+.center {
+  text-align: center !important;
+}
+
+.multiple {
+  height: 150px !important;
+}

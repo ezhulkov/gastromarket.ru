@@ -41,7 +41,7 @@
 
                         <div class="col-sm-9">
                             <input id="j_password" name="j_password" type="password" class="form-control"/>
-                            <a href="#" class="pull-left red-link forget-link" data-toggle="modal" data-target="#login">Забыли пароль?</a>
+                            <a href="#" class="pull-left red-text forget-link" data-toggle="modal" data-target="#login">Забыли пароль?</a>
 
                             <div class="remember-link label-checkbox-set pull-right">
                                 <label for="rememberme">Запомнить меня на сайте</label>
