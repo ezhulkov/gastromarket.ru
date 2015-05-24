@@ -78,7 +78,7 @@ function activate_menu(el) {
 function initTitle(el) {
     jQuery(el).each(function (i, e) {
         var h = jQuery(e).find("h1,h2");
-        jQuery(h).css("width", realTitleWidth(jQuery(h)) + 50);
+        jQuery(h).css("width", realTitleWidth(jQuery(h)) + 50).addClass("line");
     });
 }
 

@@ -38,11 +38,13 @@
 
             <div class="grid-block categories">
                 <t:loop source="propertyValues" value="onePropertyValue">
-                    <div>
+                    <div class="item">
                         <t:pagelink page="product/list" context="onePropertyValue.altId" class="category">
-                            <img class="category-${onePropertyValue.altId}"/>
+                            <img class="category-garniry category-${onePropertyValue.altId}"/>
                         </t:pagelink>
-                        <t:pagelink page="product/list" context="onePropertyValue.altId" class="black-link"><span class="name f18px"> ${onePropertyValue.value}</span></t:pagelink>
+                        <t:pagelink page="product/list" context="onePropertyValue.altId" class="name f18px">
+                            ${onePropertyValue.name}
+                        </t:pagelink>
                     </div>
                 </t:loop>
             </div>
@@ -55,12 +57,12 @@
 
                 <div class="grid-block promo">
                     <t:loop source="products" value="oneProduct">
-                        <div>
+                        <div class="item">
                             <t:pagelink page="product/index" context="oneProduct.altId">
                                 <img src="${oneProduct.avatarUrlMedium}"/>
                             </t:pagelink>
-                            <t:pagelink page="product/index" context="oneProduct.altId" class="black-link">
-                                <div class="name f20px">${oneProduct.name}</div>
+                            <t:pagelink page="product/index" context="oneProduct.altId" class="name f20px">
+                                ${oneProduct.name}
                             </t:pagelink>
                         </div>
                     </t:loop>
@@ -74,18 +76,18 @@
 
             <div class="grid-block cooks">
                 <t:loop source="cooks" value="oneCook">
-                    <div>
+                    <div class="item">
                         <t:pagelink page="catalog/index" context="oneCook.altId">
                             <img src="${oneCook.avatarUrl}"/>
                         </t:pagelink>
-                        <t:pagelink page="catalog/index" context="oneCook.altId" class="black-link">
-                            <div class="name f18px">${oneCook.name}</div>
+                        <t:pagelink page="catalog/index" context="oneCook.altId" class="name f18px">
+                            ${oneCook.name}
                         </t:pagelink>
                     </div>
                 </t:loop>
             </div>
-
         </div>
+        <div class="vgap"/>
     </div>
 
     <div class="modal fade howto" id="howto" tabindex="-1" role="dialog" aria-hidden="true">

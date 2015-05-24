@@ -43,3 +43,59 @@
   padding: 5px 35px;
   font-size: 16px;
 }
+
+.title {
+
+  position: relative;
+
+  h1, h2 {
+    position: relative;
+    margin: 20px auto;
+    text-align: center;
+    padding-top: 23px;
+  }
+
+  h1.line:after, h2.line:after {
+    content: "";
+    border-top: 1px solid #bdbdbd;
+    position: absolute;
+    left: -25%;
+    top: 75%;
+    width: 150%;
+  }
+
+  h1 span, h2 span {
+    background: #fff;
+    position: relative;
+    z-index: 1;
+    padding: 0 20px;
+  }
+
+  a {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+  }
+}
+
+.more-link a,
+.data-header a,
+.title a {
+  background-color: white;
+  border: 2px solid #bd0400;
+  color: #bd0400;
+  font-size: 16px;
+  padding: 5px 20px 5px 20px;
+  border-radius: 20px;
+}
+
+.more-link a span,
+.data-header a span,
+.title a span {
+  margin-bottom: -4px;
+  margin-left: 5px;
+  width: 10px;
+  height: 18px;
+  display: inline-block;
+  background: url("../img/title-forward.png") center top no-repeat;
+}

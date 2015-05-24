@@ -66,7 +66,7 @@
                                                 <span class="checked"/>
                                             </t:if>
                                         </t:actionlink>
-                                        <a href="${oneElement.link}" target="_blank" class="black-link">
+                                        <a href="${oneElement.link}" target="_blank" class="black-text">
                                             <div class="name f18px">${oneElement.caption}</div>
                                         </a>
                                     </t:block>

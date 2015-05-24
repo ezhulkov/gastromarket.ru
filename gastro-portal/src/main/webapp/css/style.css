@@ -113,7 +113,7 @@ body.mobile .rub:after {
 }
 
 .border {
-  border: 1px solid #e70500 !important;
+  border: 1px solid #000000 !important;
 }
 
 .center {
@@ -122,6 +122,36 @@ body.mobile .rub:after {
 
 .multiple {
   height: 150px !important;
+}
+
+.pic-holder {
+  position: relative;
+}
+
+.pic-holder > span:first-child {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.vgap {
+  display: block;
+  height: 50px;
+}
+
+.pic-holder.delete > .purchase-edit {
+  background-position-x: -40px;
+}
+
+.pic-holder.used-bonuses > .purchase-edit {
+  background-position-x: -60px;
+}
+
+.pic-holder.basket-add > span {
+  width: 30px;
+  height: 30px;
+  background: url("../img/basket-add.png") no-repeat 0 0;
+  display: inline-block;
 }
 
 .container {
@@ -159,16 +189,6 @@ html > body div.t-error ul {
 
 html > body div.t-error ul li {
   text-align: center;
-}
-
-.pic-holder {
-  position: relative;
-}
-
-.pic-holder > span:first-child {
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 7px;
 }
 
 .za {
@@ -311,44 +331,8 @@ html > body div.t-error ul li {
   height: 50px;
 }
 
-.title {
-  position: relative;
-}
-
 .office .title {
   margin-bottom: 30px;
-}
-
-.title h1,
-.title h2 {
-  position: relative;
-  margin: 20px auto;
-  text-align: center;
-  padding-top: 23px;
-}
-
-.title h1:after,
-.title h2:after {
-  content: "";
-  border-top: 1px solid #bdbdbd;
-  position: absolute;
-  left: -25%;
-  top: 75%;
-  width: 150%;
-}
-
-.title h1 span,
-.title h2 span {
-  background: #fff;
-  position: relative;
-  z-index: 1;
-  padding: 0 20px;
-}
-
-.title a {
-  position: absolute;
-  top: 20px;
-  right: 40px;
 }
 
 .data-header {
@@ -365,28 +349,6 @@ html > body div.t-error ul li {
   text-align: center;
   padding-top: 30px;
   /*height: 150px;*/
-}
-
-.more-link a,
-.data-header a,
-.title a {
-  background-color: white;
-  border: 2px solid #bd0400;
-  color: #bd0400;
-  font-size: 16px;
-  padding: 5px 20px 5px 20px;
-  border-radius: 20px;
-}
-
-.more-link a span,
-.data-header a span,
-.title a span {
-  margin-bottom: -4px;
-  margin-left: 5px;
-  width: 10px;
-  height: 18px;
-  display: inline-block;
-  background: url("../img/title-forward.png") center top no-repeat;
 }
 
 .data-header a {
@@ -558,76 +520,6 @@ html > body div.t-error ul li {
   border: none;
 }
 
-.grid-block {
-  width: 1150px;
-  margin: 0 auto 10px auto;
-  font-size: 20px;
-  font-family: "PT Sans", sans-serif;
-  overflow: hidden;
-}
-
-.grid-block .name {
-  line-height: 25px;
-  padding: 0 10px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.chefs .grid-block {
-  width: 900px;
-}
-
-.grid-block > div {
-  float: left;
-  -webkit-box-shadow: 0 0 6px 2px #ddd;
-  -moz-box-shadow: 0 0 6px 2px #ddd;
-  box-shadow: 0 0 6px 2px #ddd;
-  background-color: #fff;
-  margin: 10px;
-  display: inline-block;
-  border: 1px solid #aaa;
-  overflow: hidden;
-  white-space: nowrap;
-  text-align: center;
-  text-overflow: ellipsis;
-}
-
-.grid-block > div img {
-  opacity: 0.95;
-}
-
-.grid-block > div:hover img {
-  opacity: 1;
-}
-
-.intl-tel-input {
-  display: table-cell;
-}
-
-.grid-block.products > div {
-  margin: 7px;
-}
-
-.grid-block.promo > div {
-  margin: 8px;
-}
-
-.grid-block.categories > div {
-  margin: 15px;
-}
-
-.grid-block.categories > div .category {
-  margin-bottom: 5px;
-}
-
-.grid-block a {
-  display: block;
-}
-
-.grid-block a {
-  display: block;
-}
-
 .import > div {
   width: 210px;
   height: 250px;
@@ -668,89 +560,6 @@ ul.albums li {
 div.element-item {
   display: none;
   position: relative;
-}
-
-.cooks > div {
-  width: 210px;
-  height: 250px;
-}
-
-.cooks a {
-  width: 210px;
-  height: 210px;
-  margin-bottom: 5px;
-  overflow: hidden;
-}
-
-.cooks .name {
-  width: 210px;
-}
-
-.promo > div {
-  width: 270px;
-  height: 334px;
-}
-
-.promo a {
-  width: 270px;
-  height: 270px;
-  margin-bottom: 18px;
-}
-
-.promo .name {
-  width: 270px;
-}
-
-.categories > div {
-  width: 200px;
-  height: 186px;
-}
-
-.categories img {
-  height: 145px;
-  width: 100%;
-  overflow: hidden;
-  display: block;
-}
-
-.category-supy {
-  background: transparent url("../img/category/soup-small.jpg") repeat-x;
-}
-
-.category-napitki {
-  background: transparent url("../img/category/lemonade-small.jpg") repeat-x;
-}
-
-.category-vypechka-i-deserty {
-  background: transparent url("../img/category/dessert-small.jpg") repeat-x;
-}
-
-.category-fermerskaya-eda {
-  background: transparent url("../img/category/country-small.jpg") repeat-x;
-}
-
-.category-keitering {
-  background: transparent url("../img/category/catering-small.jpg") repeat-x;
-}
-
-.category-garniry {
-  background: transparent url("../img/category/sidedishes-small.jpg") repeat-x;
-}
-
-.category-zakuski-i-burgery {
-  background: transparent url("../img/category/burger-small.jpg") repeat-x;
-}
-
-.category-salaty {
-  background: transparent url("../img/category/salad-small.jpg") repeat-x;
-}
-
-.category-torty {
-  background: transparent url("../img/category/cake-small.jpg") repeat-x;
-}
-
-.category-osnovnye-blyuda {
-  background: transparent url("../img/category/steak-small.jpg") repeat-x;
 }
 
 .delete-product .modal-dialog {
@@ -927,6 +736,7 @@ html div.office table.table td.toggle {
 .info .container,
 .cart .container,
 .about .container,
+.catalogs .container,
 .contacts .container {
   min-height: 300px;
   margin-bottom: 100px;
@@ -1288,13 +1098,6 @@ div.product-item.block {
 
 .product-item .basket-add {
   margin: 15px 0 0 5px;
-}
-
-.pic-holder.basket-add > span {
-  width: 30px;
-  height: 30px;
-  background: url("../img/basket-add.png") no-repeat 0 0;
-  display: inline-block;
 }
 
 .product-modal-template .basket a {
@@ -1714,14 +1517,6 @@ div.catalog-edit-links .more-link {
   display: inline-block;
 }
 
-.pic-holder.delete > .purchase-edit {
-  background-position-x: -40px;
-}
-
-.pic-holder.used-bonuses > .purchase-edit {
-  background-position-x: -60px;
-}
-
 .purchase-edit.inc {
   background-position-x: 0;
   vertical-align: middle;
@@ -2023,6 +1818,57 @@ body.modal-open {
   font-size: 16px;
 }
 
+.title {
+  position: relative;
+}
+.title h1, .title h2 {
+  position: relative;
+  margin: 20px auto;
+  text-align: center;
+  padding-top: 23px;
+}
+.title h1.line:after, .title h2.line:after {
+  content: "";
+  border-top: 1px solid #bdbdbd;
+  position: absolute;
+  left: -25%;
+  top: 75%;
+  width: 150%;
+}
+.title h1 span, .title h2 span {
+  background: #fff;
+  position: relative;
+  z-index: 1;
+  padding: 0 20px;
+}
+.title a {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+}
+
+.more-link a,
+.data-header a,
+.title a {
+  background-color: white;
+  border: 2px solid #bd0400;
+  color: #bd0400;
+  font-size: 16px;
+  padding: 5px 20px 5px 20px;
+  border-radius: 20px;
+}
+
+.more-link a span,
+.data-header a span,
+.title a span {
+  margin-bottom: -4px;
+  margin-left: 5px;
+  width: 10px;
+  height: 18px;
+  display: inline-block;
+  background: url("../img/title-forward.png") center top no-repeat;
+}
+
 .qq-upload-button-selector {
   width: 49px;
   height: 49px;
@@ -2101,6 +1947,113 @@ body.modal-open {
   background: url("../img/landing-bg-3.jpg") left 0 repeat-x;
   display: table-cell;
   width: auto;
+}
+
+.grid-block {
+  width: 1150px;
+  margin: 0 auto 10px auto;
+  font-size: 20px;
+  font-family: "PT Sans", sans-serif;
+  overflow: hidden;
+}
+.grid-block .item {
+  float: left;
+  -webkit-box-shadow: 0 0 6px 2px #ddd;
+  -moz-box-shadow: 0 0 6px 2px #ddd;
+  box-shadow: 0 0 6px 2px #ddd;
+  background-color: #fff;
+  margin: 10px;
+  display: inline-block;
+  border: 1px solid #aaa;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  text-overflow: ellipsis;
+}
+.grid-block .item img {
+  opacity: 0.95;
+}
+.grid-block .item div:hover img {
+  opacity: 1;
+}
+.grid-block .name {
+  text-align: center;
+  line-height: 25px;
+  padding: 0 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #000000;
+}
+.grid-block a {
+  display: block;
+}
+
+.grid-block.cooks .item {
+  width: 210px;
+  height: 250px;
+}
+.grid-block.cooks .item .name {
+  line-height: 40px;
+}
+
+.grid-block.products .item {
+  margin: 7px;
+}
+.grid-block.products .item .name {
+  line-height: 60px;
+}
+
+.grid-block.promo .item {
+  width: 270px;
+  height: 334px;
+  margin: 8px;
+}
+.grid-block.promo .item .name {
+  line-height: 60px;
+}
+
+.grid-block.categories .item {
+  margin: 15px;
+  width: 200px;
+  height: 186px;
+}
+.grid-block.categories .item .name {
+  line-height: 40px;
+}
+.grid-block.categories .item img {
+  height: 145px;
+  width: 100%;
+  display: block;
+}
+.grid-block.categories .item .category-supy {
+  background: transparent url("../img/category/soup-small.jpg") repeat-x;
+}
+.grid-block.categories .item .category-napitki {
+  background: transparent url("../img/category/lemonade-small.jpg") repeat-x;
+}
+.grid-block.categories .item .category-vypechka-i-deserty {
+  background: transparent url("../img/category/dessert-small.jpg") repeat-x;
+}
+.grid-block.categories .item .category-fermerskaya-eda {
+  background: transparent url("../img/category/country-small.jpg") repeat-x;
+}
+.grid-block.categories .item .category-keitering {
+  background: transparent url("../img/category/catering-small.jpg") repeat-x;
+}
+.grid-block.categories .item .category-garniry {
+  background: transparent url("../img/category/sidedishes-small.jpg") repeat-x;
+}
+.grid-block.categories .item .category-zakuski-i-burgery {
+  background: transparent url("../img/category/burger-small.jpg") repeat-x;
+}
+.grid-block.categories .item .category-salaty {
+  background: transparent url("../img/category/salad-small.jpg") repeat-x;
+}
+.grid-block.categories .item .category-torty {
+  background: transparent url("../img/category/cake-small.jpg") repeat-x;
+}
+.grid-block.categories .item .category-osnovnye-blyuda {
+  background: transparent url("../img/category/steak-small.jpg") repeat-x;
 }
 
 /*# sourceMappingURL=style.css.map */

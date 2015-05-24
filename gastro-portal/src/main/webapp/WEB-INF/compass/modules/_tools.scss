@@ -54,7 +54,7 @@ body.mobile .rub:after {
 }
 
 .border {
-  border: 1px solid $redTextColor !important;
+  border: 1px solid $blackTextColor !important;
 }
 
 .center {
@@ -63,4 +63,34 @@ body.mobile .rub:after {
 
 .multiple {
   height: 150px !important;
+}
+
+.pic-holder {
+  position: relative;
+}
+
+.pic-holder > span:first-child {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: $gap;
+}
+
+.vgap {
+  display: block;
+  height: $vgap;
+}
+
+.pic-holder.delete > .purchase-edit {
+  background-position-x: -40px;
+}
+
+.pic-holder.used-bonuses > .purchase-edit {
+  background-position-x: -60px;
+}
+
+.pic-holder.basket-add > span {
+  width: 30px;
+  height: 30px;
+  background: url("../img/basket-add.png") no-repeat 0 0;
+  display: inline-block;
 }
