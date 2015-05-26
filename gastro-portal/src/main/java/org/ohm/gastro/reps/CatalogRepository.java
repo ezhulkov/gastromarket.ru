@@ -19,7 +19,7 @@ public interface CatalogRepository extends AltIdRepository<CatalogEntity> {
 
     @Query("select distinct c from CatalogEntity c join c.user u join c.products p " +
             "where c.wizardStep=4 and u.status='ENABLED' and size(p)>0" +
-            "order by c.rating, c.name")
+            "order by c.rating desc,c.id asc")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     List<CatalogEntity> findAllActive();
 

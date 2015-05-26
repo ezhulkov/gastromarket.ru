@@ -17,6 +17,7 @@ import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.CommentRepository;
 import org.ohm.gastro.reps.LogRepository;
 import org.ohm.gastro.reps.OrderRepository;
+import org.ohm.gastro.reps.ProductRepository;
 import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingService;
 import org.ohm.gastro.service.RatingTarget;
@@ -42,6 +43,7 @@ public class RatingServiceImpl implements RatingService, Logging {
     private final OrderRepository orderRepository;
     private final CommentRepository commentRepository;
     private final CatalogRepository catalogRepository;
+    private final ProductRepository productRepository;
 
     private final int historyDays;
     private final float retentionCoeff;
@@ -60,6 +62,7 @@ public class RatingServiceImpl implements RatingService, Logging {
                              OrderRepository orderRepository,
                              CommentRepository commentRepository,
                              CatalogRepository catalogRepository,
+                             ProductRepository productRepository,
                              @Value("${rating.series}") String ratingSeries,
                              @Value("${rank.badge.series}") String badgeRankSeries,
                              @Value("${product.badge.series}") String badgeProductSeries,
@@ -75,6 +78,7 @@ public class RatingServiceImpl implements RatingService, Logging {
         this.orderRepository = orderRepository;
         this.commentRepository = commentRepository;
         this.catalogRepository = catalogRepository;
+        this.productRepository = productRepository;
         this.historyDays = historyDays;
         this.retentionCoeff = retentionCoeff;
         this.posRatingCoeff = posRatingCoeff;
@@ -148,7 +152,7 @@ public class RatingServiceImpl implements RatingService, Logging {
         final List<CommentEntity> ratings = commentRepository.findAllRatings(catalog);
         final List<LogEntity> catalogOps = findEvents(catalog.getUser(), catalog, fromDate);
 
-        final int productsCount = catalog.getReadyProducts().size();
+        final int productsCount = productRepository.findAllByWasSetupAndCatalog(true, catalog).size();
         final int retentionCount = findEvents(catalog.getUser(), fromDate, Type.LOGIN).size();
         final int posCount = (int) ratings.stream().filter(t -> t.getRating() > 0).count();
         final int negCount = (int) ratings.stream().filter(t -> t.getRating() < 0).count();
@@ -165,10 +169,16 @@ public class RatingServiceImpl implements RatingService, Logging {
 
         catalog.setOrderBadge(orderBadgeSet.rangeContaining(doneOrdersCount).lowerEndpoint());
         catalog.setProductBadge(productBadgeSet.rangeContaining(productsCount).lowerEndpoint());
-        final Range<Integer> rankRange = rankBadgeSet.rangeContaining(catalogRepository.findCatalogRank(catalog.getRating()) + 1);
-        catalog.setRankBadge(rankRange == null ? 0 : rankRange.upperEndpoint());
-
         catalogRepository.save(catalog);
+
+        final List<CatalogEntity> catalogs = catalogRepository.findAllActive();
+        int pos = 1;
+        for (CatalogEntity oneCatalog : catalogs) {
+            final Range<Integer> rankRange = rankBadgeSet.rangeContaining(pos++);
+            if (rankRange == null) break;
+            oneCatalog.setRankBadge(rankRange.upperEndpoint());
+            catalogRepository.save(oneCatalog);
+        }
 
     }
 

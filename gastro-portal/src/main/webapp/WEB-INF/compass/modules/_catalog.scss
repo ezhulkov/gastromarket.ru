@@ -67,14 +67,7 @@
     color: $greyTextColor;
     .rating {
       color: $redTextColor;
-      .faq {
-        font-size: $f18px;
-        color: $redTextColor;
-        text-decoration: none;
-      }
-      .faq:hover {
-        text-decoration: underline;
-      }
+      font-size: $f18px;
     }
     .pos {
       color: $redTextColor;

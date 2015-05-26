@@ -36,7 +36,7 @@
                             </t:if>
                         </div>
                         <div class="ratings">
-                            Рейтинг: <span class="rating"><a href="/about#rating" class="s">${oneCatalog.level}</a></span>&nbsp;
+                            Рейтинг: <a href="/about#rating" class="rating">${oneCatalog.level}</a>&nbsp;
                             Отзывы:
                             <t:if test="hasRatings">
                                 <span class="pos">+${posRatings}</span> / <span class="neg">-${negRatings}</span>

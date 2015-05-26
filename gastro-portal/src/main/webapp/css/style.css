@@ -1636,14 +1636,7 @@ option.root {
 }
 .catalog-item .ratings .rating {
   color: #e70500;
-}
-.catalog-item .ratings .rating .faq {
   font-size: 18px;
-  color: #e70500;
-  text-decoration: none;
-}
-.catalog-item .ratings .rating .faq:hover {
-  text-decoration: underline;
 }
 .catalog-item .ratings .pos {
   color: #e70500;
