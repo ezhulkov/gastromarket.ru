@@ -5,13 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
     <changeSet author="ezhulkov" id="1">
-        <createTable tableName="hibernate_sequences">
-            <column name="sequence_name" type="java.sql.Types.VARCHAR(255)"/>
-            <column name="sequence_next_hi_value" type="java.sql.Types.INTEGER"/>
-        </createTable>
-        <createIndex tableName="hibernate_sequences" indexName="hs_name">
-            <column name="sequence_name"/>
-        </createIndex>
+        <createSequence sequenceName="hibernate_sequence"/>
         <createTable tableName="property">
             <column name="id" type="java.sql.Types.BIGINT">
                 <constraints primaryKey="true" nullable="false"/>
@@ -90,6 +84,7 @@
             <column name="catalog_id" type="java.sql.Types.BIGINT"/>
             <column name="category_id" type="java.sql.Types.BIGINT"/>
             <column name="name" type="java.sql.Types.VARCHAR(512)"/>
+            <column name="description" type="java.sql.Types.VARCHAR(1024)"/>
             <column name="price" type="java.sql.Types.INTEGER"/>
         </createTable>
         <addForeignKeyConstraint baseTableName="product" baseColumnNames="catalog_id"
@@ -131,15 +126,6 @@
         <createIndex tableName="product_property" indexName="pr_val_val_idx">
             <column name="value_id"/>
         </createIndex>
-    </changeSet>
-
-    <changeSet id="5" author="ezhulkov">
-        <addColumn tableName="product">
-            <column name="description" type="java.sql.Types.VARCHAR(1024)"/>
-        </addColumn>
-        <sql>
-            create index product_fts_idx on product using gin(to_tsvector('russian', name || ' ' || description));
-        </sql>
     </changeSet>
 
     <changeSet id="6" author="ezhulkov">
@@ -533,6 +519,26 @@
 
     <changeSet id="36" author="ezhulkov">
         <renameTable oldTableName="product_property" newTableName="tags"/>
+    </changeSet>
+
+    <changeSet id="37" author="ezhulkov">
+        <sql>
+            CREATE TEXT SEARCH DICTIONARY russian_ispell (
+            TEMPLATE = ispell,
+            DictFile = russian,
+            AffFile = russian,
+            StopWords = russian
+            );
+            CREATE TEXT SEARCH CONFIGURATION ru ( COPY = russian );
+            ALTER TEXT SEARCH CONFIGURATION ru ALTER MAPPING FOR hword, hword_part, word WITH russian_ispell, russian_stem;
+            create index product_fts_idx on product using gin(to_tsvector('russian', name || ' ' || description));
+            create index value_fts_idx on property_value using gin(to_tsvector('russian', value));
+            create index property_fts_idx on property using gin(to_tsvector('russian', name));
+        </sql>
+    </changeSet>
+
+    <changeSet id="38" author="ezhulkov">
+        <renameTable oldTableName="person" newTableName="users"/>
     </changeSet>
 
 </databaseChangeLog>

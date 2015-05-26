@@ -20,7 +20,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.Collection;
 import java.util.Date;
@@ -30,7 +29,7 @@ import java.util.List;
  * Created by ezhulkov on 24.08.14.
  */
 @Entity
-@Table(name = "person")
+@Table(name = "users")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
@@ -44,8 +43,7 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "user")
-    @SequenceGenerator(initialValue = 1, allocationSize = 1, name = "user")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column
@@ -285,7 +283,7 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
     }
 
     public String getLoginDatePrintable() {
-        return CommonsUtils.GUI_DATE_LONG.get().format(loginDate);
+        return loginDate == null ? "-" : CommonsUtils.GUI_DATE_LONG.get().format(loginDate);
     }
 
     @Override

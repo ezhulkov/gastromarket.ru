@@ -6,7 +6,7 @@
     </div>
 
     <t:grid source="users" row="oneUser"
-            exclude="loginDate,id,username,password,accountNonExpired,accountNonLocked,avatarUrl,avatarUrlMedium,avatarUrlSmall,credentialsNonExpired,enabled,status,anonymous,deliveryAddress,mobilePhone,bonus,printableName,user,admin,cook"
+            exclude="loginDate,id,username,password,accountNonExpired,accountNonLocked,avatarUrl,avatarUrlMedium,avatarUrlSmall,credentialsNonExpired,enabled,status,anonymous,deliveryAddress,mobilePhone,bonus,loginDatePrintable,printableName,user,admin,cook"
             reorder="email,fullName,type,date,referrer,toggle" add="referrer,toggle"
             t:mixins="GridSortingDisabled"
             class="table table-hover">
