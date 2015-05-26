@@ -2,6 +2,10 @@
 
 .catalog-item {
   padding: 30px 0 20px 0;
+  .pic {
+    width: 270px;
+    height: 270px;
+  }
   .data-header {
     margin: 5px 0 0 0;
     height: auto;
@@ -28,11 +32,50 @@
   .badges {
     height: 45px;
     margin: 20px 0;
+    .badge {
+      display: inline-block;
+      float: left;
+      margin: 0 16px 0 0;
+      cursor: pointer;
+      width: 45px;
+      height: 45px;
+      border: 1px solid $greyTextColor;
+      border-radius: 100%;
+      text-align: center;
+      line-height: 45px;
+      font-size: $f20px;
+      font-weight: bold;
+      color: $deepRedTextColor;
+    }
+    .badge-product {
+      @extend .badge;
+    }
+    .badge-rank {
+      @extend .badge;
+    }
+    .badge-order {
+      @extend .badge;
+    }
+    .badge-stub {
+      @extend .badge;
+      border: 3px dotted $greyTextColor;
+    }
   }
   .ratings {
     margin: 10px 0;
     font-size: $f18px;
     color: $greyTextColor;
+    .rating {
+      color: $redTextColor;
+      .faq {
+        font-size: $f18px;
+        color: $redTextColor;
+        text-decoration: none;
+      }
+      .faq:hover {
+        text-decoration: underline;
+      }
+    }
     .pos {
       color: $redTextColor;
     }

@@ -4,6 +4,7 @@ import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
+import org.springframework.data.repository.query.Param;
 
 import javax.persistence.QueryHint;
 import java.util.List;
@@ -21,5 +22,9 @@ public interface CatalogRepository extends AltIdRepository<CatalogEntity> {
             "order by c.rating, c.name")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     List<CatalogEntity> findAllActive();
+
+    @Query("select count(*) from CatalogEntity where rating>:rating")
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    int findCatalogRank(@Param("rating") int rating);
 
 }

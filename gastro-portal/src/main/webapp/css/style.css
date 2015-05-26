@@ -1580,6 +1580,10 @@ option.root {
 .catalog-item {
   padding: 30px 0 20px 0;
 }
+.catalog-item .pic {
+  width: 270px;
+  height: 270px;
+}
 .catalog-item .data-header {
   margin: 5px 0 0 0;
   height: auto;
@@ -1607,10 +1611,39 @@ option.root {
   height: 45px;
   margin: 20px 0;
 }
+.catalog-item .badges .badge, .catalog-item .badges .badge-product, .catalog-item .badges .badge-rank, .catalog-item .badges .badge-order, .catalog-item .badges .badge-stub {
+  display: inline-block;
+  float: left;
+  margin: 0 16px 0 0;
+  cursor: pointer;
+  width: 45px;
+  height: 45px;
+  border: 1px solid #8a8a8a;
+  border-radius: 100%;
+  text-align: center;
+  line-height: 45px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #bd0400;
+}
+.catalog-item .badges .badge-stub {
+  border: 3px dotted #8a8a8a;
+}
 .catalog-item .ratings {
   margin: 10px 0;
   font-size: 18px;
   color: #8a8a8a;
+}
+.catalog-item .ratings .rating {
+  color: #e70500;
+}
+.catalog-item .ratings .rating .faq {
+  font-size: 18px;
+  color: #e70500;
+  text-decoration: none;
+}
+.catalog-item .ratings .rating .faq:hover {
+  text-decoration: underline;
 }
 .catalog-item .ratings .pos {
   color: #e70500;

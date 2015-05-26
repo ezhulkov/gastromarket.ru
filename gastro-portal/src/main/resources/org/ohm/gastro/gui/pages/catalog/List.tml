@@ -15,9 +15,28 @@
                     <div class="col-sm-9 text-left">
                         <t:pagelink page="catalog/index" t:context="oneCatalog.altId" class="name">${oneCatalog.name}</t:pagelink>
                         <div class="root-categories">${rootProperties}</div>
-                        <div class="badges"></div>
+                        <div class="badges">
+                            <t:if test="oneCatalog.rankBadge">
+                                <div class="badge-rank">${oneCatalog.rankBadge}</div>
+                                <t:parameter name="else">
+                                    <div class="badge-stub"/>
+                                </t:parameter>
+                            </t:if>
+                            <t:if test="oneCatalog.productBadge">
+                                <div class="badge-product">${oneCatalog.productBadge}</div>
+                                <t:parameter name="else">
+                                    <div class="badge-stub"/>
+                                </t:parameter>
+                            </t:if>
+                            <t:if test="oneCatalog.orderBadge">
+                                <div class="badge-order">${oneCatalog.orderBadge}</div>
+                                <t:parameter name="else">
+                                    <div class="badge-stub"/>
+                                </t:parameter>
+                            </t:if>
+                        </div>
                         <div class="ratings">
-                            Рейтинг: <span class="black-text">${oneCatalog.level}</span>&nbsp;
+                            Рейтинг: <span class="rating"><a href="/about#rating" class="s">${oneCatalog.level}</a></span>&nbsp;
                             Отзывы:
                             <t:if test="hasRatings">
                                 <span class="pos">+${posRatings}</span> / <span class="neg">-${negRatings}</span>

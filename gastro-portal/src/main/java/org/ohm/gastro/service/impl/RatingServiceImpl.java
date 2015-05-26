@@ -1,7 +1,10 @@
 package org.ohm.gastro.service.impl;
 
+import com.google.common.collect.ImmutableRangeSet;
+import com.google.common.collect.ImmutableRangeSet.Builder;
 import com.google.common.collect.Range;
 import com.google.common.collect.RangeMap;
+import com.google.common.collect.RangeSet;
 import com.google.common.collect.TreeRangeMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -48,6 +51,9 @@ public class RatingServiceImpl implements RatingService, Logging {
     private final float productionCoeff;
     private final float productsCoeff;
     private final RangeMap<Integer, Integer> levelMap;
+    private final RangeSet<Integer> rankBadgeSet;
+    private final RangeSet<Integer> orderBadgeSet;
+    private final RangeSet<Integer> productBadgeSet;
 
     @Autowired
     public RatingServiceImpl(LogRepository logRepository,
@@ -55,6 +61,9 @@ public class RatingServiceImpl implements RatingService, Logging {
                              CommentRepository commentRepository,
                              CatalogRepository catalogRepository,
                              @Value("${rating.series}") String ratingSeries,
+                             @Value("${rank.badge.series}") String badgeRankSeries,
+                             @Value("${product.badge.series}") String badgeProductSeries,
+                             @Value("${order.badge.series}") String badgeOrderSeries,
                              @Value("${rating.history.days}") int historyDays,
                              @Value("${rating.retention.coeff}") float retentionCoeff,
                              @Value("${rating.pos.rating.coeff}") float posRatingCoeff,
@@ -74,6 +83,9 @@ public class RatingServiceImpl implements RatingService, Logging {
         this.productionCoeff = productionCoeff;
         this.productsCoeff = productsCoeff;
         this.levelMap = TreeRangeMap.create();
+        this.rankBadgeSet = toRangeSet(badgeRankSeries, true);
+        this.orderBadgeSet = toRangeSet(badgeOrderSeries, false);
+        this.productBadgeSet = toRangeSet(badgeProductSeries, false);
         int prevRange = 0;
         int level = 1;
         for (Integer range : Arrays.stream(ratingSeries.split(",")).map(Integer::parseInt).collect(Collectors.toList())) {
@@ -81,7 +93,6 @@ public class RatingServiceImpl implements RatingService, Logging {
             prevRange = range;
         }
     }
-
 
     @Override
     public void registerEvent(Type type, UserEntity user) {
@@ -152,6 +163,11 @@ public class RatingServiceImpl implements RatingService, Logging {
 
         if (!catalog.getLevel().equals(prevLevel)) registerEvent(Type.RATING_CHANGE, catalog, catalog.getLevel());
 
+        catalog.setOrderBadge(orderBadgeSet.rangeContaining(doneOrdersCount).lowerEndpoint());
+        catalog.setProductBadge(productBadgeSet.rangeContaining(productsCount).lowerEndpoint());
+        final Range<Integer> rankRange = rankBadgeSet.rangeContaining(catalogRepository.findCatalogRank(catalog.getRating()) + 1);
+        catalog.setRankBadge(rankRange == null ? 0 : rankRange.upperEndpoint());
+
         catalogRepository.save(catalog);
 
     }
@@ -169,6 +185,18 @@ public class RatingServiceImpl implements RatingService, Logging {
                                       (allCount == 0 ? 0 : (doneCount / allCount * productionCoeff)) +
                                       totalSum * transactionCoeff
         );
+    }
+
+    private RangeSet<Integer> toRangeSet(String series, boolean top) {
+        int prevRange = 0;
+        final Builder<Integer> builder = ImmutableRangeSet.builder();
+        for (Integer range : Arrays.stream(series.split(",")).map(Integer::parseInt).collect(Collectors.toList())) {
+            if (top) builder.add(Range.closed(prevRange + 1, range));
+            else builder.add(Range.closed(prevRange, range - 1));
+            prevRange = range;
+        }
+        if (!top) builder.add(Range.closed(prevRange, Integer.MAX_VALUE));
+        return builder.build();
     }
 
 }

@@ -64,7 +64,6 @@ public class List extends BaseComponent {
         return getRatingService().findAllComments(oneCatalog).stream().filter(t -> t.getRating() < 0).count();
     }
 
-    @Cached
     public String getDescription() {
         String desc = (String) ObjectUtils.defaultIfNull(oneCatalog.getDescription(), "");
         desc = desc.replaceAll("\\n", "<br/>");

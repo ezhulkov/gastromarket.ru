@@ -66,6 +66,15 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
     @Column
     private Integer level = 1;
 
+    @Column(name = "rank_badge")
+    private Integer rankBadge = 0;
+
+    @Column(name = "product_badge")
+    private Integer productBadge = 0;
+
+    @Column(name = "order_badge")
+    private Integer orderBadge = 0;
+
     @Column(name = "basket_min")
     private Integer basketMin = 0;
 
@@ -239,6 +248,30 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
 
     public Integer getMaxWizardStep() {
         return CatalogService.MAX_WIZARD_STEP;
+    }
+
+    public Integer getRankBadge() {
+        return rankBadge;
+    }
+
+    public void setRankBadge(Integer rankBadge) {
+        this.rankBadge = rankBadge;
+    }
+
+    public Integer getProductBadge() {
+        return productBadge;
+    }
+
+    public void setProductBadge(Integer productBadge) {
+        this.productBadge = productBadge;
+    }
+
+    public Integer getOrderBadge() {
+        return orderBadge;
+    }
+
+    public void setOrderBadge(Integer orderBadge) {
+        this.orderBadge = orderBadge;
     }
 
     @Override
