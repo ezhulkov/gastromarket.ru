@@ -106,3 +106,9 @@ body.mobile .rub:after {
   background: url("../img/spinner.gif") no-repeat;
   background-size: 50px;
 }
+
+.popover-content {
+  font-size: $f16px;
+  padding: 5px 10px 10px 10px;
+  color: $blackTextColor;
+}

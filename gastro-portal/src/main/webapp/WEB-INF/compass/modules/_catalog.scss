@@ -39,22 +39,25 @@
       cursor: pointer;
       width: 45px;
       height: 45px;
-      border: 1px solid $greyTextColor;
       border-radius: 100%;
       text-align: center;
-      line-height: 45px;
+      line-height: 50px;
       font-size: $f20px;
       font-weight: bold;
-      color: $deepRedTextColor;
+      color: white;
+      background-color: white;
     }
     .badge-product {
       @extend .badge;
+      background: url(../img/badge1-small.png) no-repeat 0 0;
     }
     .badge-rank {
       @extend .badge;
+      background: url(../img/badge2-small.png) no-repeat 0 0;
     }
     .badge-order {
       @extend .badge;
+      background: url(../img/badge3-small.png) no-repeat 0 0;
     }
     .badge-stub {
       @extend .badge;

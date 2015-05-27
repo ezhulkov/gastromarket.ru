@@ -197,6 +197,12 @@ body.mobile .rub:after {
   background-size: 50px;
 }
 
+.popover-content {
+  font-size: 16px;
+  padding: 5px 10px 10px 10px;
+  color: #333;
+}
+
 *:focus {
   outline: 0 !important;
 }
@@ -1618,13 +1624,22 @@ option.root {
   cursor: pointer;
   width: 45px;
   height: 45px;
-  border: 1px solid #8a8a8a;
   border-radius: 100%;
   text-align: center;
-  line-height: 45px;
+  line-height: 50px;
   font-size: 20px;
   font-weight: bold;
-  color: #bd0400;
+  color: white;
+  background-color: white;
+}
+.catalog-item .badges .badge-product {
+  background: url(../img/badge1-small.png) no-repeat 0 0;
+}
+.catalog-item .badges .badge-rank {
+  background: url(../img/badge2-small.png) no-repeat 0 0;
+}
+.catalog-item .badges .badge-order {
+  background: url(../img/badge3-small.png) no-repeat 0 0;
 }
 .catalog-item .badges .badge-stub {
   border: 3px dotted #8a8a8a;
@@ -1715,9 +1730,6 @@ body.modal-open {
   padding: 0 12px;
   height: 55px;
   line-height: 55px;
-}
-.navbar .logo {
-  height: 45px;
 }
 .navbar .pic-holder > span:first-child {
   width: 28px;

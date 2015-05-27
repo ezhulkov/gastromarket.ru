@@ -2,7 +2,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top header">
 
         <div class="container">
-            <a class="logo" href="/"><img src="${contextPath}/img/logo.jpg" alt="logo"/></a>
+            <a class="logo" href="/"><img src="${contextPath}/img/logotype1-small.png" alt="logo"/></a>
             <t:if test="header">
                 <div class="pull-right">
                     <t:if test="cook">

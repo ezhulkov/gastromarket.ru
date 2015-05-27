@@ -17,21 +17,21 @@
                         <div class="root-categories">${rootProperties}</div>
                         <div class="badges">
                             <t:if test="oneCatalog.rankBadge">
-                                <div class="badge-rank">${oneCatalog.rankBadge}</div>
+                                <div class="badge-rank popover-holder" data-content="Топ ${oneCatalog.rankBadge} среди кулинаров">${oneCatalog.rankBadge}</div>
                                 <t:parameter name="else">
-                                    <div class="badge-stub"/>
+                                    <div class="badge-stub popover-holder"/>
                                 </t:parameter>
                             </t:if>
                             <t:if test="oneCatalog.productBadge">
-                                <div class="badge-product">${oneCatalog.productBadge}</div>
+                                <div class="badge-product popover-holder" data-content="Загружено товаров">${oneCatalog.productBadge}</div>
                                 <t:parameter name="else">
-                                    <div class="badge-stub"/>
+                                    <div class="badge-stub popover-holder" data-content="Нет бейджа 'загружено товаров'"/>
                                 </t:parameter>
                             </t:if>
                             <t:if test="oneCatalog.orderBadge">
-                                <div class="badge-order">${oneCatalog.orderBadge}</div>
+                                <div class="badge-order popover-holder" data-content="Выполнено заказов">${oneCatalog.orderBadge}</div>
                                 <t:parameter name="else">
-                                    <div class="badge-stub"/>
+                                    <div class="badge-stub popover-holder" data-content="Нет бейджа 'выполнено заказов'"/>
                                 </t:parameter>
                             </t:if>
                         </div>

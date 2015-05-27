@@ -40,6 +40,13 @@ jQuery(document).ready(function () {
     });
     jQuery("body").addClass(isMobile() ? "mobile" : "desktop");
     jQuery(".tip").tooltip({placement: "bottom"});
+    jQuery(".popover-holder")
+        .on('mouseenter', function () {
+            jQuery(this).popover({placement:"bottom"}).popover('show');
+        })
+        .on('mouseleave', function () {
+            jQuery(this).popover('hide');
+        });
     initChosen(jQuery("select.chosen-select"));
     initLoginModal();
     initTitle(jQuery("div.title"));
