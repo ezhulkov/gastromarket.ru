@@ -1,0 +1,101 @@
+@import "../include/var";
+
+.btn-red {
+  padding: 8px 25px;
+  font-size: 16px;
+  margin: 0 5px;
+  background-image: -webkit-gradient(linear, left top, left bottom, from($redTextColor), to($deepRedTextColor));
+  background-image: -webkit-linear-gradient(top, $redTextColor, $deepRedTextColor);
+  background-image: -moz-linear-gradient(top, $redTextColor, $deepRedTextColor);
+  background-image: -ms-linear-gradient(top, $redTextColor, $deepRedTextColor);
+  background-image: -o-linear-gradient(top, $redTextColor, $deepRedTextColor);
+  background-image: linear-gradient(to bottom, $redTextColor, $deepRedTextColor);
+  color: #FFF !important;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-transition-duration: 0.2s;
+  -moz-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+}
+
+.btn-red:hover {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#a00000), to(#900000));
+  background-image: -webkit-linear-gradient(top, #a00000, #900000);
+  background-image: -moz-linear-gradient(top, #a00000, #900000);
+  background-image: -ms-linear-gradient(top, #a00000, #900000);
+  background-image: -o-linear-gradient(top, #a00000, #900000);
+  background-image: linear-gradient(to bottom, #a00000, #900000);
+  color: #FFF;
+}
+
+.btn-red:focus {
+  color: #fff !important;
+}
+
+.btn-lg {
+  padding: 10px 45px;
+  font-size: 20px;
+}
+
+.btn-howto {
+  border-radius: 25px;
+  padding: 5px 35px;
+  font-size: 16px;
+}
+
+.title {
+
+  position: relative;
+
+  h1, h2 {
+    position: relative;
+    margin: 20px auto;
+    text-align: center;
+    padding-top: 23px;
+  }
+
+  h1.line:after, h2.line:after {
+    content: "";
+    border-top: 1px solid $greyTextColor;
+    position: absolute;
+    left: -25%;
+    top: 75%;
+    width: 150%;
+  }
+
+  h1 span, h2 span {
+    background: #fff;
+    position: relative;
+    z-index: 1;
+    padding: 0 20px;
+  }
+
+  a {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+  }
+}
+
+.more-link a,
+.data-header a,
+.title a {
+  background-color: transparent;
+  border: 2px solid $deepRedTextColor;
+  color: $deepRedTextColor;
+  font-size: 16px;
+  padding: 5px 20px 5px 20px;
+  border-radius: 20px;
+}
+
+.more-link a span,
+.data-header a span,
+.title a span {
+  margin-bottom: -4px;
+  margin-left: 5px;
+  width: 10px;
+  height: 18px;
+  display: inline-block;
+  background: url("../img/title-forward.png") center top no-repeat;
+}

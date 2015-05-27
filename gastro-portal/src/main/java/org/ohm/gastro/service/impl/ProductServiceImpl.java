@@ -1,15 +1,15 @@
 package org.ohm.gastro.service.impl;
 
 import com.google.common.base.Objects;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.javatuples.Tuple;
 import org.ohm.gastro.domain.CatalogEntity;
-import org.ohm.gastro.domain.CategoryEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.ProductEntity.Unit;
+import org.ohm.gastro.domain.PropertyEntity;
+import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.misc.Throwables;
 import org.ohm.gastro.reps.ProductRepository;
@@ -20,6 +20,7 @@ import org.ohm.gastro.service.ImageService.FileType;
 import org.ohm.gastro.service.ImageService.ImageSize;
 import org.ohm.gastro.service.ImageUploader;
 import org.ohm.gastro.service.ProductService;
+import org.ohm.gastro.service.PropertyService;
 import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingTarget;
 import org.ohm.gastro.service.social.MediaElement;
@@ -35,15 +36,12 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Nonnull;
 import java.io.File;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.scribe.utils.Preconditions.checkNotNull;
 
@@ -58,16 +56,19 @@ public class ProductServiceImpl implements ProductService, Logging {
     private final ProductRepository productRepository;
     private final TagRepository tagRepository;
     private final CatalogService catalogService;
+    private final PropertyService propertyService;
     private final ImageService imageService;
 
     @Autowired
     public ProductServiceImpl(final ProductRepository productRepository,
                               final TagRepository tagRepository,
                               final CatalogService catalogService,
+                              final PropertyService propertyService,
                               final ImageService imageService) {
         this.productRepository = productRepository;
         this.tagRepository = tagRepository;
         this.catalogService = catalogService;
+        this.propertyService = propertyService;
         this.imageService = imageService;
     }
 
@@ -111,27 +112,41 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
-    public ProductEntity saveProduct(ProductEntity product, Map<Long, String> propValues, Map<Long, String[]> listValues) {
+    public ProductEntity saveProduct(ProductEntity product, Map<Long, String> propValues, List<Tuple> listValues) {
         saveProduct(product);
         tagRepository.deleteAllValues(product);
-        final Function<Entry<Long, String>, TagEntity> tagCreator = t -> {
-            TagEntity productValue = new TagEntity();
-            productValue.setProduct(product);
-            productValue.setData(t.getValue());
-            productValue.setProperty(catalogService.findProperty(t.getKey()));
-            return productValue;
-        };
         propValues.entrySet().stream()
-                .filter(t -> StringUtils.isNotEmpty(t.getValue()))
-                .map(tagCreator)
+                .map(t -> {
+                    final PropertyEntity property = propertyService.findProperty(t.getKey());
+                    final TagEntity tag = new TagEntity();
+                    tag.setProduct(product);
+                    tag.setProperty(property);
+                    tag.setData(t.getValue());
+                    return tag;
+                })
                 .forEach(tagRepository::save);
-        listValues.entrySet().stream()
-                .map(t -> Arrays.stream(t.getValue()).map(v -> ImmutableMap.of(t.getKey(), v)).collect(Collectors.toList()))
-                .flatMap(Collection::stream)
-                .map(t -> Iterables.getFirst(t.entrySet(), null))
-                .filter(t -> StringUtils.isNotEmpty(t.getValue()))
-                .map(tagCreator)
-                .forEach(tagRepository::save);
+        listValues.stream()
+                .forEach(t -> {
+                    final Long parentValueId = (Long) t.getValue(0);
+                    final Long childValueId = t.getSize() == 2 ? (Long) t.getValue(1) : null;
+                    final PropertyValueEntity parentValue = propertyService.findPropertyValue(parentValueId);
+                    final PropertyEntity property = parentValue.getProperty();
+                    final TagEntity parentTag = new TagEntity();
+                    final TagEntity childTag;
+                    parentTag.setProduct(product);
+                    parentTag.setProperty(property);
+                    parentTag.setValue(parentValue);
+                    tagRepository.save(parentTag);
+                    if (childValueId != null) {
+                        final PropertyValueEntity childValue = propertyService.findPropertyValue(childValueId);
+                        childTag = new TagEntity();
+                        childTag.setProduct(product);
+                        childTag.setProperty(property);
+                        childTag.setValue(childValue);
+                        childTag.setData(parentTag.getId().toString());
+                        tagRepository.save(childTag);
+                    }
+                });
         return product;
     }
 
@@ -167,17 +182,17 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
-    public List<ProductEntity> findAllProducts(CategoryEntity category, CatalogEntity catalog) {
-        return findProductsInternal(category, catalog, null, null);
+    public List<ProductEntity> findAllProducts(PropertyValueEntity propertyValue, CatalogEntity catalog) {
+        return findProductsInternal(propertyValue, catalog, null, null);
     }
 
     @Override
-    public List<ProductEntity> findProductsForFrontend(CategoryEntity category, CatalogEntity catalog, OrderType orderType, Direction direction, int from, int to) {
+    public List<ProductEntity> findProductsForFrontend(PropertyValueEntity propertyValue, CatalogEntity catalog, OrderType orderType, Direction direction, int from, int to) {
         final int count = to - from;
         if (count == 0) return Lists.newArrayList();
         final int page = from / count;
         final Sort sort = orderType == OrderType.NONE || orderType == null ? null : new Sort(direction, orderType.name().toLowerCase());
-        return findProductsInternal(category, catalog, true, new PageRequest(page, count, sort));
+        return findProductsInternal(propertyValue, catalog, true, new PageRequest(page, count, sort));
     }
 
     @Override
@@ -185,22 +200,19 @@ public class ProductServiceImpl implements ProductService, Logging {
         return productRepository.findCountCatalog(catalog);
     }
 
-    private List<ProductEntity> findProductsInternal(CategoryEntity category, CatalogEntity catalog, Boolean wasSetup, Pageable page) {
-        if (category != null && category.getChildren().size() > 0) {
-            return productRepository.findAllByParentCategory(category, wasSetup, page).getContent();
-        }
-        return productRepository.findAllByCategoryAndCatalog(category, catalog, wasSetup, page).getContent();
+    private List<ProductEntity> findProductsInternal(PropertyValueEntity value, CatalogEntity catalog, Boolean wasSetup, Pageable page) {
+        return productRepository.findAllByRootValueAndCatalog(value, catalog, wasSetup, page).getContent();
     }
 
     @Override
     public List<ProductEntity> findRecommendedProducts(final Long pid, final int count) {
         final ProductEntity product = productRepository.findOne(pid);
-        final CategoryEntity category = product.getCategory();
-        if (category == null) return Lists.newArrayList();
-        final CategoryEntity parentCategory = category.getParent() == null ? category : category.getParent();
-        return productRepository.findAllByParentCategory(parentCategory, false, null).getContent().stream()
-                .filter(p -> !p.equals(product))
-                .limit(count).collect(Collectors.toList());
+        return product.getValues().stream()
+                .filter(t -> t.getValue() != null)
+                .flatMap(t -> t.getValue().isRootValue() ? Stream.of(t.getValue()) : t.getValue().getParents().stream()).distinct()
+                .flatMap(t -> productRepository.findAllByRootValueAndCatalog(t, null, true, new PageRequest(0, count)).getContent().stream()).distinct()
+                .filter(t -> !t.equals(product))
+                .collect(Collectors.toList());
     }
 
     @Override

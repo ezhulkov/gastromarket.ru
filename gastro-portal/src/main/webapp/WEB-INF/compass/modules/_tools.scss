@@ -1,0 +1,108 @@
+@import "../include/var";
+
+.rub {
+  display: inline !important;
+  padding-right: 10px;
+}
+
+body.desktop .rub:after {
+  content: "₽";
+}
+
+body.mobile .rub:after {
+  content: "руб";
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.f14px {
+  font-size: $f14px !important;
+}
+
+.f16px {
+  font-size: $f16px !important;
+}
+
+.f18px {
+  font-size: $f18px !important;
+}
+
+.f20px {
+  font-size: $f20px !important;
+}
+
+.f30px {
+  font-size: $f30px !important;
+}
+
+.black-text {
+  color: $blackTextColor !important;
+}
+
+.black-text:hover {
+  color: $blackTextColor;
+}
+
+.grey-text {
+  color: $greyTextColor;
+}
+
+.grey-text:hover {
+  color: $greyTextColor;
+}
+
+.red-text {
+  color: $redTextColor !important;
+}
+
+.red-text:hover {
+  color: $redTextColor !important;
+}
+
+.border {
+  border: 1px solid $blackTextColor !important;
+}
+
+.center {
+  text-align: center !important;
+}
+
+.multiple {
+  height: 150px !important;
+}
+
+.pic-holder {
+  position: relative;
+}
+
+.pic-holder > span:first-child {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: $gap;
+}
+
+.pic-holder.delete > .purchase-edit {
+  background-position-x: -40px;
+}
+
+.pic-holder.used-bonuses > .purchase-edit {
+  background-position-x: -60px;
+}
+
+.pic-holder.basket-add > span {
+  width: 30px;
+  height: 30px;
+  background: url("../img/basket-add.png") no-repeat 0 0;
+  display: inline-block;
+}
+
+.spinner {
+  text-align: center;
+  height: 50px;
+  width: 50px;
+  margin: 2px auto;
+  background: url("../img/spinner.gif") no-repeat;
+  background-size: 50px;
+}

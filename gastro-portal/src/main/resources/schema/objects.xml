@@ -5,13 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
     <changeSet author="ezhulkov" id="1">
-        <createTable tableName="hibernate_sequences">
-            <column name="sequence_name" type="java.sql.Types.VARCHAR(255)"/>
-            <column name="sequence_next_hi_value" type="java.sql.Types.INTEGER"/>
-        </createTable>
-        <createIndex tableName="hibernate_sequences" indexName="hs_name">
-            <column name="sequence_name"/>
-        </createIndex>
+        <createSequence sequenceName="hibernate_sequence"/>
         <createTable tableName="property">
             <column name="id" type="java.sql.Types.BIGINT">
                 <constraints primaryKey="true" nullable="false"/>
@@ -90,6 +84,7 @@
             <column name="catalog_id" type="java.sql.Types.BIGINT"/>
             <column name="category_id" type="java.sql.Types.BIGINT"/>
             <column name="name" type="java.sql.Types.VARCHAR(512)"/>
+            <column name="description" type="java.sql.Types.VARCHAR(1024)"/>
             <column name="price" type="java.sql.Types.INTEGER"/>
         </createTable>
         <addForeignKeyConstraint baseTableName="product" baseColumnNames="catalog_id"
@@ -110,10 +105,14 @@
             </column>
             <column name="product_id" type="java.sql.Types.BIGINT"/>
             <column name="property_id" type="java.sql.Types.BIGINT"/>
+            <column name="value_id" type="java.sql.Types.BIGINT"/>
             <column name="data" type="java.sql.Types.VARCHAR(64)"/>
         </createTable>
         <addForeignKeyConstraint baseTableName="product_property" baseColumnNames="product_id"
                 constraintName="pv_prod_fk" referencedTableName="product" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="product_property" baseColumnNames="value_id"
+                constraintName="pv_val_fk" referencedTableName="property_value" referencedColumnNames="id"
                 onDelete="CASCADE"/>
         <addForeignKeyConstraint baseTableName="product_property" baseColumnNames="property_id"
                 constraintName="pv_prop_fk" referencedTableName="property" referencedColumnNames="id"
@@ -124,15 +123,9 @@
         <createIndex tableName="product_property" indexName="pr_val_prop_idx">
             <column name="property_id"/>
         </createIndex>
-    </changeSet>
-
-    <changeSet id="5" author="ezhulkov">
-        <addColumn tableName="product">
-            <column name="description" type="java.sql.Types.VARCHAR(1024)"/>
-        </addColumn>
-        <sql>
-            create index product_fts_idx on product using gin(to_tsvector('russian', name || ' ' || description));
-        </sql>
+        <createIndex tableName="product_property" indexName="pr_val_val_idx">
+            <column name="value_id"/>
+        </createIndex>
     </changeSet>
 
     <changeSet id="6" author="ezhulkov">
@@ -489,6 +482,71 @@
         <sql>
             update catalog set wizard_step=1;
         </sql>
+    </changeSet>
+
+    <changeSet id="35" author="ezhulkov">
+        <dropTable tableName="category_property"/>
+        <sql>update product set category_id=null;</sql>
+        <dropForeignKeyConstraint baseTableName="product" constraintName="prod_category_fk"/>
+        <dropTable tableName="category"/>
+        <dropColumn tableName="product" columnName="category_id"/>
+        <addColumn tableName="property">
+            <column name="mandatory" type="java.sql.Types.BOOLEAN"/>
+        </addColumn>
+        <addColumn tableName="property_value">
+            <column name="tag" type="java.sql.Types.VARCHAR(16)"/>
+            <column name="alt_id" type="java.sql.Types.VARCHAR(256)"/>
+            <column name="root_value" type="java.sql.Types.BOOLEAN" defaultValueBoolean="true"/>
+        </addColumn>
+        <createTable tableName="value_value">
+            <column name="parent_id" type="java.sql.Types.BIGINT"/>
+            <column name="child_id" type="java.sql.Types.BIGINT"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="value_value" baseColumnNames="parent_id"
+                constraintName="value_value_parent_fk" referencedTableName="property_value"
+                referencedColumnNames="id" onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="value_value" baseColumnNames="child_id"
+                constraintName="value_value_child_fk" referencedTableName="property_value"
+                referencedColumnNames="id" onDelete="CASCADE"/>
+        <createIndex tableName="value_value" indexName="value_value_parent_idx">
+            <column name="parent_id"/>
+            <column name="child_id"/>
+        </createIndex>
+        <createIndex tableName="property_value" indexName="prop_value_tag_idx">
+            <column name="tag"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="36" author="ezhulkov">
+        <renameTable oldTableName="product_property" newTableName="tags"/>
+    </changeSet>
+
+    <changeSet id="37" author="ezhulkov">
+        <sql>
+            CREATE TEXT SEARCH DICTIONARY russian_ispell (
+            TEMPLATE = ispell,
+            DictFile = russian,
+            AffFile = russian,
+            StopWords = russian
+            );
+            CREATE TEXT SEARCH CONFIGURATION ru ( COPY = russian );
+            ALTER TEXT SEARCH CONFIGURATION ru ALTER MAPPING FOR hword, hword_part, word WITH russian_ispell, russian_stem;
+            create index product_fts_idx on product using gin(to_tsvector('russian', name || ' ' || description));
+            create index value_fts_idx on property_value using gin(to_tsvector('russian', value));
+            create index property_fts_idx on property using gin(to_tsvector('russian', name));
+        </sql>
+    </changeSet>
+
+    <changeSet id="38" author="ezhulkov">
+        <renameTable oldTableName="person" newTableName="users"/>
+    </changeSet>
+
+    <changeSet id="39" author="ezhulkov">
+        <addColumn tableName="catalog">
+            <column name="rank_badge" type="java.sql.Types.VARCHAR(32)"/>
+            <column name="order_badge" type="java.sql.Types.VARCHAR(32)"/>
+            <column name="product_badge" type="java.sql.Types.VARCHAR(32)"/>
+        </addColumn>
     </changeSet>
 
 </databaseChangeLog>

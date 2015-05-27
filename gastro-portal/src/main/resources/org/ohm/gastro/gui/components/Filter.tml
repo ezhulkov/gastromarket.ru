@@ -2,24 +2,24 @@
     <ul>
         <li>Категория:
             <div class="dropdown cats">
-                <a data-target="#" href="#sortMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">${categoryName}</a>
+                <a data-target="#" href="#sortMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">${propertyName}</a>
                 <ul class="dropdown-menu multi-level" role="menu">
                     <li>
                         <a href="${pageContext}">Все меню</a>
                     </li>
-                    <t:loop source="categories" value="oneCategory">
-                        <t:if test="oneCategory.children">
+                    <t:loop source="values" value="oneValue">
+                        <t:if test="oneValue.children">
                             <li class="dropdown-submenu">
-                                <a href="${pageContext}/${oneCategory.id}">${oneCategory.name}</a>
+                                <a href="${pageContext}/${oneValue.altId}">${oneValue.name}</a>
 
                                 <div class="dropdown-menu">
-                                    <t:loop source="oneCategory.children" value="oneCategory">
-                                        <a href="${pageContext}/${oneCategory.id}">${oneCategory.name}</a>
+                                    <t:loop source="childrenValues" value="oneChildValue">
+                                        <a href="${pageContext}/${oneValue.altId}/${oneChildValue.altId}">${oneChildValue.name}</a>
                                     </t:loop>
                                 </div>
                             </li>
                             <t:parameter name="else">
-                                <li><a href="${pageContext}/${oneCategory.id}">${oneCategory.name}</a></li>
+                                <li><a href="${pageContext}/${oneValue.altId}">${oneValue.name}</a></li>
                             </t:parameter>
                         </t:if>
                     </t:loop>
@@ -32,20 +32,19 @@
                 <span class="order order-${direction}"></span>
                 <ul class="dropdown-menu" role="menu">
                     <li>
-                        <a href="${pageContext}/${categoryId}/name/asc">по имени возрастая</a>
+                        <a href="${pageContext}/${parentPropertyId}/${propertyId}/name/asc">по имени возрастая</a>
                     </li>
                     <li>
-                        <a href="${pageContext}/${categoryId}/name/desc">по имени убывая</a>
+                        <a href="${pageContext}/${parentPropertyId}/${propertyId}/name/desc">по имени убывая</a>
                     </li>
                     <li>
-                        <a href="${pageContext}/${categoryId}/price/asc">по цене возрастая</a>
+                        <a href="${pageContext}/${parentPropertyId}/${propertyId}/price/asc">по цене возрастая</a>
                     </li>
                     <li>
-                        <a href="${pageContext}/${categoryId}/price/desc">по цене убывая</a>
+                        <a href="${pageContext}/${parentPropertyId}/${propertyId}/price/desc">по цене убывая</a>
                     </li>
                 </ul>
             </div>
-
         </li>
     </ul>
 </div>

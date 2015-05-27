@@ -1,0 +1,50 @@
+<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="prop:title">
+
+    <div class="container">
+        <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="search-form">
+            <div class="col-sm-1"/>
+            <div class="col-sm-10 search-bar">
+                <input t:id="search" t:value="searchString" t:type="TextField" placeholder="Поиск"/>
+                <input type="submit" value=""/>
+            </div>
+            <div class="col-sm-1"/>
+        </t:form>
+
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+
+        <div id="product-items" class="grid-block products"/>
+        <t:zone t:id="productsZone">
+            <t:delegate to="productsBlock"/>
+        </t:zone>
+        <t:block t:id="productsBlock">
+            <t:loop source="products" value="oneProduct">
+                <t:product product="oneProduct"/>
+            </t:loop>
+            <div class="more-products">
+                <t:if test="hasProducts">
+                    <div class="more-link">
+                        <t:actionlink t:id="fetchProducts" t:context="fetchContext" t:zone="productsZone" class="">Показать еще...</t:actionlink>
+                    </div>
+                </t:if>
+            </div>
+            <t:unless test="wasProducts">
+                <div class="row">
+                    <div class="text-center f20px">
+                        Мы не смогли найти по этому запросу
+                    </div>
+                </div>
+            </t:unless>
+        </t:block>
+        <t:productModalTemplate/>
+
+    </div>
+
+    <script>
+        jQuery(initProductCatalog(jQuery("#productsZone")));
+    </script>
+
+</t:htmlLayout>

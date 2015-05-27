@@ -1,7 +1,10 @@
 package org.ohm.gastro.service.impl;
 
+import com.google.common.collect.ImmutableRangeSet;
+import com.google.common.collect.ImmutableRangeSet.Builder;
 import com.google.common.collect.Range;
 import com.google.common.collect.RangeMap;
+import com.google.common.collect.RangeSet;
 import com.google.common.collect.TreeRangeMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -14,6 +17,7 @@ import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.CommentRepository;
 import org.ohm.gastro.reps.LogRepository;
 import org.ohm.gastro.reps.OrderRepository;
+import org.ohm.gastro.reps.ProductRepository;
 import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingService;
 import org.ohm.gastro.service.RatingTarget;
@@ -39,6 +43,7 @@ public class RatingServiceImpl implements RatingService, Logging {
     private final OrderRepository orderRepository;
     private final CommentRepository commentRepository;
     private final CatalogRepository catalogRepository;
+    private final ProductRepository productRepository;
 
     private final int historyDays;
     private final float retentionCoeff;
@@ -48,13 +53,20 @@ public class RatingServiceImpl implements RatingService, Logging {
     private final float productionCoeff;
     private final float productsCoeff;
     private final RangeMap<Integer, Integer> levelMap;
+    private final RangeSet<Integer> rankBadgeSet;
+    private final RangeSet<Integer> orderBadgeSet;
+    private final RangeSet<Integer> productBadgeSet;
 
     @Autowired
     public RatingServiceImpl(LogRepository logRepository,
                              OrderRepository orderRepository,
                              CommentRepository commentRepository,
                              CatalogRepository catalogRepository,
+                             ProductRepository productRepository,
                              @Value("${rating.series}") String ratingSeries,
+                             @Value("${rank.badge.series}") String badgeRankSeries,
+                             @Value("${product.badge.series}") String badgeProductSeries,
+                             @Value("${order.badge.series}") String badgeOrderSeries,
                              @Value("${rating.history.days}") int historyDays,
                              @Value("${rating.retention.coeff}") float retentionCoeff,
                              @Value("${rating.pos.rating.coeff}") float posRatingCoeff,
@@ -66,6 +78,7 @@ public class RatingServiceImpl implements RatingService, Logging {
         this.orderRepository = orderRepository;
         this.commentRepository = commentRepository;
         this.catalogRepository = catalogRepository;
+        this.productRepository = productRepository;
         this.historyDays = historyDays;
         this.retentionCoeff = retentionCoeff;
         this.posRatingCoeff = posRatingCoeff;
@@ -74,6 +87,9 @@ public class RatingServiceImpl implements RatingService, Logging {
         this.productionCoeff = productionCoeff;
         this.productsCoeff = productsCoeff;
         this.levelMap = TreeRangeMap.create();
+        this.rankBadgeSet = toRangeSet(badgeRankSeries, true);
+        this.orderBadgeSet = toRangeSet(badgeOrderSeries, false);
+        this.productBadgeSet = toRangeSet(badgeProductSeries, false);
         int prevRange = 0;
         int level = 1;
         for (Integer range : Arrays.stream(ratingSeries.split(",")).map(Integer::parseInt).collect(Collectors.toList())) {
@@ -81,7 +97,6 @@ public class RatingServiceImpl implements RatingService, Logging {
             prevRange = range;
         }
     }
-
 
     @Override
     public void registerEvent(Type type, UserEntity user) {
@@ -137,7 +152,7 @@ public class RatingServiceImpl implements RatingService, Logging {
         final List<CommentEntity> ratings = commentRepository.findAllRatings(catalog);
         final List<LogEntity> catalogOps = findEvents(catalog.getUser(), catalog, fromDate);
 
-        final int productsCount = catalog.getReadyProducts().size();
+        final int productsCount = productRepository.findAllByWasSetupAndCatalog(true, catalog).size();
         final int retentionCount = findEvents(catalog.getUser(), fromDate, Type.LOGIN).size();
         final int posCount = (int) ratings.stream().filter(t -> t.getRating() > 0).count();
         final int negCount = (int) ratings.stream().filter(t -> t.getRating() < 0).count();
@@ -152,7 +167,18 @@ public class RatingServiceImpl implements RatingService, Logging {
 
         if (!catalog.getLevel().equals(prevLevel)) registerEvent(Type.RATING_CHANGE, catalog, catalog.getLevel());
 
+        catalog.setOrderBadge(orderBadgeSet.rangeContaining(doneOrdersCount).lowerEndpoint());
+        catalog.setProductBadge(productBadgeSet.rangeContaining(productsCount).lowerEndpoint());
         catalogRepository.save(catalog);
+
+        final List<CatalogEntity> catalogs = catalogRepository.findAllActive();
+        int pos = 1;
+        for (CatalogEntity oneCatalog : catalogs) {
+            final Range<Integer> rankRange = rankBadgeSet.rangeContaining(pos++);
+            if (rankRange == null) break;
+            oneCatalog.setRankBadge(rankRange.upperEndpoint());
+            catalogRepository.save(oneCatalog);
+        }
 
     }
 
@@ -169,6 +195,18 @@ public class RatingServiceImpl implements RatingService, Logging {
                                       (allCount == 0 ? 0 : (doneCount / allCount * productionCoeff)) +
                                       totalSum * transactionCoeff
         );
+    }
+
+    private RangeSet<Integer> toRangeSet(String series, boolean top) {
+        int prevRange = 0;
+        final Builder<Integer> builder = ImmutableRangeSet.builder();
+        for (Integer range : Arrays.stream(series.split(",")).map(Integer::parseInt).collect(Collectors.toList())) {
+            if (top) builder.add(Range.closed(prevRange + 1, range));
+            else builder.add(Range.closed(prevRange, range - 1));
+            prevRange = range;
+        }
+        if (!top) builder.add(Range.closed(prevRange, Integer.MAX_VALUE));
+        return builder.build();
     }
 
 }

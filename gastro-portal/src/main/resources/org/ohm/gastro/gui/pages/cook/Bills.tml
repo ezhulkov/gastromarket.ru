@@ -28,7 +28,7 @@
                 <t:parameter name="orderCountHeader">Выполненных заказов</t:parameter>
                 <t:parameter name="payHeader">Оплата</t:parameter>
                 <t:parameter name="datePrintableCell">
-                    <a class="red-link" data-toggle="modal" data-target="#billModal${oneBill.id}">${oneBill.datePrintable}</a>
+                    <a class="red-text" data-toggle="modal" data-target="#billModal${oneBill.id}">${oneBill.datePrintable}</a>
 
                     <div class="modal fade billinfo" id="billModal${oneBill.id}" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog application">

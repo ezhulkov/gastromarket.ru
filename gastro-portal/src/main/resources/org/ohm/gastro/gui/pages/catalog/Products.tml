@@ -1,41 +1,37 @@
 <t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="catalog">
-        <div class="container">
-            <div class="title">
-                <h1><span>${catalog.name}</span></h1>
-                <t:if test="catalogOwner">
-                    <a data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо<span/></a>
+    <div class="container">
+        <div class="title">
+            <h1><span>${catalog.name}</span></h1>
+            <t:if test="catalogOwner">
+                <a data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо<span/></a>
+            </t:if>
+        </div>
+        <p class="modal-text">
+            <a href="/catalog/${catalog.altId}" class="red-text">Вернуться к странице кулинара</a>
+        </p>
+        <t:if test="catalogOwner">
+            <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>
+        </t:if>
+
+        <div id="product-items" class="grid-block products"/>
+        <t:zone t:id="productsZone">
+            <t:delegate to="productsBlock"/>
+        </t:zone>
+        <t:block t:id="productsBlock">
+            <t:loop source="products" value="oneProduct">
+                <t:product product="oneProduct" edit="catalogOwner"/>
+            </t:loop>
+            <div class="more-products">
+                <t:if test="hasProducts">
+                    <div class="more-link">
+                        <t:actionlink t:id="fetchProducts" t:context="fetchContext" t:zone="productsZone" class="">Показать еще...</t:actionlink>
+                    </div>
                 </t:if>
             </div>
-            <p class="modal-text">
-                <a href="/catalog/${catalog.altId}">Вернуться к странице кулинара</a>
-            </p>
-            <t:if test="catalogOwner">
-                <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>
-            </t:if>
+        </t:block>
+        <t:productModalTemplate/>
 
-            <t:filter category="category" orderType="orderType" direction="direction" pageContext="/catalog/products/${catalog.altId}"/>
-
-            <div id="product-items" class="grid-block products"/>
-            <t:zone t:id="productsZone">
-                <t:delegate to="productsBlock"/>
-            </t:zone>
-            <t:block t:id="productsBlock">
-                <t:loop source="products" value="oneProduct">
-                    <t:product product="oneProduct" edit="catalogOwner"/>
-                </t:loop>
-                <div class="more-products">
-                    <t:if test="hasProducts">
-                        <div class="more-link">
-                            <t:actionlink t:id="fetchProducts" t:context="fetchContext" t:zone="productsZone" class="">Показать еще...</t:actionlink>
-                        </div>
-                    </t:if>
-                </div>
-            </t:block>
-            <t:productModalTemplate/>
-
-        </div>
     </div>
 
     <script>

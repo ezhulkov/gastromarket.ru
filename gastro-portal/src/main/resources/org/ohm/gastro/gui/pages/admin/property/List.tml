@@ -6,7 +6,7 @@
     </div>
 
     <t:grid source="properties" row="oneProperty"
-            exclude="id" add="del" reorder="name,type,del"
+            exclude="id,parent,mandatory,tag" add="del" reorder="name,type,del"
             t:mixins="GridSortingDisabled" class="table table-hover">
         <t:parameter name="nameHeader">
             Название

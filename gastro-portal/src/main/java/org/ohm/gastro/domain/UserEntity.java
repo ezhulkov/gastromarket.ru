@@ -2,6 +2,9 @@ package org.ohm.gastro.domain;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.ohm.gastro.util.CommonsUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +20,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.Collection;
 import java.util.Date;
@@ -27,7 +29,8 @@ import java.util.List;
  * Created by ezhulkov on 24.08.14.
  */
 @Entity
-@Table(name = "person")
+@Table(name = "users")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
     public enum Type {
@@ -40,8 +43,7 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "user")
-    @SequenceGenerator(initialValue = 1, allocationSize = 1, name = "user")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column
@@ -76,23 +78,25 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
     private Integer bonus = 0;
 
     @Column(name = "avatar_url")
-    private String avatarUrl = "/img/avatar-stub.png";
+    private String avatarUrl = "/img/avatar-stub-210x210.png";
 
     @Column(name = "avatar_url_medium")
-    private String avatarUrlMedium = "/img/avatar-stub-medium.png";
+    private String avatarUrlMedium = "/img/avatar-stub-100x100.png";
 
 
     @Column(name = "avatar_url_small")
-    private String avatarUrlSmall = "/img/avatar-stub-small.png";
+    private String avatarUrlSmall = "/img/avatar-stub-23x23.png";
 
     @Column
     @Enumerated(EnumType.STRING)
     private Type type = Type.USER;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<CatalogEntity> catalogs = Lists.newArrayList();
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private UserEntity referrer;
 
     @Override
@@ -276,6 +280,10 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
     public boolean isAdmin() {
         return getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ADMIN"));
+    }
+
+    public String getLoginDatePrintable() {
+        return loginDate == null ? "-" : CommonsUtils.GUI_DATE_LONG.get().format(loginDate);
     }
 
     @Override

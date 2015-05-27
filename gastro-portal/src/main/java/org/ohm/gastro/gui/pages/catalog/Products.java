@@ -32,20 +32,20 @@ public class Products extends ScrollableProducts {
         return onActivate(catId, null);
     }
 
-    public boolean onActivate(String catId, Long cid) {
-        return onActivate(catId, cid, null, null);
+    public boolean onActivate(String catId, String pid) {
+        return onActivate(catId, pid, null, null);
     }
 
-    public boolean onActivate(String catId, Long cid, OrderType orderType, Direction direction) {
+    public boolean onActivate(String catId, String pid, OrderType orderType, Direction direction) {
         CatalogEntity cat = getCatalogService().findCatalog(catId);
-        initScrollableContext(cid, cat.getId(), orderType, direction);
+        initScrollableContext(null, pid, cat.getId(), orderType, direction);
         return true;
     }
 
     public Object[] onPassivate() {
         return new Object[]{
                 catalog.getAltId(),
-                category == null ? null : category.getId(),
+                propertyValue == null ? null : propertyValue.getId(),
                 orderType == null ? null : orderType.name().toLowerCase(),
                 direction == null ? null : direction.name().toLowerCase()};
     }
@@ -65,7 +65,7 @@ public class Products extends ScrollableProducts {
 
     @Override
     protected List<ProductEntity> getProductsInternal() {
-        return isCatalogOwner() ? getProductService().findAllProducts(category, catalog) : super.getProductsInternal();
+        return isCatalogOwner() ? getProductService().findAllProducts(propertyValue, catalog) : super.getProductsInternal();
     }
 
 }

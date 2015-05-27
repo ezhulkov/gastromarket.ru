@@ -1,3 +1,4 @@
+var counter = 0;
 jQuery.noConflict();
 (function () {
     var isBootstrapEvent = false;
@@ -77,14 +78,12 @@ function activate_menu(el) {
 function initTitle(el) {
     jQuery(el).each(function (i, e) {
         var h = jQuery(e).find("h1,h2");
-        jQuery(h).css("width", realTitleWidth(jQuery(h)) + 50);
+        jQuery(h).css("width", realTitleWidth(jQuery(h)) + 50).addClass("line");
     });
 }
 
-function initChosen(el) {
-    jQuery(el).chosen({"width": "100%"}).on('change', function (e) {
-        this.fire(Tapestry.ACTION_EVENT, e);
-    });
+function initChosen(el, onReady) {
+    jQuery(el).on("chosen:ready", onReady).chosen({"width": "100%", allow_single_deselect: true});
 }
 
 function showProductModal(pid) {
@@ -254,44 +253,6 @@ function initBasket() {
             .delay(2000).fadeOut(1000);
     });
 }
-
-function initProductsEdit() {
-    jQuery("div.product-edit-modal").each(function (i, e) {
-        initProductEdit(e);
-    });
-}
-
-function initProductEdit(el) {
-    toggleProductEdit(el, false);
-}
-
-function addMoreProperties(product, el) {
-    var listBlock = jQuery(el, product);
-    var lastList = jQuery('select:last', listBlock);
-    var newList = jQuery(lastList).clone();
-    jQuery(newList).insertAfter(lastList);
-    initChosen(jQuery(newList));
-}
-
-function toggleProductEdit(el, closeModal) {
-    if (closeModal) {
-        modal = jQuery(el).closest(".product-edit-modal");
-        modal.modal('hide');
-        initProductEdit(modal);
-        jQuery("body").removeClass("modal-open");
-    } else {
-        jQuery(".product-details", el).addClass("hidden");
-        jQuery(".properties-details", el).addClass("hidden");
-        jQuery(".photo-details", el).addClass("hidden");
-        var type = jQuery(el).find("input[name='stage']").attr('value');
-        if (type == 'DESC') jQuery(".product-details", el).removeClass("hidden");
-        if (type == 'PROP') jQuery(".properties-details", el).removeClass("hidden");
-        if (type == 'PHOTO') jQuery(".photo-details", el).removeClass("hidden");
-    }
-    initTitle(jQuery("div.title", el));
-    initFineUploader(jQuery(el).find("div.upload-file"));
-}
-
 function initLoginModal() {
     var hideAll = function () {
         jQuery(".modal-dialog.login").hide();
@@ -379,6 +340,66 @@ function initWizardPage() {
         });
     }
 }
+function addMoreProperties(el) {
+    var listBlock = jQuery(el);
+    var lastBlock = jQuery('div.prop-edit-block:last', listBlock);
+    var newBlock = jQuery(lastBlock).clone();
+    jQuery(newBlock).find(".chosen-container").remove();
+    initPropEdit(newBlock);
+    jQuery(newBlock).insertAfter(lastBlock);
+}
+function initPropEdit(blocks) {
+    jQuery(blocks).each(function (i, block) {
+        counter++;
+        var select = jQuery("select", block).each(function (i, select) {
+            var selectName = jQuery(select).attr("name");
+            jQuery(select).attr("name", selectName.substring(0, selectName.lastIndexOf("-")) + "-" + counter);
+        });
+        jQuery("select.parent-value", block).each(function (i, parentSelect) {
+            initChosen(jQuery(parentSelect));
+            jQuery(parentSelect).on('change', function (evt, params) {
+                var propId = jQuery(this).attr("data-property");
+                var container = jQuery(this).next(".chosen-container");
+                var subSelect = jQuery("select[name^='sublist-" + (params == undefined || params.length == 0 ? "none" : params.selected) + "']", block);
+                var len = subSelect.length ? 250 : 510;
+                //Destroy prev subs selected
+                jQuery("select.sublist-" + propId, block)
+                    .filter(function () {
+                        return jQuery(this).data('chosen') != undefined;
+                    })
+                    .chosen("destroy")
+                    .css("display", "none");
+                //Animate main select
+                if (jQuery(container).innerWidth() != len) {
+                    jQuery(container).animate({width: len}, {
+                        duration: 100,
+                        step: function (now, fx) {
+                            jQuery(container).attr('style', 'width: ' + now + 'px!important');
+                        },
+                        complete: function () {
+                            showSubSelect(subSelect);
+                        }
+                    });
+                } else {
+                    showSubSelect(subSelect);
+                }
+            });
+        });
+        jQuery("select.child-value.show-true", block).each(function (i, subSelect) {
+            jQuery(this).closest("div.prop-edit-block")
+                .find("select.parent-value").next(".chosen-container")
+                .attr('style', 'width: 250px!important');
+            showSubSelect(subSelect);
+        });
+    });
+}
+function showSubSelect(el) {
+    if (el != undefined && el.length != 0) {
+        initChosen(el, function () {
+            jQuery(this).next(".chosen-container").attr('style', 'width: 250px!important;margin-left:10px;');
+        });
+    }
+};
 function realTitleWidth(obj) {
     var clone = obj.clone();
     clone.css("visibility", "hidden");

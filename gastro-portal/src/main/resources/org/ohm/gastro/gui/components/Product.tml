@@ -11,7 +11,6 @@
         <script>
             var pe = jQuery("#pr-${product.id}");
             pe.modal('show');
-            initProductEdit(pe);
         </script>
     </t:block>
 
@@ -73,12 +72,6 @@
         </div>
         <div class="modal-data hidden">
             <t:actionlink class="recommended-link" t:id="recommended" t:context="[product.id,5]" t:zone="recommendedProductsZone"/>
-            <div class="category">
-                <t:if test="product.category?.parent">
-                    <a href="/product/list/${product.category?.parent?.id}">${product.category?.parent?.name}</a> <span> / </span>
-                </t:if>
-                <a href="/product/list/${product.category?.id}">${product.category?.name}</a>
-            </div>
             <div class="name wrapword"><a href="/product/${product.altId}">${product.name}</a></div>
             <div class="image">${product.avatarUrl}</div>
             <div class="desc">

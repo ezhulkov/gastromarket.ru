@@ -1,6 +1,8 @@
 package org.ohm.gastro.domain;
 
 import com.google.common.collect.Lists;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.ohm.gastro.service.CatalogService;
 
 import javax.persistence.CascadeType;
@@ -14,7 +16,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
  */
 @Entity
 @Table(name = "catalog")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
 
     public enum Type {
@@ -33,8 +35,7 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "catalog")
-    @SequenceGenerator(initialValue = 1, allocationSize = 1, name = "catalog")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "alt_id")
@@ -65,6 +66,15 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
     @Column
     private Integer level = 1;
 
+    @Column(name = "rank_badge")
+    private Integer rankBadge = 0;
+
+    @Column(name = "product_badge")
+    private Integer productBadge = 0;
+
+    @Column(name = "order_badge")
+    private Integer orderBadge = 0;
+
     @Column(name = "basket_min")
     private Integer basketMin = 0;
 
@@ -72,18 +82,20 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
     private Date date = new Date(System.currentTimeMillis());
 
     @Column(name = "avatar_url")
-    private String avatarUrl = "/img/avatar-stub.png";
+    private String avatarUrl = "/img/avatar-stub-270x270.png";
 
     @Column(name = "avatar_url_medium")
-    private String avatarUrlMedium = "/img/avatar-stub-medium.png";
+    private String avatarUrlMedium = "/img/avatar-stub-100x100.png";
 
     @Column(name = "avatar_url_small")
-    private String avatarUrlSmall = "/img/avatar-stub-small.png";
+    private String avatarUrlSmall = "/img/avatar-stub-23x23.png";
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private UserEntity user;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = ProductEntity.class, mappedBy = "catalog", orphanRemoval = true)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<ProductEntity> products = Lists.newArrayList();
 
     @Override
@@ -236,6 +248,30 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
 
     public Integer getMaxWizardStep() {
         return CatalogService.MAX_WIZARD_STEP;
+    }
+
+    public Integer getRankBadge() {
+        return rankBadge;
+    }
+
+    public void setRankBadge(Integer rankBadge) {
+        this.rankBadge = rankBadge;
+    }
+
+    public Integer getProductBadge() {
+        return productBadge;
+    }
+
+    public void setProductBadge(Integer productBadge) {
+        this.productBadge = productBadge;
+    }
+
+    public Integer getOrderBadge() {
+        return orderBadge;
+    }
+
+    public void setOrderBadge(Integer orderBadge) {
+        this.orderBadge = orderBadge;
     }
 
     @Override

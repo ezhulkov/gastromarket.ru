@@ -1,6 +1,8 @@
 package org.ohm.gastro.domain;
 
 import com.google.common.collect.Lists;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,11 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.List;
 
@@ -24,6 +22,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "property")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class PropertyEntity extends AbstractBaseEntity {
 
     public enum Type {
@@ -32,8 +31,7 @@ public class PropertyEntity extends AbstractBaseEntity {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "property")
-    @SequenceGenerator(initialValue = 1, allocationSize = 1, name = "property")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column
@@ -41,19 +39,17 @@ public class PropertyEntity extends AbstractBaseEntity {
 
     @Column
     @Enumerated(EnumType.STRING)
-    private Type type = Type.TEXT;
+    private Type type = Type.LIST;
 
-    @ManyToMany(cascade = CascadeType.REFRESH,
-                fetch = FetchType.LAZY)
-    @JoinTable(name = "category_property",
-               joinColumns = {@JoinColumn(name = "property_id")},
-               inverseJoinColumns = {@JoinColumn(name = "category_id")})
-    private List<CategoryEntity> categories = Lists.newArrayList();
+    @Column
+    private Boolean mandatory = false;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "property")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<PropertyValueEntity> values = Lists.newArrayList();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "property")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<TagEntity> products = Lists.newArrayList();
 
     @Override
@@ -63,6 +59,22 @@ public class PropertyEntity extends AbstractBaseEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<TagEntity> getProducts() {
+        return products;
+    }
+
+    public void setProducts(final List<TagEntity> products) {
+        this.products = products;
+    }
+
+    public Boolean getMandatory() {
+        return mandatory;
+    }
+
+    public void setMandatory(final Boolean mandatory) {
+        this.mandatory = mandatory;
     }
 
     public String getName() {
@@ -81,28 +93,12 @@ public class PropertyEntity extends AbstractBaseEntity {
         this.type = type;
     }
 
-    public List<CategoryEntity> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<CategoryEntity> categories) {
-        this.categories = categories;
-    }
-
     public List<PropertyValueEntity> getValues() {
         return values;
     }
 
     public void setValues(List<PropertyValueEntity> values) {
         this.values = values;
-    }
-
-    public List<TagEntity> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<TagEntity> products) {
-        this.products = products;
     }
 
     @Override

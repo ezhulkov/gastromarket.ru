@@ -6,7 +6,6 @@ import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.RatingService;
 import org.ohm.gastro.service.RatingTarget;
-import org.ohm.gastro.service.UserService;
 import org.ohm.gastro.trait.Logging;
 import org.springframework.aop.AfterReturningAdvice;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +47,6 @@ public class RatingModifierAdvice implements AfterReturningAdvice, Logging {
 
         final RatingService ratingService = applicationContext.getBean(RatingService.class);
         final CatalogService catalogService = applicationContext.getBean(CatalogService.class);
-        final UserService userService = applicationContext.getBean(UserService.class);
 
         final Method realMethod = method.getDeclaringClass().isInterface() ?
                 target.getClass().getDeclaredMethod(method.getName(), method.getParameterTypes()) :

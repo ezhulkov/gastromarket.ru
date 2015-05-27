@@ -1,0 +1,47 @@
+<div class="form-group" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+    <div class="col-sm-1"/>
+    <t:if test="property.type.toString().equals('LIST')">
+        <div class="col-sm-10 property-select" id="edit-list-${property.id}">
+            <label for="prop-${property.id}">${property.name}:</label><br/>
+            <t:loop source="rootTags" value="rootTag" formState="NONE">
+                <div class="prop-edit-block">
+                    <select name="list-${property.id}-0" data-property="${property.id}" data-placeholder="Выберите значение" class="chosen-select parent-value">
+                        <option value=""/>
+                        <t:loop source="propertyValues" value="oneValue" formState="NONE">
+                            <t:if test="rootSelected">
+                                <option value="${oneValue.id}" selected="selected">${oneValue.value}</option>
+                                <t:parameter name="else">
+                                    <option value="${oneValue.id}">${oneValue.value}</option>
+                                </t:parameter>
+                            </t:if>
+                        </t:loop>
+                    </select>
+                    <t:loop source="rootValues" value="oneValue" formState="NONE">
+                        <select name="sublist-${oneValue.id}-0"
+                                data-placeholder="Выберите значение"
+                                class="child-value sublist-${property.id} show-${selectActive}">
+                            <option value=""/>
+                            <t:loop source="childrenValues" value="oneChildValue" formState="NONE">
+                                <t:if test="childSelected">
+                                    <option value="${oneChildValue.id}" selected="selected">${oneChildValue.value}</option>
+                                    <t:parameter name="else">
+                                        <option value="${oneChildValue.id}">${oneChildValue.value}</option>
+                                    </t:parameter>
+                                </t:if>
+                            </t:loop>
+                        </select>
+                    </t:loop>
+                </div>
+            </t:loop>
+        </div>
+        <div class="col-sm-1 more">
+            <a href="#" onclick="javascript:addMoreProperties('#edit-list-${property.id}')" class="glyphicon glyphicon-plus more-btn"/>
+        </div>
+    </t:if>
+    <t:unless test="property.type.toString().equals('LIST')">
+        <div class="col-sm-10">
+            <label for="prop-${property.id}">${property.name}:</label>
+            <input class="form-control" type="${valueType}" id="prop-${property.id}" name="prop-${property.id}" value="${tagValue?.data}"/>
+        </div>
+    </t:unless>
+</div>

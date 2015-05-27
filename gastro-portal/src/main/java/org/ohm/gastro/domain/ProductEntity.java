@@ -1,6 +1,8 @@
 package org.ohm.gastro.domain;
 
 import com.google.common.collect.Lists;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,7 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.sql.Timestamp;
 import java.util.List;
@@ -23,6 +24,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "product")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ProductEntity extends AbstractBaseEntity implements AltIdEntity {
 
     public enum Unit {
@@ -31,8 +33,7 @@ public class ProductEntity extends AbstractBaseEntity implements AltIdEntity {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "product")
-    @SequenceGenerator(initialValue = 1, allocationSize = 1, name = "product")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "alt_id")
@@ -61,12 +62,11 @@ public class ProductEntity extends AbstractBaseEntity implements AltIdEntity {
     private Boolean promoted = false;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private CatalogEntity catalog;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    private CategoryEntity category;
-
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<TagEntity> values = Lists.newArrayList();
 
     @Column(name = "was_setup")
@@ -157,14 +157,6 @@ public class ProductEntity extends AbstractBaseEntity implements AltIdEntity {
 
     public void setValues(List<TagEntity> values) {
         this.values = values;
-    }
-
-    public CategoryEntity getCategory() {
-        return category;
-    }
-
-    public void setCategory(CategoryEntity category) {
-        this.category = category;
     }
 
     public String getDescription() {

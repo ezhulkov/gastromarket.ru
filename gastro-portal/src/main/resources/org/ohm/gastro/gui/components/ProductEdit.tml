@@ -1,5 +1,5 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" data-backdrop="static" data-keyboard="false" class="modal fade product-edit-modal" id="${modalId}" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog product-edit" id="div-${productZone}">
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" data-backdrop="static" class="modal fade product-edit-modal" id="${modalId}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog product-edit">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="title">
@@ -14,129 +14,114 @@
             </div>
             <div class="modal-body product-create">
 
-                <t:zone t:id="productZone" id="${productZone}">
-                    <t:delegate to="productEditBlock"/>
+                <t:zone t:id="productEditZone" id="${productEditZone}">
+                    <t:delegate to="editDescBlock"/>
                 </t:zone>
 
-                <t:block t:id="productEditBlock">
-                    <t:form t:id="editProductForm" t:context="[product?.id]" t:zone="${productZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
+                <t:block t:id="editDescBlock">
+                    <t:if test="closeImmediately">
+                        <script>
+                            jQuery("#${modalId}").modal('hide');
+                        </script>
+                    </t:if>
+                    <t:form id="descForm" t:id="descForm" t:context="[productId]" t:zone="${productEditZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
                         <t:errors/>
-                        <t:hidden t:id="stage"/>
-                        <div class="product-details hidden">
-                            <div class="form-group">
-                                <div class="col-sm-1"/>
-                                <div class="col-sm-10">
-                                    <t:label t:for="productCategory">Категория:</t:label>
-                                    <t:select t:id="productCategory" data-placeholder="Выберите категорию блюда" class="form-control chosen-select"/>
-                                </div>
-                                <div class="col-sm-1"/>
+                        <div class="form-group">
+                            <div class="col-sm-1"/>
+                            <div class="col-sm-10">
+                                <t:label t:for="productName">Название:</t:label>
+                                <input t:id="productName" class="form-control"/>
                             </div>
-                            <div class="form-group">
-                                <div class="col-sm-1"/>
-                                <div class="col-sm-10">
-                                    <t:label t:for="productName">Название:</t:label>
-                                    <input t:id="productName" class="form-control"/>
-                                </div>
-                                <div class="col-sm-1"/>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-1"/>
-                                <div class="col-sm-10">
-                                    <t:label t:for="productDescription">Описание:</t:label>
-                                    <input t:id="productDescription" rows="4" class="form-control"/>
-                                </div>
-                                <div class="col-sm-1"/>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-1"/>
-                                <div class="col-sm-4">
-                                    <t:label t:for="productPrice">Цена, руб:</t:label>
-                                    <input t:id="productPrice" class="form-control price"/>
-                                </div>
-                                <div class="col-sm-1">
-                                    <label>&nbsp;</label>
-                                    <div class="f20px za">за</div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <t:label t:for="productUnitValue">Количество:</t:label>
-                                    <input t:id="productUnitValue" class="form-control price"/>
-                                </div>
-                                <div class="col-sm-2">
-                                    <t:label t:for="productUnit">Единицы:</t:label>
-                                    <t:select t:id="productUnit" class="form-control unit"/>
-                                </div>
-                                <div class="col-sm-1"/>
-                            </div>
+                            <div class="col-sm-1"/>
                         </div>
-                        <div class="properties-details hidden">
-                            <t:loop source="categoryProperties" value="oneProperty" formState="NONE">
-                                <div class="form-group">
-                                    <div class="col-sm-1"/>
-                                    <t:if test="oneProperty.type.toString().equals('LIST')">
-                                        <div class="col-sm-9 property-select" id="list${oneProperty.id}">
-                                            <label for="prop-${oneProperty.id}">${oneProperty.name}:</label>
-                                            <t:if test="productListValues">
-                                                <t:loop source="productListValues" value="oneTag" formState="NONE">
-                                                    <select name="list-${oneProperty.id}" class="form-control chosen-select">
-                                                        <option value="">&nbsp;</option>
-                                                        <t:loop source="propertyValues" value="oneValue" formState="NONE">
-                                                            <t:if test="oneTag.data.equals(oneValue.value)">
-                                                                <option selected="selected" value="${oneValue.id}">${oneValue.value}</option>
-                                                                <t:parameter name="else">
-                                                                    <option value="${oneValue.id}">${oneValue.value}</option>
-                                                                </t:parameter>
-                                                            </t:if>
-                                                        </t:loop>
-                                                    </select>
-                                                </t:loop>
-                                            </t:if>
-                                            <t:unless test="productListValues">
-                                                <select name="list-${oneProperty.id}" class="form-control chosen-select">
-                                                    <option value="">&nbsp;</option>
-                                                    <t:loop source="propertyValues" value="oneValue" formState="NONE">
-                                                        <option value="${oneValue.id}">${oneValue.value}</option>
-                                                    </t:loop>
-                                                </select>
-                                            </t:unless>
-                                        </div>
-                                        <div class="col-sm-1 more">
-                                            <a href="#" onclick="javascript:addMoreProperties('#${modalId}','#list${oneProperty.id}')"
-                                               data="${oneProperty.id}" class="glyphicon glyphicon-plus more-btn"/>
-                                        </div>
-                                    </t:if>
-                                    <t:unless test="oneProperty.type.toString().equals('LIST')">
-                                        <div class="col-sm-10">
-                                            <label for="prop-${oneProperty.id}">${oneProperty.name}:</label>
-                                            <input class="form-control" type="${valueType}" id="prop-${oneProperty.id}" name="prop-${oneProperty.id}" value="${productTagValue}"/>
-                                        </div>
-                                    </t:unless>
-                                    <div class="col-sm-1"/>
-                                </div>
-                            </t:loop>
-                        </div>
-                        <div class="photo-details hidden">
-                            <div class="row">
-                                <p class="modal-text">Загрузите фотографию в формате JPEG или PNG,<br/> размер которой должен быть меньше 10 мегабайт.</p>
+                        <div class="form-group">
+                            <div class="col-sm-1"/>
+                            <div class="col-sm-10">
+                                <t:label t:for="productDescription">Описание:</t:label>
+                                <input t:id="productDescription" rows="4" class="form-control"/>
                             </div>
-                            <div class="row">
-                                <t:uploadfile type="PRODUCT" responseSize="SIZE3" imageUrl="${product?.avatarUrl}" objectId="${product?.id}"/>
-                                <br/>
-                            </div>
+                            <div class="col-sm-1"/>
                         </div>
+                        <div class="form-group">
+                            <div class="col-sm-1"/>
+                            <div class="col-sm-4">
+                                <t:label t:for="productPrice">Цена, руб:</t:label>
+                                <input t:id="productPrice" class="form-control price"/>
+                            </div>
+                            <div class="col-sm-1">
+                                <label>&nbsp;</label>
+
+                                <div class="f20px za">за</div>
+                            </div>
+                            <div class="col-sm-2">
+                                <t:label t:for="productUnitValue">Количество:</t:label>
+                                <input t:id="productUnitValue" class="form-control price"/>
+                            </div>
+                            <div class="col-sm-3">
+                                <t:label t:for="productUnit">Единицы:</t:label>
+                                <t:select t:id="productUnit" class="form-control unit"/>
+                            </div>
+                            <div class="col-sm-1"/>
+                        </div>
+                        <br/>
+
                         <div class="row">
-                            <t:if test="prevCaption">
-                                <input class="btn btn-red" t:type="submit" t:id="saveAndPrev" value="${prevCaption}"/>
-                            </t:if>
-                            <input class="btn btn-red" t:type="submit" t:id="saveAndClose" value="${saveCaption}"/>
-                            <t:if test="nextCaption">
-                                <input class="btn btn-red" t:type="submit" t:id="saveAndNext" value="${nextCaption}"/>
-                            </t:if>
+                            <input class="btn btn-red" t:type="submit" t:id="saveAndClose" value="Сохранить и закрыть"/>
+                            <input class="btn btn-red" t:type="submit" t:id="saveAndProps" value="Добавить свойства >"/>
                         </div>
                     </t:form>
-                    <script type="text/javascript">
-                        toggleProductEdit(jQuery('#div-${productZone}'), ${closeImmediately});
+                </t:block>
+                <t:block t:id="editPropsBlock">
+                    <t:form t:id="propsForm" t:context="[productId]" t:zone="${productEditZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
+                        <t:errors/>
+                        <t:loop source="mandatoryProperties" value="oneProperty" formState="NONE">
+                            <t:propertyEdit property="oneProperty" product="product" modalId="modalId"/>
+                        </t:loop>
+                        <t:if test="optionalProperties">
+                            <div class="form-group">
+                                <div class="col-sm-1"/>
+                                <div class="col-sm-10">
+                                    <a class="red-text text-left" data-toggle="collapse" href="#optional" aria-expanded="false" aria-controls="optional">
+                                        Дополнительные свойства
+                                    </a>
+                                </div>
+                                <div class="col-sm-1"/>
+                            </div>
+
+                            <div class="collapse" id="optional">
+                                <t:loop source="optionalProperties" value="oneProperty" formState="NONE">
+                                    <t:propertyEdit property="oneProperty" product="product" modalId="modalId"/>
+                                </t:loop>
+                            </div>
+                        </t:if>
+                        <br/>
+
+                        <div class="row">
+                            <input class="btn btn-red" t:type="submit" t:id="saveAndBack2" value="&lt; Назад"/>
+                            <input class="btn btn-red" t:type="submit" t:id="saveAndClose2" value="Сохранить и закрыть"/>
+                            <input class="btn btn-red" t:type="submit" t:id="saveAndPhoto" value="Добавить фотографию >"/>
+                        </div>
+                    </t:form>
+                    <script>
+                        initPropEdit(jQuery("div.prop-edit-block"));
                     </script>
                 </t:block>
+                <t:block t:id="editPhotoBlock">
+                    <t:form t:id="photoForm" t:context="[productId]" t:zone="${productEditZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
+                        <div class="row">
+                            <p class="modal-text">Загрузите фотографию в формате JPEG или PNG,<br/> размер которой должен быть меньше 10 мегабайт.</p>
+                        </div>
+                        <div class="row">
+                            <t:uploadfile type="PRODUCT" responseSize="SIZE3" imageUrl="${product?.avatarUrl}" objectId="${product?.id}"/>
+                            <br/>
+                        </div>
+                        <div class="row">
+                            <input class="btn btn-red" t:type="submit" t:id="saveAndBack3" value="&lt; Назад"/>
+                            <input class="btn btn-red" t:type="submit" t:id="saveAndClose3" value="Закрыть"/>
+                        </div>
+                    </t:form>
+                </t:block>
+
             </div>
         </div>
     </div>
