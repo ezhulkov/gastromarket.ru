@@ -738,6 +738,7 @@ div.product-item.block {
   height: 404px;
 }
 
+//noinspection CssInvalidPropertyValue
 .wrapword {
   white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
   white-space: -pre-wrap; /* Opera 4-6 */
@@ -928,99 +929,6 @@ div.product-item.block {
 
 .product .info > div {
   padding: 10px;
-}
-
-.filter {
-  margin-top: 20px;
-}
-
-.filter > ul {
-  list-style: none;
-}
-
-.filter > ul li {
-  display: inline;
-  padding: 10px 20px;
-  font-size: 20px;
-}
-
-.filter ul li a {
-  color: #bd0400;
-}
-
-.filter ul.dropdown-menu.multi-level {
-  margin-top: 10px;
-}
-
-.order {
-  background: url("../img/order.png") no-repeat;
-  height: 5px;
-  width: 9px;
-  display: inline-block;
-  margin: 0 0 3px 3px;
-}
-
-.order-ASC {
-  background-position: 0 0;
-}
-
-.order-DESC {
-  background-position: 0 -5px;
-}
-
-.filter .dropdown {
-  display: inline;
-}
-
-.filter .dropdown li {
-  padding: 0;
-}
-
-.filter .dropdown li a,
-.filter .dropdown div.dropdown-menu a {
-  font-size: 14px;
-  text-align: left;
-  padding: 4px 25px 4px 20px;
-  display: block;
-}
-
-.dropdown-submenu > .dropdown-menu {
-  left: 95%;
-  height: 320px;
-  width: 220px;
-  -webkit-border-radius: 0 8px 8px 8px;
-  -moz-border-radius: 0 8px 8px;
-  border-radius: 0 8px 8px 0;
-  top: -1px;
-  margin: 0;
-  background-color: #eee;
-}
-
-.dropdown-submenu > a:after {
-  display: block;
-  content: " ";
-  float: right;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 5px 0 5px 5px;
-  border-left-color: #ccc;
-  margin-top: 5px;
-  margin-right: -10px;
-}
-
-.dropdown-submenu:hover > a:after {
-  border-left-color: #bd0400;
-}
-
-.dropdown-submenu > .dropdown-menu::after,
-.dropdown-submenu > .dropdown-menu::before {
-  display: none;
-}
-
-.dropdown-submenu:hover > .dropdown-menu {
-  display: block;
 }
 
 .search-bar {

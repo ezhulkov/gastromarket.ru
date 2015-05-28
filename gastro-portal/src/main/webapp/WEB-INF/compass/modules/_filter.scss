@@ -1,0 +1,96 @@
+@import "../include/var";
+
+.filter {
+
+  margin-top: 20px;
+  text-align: center;
+
+  ul {
+    list-style: none;
+  }
+
+  ul.dropdown-menu {
+    margin: 10px 0 0 60px;
+    li {
+      display: block;
+      a {
+        font-size: $f14px;
+        color: $redTextColor;
+        display: block;
+        width: 180px;
+        text-align: left;
+      }
+      &.submenu:hover {
+        .dropdown-menu {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .submenu {
+    .dropdown-menu {
+      left: 265px;
+      height: 298px;
+      width: 182px;
+      -webkit-border-radius: 0 8px 8px 8px;
+      -moz-border-radius: 0 8px 8px;
+      border-radius: 0 8px 8px 0;
+      top: -1px;
+      margin: 0;
+      background-color: #eee;
+    }
+    .dropdown-menu::after, & .dropdown-menu::before {
+      display: none;
+    }
+    & > a:after {
+      display: block;
+      content: " ";
+      float: right;
+      width: 0;
+      height: 0;
+      border: 5px solid transparent;
+      border-right-width: 0;
+      border-left-color: #ccc;
+      margin-top: 5px;
+      margin-right: -10px;
+    }
+    &:hover > a:after {
+      border-left-color: #bd0400;
+    }
+  }
+
+  ul.filter-group {
+    position: relative;
+    & > li {
+      position: relative;
+      font-size: $f18px;
+      color: $blackTextColor;
+      margin: 0 30px;
+      display: inline-block;
+      & > a {
+        font-size: $f18px;
+        color: $redTextColor;
+      }
+    }
+  }
+
+  .order {
+    background: url("../img/order.png") no-repeat;
+    height: 5px;
+    width: 9px;
+    display: inline-block;
+    margin: 0 0 3px 3px;
+  }
+
+  .order-ASC {
+    @extend .order;
+    background-position: 0 0;
+  }
+
+  .order-DESC {
+    @extend .order;
+    background-position: 0 -5px;
+  }
+
+}
