@@ -135,10 +135,6 @@ public class ProductEdit extends BaseComponent {
         this.error = true;
     }
 
-    public void onSelectedFromSaveAndClose() {
-        this.closeImmediately = true;
-    }
-
     public Object onSubmitFromDescForm(Long pid) {
         if (!error) {
             final ProductEntity origProduct = pid != null ? getProductService().findProduct(pid) : product;
@@ -166,7 +162,7 @@ public class ProductEdit extends BaseComponent {
     }
 
     public void onSelectedFromSaveAndClose2() {
-        onSelectedFromSaveAndClose();
+        this.closeImmediately = true;
     }
 
     public Object onSubmitFromPropsForm(Long pid) {
@@ -201,7 +197,7 @@ public class ProductEdit extends BaseComponent {
     }
 
     public void onSelectedFromSaveAndClose3() {
-        onSelectedFromSaveAndClose();
+        onSelectedFromSaveAndClose2();
     }
 
     public Object onSubmitFromPhotoForm(Long pid) {

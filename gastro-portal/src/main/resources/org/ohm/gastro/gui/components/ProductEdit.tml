@@ -66,7 +66,6 @@
                         <br/>
 
                         <div class="row">
-                            <input class="btn btn-red" t:type="submit" t:id="saveAndClose" value="Сохранить и закрыть"/>
                             <input class="btn btn-red" t:type="submit" t:id="saveAndProps" value="Добавить свойства >"/>
                         </div>
                     </t:form>
