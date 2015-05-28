@@ -76,7 +76,7 @@ public class Index extends BaseComponent {
         final java.util.List<ProductEntity> allProducts = isCatalogOwner() ?
                 getProductService().findAllProducts(null, catalog) :
                 getProductService().findProductsForFrontend(null, catalog, null, null, 0, Integer.MAX_VALUE);
-        return allProducts.stream().limit(allProducts.size() < 8 ? 4 : 8).collect(Collectors.toList());
+        return allProducts.stream().limit(4).collect(Collectors.toList());
     }
 
     @Cached

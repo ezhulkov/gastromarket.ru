@@ -15,38 +15,39 @@
             </div>
             <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>
         </t:if>
-        <div class="row info">
-            <div class="col-sm-5 pic">
-                <t:if test="catalogOwner">
-                    <t:uploadfile type="CATALOG" responseSize="SIZE3" imageUrl="${catalog.avatarUrl}" objectId="${catalog.id}" class="pull-right"/>
-                    <t:parameter name="else">
-                        <img class="pull-right" src="${catalog.avatarUrl}"/>
-                    </t:parameter>
-                </t:if>
-            </div>
-            <div class="col-sm-6">
-                <t:if test="description">
-                    <span class="desc"><t:outputraw value="description"/></span>
-                </t:if>
-                <t:if test="delivery">
-                    <h4>Доставка:</h4>
-                    <span class="desc"><t:outputraw value="delivery"/></span>
-                </t:if>
-                <t:if test="payment">
-                    <h4>Оплата:</h4>
-                    <span class="payment"><t:outputraw value="payment"/></span>
-                </t:if>
-                <t:if test="catalog.basketMin">
-                    <h4>Минимальная стоимость заказа, руб:</h4>
-                    <span class="payment">${catalog.basketMin}</span>
-                </t:if>
-            </div>
-        </div>
-        <div class="row stat">
-            <span>${productsCount}</span>
-            <span>${ratingCount}</span>
-            <span>${orderCount}</span>
-        </div>
+
+        <!--<div class="row info">-->
+        <!--<div class="col-sm-5 pic">-->
+        <!--<t:if test="catalogOwner">-->
+        <!--<t:uploadfile type="CATALOG" responseSize="SIZE3" imageUrl="${catalog.avatarUrl}" objectId="${catalog.id}" class="pull-right"/>-->
+        <!--<t:parameter name="else">-->
+        <!--<img class="pull-right" src="${catalog.avatarUrl}"/>-->
+        <!--</t:parameter>-->
+        <!--</t:if>-->
+        <!--</div>-->
+        <!--<div class="col-sm-6">-->
+        <!--<t:if test="description">-->
+        <!--<span class="desc"><t:outputraw value="description"/></span>-->
+        <!--</t:if>-->
+        <!--<t:if test="delivery">-->
+        <!--<h4>Доставка:</h4>-->
+        <!--<span class="desc"><t:outputraw value="delivery"/></span>-->
+        <!--</t:if>-->
+        <!--<t:if test="payment">-->
+        <!--<h4>Оплата:</h4>-->
+        <!--<span class="payment"><t:outputraw value="payment"/></span>-->
+        <!--</t:if>-->
+        <!--<t:if test="catalog.basketMin">-->
+        <!--<h4>Минимальная стоимость заказа, руб:</h4>-->
+        <!--<span class="payment">${catalog.basketMin}</span>-->
+        <!--</t:if>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="row stat">-->
+        <!--<span>${productsCount}</span>-->
+        <!--<span>${ratingCount}</span>-->
+        <!--<span>${orderCount}</span>-->
+        <!--</div>-->
 
         <t:zone t:id="productsZone">
             <t:delegate to="productsBlock"/>
