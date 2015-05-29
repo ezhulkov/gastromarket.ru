@@ -10,9 +10,11 @@ import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.ProductEntity;
+import org.ohm.gastro.domain.PropertyValueEntity;
+import org.ohm.gastro.domain.PropertyValueEntity.Tag;
+import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
@@ -60,11 +62,11 @@ public class Index extends BaseComponent {
         return new Object[]{catalog.getAltId()};
     }
 
-    public Consumer<ProductEntity> getProductSetter() {
-        return productEntity -> {
-            editedProduct = productEntity;
-        };
-    }
+//    public Consumer<ProductEntity> getProductSetter() {
+//        return productEntity -> {
+//            editedProduct = productEntity;
+//        };
+//    }
 
     @Cached
     public java.util.List<CommentEntity> getComments() {
@@ -127,10 +129,6 @@ public class Index extends BaseComponent {
         return getDeclInfo("products", getProductService().findProductsForFrontendCount(catalog));
     }
 
-    public String getRatingCount() {
-        return getDeclInfo("ratings", getComments().size());
-    }
-
     public String getOrderCount() {
         return getDeclInfo("orders", getOrderService().findAllOrders(catalog, Status.READY).size());
     }
@@ -142,12 +140,45 @@ public class Index extends BaseComponent {
         return getMessages().format(String.format("chef.info.many.%s", value), count);
     }
 
+    public String getRootProperties() {
+        return getProductService().findProductsForFrontend(null, catalog, null, null, 0, Integer.MAX_VALUE).stream()
+                .flatMap(t -> t.getValues().stream())
+                .map(TagEntity::getValue)
+                .filter(t -> t.getTag() == Tag.ROOT)
+                .map(PropertyValueEntity::getValue)
+                .collect(Collectors.joining(", "));
+    }
+
     public boolean getLike() {
         return true;
     }
 
     public boolean getDislike() {
         return false;
+    }
+
+    public boolean getHasRatings() {
+        return getRatingService().findAllComments(catalog).stream().filter(t -> t.getRating() != 0).findAny().isPresent();
+    }
+
+    public long getPosRatings() {
+        return getRatingService().findAllComments(catalog).stream().filter(t -> t.getRating() > 0).count();
+    }
+
+    public long getNegRatings() {
+        return getRatingService().findAllComments(catalog).stream().filter(t -> t.getRating() < 0).count();
+    }
+
+    public String getMedActiveClass() {
+        return "inactive";
+    }
+
+    public String getAddActiveClass() {
+        return "inactive";
+    }
+
+    public String getZakActiveClass() {
+        return "inactive";
     }
 
 }

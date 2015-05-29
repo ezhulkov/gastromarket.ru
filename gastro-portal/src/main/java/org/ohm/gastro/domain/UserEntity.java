@@ -286,6 +286,10 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
         return loginDate == null ? "-" : CommonsUtils.GUI_DATE_LONG.get().format(loginDate);
     }
 
+    public String getDatePrintable() {
+        return date == null ? "-" : CommonsUtils.GUI_DATE_LONG.get().format(date);
+    }
+
     @Override
     public String toString() {
         return "UserEntity{" +

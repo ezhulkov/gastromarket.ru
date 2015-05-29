@@ -16,38 +16,87 @@
             <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>
         </t:if>
 
-        <!--<div class="row info">-->
-        <!--<div class="col-sm-5 pic">-->
-        <!--<t:if test="catalogOwner">-->
-        <!--<t:uploadfile type="CATALOG" responseSize="SIZE3" imageUrl="${catalog.avatarUrl}" objectId="${catalog.id}" class="pull-right"/>-->
-        <!--<t:parameter name="else">-->
-        <!--<img class="pull-right" src="${catalog.avatarUrl}"/>-->
-        <!--</t:parameter>-->
-        <!--</t:if>-->
-        <!--</div>-->
-        <!--<div class="col-sm-6">-->
-        <!--<t:if test="description">-->
-        <!--<span class="desc"><t:outputraw value="description"/></span>-->
-        <!--</t:if>-->
-        <!--<t:if test="delivery">-->
-        <!--<h4>Доставка:</h4>-->
-        <!--<span class="desc"><t:outputraw value="delivery"/></span>-->
-        <!--</t:if>-->
-        <!--<t:if test="payment">-->
-        <!--<h4>Оплата:</h4>-->
-        <!--<span class="payment"><t:outputraw value="payment"/></span>-->
-        <!--</t:if>-->
-        <!--<t:if test="catalog.basketMin">-->
-        <!--<h4>Минимальная стоимость заказа, руб:</h4>-->
-        <!--<span class="payment">${catalog.basketMin}</span>-->
-        <!--</t:if>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="row stat">-->
-        <!--<span>${productsCount}</span>-->
-        <!--<span>${ratingCount}</span>-->
-        <!--<span>${orderCount}</span>-->
-        <!--</div>-->
+        <div class="catalog-item">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3 text-right">
+                        <img class="pic" src="${catalog.avatarUrl}"/>
+
+                        <div class="bottom">
+                            <div class="grey-text f16px">Последний вход на сайт:</div>
+                            <div class="grey-text f16px">${catalog.user.loginDatePrintable}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-9 text-left">
+                        <div class="root-categories">${rootProperties}</div>
+                        <div class="badges">
+                            <t:if test="catalog.rankBadge">
+                                <div class="badge-rank popover-holder" data-content="Топ ${catalog.rankBadge} среди кулинаров">${catalog.rankBadge}</div>
+                                <t:parameter name="else">
+                                    <div class="badge-stub popover-holder"/>
+                                </t:parameter>
+                            </t:if>
+                            <t:if test="catalog.productBadge">
+                                <div class="badge-product popover-holder" data-content="Товаров: больше ${catalog.productBadge}">${catalog.productBadge}</div>
+                                <t:parameter name="else">
+                                    <div class="badge-stub popover-holder" data-content="Нет бейджа 'загружено товаров'"/>
+                                </t:parameter>
+                            </t:if>
+                            <t:if test="catalog.orderBadge">
+                                <div class="badge-order popover-holder" data-content="Заказов: больше ${catalog.orderBadge}">${catalog.orderBadge}</div>
+                                <t:parameter name="else">
+                                    <div class="badge-stub popover-holder" data-content="Нет бейджа 'выполнено заказов'"/>
+                                </t:parameter>
+                            </t:if>
+                        </div>
+                        <div class="ratings">
+                            Рейтинг: <a href="/about#rating" class="rating">${catalog.level}</a>&nbsp;
+                            Отзывы:
+                            <t:if test="hasRatings">
+                                <span class="pos">+${posRatings}</span> / <span class="neg">-${negRatings}</span>
+                                <t:parameter name="else">
+                                    <span class="no">нет отзывов</span>
+                                </t:parameter>
+                            </t:if>
+                        </div>
+                        <div class="description">
+                            <t:outputraw value="description"/>
+                        </div>
+                        <t:if test="delivery">
+                            <div class="description vgap">
+                                <div class="f18px">Условия доставки:</div>
+                                <t:outputraw value="delivery"/>
+                            </div>
+                        </t:if>
+                        <t:if test="payment">
+                            <div class="description vgap">
+                                <div class="f18px">Условия оплаты:</div>
+                                <t:outputraw value="payment"/>
+                            </div>
+                        </t:if>
+                    </div>
+                </div>
+                <div class="row vgap3">
+                    <div class="col-sm-3">
+                        соц лайки и ссылки
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="summary">
+                            <div>
+                                <span>Дата регистрации: ${catalog.user.datePrintable}</span>
+                                <span>${productsCount}</span>
+                                <span>${orderCount}</span>
+                            </div>
+                            <div>
+                                <span class="med pic-holder ${medActiveClass}"><span class="glyphicon glyphicon-plus"/>Есть медкнижка</span>
+                                <span class="zak pic-holder ${zakActiveClass}"><span class="glyphicon glyphicon-cutlery"/>Проведена контрольная закупка</span>
+                                <span class="add pic-holder ${addActiveClass}"><span class="glyphicon glyphicon-map-marker"/>Адрес верифицирован</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <t:zone t:id="productsZone">
             <t:delegate to="productsBlock"/>

@@ -26,6 +26,9 @@
   }
   .description {
     font-size: $f16px;
+  }
+  &.short .description {
+    @extend .description;
     max-height: 84px;
     overflow: hidden;
   }
@@ -77,6 +80,47 @@
     }
     .neg {
       color: $blackTextColor;
+    }
+  }
+  .summary {
+    margin: -15px;
+    padding: 15px;
+    background-color: $lightGreyColor;
+    height: 90px;
+    width: 100%;
+    & > div {
+      padding: 0;
+      height: 35px;
+      & > span {
+        font-size: $f16px;
+        margin: 0 60px 0 0;
+        line-height: 30px;
+        vertical-align: middle;
+      }
+      .pic-holder {
+        color: $greyTextColor;
+      }
+      .pic-holder > span {
+        width: 26px;
+        height: 26px;
+        border-radius: 5px;
+        color: white;
+        background-color: $greyTextColor;
+        border: 1px solid $greyTextColor;
+        padding: 4px;
+        font-size: 16px;
+      }
+      .pic-holder > span.glyphicon-plus {
+        padding-left: 5px;
+      }
+      .pic-holder.active {
+        color: $blackTextColor;
+        span {
+          border: 1px solid $redTextColor;
+          background-color: $redTextColor;
+        }
+      }
+
     }
   }
 }

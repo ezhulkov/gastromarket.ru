@@ -25,7 +25,7 @@ public interface ProductRepository extends AltIdRepository<ProductEntity> {
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     Page<ProductEntity> findAllByRootValueAndCatalog(@Param("value") PropertyValueEntity value, @Param("catalog") CatalogEntity catalog, @Param("wasSetup") Boolean wasSetup, Pageable page);
 
-    @Query("select count(*) from ProductEntity where catalog=:catalog and wasSetup=false")
+    @Query("select count(*) from ProductEntity where catalog=:catalog and wasSetup=true")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     int findCountCatalog(@Param("catalog") CatalogEntity catalog);
 

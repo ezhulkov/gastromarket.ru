@@ -65,6 +65,18 @@ body.mobile .rub:after {
   border: 1px solid $blackTextColor !important;
 }
 
+.vgap {
+  margin-top: $vgap;
+}
+
+.vgap2 {
+  margin-top: 2*$vgap;
+}
+
+.vgap3 {
+  margin-top: 3*$vgap;
+}
+
 .center {
   text-align: center !important;
 }
