@@ -17,6 +17,7 @@
         </p>
         <t:delegate to="currentStepBlock"/>
     </div>
+    <div class="vgap10"/>
 
     <t:block id="step1">
         <br/>
@@ -103,7 +104,7 @@
                         ${descText}<br/>
                         Помните, что доверие покупателей повышается, если они узнают о Вашей работе.
                     </div>
-                    <input t:id="desc" rows="7" class="form-control" tabindex="1"/>
+                    <input t:id="desc" rows="10" class="form-control" tabindex="1"/>
                 </div>
                 <div class="col-sm-3 pic">
                     <t:uploadfile type="CATALOG" responseSize="SIZE3" imageUrl="${catalog.avatarUrl}" objectId="${catalog.id}" class="pull-right wizard-upload"/>
@@ -259,9 +260,11 @@
 
     </t:block>
 
-    <div class="container-flex main-img" style="display: block; height: 300px;">
-        <div class="main-img-after main5" style="display: block;"/>
-    </div>
+    <t:parameter name="bottomBlock">
+        <div class="container-flex main-img" style="display: block; height: 300px;">
+            <div class="main-img-after main5" style="display: block;"/>
+        </div>
+    </t:parameter>
 
     <script>
         initWizardPage();

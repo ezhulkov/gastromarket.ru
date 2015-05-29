@@ -7,7 +7,7 @@
         <t:if test="catalogOwner">
             <div class="catalog-edit-links">
                 <div class="more-link">
-                    <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо<span/></a>
+                    <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>
                 </div>
                 <div class="more-link">
                     <t:pagelink class="product-edit-link" page="office/import" context="catalog.id">Импортировать <span/></t:pagelink>
@@ -33,7 +33,7 @@
                             <t:if test="catalog.rankBadge">
                                 <div class="badge-rank popover-holder" data-content="Топ ${catalog.rankBadge} среди кулинаров">${catalog.rankBadge}</div>
                                 <t:parameter name="else">
-                                    <div class="badge-stub popover-holder"/>
+                                    <div class="badge-stub popover-holder" data-content="Нет бейджа 'Топ кулинаров'"/>
                                 </t:parameter>
                             </t:if>
                             <t:if test="catalog.productBadge">
@@ -78,7 +78,14 @@
                 </div>
                 <div class="row vgap3">
                     <div class="col-sm-3">
-                        соц лайки и ссылки
+                        <ul class="social">
+                            <li>
+                                <div id="vk_like"></div>
+                            </li>
+                            <li>
+                                <div class="fb-like" data-href="${currentPage}" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
+                            </li>
+                        </ul>
                     </div>
                     <div class="col-sm-9">
                         <div class="summary">
@@ -199,6 +206,7 @@
 
     <script>
         jQuery(document).ready(function () {
+            VK.Widgets.Like("vk_like", {type: "mini"});
             var init = function () {
                 initProductCatalogFixed();
                 if (${catalogOwner}) {

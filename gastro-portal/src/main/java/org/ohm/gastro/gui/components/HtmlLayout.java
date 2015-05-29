@@ -1,6 +1,7 @@
 package org.ohm.gastro.gui.components;
 
 import org.apache.tapestry5.BindingConstants;
+import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -21,6 +22,10 @@ public class HtmlLayout extends BaseComponent {
     @Property
     @Parameter(name = "header", required = false, value = "true", defaultPrefix = BindingConstants.PROP)
     private boolean header;
+
+    @Property
+    @Parameter(name = "bottomBlock", defaultPrefix = "literal")
+    private Block bottomBlock;
 
     @Cached
     public CatalogEntity getNewCatalog() {

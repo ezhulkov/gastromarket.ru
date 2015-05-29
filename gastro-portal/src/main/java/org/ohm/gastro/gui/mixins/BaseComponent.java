@@ -154,6 +154,10 @@ public abstract class BaseComponent {
         return servletContext.getContextPath();
     }
 
+    public String getCurrentPage(){
+        return "";
+    }
+
     public Request getRequest() {
         return request;
     }

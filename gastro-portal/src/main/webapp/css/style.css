@@ -167,6 +167,10 @@ body.mobile .rub:after {
   margin-top: 30px;
 }
 
+.vgap10 {
+  margin-top: 100px;
+}
+
 .center {
   text-align: center !important;
 }
@@ -1619,6 +1623,15 @@ option.root {
 .catalog-item .summary > div .pic-holder.active span {
   border: 1px solid #e70500;
   background-color: #e70500;
+}
+.catalog-item ul.social {
+  list-style: none;
+  margin: -20px 0 0 20px;
+}
+.catalog-item ul.social li {
+  display: inline-block;
+  float: left;
+  margin: 0;
 }
 
 .catalog-item:nth-child(odd) {
