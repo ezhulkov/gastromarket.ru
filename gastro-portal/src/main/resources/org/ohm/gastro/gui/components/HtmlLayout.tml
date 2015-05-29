@@ -47,7 +47,7 @@
         </div>
     </script>
     <script type="text/javascript">
-      VK.init({apiId: 4896147, onlyWidgets: true});
+      VK.init({apiId: 4721365, onlyWidgets: true});
     </script>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
