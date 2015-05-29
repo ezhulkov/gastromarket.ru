@@ -25,6 +25,7 @@ import org.ohm.gastro.gui.pages.product.Index;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -53,6 +54,9 @@ public class ProductEdit extends BaseComponent {
 
     @Property
     private boolean closeImmediately;
+
+    @Property
+    private boolean propError;
 
     @Property
     private boolean goBack;
@@ -123,6 +127,10 @@ public class ProductEdit extends BaseComponent {
         return product == null || product.getId() == null ? null : product.getId();
     }
 
+    public String getEditPropertiesLabel() {
+        return editProduct ? getMessages().get("edit.properties") : getMessages().get("add.properties");
+    }
+
     //Description section
     public void onPrepareFromDescForm() {
         if (product == null || product.getId() == null) {
@@ -168,6 +176,7 @@ public class ProductEdit extends BaseComponent {
     public Object onSubmitFromPropsForm(Long pid) {
 
         product = getProductService().findProduct(pid);
+        final Set<Long> mandatoryIds = getMandatoryProperties().stream().map(PropertyEntity::getId).collect(Collectors.toSet());
         final Map<Long, String> propValues = getRequest().getParameterNames().stream()
                 .filter(t -> t.startsWith("prop-"))
                 .map(t -> t.substring("prop-".length(), t.length()))
@@ -178,6 +187,7 @@ public class ProductEdit extends BaseComponent {
                 .filter(t -> ArrayUtils.isNotEmpty(getRequest().getParameters(t)) && StringUtils.isNotEmpty(getRequest().getParameters(t)[0]))
                 .flatMap(t -> {
                     final String[] split = t.split("-");
+                    mandatoryIds.remove(Long.parseLong(split[1]));
                     return Arrays.stream(getRequest().getParameters(t)).map(v -> {
                         final Long valueId = Long.parseLong(v);
                         final String subList = "sublist-" + valueId + "-" + split[2];
@@ -185,6 +195,12 @@ public class ProductEdit extends BaseComponent {
                         return StringUtils.isEmpty(subValueId) ? new Unit<>(valueId) : new Pair<>(valueId, Long.parseLong(subValueId));
                     });
                 }).collect(Collectors.toList());
+        if (!mandatoryIds.isEmpty() && !goBack) {
+            propError = true;
+            closeImmediately = false;
+            getAjaxResponseRenderer().addRender(getProductEditZone(), editPropsBlock);
+            return null;
+        }
         getProductService().saveProduct(product, propValues, listValues);
         if (goBack || closeImmediately) getAjaxResponseRenderer().addRender(getProductEditZone(), editDescBlock);
         else getAjaxResponseRenderer().addRender(getProductEditZone(), editPhotoBlock);

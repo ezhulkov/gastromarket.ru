@@ -42,7 +42,7 @@ jQuery(document).ready(function () {
     jQuery(".tip").tooltip({placement: "bottom"});
     jQuery(".popover-holder")
         .on('mouseenter', function () {
-            jQuery(this).popover({placement:"bottom"}).popover('show');
+            jQuery(this).popover({placement: "bottom"}).popover('show');
         })
         .on('mouseleave', function () {
             jQuery(this).popover('hide');
@@ -368,7 +368,7 @@ function initPropEdit(blocks) {
                 var propId = jQuery(this).attr("data-property");
                 var container = jQuery(this).next(".chosen-container");
                 var subSelect = jQuery("select[name^='sublist-" + (params == undefined || params.length == 0 ? "none" : params.selected) + "']", block);
-                var len = subSelect.length ? 250 : 510;
+                var len = jQuery("option", subSelect).length > 1 ? 250 : 510;
                 //Destroy prev subs selected
                 jQuery("select.sublist-" + propId, block)
                     .filter(function () {
@@ -401,7 +401,8 @@ function initPropEdit(blocks) {
     });
 }
 function showSubSelect(el) {
-    if (el != undefined && el.length != 0) {
+    el = el.get(0);
+    if (el != undefined && el.length != 0 && jQuery("option", el).length > 1) {
         initChosen(el, function () {
             jQuery(this).next(".chosen-container").attr('style', 'width: 250px!important;margin-left:10px;');
         });

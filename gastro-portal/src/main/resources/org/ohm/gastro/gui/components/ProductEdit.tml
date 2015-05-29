@@ -66,13 +66,19 @@
                         <br/>
 
                         <div class="row">
-                            <input class="btn btn-red" t:type="submit" t:id="saveAndProps" value="Добавить свойства >"/>
+                            <input class="btn btn-red" t:type="submit" t:id="saveAndProps" value="${editPropertiesLabel}"/>
                         </div>
                     </t:form>
                 </t:block>
                 <t:block t:id="editPropsBlock">
                     <t:form t:id="propsForm" t:context="[productId]" t:zone="${productEditZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
-                        <t:errors/>
+                        <t:if test="propError">
+                            <div class="t-error">
+                                <ul>
+                                    <li>Вы должны указать значение для обязательных свойств.</li>
+                                </ul>
+                            </div>
+                        </t:if>
                         <t:loop source="mandatoryProperties" value="oneProperty" formState="NONE">
                             <t:propertyEdit property="oneProperty" product="product" modalId="modalId"/>
                         </t:loop>
