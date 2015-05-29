@@ -154,8 +154,8 @@ public abstract class BaseComponent {
         return servletContext.getContextPath();
     }
 
-    public String getCurrentPage(){
-        return "";
+    public String getCurrentPage() {
+        return httpServletRequest.getRequestURL().toString();
     }
 
     public Request getRequest() {

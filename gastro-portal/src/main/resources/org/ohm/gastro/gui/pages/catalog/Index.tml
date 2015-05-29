@@ -23,8 +23,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-3 text-right">
-                        <img class="pic" src="${catalog.avatarUrl}"/>
-
+                        <t:if test="catalogOwner">
+                            <t:uploadfile type="CATALOG" responseSize="SIZE3" imageUrl="${catalog.avatarUrl}" objectId="${catalog.id}"/>
+                            <t:parameter name="else">
+                                <img class="pic" src="${catalog.avatarUrl}"/>
+                            </t:parameter>
+                        </t:if>
                         <div class="bottom">
                             <div class="grey-text f16px">Последний вход на сайт:</div>
                             <div class="grey-text f16px">${catalog.user.loginDatePrintable}</div>
