@@ -157,7 +157,7 @@
     <t:block id="step3">
         <div class="catalog-edit-links">
             <div class="more-link">
-                <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо<span/></a>
+                <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>
             </div>
             <div class="more-link">
                 <t:pagelink class="product-edit-link" page="office/import" context="catalog.id">Импортировать<span/></t:pagelink>
