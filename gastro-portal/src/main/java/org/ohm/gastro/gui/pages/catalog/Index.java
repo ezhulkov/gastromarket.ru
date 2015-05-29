@@ -6,30 +6,22 @@ import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.HttpError;
-import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.PropertyValueEntity.Tag;
 import org.ohm.gastro.domain.TagEntity;
-import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 31.08.14.
  */
-public class Index extends BaseComponent {
+public class Index extends AbstractCatalogPage {
 
     @Property
     private boolean closeImmediately = false;
-
-    @Property
-    private CatalogEntity catalog;
-
-    @Property
-    private ProductEntity oneProduct;
 
     @Property
     private ProductEntity editedProduct;
@@ -39,10 +31,6 @@ public class Index extends BaseComponent {
 
     @Property
     private String rateComment;
-
-    @Inject
-    @Property
-    private Block productsBlock;
 
     @Property
     private boolean opinion = true;
@@ -61,12 +49,6 @@ public class Index extends BaseComponent {
     public Object[] onPassivate() {
         return new Object[]{catalog.getAltId()};
     }
-
-//    public Consumer<ProductEntity> getProductSetter() {
-//        return productEntity -> {
-//            editedProduct = productEntity;
-//        };
-//    }
 
     @Cached
     public java.util.List<CommentEntity> getComments() {
@@ -106,11 +88,6 @@ public class Index extends BaseComponent {
         String text = (String) ObjectUtils.defaultIfNull(oneComment.getText(), "");
         text = text.replaceAll("\\n", "<br/>");
         return text;
-    }
-
-    @Cached
-    public boolean isCatalogOwner() {
-        return catalog.getUser().equals(getAuthenticatedUserOpt().orElse(null));
     }
 
     @Cached
@@ -179,6 +156,11 @@ public class Index extends BaseComponent {
 
     public String getZakActiveClass() {
         return "inactive";
+    }
+
+    public Class onSuccessFromCatalogForm() {
+        getCatalogService().saveCatalog(catalog);
+        return Index.class;
     }
 
 }

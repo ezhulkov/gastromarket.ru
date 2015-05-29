@@ -167,6 +167,10 @@ body.mobile .rub:after {
   margin-top: 30px;
 }
 
+.vgap5 {
+  margin-top: 50px;
+}
+
 .vgap10 {
   margin-top: 100px;
 }
@@ -1667,6 +1671,10 @@ body.modal-open {
   color: black;
   width: 700px;
   position: relative;
+}
+
+.modal.catalog-edit .modal-dialog {
+  width: 900px;
 }
 
 .modal-backdrop.in {

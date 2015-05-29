@@ -31,6 +31,10 @@ body.modal-open {
   position: relative;
 }
 
+.modal.catalog-edit .modal-dialog {
+  width: 900px;
+}
+
 .modal-backdrop.in {
   opacity: 0.8;
 }
