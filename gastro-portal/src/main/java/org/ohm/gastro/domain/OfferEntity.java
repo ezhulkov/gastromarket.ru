@@ -7,8 +7,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.sql.Timestamp;
 import java.util.List;
@@ -26,13 +23,9 @@ import java.util.List;
  * Created by ezhulkov on 24.08.14.
  */
 @Entity
-@Table(name = "product")
+@Table(name = "offer")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ProductEntity extends AbstractBaseEntity implements AltIdEntity {
-
-    public enum Unit {
-        PIECE, LITRE, GRAM
-    }
+public class OfferEntity extends AbstractBaseEntity implements AltIdEntity {
 
     @Id
     @Column(name = "id")
@@ -52,13 +45,6 @@ public class ProductEntity extends AbstractBaseEntity implements AltIdEntity {
     private Integer price;
 
     @Column
-    @Enumerated(EnumType.STRING)
-    private Unit unit = Unit.PIECE;
-
-    @Column(name = "unit_value")
-    private int unitValue = 1;
-
-    @Column
     private Timestamp date = new Timestamp(System.currentTimeMillis());
 
     @Column
@@ -68,31 +54,15 @@ public class ProductEntity extends AbstractBaseEntity implements AltIdEntity {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private CatalogEntity catalog;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private List<TagEntity> values = Lists.newArrayList();
-
-    @Column(name = "was_setup")
-    private boolean wasSetup = false;
-
-    @Column(name = "avatar_url")
-    private String avatarUrl = "/img/product-stub.png";
-
-    @Column(name = "avatar_url_medium")
-    private String avatarUrlMedium = "/img/product-stub-medium.png";
-
-    @Column(name = "avatar_url_small")
-    private String avatarUrlSmall = "/img/product-stub-small.png";
-
     @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinTable(name = "offer_product",
-            joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "offer_id", referencedColumnName = "id")
+            joinColumns = @JoinColumn(name = "offer_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id")
     )
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private List<OfferEntity> offers = Lists.newArrayList();
+    private List<ProductEntity> products = Lists.newArrayList();
 
-    public ProductEntity() {
+    public OfferEntity() {
     }
 
     @Override
@@ -112,30 +82,6 @@ public class ProductEntity extends AbstractBaseEntity implements AltIdEntity {
     @Override
     public void setAltId(final String altId) {
         this.altId = altId;
-    }
-
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
-
-    public void setAvatarUrl(final String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
-
-    public String getAvatarUrlMedium() {
-        return avatarUrlMedium;
-    }
-
-    public void setAvatarUrlMedium(final String avatarUrlMedium) {
-        this.avatarUrlMedium = avatarUrlMedium;
-    }
-
-    public String getAvatarUrlSmall() {
-        return avatarUrlSmall;
-    }
-
-    public void setAvatarUrlSmall(final String avatarUrlSmall) {
-        this.avatarUrlSmall = avatarUrlSmall;
     }
 
     public String getName() {
@@ -162,14 +108,6 @@ public class ProductEntity extends AbstractBaseEntity implements AltIdEntity {
         this.catalog = catalog;
     }
 
-    public List<TagEntity> getValues() {
-        return values;
-    }
-
-    public void setValues(List<TagEntity> values) {
-        this.values = values;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -194,39 +132,8 @@ public class ProductEntity extends AbstractBaseEntity implements AltIdEntity {
         this.promoted = promoted;
     }
 
-    public Unit getUnit() {
-        return unit;
-    }
-
-    public void setUnit(final Unit unit) {
-        this.unit = unit;
-    }
-
-    public int getUnitValue() {
-        return unitValue;
-    }
-
     public Boolean isPromoted() {
         return promoted;
     }
 
-    public void setUnitValue(int unitValue) {
-        this.unitValue = unitValue;
-    }
-
-    public boolean isWasSetup() {
-        return wasSetup;
-    }
-
-    public void setWasSetup(final boolean wasSetup) {
-        this.wasSetup = wasSetup;
-    }
-
-    public List<OfferEntity> getOffers() {
-        return offers;
-    }
-
-    public void setOffers(final List<OfferEntity> offers) {
-        this.offers = offers;
-    }
 }

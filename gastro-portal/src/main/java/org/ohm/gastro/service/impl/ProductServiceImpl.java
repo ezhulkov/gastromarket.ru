@@ -12,9 +12,9 @@ import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.misc.Throwables;
+import org.ohm.gastro.reps.OfferRepository;
 import org.ohm.gastro.reps.ProductRepository;
 import org.ohm.gastro.reps.TagRepository;
-import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.ImageService;
 import org.ohm.gastro.service.ImageService.FileType;
 import org.ohm.gastro.service.ImageService.ImageSize;
@@ -54,20 +54,20 @@ import static org.scribe.utils.Preconditions.checkNotNull;
 public class ProductServiceImpl implements ProductService, Logging {
 
     private final ProductRepository productRepository;
+    private final OfferRepository offerRepository;
     private final TagRepository tagRepository;
-    private final CatalogService catalogService;
     private final PropertyService propertyService;
     private final ImageService imageService;
 
     @Autowired
     public ProductServiceImpl(final ProductRepository productRepository,
+                              final OfferRepository offerRepository,
                               final TagRepository tagRepository,
-                              final CatalogService catalogService,
                               final PropertyService propertyService,
                               final ImageService imageService) {
         this.productRepository = productRepository;
+        this.offerRepository = offerRepository;
         this.tagRepository = tagRepository;
-        this.catalogService = catalogService;
         this.propertyService = propertyService;
         this.imageService = imageService;
     }

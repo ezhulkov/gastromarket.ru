@@ -1,6 +1,7 @@
 package org.ohm.gastro.domain;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.lang.ObjectUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.ohm.gastro.service.CatalogService;
@@ -97,6 +98,10 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = ProductEntity.class, mappedBy = "catalog", orphanRemoval = true)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<ProductEntity> products = Lists.newArrayList();
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = OfferEntity.class, mappedBy = "catalog", orphanRemoval = true)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private List<OfferEntity> offers = Lists.newArrayList();
 
     @Override
     public Long getId() {
@@ -272,6 +277,24 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
 
     public void setOrderBadge(Integer orderBadge) {
         this.orderBadge = orderBadge;
+    }
+
+    public String getDescriptionRaw() {
+        String desc = (String) ObjectUtils.defaultIfNull(description, "");
+        desc = desc.replaceAll("\\n", "<br/>");
+        return desc;
+    }
+
+    public String getDeliveryRaw() {
+        String desc = (String) ObjectUtils.defaultIfNull(delivery, "");
+        desc = desc.replaceAll("\\n", "<br/>");
+        return desc;
+    }
+
+    public String getPaymentRaw() {
+        String desc = (String) ObjectUtils.defaultIfNull(payment, "");
+        desc = desc.replaceAll("\\n", "<br/>");
+        return desc;
     }
 
     @Override

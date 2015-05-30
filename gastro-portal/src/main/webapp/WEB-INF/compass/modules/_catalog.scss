@@ -62,10 +62,19 @@
       @extend .badge;
       background: url(../img/badge3-small.png) no-repeat 0 0;
     }
-    .badge-stub {
+    .badge-product.badge-stub {
       @extend .badge;
-      border: 3px dotted $greyTextColor;
+      background: url(../img/badge1-stub.png) no-repeat 0 0;
     }
+    .badge-rank.badge-stub {
+      @extend .badge;
+      background: url(../img/badge2-stub.png) no-repeat 0 0;
+    }
+    .badge-order.badge-stub {
+      @extend .badge;
+      background: url(../img/badge3-stub.png) no-repeat 0 0;
+    }
+
   }
   .ratings {
     margin: 10px 0;

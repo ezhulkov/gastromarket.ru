@@ -15,38 +15,10 @@
                     <div class="col-sm-9 text-left">
                         <t:pagelink page="catalog/index" t:context="oneCatalog.altId" class="name">${oneCatalog.name}</t:pagelink>
                         <div class="root-categories">${rootProperties}</div>
-                        <div class="badges">
-                            <t:if test="oneCatalog.rankBadge">
-                                <div class="badge-rank popover-holder" data-content="Топ ${oneCatalog.rankBadge} среди кулинаров">${oneCatalog.rankBadge}</div>
-                                <t:parameter name="else">
-                                    <div class="badge-stub popover-holder" data-content="Нет бейджа 'Топ кулинаров'"/>
-                                </t:parameter>
-                            </t:if>
-                            <t:if test="oneCatalog.productBadge">
-                                <div class="badge-product popover-holder" data-content="Товаров: больше ${oneCatalog.productBadge}">${oneCatalog.productBadge}</div>
-                                <t:parameter name="else">
-                                    <div class="badge-stub popover-holder" data-content="Нет бейджа 'загружено товаров'"/>
-                                </t:parameter>
-                            </t:if>
-                            <t:if test="oneCatalog.orderBadge">
-                                <div class="badge-order popover-holder" data-content="Заказов: больше ${oneCatalog.orderBadge}">${oneCatalog.orderBadge}</div>
-                                <t:parameter name="else">
-                                    <div class="badge-stub popover-holder" data-content="Нет бейджа 'выполнено заказов'"/>
-                                </t:parameter>
-                            </t:if>
-                        </div>
-                        <div class="ratings">
-                            Рейтинг: <a href="/about#rating" class="rating">${oneCatalog.level}</a>&nbsp;
-                            Отзывы:
-                            <t:if test="hasRatings">
-                                <span class="pos">+${posRatings}</span> / <span class="neg">-${negRatings}</span>
-                                <t:parameter name="else">
-                                    <span class="no">нет отзывов</span>
-                                </t:parameter>
-                            </t:if>
-                        </div>
+                        <t:badges catalog="oneCatalog"/>
+                        <t:ratings catalog="oneCatalog"/>
                         <div class="description">
-                            <t:outputraw value="description"/>
+                            <t:outputraw value="oneCatalog.descriptionRaw"/>
                         </div>
                     </div>
                 </div>

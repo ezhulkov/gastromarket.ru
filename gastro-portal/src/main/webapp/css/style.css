@@ -1546,7 +1546,7 @@ option.root {
   height: 45px;
   margin: 20px 0;
 }
-.catalog-item .badges .badge, .catalog-item .badges .badge-product, .catalog-item .badges .badge-rank, .catalog-item .badges .badge-order, .catalog-item .badges .badge-stub {
+.catalog-item .badges .badge, .catalog-item .badges .badge-product, .catalog-item .badges .badge-rank, .catalog-item .badges .badge-order, .catalog-item .badges .badge-product.badge-stub, .catalog-item .badges .badge-rank.badge-stub, .catalog-item .badges .badge-order.badge-stub {
   display: inline-block;
   float: left;
   margin: 0 16px 0 0;
@@ -1570,8 +1570,14 @@ option.root {
 .catalog-item .badges .badge-order {
   background: url(../img/badge3-small.png) no-repeat 0 0;
 }
-.catalog-item .badges .badge-stub {
-  border: 3px dotted #8a8a8a;
+.catalog-item .badges .badge-product.badge-stub {
+  background: url(../img/badge1-stub.png) no-repeat 0 0;
+}
+.catalog-item .badges .badge-rank.badge-stub {
+  background: url(../img/badge2-stub.png) no-repeat 0 0;
+}
+.catalog-item .badges .badge-order.badge-stub {
+  background: url(../img/badge3-stub.png) no-repeat 0 0;
 }
 .catalog-item .ratings {
   margin: 10px 0;

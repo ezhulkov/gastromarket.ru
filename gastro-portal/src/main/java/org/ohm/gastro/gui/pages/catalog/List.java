@@ -1,6 +1,5 @@
 package org.ohm.gastro.gui.pages.catalog;
 
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.tapestry5.EventContext;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
@@ -50,24 +49,6 @@ public class List extends BaseComponent {
                 .filter(t -> t.getTag() == Tag.ROOT)
                 .map(PropertyValueEntity::getValue)
                 .collect(Collectors.joining(", "));
-    }
-
-    public boolean getHasRatings() {
-        return getRatingService().findAllComments(oneCatalog).stream().filter(t -> t.getRating() != 0).findAny().isPresent();
-    }
-
-    public long getPosRatings() {
-        return getRatingService().findAllComments(oneCatalog).stream().filter(t -> t.getRating() > 0).count();
-    }
-
-    public long getNegRatings() {
-        return getRatingService().findAllComments(oneCatalog).stream().filter(t -> t.getRating() < 0).count();
-    }
-
-    public String getDescription() {
-        String desc = (String) ObjectUtils.defaultIfNull(oneCatalog.getDescription(), "");
-        desc = desc.replaceAll("\\n", "<br/>");
-        return desc;
     }
 
 }

@@ -63,27 +63,6 @@ public class Index extends AbstractCatalogPage {
         return allProducts.stream().limit(4).collect(Collectors.toList());
     }
 
-    @Cached
-    public String getDescription() {
-        String desc = (String) ObjectUtils.defaultIfNull(catalog.getDescription(), "");
-        desc = desc.replaceAll("\\n", "<br/>");
-        return desc;
-    }
-
-    @Cached
-    public String getDelivery() {
-        String desc = (String) ObjectUtils.defaultIfNull(catalog.getDelivery(), "");
-        desc = desc.replaceAll("\\n", "<br/>");
-        return desc;
-    }
-
-    @Cached
-    public String getPayment() {
-        String desc = (String) ObjectUtils.defaultIfNull(catalog.getPayment(), "");
-        desc = desc.replaceAll("\\n", "<br/>");
-        return desc;
-    }
-
     public String getOneCommentText() {
         String text = (String) ObjectUtils.defaultIfNull(oneComment.getText(), "");
         text = text.replaceAll("\\n", "<br/>");
@@ -132,18 +111,6 @@ public class Index extends AbstractCatalogPage {
 
     public boolean getDislike() {
         return false;
-    }
-
-    public boolean getHasRatings() {
-        return getRatingService().findAllComments(catalog).stream().filter(t -> t.getRating() != 0).findAny().isPresent();
-    }
-
-    public long getPosRatings() {
-        return getRatingService().findAllComments(catalog).stream().filter(t -> t.getRating() > 0).count();
-    }
-
-    public long getNegRatings() {
-        return getRatingService().findAllComments(catalog).stream().filter(t -> t.getRating() < 0).count();
     }
 
     public String getMedActiveClass() {

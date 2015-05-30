@@ -549,4 +549,33 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="40" author="ezhulkov">
+        <createTable tableName="offer">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="catalog_id" type="java.sql.Types.BIGINT"/>
+            <column name="name" type="java.sql.Types.VARCHAR(512)"/>
+            <column name="description" type="java.sql.Types.VARCHAR(1024)"/>
+            <column name="price" type="java.sql.Types.INTEGER"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="offer" baseColumnNames="catalog_id"
+                constraintName="offer_catalog_fk" referencedTableName="catalog" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <createTable tableName="offer_product">
+            <column name="offer_id" type="java.sql.Types.BIGINT"/>
+            <column name="product_id" type="java.sql.Types.BIGINT"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="offer_product" baseColumnNames="offer_id"
+                constraintName="offer_product_offer_fk" referencedTableName="offer"
+                referencedColumnNames="id" onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="offer_product" baseColumnNames="product_id"
+                constraintName="offer_product_product_fk" referencedTableName="product"
+                referencedColumnNames="id" onDelete="CASCADE"/>
+        <createIndex tableName="offer_product" indexName="offer_product_parent_idx">
+            <column name="offer_id"/>
+            <column name="product_id"/>
+        </createIndex>
+    </changeSet>
+
 </databaseChangeLog>
