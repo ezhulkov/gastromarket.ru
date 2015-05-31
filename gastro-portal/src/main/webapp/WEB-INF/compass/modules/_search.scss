@@ -1,0 +1,30 @@
+@import "../include/var";
+
+.search-bar {
+
+  height: 50px;
+  position: relative;
+
+  input[type=text] {
+    width: 100%;
+    border: 2px solid #aaa;
+    box-shadow: inset -2px 2px 2px #eeeeee;
+    height: 48px;
+    border-radius: 24px;
+    background-color: #ffffff;
+    padding-left: 24px;
+    font-size: 20px;
+    color: #000000;
+  }
+
+  input[type=submit] {
+    background: url(../img/search-btn.png) no-repeat 0 0;
+    width: 40px;
+    height: 40px;
+    border: none;
+    position: absolute;
+    right: 19px;
+    top: 4px;
+  }
+
+}

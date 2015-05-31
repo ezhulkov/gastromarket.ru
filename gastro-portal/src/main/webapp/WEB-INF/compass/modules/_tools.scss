@@ -140,3 +140,43 @@ body.mobile .rub:after {
   padding: 5px 10px 10px 10px;
   color: $blackTextColor;
 }
+
+.empty {
+  padding: 20px 0 40px 0;
+  width: 100%;
+  text-align: center;
+  font-size: $f20px;
+  font-family: "PT Serif", serif;
+}
+
+.simple-text {
+  width: 750px;
+  margin: 30px auto 0 auto;
+  p {
+    font-size: $f16px;
+    padding: 5px 0 5px 150px;
+  }
+  h2 {
+    font-size: $f20px;
+    padding: 0;
+    margin: 0 0 20px 0;
+    line-height: normal;
+    text-align: left;
+  }
+  h2 * {
+    font-size: $f20px;
+  }
+}
+
+.modal-text {
+  font-size: 16px;
+  padding: 0 20px 0 20px;
+  text-align: center;
+}
+
+.error {
+  font-size: 16px;
+  margin: 5px 0 5px 0;
+  color: $deepRedTextColor;
+  font-weight: bold;
+}

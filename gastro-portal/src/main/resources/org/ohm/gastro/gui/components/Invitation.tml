@@ -1,6 +1,6 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="container-flex">
     <t:unless test="authenticated">
-        <div class="landing">
+        <div class="invitation">
             <div></div>
             <div>
                 <div class="col-sm-6 info">

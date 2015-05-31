@@ -1,6 +1,6 @@
 <t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="container-flex main-img">
+    <div class="container-flex main-header">
         <div class="main-img-after main1"/>
         <div class="main-img-after main2"/>
         <div class="main-img-after main3"/>
@@ -12,19 +12,67 @@
         <div class="data">
             <h1>Всё готово!</h1>
 
-            <h2>Заказывайте вкусную еду у первоклассных кулинаров</h2>
+            <h2>Заказывайте вкусную еду у независимых кулинаров Москвы</h2>
 
-            <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="search-form">
-                <div class="col-sm-1"/>
-                <div class="col-sm-10 search-bar">
-                    <input t:id="search" t:value="searchString" t:type="TextField" placeholder="Поиск"/>
-                    <input type="submit" value=""/>
-                </div>
-                <div class="col-sm-1"/>
-            </t:form>
-
-            <div class="row">
+            <div class="vgap5">
+                <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="search-bar">
+                    <div class="col-sm-1"/>
+                    <div class="col-sm-10">
+                        <input t:id="search" t:value="searchString" t:type="TextField" placeholder="Поиск"/>
+                        <input type="submit" value=""/>
+                    </div>
+                    <div class="col-sm-1"/>
+                </t:form>
+            </div>
+            <div class="vgap3">
                 <a href="#howto" data-toggle="modal" class="btn btn-red btn-howto" data-target="#howto">Как это работает?</a>
+            </div>
+            <div class="modal fade howto" id="howto" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="title">
+                                <h1><span>Как это работает?</span></h1>
+                            </div>
+                            <a class="modal-close" data-dismiss="modal"></a>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row howto-row">
+                                <div class="col-sm-4">
+                                    <img src="${contextPath}/img/howto1.jpg"/>
+                                </div>
+                                <div class="col-sm-4">
+                                    <img src="${contextPath}/img/howto2.jpg"/>
+                                </div>
+                                <div class="col-sm-4">
+                                    <img src="${contextPath}/img/howto3.jpg"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <h2>Выбирайте еду на любой вкус и для любого события</h2>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h2>Размещайте заказ и следите за его выполнением</h2>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h2>Отдыхайте и наслаждайтесь праздником</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <p>Ищите торт на свадьбу или капкейки для детского праздника, бургеры или домашние лимонады - любые блюда на Ваш вкус.</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <p>Оформите заказ - кулинары ГастроМаркета свяжутся с Вами и с любовью приготовят выбранные Вами блюда или напитки.</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <p>Вcё готово! Посвятите свое время общению с любимыми людьми и не тратьте усилия на подготовку праздничгого стола.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -84,53 +132,6 @@
                     </t:pagelink>
                 </div>
             </t:loop>
-        </div>
-    </div>
-    <div class="modal fade howto" id="howto" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="title">
-                        <h1><span>Как это работает?</span></h1>
-                    </div>
-                    <a class="modal-close" data-dismiss="modal"></a>
-                </div>
-                <div class="modal-body">
-                    <div class="row howto-row">
-                        <div class="col-sm-4">
-                            <img src="${contextPath}/img/howto1.jpg"/>
-                        </div>
-                        <div class="col-sm-4">
-                            <img src="${contextPath}/img/howto2.jpg"/>
-                        </div>
-                        <div class="col-sm-4">
-                            <img src="${contextPath}/img/howto3.jpg"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <h2>Выбирайте еду на любой вкус и для любого события</h2>
-                        </div>
-                        <div class="col-sm-4">
-                            <h2>Размещайте заказ и следите за его выполнением</h2>
-                        </div>
-                        <div class="col-sm-4">
-                            <h2>Отдыхайте и наслаждайтесь праздником</h2>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <p>Ищите торт на свадьбу или капкейки для детского праздника, бургеры или домашние лимонады - любые блюда на Ваш вкус.</p>
-                        </div>
-                        <div class="col-sm-4">
-                            <p>Оформите заказ - кулинары ГастроМаркета свяжутся с Вами и с любовью приготовят выбранные Вами блюда или напитки.</p>
-                        </div>
-                        <div class="col-sm-4">
-                            <p>Вcё готово! Посвятите свое время общению с любимыми людьми и не тратьте усилия на подготовку праздничгого стола.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 

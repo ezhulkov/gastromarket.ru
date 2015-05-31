@@ -1,20 +1,17 @@
 <t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="prop:title">
 
     <div class="container">
-        <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="search-form">
-            <div class="col-sm-1"/>
-            <div class="col-sm-10 search-bar">
-                <input t:id="search" t:value="searchString" t:type="TextField" placeholder="Поиск"/>
-                <input type="submit" value=""/>
-            </div>
-            <div class="col-sm-1"/>
-        </t:form>
-
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
+        <div class="vgap5">
+            <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="search-bar">
+                <div class="col-sm-1"/>
+                <div class="col-sm-10">
+                    <input t:id="search" t:value="searchString" t:type="TextField" placeholder="Поиск"/>
+                    <input type="submit" value=""/>
+                </div>
+                <div class="col-sm-1"/>
+            </t:form>
+        </div>
+        <div class="vgap5"/>
 
         <div id="product-items" class="grid-block products"/>
         <t:zone t:id="productsZone">

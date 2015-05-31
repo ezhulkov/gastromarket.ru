@@ -1,0 +1,48 @@
+@import "../include/var";
+
+.invitation {
+
+  margin-top: 50px;
+  display: table;
+  width: 100%;
+
+  .info {
+    height: 453px;
+    text-align: center;
+    padding-top: 155px;
+
+    h1 {
+      font-size: 30px;
+    }
+
+    p {
+      font-size: 16px;
+      padding: 10px 20px 0 20px;
+      height: 110px;
+    }
+
+    .btn {
+      margin-top: 15px;
+    }
+  }
+
+  & > div {
+    height: 453px;
+    display: table-cell;
+    width: 905px;
+    background: url("../img/landing-bg-2.jpg") center top no-repeat;
+  }
+
+  & > div:first-child {
+    background: url("../img/landing-bg-1.jpg") right 0 repeat-x;
+    display: table-cell;
+    width: auto;
+  }
+
+  & > div:last-child {
+    background: url("../img/landing-bg-3.jpg") left 0 repeat-x;
+    display: table-cell;
+    width: auto;
+  }
+
+}

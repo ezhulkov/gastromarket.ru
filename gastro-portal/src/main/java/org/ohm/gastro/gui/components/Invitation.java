@@ -9,7 +9,7 @@ import org.ohm.gastro.gui.pages.AppResults;
 /**
  * Created by ezhulkov on 23.08.14.
  */
-public class Landing extends BaseComponent {
+public class Invitation extends BaseComponent {
 
     @Property
     private String about;

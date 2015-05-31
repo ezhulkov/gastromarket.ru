@@ -67,6 +67,10 @@ h3 {
   font-size: 20px;
 }
 
+*:focus {
+  outline: 0 !important;
+}
+
 .page {
   min-height: 300px;
   margin-bottom: $bigVGap;
@@ -74,6 +78,8 @@ h3 {
 
 .container {
   width: 1170px !important;
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .container-flex {
