@@ -1,5 +1,41 @@
 <t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-
+    <div class="container">
+        <div class="title">
+            <h1><span>${offer.name}</span></h1>
+        </div>
+        <div class="offer-item main">
+            <div class="row">
+                <div class="col-sm-3 text-right">
+                    <img class="pic" src="${offer.mainProductAvatarBig}"/>
+                </div>
+                <div class="col-sm-9 text-left">
+                    <t:pagelink page="catalog/offer" t:context="offer.altId" class="name">${offer.name}</t:pagelink>
+                    <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="offer.catalog.altId">
+                        <span><img src="${offer.catalog.avatarUrlSmall}"/></span>${offer.catalog.name}
+                    </t:pageLink>
+                    <div class="description">
+                        <t:outputraw value="offer.descriptionRaw"/>
+                    </div>
+                    <t:if test="products">
+                        <h3>Блюда в предложении:</h3>
+                        <ul class="products">
+                            <t:loop source="products" value="product">
+                                <li>
+                                    <t:pagelink page="product/index" t:context="product.altId">
+                                        <img src="${product.avatarUrlSmall}" class="popover-holder" data-content="${product.name}"/>
+                                    </t:pagelink>
+                                </li>
+                            </t:loop>
+                        </ul>
+                    </t:if>
+                </div>
+            </div>
+            <div class="basket-block">
+                <t:actionLink class="pic-holder basket-add pull-right" t:zone="basketZone" t:context="offer.id" t:id="purchase"><span/>В корзину</t:actionLink>
+                <span class="price pull-right">${offer.price} <span class="rub"/>&nbsp;&nbsp;</span>
+            </div>
+        </div>
+    </div>
 
 </t:htmlLayout>

@@ -38,11 +38,11 @@
                             </t:if>
                         </div>
                     </div>
-                    <div class="row vgap basket-block">
-                        <div class="col-sm-3 text-right">
-                            <div class="price">${offer.price} <span class="rub"/></div>
+                    <div class="row vgap">
+                        <div class="col-sm-3 basket-block text-right">
+                            <span class="price">${offer.price} <span class="rub"/></span>
                         </div>
-                        <div class="col-sm-9 text-left">
+                        <div class="col-sm-9 basket-block text-left">
                             <t:actionLink class="pic-holder basket-add" t:zone="basketZone" t:context="offer.id" t:id="purchase"><span/>В корзину</t:actionLink>
                         </div>
                     </div>

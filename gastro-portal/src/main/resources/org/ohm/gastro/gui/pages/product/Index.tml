@@ -25,16 +25,16 @@
                 </div>
                 <div class="col-sm-5 product-item page">
 
-                        <span class="cook">
-                            <img class="avatar-small" src="${product.catalog.avatarUrlSmall}"/>
-                            <a href="/catalog/${product.catalog.altId}">${product.catalog.name}</a>
-                        </span>
+                    <span class="cook">
+                        <img class="avatar-small" src="${product.catalog.avatarUrlSmall}"/>
+                        <a href="/catalog/${product.catalog.altId}">${product.catalog.name}</a>
+                    </span>
 
                     <div>
                         <span class="price pull-left">${product.price} <span class="rub"/> <span class="unit">${productUnit}</span></span>
-                            <span class="basket-add pull-right">
-                                <t:actionLink class="pic-holder basket-add" t:zone="basketZone" t:context="product.id" t:id="purchase"><span/>В корзину</t:actionLink>
-                            </span>
+                        <span class="basket-add pull-right">
+                            <t:actionLink class="pic-holder basket-add" t:zone="basketZone" t:context="product.id" t:id="purchase"><span/>В корзину</t:actionLink>
+                        </span>
                     </div>
                     <t:if test="description">
                         <span class="desc"><t:outputraw value="description"/></span>

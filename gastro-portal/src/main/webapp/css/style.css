@@ -1609,11 +1609,18 @@ option.root {
   height: 500px;
 }
 
+.catalog-link {
+  display: block;
+  color: #e70500;
+  margin: 10px 0;
+}
+
 .catalog-item:nth-child(odd) {
   background-color: #f5f5f5;
 }
 
 .offer-item {
+  position: relative;
   padding: 30px 0 20px 0;
 }
 .offer-item .data-header {
@@ -1657,6 +1664,12 @@ option.root {
 .offer-item.short .description {
   max-height: 90px;
   overflow: hidden;
+}
+.offer-item.main .basket-block {
+  position: absolute;
+  top: 36px;
+  right: 15px;
+  width: 240px;
 }
 
 .offer-item-wrap:nth-child(odd) {

@@ -110,6 +110,7 @@ public class Index extends AbstractCatalogPage {
                 .map(TagEntity::getValue)
                 .filter(t -> t.getTag() == Tag.ROOT)
                 .map(PropertyValueEntity::getValue)
+                .distinct()
                 .collect(Collectors.joining(", "));
     }
 
