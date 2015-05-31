@@ -27,7 +27,7 @@
 
                         <span class="cook">
                             <img class="avatar-small" src="${product.catalog.avatarUrlSmall}"/>
-                            <a href="/catalog/${product.catalog.id}">${product.catalog.name}</a>
+                            <a href="/catalog/${product.catalog.altId}">${product.catalog.name}</a>
                         </span>
 
                     <div>

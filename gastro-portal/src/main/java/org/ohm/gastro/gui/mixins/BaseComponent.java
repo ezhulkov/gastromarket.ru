@@ -23,6 +23,7 @@ import org.ohm.gastro.filter.SocialFilter;
 import org.ohm.gastro.gui.dto.ShoppingCart;
 import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.MessageService;
+import org.ohm.gastro.service.OfferService;
 import org.ohm.gastro.service.OrderService;
 import org.ohm.gastro.service.ProductService;
 import org.ohm.gastro.service.PropertyService;
@@ -91,6 +92,9 @@ public abstract class BaseComponent {
 
     @Inject
     private ProductService productService;
+
+    @Inject
+    private OfferService offerService;
 
     @Inject
     private OrderService orderService;
@@ -258,6 +262,10 @@ public abstract class BaseComponent {
 
     public RatingService getRatingService() {
         return ratingService;
+    }
+
+    public OfferService getOfferService() {
+        return offerService;
     }
 
     public OrderProductEntity createPurchaseItem(Long pid) {

@@ -31,7 +31,7 @@
                     </t:if>
                 </t:parameter>
                 <t:parameter name="catalogCell">
-                    <t:pageLink page="catalog/index" context="oneOrder.catalog.id">${oneOrder.catalog.name}</t:pageLink>
+                    <t:pageLink page="catalog/index" context="oneOrder.catalog.altId">${oneOrder.catalog.name}</t:pageLink>
                 </t:parameter>
                 <t:parameter name="statusCell"><span class="order-status status-${oneOrder.status}">${oneOrderStatus}</span></t:parameter>
                 <t:parameter name="empty">

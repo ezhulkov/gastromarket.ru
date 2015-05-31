@@ -2,6 +2,7 @@ package org.ohm.gastro.service;
 
 import org.javatuples.Tuple;
 import org.ohm.gastro.domain.CatalogEntity;
+import org.ohm.gastro.domain.OfferEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.TagEntity;
@@ -22,6 +23,8 @@ public interface ProductService extends ImageUploaderService<ProductEntity>, Alt
     int PRODUCTS_PER_PAGE = 8;
 
     List<ProductEntity> findAllRawProducts(@Nonnull CatalogEntity catalog);
+
+    List<ProductEntity> findAllProducts(OfferEntity offer);
 
     enum OrderType {
         NAME, PRICE, NONE

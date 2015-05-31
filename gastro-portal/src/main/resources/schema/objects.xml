@@ -554,7 +554,10 @@
             <column name="id" type="java.sql.Types.BIGINT">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="alt_id" type="java.sql.Types.VARCHAR(256)"/>
             <column name="catalog_id" type="java.sql.Types.BIGINT"/>
+            <column name="date" type="java.sql.Types.TIMESTAMP"/>
+            <column name="promoted" type="java.sql.Types.BOOLEAN"/>
             <column name="name" type="java.sql.Types.VARCHAR(512)"/>
             <column name="description" type="java.sql.Types.VARCHAR(1024)"/>
             <column name="price" type="java.sql.Types.INTEGER"/>

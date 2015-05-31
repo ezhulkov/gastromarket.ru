@@ -55,7 +55,7 @@ public class Import extends BaseComponent {
 
     private String context;
 
-    public void onActivate(Long cid) {
+    public void onActivate(String cid) {
         catalog = getCatalogService().findCatalog(cid);
         if (cachedElements == null) cachedElements = new HashMap<>();
     }

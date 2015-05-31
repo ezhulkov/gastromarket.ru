@@ -7,6 +7,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.CommentEntity;
+import org.ohm.gastro.domain.OfferEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
@@ -28,6 +29,9 @@ public class Index extends AbstractCatalogPage {
 
     @Property
     private CommentEntity oneComment;
+
+    @Property
+    private OfferEntity oneOffer;
 
     @Property
     private String rateComment;
@@ -128,6 +132,11 @@ public class Index extends AbstractCatalogPage {
     public Class onSuccessFromCatalogForm() {
         getCatalogService().saveCatalog(catalog);
         return Index.class;
+    }
+
+    @Cached
+    public java.util.List<OfferEntity> getOffers() {
+        return getOfferService().findAllOffers(catalog).stream().limit(3).collect(Collectors.toList());
     }
 
 }

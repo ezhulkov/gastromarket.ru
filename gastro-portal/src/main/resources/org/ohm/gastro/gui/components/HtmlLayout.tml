@@ -90,7 +90,7 @@
                         Как только Вы завершите заполнять эту страницу, мы сразу подключим её в общий каталог и её увидят тысячи посетителей ГастроМаркет!
                     </p>
                     <p class="modal-text center">
-                        <t:pagelink page="catalog/wizard" context="newCatalog.id" class="red-text">Перейти к настройке персональной страницы</t:pagelink>
+                        <t:pagelink page="catalog/wizard" context="newCatalog.altId" class="red-text">Перейти к настройке персональной страницы</t:pagelink>
                     </p>
                 </div>
             </div>

@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row bottom">
+                <div class="row vgap">
                     <div class="col-sm-3 text-right">
                         <div class="grey-text f16px">Последний вход на сайт:</div>
                         <div class="grey-text f16px">${oneCatalog.user.loginDatePrintable}</div>

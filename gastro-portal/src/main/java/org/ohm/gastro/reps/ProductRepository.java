@@ -1,6 +1,7 @@
 package org.ohm.gastro.reps;
 
 import org.ohm.gastro.domain.CatalogEntity;
+import org.ohm.gastro.domain.OfferEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.springframework.data.domain.Page;
@@ -57,5 +58,9 @@ public interface ProductRepository extends AltIdRepository<ProductEntity> {
             "OFFSET :o\n" +
             "LIMIT :l", nativeQuery = true)
     List<ProductEntity> searchProducts(@Param("q") String query, @Param("o") int offset, @Param("l") int limit);
+
+    @Query("select p from ProductEntity p join p.offers o where o=:o")
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    List<ProductEntity> findAllByOffer(@Param("o") OfferEntity offer);
 
 }

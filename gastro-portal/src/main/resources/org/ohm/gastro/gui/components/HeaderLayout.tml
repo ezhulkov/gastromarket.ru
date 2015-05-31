@@ -35,7 +35,7 @@
                                 <t:if test="cook">
                                     <t:loop source="catalogs" value="oneCatalog">
                                         <li>
-                                            <t:pagelink page="catalog/index" t:context="oneCatalog.id">Страница '${oneCatalog.name}'</t:pagelink>
+                                            <t:pagelink page="catalog/index" t:context="oneCatalog.altId">Страница '${oneCatalog.name}'</t:pagelink>
                                         </li>
                                     </t:loop>
                                     <li>

@@ -51,7 +51,7 @@
                 ${oneCatalog.products.size()}
             </t:parameter>
             <t:parameter name="nameCell">
-                <t:pagelink page="admin/catalog/index" context="['UPDATE',oneCatalog.id]">${oneCatalog.name}</t:pagelink>
+                <t:pagelink page="admin/catalog/index" context="['UPDATE',oneCatalog.altId]">${oneCatalog.name}</t:pagelink>
             </t:parameter>
         </t:grid>
         <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-hidden="true">

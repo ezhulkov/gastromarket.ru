@@ -9,7 +9,7 @@
         <t:if test="lastStep">
             <div class="title">
                 <h2><span>Всё готово!</span></h2>
-                <t:pagelink page="catalog/index" context="catalog.id">Перейти на страницу<span/></t:pagelink>
+                <t:pagelink page="catalog/index" context="catalog.altId">Перейти на страницу<span/></t:pagelink>
             </div>
         </t:if>
         <p class="modal-text">
@@ -160,7 +160,7 @@
                 <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>
             </div>
             <div class="more-link">
-                <t:pagelink class="product-edit-link" page="office/import" context="catalog.id">Импортировать<span/></t:pagelink>
+                <t:pagelink class="product-edit-link" page="office/import" context="catalog.altId">Импортировать<span/></t:pagelink>
             </div>
         </div>
         <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>

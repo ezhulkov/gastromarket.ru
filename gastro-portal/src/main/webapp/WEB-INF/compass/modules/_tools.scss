@@ -17,6 +17,14 @@ body.mobile .rub:after {
   font-weight: bold;
 }
 
+.relative {
+  position: relative !important;
+}
+
+.absolute {
+  position: absolute !important;
+}
+
 .f14px {
   font-size: $f14px !important;
 }

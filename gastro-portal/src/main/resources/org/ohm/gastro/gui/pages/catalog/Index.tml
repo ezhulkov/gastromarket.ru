@@ -13,7 +13,7 @@
                     <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>
                 </div>
                 <div class="more-link">
-                    <t:pagelink class="product-edit-link" page="office/import" context="catalog.id">Импортировать <span/></t:pagelink>
+                    <t:pagelink class="product-edit-link" page="office/import" context="catalog.altId">Импортировать <span/></t:pagelink>
                 </div>
             </div>
             <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>
@@ -86,33 +86,78 @@
 
         <div class="title">
             <h1><span>Блюда</span></h1>
-            <t:pagelink page="catalog/products" t:context="catalog.id">Показать всё меню<span/></t:pagelink>
+            <t:if test="products">
+                <t:pagelink page="catalog/products" t:context="catalog.altId">Показать всё меню<span/></t:pagelink>
+                <t:parameter name="else">
+                    <t:if test="catalogOwner">
+                        <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>
+                    </t:if>
+                </t:parameter>
+            </t:if>
         </div>
         <t:zone t:id="productsZone">
             <t:delegate to="productsBlock"/>
         </t:zone>
         <t:block t:id="productsBlock">
-            <t:if test="products">
-                <div id="product-items" class="grid-block products">
-                    <t:loop source="products" value="oneProduct">
-                        <t:product product="oneProduct" class="fixed" edit="catalogOwner"/>
-                    </t:loop>
-                </div>
-            </t:if>
+            <div id="product-items" class="grid-block products">
+                <t:loop source="products" value="oneProduct">
+                    <t:product product="oneProduct" class="fixed" edit="catalogOwner"/>
+                    <t:parameter name="empty">
+                        <div class="empty">Меню кулинара пусто</div>
+                    </t:parameter>
+                </t:loop>
+            </div>
         </t:block>
         <t:productModalTemplate/>
 
         <div class="title">
             <h1><span>Готовые предложения</span></h1>
-            <t:pagelink page="catalog/products" t:context="catalog.id">Показать все предложения<span/></t:pagelink>
+            <t:if test="offers">
+                <t:pagelink page="catalog/offers" t:context="catalog.altId">Показать все предложения<span/></t:pagelink>
+                <t:parameter name="else">
+                    <t:if test="catalogOwner">
+                        <t:pagelink page="catalog/offers" t:context="catalog.altId">Создать предложение<span/></t:pagelink>
+                    </t:if>
+                </t:parameter>
+            </t:if>
+            <t:loop source="offers" value="oneOffer">
+                <t:parameter name="empty">
+                    <div class="empty">Нет готовых предложений</div>
+                </t:parameter>
+            </t:loop>
         </div>
 
         <div class="title">
             <h1><span>Отзывы о кулинаре</span></h1>
             <a href="#rate" data-toggle="modal" data-target="#rate">Оставить отзыв</a>
         </div>
-
-
+        <t:if test="comments">
+            <ul class="ratings">
+                <t:loop source="comments" value="oneComment">
+                    <li class="row">
+                        <div class="col-sm-1"/>
+                        <div class="col-sm-2 pic text-right">
+                            <img src="${oneComment.author.avatarUrlMedium}"/>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="date">
+                                ${oneComment.datePrintable}
+                            </div>
+                            <div class="name">
+                                ${oneComment.author.fullName}
+                            </div>
+                            <div class="text">
+                                <span class="glyphicon glyphicon-thumbs-${oneComment.rating}" aria-hidden="true"/>
+                                <t:outputraw value="oneCommentText"/>
+                            </div>
+                        </div>
+                    </li>
+                </t:loop>
+            </ul>
+            <t:parameter name="else">
+                <div class="empty">Нет отзывов</div>
+            </t:parameter>
+        </t:if>
         <div class="modal fade rate" id="rate" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -158,33 +203,6 @@
                 </div>
             </div>
         </div>
-        <t:if test="comments">
-            <ul class="ratings">
-                <t:loop source="comments" value="oneComment">
-                    <li class="row">
-                        <div class="col-sm-1"/>
-                        <div class="col-sm-2 pic text-right">
-                            <img src="${oneComment.author.avatarUrlMedium}"/>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="date">
-                                ${oneComment.datePrintable}
-                            </div>
-                            <div class="name">
-                                ${oneComment.author.fullName}
-                            </div>
-                            <div class="text">
-                                <span class="glyphicon glyphicon-thumbs-${oneComment.rating}" aria-hidden="true"/>
-                                <t:outputraw value="oneCommentText"/>
-                            </div>
-                        </div>
-                    </li>
-                </t:loop>
-            </ul>
-            <t:parameter name="else">
-                <div class="empty">Пока нет ни одного отзыва</div>
-            </t:parameter>
-        </t:if>
 
     </div>
 
