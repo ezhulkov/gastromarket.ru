@@ -31,7 +31,7 @@ public class Index extends AbstractCatalogPage {
     private CommentEntity oneComment;
 
     @Property
-    private OfferEntity oneOffer;
+    private OfferEntity offer;
 
     @Property
     private String rateComment;
@@ -93,6 +93,10 @@ public class Index extends AbstractCatalogPage {
         return getDeclInfo("orders", getOrderService().findAllOrders(catalog, Status.READY).size());
     }
 
+    public String getOfferProdCount() {
+        return getDeclInfo("offer.prod", getProductService().findAllProducts(offer).size());
+    }
+
     private String getDeclInfo(String value, int count) {
         if (count == 0) return getMessages().format(String.format("chef.info.no.%s", value), count);
         if (count == 1) return getMessages().format(String.format("chef.info.one.%s", value), count);
@@ -138,5 +142,11 @@ public class Index extends AbstractCatalogPage {
     public java.util.List<OfferEntity> getOffers() {
         return getOfferService().findAllOffers(catalog).stream().limit(3).collect(Collectors.toList());
     }
+
+    @Cached(watch = "offer")
+    public java.util.List<ProductEntity> getOfferProducts() {
+        return getProductService().findAllProducts(offer);
+    }
+
 
 }

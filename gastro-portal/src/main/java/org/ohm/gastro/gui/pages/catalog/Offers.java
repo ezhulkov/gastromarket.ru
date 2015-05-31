@@ -48,10 +48,4 @@ public class Offers extends BaseComponent {
         return getProductService().findAllProducts(offer);
     }
 
-    @Cached(watch = "offer")
-    public String getMainProductAvatarUrl() {
-        java.util.List<ProductEntity> allProducts = getProductService().findAllProducts(offer);
-        return allProducts.isEmpty() ? "/img/offer-stub-270x270.jpg" : allProducts.get(0).getAvatarUrlMedium();
-    }
-
 }

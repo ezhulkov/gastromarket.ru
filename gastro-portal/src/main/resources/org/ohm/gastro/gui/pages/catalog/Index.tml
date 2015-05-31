@@ -99,7 +99,7 @@
             <t:delegate to="productsBlock"/>
         </t:zone>
         <t:block t:id="productsBlock">
-            <div id="product-items" class="grid-block products">
+            <div id="product-items" class="grid-block products fixed">
                 <t:loop source="products" value="oneProduct">
                     <t:product product="oneProduct" class="fixed" edit="catalogOwner"/>
                     <t:parameter name="empty">
@@ -120,12 +120,32 @@
                     </t:if>
                 </t:parameter>
             </t:if>
-            <t:loop source="offers" value="oneOffer">
-                <t:parameter name="empty">
-                    <div class="empty">Нет готовых предложений</div>
-                </t:parameter>
-            </t:loop>
         </div>
+        <t:loop source="offers" value="offer">
+            <div class="offer-item short">
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <t:pagelink page="catalog/offer" t:context="offer.altId">
+                            <img class="pic" src="${offer.mainProductAvatarSmall}"/>
+                        </t:pagelink>
+                    </div>
+                    <div class="col-sm-9 text-left">
+                        <t:pagelink page="catalog/offer" t:context="offer.altId" class="name">${offer.name}</t:pagelink>
+                        <div class="description">
+                            <t:outputraw value="offer.descriptionRaw"/>
+                        </div>
+                        <t:if test="offerProducts">
+                            <div class="products">
+                                <t:pagelink page="catalog/offer" t:context="offer.altId">${offerProdCount}</t:pagelink>
+                            </div>
+                        </t:if>
+                    </div>
+                </div>
+            </div>
+            <t:parameter name="empty">
+                <div class="empty">Нет готовых предложений</div>
+            </t:parameter>
+        </t:loop>
 
         <div class="title">
             <h1><span>Отзывы о кулинаре</span></h1>
