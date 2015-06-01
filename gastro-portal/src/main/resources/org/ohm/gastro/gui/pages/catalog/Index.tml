@@ -121,7 +121,7 @@
                 <t:pagelink page="catalog/offers" t:context="catalog.altId">Показать все предложения<span/></t:pagelink>
                 <t:parameter name="else">
                     <t:if test="catalogOwner">
-                        <t:pagelink page="catalog/offers" t:context="catalog.altId">Создать предложение<span/></t:pagelink>
+                        <a class="offer-edit-link" data-toggle="modal" data-target="#of-new" href="#of-new">Добавить предложение</a>
                     </t:if>
                 </t:parameter>
             </t:if>

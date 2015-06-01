@@ -75,12 +75,12 @@ public class OfferEdit extends BaseComponent {
     @Parameter(defaultPrefix = BindingConstants.PROP, allowNull = true, required = false)
     private OfferEntity offer;
 
-    public String getOfferEditZone() {
-        return editOffer ? "offerEditZone" + offer.getId() : "offerZoneNew";
-    }
-
     public Long getOfferId() {
         return offer == null || offer.getId() == null ? null : offer.getId();
+    }
+
+    public String getOfferEditZone() {
+        return editOffer ? "offerEditZone" + offer.getId() : "offerZoneNew";
     }
 
     public String getEditProductsLabel() {
@@ -105,7 +105,7 @@ public class OfferEdit extends BaseComponent {
             origOffer.setName(offer.getName());
             origOffer.setPrice(offer.getPrice());
             origOffer.setDescription(offer.getDescription());
-            getOfferService().saveOffer(origOffer);
+            offer = getOfferService().saveOffer(origOffer);
             if (offersBlock != null) getAjaxResponseRenderer().addRender("offersZone", offersBlock);
             if (offerBlock != null) getAjaxResponseRenderer().addRender(offerZoneId, offerBlock);
             getAjaxResponseRenderer().addRender(getOfferEditZone(), closeImmediately ? editDescBlock : editProductsBlock);
@@ -125,6 +125,17 @@ public class OfferEdit extends BaseComponent {
 
     public void onSelectedFromSaveAndClose2() {
         this.closeImmediately = true;
+    }
+
+    public Object onSubmitFromProductsForm(Long pid) {
+        offer = getOfferService().findOffer(pid);
+        if (goBack) {
+            getAjaxResponseRenderer().addRender(getOfferEditZone(), editDescBlock);
+            return null;
+        }
+        if (closeImmediately) offer = null;
+        if (closeImmediately) getAjaxResponseRenderer().addRender(getOfferEditZone(), editDescBlock);
+        return closeImmediately && reloadPage ? Offer.class : null;
     }
 
 }

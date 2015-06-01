@@ -44,19 +44,9 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-1"/>
-                            <div class="col-sm-4">
+                            <div class="col-sm-10">
                                 <t:label t:for="offerPrice">Цена, руб:</t:label>
                                 <input t:id="offerPrice" class="form-control price"/>
-                            </div>
-                            <div class="col-sm-1">
-                                <label/>
-
-                                <div class="f20px za">за</div>
-                            </div>
-                            <div class="col-sm-5">
-                                <label/>
-
-                                <div class="f20px za">одно предложение</div>
                             </div>
                             <div class="col-sm-1"/>
                         </div>
@@ -67,7 +57,7 @@
                         </div>
                     </t:form>
                 </t:block>
-                <t:block t:id="editPropsBlock">
+                <t:block t:id="editProductsBlock">
                     <t:form t:id="productsForm" t:context="[offerId]" t:zone="${offerEditZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
                         <div class="row">
                             <input class="btn btn-red" t:type="submit" t:id="saveAndBack2" value="&lt; Назад"/>
