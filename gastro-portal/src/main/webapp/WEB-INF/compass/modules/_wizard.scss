@@ -1,2 +1,31 @@
 @import "../include/var";
 
+.wizard {
+  margin: 20px 0 10px 0;
+  .wizard-upload {
+    margin-top: 9px;
+  }
+  .step1-zone {
+    display: none;
+  }
+}
+
+.bottom-image {
+  display: block;
+  height: 300px;
+  position: relative;
+  & > div {
+    height: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    content: "";
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    background: url("../img/main/main5.jpg") center top no-repeat;
+  }
+}

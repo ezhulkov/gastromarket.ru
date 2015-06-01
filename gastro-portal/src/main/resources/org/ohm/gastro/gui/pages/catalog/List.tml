@@ -6,30 +6,32 @@
         </div>
     </div>
     <t:loop source="catalogs" value="oneCatalog">
-        <div class="catalog-item short">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-3 text-right">
-                        <t:pagelink page="catalog/index" t:context="oneCatalog.altId"><img class="pic" src="${oneCatalog.avatarUrl}"/></t:pagelink>
-                    </div>
-                    <div class="col-sm-9 text-left">
-                        <t:pagelink page="catalog/index" t:context="oneCatalog.altId" class="name">${oneCatalog.name}</t:pagelink>
-                        <div class="root-categories">${rootProperties}</div>
-                        <t:badges catalog="oneCatalog"/>
-                        <t:ratings catalog="oneCatalog"/>
-                        <div class="description">
-                            <t:outputraw value="oneCatalog.descriptionRaw"/>
+        <div class="catalog-item-wrap">
+            <div class="catalog-item short">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-3 text-right">
+                            <t:pagelink page="catalog/index" t:context="oneCatalog.altId"><img class="pic" src="${oneCatalog.avatarUrl}"/></t:pagelink>
+                        </div>
+                        <div class="col-sm-9 text-left">
+                            <t:pagelink page="catalog/index" t:context="oneCatalog.altId" class="name">${oneCatalog.name}</t:pagelink>
+                            <div class="root-categories">${rootProperties}</div>
+                            <t:badges catalog="oneCatalog"/>
+                            <t:ratings catalog="oneCatalog"/>
+                            <div class="description">
+                                <t:outputraw value="oneCatalog.descriptionRaw"/>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row vgap">
-                    <div class="col-sm-3 text-right">
-                        <div class="grey-text f16px">Последний вход на сайт:</div>
-                        <div class="grey-text f16px">${oneCatalog.user.loginDatePrintable}</div>
-                    </div>
-                    <div class="col-sm-9 text-left">
-                        <div class="data-header">
-                            <t:pagelink page="catalog/products" t:context="oneCatalog.altId">Показать всё меню <span/></t:pagelink>
+                    <div class="row vgap">
+                        <div class="col-sm-3 text-right">
+                            <div class="grey-text f16px">Последний вход на сайт:</div>
+                            <div class="grey-text f16px">${oneCatalog.user.loginDatePrintable}</div>
+                        </div>
+                        <div class="col-sm-9 text-left">
+                            <div class="data-header">
+                                <t:pagelink page="catalog/products" t:context="oneCatalog.altId">Показать всё меню <span/></t:pagelink>
+                            </div>
                         </div>
                     </div>
                 </div>

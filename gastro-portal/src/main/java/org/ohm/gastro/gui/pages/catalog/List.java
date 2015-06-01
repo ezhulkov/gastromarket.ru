@@ -48,6 +48,7 @@ public class List extends BaseComponent {
                 .map(TagEntity::getValue)
                 .filter(t -> t.getTag() == Tag.ROOT)
                 .map(PropertyValueEntity::getValue)
+                .distinct()
                 .collect(Collectors.joining(", "));
     }
 

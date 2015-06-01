@@ -26,6 +26,10 @@ public abstract class AbstractCatalogPage extends BaseComponent {
     @Property
     protected Block productsBlock;
 
+    @Inject
+    @Property
+    protected Block offersBlock;
+
     @Component(id = "desc", parameters = {"value=catalog.description", "validate=maxlength=4096,required"})
     private TextArea descField;
 

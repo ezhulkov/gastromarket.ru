@@ -36,7 +36,7 @@
         <t:grid source="catalogs" row="oneCatalog"
                 reorder="name,type,date,user,rating,level,products,del"
                 add="user,del,products"
-                exclude="id,basketMin,wizardStep,maxWizardStep,wasSetup,description,delivery,avatarUrl,avatarUrlMedium,avatarUrlSmall,payment,altId,rankBadge,productBadge,orderBadge"
+                exclude="id,basketMin,wizardStep,maxWizardStep,wasSetup,description,delivery,avatarUrl,avatarUrlMedium,avatarUrlSmall,payment,altId,rankBadge,productBadge,orderBadge,paymentRaw,deliveryRaw,descriptionRaw"
                 t:mixins="GridSortingDisabled" class="table table-hover">
             <t:parameter name="nameHeader">
                 Название

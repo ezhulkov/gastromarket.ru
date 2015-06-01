@@ -1,5 +1,5 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="ratings">
-    Рейтинг: <a href="/about#rating" class="rating">${catalog.level}</a>&nbsp;
+    Рейтинг: <a href="/about#rating" class="rating">${catalog.level}</a>&nbsp;&nbsp;
     Отзывы:
     <t:if test="hasRatings">
         <span class="pos">+${posRatings}</span> / <span class="neg">-${negRatings}</span>

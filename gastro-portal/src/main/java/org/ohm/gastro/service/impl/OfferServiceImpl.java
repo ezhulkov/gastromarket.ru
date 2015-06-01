@@ -34,6 +34,11 @@ public class OfferServiceImpl implements OfferService, Logging {
     }
 
     @Override
+    public OfferEntity findOffer(Long oid) {
+        return offerRepository.findOne(oid);
+    }
+
+    @Override
     public void deleteOffer(final OfferEntity offer) {
         offerRepository.delete(offer);
     }

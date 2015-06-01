@@ -13,10 +13,14 @@
                     <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>
                 </div>
                 <div class="more-link">
-                    <t:pagelink class="product-edit-link" page="office/import" context="catalog.altId">Импортировать <span/></t:pagelink>
+                    <a class="offer-edit-link" data-toggle="modal" data-target="#of-new" href="#of-new">Добавить предложение</a>
+                </div>
+                <div class="more-link">
+                    <t:pagelink class="product-edit-link" page="office/import" context="catalog.altId">Импортировать меню <span/></t:pagelink>
                 </div>
             </div>
             <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>
+            <t:offerEdit catalog="catalog" edit="false" offersBlock="offersBlock"/>
         </t:if>
 
         <div class="catalog-item">
@@ -57,6 +61,7 @@
                 </div>
                 <div class="row vgap5">
                     <div class="col-sm-3">
+                        <!--<div class="f18px">Поделиться:</div>-->
                         <ul class="social">
                             <li>
                                 <div id="vk_like"></div>
@@ -121,31 +126,36 @@
                 </t:parameter>
             </t:if>
         </div>
-        <t:loop source="offers" value="offer">
-            <div class="offer-item short">
-                <div class="row">
-                    <div class="col-sm-2 text-right">
-                        <t:pagelink page="catalog/offer" t:context="offer.altId">
-                            <img class="pic" src="${offer.mainProductAvatarSmall}"/>
-                        </t:pagelink>
-                    </div>
-                    <div class="col-sm-9 text-left">
-                        <t:pagelink page="catalog/offer" t:context="offer.altId" class="name">${offer.name}</t:pagelink>
-                        <div class="description">
-                            <t:outputraw value="offer.descriptionRaw"/>
+        <t:zone t:id="offersZone">
+            <t:delegate to="offersBlock"/>
+        </t:zone>
+        <t:block t:id="offersBlock">
+            <t:loop source="offers" value="offer">
+                <div class="offer-item short">
+                    <div class="row">
+                        <div class="col-sm-2 text-right">
+                            <t:pagelink page="catalog/offer" t:context="offer.altId">
+                                <img class="pic" src="${offer.mainProductAvatarSmall}"/>
+                            </t:pagelink>
                         </div>
-                        <t:if test="offerProducts">
-                            <div class="products">
-                                <t:pagelink page="catalog/offer" t:context="offer.altId">${offerProdCount}</t:pagelink>
+                        <div class="col-sm-9 text-left">
+                            <t:pagelink page="catalog/offer" t:context="offer.altId" class="name">${offer.name}</t:pagelink>
+                            <div class="description">
+                                <t:outputraw value="offer.descriptionRaw"/>
                             </div>
-                        </t:if>
+                            <t:if test="offerProducts">
+                                <div class="products">
+                                    <t:pagelink page="catalog/offer" t:context="offer.altId">${offerProdCount}</t:pagelink>
+                                </div>
+                            </t:if>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <t:parameter name="empty">
-                <div class="empty">Нет готовых предложений</div>
-            </t:parameter>
-        </t:loop>
+                <t:parameter name="empty">
+                    <div class="empty">Нет готовых предложений</div>
+                </t:parameter>
+            </t:loop>
+        </t:block>
 
         <div class="title">
             <h1><span>Отзывы о кулинаре</span></h1>

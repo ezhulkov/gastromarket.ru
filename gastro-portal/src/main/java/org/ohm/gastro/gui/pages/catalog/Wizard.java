@@ -46,7 +46,7 @@ public class Wizard extends AbstractCatalogPage {
     @Component(id = "fullName", parameters = {"value=authenticatedUser?.fullName", "validate=maxlength=64"})
     private TextField fNameField;
 
-    public Object onActivate(Long pid) {
+    public Object onActivate(String pid) {
         catalog = getCatalogService().findCatalog(pid);
         if (catalog == null || !isCatalogOwner()) return new HttpError(403, "Access denied.");
         return true;

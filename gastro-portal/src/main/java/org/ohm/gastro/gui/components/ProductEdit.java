@@ -156,7 +156,6 @@ public class ProductEdit extends BaseComponent {
             if (productsBlock != null) getAjaxResponseRenderer().addRender("productsZone", productsBlock);
             if (productBlock != null) getAjaxResponseRenderer().addRender(productZoneId, productBlock);
             getAjaxResponseRenderer().addRender(getProductEditZone(), closeImmediately ? editDescBlock : editPropsBlock);
-            if (closeImmediately && reloadPage) return Index.class;
         } else {
             closeImmediately = false;
             getAjaxResponseRenderer().addRender(getProductEditZone(), editDescBlock);
@@ -204,6 +203,7 @@ public class ProductEdit extends BaseComponent {
         getProductService().saveProduct(product, propValues, listValues);
         if (goBack || closeImmediately) getAjaxResponseRenderer().addRender(getProductEditZone(), editDescBlock);
         else getAjaxResponseRenderer().addRender(getProductEditZone(), editPhotoBlock);
+        if (closeImmediately) product = null;
         return closeImmediately && reloadPage ? Index.class : null;
     }
 
@@ -219,6 +219,7 @@ public class ProductEdit extends BaseComponent {
     public Object onSubmitFromPhotoForm(Long pid) {
         product = getProductService().findProduct(pid);
         if (goBack) getAjaxResponseRenderer().addRender(getProductEditZone(), editPropsBlock);
+        if (closeImmediately) product = null;
         if (closeImmediately) getAjaxResponseRenderer().addRender(getProductEditZone(), editDescBlock);
         return closeImmediately && reloadPage ? Index.class : null;
     }

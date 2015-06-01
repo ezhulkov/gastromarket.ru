@@ -15,6 +15,8 @@ public interface OfferService extends AltIdService<OfferEntity, OfferRepository>
 
     OfferEntity findOffer(String altId);
 
+    OfferEntity findOffer(Long oid);
+
     void deleteOffer(OfferEntity offer);
 
     OfferEntity saveOffer(OfferEntity offer);
