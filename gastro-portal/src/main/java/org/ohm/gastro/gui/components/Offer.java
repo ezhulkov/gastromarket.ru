@@ -2,6 +2,7 @@ package org.ohm.gastro.gui.components;
 
 import com.google.common.collect.Lists;
 import org.apache.tapestry5.BindingConstants;
+import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -20,11 +21,14 @@ public class Offer extends BaseComponent {
 
     @Parameter
     @Property
-    private boolean edit;
+    private boolean editMode;
 
     @Parameter(defaultPrefix = BindingConstants.LITERAL, value = "false")
     @Property
     private boolean shortVersion;
+
+    @Parameter(name = "offersBlock")
+    private Block offersBlock;
 
     @Property
     private ProductEntity product;
@@ -48,6 +52,11 @@ public class Offer extends BaseComponent {
 
     public String getRightBlock() {
         return shortVersion ? "col-sm-10" : "col-sm-9";
+    }
+
+    public Block onActionFromDelete(Long oid) {
+        getOfferService().deleteOffer(oid);
+        return offersBlock;
     }
 
 }

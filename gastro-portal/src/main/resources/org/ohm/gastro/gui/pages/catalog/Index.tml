@@ -131,7 +131,7 @@
         </t:zone>
         <t:block t:id="offersBlock">
             <t:loop source="offers" value="offer">
-                <t:offer offer="offer" shortVersion="true" edit="catalogOwner"/>
+                <t:offer offer="offer" shortVersion="true" editMode="catalogOwner" offersBlock="offersBlock"/>
                 <t:parameter name="empty">
                     <div class="empty">Нет готовых предложений</div>
                 </t:parameter>

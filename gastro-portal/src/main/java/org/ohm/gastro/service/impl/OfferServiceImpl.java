@@ -48,4 +48,9 @@ public class OfferServiceImpl implements OfferService, Logging {
         return saveWithAltId(offer, offerRepository);
     }
 
+    @Override
+    public void deleteOffer(Long oid) {
+        offerRepository.delete(oid);
+    }
+
 }

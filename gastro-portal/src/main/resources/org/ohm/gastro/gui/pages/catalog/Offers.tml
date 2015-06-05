@@ -22,7 +22,7 @@
         <t:loop source="allOffers" value="offer">
             <div class="offer-item-wrap">
                 <div class="container">
-                    <t:offer offer="offer" edit="catalogOwner"/>
+                    <t:offer offer="offer" editMode="catalogOwner" offersBlock="offersBlock"/>
                 </div>
             </div>
         </t:loop>

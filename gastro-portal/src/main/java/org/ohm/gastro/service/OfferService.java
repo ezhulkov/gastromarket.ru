@@ -21,4 +21,6 @@ public interface OfferService extends AltIdService<OfferEntity, OfferRepository>
 
     OfferEntity saveOffer(OfferEntity offer);
 
+    void deleteOffer(Long oid);
+
 }
