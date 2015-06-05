@@ -22,41 +22,7 @@
         <t:loop source="allOffers" value="offer">
             <div class="offer-item-wrap">
                 <div class="container">
-                    <div class="offer-item">
-                        <div class="row">
-                            <div class="col-sm-3 text-right">
-                                <t:pagelink page="catalog/offer" t:context="offer.altId">
-                                    <img class="pic" src="${offer.mainProductAvatarBig}"/>
-                                </t:pagelink>
-                            </div>
-                            <div class="col-sm-9 text-left">
-                                <t:pagelink page="catalog/offer" t:context="offer.altId" class="name">${offer.name}</t:pagelink>
-                                <div class="description">
-                                    <t:outputraw value="offer.descriptionRaw"/>
-                                </div>
-                                <t:if test="products">
-                                    <h3>Блюда в предложении:</h3>
-                                    <ul class="products">
-                                        <t:loop source="products" value="product">
-                                            <li>
-                                                <t:pagelink page="product/index" t:context="product.altId">
-                                                    <img src="${product.avatarUrlSmall}" class="popover-holder" data-content="${product.name}"/>
-                                                </t:pagelink>
-                                            </li>
-                                        </t:loop>
-                                    </ul>
-                                </t:if>
-                            </div>
-                        </div>
-                        <div class="row vgap">
-                            <div class="col-sm-3 basket-block text-right">
-                                <span class="price">${offer.price} <span class="rub"/></span>
-                            </div>
-                            <div class="col-sm-9 basket-block text-left">
-                                <t:actionLink class="pic-holder basket-add" t:zone="basketZone" t:context="offer.id" t:id="purchase"><span/>В корзину</t:actionLink>
-                            </div>
-                        </div>
-                    </div>
+                    <t:offer offer="offer" edit="catalogOwner"/>
                 </div>
             </div>
         </t:loop>

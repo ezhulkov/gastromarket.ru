@@ -144,10 +144,4 @@ public class Index extends AbstractCatalogPage {
         return getOfferService().findAllOffers(catalog).stream().limit(3).collect(Collectors.toList());
     }
 
-    @Cached(watch = "offer")
-    public java.util.List<ProductEntity> getOfferProducts() {
-        return getProductService().findAllProducts(offer);
-    }
-
-
 }

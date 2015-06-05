@@ -131,34 +131,7 @@
         </t:zone>
         <t:block t:id="offersBlock">
             <t:loop source="offers" value="offer">
-                <div class="offer-item short">
-                    <div class="row">
-                        <div class="col-sm-2 text-right">
-                            <t:pagelink page="catalog/offer" t:context="offer.altId">
-                                <img class="pic" src="${offer.mainProductAvatarSmall}"/>
-                            </t:pagelink>
-                        </div>
-                        <div class="col-sm-9 text-left">
-                            <t:pagelink page="catalog/offer" t:context="offer.altId" class="name">${offer.name}</t:pagelink>
-                            <div class="description">
-                                <t:outputraw value="offer.descriptionRaw"/>
-                            </div>
-                            <t:if test="offerProducts">
-                                <div class="products">
-                                    <t:pagelink page="catalog/offer" t:context="offer.altId">${offerProdCount}</t:pagelink>
-                                </div>
-                            </t:if>
-                        </div>
-                    </div>
-                    <div class="row vgap">
-                        <div class="col-sm-2 basket-block text-right">
-                            <span class="price f24px">${offer.price} <span class="rub"/></span>
-                        </div>
-                        <div class="col-sm-9 basket-block text-left">
-                            <t:actionLink class="pic-holder basket-add" t:zone="basketZone" t:context="offer.id" t:id="purchase"><span/>В корзину</t:actionLink>
-                        </div>
-                    </div>
-                </div>
+                <t:offer offer="offer" shortVersion="true" edit="catalogOwner"/>
                 <t:parameter name="empty">
                     <div class="empty">Нет готовых предложений</div>
                 </t:parameter>

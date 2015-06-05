@@ -1428,6 +1428,19 @@ option.root {
   height: 100px;
   width: 100px;
 }
+.offer-item .edit {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 10px;
+}
+.offer-item .edit a {
+  color: #e70500;
+  margin-left: 10px;
+}
+.offer-item:hover .edit {
+  display: block;
+}
 .offer-item.short {
   padding: 15px 0 10px 0;
 }

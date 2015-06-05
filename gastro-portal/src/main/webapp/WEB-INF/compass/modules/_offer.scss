@@ -36,6 +36,21 @@
       width: 100px;
     }
   }
+  .edit {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 10px;
+    a {
+      color: $redTextColor;
+      margin-left: $gap;
+    }
+  }
+  &:hover {
+    .edit {
+      display: block;
+    }
+  }
   &.short {
     padding: 15px 0 10px 0;
     .products a {
