@@ -96,4 +96,8 @@ public class Offer extends BaseComponent {
         return type == Type.FULL;
     }
 
+    public Block onActionFromPurchase(Long pid) {
+        return getShoppingCart().getBasketBlock();
+    }
+
 }
