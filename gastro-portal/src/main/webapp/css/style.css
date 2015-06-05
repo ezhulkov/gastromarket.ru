@@ -98,7 +98,6 @@ div.t-error ul li {
 
 .rub {
   display: inline !important;
-  padding-right: 10px;
 }
 
 body.desktop .rub:after {
@@ -135,6 +134,10 @@ body.mobile .rub:after {
 
 .f20px {
   font-size: 20px !important;
+}
+
+.f24px {
+  font-size: 24px !important;
 }
 
 .f30px {
@@ -1402,6 +1405,7 @@ option.root {
 .offer-item .name {
   color: #333;
   font-size: 30px;
+  line-height: 30px;
 }
 .offer-item .price {
   font-size: 30px;
@@ -1410,6 +1414,7 @@ option.root {
 }
 .offer-item .description, .offer-item .catalog-item.short .description, .catalog-item.short .offer-item .description {
   font-size: 16px;
+  margin-top: 5px;
 }
 .offer-item ul.products {
   list-style: none;
@@ -1431,7 +1436,7 @@ option.root {
   font-size: 18px;
 }
 .offer-item.short .description {
-  max-height: 90px;
+  max-height: 65px;
   overflow: hidden;
 }
 .offer-item.main .basket-block {

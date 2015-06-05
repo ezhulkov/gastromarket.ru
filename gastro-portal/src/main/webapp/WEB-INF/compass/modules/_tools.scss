@@ -2,7 +2,7 @@
 
 .rub {
   display: inline !important;
-  padding-right: 10px;
+  //padding-right: 10px;
 }
 
 body.desktop .rub:after {
@@ -39,6 +39,10 @@ body.mobile .rub:after {
 
 .f20px {
   font-size: $f20px !important;
+}
+
+.f24px {
+  font-size: $f24px !important;
 }
 
 .f30px {

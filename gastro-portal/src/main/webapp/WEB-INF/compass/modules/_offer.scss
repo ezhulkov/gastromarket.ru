@@ -13,6 +13,7 @@
   .name {
     color: $blackTextColor;
     font-size: $f30px;
+    line-height: $f30px;
   }
   .price {
     font-size: $priceFontSize;
@@ -21,6 +22,7 @@
   }
   .description {
     font-size: $f16px;
+    margin-top: 5px;
   }
   ul.products {
     list-style: none;
@@ -41,7 +43,7 @@
       font-size: $f18px;
     }
     .description {
-      max-height: 90px;
+      max-height: 65px;
       overflow: hidden;
     }
   }

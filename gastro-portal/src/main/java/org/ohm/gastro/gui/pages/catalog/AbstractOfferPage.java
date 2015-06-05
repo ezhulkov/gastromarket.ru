@@ -21,11 +21,6 @@ public abstract class AbstractOfferPage extends BaseComponent {
         return offer.getName();
     }
 
-    @Cached
-    public boolean isCatalogOwner() {
-        return offer.getCatalog().getUser().equals(getAuthenticatedUserOpt().orElse(null));
-    }
-
     @Cached(watch = "offer")
     public java.util.List<ProductEntity> getProducts() {
         return getProductService().findAllProducts(offer);
