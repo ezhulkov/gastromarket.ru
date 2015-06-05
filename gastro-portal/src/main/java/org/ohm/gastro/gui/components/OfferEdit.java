@@ -166,7 +166,8 @@ public class OfferEdit extends BaseComponent {
             if (product != null) {
                 offer.getProducts().add(product);
                 offer = getOfferService().saveOffer(offer);
-                if (offersBlock != null) getAjaxResponseRenderer().addRender("offersZone", offersBlock);
+                if (offersBlock != null)
+                    getAjaxResponseRenderer().addRender("offersZone", offersBlock);
                 if (offerBlock != null) getAjaxResponseRenderer().addRender(offerZoneId, offerBlock);
                 getAjaxResponseRenderer().addRender(getOfferEditZone(), editProductsBlock);
             }
@@ -185,7 +186,8 @@ public class OfferEdit extends BaseComponent {
         offer = getOfferService().findOffer(oid);
         offer.getProducts().remove(getProductService().findProduct(pid));
         getOfferService().saveOffer(offer);
-        if (offersBlock != null) getAjaxResponseRenderer().addRender("offersZone", offersBlock);
+        if (offersBlock != null)
+            getAjaxResponseRenderer().addRender("offersZone", offersBlock);
         if (offerBlock != null) getAjaxResponseRenderer().addRender(offerZoneId, offerBlock);
         getAjaxResponseRenderer().addRender(getOfferEditZone(), editProductsBlock);
     }

@@ -16,6 +16,10 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
  */
 public class Offer extends BaseComponent {
 
+    public enum Type {
+        SHORT, LIST, FULL
+    }
+
     @Parameter
     @Property
     private OfferEntity offer;
@@ -24,9 +28,9 @@ public class Offer extends BaseComponent {
     @Property
     private boolean editMode;
 
-    @Parameter(defaultPrefix = BindingConstants.LITERAL, value = "false")
+    @Parameter(defaultPrefix = BindingConstants.LITERAL)
     @Property
-    private boolean shortVersion;
+    private Type type;
 
     @Parameter(name = "offersBlock")
     private Block offersBlock;
@@ -44,23 +48,23 @@ public class Offer extends BaseComponent {
 
     @Cached(watch = "offer")
     public java.util.List<ProductEntity> getProducts() {
-        return shortVersion ? Lists.newArrayList() : getProductService().findAllProducts(offer);
+        return type == Type.SHORT ? Lists.newArrayList() : getProductService().findAllProducts(offer);
     }
 
     public String getAdditionalClass() {
-        return shortVersion ? "short" : "";
+        return type.name().toLowerCase();
     }
 
     public String getAvatarUrl() {
-        return shortVersion ? offer.getMainProductAvatarSmall() : offer.getMainProductAvatarBig();
+        return type == Type.SHORT ? offer.getMainProductAvatarSmall() : offer.getMainProductAvatarBig();
     }
 
     public String getLeftBlock() {
-        return shortVersion ? "col-sm-2" : "col-sm-3";
+        return type == Type.SHORT ? "col-sm-2" : "col-sm-3";
     }
 
     public String getRightBlock() {
-        return shortVersion ? "col-sm-10" : "col-sm-9";
+        return type == Type.SHORT ? "col-sm-10" : "col-sm-9";
     }
 
     public Block onActionFromDelete(Long oid) {
@@ -79,6 +83,17 @@ public class Offer extends BaseComponent {
 
     public String getOfferZoneId() {
         return "offerZone" + offer.getId();
+    }
+
+    public Block onActionFromDeleteProduct(Long pid, Long oid) {
+        offer = getOfferService().findOffer(oid);
+        offer.getProducts().remove(getProductService().findProduct(pid));
+        getOfferService().saveOffer(offer);
+        return offerBlock;
+    }
+
+    public boolean isMainPage() {
+        return type == Type.FULL;
     }
 
 }

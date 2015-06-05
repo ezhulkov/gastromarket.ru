@@ -63,7 +63,8 @@
             </t:if>
             <div class="basket-block">
                 <div class="price pull-left">
-                    <div class="price">${product.price} <span class="rub"/></div> <div class="unit">${productUnit}</div>
+                    <div class="price">${product.price} <span class="rub"/></div>
+                    <div class="unit">${productUnit}</div>
                 </div>
                 <span class="basket-add pull-right">
                     <t:actionLink class="pic-holder basket-add" t:zone="basketZone" t:context="product.id" t:id="purchase"><span/>В корзину</t:actionLink>

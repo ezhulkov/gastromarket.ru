@@ -49,14 +49,11 @@
       max-height: 65px;
       overflow: hidden;
     }
-  }
-  &.main {
-    .basket-block {
-      position: absolute;
-      top: 36px;
-      right: 15px;
-      width: 240px;
+    .catalog-link {
+      display: none;
     }
+  }
+  &.full {
   }
 }
 
@@ -81,12 +78,17 @@ ul.offer-products {
       right: 0;
       bottom: 0;
       left: 0;
-      background-color: rgba(255, 0, 0, 0.2);
+      background-color: rgba(255, 0, 0, 0.6);
       line-height: 100px;
       text-align: center;
       a {
-        color: white;
-        font-size: $f30px;
+        top: 25px;
+        left: 25px;
+        background: url("../img/product-edit.png") no-repeat;
+        background-position-x: -98px;
+        width: 49px;
+        height: 49px;
+        position: absolute;
       }
     }
     &:hover {

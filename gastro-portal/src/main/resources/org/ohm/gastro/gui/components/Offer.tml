@@ -7,7 +7,7 @@
     <t:zone t:id="editZone" id="${editZoneId}"/>
 
     <t:block t:id="editBlock">
-        <t:offerEdit modalId="of-${offer.id}" offer="offer" offerBlock="offerBlock" offerZoneId="${offerZoneId}" catalog="offer.catalog"/>
+        <t:offerEdit modalId="of-${offer.id}" offer="offer" offerBlock="offerBlock" offerZoneId="${offerZoneId}" reloadPage="mainPage" catalog="offer.catalog"/>
         <script>
             var pe = jQuery("#of-${offer.id}");
             pe.modal('show');
@@ -23,6 +23,9 @@
             </div>
             <div class="${rightBlock} text-left">
                 <t:pagelink page="catalog/offer" t:context="offer.altId" class="name">${offer.name}</t:pagelink>
+                <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="offer.catalog.altId">
+                    <span><img src="${offer.catalog.avatarUrlSmall}"/></span>${offer.catalog.name}
+                </t:pageLink>
                 <div class="description">
                     <t:outputraw value="offer.descriptionRaw"/>
                 </div>
@@ -36,9 +39,7 @@
                                 </t:pagelink>
                                 <t:if test="editMode">
                                     <div class="delete">
-                                        <t:actionlink t:id="deleteProduct" t:context="[product.id,offer.id]" t:zone="editZone">
-                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"/>
-                                        </t:actionlink>
+                                        <t:actionlink t:id="deleteProduct" t:context="[product.id,offer.id]" t:zone="${offerZoneId}"/>
                                     </div>
                                 </t:if>
                             </li>
@@ -48,7 +49,9 @@
                 <t:if test="editMode">
                     <div class="edit">
                         <t:actionlink t:id="edit" t:context="offer.id" t:zone="${editZoneId}">Редактировать</t:actionlink>
-                        <a href="#delete" data-toggle="modal" class="delete" data-target="#deleteOffer${offer.id}">Удалить</a>
+                        <t:unless test="mainPage">
+                            <a href="#delete" data-toggle="modal" class="delete" data-target="#deleteOffer${offer.id}">Удалить</a>
+                        </t:unless>
                     </div>
                     <div class="modal fade delete-offer" id="deleteOffer${offer.id}" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
@@ -61,7 +64,9 @@
                                 </div>
                                 <div class="modal-body" style="text-align: center;">
                                     <br/>
-                                    <t:actionlink t:id="delete" t:zone="offersZone" t:context="offer.id" class="btn btn-red deleteConfirm" style="display: inline;">Удалить</t:actionlink>
+                                    <t:unless test="mainPage">
+                                        <t:actionlink t:id="delete" t:zone="offersZone" t:context="offer.id" class="btn btn-red deleteConfirm" style="display: inline;">Удалить</t:actionlink>
+                                    </t:unless>
                                     <a href="#" class="btn btn-white" style="display: inline;" data-dismiss="modal">Отмена</a>
                                     <br/>
                                     <br/>
