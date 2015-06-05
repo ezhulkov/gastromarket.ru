@@ -6,6 +6,7 @@ import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.OfferEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
@@ -29,6 +30,14 @@ public class Offer extends BaseComponent {
 
     @Parameter(name = "offersBlock")
     private Block offersBlock;
+
+    @Inject
+    @Property
+    private Block offerBlock;
+
+    @Inject
+    @Property
+    private Block editBlock;
 
     @Property
     private ProductEntity product;
@@ -57,6 +66,19 @@ public class Offer extends BaseComponent {
     public Block onActionFromDelete(Long oid) {
         getOfferService().deleteOffer(oid);
         return offersBlock;
+    }
+
+    public Block onActionFromEdit(Long pid) {
+        this.offer = getOfferService().findOffer(pid);
+        return editBlock;
+    }
+
+    public String getEditZoneId() {
+        return "editZone" + offer.getId();
+    }
+
+    public String getOfferZoneId() {
+        return "offerZone" + offer.getId();
     }
 
 }

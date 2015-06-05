@@ -12,6 +12,7 @@
                 </div>
                 <a class="modal-close" data-dismiss="modal"></a>
             </div>
+
             <div class="modal-body product-create">
 
                 <t:zone t:id="productEditZone" id="${productEditZone}">
@@ -19,6 +20,9 @@
                 </t:zone>
 
                 <t:block t:id="editDescBlock">
+                    <p class="modal-text">
+                        Шаг 1 из 3 - описание и цена
+                    </p>
                     <t:if test="closeImmediately">
                         <script>
                             jQuery("#${modalId}").modal('hide');
@@ -71,6 +75,9 @@
                     </t:form>
                 </t:block>
                 <t:block t:id="editPropsBlock">
+                    <p class="modal-text">
+                        Шаг 2 из 3 - свойства и ингредиенты
+                    </p>
                     <t:form t:id="propsForm" t:context="[productId]" t:zone="${productEditZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
                         <t:if test="propError">
                             <div class="t-error">
@@ -112,6 +119,9 @@
                     </script>
                 </t:block>
                 <t:block t:id="editPhotoBlock">
+                    <p class="modal-text">
+                        Шаг 3 из 3 - загрузка фотографии
+                    </p>
                     <t:form t:id="photoForm" t:context="[productId]" t:zone="${productEditZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
                         <div class="row">
                             <p class="modal-text">Загрузите фотографию в формате JPEG или PNG,<br/> размер которой должен быть меньше 10 мегабайт.</p>

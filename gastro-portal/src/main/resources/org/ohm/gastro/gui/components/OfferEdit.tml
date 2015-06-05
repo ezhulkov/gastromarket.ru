@@ -19,6 +19,9 @@
                 </t:zone>
 
                 <t:block t:id="editDescBlock">
+                    <p class="modal-text">
+                        Шаг 1 из 2 - описание и цена
+                    </p>
                     <t:if test="closeImmediately">
                         <script>
                             jQuery("#${modalId}").modal('hide');
@@ -58,8 +61,49 @@
                     </t:form>
                 </t:block>
                 <t:block t:id="editProductsBlock">
+                    <p class="modal-text">
+                        Шаг 2 из 2 - состав предложения
+                    </p>
                     <t:form t:id="productsForm" t:context="[offerId]" t:zone="${offerEditZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
-                        <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-1"/>
+                            <div class="col-sm-8">
+                                <t:label t:for="products">Выберите блюдо:</t:label>
+                                <t:select t:id="products" data-placeholder=" " class="form-control chosen-select"/>
+                            </div>
+                            <div class="col-sm-2">
+                                <label>&nbsp;</label>
+                                <input class="btn btn-red" t:type="submit" t:id="addProduct" value="Добавить"/>
+                            </div>
+                            <div class="col-sm-1"/>
+                        </div>
+                        <div class="form-group vgap3">
+                            <div class="col-sm-12">
+                                <t:if test="products">
+                                    <h2>Блюда в предложении</h2>
+                                    <ul class="offer-products">
+                                        <t:loop source="products" value="product" formState="NONE">
+                                            <li>
+                                                <t:pagelink page="product/index" targer="_blank" t:context="product.altId">
+                                                    <img src="${product.avatarUrlSmall}" class="popover-holder" data-content="${product.name}"/>
+                                                </t:pagelink>
+                                                <div class="delete">
+                                                    <t:actionlink t:id="deleteProduct" t:context="[product.id,offer.id]" t:zone="${offerEditZone}">
+                                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"/>
+                                                    </t:actionlink>
+                                                </div>
+                                            </li>
+                                        </t:loop>
+                                    </ul>
+                                    <t:parameter name="else">
+                                        <p class="modal-text">
+                                            В предложении нет блюд
+                                        </p>
+                                    </t:parameter>
+                                </t:if>
+                            </div>
+                        </div>
+                        <div class="row vgap3">
                             <input class="btn btn-red" t:type="submit" t:id="saveAndBack2" value="&lt; Назад"/>
                             <input class="btn btn-red" t:type="submit" t:id="saveAndClose2" value="Сохранить и закрыть"/>
                         </div>

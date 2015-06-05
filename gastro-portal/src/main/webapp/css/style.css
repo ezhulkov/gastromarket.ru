@@ -1416,18 +1416,6 @@ option.root {
   font-size: 16px;
   margin-top: 5px;
 }
-.offer-item ul.products {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.offer-item ul.products li {
-  vertical-align: top;
-  display: inline-block;
-  margin-right: 10px;
-  height: 100px;
-  width: 100px;
-}
 .offer-item .edit {
   display: none;
   position: absolute;
@@ -1457,6 +1445,41 @@ option.root {
   top: 36px;
   right: 15px;
   width: 240px;
+}
+
+ul.offer-products {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.offer-edit ul.offer-products {
+  margin-left: 40px;
+}
+ul.offer-products li {
+  vertical-align: top;
+  display: inline-block;
+  margin: 0 10px 10px 0;
+  height: 100px;
+  width: 100px;
+  position: relative;
+}
+ul.offer-products li .delete {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(255, 0, 0, 0.2);
+  line-height: 100px;
+  text-align: center;
+}
+ul.offer-products li .delete a {
+  color: white;
+  font-size: 30px;
+}
+ul.offer-products li:hover .delete {
+  display: block;
 }
 
 .offer-item-wrap:nth-child(odd) {

@@ -19,7 +19,7 @@
                     </div>
                     <t:if test="products">
                         <h3>Блюда в предложении:</h3>
-                        <ul class="products">
+                        <ul class="offer-products">
                             <t:loop source="products" value="product">
                                 <li>
                                     <t:pagelink page="product/index" t:context="product.altId">
