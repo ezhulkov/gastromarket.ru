@@ -1,6 +1,6 @@
 <t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="data-header">
+    <div class="title-simple">
         <h1>Каталог "${object?.name}"</h1>
     </div>
 
@@ -36,7 +36,7 @@
     </t:editObject>
 
     <t:grid source="products" row="oneProduct"
-            exclude="id,properties,date,description,promoted,avatarUrl,avatarUrlMedium,avatarUrlSmall,unit,altId,unitValue"
+            exclude="id,properties,date,description,promoted,avatarUrl,avatarUrlMedium,avatarUrlSmall,unit,altId,unitValue,wasSetup,descriptionRaw"
             reorder="img,name,price,promote"
             add="img,properties,promote"
             t:mixins="GridSortingDisabled" class="table table-hover">

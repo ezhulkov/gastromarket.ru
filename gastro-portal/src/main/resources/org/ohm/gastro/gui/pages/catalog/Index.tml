@@ -5,19 +5,11 @@
             <h1><span>${catalog.name}</span></h1>
         </div>
         <t:if test="catalogOwner">
-            <div class="catalog-edit-links">
-                <div class="more-link">
-                    <a class="product-edit-link" data-toggle="modal" data-target="#catalog-edit" href="#catalog-edit">Редактировать страницу</a>
-                </div>
-                <div class="more-link">
-                    <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>
-                </div>
-                <div class="more-link">
-                    <a class="offer-edit-link" data-toggle="modal" data-target="#of-new" href="#of-new">Добавить предложение</a>
-                </div>
-                <div class="more-link">
-                    <t:pagelink class="product-edit-link" page="office/import" context="catalog.altId">Импортировать меню <span/></t:pagelink>
-                </div>
+            <div class="links-set">
+                <a data-toggle="modal" data-target="#catalog-edit" href="#catalog-edit">Редактировать страницу</a>
+                <a data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>
+                <a data-toggle="modal" data-target="#of-new" href="#of-new">Добавить предложение</a>
+                <t:pagelink page="office/import" context="catalog.altId">Импортировать меню <span/></t:pagelink>
             </div>
             <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>
             <t:offerEdit catalog="catalog" edit="false" offersBlock="offersBlock"/>

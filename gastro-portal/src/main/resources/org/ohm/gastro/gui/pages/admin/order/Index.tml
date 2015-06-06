@@ -1,6 +1,6 @@
 <t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="data-header">
+    <div class="title-simple">
         <h1>Заказ №${object.orderNumber}</h1>
     </div>
 

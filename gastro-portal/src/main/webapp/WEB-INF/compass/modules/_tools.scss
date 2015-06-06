@@ -184,3 +184,44 @@ body.mobile .rub:after {
   color: $deepRedTextColor;
   font-weight: bold;
 }
+
+//noinspection CssInvalidPropertyValue
+.wrapword {
+  white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  white-space: pre-wrap; /* css-3 */
+  word-wrap: normal; /* Internet Explorer 5.5+ */
+  white-space: -webkit-pre-wrap; /* Newer versions of Chrome/Safari*/
+  word-break: normal;
+  white-space: normal;
+}
+
+.za {
+  line-height: 50px;
+  vertical-align: middle;
+}
+
+.chosen-container {
+  display: inline-block;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  div {
+    text-align: left;
+  }
+
+  label {
+    padding-left: 5px;
+  }
+}
+
+.form-control {
+  height: 38px;
+  border-radius: 5px;
+}
+
+.more-products {
+  height: 50px;
+}

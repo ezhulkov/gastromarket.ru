@@ -43,7 +43,7 @@ public class Index extends EditObjectPage<CatalogEntity> {
 
             @Override
             public CatalogEntity findObject(String id) {
-                return getCatalogService().findCatalog(Long.parseLong(id));
+                return getCatalogService().findCatalog(id);
             }
 
             @Override

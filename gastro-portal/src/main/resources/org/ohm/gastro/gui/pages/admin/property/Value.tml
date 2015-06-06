@@ -1,6 +1,6 @@
 <t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="data-header">
+    <div class="title-simple">
         <h1>Значение свойства "${object.property?.name}" - "${object?.value}"</h1>
     </div>
 
@@ -22,10 +22,13 @@
     </t:editObject>
 
     <t:unless test="object.parents">
-        <div class="data-header">
+        <div class="title-simple">
             <h1>Значения свойств 2-го уровня</h1>
-            <a data-toggle="modal" data-target="#attach" href="#attach">Присоединить<span/></a>
-            <a data-toggle="modal" data-target="#create" href="#create">Создать<span/></a>
+
+        </div>
+        <div class="links-set">
+            <a data-toggle="modal" data-target="#attach" href="#attach">Присоединить</a>
+            <a data-toggle="modal" data-target="#create" href="#create">Создать</a>
         </div>
         <t:grid source="propertyValues" row="onePropertyValue"
                 exclude="id,name,altId"

@@ -44,17 +44,43 @@
   font-size: 16px;
 }
 
-.title {
+.round-link {
+  background-color: transparent;
+  border: 2px solid $deepRedTextColor;
+  color: $deepRedTextColor;
+  font-size: 16px;
+  padding: 5px 20px 5px 20px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-right: $gap;
+  span {
+    margin-bottom: -4px;
+    margin-left: 5px;
+    width: 10px;
+    height: 18px;
+    display: inline-block;
+    background: url("../img/title-forward.png") center top no-repeat;
+  }
+}
 
+.title-simple {
   position: relative;
-
   h1, h2 {
     position: relative;
     margin: 20px auto;
     text-align: center;
     padding-top: 23px;
   }
+  a {
+    @extend .round-link;
+    position: absolute;
+    top: 25px;
+    right: 0;
+  }
+}
 
+.title {
+  @extend .title-simple;
   h1.line:after, h2.line:after {
     content: "";
     border-top: 1px solid $greyTextColor;
@@ -63,39 +89,19 @@
     top: 75%;
     width: 150%;
   }
-
   h1 span, h2 span {
     background: #fff;
     position: relative;
     z-index: 1;
     padding: 0 20px;
   }
+}
 
+.links-set {
+  width: 100%;
+  text-align: center;
+  margin: 40px 0;
   a {
-    position: absolute;
-    top: 20px;
-    right: 40px;
+    @extend .round-link;
   }
-}
-
-.more-link a,
-.data-header a,
-.title a {
-  background-color: transparent;
-  border: 2px solid $deepRedTextColor;
-  color: $deepRedTextColor;
-  font-size: 16px;
-  padding: 5px 20px 5px 20px;
-  border-radius: 20px;
-}
-
-.more-link a span,
-.data-header a span,
-.title a span {
-  margin-bottom: -4px;
-  margin-left: 5px;
-  width: 10px;
-  height: 18px;
-  display: inline-block;
-  background: url("../img/title-forward.png") center top no-repeat;
 }

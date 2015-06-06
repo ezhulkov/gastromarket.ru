@@ -1,6 +1,6 @@
 <t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="data-header">
+    <div class="title-simple">
         <h1>Свойство "${object?.name}"</h1>
     </div>
 
@@ -30,7 +30,7 @@
 
     <t:if test="list">
 
-        <div class="data-header">
+        <div class="title-simple">
             <h1>Значения свойства</h1>
             <a data-toggle="modal" data-target="#create" href="#create">Добавить значение<span/></a>
         </div>

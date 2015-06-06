@@ -1,6 +1,6 @@
 <t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="data-header">
+    <div class="title-simple">
         <h1>Пользователь "${object?.printableName}"</h1>
     </div>
 
@@ -29,7 +29,7 @@
     </t:editObject>
 
     <t:if test="userCook">
-        <div class="data-header">
+        <div class="title-simple">
             <h1>Каталоги</h1>
             <a data-toggle="modal" data-target="#create" href="#create">Добавить каталог<span/></a>
         </div>

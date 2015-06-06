@@ -1,12 +1,12 @@
 <t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="data-header">
+    <div class="title-simple">
         <h1>Список каталогов</h1>
     </div>
 
     <t:grid source="catalogs" row="oneCatalog"
             reorder="name,type,date,user,rating,level,products,del"
-            exclude="id,description,delivery,avatarUrl,avatarUrlSmall,avatarUrlMedium,payment,wasSetup,altId,basketMin"
+            exclude="id,description,delivery,avatarUrl,avatarUrlSmall,avatarUrlMedium,payment,wasSetup,altId,basketMin,wizardStep,maxWizardStep,productBadge,orderBadge,descriptionRaw,deliveryRaw,rankBadge,paymentRaw"
             add="user,del,products"
             t:mixins="GridSortingDisabled" class="table table-hover">
         <t:parameter name="nameHeader">
