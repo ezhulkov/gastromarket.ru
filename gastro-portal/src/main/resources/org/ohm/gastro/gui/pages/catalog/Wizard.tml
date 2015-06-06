@@ -59,7 +59,7 @@
                             <div class="col-sm-1"/>
                             <div class="col-sm-10">
                                 <t:label for="fullName">Полное имя:</t:label>
-                                <div class="catalog-tip">
+                                <div class="label-tip">
                                     Представьтесь, пожалуйста, как Вас зовут?
                                 </div>
                                 <input t:id="fullName" class="form-control"/>
@@ -70,7 +70,7 @@
                             <div class="col-sm-1"/>
                             <div class="col-sm-10">
                                 <t:label for="desc">${nameLabel}:</t:label>
-                                <div class="catalog-tip">
+                                <div class="label-tip">
                                     Как бы Вы хотели, чтобы называлась Ваша страница? Примеры - 'Кулинар Сергей Петров' или 'Кондитерская SmartCakes'
                                 </div>
                                 <input t:id="name" rows="6" class="form-control"/>
@@ -95,7 +95,7 @@
                     <div class="col-sm-1"/>
                     <div class="col-sm-7">
                         <t:label for="desc">${descLabel}:</t:label>
-                        <div class="catalog-tip">
+                        <div class="label-tip">
                             ${descText}<br/>
                             Помните, что доверие покупателей повышается, если они узнают о Вашей работе.
                         </div>
@@ -110,7 +110,7 @@
                     <div class="col-sm-1"/>
                     <div class="col-sm-10">
                         <t:label for="delivery">Условия доставки:</t:label>
-                        <div class="catalog-tip">
+                        <div class="label-tip">
                             Доставка готовых блюд осуществляется Вами, опишите здесь условия доставки.
                         </div>
                         <input t:id="delivery" rows="6" class="form-control" tabindex="2"/>
@@ -121,7 +121,7 @@
                     <div class="col-sm-1"/>
                     <div class="col-sm-10">
                         <t:label for="payment">Условия оплаты:</t:label>
-                        <div class="catalog-tip">
+                        <div class="label-tip">
                             Напишите, например, есть ли у Вас предоплата, принимаете банковские переводы или оплата происходит наличными при передаче заказа.
                         </div>
                         <input t:id="payment" rows="5" class="form-control" tabindex="3"/>
@@ -132,7 +132,7 @@
                     <div class="col-sm-1"/>
                     <div class="col-sm-10">
                         <t:label for="basketMin">Минимальная стоимость заказа, руб:</t:label>
-                        <div class="catalog-tip">
+                        <div class="label-tip">
                             Мы попросим покупателя дополнить заказ, если стоимость заказа меньше указанной
                         </div>
                         <input t:id="basketMin" class="form-control" tabindex="4"/>

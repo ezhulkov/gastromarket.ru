@@ -35,6 +35,9 @@
       color: $deepRedTextColor;
       border: 2px solid $deepRedTextColor;
     }
+    &:focus {
+      color: $deepRedTextColor !important;
+    }
   }
   &.btn-lg {
     padding: 10px 45px;
@@ -118,4 +121,12 @@
   border-bottom: 1px dashed $redTextColor;
   cursor: pointer;
   text-decoration: none;
+}
+
+.label-tip {
+  font-style: italic;
+  padding-left: 5px;
+  font-size: 12px;
+  color: $greyTextColor;
+  margin-bottom: 3px;
 }
