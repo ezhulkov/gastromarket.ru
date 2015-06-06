@@ -156,3 +156,35 @@
 .catalog-item-wrap:nth-child(odd) {
   background-color: #f5f5f5;
 }
+
+ul.comments {
+  list-style: none;
+  .pic {
+    margin: 25px 0;
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+  .date {
+    color: $greyTextColor;
+  }
+  .name {
+    font-size: $f20px;
+  }
+  .glyphicon-thumbs-0 {
+    display: none;
+  }
+  .glyphicon-thumbs-1 {
+    margin-right: 5px;
+    &:before {
+      content: "\e125";
+    }
+  }
+  .glyphicon-thumbs--1 {
+    margin-right: 5px;
+    &:before {
+      content: "\e126";
+    }
+  }
+}

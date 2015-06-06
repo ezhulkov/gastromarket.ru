@@ -49,7 +49,8 @@ body {
 
 a {
   cursor: pointer;
-  font-size: 16px;
+  font-size: $f16px;
+  color: $redTextColor;
 }
 
 h1, h2, h3 {

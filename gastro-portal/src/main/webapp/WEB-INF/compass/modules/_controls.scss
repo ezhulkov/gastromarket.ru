@@ -1,47 +1,54 @@
 @import "../include/var";
 
-.btn-red {
+.btn {
   padding: 8px 25px;
-  font-size: 16px;
+  font-size: $f16px;
   margin: 0 5px;
-  background-image: -webkit-gradient(linear, left top, left bottom, from($redTextColor), to($deepRedTextColor));
-  background-image: -webkit-linear-gradient(top, $redTextColor, $deepRedTextColor);
-  background-image: -moz-linear-gradient(top, $redTextColor, $deepRedTextColor);
-  background-image: -ms-linear-gradient(top, $redTextColor, $deepRedTextColor);
-  background-image: -o-linear-gradient(top, $redTextColor, $deepRedTextColor);
-  background-image: linear-gradient(to bottom, $redTextColor, $deepRedTextColor);
-  color: #FFF !important;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
-  -webkit-transition-duration: 0.2s;
-  -moz-transition-duration: 0.2s;
-  transition-duration: 0.2s;
+  &.btn-red {
+    background-image: -webkit-gradient(linear, left top, left bottom, from($redTextColor), to($deepRedTextColor));
+    background-image: -webkit-linear-gradient(top, $redTextColor, $deepRedTextColor);
+    background-image: -moz-linear-gradient(top, $redTextColor, $deepRedTextColor);
+    background-image: -ms-linear-gradient(top, $redTextColor, $deepRedTextColor);
+    background-image: -o-linear-gradient(top, $redTextColor, $deepRedTextColor);
+    background-image: linear-gradient(to bottom, $redTextColor, $deepRedTextColor);
+    color: #FFF !important;
+    &:hover {
+      background-image: -webkit-gradient(linear, left top, left bottom, from(#a00000), to(#900000));
+      background-image: -webkit-linear-gradient(top, #a00000, #900000);
+      background-image: -moz-linear-gradient(top, #a00000, #900000);
+      background-image: -ms-linear-gradient(top, #a00000, #900000);
+      background-image: -o-linear-gradient(top, #a00000, #900000);
+      background-image: linear-gradient(to bottom, #a00000, #900000);
+      color: #FFF;
+    }
+    &:focus {
+      color: #fff !important;
+    }
+  }
+  &.btn-white {
+    border: 2px solid $redTextColor;
+    color: $redTextColor;
+    &:hover {
+      color: $deepRedTextColor;
+      border: 2px solid $deepRedTextColor;
+    }
+  }
+  &.btn-lg {
+    padding: 10px 45px;
+    font-size: 20px;
+  }
+
+  &.btn-howto {
+    border-radius: 25px;
+    padding: 5px 35px;
+  }
 }
 
-.btn-red:hover {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#a00000), to(#900000));
-  background-image: -webkit-linear-gradient(top, #a00000, #900000);
-  background-image: -moz-linear-gradient(top, #a00000, #900000);
-  background-image: -ms-linear-gradient(top, #a00000, #900000);
-  background-image: -o-linear-gradient(top, #a00000, #900000);
-  background-image: linear-gradient(to bottom, #a00000, #900000);
-  color: #FFF;
-}
-
-.btn-red:focus {
-  color: #fff !important;
-}
-
-.btn-lg {
-  padding: 10px 45px;
-  font-size: 20px;
-}
-
-.btn-howto {
-  border-radius: 25px;
-  padding: 5px 35px;
-  font-size: 16px;
+.more-products {
+  height: 50px;
 }
 
 .round-link {
@@ -104,4 +111,11 @@
   a {
     @extend .round-link;
   }
+}
+
+.dotted-link, .dotted-link:hover {
+  color: $redTextColor;
+  border-bottom: 1px dashed $redTextColor;
+  cursor: pointer;
+  text-decoration: none;
 }

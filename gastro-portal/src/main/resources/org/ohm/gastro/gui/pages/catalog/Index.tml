@@ -135,7 +135,7 @@
             <a href="#rate" data-toggle="modal" data-target="#rate">Оставить отзыв</a>
         </div>
         <t:if test="comments">
-            <ul class="ratings">
+            <ul class="comments">
                 <t:loop source="comments" value="oneComment">
                     <li class="row">
                         <div class="col-sm-1"/>
