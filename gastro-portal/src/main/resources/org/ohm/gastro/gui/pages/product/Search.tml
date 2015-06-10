@@ -1,7 +1,7 @@
 <t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="prop:title">
 
     <div class="container">
-        <div class="vgap5">
+        <div class="gap5">
             <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="search-bar">
                 <div class="col-sm-1"/>
                 <div class="col-sm-10">
@@ -11,7 +11,7 @@
                 <div class="col-sm-1"/>
             </t:form>
         </div>
-        <div class="vgap5"/>
+        <div class="gap5"/>
 
         <div id="product-items" class="grid-block products"/>
         <t:zone t:id="productsZone">

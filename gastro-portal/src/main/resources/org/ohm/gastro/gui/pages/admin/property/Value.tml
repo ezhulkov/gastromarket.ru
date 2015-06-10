@@ -64,7 +64,9 @@
                                 </div>
                                 <div class="col-sm-1"/>
                             </div>
-                            <input class="btn btn-red" type="submit" value="Создать"/>
+                            <div class="form-buttons">
+                                <input class="btn btn-red" type="submit" value="Создать"/>
+                            </div>
                         </t:form>
                     </div>
                 </div>
@@ -89,7 +91,9 @@
                                 </div>
                                 <div class="col-sm-1"/>
                             </div>
-                            <input class="btn btn-red" type="submit" value="Присоединить"/>
+                            <div class="form-buttons">
+                                <input class="btn btn-red" type="submit" value="Присоединить"/>
+                            </div>
                         </t:form>
                     </div>
                 </div>

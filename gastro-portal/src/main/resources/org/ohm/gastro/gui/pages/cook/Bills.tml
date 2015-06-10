@@ -17,7 +17,9 @@
         </t:form>
 
         <t:if test="catalog">
-            <div class="f30px">${catalog.name}</div>
+            <div class="title-simple">
+                <h1>${catalog.name}</h1>
+            </div>
             <t:grid source="allBills" row="oneBill" t:mixins="GridSortingDisabled" exclude="id,date,currentMonth" reorder="datePrintable,orderCount,totalSales,totalBonuses,totalBill,status"
                     add="pay"
                     class="table table-hover">

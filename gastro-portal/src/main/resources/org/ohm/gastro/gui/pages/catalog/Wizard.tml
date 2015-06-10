@@ -16,7 +16,7 @@
             Шаг ${catalog.wizardStep} из ${catalog.maxWizardStep} - ${stepDescription}
         </p>
 
-        <div class="vgap3"/>
+        <div class="gap3"/>
         <t:delegate to="currentStepBlock"/>
 
         <t:block id="step1">
@@ -42,7 +42,7 @@
                     </div>
                     <div class="col-sm-2"/>
                 </div>
-                <t:zone t:id="step1Zone" class="step1-zone vgap3">
+                <t:zone t:id="step1Zone" class="step1-zone gap3">
                     <t:delegate to="step1Block"/>
                 </t:zone>
                 <t:block t:id="step1Block">

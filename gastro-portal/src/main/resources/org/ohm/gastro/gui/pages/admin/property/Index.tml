@@ -8,21 +8,21 @@
         <div class="form-group">
             <label class="col-sm-2 control-label" for="type">Тип:</label>
 
-            <div class="col-sm-10">
+            <div class="col-sm-9">
                 <input id="type" class="form-control" type="text" disabled="disabled" value="${object?.type}"/>
             </div>
         </div>
         <div class="form-group">
             <t:label class="col-sm-2 control-label" for="name">Название:</t:label>
 
-            <div class="col-sm-10">
+            <div class="col-sm-9">
                 <input t:id="name" class="form-control" type="text" placeholder="Название свойства"/>
             </div>
         </div>
         <div class="form-group">
             <t:label class="col-sm-2 control-label" for="mandatory">Обязательный:</t:label>
 
-            <div class="col-sm-10">
+            <div class="col-sm-9">
                 <input t:id="mandatory" style="margin-top:13px;"/>
             </div>
         </div>
@@ -73,7 +73,9 @@
                                 </div>
                                 <div class="col-sm-1"/>
                             </div>
-                            <input class="btn btn-red" type="submit" value="Добавить"/>
+                            <div class="form-buttons">
+                                <input class="btn btn-red" type="submit" value="Добавить"/>
+                            </div>
                         </t:form>
                     </div>
                 </div>

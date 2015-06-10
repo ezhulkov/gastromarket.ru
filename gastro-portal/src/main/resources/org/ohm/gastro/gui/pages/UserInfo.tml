@@ -5,9 +5,9 @@
             <h1><span>Информация для покупателей</span></h1>
         </div>
         <div class="row">
-            <div class="text-center">
+            <p class="modal-text">
                 Раздел находится в разработке
-            </div>
+            </p>
         </div>
     </div>
 

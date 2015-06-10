@@ -19,7 +19,9 @@
         </t:form>
 
         <t:if test="catalog">
-            <div class="f30px">${catalog.name}</div>
+            <div class="title-simple">
+                <h1>${catalog.name}</h1>
+            </div>
             <t:grid source="allOrders" row="oneOrder" reorder="orderNumber,datePrintable,usedBonuses,catalog,orderTotalPrice,status" add="catalog" exclude="id,comment,date,closed"
                     t:mixins="GridSortingDisabled" class="table table-hover">
                 <t:parameter name="orderNumberCell">

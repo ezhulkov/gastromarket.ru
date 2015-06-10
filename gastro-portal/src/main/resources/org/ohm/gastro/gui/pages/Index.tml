@@ -14,7 +14,7 @@
 
             <h2>Заказывайте вкусную еду у независимых кулинаров Москвы</h2>
 
-            <div class="vgap5">
+            <div class="gap5">
                 <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="search-bar">
                     <div class="col-sm-1"/>
                     <div class="col-sm-10">
@@ -24,7 +24,7 @@
                     <div class="col-sm-1"/>
                 </t:form>
             </div>
-            <div class="vgap3">
+            <div class="gap3">
                 <a href="#howto" data-toggle="modal" class="btn btn-red btn-howto" data-target="#howto">Как это работает?</a>
             </div>
             <div class="modal fade howto" id="howto" tabindex="-1" role="dialog" aria-hidden="true">

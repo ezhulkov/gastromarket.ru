@@ -130,3 +130,27 @@
   color: $greyTextColor;
   margin-bottom: 3px;
 }
+
+.form-buttons {
+  text-align: center;
+  margin: 2*$gap 0 3*$gap 0;
+}
+
+.t-error {
+  border: none !important;
+  font-size: 16px !important;
+  color: #e70500 !important;
+  font-weight: bold !important;
+  margin: 0 0 5px 0 !important;
+  ul {
+    list-style-type: none !important;
+    li {
+      text-align: center !important;
+    }
+  }
+
+}
+
+.t-banner, .t-error-icon {
+  display: none !important;
+}

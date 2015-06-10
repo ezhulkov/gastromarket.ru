@@ -77,7 +77,7 @@
                 </t:if>
             </div>
         </div>
-        <div class="row vgap">
+        <div class="row gap">
             <div class="${leftBlock} basket-block text-right">
                 <span class="price">${offer.price} <span class="rub"/></span>
             </div>

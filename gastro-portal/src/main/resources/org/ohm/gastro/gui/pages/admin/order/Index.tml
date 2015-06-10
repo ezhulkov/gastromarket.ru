@@ -1,98 +1,105 @@
-<t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="title-simple">
-        <h1>Заказ №${object.orderNumber}</h1>
+    <div class="container office">
+
+        <div class="title">
+            <h1><span>Все заказы</span></h1>
+        </div>
+
+        <div class="title-simple">
+            <h1>Заказ №${object.orderNumber}</h1>
+        </div>
+
+        <t:editObject t:id="editObject" showUpdate="true" showControls="false" autoFocus="literal:true">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Исполнитель:</label>
+
+                <div class="col-sm-9">
+                    <input class="form-control" type="text" value="${object.catalog?.name}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Статус:</label>
+
+                <div class="col-sm-9">
+                    <input class="form-control" type="text" value="${orderStatus}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Стоимость:</label>
+
+                <div class="col-sm-9">
+                    <input class="form-control" type="text" value="${object.orderTotalPrice}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Оплата бонусами:</label>
+
+                <div class="col-sm-9">
+                    <input class="form-control" type="text" value="${object.usedBonuses}"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"/>
+
+                <div class="col-sm-8">
+                    <h3>Заказчик:</h3>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Полное имя:</label>
+
+                <div class="col-sm-9">
+                    <input class="form-control" type="text" value="${object.customer.fullName}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Телефон для связи:</label>
+
+                <div class="col-sm-9">
+                    <input class="form-control" type="text" value="${object.customer.mobilePhone}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Адрес доставки:</label>
+
+                <div class="col-sm-9">
+                    <textarea class="form-control" rows="3">${object.customer.deliveryAddress}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Комментарии к заказу:</label>
+
+                <div class="col-sm-9">
+                    <textarea class="form-control" rows="3">${object.comment}</textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"/>
+                <div class="col-sm-8">
+                    <h3>Заказ:</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"/>
+                <div class="col-sm-9">
+                    <t:grid source="object.products" row="oneProduct"
+                            add="img,name" exclude="id"
+                            reorder="img,name,price,count"
+                            t:mixins="GridSortingDisabled" class="table table-hover">
+                        <t:parameter name="imgCell">
+                            <img src="${oneProduct.product.avatarUrlSmall}"/>
+                        </t:parameter>
+                        <t:parameter name="nameCell">
+                            <t:pageLink page="product/index" context="oneProduct.product.altId">${oneProduct.product.name}</t:pageLink>
+                        </t:parameter>
+                        <t:parameter name="empty">
+                            <div class="empty">Нет данных</div>
+                        </t:parameter>
+                    </t:grid>
+                </div>
+            </div>
+        </t:editObject>
     </div>
 
-    <t:editObject t:id="editObject" showUpdate="true" showControls="false" autoFocus="literal:true">
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Исполнитель:</label>
-
-            <div class="col-sm-9">
-                <input class="form-control" type="text" value="${object.catalog?.name}"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Статус:</label>
-
-            <div class="col-sm-9">
-                <input class="form-control" type="text" value="${orderStatus}"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Стоимость:</label>
-
-            <div class="col-sm-9">
-                <input class="form-control" type="text" value="${object.orderTotalPrice}"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Оплата бонусами:</label>
-
-            <div class="col-sm-9">
-                <input class="form-control" type="text" value="${object.usedBonuses}"/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-2"/>
-
-            <div class="col-sm-8">
-                <h3>Заказчик:</h3>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Полное имя:</label>
-
-            <div class="col-sm-9">
-                <input class="form-control" type="text" value="${object.customer.fullName}"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Телефон для связи:</label>
-
-            <div class="col-sm-9">
-                <input class="form-control" type="text" value="${object.customer.mobilePhone}"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Адрес доставки:</label>
-
-            <div class="col-sm-9">
-                <textarea class="form-control" rows="3">${object.customer.deliveryAddress}</textarea>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Комментарии к заказу:</label>
-
-            <div class="col-sm-9">
-                <textarea class="form-control" rows="3">${object.comment}</textarea>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-2"/>
-            <div class="col-sm-8">
-                <h3>Заказ:</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-2"/>
-            <div class="col-sm-9">
-                <t:grid source="object.products" row="oneProduct"
-                        add="img,name" exclude="id"
-                        reorder="img,name,price,count"
-                        t:mixins="GridSortingDisabled" class="table table-hover">
-                    <t:parameter name="imgCell">
-                        <img src="${oneProduct.product.avatarUrlSmall}"/>
-                    </t:parameter>
-                    <t:parameter name="nameCell">
-                        <t:pageLink page="product/index" context="oneProduct.product.altId">${oneProduct.product.name}</t:pageLink>
-                    </t:parameter>
-                    <t:parameter name="empty">
-                        <div class="empty">Нет данных</div>
-                    </t:parameter>
-                </t:grid>
-            </div>
-        </div>
-    </t:editObject>
-
-</t:adminlayout>
+</t:htmllayout>

@@ -1,0 +1,48 @@
+admin
+    catalog
+        Index.tml *
+        List.tml *
+    order
+        Index.tml *
+        List.tml *
+    property
+        Index.tml *
+        List.tml *
+        Value.tml *
+    user
+        Index.tml *
+        List.tml *
+    Index.tml *
+catalog
+    Index.tml
+    List.tml
+    Offer.tml
+    Offers.tml
+    Products.tml
+    Wizard.tml
+cook
+    Bills.tml *
+office
+    Import.tml
+    ImportResults.tml
+    Index.tml
+    Orders.tml
+product
+    Index.tml
+    List.tml
+    Promoted.tml
+    Search.tml
+About.tml *
+AppResults.tml *
+Cart.tml
+CartResults.tml *
+Contacts.tml *
+CookInfo.tml *
+e403.tml
+e404.tml
+e500.tml
+Index.tml
+License.tml *
+Login.tml
+UserInfo.tml *
+

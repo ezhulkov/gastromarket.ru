@@ -77,24 +77,24 @@ body.mobile .rub:after {
   border: 1px solid $blackTextColor !important;
 }
 
-.vgap {
-  margin-top: $vgap;
+.gap {
+  margin-top: $gap;
 }
 
 .vgap2 {
-  margin-top: 2*$vgap;
+  margin-top: 2*$gap;
 }
 
 .vgap3 {
-  margin-top: 3*$vgap;
+  margin-top: 3*$gap;
 }
 
 .vgap5 {
-  margin-top: 5*$vgap;
+  margin-top: 5*$gap;
 }
 
 .vgap10 {
-  margin-top: 10*$vgap;
+  margin-top: 10*$gap;
 }
 
 .center {
@@ -204,6 +204,9 @@ body.mobile .rub:after {
 
 .chosen-container {
   display: inline-block;
+  .search-choice-close {
+    margin-top: 3px;
+  }
 }
 
 .form-group {

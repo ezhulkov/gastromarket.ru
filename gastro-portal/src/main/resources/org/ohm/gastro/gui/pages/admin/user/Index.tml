@@ -73,7 +73,9 @@
                                 </div>
                                 <div class="col-sm-1"/>
                             </div>
-                            <input class="btn btn-red" type="submit" value="Добавить"/>
+                            <div class="form-buttons">
+                                <input class="btn btn-red" type="submit" value="Добавить"/>
+                            </div>
                         </t:form>
                     </div>
                 </div>
