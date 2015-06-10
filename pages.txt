@@ -38,9 +38,9 @@ Cart.tml
 CartResults.tml *
 Contacts.tml *
 CookInfo.tml *
-e403.tml
-e404.tml
-e500.tml
+e403.tml *
+e404.tml *
+e500.tml *
 Index.tml
 License.tml *
 Login.tml
