@@ -1,46 +1,41 @@
 <t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="${product.name}">
 
     <div class="container">
-        <t:zone id="productZone">
-            <t:delegate to="productBlock"/>
-        </t:zone>
-        <t:block id="productBlock">
-            <div class="title">
-                <h1><span>${product.name}</span></h1>
-            </div>
+        <div class="title">
+            <h1><span>${product.name}</span></h1>
+        </div>
+        <div class="product-item full">
             <div class="row info">
-                <div class="col-sm-6 product-item big-picture">
-                    <t:if test="catalogOwner">
-                        <div class="pic pic-product-edit upload-file pull-right" data-objectid="${product.id}" data-type="PRODUCT" data-size="SIZE3">
-                            <div class="edit-block">
-                                <div class="uploader-button"/>
+                <div class="col-sm-6">
+                    <div class="pic pull-right">
+                        <t:if test="catalogOwner">
+                            <div class="edit-block upload-file" data-objectid="${product.id}" data-type="PRODUCT" data-size="SIZE2">
+                                <a class="uploader-button"/>
                                 <a class="edit" data-toggle="modal" data-target="#pr-edit" href="#pr-edit"/>
                             </div>
-                            <img src="${product.avatarUrl}"/>
+                        </t:if>
+                        <img src="${product.avatarUrl}"/>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="product.catalog.altId">
+                        <span><img src="${product.catalog.avatarUrlSmall}"/></span>${product.catalog.name}
+                    </t:pageLink>
+                    <div class="basket-block">
+                        <div class="price pull-left">
+                            ${product.price} <span class="rub"/>
+
+                            <div class="unit">${productUnit}</div>
+                        </div>
+                        <div class="basket-add pull-right">
+                            <t:actionLink class="pic-holder basket-add" t:zone="basketZone" t:context="product.id" t:id="purchase"><span/>В корзину</t:actionLink>
+                        </div>
+                    </div>
+                    <t:if test="product.descriptionRaw">
+                        <div class="desc">
+                            <t:outputraw value="product.descriptionRaw"/>
                         </div>
                     </t:if>
-                    <t:unless test="catalogOwner">
-                        <img class="pull-right" src="${product.avatarUrl}"/>
-                    </t:unless>
-                </div>
-                <div class="col-sm-5 product-item page">
-
-                    <span class="cook">
-                        <img class="avatar-small" src="${product.catalog.avatarUrlSmall}"/>
-                        <a href="/catalog/${product.catalog.altId}">${product.catalog.name}</a>
-                    </span>
-
-                    <div>
-                        <span class="price pull-left">${product.price} <span class="rub"/> <span class="unit">${productUnit}</span></span>
-                        <span class="basket-add pull-right">
-                            <t:actionLink class="pic-holder basket-add" t:zone="basketZone" t:context="product.id" t:id="purchase"><span/>В корзину</t:actionLink>
-                        </span>
-                    </div>
-                    <t:if test="description">
-                        <span class="desc"><t:outputraw value="description"/></span>
-                    </t:if>
-                    <br/>
-
                     <div class="tags">
                         <ul>
                             <t:loop source="productTags" value="oneTag">
@@ -50,9 +45,9 @@
                     </div>
                 </div>
             </div>
-        </t:block>
+        </div>
         <div class="title">
-            <h1><span>Наши рекомендации</span></h1>
+            <h1><span>Похожие блюда</span></h1>
         </div>
         <div id="product-items" class="grid-block products">
             <t:loop source="recommendedProducts" value="oneProduct">
@@ -63,13 +58,12 @@
     </div>
 
     <t:if test="catalogOwner">
-        <t:productEdit modalId="pr-edit" product="product" productBlock="productBlock" productZoneId="literal:productZone" catalog="product.catalog" reloadPage="true"/>
+        <t:productEdit modalId="pr-edit" product="product" productBlock="productBlock" catalog="product.catalog" reloadPage="true"/>
     </t:if>
 
     <script>
         jQuery(document).ready(function () {
             initProductCatalogFixed();
-            initProductCatalogEdit();
         });
     </script>
 

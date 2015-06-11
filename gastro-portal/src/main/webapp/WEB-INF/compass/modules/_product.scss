@@ -82,6 +82,28 @@
       }
     }
   }
+  &.full {
+    padding: 30px 0 20px 0;
+    display: block;
+    .pic {
+      img {
+        width: 560px;
+        height: 404px;
+      }
+    }
+    .basket-block {
+      margin: 2*$gap 0 $gap 0;
+      width: 450px
+    }
+    .tags ul {
+      list-style: none;
+      margin: $gap 0;
+      padding: 0;
+      .tag {
+        font-weight: bold;
+      }
+    }
+  }
 }
 
 .more-products {
@@ -205,6 +227,10 @@
       }
     }
   }
+}
+
+.product-page {
+
 }
 
 //
