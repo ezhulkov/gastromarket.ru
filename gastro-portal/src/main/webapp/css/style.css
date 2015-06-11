@@ -780,6 +780,7 @@ body.modal-open {
 .product-modal-template .blocks > div {
   background-color: white;
   border-radius: 6px;
+  overflow: hidden;
 }
 .product-modal-template .blocks > div .data {
   padding: 8px 20px 5px 20px;
@@ -795,9 +796,6 @@ body.modal-open {
 .product-modal-template .blocks .block1 .product-image {
   width: 560px;
   height: 404px;
-}
-.product-modal-template .blocks .block1 .product-link {
-  overflow: hidden;
 }
 .product-modal-template .blocks .block1 .data {
   padding-top: 15px;
