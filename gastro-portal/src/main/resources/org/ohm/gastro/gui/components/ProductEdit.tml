@@ -59,7 +59,7 @@
                             </div>
                             <div class="col-sm-2">
                                 <t:label t:for="productUnitValue">Количество:</t:label>
-                                <input t:id="productUnitValue" class="form-control price"/>
+                                <input t:id="productUnitValue" class="form-control unit"/>
                             </div>
                             <div class="col-sm-3">
                                 <t:label t:for="productUnit">Единицы:</t:label>

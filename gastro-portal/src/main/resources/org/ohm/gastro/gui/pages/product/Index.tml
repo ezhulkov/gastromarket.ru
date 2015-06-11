@@ -58,7 +58,7 @@
     </div>
 
     <t:if test="catalogOwner">
-        <t:productEdit modalId="pr-edit" product="product" productBlock="productBlock" catalog="product.catalog" reloadPage="true"/>
+        <t:productEdit modalId="pr-edit" product="product" catalog="product.catalog" reloadPage="true"/>
     </t:if>
 
     <script>

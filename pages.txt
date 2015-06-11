@@ -4,7 +4,7 @@ catalog
         offer add           CH OP FF
         product             CH OP FF
         product modal       CH OP FF
-        product add
+        product edit
         comment             CH OP FF
         edit                CH OP FF
     List.tml                CH OP FF

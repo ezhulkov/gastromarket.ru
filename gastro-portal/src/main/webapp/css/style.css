@@ -883,6 +883,29 @@ body.modal-open {
   opacity: 0.9;
 }
 
+.product-edit-modal .t-error {
+  margin: 0 0 0 0;
+}
+.product-edit-modal .unit {
+  height: 50px;
+}
+.product-edit-modal .more-btn {
+  padding-top: 37px;
+}
+.product-edit-modal .more-btn:hover {
+  text-decoration: none;
+}
+.product-edit-modal .price {
+  font-weight: bold;
+}
+.product-edit-modal .price, .product-edit-modal .unit {
+  font-size: 20px;
+  height: 50px;
+}
+.product-edit-modal .prop-edit-block {
+  margin-bottom: 3px;
+}
+
 .navbar {
   border: none;
   margin-bottom: 0;

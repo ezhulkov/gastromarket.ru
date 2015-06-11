@@ -1,10 +1,8 @@
 package org.ohm.gastro.gui.pages.product;
 
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.TagEntity;
@@ -24,10 +22,6 @@ public class Index extends BaseComponent {
     @Property
     private TagEntity oneTag;
 
-    @Property
-    @Inject
-    private Block productBlock;
-
     public Object onActivate(String pid) {
         product = getProductService().findProduct(pid);
         if (product == null) return new HttpError(404, "Page not found.");
@@ -46,13 +40,6 @@ public class Index extends BaseComponent {
     public Block onActionFromPurchase(Long pid) {
         getShoppingCart().addProduct(createPurchaseItem(pid));
         return getShoppingCart().getBasketBlock();
-    }
-
-    @Cached
-    public String getDescription() {
-        String desc = (String) ObjectUtils.defaultIfNull(product.getDescription(), "");
-        desc = desc.replaceAll("\\n", "<br/>");
-        return desc;
     }
 
     public java.util.List<TagEntity> getProductTags() {

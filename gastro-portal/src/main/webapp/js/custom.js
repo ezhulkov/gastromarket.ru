@@ -389,7 +389,7 @@ function initPropEdit(blocks) {
     });
 }
 function showSubSelect(el) {
-    el = el.get(0);
+    el = el.tagName == 'SELECT' ? el : el.get(0);
     if (el != undefined && el.length != 0 && jQuery("option", el).length > 1) {
         initChosen(el, function () {
             jQuery(this).next(".chosen-container").attr('style', 'width: 250px!important;margin-left:10px;');
