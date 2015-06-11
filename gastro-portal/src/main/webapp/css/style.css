@@ -452,7 +452,7 @@ body.mobile .rub:after {
 .catalog-link {
   display: block;
   color: #e70500;
-  margin: 10px 0;
+  margin: 5px 0 10px 0;
 }
 
 .catalog-item-wrap:nth-child(odd) {
@@ -665,17 +665,11 @@ body.modal-open {
 }
 
 .product-item {
+  display: none;
   position: relative;
 }
-.product-item.fixed {
-  height: 500px;
-  overflow: hidden;
-}
-.product-item.fixed .desc {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 .product-item .pic {
+  cursor: pointer;
   position: relative;
 }
 .product-item .pic img {
@@ -715,12 +709,16 @@ body.modal-open {
 .product-item:hover .edit-block {
   display: block;
 }
+.product-item .basket-block {
+  width: 240px;
+  height: 44px;
+  margin: 5px 15px 10px 15px;
+}
 .product-item .data {
+  overflow: hidden;
   padding: 15px;
   word-wrap: break-word;
   text-align: left;
-  position: relative;
-  height: 220px;
 }
 .product-item .data .pname {
   font-size: 20px;
@@ -728,12 +726,143 @@ body.modal-open {
   line-height: 25px;
 }
 .product-item .data .desc {
-  font-size: 16px;
-  max-height: 45px;
+  font-size: 14px;
+  line-height: 17px;
+}
+.product-item.fixed {
+  height: 500px;
   overflow: hidden;
 }
-.product-item .data .basket-block {
-  width: 240px;
+.product-item.fixed .data {
+  height: 170px;
+}
+.product-item.fixed .data .desc {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 70px;
+}
+
+.more-products {
+  height: 50px;
+}
+
+.product-modal-template .modal-dialog {
+  width: 920px;
+}
+.product-modal-template .modal-close {
+  background: url("../img/modal-close-inv.png") no-repeat;
+  position: absolute;
+  right: -25px;
+  top: 10px;
+}
+.product-modal-template .modal-arrow {
+  background: url("../img/arrow-big.png") no-repeat;
+  height: 26px;
+  width: 14px;
+  position: absolute;
+  cursor: pointer;
+}
+.product-modal-template .modal-arrow.arrow-left {
+  background-position: 0 0;
+  left: -35px;
+  top: 50%;
+}
+.product-modal-template .modal-arrow.arrow-right {
+  background-position: -13px 0;
+  right: -35px;
+  top: 50%;
+}
+.product-modal-template .blocks {
+  position: relative;
+  display: table;
+  width: 920px;
+}
+.product-modal-template .blocks > div {
+  background-color: white;
+  border-radius: 6px;
+}
+.product-modal-template .blocks > div .data {
+  padding: 8px 20px 5px 20px;
+  position: relative;
+  color: black;
+  overflow: hidden;
+}
+.product-modal-template .blocks .block1 {
+  width: 560px;
+  min-height: 510px;
+  float: left;
+}
+.product-modal-template .blocks .block1 .product-image {
+  width: 560px;
+  height: 404px;
+}
+.product-modal-template .blocks .block1 .product-link {
+  overflow: hidden;
+}
+.product-modal-template .blocks .block1 .data {
+  padding-top: 15px;
+  height: 200px;
+}
+.product-modal-template .blocks .block1 .data .pname {
+  max-height: 70px;
+  overflow: hidden;
+}
+.product-modal-template .blocks .block1 .data .pname a {
+  font-size: 24px;
+  color: #333;
+  text-align: left;
+}
+.product-modal-template .blocks .block1 .data .basket-block {
+  position: absolute;
+  bottom: 15px;
+  width: 510px;
+}
+.product-modal-template .blocks .block2 {
+  width: 330px;
+  min-height: 100px;
+  float: right;
+  margin-bottom: 10px;
+}
+.product-modal-template .blocks .block2 .data {
+  padding: 15px 20px;
+}
+.product-modal-template .blocks .block2 .data .desc {
+  max-height: 200px;
+  overflow: hidden;
+}
+.product-modal-template .blocks .block2 .data .tags ul {
+  list-style: none;
+  margin: 10px 0;
+  padding: 0;
+}
+.product-modal-template .blocks .block2 .data .tags ul .tag {
+  font-weight: bold;
+}
+.product-modal-template .blocks .block3 {
+  width: 330px;
+  min-height: 100px;
+  float: right;
+}
+.product-modal-template .blocks .block3 .data {
+  overflow: hidden;
+  font-size: 20px;
+}
+.product-modal-template .blocks .block3 .data ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+  width: 100%;
+}
+.product-modal-template .blocks .block3 .data ul li {
+  float: left;
+  padding: 8px;
+}
+.product-modal-template .blocks .block3 .data img {
+  width: 80px;
+  height: 80px;
+}
+.product-modal-template .blocks .block3 .data img:hover {
+  opacity: 0.9;
 }
 
 .navbar {
@@ -1002,10 +1131,6 @@ body.modal-open {
 .btn.btn-howto {
   border-radius: 25px;
   padding: 5px 35px;
-}
-
-.more-products {
-  height: 50px;
 }
 
 .round-link, .title-simple a, .title a, .links-set a {
@@ -1382,6 +1507,7 @@ label.t-error {
   line-height: 30px;
 }
 .basket-block .price {
+  text-align: left;
   line-height: 30px;
   color: #333;
   font-size: 30px;
@@ -1393,15 +1519,11 @@ label.t-error {
   line-height: 14px;
 }
 .basket-block .basket-add {
+  text-align: left;
   line-height: 30px;
   color: #e70500;
   font-size: 16px;
   cursor: pointer;
-}
-
-.fixed .basket-block {
-  position: absolute;
-  bottom: 5px;
 }
 
 .attention {

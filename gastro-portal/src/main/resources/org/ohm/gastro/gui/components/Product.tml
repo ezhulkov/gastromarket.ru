@@ -24,12 +24,9 @@
                         </div>
                         <a class="modal-close" data-dismiss="modal"></a>
                     </div>
-                    <div class="modal-body" style="text-align: center;">
-                        <br/>
+                    <div class="modal-body form-buttons" style="text-align: center;">
                         <t:actionlink t:id="delete" t:context="product.id" class="btn btn-red deleteConfirm" style="display: inline;">Удалить</t:actionlink>
                         <a href="#" class="btn btn-white" style="display: inline;" data-dismiss="modal">Отмена</a>
-                        <br/>
-                        <br/>
                     </div>
                 </div>
             </div>
@@ -57,29 +54,36 @@
                     <t:outputraw value="product.descriptionRaw"/>
                 </div>
             </t:if>
-            <div class="basket-block">
-                <div class="price pull-left">
-                    <div class="price">${product.price} <span class="rub"/></div>
-                    <div class="unit">${productUnit}</div>
-                </div>
-                <span class="basket-add pull-right">
-                    <t:actionLink class="pic-holder basket-add" t:zone="basketZone" t:context="product.id" t:id="purchase"><span/>В корзину</t:actionLink>
-                </span>
+        </div>
+        <div class="basket-block">
+            <div class="price pull-left">
+                ${product.price} <span class="rub"/>
+
+                <div class="unit">${productUnit}</div>
+            </div>
+            <div class="basket-add pull-right">
+                <t:actionLink class="pic-holder basket-add" t:zone="basketZone" t:context="product.id" t:id="purchase"><span/>В корзину</t:actionLink>
             </div>
         </div>
         <div class="modal-data hidden">
             <t:actionlink class="recommended-link" t:id="recommended" t:context="[product.id,5]" t:zone="recommendedProductsZone"/>
-            <div class="name wrapword"><a href="/product/${product.altId}">${product.name}</a></div>
+            <div class="pname"><a href="/product/${product.altId}">${product.name}</a></div>
             <div class="image">${product.avatarUrl}</div>
             <div class="desc">
                 <t:if test="product.descriptionRaw">
                     <t:outputraw value="product.descriptionRaw"/>
-                    <br/>
-                    <br/>
                 </t:if>
             </div>
-            <div class="price">${product.price} <span class="rub"/> <span class="unit">${productUnit}</span></div>
-            <div class="basket"><a class="pic-holder basket-add" data-productid="${product.id}"><span/>В корзину</a></div>
+            <div class="basket-block">
+                <div class="price pull-left">
+                    ${product.price} <span class="rub"/>
+
+                    <div class="unit">${productUnit}</div>
+                </div>
+                <div class="basket-add pull-right">
+                    <a class="pic-holder basket-add" data-productid="${product.id}"><span/>В корзину</a>
+                </div>
+            </div>
             <div class="cook">
                 <img class="avatar-small" src="${product.catalog.avatarUrlSmall}"/>
                 <a href="/catalog/${product.catalog.altId}">${product.catalog.name}</a>

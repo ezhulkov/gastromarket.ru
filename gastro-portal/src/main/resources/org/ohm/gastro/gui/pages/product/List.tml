@@ -17,8 +17,8 @@
             </t:loop>
             <div class="more-products">
                 <t:if test="hasProducts">
-                    <div class="more-link">
-                        <t:actionlink t:id="fetchProducts" t:context="fetchContext" t:zone="productsZone" class="">Показать еще...</t:actionlink>
+                    <div class="links-set">
+                        <t:actionlink t:id="fetchProducts" t:context="fetchContext" t:zone="productsZone">Показать еще...</t:actionlink>
                     </div>
                 </t:if>
             </div>

@@ -3,6 +3,7 @@
 .basket-block {
   line-height: 30px;
   .price {
+    text-align: left;
     line-height: 30px;
     color: $blackTextColor;
     font-size: $priceFontSize;
@@ -14,16 +15,12 @@
     }
   }
   .basket-add {
+    text-align: left;
     line-height: 30px;
     color: $redTextColor;
     font-size: $f16px;
     cursor: pointer;
   }
-}
-
-.fixed .basket-block {
-  position: absolute;
-  bottom: 5px;
 }
 
 .attention {

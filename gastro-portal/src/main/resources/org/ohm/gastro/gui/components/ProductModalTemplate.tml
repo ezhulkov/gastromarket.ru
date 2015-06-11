@@ -7,17 +7,12 @@
             <a class="modal-arrow arrow-right"></a>
 
             <div class="block1">
-
                 <a class="product-link" href=""><img class="product-image"/></a>
 
                 <div class="data">
-                    <div class="category"></div>
-                    <div class="name"></div>
+                    <div class="pname"></div>
                     <div class="cook"></div>
-                    <div class="bottom">
-                        <div class="price pull-left"></div>
-                        <div class="basket pull-right"></div>
-                    </div>
+                    <div class="basket-block"/>
                 </div>
             </div>
             <div class="block2">
@@ -27,7 +22,7 @@
                 </div>
             </div>
             <div class="block3">
-                <div class="data recommended">
+                <div class="data">
                     Наши рекомендации:
                     <t:zone t:id="recommendedProductsZone">
 

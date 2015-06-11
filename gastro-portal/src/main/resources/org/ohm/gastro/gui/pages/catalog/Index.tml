@@ -53,15 +53,15 @@
                 </div>
                 <div class="row gap5">
                     <div class="col-sm-3">
-                        <div class="f18px">Поделиться:</div>
-                        <!--<ul class="social">-->
-                        <!--<li>-->
-                        <!--<div id="vk_like"></div>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                        <!--<div class="fb-like" data-href="${currentPage}" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>-->
-                        <!--</li>-->
-                        <!--</ul>-->
+                        <!--<div class="f18px">Поделиться:</div>-->
+                        <ul class="social">
+                            <li>
+                                <div id="vk_like"></div>
+                            </li>
+                            <li>
+                                <div class="fb-like" data-href="${currentPage}" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
+                            </li>
+                        </ul>
                     </div>
                     <div class="col-sm-9">
                         <div class="summary">
@@ -73,7 +73,7 @@
                             <div>
                                 <span class="med pic-holder ${medActiveClass}"><span class="glyphicon glyphicon-plus"/>Есть медкнижка</span>
                                 <span class="zak pic-holder ${zakActiveClass}"><span class="glyphicon glyphicon-cutlery"/>Проведена контрольная закупка</span>
-                                <span class="add pic-holder ${addActiveClass}"><span class="glyphicon glyphicon-map-marker"/>Адрес верифицирован</span>
+                                <span class="add pic-holder ${addActiveClass}"><span class="glyphicon glyphicon-map-marker"/>Адрес проверен</span>
                             </div>
                         </div>
                     </div>

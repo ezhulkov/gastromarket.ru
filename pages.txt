@@ -1,10 +1,12 @@
 catalog
     Index.tml
-        offer               CH
-        product
+        offer               CH OP FF
+        offer add           CH OP FF
+        product             CH OP FF
         product modal
-        comment             CH
-        edit                CH
+        product add
+        comment             CH OP FF
+        edit                CH OP FF
     List.tml                CH OP FF
     Offer.tml
     Offers.tml

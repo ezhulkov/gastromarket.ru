@@ -1,16 +1,10 @@
 @import "../include/var";
 
 .product-item {
+  display: none;
   position: relative;
-  &.fixed {
-    height: 500px;
-    overflow: hidden;
-    .desc {
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
   .pic {
+    cursor: pointer;
     position: relative;
     img {
       width: 270px;
@@ -54,12 +48,16 @@
       display: block;
     }
   }
+  .basket-block {
+    width: 240px;
+    height: 44px;
+    margin: 5px 15px 10px 15px;
+  }
   .data {
+    overflow: hidden;
     padding: 15px;
     word-wrap: break-word;
     text-align: left;
-    position: relative;
-    height: 220px;
     .pname {
       @extend .wrapword;
       font-size: $f20px;
@@ -68,282 +66,149 @@
     }
     .desc {
       @extend .wrapword;
-      font-size: $f16px;
-      max-height: 45px;
-      overflow: hidden;
+      font-size: $f14px;
+      line-height: 17px;
     }
-    .basket-block {
-      width: 240px;
+  }
+  &.fixed {
+    height: 500px;
+    overflow: hidden;
+    .data {
+      height: 170px;
+      .desc {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-height: 70px;
+      }
     }
   }
 }
 
-//div.product-item.block {
-//  display: none;
-//}
-//
-//.grid-block div.product-item {
-//  width: 270px;
-//  min-height: 350px;
-//  overflow: hidden;
-//  cursor: pointer;
-//}
-//
-//.grid-block div.product-item.fixed {
-//  height: 480px;
-//  overflow: hidden;
-//}
-//
-//.grid-block div.product-item.fixed .desc {
-//  max-height: 40px;
-//  overflow: hidden;
-//  text-overflow: ellipsis;
-//}
-//
-//.product-item .product-image {
-//  width: 270px;
-//  height: 270px;
-//  border: none;
-//}
-//
-//.product-modal-template .cook a,
-//.product-item a {
-//  color: #bd0400;
-//  font-size: 14px;
-//  display: inline;
-//}
-//
-//.product-item > div {
-//  width: 270px;
-//  overflow: hidden;
-//}
-//
-//.product-item.page > div {
-//  width: 370px;
-//}
-//
-//.product-item .pic {
-//  height: 270px;
-//  cursor: pointer;
-//  position: relative;
-//  z-index: 10;
-//}
-//
-//.product-item.big-picture .pic {
-//  height: 404px;
-//  width: 560px;
-//}
-//
-//.product-item .pic .edit-block {
-//  width: 100%;
-//  height: 100%;
-//  position: absolute;
-//  background-color: rgba(255, 0, 0, 0.4);
-//  display: none;
-//  z-index: 20;
-//}
-//
-//.product-item .data {
-//  padding: 10px 20px 8px 15px;
-//  word-wrap: break-word;
-//  text-align: left;
-//  position: relative;
-//}
-//
-//.product-item.page .price {
-//  width: 250px;
-//}
-//
-//.product-item span {
-//  display: block;
-//  text-align: left;
-//}
-//
-//.product-item .product-name a {
-//  color: black;
-//  font-size: 20px;
-//}
-//
-//.product-item .tags ul,
-//.block2 .tags ul {
-//  list-style: none;
-//  padding: 0;
-//}
-//
-//.product-item .tags .tag,
-//.block2 .tags .tag {
-//  font-weight: bold;
-//  display: inline;
-//}
-//
-//.product-modal-template .name {
-//  margin-bottom: 5px;
-//}
-//
-//.product-modal-template .name a,
-//.product-modal-template .recommended,
-//.product-modal-template .price,
-//.product-item span.name a {
-//  color: black;
-//  font-size: 20px;
-//  line-height: 25px;
-//  margin: 0;
-//}
-//
-//.product-item span.desc {
-//  font-size: 14px;
-//  margin-top: 5px;
-//}
-//
-//.product-item span.price {
-//  font-size: 30px;
-//  margin: 10px 0 0 0;
-//  font-weight: bold;
-//}
-//
-//.product-modal-template .blocks {
-//  width: 920px;
-//}
-//
-//.product-modal-template .blocks > div {
-//  background-color: white;
-//  border-radius: 6px;
-//}
-//
-//.blocks {
-//  position: relative;
-//  display: table;
-//}
-//
-//.block1 {
-//  width: 560px;
-//  min-height: 510px;
-//  float: left;
-//  overflow: hidden;
-//}
-//
-//.block2 {
-//  width: 330px;
-//  min-height: 100px;
-//  float: right;
-//  margin-bottom: 10px;
-//}
-//
-//.block3 {
-//  width: 330px;
-//  min-height: 100px;
-//  float: right;
-//  overflow: hidden;
-//}
-//
-//.block1 .data,
-//.block2 .data,
-//.block3 .data {
-//  padding: 8px 20px 5px 20px;
-//  position: relative;
-//  color: black;
-//  font-size: 14px;
-//}
-//
-//.block1 .product-link {
-//  overflow: hidden;
-//}
-//
-//.block1 .data {
-//  height: 200px;
-//}
-//
-//.block2 .data {
-//  padding: 15px 20px;
-//}
-//
-//.block1 .bottom {
-//  position: absolute;
-//  bottom: 25px;
-//  width: 500px;
-//}
-//
-//.block1 .category {
-//  margin-bottom: 10px;
-//}
-//
-//.block1 .category * {
-//  font-size: 14px;
-//  color: #444;
-//}
-//
-//.block2 .desc {
-//  max-height: 200px;
-//  overflow: hidden;
-//}
-//
-//.block3 .recommended {
-//  overflow: hidden;
-//}
-//
-//.block3 .recommended ul {
-//  list-style: none;
-//  padding: 0;
-//  margin: 10px 0 0 0;
-//  width: 100%;
-//}
-//
-//.block3 .recommended ul li {
-//  float: left;
-//  padding: 8px;
-//}
-//
-//.block3 .recommended img {
-//  width: 80px;
-//  height: 80px;
-//}
-//
-//.block3 .recommended img:hover {
-//  opacity: 0.9;
-//}
-//
-//.product .info {
-//  margin: 20px 0;
-//}
-//
-//.product .info > div {
-//  padding: 10px;
-//}
-//
-//.product-modal-template .modal-dialog {
-//  width: 920px;
-//}
-//
-//.product-modal-template .modal-close {
-//  background: url("../img/modal-close-inv.png") no-repeat;
-//  position: absolute;
-//  right: -25px;
-//  top: 10px;
-//}
-//
-//.product-modal-template .modal-arrow {
-//  background: url("../img/arrow-big.png") no-repeat;
-//  height: 26px;
-//  width: 14px;
-//  position: absolute;
-//  cursor: pointer;
-//}
-//
-//.product-modal-template .arrow-left {
-//  left: -35px;
-//  top: 50%;
-//}
-//
-//.product-modal-template .arrow-right {
-//  background-position: -13px 0;
-//  right: -35px;
-//  top: 50%;
-//}
-//
-//.product-modal-template .product-image {
-//  width: 560px;
-//  height: 404px;
-//}
+.more-products {
+  height: 50px;
+}
+
+.product-modal-template {
+  .modal-dialog {
+    width: 920px;
+  }
+  .modal-close {
+    background: url("../img/modal-close-inv.png") no-repeat;
+    position: absolute;
+    right: -25px;
+    top: 10px;
+  }
+  .modal-arrow {
+    background: url("../img/arrow-big.png") no-repeat;
+    height: 26px;
+    width: 14px;
+    position: absolute;
+    cursor: pointer;
+    &.arrow-left {
+      background-position: 0 0;
+      left: -35px;
+      top: 50%;
+    }
+    &.arrow-right {
+      background-position: -13px 0;
+      right: -35px;
+      top: 50%;
+    }
+  }
+  .blocks {
+    position: relative;
+    display: table;
+    width: 920px;
+    & > div {
+      background-color: white;
+      border-radius: 6px;
+      .data {
+        padding: 8px 20px 5px 20px;
+        position: relative;
+        color: black;
+        overflow: hidden;
+      }
+    }
+    .block1 {
+      width: 560px;
+      min-height: 510px;
+      float: left;
+      .product-image {
+        width: 560px;
+        height: 404px;
+      }
+      .product-link {
+        overflow: hidden;
+      }
+      .data {
+        padding-top: 15px;
+        height: 200px;
+        .pname {
+          max-height: 70px;
+          overflow: hidden;
+          a {
+            font-size: $f24px;
+            color: $blackTextColor;
+            text-align: left;
+          }
+        }
+        .basket-block {
+          position: absolute;
+          bottom: 15px;
+          width: 510px;
+        }
+      }
+    }
+    .block2 {
+      width: 330px;
+      min-height: 100px;
+      float: right;
+      margin-bottom: 10px;
+      .data {
+        padding: 15px 20px;
+        .desc {
+          max-height: 200px;
+          overflow: hidden;
+        }
+        .tags ul {
+          list-style: none;
+          margin: $gap 0;
+          padding: 0;
+          .tag {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+    .block3 {
+      width: 330px;
+      min-height: 100px;
+      float: right;
+      .data {
+        overflow: hidden;
+        font-size: $f20px;
+        ul {
+          list-style: none;
+          padding: 0;
+          margin: 10px 0 0 0;
+          width: 100%;
+          li {
+            float: left;
+            padding: 8px;
+          }
+        }
+        img {
+          width: 80px;
+          height: 80px;
+        }
+        img:hover {
+          opacity: 0.9;
+        }
+      }
+    }
+  }
+}
+
 //
 //.edit-block > a {
 //  background: url("../img/product-edit.png") no-repeat;
