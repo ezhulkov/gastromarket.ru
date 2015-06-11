@@ -54,9 +54,8 @@
     background: url("../img/chef-shadow.png") center top no-repeat;
     margin: 0 auto;
     max-height: 318px;
-    h1 {
-//      font-size: 50px;
-//      padding-top: 60px;
+    & > h1 {
+      font-size: 50px;
     }
     h2 {
       font-size: 18px;

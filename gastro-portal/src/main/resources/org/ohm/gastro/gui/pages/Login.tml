@@ -45,16 +45,18 @@
                 <div class="form-group">
                     <div class="col-sm-2"/>
                     <div class="col-sm-9">
-                        <a href="#" class="pull-left red-text forget-link">Забыли пароль?</a>
+                        <a href="#" class="pull-left red-text forget-link" data-toggle="modal" data-target="#login">Забыли пароль?</a>
 
                         <div class="label-checkbox-set pull-right">
-                            <label for="rememberme" class="red-text">Запомнить меня</label>
-                            <input type="checkbox" name="_spring_security_remember_me" id="rememberme"/>
+                            <label for="rememberme2" class="red-text">Запомнить меня</label>
+                            <input type="checkbox" name="_spring_security_remember_me" id="rememberme2"/>
                         </div>
                     </div>
                 </div>
-                <input class="btn btn-red" type="submit" value="Войти"/>
-                <a href="#" class="btn btn-white signup-link" data-toggle="modal" data-target="#login">Регистрация</a>
+                <div class="form-buttons">
+                    <input class="btn btn-red" type="submit" value="Войти"/>
+                    <a href="#" class="btn btn-white signup-link" data-toggle="modal" data-target="#login">Регистрация</a>
+                </div>
             </form>
         </div>
         <div class="col-sm-2"/>

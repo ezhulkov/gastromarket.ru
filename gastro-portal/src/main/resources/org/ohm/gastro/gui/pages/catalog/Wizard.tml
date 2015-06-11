@@ -20,28 +20,28 @@
         <t:delegate to="currentStepBlock"/>
 
         <t:block id="step1">
+            <div class="row">
+                <div class="col-sm-2"/>
+                <div class="col-sm-4 center">
+                    <t:actionlink t:id="privateCook" class="red-text f20px" t:zone="step1Zone">
+                        <img src="/img/private-cook.jpg" class="img-circle"/>
+                        <br/>
+                        <br/>
+                        Я независимый кулинар
+                    </t:actionlink>
+                </div>
+                <div class="col-sm-4 center">
+                    <t:actionlink t:id="companyCook" class="red-text f20px" t:zone="step1Zone">
+                        <img src="/img/company-cook.jpg" class="img-circle"/>
+                        <br/>
+                        <br/>
+                        Я представляю компанию
+                    </t:actionlink>
+                </div>
+                <div class="col-sm-2"/>
+            </div>
             <t:form t:id="wizardForm1" t:clientValidation="none" class="form form-horizontal edit wizard" t:autofocus="false" role="form">
                 <t:errors/>
-                <div class="row">
-                    <div class="col-sm-2"/>
-                    <div class="col-sm-4">
-                        <t:actionlink t:id="privateCook" class="red-text f20px" t:zone="step1Zone">
-                            <img src="/img/private-cook.jpg" class="img-circle"/>
-                            <br/>
-                            <br/>
-                            Я независимый кулинар
-                        </t:actionlink>
-                    </div>
-                    <div class="col-sm-4">
-                        <t:actionlink t:id="companyCook" class="red-text f20px" t:zone="step1Zone">
-                            <img src="/img/company-cook.jpg" class="img-circle"/>
-                            <br/>
-                            <br/>
-                            Я представляю компанию
-                        </t:actionlink>
-                    </div>
-                    <div class="col-sm-2"/>
-                </div>
                 <t:zone t:id="step1Zone" class="step1-zone gap3">
                     <t:delegate to="step1Block"/>
                 </t:zone>
@@ -151,12 +151,8 @@
         </t:block>
         <t:block id="step3">
             <div class="links-set">
-                <div class="more-link">
-                    <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>
-                </div>
-                <div class="more-link">
-                    <t:pagelink class="product-edit-link" page="office/import" context="catalog.altId">Импортировать<span/></t:pagelink>
-                </div>
+                <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>
+                <t:pagelink class="product-edit-link" page="office/import" context="catalog.altId">Импортировать<span/></t:pagelink>
             </div>
             <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>
 
@@ -246,7 +242,8 @@
                 </p>
             </div>
 
-            <p class="modal-text f20px">Команда ГастроМаркет желает Вам успехов и всегда готова помочь!</p>
+            <div class="gap5"/>
+            <h2>Команда ГастроМаркет желает Вам успехов и всегда готова помочь!</h2>
         </t:block>
 
     </div>

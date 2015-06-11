@@ -20,7 +20,7 @@
         </t:zone>
         <t:block t:id="productsBlock">
             <t:loop source="products" value="oneProduct">
-                <t:product product="oneProduct" edit="catalogOwner"/>
+                <t:product product="oneProduct" edit="${catalogOwner}"/>
             </t:loop>
             <div class="more-products">
                 <t:if test="hasProducts">

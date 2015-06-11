@@ -144,4 +144,9 @@ public class Index extends AbstractCatalogPage {
         return getOfferService().findAllOffers(catalog).stream().limit(3).collect(Collectors.toList());
     }
 
+    @Override
+    public String getDescLabel() {
+        return getMessages().get("desc.label.nologo." + catalog.getType().name().toLowerCase());
+    }
+
 }

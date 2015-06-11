@@ -199,22 +199,9 @@ function initProductInCatalog(items) {
 function initProductCatalogFixed() {
     var newItems = jQuery("div.product-item.fixed");
     initProductInCatalog(newItems);
-    jQuery(newItems).each(function (i, e) {
-        var pic = jQuery(".pic", this);
-        jQuery(".data", this).height(jQuery(this).height() - pic.height() - 20);
-    }).fadeIn(50);
+    jQuery(newItems).fadeIn(50);
     initBasket();
 }
-
-function initProductCatalogEdit() {
-    jQuery(".product-item")
-        .mouseenter(function () {
-            jQuery("div.pic .edit-block", this).css("display", "block");
-        }).mouseleave(function () {
-            jQuery("div.pic .edit-block", this).css("display", "none");
-        })
-}
-
 function initProductCatalog(ajaxContainer) {
     var layoutFunction = function (target) {
         var newItems = jQuery("div.product-item", jQuery("div[id^='productsZone']"));

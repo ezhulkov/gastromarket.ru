@@ -60,7 +60,7 @@ public class OfferEdit extends BaseComponent {
     @Component(id = "offerName", parameters = {"value=offer.name", "validate=maxlength=64,required"})
     private TextField oNameField;
 
-    @Component(id = "offerDescription", parameters = {"value=offer.description", "validate=maxlength=1024"})
+    @Component(id = "offerDescription", parameters = {"value=offer.description", "validate=maxlength=1024,required"})
     private TextArea descField;
 
     @Parameter(name = "catalog", required = true, allowNull = true)

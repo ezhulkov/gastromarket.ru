@@ -1,6 +1,5 @@
 package org.ohm.gastro.gui.components;
 
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
@@ -61,10 +60,6 @@ public class Product extends BaseComponent {
         return "productZone" + product.getId();
     }
 
-    public int getHeight() {
-        return (int) (270 - (product == null ? 0 : product.getId() % 7 * 6));
-    }
-
     @Cached(watch = "product")
     public List<TagEntity> getProductTags() {
         return getProductTags(product);
@@ -73,12 +68,6 @@ public class Product extends BaseComponent {
     public Block onActionFromPurchase(Long pid) {
         getShoppingCart().addProduct(createPurchaseItem(pid));
         return getShoppingCart().getBasketBlock();
-    }
-
-    public String getDescription() {
-        String desc = (String) ObjectUtils.defaultIfNull(product.getDescription(), "");
-        desc = desc.replaceAll("\\n", "<br/>");
-        return desc;
     }
 
     public boolean isHasBlock2() {

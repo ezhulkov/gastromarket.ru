@@ -1,6 +1,6 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <t:zone t:id="productZone" id="${productZoneId}" class="product-item item block product-modal-trigger ${additionalClass}" data-productid="${product?.id}" data-productaltid="${product?.altId}">
+    <t:zone t:id="productZone" id="${productZoneId}" class="item product-item product-modal-trigger ${additionalClass}" data-productid="${product?.id}" data-productaltid="${product?.altId}">
         <t:delegate to="productBlock"/>
     </t:zone>
 
@@ -37,29 +37,25 @@
     </t:if>
 
     <t:block t:id="productBlock">
-        <t:if test="editMode">
-            <div style="height: ${height}px" class="pic pic-product-edit upload-file" data-objectid="${product.id}" data-type="PRODUCT" data-size="SIZE2">
-                <div class="edit-block">
-                    <div class="uploader-button"/>
+        <div class="pic">
+            <t:if test="editMode">
+                <div class="edit-block upload-file" data-objectid="${product.id}" data-type="PRODUCT" data-size="SIZE2">
+                    <a class="uploader-button"/>
                     <t:actionlink t:id="edit" t:context="product.id" t:zone="${editZoneId}" class="edit"/>
                     <a href="#delete" data-toggle="modal" class="delete" data-target="#deleteProduct${product.id}"/>
                 </div>
-                <img class="product-image" src="${product.avatarUrlMedium}"/>
-            </div>
-        </t:if>
-        <t:unless test="editMode">
-            <div style="height: ${height}px" class="pic">
-                <img class="product-image" src="${product.avatarUrlMedium}"/>
-            </div>
-        </t:unless>
+            </t:if>
+            <img class="image" src="${product.avatarUrlMedium}"/>
+        </div>
         <div class="data">
-            <span class="product-name wrapword"><a href="/product/${product.altId}">${product.name}</a></span>
-                <span class="cook">
-                    <img class="avatar-small" src="${product.catalog.avatarUrlSmall}"/>
-                    <a href="/catalog/${product.catalog.altId}">${product.catalog.name}</a>
-                </span>
-            <t:if test="description">
-                <span class="desc wrapword"><t:outputraw value="description"/></span>
+            <t:pagelink page="product" t:context="product.altId" class="pname">${product.name}</t:pagelink>
+            <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="product.catalog.altId">
+                <span><img src="${product.catalog.avatarUrlSmall}"/></span>${product.catalog.name}
+            </t:pageLink>
+            <t:if test="product.descriptionRaw">
+                <div class="desc">
+                    <t:outputraw value="product.descriptionRaw"/>
+                </div>
             </t:if>
             <div class="basket-block">
                 <div class="price pull-left">
@@ -76,8 +72,8 @@
             <div class="name wrapword"><a href="/product/${product.altId}">${product.name}</a></div>
             <div class="image">${product.avatarUrl}</div>
             <div class="desc">
-                <t:if test="description">
-                    <t:outputraw value="description"/>
+                <t:if test="product.descriptionRaw">
+                    <t:outputraw value="product.descriptionRaw"/>
                     <br/>
                     <br/>
                 </t:if>
@@ -99,7 +95,6 @@
             <div class="has-block2">${hasBlock2}</div>
         </div>
     </t:block>
-
     <t:block t:id="recommendedBlock">
         <ul>
             <t:loop source="recommendedProducts" value="oneProduct">
@@ -109,4 +104,5 @@
             </t:loop>
         </ul>
     </t:block>
+
 </div>

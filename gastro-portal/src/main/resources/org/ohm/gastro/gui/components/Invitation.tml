@@ -20,6 +20,7 @@
 
                     <p>Оставьте заявку и подключайтесь к общему каталогу кулинаров, полноценно используйте все возможности ГастроМаркет:
                        помощь в продвижении, рейтинговые системы и приятные подарки.</p>
+
                     <div class="row">
                         <a href="/cookinfo" class="red-text">узнать подробности</a>
                     </div>
@@ -73,7 +74,9 @@
                                     </div>
                                     <div class="col-sm-1"/>
                                 </div>
-                                <input class="btn btn-red" type="submit" value="Оставить заявку"/>
+                                <div class="form-buttons">
+                                    <input class="btn btn-red" type="submit" value="Оставить заявку"/>
+                                </div>
                             </t:form>
                         </t:block>
                     </div>

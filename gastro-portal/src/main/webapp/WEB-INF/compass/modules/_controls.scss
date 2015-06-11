@@ -137,18 +137,27 @@
 }
 
 .t-error {
-  border: none !important;
-  font-size: 16px !important;
-  color: #e70500 !important;
-  font-weight: bold !important;
-  margin: 0 0 5px 0 !important;
+  border: 1 ps solid $redTextColor !important;
   ul {
     list-style-type: none !important;
+    margin-bottom: 3*$gap !important;
     li {
       text-align: center !important;
+      font-size: 16px !important;
+      font-weight: bold !important;
+      margin: 0 !important;
+      color: $redTextColor;
     }
   }
 
+}
+
+div.t-error {
+  border: none !important;
+}
+
+label.t-error {
+  font-weight: bold !important;
 }
 
 .t-banner, .t-error-icon {

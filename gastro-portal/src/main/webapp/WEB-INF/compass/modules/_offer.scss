@@ -61,9 +61,6 @@ ul.offer-products {
   list-style: none;
   padding: 0;
   margin: 0;
-  .offer-edit & {
-    margin-left: 40px;
-  }
   li {
     vertical-align: top;
     display: inline-block;
@@ -96,6 +93,9 @@ ul.offer-products {
         display: block;
       }
     }
+  }
+  .offer-edit & {
+    margin-left: 40px;
   }
 }
 

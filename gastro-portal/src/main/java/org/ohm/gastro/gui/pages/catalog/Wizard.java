@@ -89,6 +89,7 @@ public class Wizard extends AbstractCatalogPage {
     }
 
     public void onSubmitFromWizardForm2() {
+        if (wizardForm2.getHasErrors()) return;
         onSubmitFromWizardForm1();
     }
 

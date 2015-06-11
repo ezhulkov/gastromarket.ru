@@ -1,4 +1,4 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" data-backdrop="static" class="modal fade offer-edit-modal" id="${modalId}" tabindex="-1" role="dialog" aria-hidden="true">
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" data-backdrop="static" class="modal fade" id="${modalId}" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog offer-edit">
         <div class="modal-content">
             <div class="modal-header">
@@ -55,7 +55,7 @@
                         </div>
                         <br/>
 
-                        <div class="row">
+                        <div class="form-buttons">
                             <input class="btn btn-red" t:type="submit" t:id="saveAndProducts" value="${editProductsLabel}"/>
                         </div>
                     </t:form>
@@ -101,7 +101,7 @@
                                 </t:if>
                             </div>
                         </div>
-                        <div class="row gap3">
+                        <div class="form-buttons gap3">
                             <input class="btn btn-red" t:type="submit" t:id="saveAndBack2" value="&lt; Назад"/>
                             <input class="btn btn-red" t:type="submit" t:id="saveAndClose2" value="Сохранить и закрыть"/>
                         </div>
