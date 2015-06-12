@@ -20,6 +20,10 @@
     text-align: center;
     text-overflow: ellipsis;
   }
+  &.albums .item {
+    padding: 5px 15px;
+    margin: 3px 10px;
+  }
   &.products .item {
     width: 270px;
     margin: 7px;
@@ -27,9 +31,9 @@
       line-height: 60px;
     }
   }
-  &.products.fixed {
-    height: 520px;
-  }
+//  &.products.fixed {
+//    height: 520px;
+//  }
   &.cooks .item {
     width: 210px;
     height: 250px;

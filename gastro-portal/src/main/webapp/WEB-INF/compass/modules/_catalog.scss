@@ -147,6 +147,8 @@
   display: block;
   color: $redTextColor;
   margin: 5px 0 10px 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .catalog-item-wrap:nth-child(odd) {
@@ -181,6 +183,39 @@ ul.comments {
     margin-right: 5px;
     &:before {
       content: "\e126";
+    }
+  }
+}
+
+.import-item {
+  .grid-block.albums {
+    text-align: center;
+    .item {
+      float: none;
+      margin: 3px 5px;
+    }
+  }
+  .grid-block.import {
+    .item {
+      width: 210px;
+      height: 250px;
+      img {
+        height: 210px;
+        cursor: pointer;
+        margin-bottom: 7px;
+      }
+    }
+  }
+  .element-item {
+    position: relative;
+    .checked {
+      z-index: 2;
+      position: absolute;
+      top: 60px;
+      left: 80px;
+      width: 49px;
+      height: 49px;
+      background: transparent url("../img/product-edit.png") no-repeat -147px 0;
     }
   }
 }

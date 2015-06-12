@@ -145,14 +145,6 @@ public class OfferEntity extends AbstractBaseEntity implements AltIdEntity {
         this.products = products;
     }
 
-    public String getMainProductAvatarBig() {
-        return products.isEmpty() ? "/img/offer-stub-270x270.jpg" : products.get(0).getAvatarUrlMedium();
-    }
-
-    public String getMainProductAvatarSmall() {
-        return products.isEmpty() ? "/img/offer-stub-100x100.jpg" : products.get(0).getAvatarUrlSmall();
-    }
-
     public String getDescriptionRaw() {
         String desc = (String) ObjectUtils.defaultIfNull(description, "");
         desc = desc.replaceAll("\\n", "<br/>");

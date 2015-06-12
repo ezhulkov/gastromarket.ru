@@ -5,6 +5,10 @@
             <div class="title">
                 <h1><span>Завершение импорта</span></h1>
             </div>
+            <p class="modal-text">
+                <a href="/catalog/${catalog.altId}" class="red-text">Вернуться к странице кулинара</a>
+            </p>
+
             <div class="row">
                 <div class="row">
                     <p class="modal-text">
@@ -38,7 +42,6 @@
         jQuery(document).ready(function () {
             var init = function () {
                 initProductCatalogFixed();
-                initProductCatalogEdit();
             }
             init();
             Event.observe(jQuery("#productsZone").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {

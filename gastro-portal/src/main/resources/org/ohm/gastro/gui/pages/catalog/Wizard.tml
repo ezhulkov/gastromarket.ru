@@ -181,10 +181,6 @@
             <script type="text/javascript">
                 var productsZone = jQuery("#productsZone");
                 initProductCatalog(productsZone);
-                initProductCatalogEdit();
-                Event.observe(productsZone.get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
-                    initProductCatalogEdit();
-                });
             </script>
 
         </t:block>

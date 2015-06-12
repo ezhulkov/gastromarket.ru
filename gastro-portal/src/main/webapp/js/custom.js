@@ -305,7 +305,7 @@ function initFineUploader(el) {
     })
 }
 function initImportPage() {
-    jQuery(".import-source").each(function (i, e) {
+    jQuery(".import-item").each(function (i, e) {
         Event.observe(jQuery("div.elements-zone", e).get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
             var target = jQuery(".grid-block.import", e);
             jQuery(".element-item", e).appendTo(target);
@@ -322,7 +322,7 @@ function initImportPage() {
             triggerEvent(jQuery("a.initial-fetch", e).get(0), "click")
         }, 500);
         jQuery(".album").bind('click', function () {
-            jQuery(this).closest(".import-source").find(".grid-block.import").find(".element-item").remove();
+            jQuery(this).closest(".import-item").find(".grid-block.import").find(".element-item").remove();
         })
     });
 }

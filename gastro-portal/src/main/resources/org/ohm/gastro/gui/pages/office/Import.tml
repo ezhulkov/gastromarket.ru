@@ -1,97 +1,84 @@
 <t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="contacts">
-        <div class="container">
-            <div class="title">
-                <h1><span>Импорт каталога блюд</span></h1>
-            </div>
-            <div class="row">
-                <p class="modal-text">Выберите социальную сеть, где у Вас уже есть готовый каталог блюд:</p>
+    <div class="container">
+        <div class="title">
+            <h1><span>Импорт каталога блюд</span></h1>
+        </div>
+        <div class="row">
+            <p class="modal-text">Выберите социальную сеть, где у Вас уже есть готовый каталог блюд:</p>
 
-                <div class="row">
-                    <div class="col-sm-12 social-big">
-                        <ul>
-                            <li><a href="/social?social=vk" title="vk.com" class="vk">vk.com</a></li>
-                            <li><a href="/social?social=fb" title="facebook.com" class="fb">facebook.com</a></li>
-                            <li><a href="/social?social=in" title="instagram.com" class="in">instagram.com</a></li>
-                        </ul>
-                    </div>
+            <div class="row">
+                <div class="col-sm-12 social-big">
+                    <ul>
+                        <li><a href="/social?social=vk" title="vk.com" class="vk">vk.com</a></li>
+                        <li><a href="/social?social=fb" title="facebook.com" class="fb">facebook.com</a></li>
+                        <li><a href="/social?social=in" title="instagram.com" class="in">instagram.com</a></li>
+                    </ul>
                 </div>
             </div>
-            <div class="row">
-                <t:if test="socialCodes">
-                    <br/>
-                    <br/>
-                    <br/>
-
-                    <p class="modal-text">Отметьте блюда, которые Вы бы хотели добавить на свою страницу в ГастроМаркете,<br/> и нажмите кнопку "Импортировать" внизу страницы:</p>
-                    <t:loop source="socialCodes" value="socialCode">
-                        <div class="import-source">
-                            <div class="title">
-                                <h2><span>${socialName}</span></h2>
-                            </div>
-                            <t:if test="albumsRequired">
-                                <t:if test="albums">
-                                    <p class="modal-text">Выберите один из альбомов:</p>
-
-                                    <ul class="albums">
-                                        <t:loop source="albums" value="album">
-                                            <li>
-                                                <t:actionlink t:id="selectAlbum" t:context="[album.id,socialCode]" t:zone="${elementsZone}" class="album">${album.name}</t:actionlink>
-                                            </li>
-                                        </t:loop>
-                                    </ul>
-                                    <t:parameter name="else">
-                                        <p class="modal-text">
-                                            <b>Ошибка - не получилось импортировать ни одного альбома, возможно они скрыты настройками приватности.</b><br/>
-                                            Пожалуйста, измените настройки альбома в социальной сети ${socialName} и повторите попытку снова.
-                                        </p>
-                                    </t:parameter>
-                                </t:if>
-                            </t:if>
-                            <div class="grid-block import"/>
-                            <t:zone id="${elementsZone}" class="elements-zone">
-                                <div class="spinner"/>
-                                <t:actionlink t:id="initialFetchElements" t:context="socialCode" t:zone="${elementsZone}" class="hidden initial-fetch"/>
-                            </t:zone>
-                            <t:block t:id="elementsBlock">
-                                <t:loop source="elements.mediaElements" value="oneElement">
-                                    <t:zone id="${elementZone}" class="element-item">
-                                        <t:delegate to="elementBlock"/>
-                                    </t:zone>
-                                    <t:block t:id="elementBlock">
-                                        <t:actionlink t:id="checkElement" t:context="[socialCode,oneElement.id]" t:zone="${elementZone}">
-                                            <img src="${oneElement.avatarUrlSmall}"/>
-                                            <t:if test="checked">
-                                                <span class="checked"/>
-                                            </t:if>
-                                        </t:actionlink>
-                                        <a href="${oneElement.link}" target="_blank" class="black-text">
-                                            <div class="name f18px">${oneElement.caption}</div>
-                                        </a>
-                                    </t:block>
-                                </t:loop>
-                                <div class="more-elements">
-                                    <t:if test="elements.context">
-                                        <div class="more-link">
-                                            <a>Загрузить еще...</a>
-                                        </div>
-                                        <div class="spinner fetch hidden"/>
-                                        <t:actionlink t:id="fetchElements" t:context="[socialCode,elements.context]" t:zone="${elementsZone}" class="hidden fetch"/>
-                                    </t:if>
-                                </div>
-                            </t:block>
+        </div>
+        <div class="row">
+            <t:if test="socialCodes">
+                <p class="modal-text gap3">Отметьте блюда, которые Вы бы хотели добавить на свою страницу в ГастроМаркете,<br/> и нажмите кнопку "Импортировать" внизу страницы:</p>
+                <t:loop source="socialCodes" value="socialCode">
+                    <div class="import-item">
+                        <div class="title">
+                            <h2><span>${socialName}</span></h2>
                         </div>
-                    </t:loop>
-                    <br/>
-                    <br/>
-                    <br/>
+                        <t:if test="albumsRequired">
+                            <t:if test="albums">
+                                <p class="modal-text">Выберите один из альбомов:</p>
 
-                    <p class="modal-text">
-                        <t:actionlink t:id="import" class="btn btn-red btn-lg">Импортировать</t:actionlink>
-                    </p>
-                </t:if>
-            </div>
+                                <div class="grid-block albums">
+                                    <t:loop source="albums" value="album">
+                                        <t:actionlink t:id="selectAlbum" t:context="[album.id,socialCode]" t:zone="${elementsZone}" class="album item">${album.name}</t:actionlink>
+                                    </t:loop>
+                                </div>
+                                <t:parameter name="else">
+                                    <p class="modal-text">
+                                        <b>Ошибка - не получилось импортировать ни одного альбома, возможно они скрыты настройками приватности.</b><br/>
+                                        Пожалуйста, измените настройки альбома в социальной сети ${socialName} и повторите попытку снова.
+                                    </p>
+                                </t:parameter>
+                            </t:if>
+                        </t:if>
+                        <div class="grid-block import"/>
+                        <t:zone id="${elementsZone}" class="elements-zone">
+                            <t:actionlink t:id="initialFetchElements" t:context="socialCode" t:zone="${elementsZone}" class="hidden initial-fetch"/>
+                        </t:zone>
+                        <t:block t:id="elementsBlock">
+                            <t:loop source="elements.mediaElements" value="oneElement">
+                                <t:zone id="${elementZone}" class="item element-item">
+                                    <t:delegate to="elementBlock"/>
+                                </t:zone>
+                                <t:block t:id="elementBlock">
+                                    <t:actionlink t:id="checkElement" t:context="[socialCode,oneElement.id]" t:zone="${elementZone}">
+                                        <t:if test="checked">
+                                            <span class="checked"/>
+                                        </t:if>
+                                        <img src="${oneElement.avatarUrlSmall}"/>
+                                    </t:actionlink>
+                                    <a href="${oneElement.link}" target="_blank" class="black-text">
+                                        <div class="name f18px">${oneElement.caption}</div>
+                                    </a>
+                                </t:block>
+                            </t:loop>
+                            <div class="more-elements">
+                                <t:if test="elements.context">
+                                    <div class="more-link">
+                                        <a>Загрузить еще...</a>
+                                    </div>
+                                    <div class="spinner fetch hidden"/>
+                                    <t:actionlink t:id="fetchElements" t:context="[socialCode,elements.context]" t:zone="${elementsZone}" class="hidden fetch"/>
+                                </t:if>
+                            </div>
+                        </t:block>
+                    </div>
+                </t:loop>
+                <p class="modal-text">
+                    <t:actionlink t:id="import" class="btn btn-red btn-lg">Импортировать</t:actionlink>
+                </p>
+            </t:if>
         </div>
     </div>
 

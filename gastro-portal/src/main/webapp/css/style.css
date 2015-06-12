@@ -453,6 +453,8 @@ body.mobile .rub:after {
   display: block;
   color: #e70500;
   margin: 5px 0 10px 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .catalog-item-wrap:nth-child(odd) {
@@ -489,6 +491,35 @@ ul.comments .glyphicon-thumbs--1 {
 }
 ul.comments .glyphicon-thumbs--1:before {
   content: "\e126";
+}
+
+.import-item .grid-block.albums {
+  text-align: center;
+}
+.import-item .grid-block.albums .item {
+  float: none;
+  margin: 3px 5px;
+}
+.import-item .grid-block.import .item {
+  width: 210px;
+  height: 250px;
+}
+.import-item .grid-block.import .item img {
+  height: 210px;
+  cursor: pointer;
+  margin-bottom: 7px;
+}
+.import-item .element-item {
+  position: relative;
+}
+.import-item .element-item .checked {
+  z-index: 2;
+  position: absolute;
+  top: 60px;
+  left: 80px;
+  width: 49px;
+  height: 49px;
+  background: transparent url("../img/product-edit.png") no-repeat -147px 0;
 }
 
 .offer-item {
@@ -1374,15 +1405,16 @@ label.t-error {
   text-align: center;
   text-overflow: ellipsis;
 }
+.grid-block.albums .item {
+  padding: 5px 15px;
+  margin: 3px 10px;
+}
 .grid-block.products .item {
   width: 270px;
   margin: 7px;
 }
 .grid-block.products .item .name {
   line-height: 60px;
-}
-.grid-block.products.fixed {
-  height: 520px;
 }
 .grid-block.cooks .item {
   width: 210px;

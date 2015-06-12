@@ -4,7 +4,7 @@ catalog
         offer add           CH OP FF
         product             CH OP FF
         product modal       CH OP FF
-        product edit
+        product edit        CH OP FF
         comment             CH OP FF
         edit                CH OP FF
     List.tml                CH OP FF
@@ -13,10 +13,10 @@ catalog
     Products.tml            CH OP FF
     Wizard.tml              CH OP FF
 office
-    Import.tml
-    ImportResults.tml
-    Index.tml
-    Orders.tml
+    Import.tml              CH OP FF
+    ImportResults.tml       CH OP FF
+    Index.tml               CH OP FF
+    Orders.tml              -
 product
     Index.tml               CH OP FF
     List.tml                CH OP FF
