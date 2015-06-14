@@ -60,6 +60,9 @@ public class OfferEdit extends BaseComponent {
     @Component(id = "offerName", parameters = {"value=offer.name", "validate=maxlength=64,required"})
     private TextField oNameField;
 
+    @Component(id = "offerPersons", parameters = {"value=offer.persons", "validate=maxlength=64"})
+    private TextField oPersField;
+
     @Component(id = "offerDescription", parameters = {"value=offer.description", "validate=maxlength=1024,required"})
     private TextArea descField;
 
@@ -125,6 +128,7 @@ public class OfferEdit extends BaseComponent {
         if (!error) {
             final OfferEntity origOffer = oid != null ? getOfferService().findOffer(oid) : offer;
             origOffer.setName(offer.getName());
+            origOffer.setPersons(offer.getPersons());
             origOffer.setPrice(offer.getPrice());
             origOffer.setDescription(offer.getDescription());
             offer = getOfferService().saveOffer(origOffer);

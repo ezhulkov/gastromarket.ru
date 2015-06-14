@@ -100,7 +100,7 @@ public class PropertyServiceImpl implements PropertyService, Logging {
 
     @Override
     public List<PropertyValueEntity> findAllValues(PropertyValueEntity.Tag tag) {
-        return propertyValueRepository.findAllByTag(tag);
+        return propertyValueRepository.findAllByTag(tag, new Sort(Direction.ASC, "id"));
     }
 
     @Override

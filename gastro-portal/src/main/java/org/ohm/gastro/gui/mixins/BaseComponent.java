@@ -292,4 +292,15 @@ public abstract class BaseComponent {
         return Optional.of(getTokens().get(code));
     }
 
+    protected String getDeclInfo(String value, Integer count) {
+        if (count == null || count == 0) return getMessages().format(value + ".decl.0", count);
+        if (count == 1) return getMessages().format(value + ".decl.1", count);
+        if (count <= 4) return getMessages().format(value + ".decl.2-4", count);
+        if (count == 11) return getMessages().format(value + ".decl.11", count);
+        if (count % 100 >= 11 && count % 100 <= 14) return getMessages().format(value + ".decl.*11-*14", count);
+        if (count % 10 == 1) return getMessages().format(value + ".decl.*1", count);
+        if (count % 10 >= 2 && count % 10 <= 4) return getMessages().format(value + ".decl.*2-*4", count);
+        return getMessages().format(value + ".decl.*5-*0", count);
+    }
+
 }

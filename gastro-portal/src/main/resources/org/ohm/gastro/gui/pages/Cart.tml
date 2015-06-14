@@ -4,7 +4,11 @@
         <div class="title">
             <h1><span>Корзина</span></h1>
         </div>
-
+        <div class="row">
+            <p class="modal-text">
+                Раздел находится в разработке
+            </p>
+        </div>
 
         <t:if test="shoppingCart.catalogs">
 

@@ -12,6 +12,7 @@ import org.ohm.gastro.domain.PropertyValueEntity.Tag;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -46,6 +47,7 @@ public class List extends BaseComponent {
         return getProductService().findProductsForFrontend(null, oneCatalog, null, null, 0, Integer.MAX_VALUE).stream()
                 .flatMap(t -> t.getValues().stream())
                 .map(TagEntity::getValue)
+                .filter(Objects::nonNull)
                 .filter(t -> t.getTag() == Tag.ROOT)
                 .map(PropertyValueEntity::getValue)
                 .distinct()

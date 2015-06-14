@@ -194,13 +194,13 @@ public class ProductEdit extends BaseComponent {
                         return StringUtils.isEmpty(subValueId) ? new Unit<>(valueId) : new Pair<>(valueId, Long.parseLong(subValueId));
                     });
                 }).collect(Collectors.toList());
+        getProductService().saveProduct(product, propValues, listValues);
         if (!mandatoryIds.isEmpty() && !goBack) {
             propError = true;
             closeImmediately = false;
             getAjaxResponseRenderer().addRender(getProductEditZone(), editPropsBlock);
             return null;
         }
-        getProductService().saveProduct(product, propValues, listValues);
         if (getProductEditZone() != null) {
             if (goBack || closeImmediately) getAjaxResponseRenderer().addRender(getProductEditZone(), editDescBlock);
             else getAjaxResponseRenderer().addRender(getProductEditZone(), editPhotoBlock);
@@ -223,6 +223,8 @@ public class ProductEdit extends BaseComponent {
         if (goBack) getAjaxResponseRenderer().addRender(getProductEditZone(), editPropsBlock);
         if (closeImmediately && !editProduct) product = null;
         if (closeImmediately && getProductEditZone() != null) getAjaxResponseRenderer().addRender(getProductEditZone(), editDescBlock);
+        if (productsBlock != null) getAjaxResponseRenderer().addRender("productsZone", productsBlock);
+        if (productBlock != null) getAjaxResponseRenderer().addRender(productZoneId, productBlock);
         return closeImmediately && reloadPage ? Index.class : null;
     }
 

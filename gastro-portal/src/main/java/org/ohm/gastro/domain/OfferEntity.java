@@ -51,6 +51,9 @@ public class OfferEntity extends AbstractBaseEntity implements AltIdEntity {
     @Column
     private Boolean promoted = false;
 
+    @Column
+    private Integer persons;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private CatalogEntity catalog;
@@ -83,6 +86,14 @@ public class OfferEntity extends AbstractBaseEntity implements AltIdEntity {
     @Override
     public void setAltId(final String altId) {
         this.altId = altId;
+    }
+
+    public Integer getPersons() {
+        return persons;
+    }
+
+    public void setPersons(final Integer persons) {
+        this.persons = persons;
     }
 
     public String getName() {

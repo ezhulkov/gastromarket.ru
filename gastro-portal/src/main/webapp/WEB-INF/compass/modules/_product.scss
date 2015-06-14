@@ -107,7 +107,11 @@
 }
 
 .more-products {
-  height: 50px;
+  height: 100px;
+  margin-top: 3*$gap;
+  .links-set {
+    margin: 0;
+  }
 }
 
 .product-modal-template {

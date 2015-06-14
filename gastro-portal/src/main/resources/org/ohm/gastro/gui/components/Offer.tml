@@ -26,6 +26,9 @@
                 <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="offer.catalog.altId">
                     <span><img src="${offer.catalog.avatarUrlSmall}"/></span>${offer.catalog.name}
                 </t:pageLink>
+                <div class="persons">
+                    ${personsCountDecl}
+                </div>
                 <div class="description">
                     <t:outputraw value="offer.descriptionRaw"/>
                 </div>

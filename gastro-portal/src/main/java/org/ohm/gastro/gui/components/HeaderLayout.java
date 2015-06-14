@@ -34,17 +34,12 @@ public class HeaderLayout extends BaseComponent {
     }
 
     public String getDeclProducts() {
-        if (getShoppingCart().getProducts().size() == 1) return getMessages().get("one.product");
-        if (getShoppingCart().getProducts().size() % 10 < 5) return getMessages().get("four.products");
-        return getMessages().get("many.products");
+        return getDeclInfo("cart", getShoppingCart().getProducts().size());
     }
 
     public String getBonusesMessage() {
         final int bonuses = getBonuses();
-        if (bonuses == 0) return getMessages().get("no.bonuses");
-        if (bonuses == 1) return getMessages().format("one.bonus", bonuses);
-        if (bonuses % 10 < 5) return getMessages().format("four.bonuses", bonuses);
-        return getMessages().get("many.bonuses");
+        return getDeclInfo("bonus", bonuses);
     }
 
     public List<CatalogEntity> getCatalogs() {

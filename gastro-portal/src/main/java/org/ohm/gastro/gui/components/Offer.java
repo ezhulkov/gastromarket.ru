@@ -105,4 +105,8 @@ public class Offer extends BaseComponent {
         return getShoppingCart().getBasketBlock();
     }
 
+    public String getPersonsCountDecl() {
+        return getDeclInfo("persons", offer.getPersons());
+    }
+
 }

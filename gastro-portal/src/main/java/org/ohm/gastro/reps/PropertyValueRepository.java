@@ -20,7 +20,7 @@ public interface PropertyValueRepository extends AltIdRepository<PropertyValueEn
     List<PropertyValueEntity> findAllByPropertyAndRootValue(PropertyEntity property, Boolean rootValue, Sort sort);
 
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    List<PropertyValueEntity> findAllByTag(Tag tag);
+    List<PropertyValueEntity> findAllByTag(Tag tag, Sort sort);
 
     @Query("select distinct pv from PropertyValueEntity pv join pv.parents pp where pp=:parent")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})

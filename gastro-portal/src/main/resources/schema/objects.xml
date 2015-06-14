@@ -581,4 +581,10 @@
         </createIndex>
     </changeSet>
 
+    <changeSet id="41" author="ezhulkov">
+        <addColumn tableName="offer">
+            <column name="persons" type="java.sql.Types.INTEGER"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

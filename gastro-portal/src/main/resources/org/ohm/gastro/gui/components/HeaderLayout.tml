@@ -80,14 +80,7 @@
     <t:block t:id="basketBlock">
         <t:pagelink class="pic-holder basket" page="cart">
             <span/>
-            <t:if test="shoppingCart.products.size()">
-                ${shoppingCart.products.size()} ${declProducts}
-                <t:parameter name="else">
-                    <t:pagelink page="cart">
-                        В корзине пусто
-                    </t:pagelink>
-                </t:parameter>
-            </t:if>
+            ${declProducts}
         </t:pagelink>
         <t:if test="shoppingCart.justAdded">
             <div class="dropdown-menu basket-show">

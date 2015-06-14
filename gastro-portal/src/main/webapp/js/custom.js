@@ -356,7 +356,7 @@ function initPropEdit(blocks) {
                 var propId = jQuery(this).attr("data-property");
                 var container = jQuery(this).next(".chosen-container");
                 var subSelect = jQuery("select[name^='sublist-" + (params == undefined || params.length == 0 ? "none" : params.selected) + "']", block);
-                var len = jQuery("option", subSelect).length > 1 ? 250 : 510;
+                var len = jQuery("option", subSelect).length > 1 ? 249 : 510;
                 //Destroy prev subs selected
                 jQuery("select.sublist-" + propId, block)
                     .filter(function () {
@@ -383,7 +383,7 @@ function initPropEdit(blocks) {
         jQuery("select.child-value.show-true", block).each(function (i, subSelect) {
             jQuery(this).closest("div.prop-edit-block")
                 .find("select.parent-value").next(".chosen-container")
-                .attr('style', 'width: 250px!important');
+                .attr('style', 'width: 249px!important');
             showSubSelect(subSelect);
         });
     });
@@ -392,7 +392,7 @@ function showSubSelect(el) {
     el = el.tagName == 'SELECT' ? el : el.get(0);
     if (el != undefined && el.length != 0 && jQuery("option", el).length > 1) {
         initChosen(el, function () {
-            jQuery(this).next(".chosen-container").attr('style', 'width: 250px!important;margin-left:10px;');
+            jQuery(this).next(".chosen-container").attr('style', 'width: 249px!important;margin-left:10px;');
         });
     }
 };

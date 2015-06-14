@@ -794,7 +794,11 @@ body.modal-open {
 }
 
 .more-products {
-  height: 50px;
+  height: 100px;
+  margin-top: 30px;
+}
+.more-products .links-set {
+  margin: 0;
 }
 
 .product-modal-template .modal-dialog {
@@ -1206,7 +1210,7 @@ body.modal-open {
 }
 
 .round-link, .title-simple a, .title a, .links-set a {
-  background-color: transparent;
+  background-color: white;
   border: 2px solid #bd0400;
   color: #bd0400;
   font-size: 16px;

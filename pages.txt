@@ -36,3 +36,15 @@ License.tml                 CH OP FF
 Login.tml                   CH OP FF
 UserInfo.tml                CH OP FF
 
+
+
+IE9 issues
+    PT family fonts
+    buttons gradient
+    Ruble symbol
+    Catalog name - overflow hidden
+    No placeholders
+
+IE10 issues
+
+

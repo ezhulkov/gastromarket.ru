@@ -117,18 +117,12 @@ public class Cart extends BaseComponent {
     }
 
     public String getBonusMessage() {
-        final int userBonuses = getUserService().getUserBonuses(getAuthenticatedUser());
-        if (isAuthenticated()) return userBonuses > 0 ?
-                getMessages().format("bonuses.message", userBonuses) :
-                getMessages().get("no.bonuses.message");
-        return getMessages().get("no.bonuses.message");
+        return getDeclInfo("bonus", isAuthenticated() ? getUserService().getUserBonuses(getAuthenticatedUser()) : 0);
     }
 
     public String getBonusPromoMessage() {
-        final Integer totalPrice = getShoppingCart().getTotalPrice();
-        final int bonuses = getOrderService().getBonuses(totalPrice);
-        if (bonuses == 1) return getMessages().format("cart.bonuses.message.one", bonuses);
-        else return getMessages().format("cart.bonuses.message.many", bonuses);
+        final int bonuses = getOrderService().getBonuses(getShoppingCart().getTotalPrice());
+        return getDeclInfo("bonus.promo", bonuses);
     }
 
     public String getOneProductUnit() {

@@ -14,6 +14,7 @@ import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.PropertyValueEntity.Tag;
 import org.ohm.gastro.domain.TagEntity;
 
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -93,21 +94,11 @@ public class Index extends AbstractCatalogPage {
         return getDeclInfo("orders", getOrderService().findAllOrders(catalog, Status.READY).size());
     }
 
-    public String getOfferProdCount() {
-        return getDeclInfo("offer.prod", getProductService().findAllProducts(offer).size());
-    }
-
-    private String getDeclInfo(String value, int count) {
-        if (count == 0) return getMessages().format(String.format("chef.info.no.%s", value), count);
-        if (count == 1) return getMessages().format(String.format("chef.info.one.%s", value), count);
-        if (count % 10 < 5) return getMessages().format(String.format("chef.info.four.%s", value), count);
-        return getMessages().format(String.format("chef.info.many.%s", value), count);
-    }
-
     public String getRootProperties() {
         return getProductService().findProductsForFrontend(null, catalog, null, null, 0, Integer.MAX_VALUE).stream()
                 .flatMap(t -> t.getValues().stream())
                 .map(TagEntity::getValue)
+                .filter(Objects::nonNull)
                 .filter(t -> t.getTag() == Tag.ROOT)
                 .map(PropertyValueEntity::getValue)
                 .distinct()
