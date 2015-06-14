@@ -8,6 +8,8 @@ import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
+import java.util.stream.Collectors;
+
 /**
  * Created by ezhulkov on 31.08.14.
  */
@@ -34,7 +36,7 @@ public class Index extends BaseComponent {
 
     @Cached
     public java.util.List<ProductEntity> getRecommendedProducts() {
-        return getProductService().findRecommendedProducts(product.getId(), 4);
+        return getProductService().findRecommendedProducts(product.getId(), 4).stream().limit(4).collect(Collectors.toList());
     }
 
     public Block onActionFromPurchase(Long pid) {
