@@ -543,6 +543,11 @@ ul.comments .glyphicon-thumbs--1:before {
   color: #333;
   font-weight: bold;
 }
+.offer-item .persons {
+  font-size: 16px;
+  margin-top: 5px;
+  font-weight: bold;
+}
 .offer-item .description, .offer-item .catalog-item.short .description, .catalog-item.short .offer-item .description {
   font-size: 16px;
   margin-top: 5px;
