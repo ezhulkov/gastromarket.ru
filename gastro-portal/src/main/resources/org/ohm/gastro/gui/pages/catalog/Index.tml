@@ -225,52 +225,54 @@
                         <t:delegate to="catalogFormBlock"/>
                     </t:zone>
                     <t:block t:id="catalogFormBlock">
-                        <t:form t:zone="catalogEditZone" t:id="catalogForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
-                            <t:errors/>
-                            <div class="form-group">
-                                <div class="col-sm-1"/>
-                                <div class="col-sm-10">
-                                    <t:label for="desc">${nameLabel}:</t:label>
-                                    <input t:id="name" class="form-control"/>
+                        <t:if test="catalogOwner">
+                            <t:form t:zone="catalogEditZone" t:id="catalogForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
+                                <t:errors/>
+                                <div class="form-group">
+                                    <div class="col-sm-1"/>
+                                    <div class="col-sm-10">
+                                        <t:label for="desc">${nameLabel}:</t:label>
+                                        <input t:id="name" class="form-control"/>
+                                    </div>
+                                    <div class="col-sm-1"/>
                                 </div>
-                                <div class="col-sm-1"/>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-1"/>
-                                <div class="col-sm-10">
-                                    <t:label for="desc">${descLabel}:</t:label>
-                                    <input t:id="desc" rows="3" class="form-control"/>
+                                <div class="form-group">
+                                    <div class="col-sm-1"/>
+                                    <div class="col-sm-10">
+                                        <t:label for="desc">${descLabel}:</t:label>
+                                        <input t:id="desc" rows="3" class="form-control"/>
+                                    </div>
+                                    <div class="col-sm-1"/>
                                 </div>
-                                <div class="col-sm-1"/>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-1"/>
-                                <div class="col-sm-10">
-                                    <t:label for="delivery">Условия доставки:</t:label>
-                                    <input t:id="delivery" rows="2" class="form-control"/>
+                                <div class="form-group">
+                                    <div class="col-sm-1"/>
+                                    <div class="col-sm-10">
+                                        <t:label for="delivery">Условия доставки:</t:label>
+                                        <input t:id="delivery" rows="2" class="form-control"/>
+                                    </div>
+                                    <div class="col-sm-1"/>
                                 </div>
-                                <div class="col-sm-1"/>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-1"/>
-                                <div class="col-sm-10">
-                                    <t:label for="payment">Условия оплаты:</t:label>
-                                    <input t:id="payment" rows="2" class="form-control"/>
+                                <div class="form-group">
+                                    <div class="col-sm-1"/>
+                                    <div class="col-sm-10">
+                                        <t:label for="payment">Условия оплаты:</t:label>
+                                        <input t:id="payment" rows="2" class="form-control"/>
+                                    </div>
+                                    <div class="col-sm-1"/>
                                 </div>
-                                <div class="col-sm-1"/>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-1"/>
-                                <div class="col-sm-10">
-                                    <t:label for="basketMin">Минимальная стоимость заказа, руб:</t:label>
-                                    <input t:id="basketMin" class="form-control"/>
+                                <div class="form-group">
+                                    <div class="col-sm-1"/>
+                                    <div class="col-sm-10">
+                                        <t:label for="basketMin">Минимальная стоимость заказа, руб:</t:label>
+                                        <input t:id="basketMin" class="form-control"/>
+                                    </div>
+                                    <div class="col-sm-1"/>
                                 </div>
-                                <div class="col-sm-1"/>
-                            </div>
-                            <div class="form-buttons">
-                                <input class="btn btn-red" type="submit" value="Сохранить"/>
-                            </div>
-                        </t:form>
+                                <div class="form-buttons">
+                                    <input class="btn btn-red" type="submit" value="Сохранить"/>
+                                </div>
+                            </t:form>
+                        </t:if>
                     </t:block>
                 </div>
             </div>
