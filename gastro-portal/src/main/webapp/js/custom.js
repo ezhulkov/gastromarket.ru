@@ -59,6 +59,12 @@ jQuery(document).ready(function () {
     initLoginModal();
     initTitle(jQuery("div.title"));
     initFineUploader(jQuery("div.upload-file"));
+    if (jQuery.cookie('howto.shown') == undefined) {
+        setTimeout(function () {
+            jQuery("#howto").modal('show');
+            jQuery.cookie('howto.shown', 'true', {expires: 365});
+        }, 2000);
+    }
 });
 function isMobile() {
     var ua = navigator.userAgent.toLowerCase(),
