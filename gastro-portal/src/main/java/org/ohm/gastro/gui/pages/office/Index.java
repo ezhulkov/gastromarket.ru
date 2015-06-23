@@ -11,7 +11,6 @@ import org.ohm.gastro.gui.ServiceCallback;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.EditObjectPage;
 import org.ohm.gastro.service.EmptyPasswordException;
-import org.ohm.gastro.service.UserExistsException;
 
 /**
  * Created by ezhulkov on 24.08.14.
@@ -48,11 +47,8 @@ public class Index extends EditObjectPage<UserEntity> {
                     if (newPassword1.equals(newPassword2)) user.setPassword(getPasswordEncoder().encode(newPassword1));
                     else getEditObject().getForm().recordError(p1Field, getMessages().get("error.password.mismatch"));
                 }
-
                 try {
-                    getUserService().createUser(user, newPassword1);
-                } catch (UserExistsException e) {
-                    getEditObject().getForm().recordError(getMessages().get("error.user.exists"));
+                    getUserService().saveUser(user, newPassword1);
                 } catch (EmptyPasswordException e) {
                     getEditObject().getForm().recordError(p1Field, getMessages().get("error.password.empty"));
                 }

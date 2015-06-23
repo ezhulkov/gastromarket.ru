@@ -1,9 +1,15 @@
 package org.ohm.gastro.service.impl;
 
+import com.google.common.base.Charsets;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.BaseEncoding;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.LogEntity;
 import org.ohm.gastro.domain.OrderEntity;
@@ -13,6 +19,7 @@ import org.ohm.gastro.domain.UserEntity.Type;
 import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.reps.UserRepository;
+import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.EmptyPasswordException;
 import org.ohm.gastro.service.ImageService.FileType;
 import org.ohm.gastro.service.ImageService.ImageSize;
@@ -53,27 +60,63 @@ import static org.scribe.utils.Preconditions.checkNotNull;
 @ImageUploader(FileType.AVATAR)
 public class UserServiceImpl implements UserService, Logging {
 
+    private final static String MC_ENDPOINT = "https://us11.api.mailchimp.com/2.0/lists/batch-subscribe";
+    private final static String MC_MAIL_BLOCK =
+            "{\n" +
+                    "  \"email\": {\n" +
+                    "    \"email\": \"%s\",\n" +
+                    "    \"euid\": \"%s\",\n" +
+                    "    \"luid\": \"%s\"\n" +
+                    "  },\n" +
+                    "  \"email_type\": \"html\",\n" +
+                    "  \"merge_vars\": {\n" +
+                    "    \"CATALOG\": \"%s\",\n" +
+                    "    \"FNAME\": \"%s\",\n" +
+                    "    \"PASSWORD\": \"%s\",\n" +
+                    "    \"SOURCE\": \"%s\"\n" +
+                    "  }\n" +
+                    "}";
+    private final static String MC_SUBSCRIBE_BLOCK =
+            "{\n" +
+                    "  \"apikey\": \"c1a3fcb063adeab16e8d2be9e09b8e97-us11\",\n" +
+                    "  \"id\": \"122757a479\",\n" +
+                    "  \"batch\": [\n" +
+                    "    %s" +
+                    "    \n" +
+                    "  ],\n" +
+                    "  \"double_optin\": false,\n" +
+                    "  \"update_existing\": true,\n" +
+                    "  \"replace_interests\": true\n" +
+                    "}";
+
     private final UserRepository userRepository;
-    private final CatalogRepository catalogRepository;
     private final OrderRepository orderRepository;
     private final PasswordEncoder passwordEncoder;
     private final RatingService ratingService;
+    private final CatalogRepository catalogRepository;
     private final MailService mailService;
     private final Random random = new Random();
 
+    private CatalogService catalogService;
+
     @Autowired
     public UserServiceImpl(final UserRepository userRepository,
-                           final CatalogRepository catalogRepository,
                            final OrderRepository orderRepository,
                            final PasswordEncoder passwordEncoder,
                            final RatingService ratingService,
+                           final CatalogRepository catalogRepository,
                            final MailService mailService) {
-        this.catalogRepository = catalogRepository;
         this.orderRepository = orderRepository;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.ratingService = ratingService;
+        this.catalogRepository = catalogRepository;
         this.mailService = mailService;
+    }
+
+    @Autowired
+    public void setCatalogService(CatalogService catalogService) {
+        this.catalogService = catalogService;
     }
 
     @Override
@@ -94,21 +137,56 @@ public class UserServiceImpl implements UserService, Logging {
     }
 
     @Override
-    public UserEntity createUser(UserEntity user, String password) throws UserExistsException, EmptyPasswordException {
+    public UserEntity saveUser(final UserEntity user, final String password) throws EmptyPasswordException {
         if (StringUtils.isNotEmpty(password)) user.setPassword(passwordEncoder.encode(password));
-        if (user.getId() == null) {
-            if (userRepository.findByEmail(user.getEmail()) != null) throw new UserExistsException();
-            if (Type.COOK.equals(user.getType())) {
-                CatalogEntity catalog = new CatalogEntity();
-                catalog.setUser(user);
-                catalog.setName("Страница кулинара '" + user.getFullName() + "'");
-                catalogRepository.save(catalog);
-                mailService.sendMailMessage(user.getEmail(), MailService.NEW_CATALOG, ImmutableMap.of("cook", user, "catalog", catalog, "password", password));
-            } else if (Type.USER.equals(user.getType())) {
-                mailService.sendMailMessage(user.getEmail(), MailService.NEW_USER, ImmutableMap.of("user", user, "password", password));
+        if (user.getType() == Type.COOK) {
+            //send to mailchimp
+            try (
+                    final CloseableHttpClient httpClient = HttpClients.createDefault();
+            ) {
+                final String subscribePart = String.format(MC_MAIL_BLOCK,
+                                                           user.getEmail(),
+                                                           user.getEmail(),
+                                                           user.getEmail(),
+                                                           "http://gastromarket.ru/catalog/" + user.getCatalogs().get(0).getAltId(),
+                                                           user.getFullName(),
+                                                           ObjectUtils.defaultIfNull(password, ""),
+                                                           null
+                );
+                final String subscribeRequest = String.format(MC_SUBSCRIBE_BLOCK, subscribePart);
+                final HttpPost httpPost = new HttpPost(MC_ENDPOINT);
+                httpPost.setEntity(new StringEntity(subscribeRequest, Charsets.UTF_8));
+                httpClient.execute(httpPost);
+            } catch (Exception ex) {
+                logger.error("", ex);
             }
+
         }
-        return userRepository.save(user);
+        return saveUser(user);
+    }
+
+    @Override
+    public UserEntity createUser(final UserEntity user, final String password, final boolean sendEmail) throws UserExistsException, EmptyPasswordException {
+        if (userRepository.findByEmail(user.getEmail()) != null) throw new UserExistsException();
+        if (Type.COOK.equals(user.getType())) {
+            CatalogEntity catalog = new CatalogEntity();
+            catalog.setUser(user);
+            catalog.setName(user.getFullName() + " - страница кулинара");
+            catalogService.saveWithAltId(catalog, catalogRepository);
+            user.getCatalogs().add(catalog);
+            if (sendEmail) mailService.sendMailMessage(user.getEmail(),
+                                                       MailService.NEW_CATALOG,
+                                                       ImmutableMap.of("cook", user,
+                                                                       "catalog", catalog,
+                                                                       "password", password));
+        } else if (Type.USER.equals(user.getType())) {
+            if (sendEmail) mailService.sendMailMessage(user.getEmail(),
+                                                       MailService.NEW_USER,
+                                                       ImmutableMap.of("user", user,
+                                                                       "password", password));
+        }
+        saveUser(user, password);
+        return user;
     }
 
     @Override
