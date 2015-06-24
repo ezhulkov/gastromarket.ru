@@ -31,6 +31,9 @@ public class Index extends EditObjectPage<UserEntity> {
     @Component(id = "fullName", parameters = {"value=object?.fullName", "validate=maxlength=64"})
     private TextField fnameField;
 
+    @Component(id = "sourceUrl", parameters = {"value=object?.sourceUrl", "validate=maxlength=256"})
+    private TextField srcField;
+
     @Component(id = "email", parameters = {"value=object?.email", "validate=maxlength=64,required,email"})
     private TextField emailField;
 

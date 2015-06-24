@@ -20,6 +20,13 @@
             </div>
         </div>
         <div class="form-group">
+            <t:label class="col-sm-2 control-label" for="sourceUrl">Источник:</t:label>
+
+            <div class="col-sm-10">
+                <input t:id="sourceUrl" class="form-control" type="url" placeholder="Источник"/>
+            </div>
+        </div>
+        <div class="form-group">
             <t:label class="col-sm-2 control-label" for="password">Пароль:</t:label>
 
             <div class="col-sm-10">

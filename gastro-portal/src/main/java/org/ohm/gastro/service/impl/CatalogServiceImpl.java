@@ -1,6 +1,7 @@
 package org.ohm.gastro.service.impl;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.UserEntity;
@@ -9,6 +10,7 @@ import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.ImageService.FileType;
 import org.ohm.gastro.service.ImageService.ImageSize;
 import org.ohm.gastro.service.ImageUploader;
+import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,10 +30,12 @@ import static org.scribe.utils.Preconditions.checkNotNull;
 public class CatalogServiceImpl implements CatalogService, Logging {
 
     private final CatalogRepository catalogRepository;
+    private final MailService mailService;
 
     @Autowired
-    public CatalogServiceImpl(CatalogRepository catalogRepository) {
+    public CatalogServiceImpl(CatalogRepository catalogRepository, MailService mailService) {
         this.catalogRepository = catalogRepository;
+        this.mailService = mailService;
     }
 
     @Override
@@ -58,6 +62,10 @@ public class CatalogServiceImpl implements CatalogService, Logging {
     @Override
     public void saveCatalog(CatalogEntity catalog) {
         saveWithAltId(catalog, catalogRepository);
+        final UserEntity user = catalog.getUser();
+        mailService.syncChimpList(user, ImmutableMap.of(
+                MailService.MC_CATALOG, catalog.getFullUrl()
+        ));
     }
 
     @Override

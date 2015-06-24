@@ -117,6 +117,10 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
         return altId == null ? id.toString() : altId;
     }
 
+    public String getFullUrl() {
+        return "http://gastromarket.ru/catalog/" + getAltId();
+    }
+
     @Override
     public void setAltId(final String altId) {
         this.altId = altId;

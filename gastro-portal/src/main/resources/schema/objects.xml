@@ -587,4 +587,10 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="42" author="ezhulkov">
+        <addColumn tableName="users">
+            <column name="source_url" type="java.sql.Types.VARCHAR(256)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

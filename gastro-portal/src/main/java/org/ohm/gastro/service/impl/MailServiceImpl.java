@@ -1,8 +1,15 @@
 package org.ohm.gastro.service.impl;
 
+import com.google.common.base.Charsets;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
+import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +20,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
 import javax.annotation.PreDestroy;
 import java.io.StringWriter;
 import java.util.Map;
@@ -21,6 +29,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 13.03.15.
@@ -28,8 +37,27 @@ import java.util.regex.Pattern;
 @Component
 public class MailServiceImpl implements MailService, Logging {
 
-    private static final Pattern TITLE_CUTTER = Pattern.compile("\\<title\\>(.*)\\<\\/title\\>");
-    private final static String templatePath = "email/%s.html";
+    private final static Pattern TITLE_CUTTER = Pattern.compile("\\<title\\>(.*)\\<\\/title\\>");
+    private final static String TEMPLATE_PATH = "email/%s.html";
+    private final static String MERGE_PAIR = "\"%s\":\"%s\"";
+    private final static String MC_ENDPOINT = "https://us11.api.mailchimp.com/2.0/lists/batch-subscribe";
+    private final static String MC_SUBSCRIBE_BLOCK =
+            "{" +
+                    "  \"apikey\": \"c1a3fcb063adeab16e8d2be9e09b8e97-us11\"," +
+                    "  \"id\": \"122757a479\"," +
+                    "  \"batch\": [{" +
+                    "       \"email\": {" +
+                    "           \"email\": \"%s\"," +
+                    "           \"euid\": \"%s\"," +
+                    "           \"luid\": \"%s\"" +
+                    "       }," +
+                    "       \"email_type\": \"html\"," +
+                    "       \"merge_vars\": {%s}" +
+                    "  }]," +
+                    "  \"double_optin\": false," +
+                    "  \"update_existing\": true," +
+                    "  \"replace_interests\": true" +
+                    "}";
 
     private final VelocityEngine velocityEngine;
     private final String defaultFrom;
@@ -67,7 +95,7 @@ public class MailServiceImpl implements MailService, Logging {
         try (
                 final StringWriter stringWriter = new StringWriter();
         ) {
-            final String template = IOUtils.toString(getClass().getClassLoader().getResourceAsStream(String.format(templatePath, templateKey)));
+            final String template = IOUtils.toString(getClass().getClassLoader().getResourceAsStream(String.format(TEMPLATE_PATH, templateKey)));
             velocityEngine.evaluate(new VelocityContext(params), stringWriter, "LOG", template);
             final String messageBody = stringWriter.toString();
             final String title = getTitle(messageBody);
@@ -99,6 +127,29 @@ public class MailServiceImpl implements MailService, Logging {
     @Override
     public void sendAdminMessage(final String templateKey, final Map<String, Object> params) throws MailException {
         sendMailMessage("contacts@gastromarket.ru", templateKey, params);
+    }
+
+    @Override
+    public void syncChimpList(@Nonnull UserEntity user, @Nonnull Map<String, String> mergeVars) {
+        final String mergeVarsStr = mergeVars.entrySet().stream()
+                .filter(t -> StringUtils.isNotEmpty(t.getValue()))
+                .map(t -> String.format(MERGE_PAIR, t.getKey(), t.getValue()))
+                .collect(Collectors.joining(","));
+        final String mailChimpJson = String.format(MC_SUBSCRIBE_BLOCK,
+                                                   user.getEmail(),
+                                                   user.getEmail(),
+                                                   user.getEmail(),
+                                                   mergeVarsStr);
+        logger.info("MailChimp request {}", mailChimpJson);
+        try (
+                final CloseableHttpClient httpClient = HttpClients.createDefault();
+        ) {
+            final HttpPost httpPost = new HttpPost(MC_ENDPOINT);
+            httpPost.setEntity(new StringEntity(mailChimpJson, Charsets.UTF_8));
+            httpClient.execute(httpPost);
+        } catch (Exception ex) {
+            logger.error("", ex);
+        }
     }
 
     private String getTitle(String messageBody) {

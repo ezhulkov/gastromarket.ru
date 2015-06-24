@@ -91,6 +91,9 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Type type = Type.USER;
 
+    @Column(name = "source_url")
+    private String sourceUrl;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<CatalogEntity> catalogs = Lists.newArrayList();
@@ -288,6 +291,14 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
     public String getDatePrintable() {
         return date == null ? "-" : CommonsUtils.GUI_DATE_LONG.get().format(date);
+    }
+
+    public String getSourceUrl() {
+        return sourceUrl;
+    }
+
+    public void setSourceUrl(String sourceUrl) {
+        this.sourceUrl = sourceUrl;
     }
 
     @Override

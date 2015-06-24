@@ -1,15 +1,9 @@
 package org.ohm.gastro.service.impl;
 
-import com.google.common.base.Charsets;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.BaseEncoding;
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.LogEntity;
 import org.ohm.gastro.domain.OrderEntity;
@@ -59,35 +53,6 @@ import static org.scribe.utils.Preconditions.checkNotNull;
 @Transactional
 @ImageUploader(FileType.AVATAR)
 public class UserServiceImpl implements UserService, Logging {
-
-    private final static String MC_ENDPOINT = "https://us11.api.mailchimp.com/2.0/lists/batch-subscribe";
-    private final static String MC_MAIL_BLOCK =
-            "{\n" +
-                    "  \"email\": {\n" +
-                    "    \"email\": \"%s\",\n" +
-                    "    \"euid\": \"%s\",\n" +
-                    "    \"luid\": \"%s\"\n" +
-                    "  },\n" +
-                    "  \"email_type\": \"html\",\n" +
-                    "  \"merge_vars\": {\n" +
-                    "    \"CATALOG\": \"%s\",\n" +
-                    "    \"FNAME\": \"%s\",\n" +
-                    "    \"PASSWORD\": \"%s\",\n" +
-                    "    \"SOURCE\": \"%s\"\n" +
-                    "  }\n" +
-                    "}";
-    private final static String MC_SUBSCRIBE_BLOCK =
-            "{\n" +
-                    "  \"apikey\": \"c1a3fcb063adeab16e8d2be9e09b8e97-us11\",\n" +
-                    "  \"id\": \"122757a479\",\n" +
-                    "  \"batch\": [\n" +
-                    "    %s" +
-                    "    \n" +
-                    "  ],\n" +
-                    "  \"double_optin\": false,\n" +
-                    "  \"update_existing\": true,\n" +
-                    "  \"replace_interests\": true\n" +
-                    "}";
 
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
@@ -141,32 +106,19 @@ public class UserServiceImpl implements UserService, Logging {
         if (StringUtils.isNotEmpty(password)) user.setPassword(passwordEncoder.encode(password));
         if (user.getType() == Type.COOK) {
             //send to mailchimp
-            try (
-                    final CloseableHttpClient httpClient = HttpClients.createDefault();
-            ) {
-                final String subscribePart = String.format(MC_MAIL_BLOCK,
-                                                           user.getEmail(),
-                                                           user.getEmail(),
-                                                           user.getEmail(),
-                                                           "http://gastromarket.ru/catalog/" + user.getCatalogs().get(0).getAltId(),
-                                                           user.getFullName(),
-                                                           ObjectUtils.defaultIfNull(password, ""),
-                                                           null
-                );
-                final String subscribeRequest = String.format(MC_SUBSCRIBE_BLOCK, subscribePart);
-                final HttpPost httpPost = new HttpPost(MC_ENDPOINT);
-                httpPost.setEntity(new StringEntity(subscribeRequest, Charsets.UTF_8));
-                httpClient.execute(httpPost);
-            } catch (Exception ex) {
-                logger.error("", ex);
-            }
-
+            mailService.syncChimpList(user, ImmutableMap.of(
+                    MailService.MC_FNAME, user.getFullName() == null ? "" : user.getFullName().split("\\s")[0],
+                    MailService.MC_CATALOG, user.getCatalogs().size() == 0 ? "" : user.getCatalogs().get(0).getFullUrl(),
+                    MailService.MC_SOURCE, user.getSourceUrl() == null ? "" : user.getSourceUrl(),
+                    MailService.MC_PASSWORD, password == null ? "" : password
+            ));
         }
         return saveUser(user);
     }
 
     @Override
     public UserEntity createUser(final UserEntity user, final String password, final boolean sendEmail) throws UserExistsException, EmptyPasswordException {
+        if (StringUtils.isEmpty(password)) throw new EmptyPasswordException();
         if (userRepository.findByEmail(user.getEmail()) != null) throw new UserExistsException();
         if (Type.COOK.equals(user.getType())) {
             CatalogEntity catalog = new CatalogEntity();

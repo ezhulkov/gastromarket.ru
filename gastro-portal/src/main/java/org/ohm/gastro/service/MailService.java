@@ -1,7 +1,9 @@
 package org.ohm.gastro.service;
 
+import org.ohm.gastro.domain.UserEntity;
 import org.springframework.mail.MailException;
 
+import javax.annotation.Nonnull;
 import java.util.Map;
 
 /**
@@ -20,8 +22,15 @@ public interface MailService {
     String NEW_ORDER_CUSTOMER = "new_order_customer";
     String EDIT_ORDER = "change_order";
 
-    void sendMailMessage(String recipient, String templateKey, Map<String, Object> params) throws MailException;
+    String MC_CATALOG = "CATALOG";
+    String MC_FNAME = "FNAME";
+    String MC_SOURCE = "SOURCE";
+    String MC_PASSWORD = "PASSWORD";
 
-    void sendAdminMessage(String templateKey, Map<String, Object> params) throws MailException;
+    void sendMailMessage(final String recipient, final String templateKey, Map<String, Object> params) throws MailException;
+
+    void sendAdminMessage(final String templateKey, final Map<String, Object> params) throws MailException;
+
+    void syncChimpList(@Nonnull final UserEntity user, @Nonnull final Map<String, String> mergeVars);
 
 }
