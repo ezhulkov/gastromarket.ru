@@ -72,7 +72,7 @@ public class LoginUserModal extends BaseComponent {
                 user.setFullName(fullName);
                 user.setType(Type.USER);
                 //user.setReferrer(referrer.map(t -> getUserService().findUser(t)).orElse(null));
-                user = getUserService().createUser(user, password, true);
+                user = getUserService().createUser(user, password, null, true);
                 UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), password);
                 token.setDetails(new WebAuthenticationDetails(getHttpServletRequest()));
                 Authentication authentication = authenticationProvider.authenticate(token);

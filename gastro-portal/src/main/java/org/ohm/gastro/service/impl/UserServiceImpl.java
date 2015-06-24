@@ -117,13 +117,13 @@ public class UserServiceImpl implements UserService, Logging {
     }
 
     @Override
-    public UserEntity createUser(final UserEntity user, final String password, final boolean sendEmail) throws UserExistsException, EmptyPasswordException {
+    public UserEntity createUser(final UserEntity user, final String password, String catalogName, final boolean sendEmail) throws UserExistsException, EmptyPasswordException {
         if (StringUtils.isEmpty(password)) throw new EmptyPasswordException();
         if (userRepository.findByEmail(user.getEmail()) != null) throw new UserExistsException();
         if (Type.COOK.equals(user.getType())) {
             CatalogEntity catalog = new CatalogEntity();
             catalog.setUser(user);
-            catalog.setName(user.getFullName() + " - страница кулинара");
+            catalog.setName(StringUtils.isEmpty(catalogName) ? user.getFullName() + " - страница кулинара" : catalogName);
             catalogService.saveWithAltId(catalog, catalogRepository);
             user.getCatalogs().add(catalog);
             if (sendEmail) mailService.sendMailMessage(user.getEmail(),

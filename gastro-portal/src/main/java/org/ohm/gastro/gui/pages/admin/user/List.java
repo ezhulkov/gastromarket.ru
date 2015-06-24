@@ -31,11 +31,17 @@ public class List extends EditObjectPage<UserEntity> {
     @Property
     private boolean sendEmail = false;
 
+    @Property
+    private String catalogName;
+
     @Component(id = "email", parameters = {"value=object?.email", "validate=maxlength=64,required,email"})
     private TextField emailField;
 
     @Component(id = "fullName", parameters = {"value=object?.fullName", "validate=maxlength=64"})
     private TextField fnField;
+
+    @Component(id = "catalogName", parameters = {"value=catalogName", "validate=maxlength=64"})
+    private TextField ctgField;
 
     @Component(id = "password", parameters = {"value=newPassword", "validate=maxlength=64,required"})
     private PasswordField pwdField;
@@ -58,7 +64,7 @@ public class List extends EditObjectPage<UserEntity> {
             @Override
             public Class<? extends BaseComponent> addObject(UserEntity user) {
                 try {
-                    getUserService().createUser(user, newPassword, sendEmail);
+                    getUserService().createUser(user, newPassword, catalogName, sendEmail);
                 } catch (UserExistsException e) {
                     getEditObject().getForm().recordError(emailField, getMessages().get("error.user.exists"));
                 } catch (EmptyPasswordException e) {
