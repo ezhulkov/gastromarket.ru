@@ -63,9 +63,11 @@ public class MailServiceImpl implements MailService, Logging {
     private final String defaultFrom;
     private final ExecutorService executorService;
     private final JavaMailSenderImpl mailSender;
+    private final boolean production;
 
     @Autowired
-    public MailServiceImpl(@Value("${mail.from:contacts@gastromarket.ru}") String defaultFrom) {
+    public MailServiceImpl(@Value("${mail.from:contacts@gastromarket.ru}") String defaultFrom,
+                           @Value("${production}") boolean production) {
         final Properties properties = new Properties();
         properties.setProperty("resource.loader", "class");
         properties.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
@@ -80,6 +82,7 @@ public class MailServiceImpl implements MailService, Logging {
         mailSender.setHost("localhost");
         mailSender.setDefaultEncoding("UTF-8");
         this.mailSender = mailSender;
+        this.production = production;
     }
 
     @PreDestroy
@@ -89,6 +92,8 @@ public class MailServiceImpl implements MailService, Logging {
 
     @Override
     public void sendMailMessage(String recipient, String templateKey, Map<String, Object> params) {
+
+        if (!production) return;
 
         logger.info("Sending email to " + recipient + " using template " + templateKey);
 
@@ -126,11 +131,13 @@ public class MailServiceImpl implements MailService, Logging {
 
     @Override
     public void sendAdminMessage(final String templateKey, final Map<String, Object> params) throws MailException {
+        if (!production) return;
         sendMailMessage("contacts@gastromarket.ru", templateKey, params);
     }
 
     @Override
     public void syncChimpList(@Nonnull UserEntity user, @Nonnull Map<String, String> mergeVars) {
+        if (!production) return;
         final String mergeVarsStr = mergeVars.entrySet().stream()
                 .filter(t -> StringUtils.isNotEmpty(t.getValue()))
                 .map(t -> String.format(MERGE_PAIR, t.getKey(), t.getValue()))

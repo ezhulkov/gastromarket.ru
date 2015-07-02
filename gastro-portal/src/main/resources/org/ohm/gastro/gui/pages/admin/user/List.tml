@@ -2,7 +2,11 @@
 
     <div class="title-simple">
         <h1>Список пользователей</h1>
-        <a data-toggle="modal" data-target="#create" href="#create">Создать нового пользователя<span/></a>
+    </div>
+
+    <div class="links-set">
+        <a data-toggle="modal" data-target="#create" href="#create">Создать</a>
+        <a data-toggle="modal" data-target="#import" href="#create">Импорт</a>
     </div>
 
     <t:grid source="users" row="oneUser"
@@ -101,6 +105,30 @@
                             <div class="col-sm-1"/>
                         </div>
                     </t:editObject>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="import" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" style="width:1200px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="title">
+                        <h1><span>Импорт CSV</span></h1>
+                    </div>
+                    <a class="modal-close" data-dismiss="modal"></a>
+                </div>
+                <div class="modal-body">
+                    <t:form t:id="importCsvForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
+                        <t:errors/>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <textarea t:type="textarea" t:id="csvUsers" t:value="csvUsers" rows="20" class="form-control"/>
+                            </div>
+                        </div>
+                        <input class="btn btn-red" type="submit" value="Импортировать"/>
+                    </t:form>
                 </div>
             </div>
         </div>

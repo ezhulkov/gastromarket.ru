@@ -1,5 +1,7 @@
 package org.ohm.gastro.service.impl;
 
+import au.com.bytecode.opencsv.bean.CsvToBean;
+import au.com.bytecode.opencsv.bean.HeaderColumnNameMappingStrategy;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.BaseEncoding;
@@ -37,6 +39,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Nonnull;
+import java.beans.PropertyDescriptor;
+import java.io.StringReader;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -239,6 +243,38 @@ public class UserServiceImpl implements UserService, Logging {
             ratingService.registerEvent(LogEntity.Type.LOGIN, user);
         }
 
+    }
+
+    @Override
+    public void importUsers(String csvUsers) {
+        final CsvToBean csv = new CsvToBean() {
+            @Override
+            protected Object convertValue(String value, PropertyDescriptor prop) throws InstantiationException, IllegalAccessException {
+                if (!StringUtils.isEmpty(value)) {
+                    return super.convertValue(value, prop);
+                }
+                return null;
+            }
+        };
+        final HeaderColumnNameMappingStrategy<UserImportDto> strat = new HeaderColumnNameMappingStrategy<>();
+        strat.setType(UserImportDto.class);
+        List<UserImportDto> result = csv.parse(strat, new StringReader(csvUsers));
+        result.forEach(user -> {
+            logger.info("Importing user {}", user);
+            if (userRepository.findByEmail(user.getEmail()) == null) {
+                final UserEntity userEntity = new UserEntity();
+                userEntity.setStatus(Status.ENABLED);
+                userEntity.setType(Type.COOK);
+                userEntity.setEmail(user.getEmail().toLowerCase());
+                userEntity.setFullName(user.getName());
+                userEntity.setSourceUrl(user.getSource().toLowerCase());
+                try {
+                    createUser(userEntity, user.getPassword(), user.getCatalog(), false);
+                } catch (Exception e) {
+                    logger.error("", e);
+                }
+            }
+        });
     }
 
     @Override

@@ -36,5 +36,6 @@ public interface UserService extends UserDetailsService, ImageUploaderService<Us
 
     void afterSuccessfulLogin(@Nonnull UserDetails user);
 
+    void importUsers(String csvUsers);
 
 }
