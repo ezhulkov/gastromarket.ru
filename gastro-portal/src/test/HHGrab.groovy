@@ -50,4 +50,4 @@ def grabCook(pages) {
 new File("hhpages.txt").eachLine { line ->
     cookPages.add(line)
 }
-grabCook(cookPages)
+grabCook(cookPages.drop(210))
