@@ -1,7 +1,0 @@
-GET %s HTTP/1.0
-Host: hh.ru
-Cache-Control: no-cache
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36
-Accept-Language: en-US,en;q=0.8,bg;q=0.6
-Cookie: regions=1; unique_banner_user=1436007711.156081015499585; hhtoken=zkcL!PxWjBbCekRlYEFtjmAgecyL; hhuid=MOClcIWuAUkpLFWEXN0oMg--; __gfp_64b=KdEQ2YE4zZS2a9B9O3c4QYEGin5LFTtyWFJOvSVe.Of.57; __utmt_vishnu1=1; crypted_id=0C278BB251854BCF7C44198652EBD1DCA5471C6F722104504734B32F0D03E9F8; crypted_id=0C278BB251854BCF7C44198652EBD1DCA5471C6F722104504734B32F0D03E9F8; hhrole=employer; GMT=3; _ym_visorc_156828=b; vishnu1.userid=0C278BB251854BCF7C44198652EBD1DCA5471C6F722104504734B32F0D03E9F8; _xsrf=09cb873f0ffe7a819d1815425e203602; _xsrf=09cb873f0ffe7a819d1815425e203602; __utma=1.185391104.1436007713.1436007713.1436007713.1; __utmb=1.23.10.1436007713; __utmc=1; __utmz=1.1436007713.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); lt-a3vv=60149350; lt-tl=a3vv

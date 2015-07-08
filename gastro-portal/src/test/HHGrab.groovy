@@ -1,3 +1,4 @@
+import groovy.io.FileType
 import org.apache.commons.io.IOUtils
 
 def pageUrl = "http://hh.ru/search/resume?exp_period=all_time&area=1&text=%D0%BF%D0%BE%D0%B2%D0%B0%D1%80&pos=position&logic=normal&clusters=true&page="
@@ -47,7 +48,22 @@ def grabCook(pages) {
     }
 }
 
-new File("hhpages.txt").eachLine { line ->
-    cookPages.add(line)
+def parseCookPage() {
+    def dir = new File("./resume")
+    def files = []
+    dir.eachFileRecurse(FileType.FILES) { file ->
+        files << file
+    }
+    println "EMAIL,PASSWORD,CATALOG,SOURCE,NAME"
+    files.take(50).each {
+        def fileContents = new File(it.absolutePath).getText('UTF-8')
+        def email = (fileContents =~ "<a.*itemprop=\"email\">(.*)<\\/a>")[0][1]
+        def userName = (fileContents =~ "itemprop=\"name\">([a-zA-Zа-яёА-ЯЁ\\s]*)<\\/div>")[0][1].tokenize(' ')[1]
+        def catalogName = userName;
+        def source = "http://hh.ru/resume/" + it.absolutePath.tokenize('/').last()
+        def password = "03mba7"
+        println email + "," + password + "," + catalogName + "," + source + "," + userName
+    }
 }
-grabCook(cookPages.drop(210))
+
+parseCookPage();
