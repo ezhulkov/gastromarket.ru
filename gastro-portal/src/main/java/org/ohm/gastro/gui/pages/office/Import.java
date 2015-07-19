@@ -1,5 +1,7 @@
 package org.ohm.gastro.gui.pages.office;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.Link;
 import org.apache.tapestry5.annotations.Cached;
@@ -28,6 +30,9 @@ import java.util.stream.Collectors;
 public class Import extends BaseComponent {
 
     @Property
+    private String pageName;
+
+    @Property
     private String socialCode;
 
     @Property
@@ -53,11 +58,15 @@ public class Import extends BaseComponent {
     @Persist
     private Map<String, Set<MediaElement>> cachedElements;
 
+    @Persist
+    private Map<String, Map<String, List<MediaAlbum>>> cachedAlbums;
+
     private String context;
 
     public void onActivate(String cid) {
         catalog = getCatalogService().findCatalog(cid);
         if (cachedElements == null) cachedElements = new HashMap<>();
+        if (cachedAlbums == null) cachedAlbums = new HashMap<>();
     }
 
     public Long onPassivate() {
@@ -81,9 +90,22 @@ public class Import extends BaseComponent {
         return getApplicationContext().getBean(socialCode, MediaImportService.class).isAlbumsRequired();
     }
 
-    @Cached(watch = "socialCode")
+    public List<String> getPageNames() {
+        final Map<String, List<MediaAlbum>> albumsByPage = cachedAlbums.getOrDefault(
+                socialCode,
+                getToken(socialCode)
+                        .map(token -> getApplicationContext().getBean(socialCode, MediaImportService.class)
+                                .getAlbums(token).stream()
+                                .collect(Collectors.groupingBy(MediaAlbum::getPageName)))
+                        .orElse(Maps.newHashMap()));
+        synchronized (Import.class) {
+            cachedAlbums.put(socialCode, albumsByPage);
+        }
+        return Lists.newArrayList(albumsByPage.keySet());
+    }
+
     public List<MediaAlbum> getAlbums() {
-        return getToken(socialCode).map(token -> getApplicationContext().getBean(socialCode, MediaImportService.class).getAlbums(token)).orElse(null);
+        return cachedAlbums.get(socialCode).get(pageName);
     }
 
     @Cached
@@ -142,6 +164,10 @@ public class Import extends BaseComponent {
         this.albumId = albumId;
         this.socialCode = socialCode;
         return elementsBlock;
+    }
+
+    public String getPageCaption() {
+        return MediaAlbum.DEFAULT_PAGE_NAME.equals(pageName) ? getMessages().get("page.noname.caption") : getMessages().format("page.name.caption", pageName);
     }
 
 }

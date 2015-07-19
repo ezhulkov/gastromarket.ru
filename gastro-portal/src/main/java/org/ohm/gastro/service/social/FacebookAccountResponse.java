@@ -10,10 +10,10 @@ import java.util.List;
  * Created by ezhulkov on 09.01.15.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FacebookAlbumsResponse {
+public class FacebookAccountResponse {
 
     @JsonProperty("data")
-    private List<Item> response = Lists.newArrayList();
+    private List<Item> response = Lists.newLinkedList();
 
     public List<Item> getResponse() {
         return response;
@@ -30,8 +30,6 @@ public class FacebookAlbumsResponse {
         private String id;
         @JsonProperty("name")
         private String name;
-        @JsonProperty("count")
-        private int count;
 
         public String getId() {
             return id;
@@ -49,13 +47,14 @@ public class FacebookAlbumsResponse {
             this.name = name;
         }
 
-        public int getCount() {
-            return count;
+        @Override
+        public String toString() {
+            return "Item{" +
+                    "id='" + id + '\'' +
+                    ", name='" + name + '\'' +
+                    '}';
         }
 
-        public void setCount(int count) {
-            this.count = count;
-        }
     }
 
 }

@@ -155,8 +155,7 @@ public abstract class BaseComponent {
 
     public String getContextPath() {
         final ServletContext servletContext = globals.getServletContext();
-//        return servletContext.getContextPath();
-        return null;
+        return servletContext.getContextPath();
     }
 
     public String getCurrentPage() {

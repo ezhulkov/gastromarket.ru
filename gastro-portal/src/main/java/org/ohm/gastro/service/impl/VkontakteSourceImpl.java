@@ -89,7 +89,7 @@ public final class VkontakteSourceImpl extends OAuthSocialSourceImpl<VkontakteAp
             final VkontakteAlbumsResponse albums = mapper.readValue(response.getBody(), VkontakteAlbumsResponse.class);
             if (albums == null || albums.getResponse() == null || albums.getResponse().getItems() == null) return Lists.newArrayList();
             List<MediaAlbum> result = albums.getResponse().getItems().stream()
-                    .map(t -> new MediaAlbum(t.getId(), t.getTitle()))
+                    .map(t -> new MediaAlbum(t.getId(), t.getTitle(), ""))
                     .collect(Collectors.toList());
             logger.info("Albums from vk, size {}", result.size());
             return result;

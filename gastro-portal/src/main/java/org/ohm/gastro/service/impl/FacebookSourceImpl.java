@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.service.MediaImportService;
+import org.ohm.gastro.service.social.FacebookAccountResponse;
 import org.ohm.gastro.service.social.FacebookAlbumsResponse;
 import org.ohm.gastro.service.social.FacebookImagesResponse;
 import org.ohm.gastro.service.social.FacebookUserProfile;
@@ -11,18 +12,20 @@ import org.ohm.gastro.service.social.MediaAlbum;
 import org.ohm.gastro.service.social.MediaElement;
 import org.ohm.gastro.service.social.MediaResponse;
 import org.scribe.builder.api.FacebookApi;
-import org.scribe.model.OAuthRequest;
-import org.scribe.model.Response;
 import org.scribe.model.Token;
-import org.scribe.model.Verb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ForkJoinTask;
+import java.util.concurrent.RecursiveTask;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by ezhulkov on 08.01.15.
@@ -31,8 +34,9 @@ import java.util.stream.Collectors;
 public final class FacebookSourceImpl extends OAuthSocialSourceImpl<FacebookApi> implements MediaImportService {
 
     private final static String REST_AUTH_URL = "https://graph.facebook.com/me";
-    private final static String REST_ALBUM_URL = "https://graph.facebook.com/v2.3/%s/albums?fields=id,name,count&limit=1000";
-    private final static String REST_IMAGE_URL = "https://graph.facebook.com/v2.3/%s/photos?fields=images,link,name&limit=1000";
+    private final static String REST_ACCOUNTS_URL = "https://graph.facebook.com/v2.4/me/accounts?fields=name,id";
+    private final static String REST_ALBUM_URL = "https://graph.facebook.com/v2.4/%s/albums?fields=id,name,count&limit=1000";
+    private final static String REST_IMAGE_URL = "https://graph.facebook.com/v2.4/%s/photos?fields=images,link,name&limit=1000";
     private final static String AVATAR_SMALL = "https://graph.facebook.com/%s/picture";
     private final static String AVATAR_BIG = "https://graph.facebook.com/%s/picture?type=large";
 
@@ -51,24 +55,19 @@ public final class FacebookSourceImpl extends OAuthSocialSourceImpl<FacebookApi>
 
     @Override
     public UserEntity getUserProfile(Token token) {
-        Response response = null;
-        try {
-            OAuthRequest request = new OAuthRequest(Verb.GET, REST_AUTH_URL);
-            getAuthService().signRequest(token, request);
-            response = request.send();
-            FacebookUserProfile profile = mapper.readValue(response.getBody(), FacebookUserProfile.class);
-            UserEntity user = new UserEntity();
-            user.setFullName(profile.getName());
-            user.setEmail(profile.getEmail());
-            user.setAvatarUrl(String.format(AVATAR_BIG, profile.getId()));
-            user.setAvatarUrlMedium(String.format(AVATAR_BIG, profile.getId()));
-            user.setAvatarUrlSmall(String.format(AVATAR_SMALL, profile.getId()));
-            return user;
-        } catch (Exception e) {
-            logger.error("Error parsing raw {}, response {}", token == null ? null : token.getRawResponse(), response == null ? null : response.getBody());
-            logger.error("", e);
-        }
-        return null;
+        return callEndpoint(REST_AUTH_URL,
+                            token,
+                            body -> {
+                                FacebookUserProfile profile = mapper.readValue(body, FacebookUserProfile.class);
+                                UserEntity user = new UserEntity();
+                                user.setFullName(profile.getName());
+                                user.setEmail(profile.getEmail());
+                                user.setAvatarUrl(String.format(AVATAR_BIG, profile.getId()));
+                                user.setAvatarUrlMedium(String.format(AVATAR_BIG, profile.getId()));
+                                user.setAvatarUrlSmall(String.format(AVATAR_SMALL, profile.getId()));
+                                return user;
+                            },
+                            () -> null);
     }
 
     @Override
@@ -79,51 +78,79 @@ public final class FacebookSourceImpl extends OAuthSocialSourceImpl<FacebookApi>
     @Nonnull
     @Override
     public List<MediaAlbum> getAlbums(@Nonnull Token token) {
-        Response response = null;
-        try {
-            OAuthRequest request = new OAuthRequest(Verb.GET, String.format(REST_ALBUM_URL, "me"));
-            getAuthService().signRequest(token, request);
-            logger.info("Getting albums from fb, url: {}", request.toString());
-            response = request.send();
-            final FacebookAlbumsResponse albums = mapper.readValue(response.getBody(), FacebookAlbumsResponse.class);
-            if (albums == null || albums.getResponse() == null) return Lists.newArrayList();
-            List<MediaAlbum> result = albums.getResponse().stream()
-                    .map(t -> new MediaAlbum(t.getId(), t.getName()))
-                    .collect(Collectors.toList());
-            logger.info("Albums from fb, size {}", result.size());
-            return result;
-        } catch (Exception e) {
-            logger.error("Error parsing response {}", response == null ? null : response.getBody());
-            logger.error("", e);
-        }
-        return Lists.newArrayList();
+        return new ForkJoinPool().invoke(new UserAlbumGetterTask(token));
     }
 
     @Nonnull
     @Override
     public MediaResponse getImages(@Nonnull Token token, @Nullable String albumId, @Nullable Object context) {
         if (StringUtils.isNotEmpty(albumId)) {
-            Response response = null;
-            try {
-                OAuthRequest request = new OAuthRequest(Verb.GET, String.format(REST_IMAGE_URL, albumId));
-                getAuthService().signRequest(token, request);
-                logger.info("Getting images from fb, url: {}", request.toString());
-                response = request.send();
-                final FacebookImagesResponse images = mapper.readValue(response.getBody(), FacebookImagesResponse.class);
-                if (images == null || images.getResponse() == null) return new MediaResponse(null, Lists.newArrayList());
-                List<MediaElement> elements = images.getResponse().stream()
-                        .map(t -> new MediaElement(t.getId(), t.getLink(), t.getName(),
-                                                   t.getImages().get(0).getSource(),
-                                                   t.getImages().get(t.getImages().size() - 1).getSource()))
-                        .collect(Collectors.toList());
-                logger.info("Images from fb, size {}", elements.size());
-                return new MediaResponse(null, elements);
-            } catch (Exception e) {
-                logger.error("Error parsing response {}", response == null ? null : response.getBody());
-                logger.error("", e);
-            }
+            return new MediaResponse(null, callEndpoint(String.format(REST_IMAGE_URL, albumId),
+                                                        token,
+                                                        body -> mapper.readValue(body, FacebookImagesResponse.class).getResponse().stream()
+                                                                .map(t -> new MediaElement(t.getId(), t.getLink(), t.getName(),
+                                                                                           t.getImages().get(0).getSource(),
+                                                                                           t.getImages().get(t.getImages().size() - 1).getSource()))
+                                                                .peek(t -> logger.info("Image from fb {}", t))
+                                                                .collect(Collectors.toList())
+            ));
         }
         return new MediaResponse(null, Lists.newArrayList());
     }
+
+    private class UserAlbumGetterTask extends RecursiveTask<List<MediaAlbum>> {
+        private final Token token;
+
+        public UserAlbumGetterTask(final Token token) {
+            this.token = token;
+        }
+
+        @Override
+        protected List<MediaAlbum> compute() {
+            final ForkJoinTask<List<MediaAlbum>> mainAlbums = new AlbumGetterTask(String.format(REST_ALBUM_URL, "me"), MediaAlbum.DEFAULT_PAGE_NAME, token).fork();
+            final ForkJoinTask<List<MediaAlbum>> accountAlbums = new RecursiveTask<List<MediaAlbum>>() {
+                @Override
+                protected List<MediaAlbum> compute() {
+                    return callEndpoint(REST_ACCOUNTS_URL,
+                                        token,
+                                        body -> mapper.readValue(body, FacebookAccountResponse.class).getResponse().stream()
+                                                .peek(t -> logger.info("Account from fb {}", t))
+                                                .map(t -> new AlbumGetterTask(String.format(REST_ALBUM_URL, t.getId()), t.getName(), token).fork())
+                                                .flatMap(t -> t.join().stream())
+                                                .collect(Collectors.toList())
+                    );
+                }
+            }.fork();
+            return Stream.of(mainAlbums.join(), accountAlbums.join())
+                    .flatMap(Collection::stream)
+                    .collect(Collectors.toList());
+        }
+
+    }
+
+    private class AlbumGetterTask extends RecursiveTask<List<MediaAlbum>> {
+
+        private final String url;
+        private final String page;
+        private final Token token;
+
+        public AlbumGetterTask(final String url, final String page, final Token token) {
+            this.url = url;
+            this.page = page;
+            this.token = token;
+        }
+
+        @Override
+        protected List<MediaAlbum> compute() {
+            return callEndpoint(url,
+                                token,
+                                body -> mapper.readValue(body, FacebookAlbumsResponse.class).getResponse().stream()
+                                        .map(t -> new MediaAlbum(t.getId(), t.getName(), page))
+                                        .peek(t -> logger.info("Album from fb {}", t))
+                                        .collect(Collectors.toList())
+            );
+        }
+    }
+
 
 }
