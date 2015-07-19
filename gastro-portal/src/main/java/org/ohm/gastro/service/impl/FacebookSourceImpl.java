@@ -1,7 +1,5 @@
 package org.ohm.gastro.service.impl;
 
-import com.google.common.collect.Lists;
-import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.service.MediaImportService;
 import org.ohm.gastro.service.social.FacebookAccountResponse;
@@ -35,8 +33,8 @@ public final class FacebookSourceImpl extends OAuthSocialSourceImpl<FacebookApi>
 
     private final static String REST_AUTH_URL = "https://graph.facebook.com/me";
     private final static String REST_ACCOUNTS_URL = "https://graph.facebook.com/v2.4/me/accounts?fields=name,id";
-    private final static String REST_ALBUM_URL = "https://graph.facebook.com/v2.4/%s/albums?fields=id,name,count&limit=1000";
-    private final static String REST_IMAGE_URL = "https://graph.facebook.com/v2.4/%s/photos?fields=images,link,name&limit=1000";
+    private final static String REST_ALBUMS_URL = "https://graph.facebook.com/v2.4/%s/albums?fields=id,name,count&limit=1000";
+    private final static String REST_IMAGES_URL = "https://graph.facebook.com/v2.4/%s/photos?fields=images,link,name&limit=1000";
     private final static String AVATAR_SMALL = "https://graph.facebook.com/%s/picture";
     private final static String AVATAR_BIG = "https://graph.facebook.com/%s/picture?type=large";
 
@@ -78,24 +76,22 @@ public final class FacebookSourceImpl extends OAuthSocialSourceImpl<FacebookApi>
     @Nonnull
     @Override
     public List<MediaAlbum> getAlbums(@Nonnull Token token) {
-        return new ForkJoinPool().invoke(new UserAlbumGetterTask(token));
+        return new ForkJoinPool(4).invoke(new UserAlbumGetterTask(token));
     }
 
     @Nonnull
     @Override
     public MediaResponse getImages(@Nonnull Token token, @Nullable String albumId, @Nullable Object context) {
-        if (StringUtils.isNotEmpty(albumId)) {
-            return new MediaResponse(null, callEndpoint(String.format(REST_IMAGE_URL, albumId),
-                                                        token,
-                                                        body -> mapper.readValue(body, FacebookImagesResponse.class).getResponse().stream()
-                                                                .map(t -> new MediaElement(t.getId(), t.getLink(), t.getName(),
-                                                                                           t.getImages().get(0).getSource(),
-                                                                                           t.getImages().get(t.getImages().size() - 1).getSource()))
-                                                                .peek(t -> logger.info("Image from fb {}", t))
-                                                                .collect(Collectors.toList())
-            ));
-        }
-        return new MediaResponse(null, Lists.newArrayList());
+        if (albumId == null) return new MediaResponse();
+        return new MediaResponse(null, callEndpoint(String.format(REST_IMAGES_URL, albumId),
+                                                    token,
+                                                    body -> mapper.readValue(body, FacebookImagesResponse.class).getResponse().stream()
+                                                            .map(t -> new MediaElement(t.getId(), t.getLink(), t.getName(),
+                                                                                       t.getImages().get(0).getSource(),
+                                                                                       t.getImages().get(t.getImages().size() - 1).getSource()))
+                                                            .peek(t -> logger.info("Image from fb {}", t))
+                                                            .collect(Collectors.toList())
+        ));
     }
 
     private class UserAlbumGetterTask extends RecursiveTask<List<MediaAlbum>> {
@@ -107,7 +103,7 @@ public final class FacebookSourceImpl extends OAuthSocialSourceImpl<FacebookApi>
 
         @Override
         protected List<MediaAlbum> compute() {
-            final ForkJoinTask<List<MediaAlbum>> mainAlbums = new AlbumGetterTask(String.format(REST_ALBUM_URL, "me"), MediaAlbum.DEFAULT_PAGE_NAME, token).fork();
+            final ForkJoinTask<List<MediaAlbum>> mainAlbums = new AlbumGetterTask(String.format(REST_ALBUMS_URL, "me"), MediaAlbum.DEFAULT_PAGE_NAME, token).fork();
             final ForkJoinTask<List<MediaAlbum>> accountAlbums = new RecursiveTask<List<MediaAlbum>>() {
                 @Override
                 protected List<MediaAlbum> compute() {
@@ -115,7 +111,7 @@ public final class FacebookSourceImpl extends OAuthSocialSourceImpl<FacebookApi>
                                         token,
                                         body -> mapper.readValue(body, FacebookAccountResponse.class).getResponse().stream()
                                                 .peek(t -> logger.info("Account from fb {}", t))
-                                                .map(t -> new AlbumGetterTask(String.format(REST_ALBUM_URL, t.getId()), t.getName(), token).fork())
+                                                .map(t -> new AlbumGetterTask(String.format(REST_ALBUMS_URL, t.getId()), t.getName(), token).fork())
                                                 .flatMap(t -> t.join().stream())
                                                 .collect(Collectors.toList())
                     );

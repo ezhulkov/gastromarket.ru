@@ -26,25 +26,22 @@
                             <h2><span>${socialName}</span></h2>
                         </div>
                         <t:if test="albumsRequired">
-                            <t:if test="pageNames">
-                                <t:loop source="pageNames" value="pageName">
-                                    <p class="modal-text">${pageCaption}</p>
-
-                                    <t:if test="albums">
-                                        <div class="grid-block albums">
-                                            <t:loop source="albums" value="album">
-                                                <t:actionlink t:id="selectAlbum" t:context="[album.id,socialCode]" t:zone="${elementsZone}" class="album item">${album.name}</t:actionlink>
-                                            </t:loop>
-                                        </div>
-                                        <t:parameter name="else">
-                                            <p class="modal-text">
-                                                <b>Ошибка - не получилось импортировать ни одного альбома, возможно они скрыты настройками приватности.</b><br/>
-                                                Пожалуйста, измените настройки альбома в социальной сети ${socialName} и повторите попытку снова.
-                                            </p>
-                                        </t:parameter>
-                                    </t:if>
-                                </t:loop>
-                            </t:if>
+                            <t:loop source="pageNames" value="pageName">
+                                <p class="modal-text">${pageCaption}</p>
+                                <t:if test="albums">
+                                    <div class="grid-block albums">
+                                        <t:loop source="albums" value="album">
+                                            <t:actionlink t:id="selectAlbum" t:context="[album.id,socialCode]" t:zone="${elementsZone}" class="album item">${album.name}</t:actionlink>
+                                        </t:loop>
+                                    </div>
+                                    <t:parameter name="else">
+                                        <p class="modal-text">
+                                            <b>Ошибка - не получилось импортировать ни одного альбома, возможно они скрыты настройками приватности.</b><br/>
+                                            Пожалуйста, измените настройки альбома в социальной сети ${socialName} и повторите попытку снова.
+                                        </p>
+                                    </t:parameter>
+                                </t:if>
+                            </t:loop>
                         </t:if>
                         <div class="grid-block import"/>
                         <t:zone id="${elementsZone}" class="elements-zone">

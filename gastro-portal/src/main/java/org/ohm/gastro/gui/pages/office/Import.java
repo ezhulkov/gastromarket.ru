@@ -91,13 +91,13 @@ public class Import extends BaseComponent {
     }
 
     public List<String> getPageNames() {
-        final Map<String, List<MediaAlbum>> albumsByPage = cachedAlbums.getOrDefault(
-                socialCode,
+        final Map<String, List<MediaAlbum>> albumsByPage = cachedAlbums.containsKey(socialCode) ?
+                cachedAlbums.get(socialCode) :
                 getToken(socialCode)
                         .map(token -> getApplicationContext().getBean(socialCode, MediaImportService.class)
                                 .getAlbums(token).stream()
                                 .collect(Collectors.groupingBy(MediaAlbum::getPageName)))
-                        .orElse(Maps.newHashMap()));
+                        .orElse(Maps.newHashMap());
         synchronized (Import.class) {
             cachedAlbums.put(socialCode, albumsByPage);
         }

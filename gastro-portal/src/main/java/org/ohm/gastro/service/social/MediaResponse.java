@@ -12,6 +12,10 @@ public class MediaResponse {
     private final String context;
     private final List<MediaElement> mediaElements = Lists.newArrayList();
 
+    public MediaResponse() {
+        this.context = null;
+    }
+
     public MediaResponse(final String context, final List<MediaElement> mediaElements) {
         this.context = context;
         if (mediaElements != null) this.mediaElements.addAll(mediaElements);

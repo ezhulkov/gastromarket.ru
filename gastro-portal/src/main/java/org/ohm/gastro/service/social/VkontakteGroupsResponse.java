@@ -10,7 +10,7 @@ import java.util.List;
  * Created by ezhulkov on 09.01.15.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VkontakteImagesResponse {
+public class VkontakteGroupsResponse {
 
     @JsonProperty("response")
     private Response response = new Response();
@@ -37,6 +37,12 @@ public class VkontakteImagesResponse {
             this.items = items;
         }
 
+        @Override
+        public String toString() {
+            return "Response{" +
+                    "items=" + items +
+                    '}';
+        }
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -44,48 +50,31 @@ public class VkontakteImagesResponse {
 
         @JsonProperty("id")
         private String id;
-        @JsonProperty("owner_id")
-        private String ownerId;
-        @JsonProperty("text")
-        private String text;
-        @JsonProperty("photo_604")
-        private String imageUrl;
+        @JsonProperty("name")
+        private String name;
 
         public String getId() {
             return id;
         }
 
-        public void setId(final String id) {
-            this.id = id;
+        public String getName() {
+            return name;
         }
 
-        public String getOwnerId() {
-            return ownerId;
+        @Override
+        public String toString() {
+            return "Item{" +
+                    "id='" + id + '\'' +
+                    ", name='" + name + '\'' +
+                    '}';
         }
 
-        public void setOwnerId(final String ownerId) {
-            this.ownerId = ownerId;
-        }
-
-        public String getImageUrl() {
-            return imageUrl;
-        }
-
-        public void setImageUrl(String imageUrl) {
-            this.imageUrl = imageUrl;
-        }
-
-        public String getLink() {
-            return String.format("http://vk.com/photo%s_%s", ownerId, id);
-        }
-
-        public String getText() {
-            return text;
-        }
-
-        public void setText(String text) {
-            this.text = text;
-        }
     }
 
+    @Override
+    public String toString() {
+        return "VkontakteGroupsResponse{" +
+                "response=" + response +
+                '}';
+    }
 }
