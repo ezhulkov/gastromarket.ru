@@ -71,7 +71,7 @@ public final class InstagramSourceImpl extends OAuthSocialSourceImpl<InstagramAp
     @Override
     public MediaResponse getImages(@Nonnull Token token, @Nullable String albumId, @Nullable Object context) {
         final String paging = context == null ? null : context.toString();
-        final InstagramMediaResponse medias = callEndpoint(String.format(REST_IMAGES_URL, StringUtils.isEmpty(paging) ? extractUserId(token) : paging),
+        final InstagramMediaResponse medias = callEndpoint(StringUtils.isEmpty(paging) ? String.format(REST_IMAGES_URL, extractUserId(token)) : paging,
                                                            token,
                                                            body -> mapper.readValue(body, InstagramMediaResponse.class),
                                                            () -> null);
