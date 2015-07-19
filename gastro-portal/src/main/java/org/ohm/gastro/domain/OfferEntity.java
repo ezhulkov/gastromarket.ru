@@ -26,7 +26,7 @@ import java.util.List;
 @Entity
 @Table(name = "offer")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class OfferEntity extends AbstractBaseEntity implements AltIdEntity {
+public class OfferEntity extends AbstractBaseEntity implements AltIdEntity, PriceEntity {
 
     @Id
     @Column(name = "id")
