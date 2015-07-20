@@ -9,9 +9,6 @@ import org.hibernate.annotations.MetaValue;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
@@ -23,18 +20,13 @@ import javax.persistence.Table;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class PriceModifierEntity extends AbstractBaseEntity {
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-
-    @Column(name = "id")
+    @Column(name = "description")
     private String description;
 
     @Column(name = "price")
     private Integer price;
 
-    @Any(metaColumn = @Column(name = "type"), fetch = FetchType.LAZY)
+    @Any(metaColumn = @Column(name = "entity_type"), fetch = FetchType.LAZY)
     @AnyMetaDef(idType = "long", metaType = "string",
             metaValues = {
                     @MetaValue(targetEntity = ProductEntity.class, value = "PRODUCT"),
@@ -42,15 +34,6 @@ public class PriceModifierEntity extends AbstractBaseEntity {
             })
     @JoinColumn(name = "entity_id")
     private PriceEntity entity;
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
 
     public PriceEntity getEntity() {
         return entity;
@@ -74,6 +57,14 @@ public class PriceModifierEntity extends AbstractBaseEntity {
 
     public void setPrice(final Integer price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "PriceModifierEntity{" +
+                "description='" + description + '\'' +
+                ", price=" + price +
+                '}';
     }
 
 }

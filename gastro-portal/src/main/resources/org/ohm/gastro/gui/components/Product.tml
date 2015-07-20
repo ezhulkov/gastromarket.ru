@@ -69,6 +69,18 @@
             <t:actionlink class="recommended-link" t:id="recommended" t:context="[product.id,5]" t:zone="recommendedProductsZone"/>
             <div class="pname"><a href="/product/${product.altId}">${product.name}</a></div>
             <div class="image">${product.avatarUrl}</div>
+            <div class="price-modifier">
+                <t:if test="priceModifiers">
+                    <div class="price-modifier">
+                        <t:loop source="priceModifiers" value="priceModifier">
+                            <div>
+                                <span class="price">${priceModifier.price} <span class="rub"/></span>&nbsp;
+                                <span class="description">${priceModifier.description}</span>
+                            </div>
+                        </t:loop>
+                    </div>
+                </t:if>
+            </div>
             <div class="desc">
                 <t:if test="product.descriptionRaw">
                     <t:outputraw value="product.descriptionRaw"/>

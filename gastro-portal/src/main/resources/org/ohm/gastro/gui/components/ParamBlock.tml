@@ -10,9 +10,9 @@
                 </t:unless>
                 <t:loop source="propertyValues" value="oneValue" formState="NONE">
                     <t:if test="tagSelected">
-                        <option value="${oneValue.id}" selected="selected">${oneValue.value}</option>
+                        <option value="${oneValue.id}" selected="selected">${oneValue.name}</option>
                         <t:parameter name="else">
-                            <option value="${oneValue.id}">${oneValue.value}</option>
+                            <option value="${oneValue.id}">${oneValue.name}</option>
                         </t:parameter>
                     </t:if>
                 </t:loop>

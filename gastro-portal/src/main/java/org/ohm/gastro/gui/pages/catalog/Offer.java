@@ -17,6 +17,8 @@ public class Offer extends AbstractOfferPage {
     @Inject
     private Block offerBlock;
 
+
+
     public void onActivate(String oid) {
         this.offer = getOfferService().findOffer(oid);
     }

@@ -10,9 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -33,11 +30,6 @@ public class BillEntity extends AbstractBaseEntity {
         NEW, CLOSED
     }
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-
     @Column
     @Enumerated(EnumType.STRING)
     private Status status = Status.NEW;
@@ -53,15 +45,6 @@ public class BillEntity extends AbstractBaseEntity {
 
     @Transient
     private int totalBill;
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Status getStatus() {
         return status;

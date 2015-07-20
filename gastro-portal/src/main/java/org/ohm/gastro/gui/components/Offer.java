@@ -8,6 +8,7 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.OfferEntity;
+import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
@@ -21,6 +22,9 @@ public class Offer extends BaseComponent {
     public enum Type {
         SHORT, LIST, FULL
     }
+
+    @Property
+    private PriceModifierEntity priceModifier;
 
     @Parameter
     @Property
@@ -47,6 +51,12 @@ public class Offer extends BaseComponent {
 
     @Property
     private ProductEntity product;
+
+
+    @Cached
+    public java.util.List<PriceModifierEntity> getPriceModifiers() {
+        return getOfferService().findAllModifiers(offer);
+    }
 
     @Cached(watch = "offer")
     public java.util.List<ProductEntity> getProducts() {

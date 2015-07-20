@@ -134,6 +134,7 @@ function showProductModal(pid) {
         triggerEvent(productMain.find("a.basket-add").get(0), "click");
     });
     block2.find("div.desc").empty().append(product.find(".desc").clone().html());
+    block2.find("div.price-modifier").empty().append(product.find(".price-modifier").clone().html());
     block2.find("div.tags").empty().append(product.find(".tags").clone().children());
     block3.hide();
     //Start Modal

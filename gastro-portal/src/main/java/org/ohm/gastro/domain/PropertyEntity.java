@@ -10,9 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
@@ -28,11 +25,6 @@ public class PropertyEntity extends AbstractBaseEntity {
     public enum Type {
         NUMBER, TEXT, LIST
     }
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
 
     @Column
     private String name;
@@ -51,15 +43,6 @@ public class PropertyEntity extends AbstractBaseEntity {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "property")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<TagEntity> products = Lists.newArrayList();
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public List<TagEntity> getProducts() {
         return products;
@@ -104,7 +87,7 @@ public class PropertyEntity extends AbstractBaseEntity {
     @Override
     public String toString() {
         return "PropertyEntity{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", name='" + name + '\'' +
                 ", type=" + type +
                 ", values=" + values +

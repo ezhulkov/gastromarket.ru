@@ -11,9 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -29,22 +26,11 @@ import java.util.List;
 @Entity
 @Table(name = "product")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ProductEntity extends AbstractBaseEntity implements AltIdEntity, PriceEntity {
+public class ProductEntity extends AltIdBaseEntity implements PriceEntity {
 
     public enum Unit {
         PIECE, LITRE, GRAM
     }
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-
-    @Column(name = "alt_id")
-    private String altId;
-
-    @Column
-    private String name;
 
     @Column
     private String description;
@@ -96,25 +82,6 @@ public class ProductEntity extends AbstractBaseEntity implements AltIdEntity, Pr
     public ProductEntity() {
     }
 
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public String getAltId() {
-        return altId == null ? id.toString() : altId;
-    }
-
-    @Override
-    public void setAltId(final String altId) {
-        this.altId = altId;
-    }
-
     public String getAvatarUrl() {
         return avatarUrl;
     }
@@ -137,14 +104,6 @@ public class ProductEntity extends AbstractBaseEntity implements AltIdEntity, Pr
 
     public void setAvatarUrlSmall(final String avatarUrlSmall) {
         this.avatarUrlSmall = avatarUrlSmall;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Integer getPrice() {

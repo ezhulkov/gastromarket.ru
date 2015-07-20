@@ -47,7 +47,7 @@ public class List extends ScrollableProducts {
     public String getTitle() {
         return propertyValue == null ?
                 getMessages().get("catalog.title") :
-                (parentPropertyValue == null ? "" : parentPropertyValue.getValue() + " - ") + propertyValue.getValue();
+                (parentPropertyValue == null ? "" : parentPropertyValue.getName() + " - ") + propertyValue.getName();
     }
 
 }

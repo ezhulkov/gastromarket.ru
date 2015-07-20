@@ -15,9 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -40,11 +37,6 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
     public enum Status {
         ENABLED, DISABLED
     }
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
 
     @Column
     private boolean anonymous = false;
@@ -101,15 +93,6 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private UserEntity referrer;
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Status getStatus() {
         return status;
@@ -304,7 +287,7 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
     @Override
     public String toString() {
         return "UserEntity{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", email='" + email + '\'' +
                 ", fullName='" + fullName + '\'' +
                 '}';

@@ -82,7 +82,7 @@ public class Index extends EditObjectPage<PropertyEntity> {
     }
 
     public String getChildren() {
-        return getPropertyService().findAllChildrenValues(onePropertyValue).stream().map(PropertyValueEntity::getValue).collect(Collectors.joining(", "));
+        return getPropertyService().findAllChildrenValues(onePropertyValue).stream().map(PropertyValueEntity::getName).collect(Collectors.joining(", "));
     }
 
 }

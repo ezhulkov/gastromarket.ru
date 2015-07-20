@@ -593,4 +593,20 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="43" author="ezhulkov">
+        <createTable tableName="price_modifier">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="description" type="java.sql.Types.VARCHAR(512)"/>
+            <column name="price" type="java.sql.Types.INTEGER"/>
+            <column name="entity_type" type="java.sql.Types.VARCHAR(16)"/>
+            <column name="entity_id" type="java.sql.Types.BIGINT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="44" author="ezhulkov">
+        <renameColumn tableName="property_value" oldColumnName="value" newColumnName="name"/>
+    </changeSet>
+
 </databaseChangeLog>

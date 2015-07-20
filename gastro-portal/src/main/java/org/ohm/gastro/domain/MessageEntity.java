@@ -6,9 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.Date;
@@ -27,11 +24,6 @@ public class MessageEntity extends AbstractBaseEntity {
     public enum RecipientType {
         ALL, COOKS, USER
     }
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false, targetEntity = UserEntity.class)
     private UserEntity sender;
@@ -59,15 +51,6 @@ public class MessageEntity extends AbstractBaseEntity {
 
     @Column(name = "create_date")
     private Date createDate = new Date(System.currentTimeMillis());
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public UserEntity getSender() {
         return sender;

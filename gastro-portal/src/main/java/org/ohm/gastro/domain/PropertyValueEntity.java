@@ -10,9 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -26,22 +23,11 @@ import java.util.List;
 @Entity
 @Table(name = "property_value")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class PropertyValueEntity extends AbstractBaseEntity implements AltIdEntity {
+public class PropertyValueEntity extends AltIdBaseEntity {
 
     public enum Tag {
         ROOT
     }
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-
-    @Column
-    private String value;
-
-    @Column(name = "alt_id")
-    private String altId;
 
     @Column(name = "root_value")
     private Boolean rootValue = true;
@@ -70,30 +56,6 @@ public class PropertyValueEntity extends AbstractBaseEntity implements AltIdEnti
     @Enumerated(EnumType.STRING)
     private Tag tag;
 
-    @Override
-    public String getName() {
-        return value;
-    }
-
-    @Override
-    public String getAltId() {
-        return altId == null ? id.toString() : altId;
-    }
-
-    @Override
-    public void setAltId(String altId) {
-        this.altId = altId;
-    }
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public List<PropertyValueEntity> getChildren() {
         return children;
     }
@@ -108,14 +70,6 @@ public class PropertyValueEntity extends AbstractBaseEntity implements AltIdEnti
 
     public void setParents(List<PropertyValueEntity> parents) {
         this.parents = parents;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
     }
 
     public PropertyEntity getProperty() {
@@ -145,8 +99,8 @@ public class PropertyValueEntity extends AbstractBaseEntity implements AltIdEnti
     @Override
     public String toString() {
         return "PropertyValueEntity{" +
-                "id=" + id +
-                ", value='" + value + '\'' +
+                "id=" + getId() +
+                ", name='" + getName() + '\'' +
                 '}';
     }
 

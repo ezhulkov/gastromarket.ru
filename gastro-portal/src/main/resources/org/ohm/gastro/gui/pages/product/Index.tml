@@ -31,6 +31,16 @@
                             <t:actionLink class="pic-holder basket-add" t:zone="basketZone" t:context="product.id" t:id="purchase"><span/>В корзину</t:actionLink>
                         </div>
                     </div>
+                    <t:if test="priceModifiers">
+                        <div class="price-modifier">
+                            <t:loop source="priceModifiers" value="priceModifier">
+                                <div>
+                                    <span class="price">${priceModifier.price} <span class="rub"/></span>&nbsp;
+                                    <span class="description">${priceModifier.description}</span>
+                                </div>
+                            </t:loop>
+                        </div>
+                    </t:if>
                     <t:if test="product.descriptionRaw">
                         <div class="desc">
                             <t:outputraw value="product.descriptionRaw"/>

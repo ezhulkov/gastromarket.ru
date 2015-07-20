@@ -4,6 +4,7 @@ import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.services.HttpError;
+import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
@@ -23,6 +24,9 @@ public class Index extends BaseComponent {
 
     @Property
     private TagEntity oneTag;
+
+    @Property
+    private PriceModifierEntity priceModifier;
 
     public Object onActivate(String pid) {
         product = getProductService().findProduct(pid);
@@ -55,6 +59,11 @@ public class Index extends BaseComponent {
     @Cached
     public boolean isCatalogOwner() {
         return product.getCatalog().getUser().equals(getAuthenticatedUserOpt().orElse(null));
+    }
+
+    @Cached
+    public java.util.List<PriceModifierEntity> getPriceModifiers() {
+        return getProductService().findAllModifiers(product);
     }
 
 }

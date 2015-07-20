@@ -2,7 +2,9 @@ package org.ohm.gastro.service.impl;
 
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OfferEntity;
+import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.reps.OfferRepository;
+import org.ohm.gastro.reps.PriceModifierRepository;
 import org.ohm.gastro.service.OfferService;
 import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +19,12 @@ import java.util.List;
 public class OfferServiceImpl implements OfferService, Logging {
 
     private final OfferRepository offerRepository;
+    private final PriceModifierRepository priceModifierRepository;
 
     @Autowired
-    public OfferServiceImpl(final OfferRepository offerRepository) {
+    public OfferServiceImpl(final OfferRepository offerRepository, PriceModifierRepository priceModifierRepository) {
         this.offerRepository = offerRepository;
+        this.priceModifierRepository = priceModifierRepository;
     }
 
     @Override
@@ -51,6 +55,11 @@ public class OfferServiceImpl implements OfferService, Logging {
     @Override
     public void deleteOffer(Long oid) {
         offerRepository.delete(oid);
+    }
+
+    @Override
+    public List<PriceModifierEntity> findAllModifiers(OfferEntity offer) {
+        return priceModifierRepository.findAllByEntity(offer);
     }
 
 }

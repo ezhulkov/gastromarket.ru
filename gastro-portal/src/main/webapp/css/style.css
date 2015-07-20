@@ -579,6 +579,9 @@ ul.comments .glyphicon-thumbs--1:before {
 .offer-item.short .catalog-link {
   display: none;
 }
+.offer-item.short .price-modifier {
+  display: none;
+}
 
 ul.offer-products {
   list-style: none;
@@ -2013,6 +2016,18 @@ html div.office table.table td.toggle {
   background-color: #fff;
   margin: 5px;
   border: 1px solid #8a8a8a;
+}
+
+.price-modifier {
+  margin: 10px 0;
+}
+.price-modifier .price {
+  font-size: 20px;
+  line-height: 22px;
+}
+.price-modifier .description, .price-modifier .catalog-item.short .description, .catalog-item.short .price-modifier .description {
+  font-size: 16px;
+  line-height: 22px;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,7 +1,5 @@
 package org.ohm.gastro.domain;
 
-import org.ohm.gastro.util.CommonsUtils;
-
 /**
  * Created by ezhulkov on 21.08.14.
  */
@@ -13,8 +11,6 @@ public interface AltIdEntity extends BaseEntity {
 
     void setAltId(String altId);
 
-    default String transliterate() {
-        return CommonsUtils.transliterate(getName());
-    }
+    String transliterate();
 
 }

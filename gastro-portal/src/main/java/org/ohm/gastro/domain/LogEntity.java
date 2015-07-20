@@ -5,9 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.Date;
@@ -26,11 +23,6 @@ public class LogEntity extends AbstractBaseEntity {
         RATING_CHANGE
     }
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-
     @Column
     private Date date = new Date();
 
@@ -45,15 +37,6 @@ public class LogEntity extends AbstractBaseEntity {
 
     @Column
     private Long count;
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
 
     public UserEntity getUser() {
         return user;
@@ -98,7 +81,7 @@ public class LogEntity extends AbstractBaseEntity {
     @Override
     public String toString() {
         return "LogEntity{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", type=" + type +
                 ", count=" + count +
                 '}';

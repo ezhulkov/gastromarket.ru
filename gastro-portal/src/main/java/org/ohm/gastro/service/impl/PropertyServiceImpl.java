@@ -43,22 +43,22 @@ public class PropertyServiceImpl implements PropertyService, Logging {
 
     @Override
     public List<PropertyValueEntity> findAllRootValues(PropertyEntity property) {
-        return propertyValueRepository.findAllByPropertyAndRootValue(property, true, new Sort(Direction.ASC, "value"));
+        return propertyValueRepository.findAllByPropertyAndRootValue(property, true, new Sort(Direction.ASC, "name"));
     }
 
     @Override
     public List<PropertyValueEntity> findAllLeafValues(PropertyEntity property) {
-        return propertyValueRepository.findAllByPropertyAndRootValue(property, false, new Sort(Direction.ASC, "value"));
+        return propertyValueRepository.findAllByPropertyAndRootValue(property, false, new Sort(Direction.ASC, "name"));
     }
 
     @Override
     public List<PropertyValueEntity> findAllValues(PropertyEntity property) {
-        return propertyValueRepository.findAllByProperty(property, new Sort(Direction.ASC, "value"));
+        return propertyValueRepository.findAllByProperty(property, new Sort(Direction.ASC, "name"));
     }
 
     @Override
     public List<PropertyValueEntity> findAllChildrenValues(final PropertyValueEntity value) {
-        return propertyValueRepository.findAllChildrenValues(value, new Sort(Direction.ASC, "value"));
+        return propertyValueRepository.findAllChildrenValues(value, new Sort(Direction.ASC, "name"));
     }
 
 

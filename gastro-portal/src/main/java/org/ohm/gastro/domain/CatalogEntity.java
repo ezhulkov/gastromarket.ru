@@ -12,9 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -28,22 +25,11 @@ import java.util.stream.Collectors;
 @Entity
 @Table(name = "catalog")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
+public class CatalogEntity extends AltIdBaseEntity {
 
     public enum Type {
         PRIVATE, COMPANY
     }
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-
-    @Column(name = "alt_id")
-    private String altId;
-
-    @Column
-    private String name;
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -103,27 +89,8 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<OfferEntity> offers = Lists.newArrayList();
 
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public String getAltId() {
-        return altId == null ? id.toString() : altId;
-    }
-
     public String getFullUrl() {
         return "http://gastromarket.ru/catalog/" + getAltId();
-    }
-
-    @Override
-    public void setAltId(final String altId) {
-        this.altId = altId;
     }
 
     public Date getDate() {
@@ -132,15 +99,6 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getDescription() {
@@ -304,10 +262,10 @@ public class CatalogEntity extends AbstractBaseEntity implements AltIdEntity {
     @Override
     public String toString() {
         return "CatalogEntity{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", rating=" + rating +
                 ", level=" + level +
-                ", name='" + name + '\'' +
+                ", name='" + getName() + '\'' +
                 '}';
     }
 

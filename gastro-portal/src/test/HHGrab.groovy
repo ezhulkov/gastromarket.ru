@@ -55,7 +55,7 @@ def parseCookPage() {
         files << file
     }
     println "EMAIL,PASSWORD,CATALOG,SOURCE,NAME"
-    files.take(50).each {
+    files.drop(250).take(50).each {
         def fileContents = new File(it.absolutePath).getText('UTF-8')
         def email = (fileContents =~ "<a.*itemprop=\"email\">(.*)<\\/a>")[0][1]
         def userName = (fileContents =~ "itemprop=\"name\">([a-zA-Zа-яёА-ЯЁ\\s]*)<\\/div>")[0][1].tokenize(' ')[1]

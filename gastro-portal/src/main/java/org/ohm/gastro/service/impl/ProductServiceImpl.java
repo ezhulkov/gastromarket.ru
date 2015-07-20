@@ -7,12 +7,14 @@ import org.apache.commons.lang.StringUtils;
 import org.javatuples.Tuple;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OfferEntity;
+import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.ProductEntity.Unit;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.misc.Throwables;
+import org.ohm.gastro.reps.PriceModifierRepository;
 import org.ohm.gastro.reps.ProductRepository;
 import org.ohm.gastro.reps.TagRepository;
 import org.ohm.gastro.service.ImageService;
@@ -57,16 +59,19 @@ public class ProductServiceImpl implements ProductService, Logging {
     private final TagRepository tagRepository;
     private final PropertyService propertyService;
     private final ImageService imageService;
+    private final PriceModifierRepository priceModifierRepository;
 
     @Autowired
     public ProductServiceImpl(final ProductRepository productRepository,
                               final TagRepository tagRepository,
                               final PropertyService propertyService,
-                              final ImageService imageService) {
+                              final ImageService imageService,
+                              final PriceModifierRepository priceModifierRepository) {
         this.productRepository = productRepository;
         this.tagRepository = tagRepository;
         this.propertyService = propertyService;
         this.imageService = imageService;
+        this.priceModifierRepository = priceModifierRepository;
     }
 
     @Override
@@ -244,6 +249,11 @@ public class ProductServiceImpl implements ProductService, Logging {
                                              product.getId().toString());
             });
         });
+    }
+
+    @Override
+    public List<PriceModifierEntity> findAllModifiers(ProductEntity product) {
+        return priceModifierRepository.findAllByEntity(product);
     }
 
 }

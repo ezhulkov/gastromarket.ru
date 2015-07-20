@@ -3,6 +3,7 @@ package org.ohm.gastro.service;
 import org.javatuples.Tuple;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OfferEntity;
+import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.TagEntity;
@@ -59,5 +60,7 @@ public interface ProductService extends ImageUploaderService<ProductEntity>, Alt
     void promoteProduct(final Long pid);
 
     void importProducts(Map<String, Set<MediaElement>> cachedElements, CatalogEntity catalog);
+
+    List<PriceModifierEntity> findAllModifiers(ProductEntity product);
 
 }

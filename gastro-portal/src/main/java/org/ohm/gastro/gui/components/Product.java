@@ -7,6 +7,7 @@ import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
@@ -36,6 +37,9 @@ public class Product extends BaseComponent {
 
     @Property
     private TagEntity oneTag;
+
+    @Property
+    private PriceModifierEntity priceModifier;
 
     @Inject
     @Property
@@ -92,6 +96,10 @@ public class Product extends BaseComponent {
 
     public String getProductUnit() {
         return getMessages().format(product.getUnit().name() + "_TEXT", product.getUnitValue()).toLowerCase();
+    }
+
+    public List<PriceModifierEntity> getPriceModifiers() {
+        return getProductService().findAllModifiers(product);
     }
 
 }

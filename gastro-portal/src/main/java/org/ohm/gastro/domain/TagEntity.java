@@ -6,9 +6,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -19,11 +16,6 @@ import javax.persistence.Table;
 @Table(name = "tags")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class TagEntity extends AbstractBaseEntity {
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
 
     @Column
     private String data;
@@ -46,15 +38,6 @@ public class TagEntity extends AbstractBaseEntity {
     public TagEntity(final String data, final PropertyEntity property) {
         this.data = data;
         this.property = property;
-    }
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getData() {

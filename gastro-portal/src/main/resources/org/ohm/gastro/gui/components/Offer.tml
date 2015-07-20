@@ -80,6 +80,20 @@
                 </t:if>
             </div>
         </div>
+        <t:if test="priceModifiers">
+            <div class="price-modifier gap">
+                <t:loop source="priceModifiers" value="priceModifier">
+                    <div class="row">
+                        <div class="${leftBlock} text-right">
+                            <span class="price">${priceModifier.price} <span class="rub"/></span>
+                        </div>
+                        <div class="${rightBlock} text-left">
+                            <span class="description">${priceModifier.description}</span>
+                        </div>
+                    </div>
+                </t:loop>
+            </div>
+        </t:if>
         <div class="row gap">
             <div class="${leftBlock} basket-block text-right">
                 <span class="price">${offer.price} <span class="rub"/></span>

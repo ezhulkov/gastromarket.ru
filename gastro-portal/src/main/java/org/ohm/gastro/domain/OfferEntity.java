@@ -9,9 +9,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -26,18 +23,7 @@ import java.util.List;
 @Entity
 @Table(name = "offer")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class OfferEntity extends AbstractBaseEntity implements AltIdEntity, PriceEntity {
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-
-    @Column(name = "alt_id")
-    private String altId;
-
-    @Column
-    private String name;
+public class OfferEntity extends AltIdBaseEntity implements PriceEntity {
 
     @Column
     private String description;
@@ -69,39 +55,12 @@ public class OfferEntity extends AbstractBaseEntity implements AltIdEntity, Pric
     public OfferEntity() {
     }
 
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public String getAltId() {
-        return altId == null ? id.toString() : altId;
-    }
-
-    @Override
-    public void setAltId(final String altId) {
-        this.altId = altId;
-    }
-
     public Integer getPersons() {
         return persons;
     }
 
     public void setPersons(final Integer persons) {
         this.persons = persons;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Integer getPrice() {

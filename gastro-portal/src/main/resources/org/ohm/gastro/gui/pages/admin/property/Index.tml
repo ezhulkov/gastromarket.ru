@@ -41,7 +41,7 @@
                 reorder="value,children,tag,del"
                 t:mixins="GridSortingDisabled" class="table table-hover">
             <t:parameter name="valueCell">
-                <t:pagelink page="admin/property/value" context="['UPDATE',onePropertyValue.id]">${onePropertyValue.value}</t:pagelink>
+                <t:pagelink page="admin/property/value" context="['UPDATE',onePropertyValue.id]">${onePropertyValue.name}</t:pagelink>
             </t:parameter>
             <t:parameter name="childrenCell">
                 ${children}

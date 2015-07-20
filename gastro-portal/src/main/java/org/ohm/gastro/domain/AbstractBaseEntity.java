@@ -2,10 +2,31 @@ package org.ohm.gastro.domain;
 
 import org.hibernate.proxy.HibernateProxy;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
 /**
  * Created by ezhulkov on 24.08.14.
  */
+@MappedSuperclass
 public abstract class AbstractBaseEntity implements BaseEntity {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
+
+    @Override
+    public final Long getId() {
+        return id;
+    }
+
+    public final void setId(Long id) {
+        this.id = id;
+    }
 
     @Override
     public boolean equals(Object o) {

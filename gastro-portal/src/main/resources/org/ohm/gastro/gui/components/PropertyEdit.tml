@@ -9,9 +9,9 @@
                         <option value=""/>
                         <t:loop source="propertyValues" value="oneValue" formState="NONE">
                             <t:if test="rootSelected">
-                                <option value="${oneValue.id}" selected="selected">${oneValue.value}</option>
+                                <option value="${oneValue.id}" selected="selected">${oneValue.name}</option>
                                 <t:parameter name="else">
-                                    <option value="${oneValue.id}">${oneValue.value}</option>
+                                    <option value="${oneValue.id}">${oneValue.name}</option>
                                 </t:parameter>
                             </t:if>
                         </t:loop>
@@ -23,9 +23,9 @@
                             <option value=""/>
                             <t:loop source="childrenValues" value="oneChildValue" formState="NONE">
                                 <t:if test="childSelected">
-                                    <option value="${oneChildValue.id}" selected="selected">${oneChildValue.value}</option>
+                                    <option value="${oneChildValue.id}" selected="selected">${oneChildValue.name}</option>
                                     <t:parameter name="else">
-                                        <option value="${oneChildValue.id}">${oneChildValue.value}</option>
+                                        <option value="${oneChildValue.id}">${oneChildValue.name}</option>
                                     </t:parameter>
                                 </t:if>
                             </t:loop>
