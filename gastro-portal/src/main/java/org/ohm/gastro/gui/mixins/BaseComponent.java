@@ -111,22 +111,24 @@ public abstract class BaseComponent {
     @SessionState
     private ShoppingCart shoppingCart;
 
+    @Cached
     public UserEntity getAuthenticatedUser() {
         return getAuthenticatedUserOpt().orElseThrow(RuntimeException::new);
     }
 
+    @Cached
     public Optional<UserEntity> getAuthenticatedUserOpt() {
         return getAuthenticatedUser(userService);
     }
 
     public static Optional<UserEntity> getAuthenticatedUser(UserService userService) {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
+        final SecurityContext securityContext = SecurityContextHolder.getContext();
         if (securityContext == null || securityContext.getAuthentication() == null) {
             return Optional.empty();
         }
-        Object principal = securityContext.getAuthentication().getPrincipal();
+        final Object principal = securityContext.getAuthentication().getPrincipal();
         if (principal != null && principal instanceof UserEntity) {
-            UserEntity user = (UserEntity) principal;
+            final UserEntity user = (UserEntity) principal;
             return Optional.of(userService == null ? user : userService.findUser(user.getId()));
         }
         return Optional.empty();

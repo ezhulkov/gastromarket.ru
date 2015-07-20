@@ -20,11 +20,11 @@ public abstract class AbstractBaseEntity implements BaseEntity {
     private Long id;
 
     @Override
-    public final Long getId() {
+    public Long getId() {
         return id;
     }
 
-    public final void setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
