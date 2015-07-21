@@ -121,4 +121,10 @@ public class OfferEntity extends AltIdBaseEntity implements PriceEntity {
         return desc;
     }
 
+    @Override
+    public String toString() {
+        return "OfferEntity{" +
+                "id='" + getId() + '\'' +
+                '}';
+    }
 }

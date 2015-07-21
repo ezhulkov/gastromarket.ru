@@ -6,6 +6,7 @@ import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
+import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Form;
@@ -36,6 +37,9 @@ public class ProductEdit extends BaseComponent {
     public enum Stage {
         DESC, PROP, PHOTO
     }
+
+    @InjectComponent
+    private PriceModifier priceModifier;
 
     @Inject
     @Property
@@ -137,6 +141,7 @@ public class ProductEdit extends BaseComponent {
             product = new ProductEntity();
             product.setCatalog(catalog);
         }
+        priceModifier.getSubmittedModifiers().clear();
     }
 
     public void onFailureFromDescForm() {
@@ -153,6 +158,7 @@ public class ProductEdit extends BaseComponent {
             origProduct.setUnitValue(product.getUnitValue());
             if (origProduct.getId() != null) product = getProductService().saveProduct(origProduct);
             else product = getProductService().createProduct(origProduct, catalog);
+            getProductService().attachPriceModifiers(product, priceModifier.getSubmittedModifiers());
             if (productsBlock != null) getAjaxResponseRenderer().addRender("productsZone", productsBlock);
             if (productBlock != null) getAjaxResponseRenderer().addRender(productZoneId, productBlock);
             getAjaxResponseRenderer().addRender(getProductEditZone(), closeImmediately ? editDescBlock : editPropsBlock);

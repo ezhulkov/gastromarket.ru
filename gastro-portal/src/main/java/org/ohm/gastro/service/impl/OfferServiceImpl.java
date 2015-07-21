@@ -2,7 +2,6 @@ package org.ohm.gastro.service.impl;
 
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OfferEntity;
-import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.reps.OfferRepository;
 import org.ohm.gastro.reps.PriceModifierRepository;
 import org.ohm.gastro.service.OfferService;
@@ -55,11 +54,6 @@ public class OfferServiceImpl implements OfferService, Logging {
     @Override
     public void deleteOffer(Long oid) {
         offerRepository.delete(oid);
-    }
-
-    @Override
-    public List<PriceModifierEntity> findAllModifiers(OfferEntity offer) {
-        return priceModifierRepository.findAllByEntity(offer);
     }
 
 }

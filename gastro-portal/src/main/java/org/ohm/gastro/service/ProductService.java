@@ -3,6 +3,7 @@ package org.ohm.gastro.service;
 import org.javatuples.Tuple;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OfferEntity;
+import org.ohm.gastro.domain.PriceEntity;
 import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
@@ -26,6 +27,10 @@ public interface ProductService extends ImageUploaderService<ProductEntity>, Alt
     List<ProductEntity> findAllRawProducts(@Nonnull CatalogEntity catalog);
 
     List<ProductEntity> findAllProducts(OfferEntity offer);
+
+    PriceModifierEntity findPriceModifier(Long id);
+
+    void attachPriceModifiers(PriceEntity object, List<PriceModifierEntity> submittedModifiers);
 
     enum OrderType {
         NAME, PRICE, NONE
@@ -61,6 +66,6 @@ public interface ProductService extends ImageUploaderService<ProductEntity>, Alt
 
     void importProducts(Map<String, Set<MediaElement>> cachedElements, CatalogEntity catalog);
 
-    List<PriceModifierEntity> findAllModifiers(ProductEntity product);
+    List<PriceModifierEntity> findAllModifiers(PriceEntity entity);
 
 }

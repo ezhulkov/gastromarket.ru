@@ -1,0 +1,20 @@
+<div class="form-group price-modifier" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+    <t:ajaxformloop t:id="modifiers" value="modifier" source="modifiers" encoder="formInjectorEncoder" show="none">
+        <div class="clearfix modifier-row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3">
+                <t:textfield t:id="price" t:value="modifier.price" class="form-control"/>
+            </div>
+            <div class="col-sm-7">
+                <t:textfield t:id="desc" t:value="modifier.description" class="form-control"/>
+            </div>
+            <t:removerowlink class="glyphicon glyphicon-remove del-modifier"/>
+        </div>
+        <t:parameter name="addRow">
+            <div class="clearfix">
+                <div class="col-sm-1"></div>
+                <t:addrowlink class="add-modifier">+ Добавить модификатор цены</t:addrowlink>
+            </div>
+        </t:parameter>
+    </t:ajaxformloop>
+</div>

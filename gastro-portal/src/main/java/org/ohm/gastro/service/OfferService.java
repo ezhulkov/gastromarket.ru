@@ -2,7 +2,6 @@ package org.ohm.gastro.service;
 
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OfferEntity;
-import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.reps.OfferRepository;
 
 import java.util.List;
@@ -23,7 +22,5 @@ public interface OfferService extends AltIdService<OfferEntity, OfferRepository>
     OfferEntity saveOffer(OfferEntity offer);
 
     void deleteOffer(Long oid);
-
-    List<PriceModifierEntity> findAllModifiers(OfferEntity offer);
 
 }

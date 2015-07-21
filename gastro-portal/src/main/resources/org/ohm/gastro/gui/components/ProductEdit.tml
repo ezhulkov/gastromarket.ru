@@ -48,7 +48,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-1"/>
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <t:label t:for="productPrice">Цена, руб:</t:label>
                                 <input t:id="productPrice" class="form-control price"/>
                             </div>
@@ -57,7 +57,7 @@
 
                                 <div class="f20px za">за</div>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-3">
                                 <t:label t:for="productUnitValue">Количество:</t:label>
                                 <input t:id="productUnitValue" class="form-control unit"/>
                             </div>
@@ -67,6 +67,7 @@
                             </div>
                             <div class="col-sm-1"/>
                         </div>
+                        <t:pricemodifier object="product"/>
                         <div class="form-buttons">
                             <input class="btn btn-red" t:type="submit" t:id="saveAndProps" value="${editPropertiesLabel}"/>
                         </div>

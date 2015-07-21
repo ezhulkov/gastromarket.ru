@@ -2,11 +2,13 @@ package org.ohm.gastro.service.impl;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.javatuples.Tuple;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OfferEntity;
+import org.ohm.gastro.domain.PriceEntity;
 import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.ProductEntity.Unit;
@@ -189,6 +191,22 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
+    public PriceModifierEntity findPriceModifier(Long id) {
+        return priceModifierRepository.findOne(id);
+    }
+
+    @Override
+    public void attachPriceModifiers(final PriceEntity object, final List<PriceModifierEntity> submittedModifiers) {
+        final List<PriceModifierEntity> existing = priceModifierRepository.findAllByEntity(object);
+        priceModifierRepository.delete(CollectionUtils.subtract(existing, submittedModifiers));
+        final List<PriceModifierEntity> modifiers = submittedModifiers.stream().filter(t -> t.getPrice() != null && t.getDescription() != null).map(t -> {
+            t.setEntity(object);
+            return t;
+        }).collect(Collectors.toList());
+        priceModifierRepository.save(modifiers);
+    }
+
+    @Override
     public List<ProductEntity> findAllProducts(PropertyValueEntity propertyValue, CatalogEntity catalog) {
         return findProductsInternal(propertyValue, catalog, null, null);
     }
@@ -252,8 +270,8 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
-    public List<PriceModifierEntity> findAllModifiers(ProductEntity product) {
-        return priceModifierRepository.findAllByEntity(product);
+    public List<PriceModifierEntity> findAllModifiers(PriceEntity object) {
+        return priceModifierRepository.findAllByEntity(object);
     }
 
 }

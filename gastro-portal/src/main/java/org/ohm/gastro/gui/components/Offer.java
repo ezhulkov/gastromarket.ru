@@ -55,7 +55,7 @@ public class Offer extends BaseComponent {
 
     @Cached
     public java.util.List<PriceModifierEntity> getPriceModifiers() {
-        return getOfferService().findAllModifiers(offer);
+        return getProductService().findAllModifiers(offer);
     }
 
     @Cached(watch = "offer")

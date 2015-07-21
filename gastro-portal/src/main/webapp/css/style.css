@@ -674,6 +674,7 @@ body.modal-open {
 
 .modal-body {
   padding: 5px 40px 20px 40px;
+  font-size: 16px;
 }
 
 .wizard {
@@ -2034,6 +2035,16 @@ html div.office table.table td.toggle {
 .price-modifier .description, .price-modifier .catalog-item.short .description, .catalog-item.short .price-modifier .description {
   font-size: 16px;
   line-height: 22px;
+}
+.price-modifier .modifier-row {
+  margin: 3px 0;
+}
+.price-modifier .del-modifier {
+  margin-top: 12px;
+}
+.price-modifier .add-modifier {
+  margin-left: 15px;
+  display: inline-block;
 }
 
 /*# sourceMappingURL=style.css.map */
