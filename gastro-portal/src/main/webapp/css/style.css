@@ -278,7 +278,7 @@ body.mobile .rub:after {
   word-wrap: normal;
   /* Internet Explorer 5.5+ */
   white-space: -webkit-pre-wrap;
-  /* Newer versions of Chrome/Safari*/
+  /* Newer versions of Chrome/Safari */
   word-break: normal;
   white-space: normal;
 }
@@ -2041,6 +2041,7 @@ html div.office table.table td.toggle {
 }
 .price-modifier .del-modifier {
   margin-top: 12px;
+  display: inline-block;
 }
 .price-modifier .add-modifier {
   margin-left: 15px;
