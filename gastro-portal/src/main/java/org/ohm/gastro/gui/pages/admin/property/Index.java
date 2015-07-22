@@ -1,10 +1,12 @@
 package org.ohm.gastro.gui.pages.admin.property;
 
+import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Checkbox;
 import org.apache.tapestry5.corelib.components.TextField;
+import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyEntity.Type;
 import org.ohm.gastro.domain.PropertyValueEntity;
@@ -20,6 +22,12 @@ import java.util.stream.Collectors;
  */
 public class Index extends EditObjectPage<PropertyEntity> {
 
+    @Inject
+    private Block openBlock;
+
+    @Inject
+    private Block listBlock;
+
     @Property
     private PropertyValueEntity onePropertyValue;
 
@@ -32,7 +40,7 @@ public class Index extends EditObjectPage<PropertyEntity> {
     @Component(id = "mandatory", parameters = {"value=object?.mandatory"})
     private Checkbox mandatoryField;
 
-    @Component(id = "propertyValue", parameters = {"value=propertyValue?.value", "validate=maxlength=64,required"})
+    @Component(id = "propertyValue", parameters = {"value=propertyValue?.name", "validate=maxlength=64,required"})
     private TextField propValueField;
 
     @Override
@@ -68,10 +76,6 @@ public class Index extends EditObjectPage<PropertyEntity> {
         return getPropertyService().findAllRootValues(getObject());
     }
 
-    public boolean isList() {
-        return getObject().getType() == Type.LIST;
-    }
-
     public void onSubmitFromValueForm() {
         propertyValue.setProperty(getObject());
         getPropertyService().savePropertyValue(propertyValue);
@@ -81,8 +85,18 @@ public class Index extends EditObjectPage<PropertyEntity> {
         getPropertyService().deletePropertyValue(id);
     }
 
+    public void onActionFromDelete2(Long id) {
+        onActionFromDelete(id);
+    }
+
     public String getChildren() {
         return getPropertyService().findAllChildrenValues(onePropertyValue).stream().map(PropertyValueEntity::getName).collect(Collectors.joining(", "));
+    }
+
+    public Block getValuesBlock() {
+        if (getObject().getType() == Type.LIST) return listBlock;
+        if (getObject().getType() == Type.OPEN) return openBlock;
+        return null;
     }
 
 }

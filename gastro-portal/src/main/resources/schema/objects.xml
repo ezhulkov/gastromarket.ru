@@ -609,4 +609,16 @@
         <renameColumn tableName="property_value" oldColumnName="value" newColumnName="name"/>
     </changeSet>
 
+    <changeSet id="45" author="ezhulkov">
+        <addColumn tableName="property_value">
+            <column name="client_generated" type="java.sql.Types.BOOLEAN" defaultValueBoolean="false"/>
+        </addColumn>
+        <sql>
+            update property set type='OPEN' where id in (1,8,9,11);
+            delete from property_value where root_value=true and property_id in (1,8,9,11);
+            update property_value set root_value=true where property_id in (1,8,9,11);
+            update property_value set client_generated=false;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

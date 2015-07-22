@@ -32,6 +32,9 @@ public class PropertyValueEntity extends AltIdBaseEntity {
     @Column(name = "root_value")
     private Boolean rootValue = true;
 
+    @Column(name = "client_generated")
+    private Boolean clientGenerated = false;
+
     @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinTable(name = "value_value",
             joinColumns = @JoinColumn(name = "parent_id", referencedColumnName = "id"),
@@ -94,6 +97,14 @@ public class PropertyValueEntity extends AltIdBaseEntity {
 
     public void setRootValue(Boolean rootValue) {
         this.rootValue = rootValue;
+    }
+
+    public Boolean getClientGenerated() {
+        return clientGenerated;
+    }
+
+    public void setClientGenerated(Boolean clientGenerated) {
+        this.clientGenerated = clientGenerated;
     }
 
     @Override

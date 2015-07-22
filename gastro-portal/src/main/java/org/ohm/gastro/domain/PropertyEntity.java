@@ -23,7 +23,7 @@ import java.util.List;
 public class PropertyEntity extends AbstractBaseEntity {
 
     public enum Type {
-        NUMBER, TEXT, LIST
+        NUMBER, TEXT, LIST, OPEN
     }
 
     @Column

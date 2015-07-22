@@ -21,7 +21,7 @@
         </div>
     </t:editObject>
 
-    <t:unless test="object.parents">
+    <t:if test="childrenAllowed">
         <div class="title-simple">
             <h1>Значения свойств 2-го уровня</h1>
 
@@ -31,11 +31,11 @@
             <a data-toggle="modal" data-target="#create" href="#create">Создать</a>
         </div>
         <t:grid source="propertyValues" row="onePropertyValue"
-                exclude="id,name,altId"
+                exclude="id,altId,clientGenerated"
                 add="del"
-                reorder="value,tag,del"
+                reorder="name,tag,del"
                 t:mixins="GridSortingDisabled" class="table table-hover">
-            <t:parameter name="valueCell">
+            <t:parameter name="nameCell">
                 <t:pagelink page="admin/property/value" context="['UPDATE',onePropertyValue.id]">${onePropertyValue.name}</t:pagelink>
             </t:parameter>
             <t:parameter name="delCell">
@@ -99,9 +99,7 @@
                 </div>
             </div>
         </div>
-        <br/>
-        <br/>
-    </t:unless>
+    </t:if>
 
     <script>
         activate_menu('#property');

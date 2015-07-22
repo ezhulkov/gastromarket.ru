@@ -5,6 +5,7 @@ import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Select;
 import org.apache.tapestry5.corelib.components.TextField;
+import org.ohm.gastro.domain.PropertyEntity.Type;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.gui.AbstractServiceCallback;
 import org.ohm.gastro.gui.ServiceCallback;
@@ -25,10 +26,10 @@ public class Value extends EditObjectPage<PropertyValueEntity> {
     @Property
     private PropertyValueEntity propertyValue;
 
-    @Component(id = "propertyValue", parameters = {"value=propertyValue?.value", "validate=maxlength=64,required"})
+    @Component(id = "propertyValue", parameters = {"value=propertyValue?.name", "validate=maxlength=64,required"})
     private TextField propValueField;
 
-    @Component(id = "value", parameters = {"value=object?.value", "validate=maxlength=64,required"})
+    @Component(id = "value", parameters = {"value=object?.name", "validate=maxlength=64,required"})
     private TextField valueField;
 
     @Component(id = "tag", parameters = {"value=object?.tag"})
@@ -73,7 +74,7 @@ public class Value extends EditObjectPage<PropertyValueEntity> {
                 .filter(t -> !t.equals(getObject()))
                 .filter(t -> !t.getParents().contains(getObject()))
                 .collect(Collectors.toList());
-        return new GenericSelectModel<>(allValues, PropertyValueEntity.class, "value", "id", getPropertyAccess());
+        return new GenericSelectModel<>(allValues, PropertyValueEntity.class, "name", "id", getPropertyAccess());
     }
 
     public void onSubmitFromCreateValueForm() {
@@ -90,6 +91,10 @@ public class Value extends EditObjectPage<PropertyValueEntity> {
 
     public java.util.List<PropertyValueEntity> getPropertyValues() {
         return getPropertyService().findAllChildrenValues(getObject());
+    }
+
+    public boolean isChildrenAllowed() {
+        return getObject().getProperty().getType() == Type.LIST && getObject().getParents().isEmpty();
     }
 
 }
