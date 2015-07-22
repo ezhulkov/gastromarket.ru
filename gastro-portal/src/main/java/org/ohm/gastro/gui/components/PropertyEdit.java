@@ -1,9 +1,11 @@
 package org.ohm.gastro.gui.components;
 
 import com.google.common.collect.Lists;
+import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyEntity.Type;
@@ -18,6 +20,15 @@ import java.util.stream.Collectors;
  * Created by ezhulkov on 14.05.15.
  */
 public class PropertyEdit extends BaseComponent {
+
+    @Inject
+    private Block listBlock;
+
+    @Inject
+    private Block openBlock;
+
+    @Inject
+    private Block textBlock;
 
     @Property
     @Parameter
@@ -101,6 +112,12 @@ public class PropertyEdit extends BaseComponent {
     public boolean isSelectActive() {
         final TagEntity childTag = getChildTag();
         return childTag != null && rootTag.getId() != null && rootTag.getId().toString().equals(childTag.getData()) && childTag.getValue().getParents().contains(oneValue);
+    }
+
+    public Block getValueBlock() {
+        if (property.getType() == Type.LIST) return listBlock;
+        if (property.getType() == Type.OPEN) return openBlock;
+        return textBlock;
     }
 
 }
