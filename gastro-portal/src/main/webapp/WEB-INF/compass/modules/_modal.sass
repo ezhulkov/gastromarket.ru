@@ -1,7 +1,18 @@
 @import ../include/var
 
 body.modal-open
-  overflow: visible
+  overflow: hidden
+
+.modal-backdrop
+  height: auto !important
+  width: auto
+  display: block
+  position: fixed
+  bottom: 0
+  right: 0
+
+.modal-backdrop.in
+  opacity: 0.85
 
 .modal-close
   position: absolute
@@ -21,7 +32,7 @@ body.modal-open
   float: right
 
 .modal-dialog
-  margin: 80px auto 0 auto
+  margin: 80px auto
   color: black
   width: 700px
   position: relative

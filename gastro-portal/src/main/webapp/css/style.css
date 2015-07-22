@@ -634,7 +634,20 @@ ul.offer-products li:hover .delete {
 }
 
 body.modal-open {
-  overflow: visible;
+  overflow: hidden;
+}
+
+.modal-backdrop {
+  height: auto !important;
+  width: auto;
+  display: block;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+.modal-backdrop.in {
+  opacity: 0.85;
 }
 
 .modal-close {
@@ -658,7 +671,7 @@ body.modal-open {
 }
 
 .modal-dialog {
-  margin: 80px auto 0 auto;
+  margin: 80px auto;
   color: black;
   width: 700px;
   position: relative;
