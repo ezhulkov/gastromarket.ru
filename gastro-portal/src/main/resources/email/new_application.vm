@@ -1,0 +1,8 @@
+#set($subject = "Запрос на подключение к ГастроМаркет")
+#parse("email/header.vm")
+<p>
+    У нас новый запрос на подключение от $username<br/>
+    eMail: $email<br/>
+    О кулинаре: $about
+</p>
+#parse("email/footer.vm")

@@ -1,7 +1,6 @@
 package org.ohm.gastro.service.impl;
 
 import com.google.common.base.Charsets;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -23,6 +22,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Nonnull;
 import javax.annotation.PreDestroy;
 import java.io.StringWriter;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 public class MailServiceImpl implements MailService, Logging {
 
     private final static Pattern TITLE_CUTTER = Pattern.compile("\\<title\\>(.*)\\<\\/title\\>");
-    private final static String TEMPLATE_PATH = "email/%s.html";
+    private final static String TEMPLATE_PATH = "email/%s.vm";
     private final static String MERGE_PAIR = "\"%s\":\"%s\"";
     private final static String MC_ENDPOINT = "https://us11.api.mailchimp.com/2.0/lists/batch-subscribe";
     private final static String MC_SUBSCRIBE_BLOCK =
@@ -69,6 +69,7 @@ public class MailServiceImpl implements MailService, Logging {
     public MailServiceImpl(@Value("${mail.from:contacts@gastromarket.ru}") String defaultFrom,
                            @Value("${production}") boolean production) {
         final Properties properties = new Properties();
+        properties.setProperty("input.encoding", "UTF-8");
         properties.setProperty("resource.loader", "class");
         properties.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
         properties.setProperty("velocimacro.library", "");
@@ -100,14 +101,13 @@ public class MailServiceImpl implements MailService, Logging {
         try (
                 final StringWriter stringWriter = new StringWriter();
         ) {
-            final String template = IOUtils.toString(getClass().getClassLoader().getResourceAsStream(String.format(TEMPLATE_PATH, templateKey)));
-            velocityEngine.evaluate(new VelocityContext(params), stringWriter, "LOG", template);
+            velocityEngine.mergeTemplate(String.format(TEMPLATE_PATH, templateKey), "UTF-8", new VelocityContext(new HashMap<>(params)), stringWriter);
             final String messageBody = stringWriter.toString();
             final String title = getTitle(messageBody);
             final MimeMessagePreparator preparator = mimeMessage -> {
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, false);
                 message.setText(messageBody, true);
-                message.setSubject(title == null ? "Gastromarket.ru" : title);
+                message.setSubject(title == null ? "ГастроМаркет" : title);
                 message.setReplyTo(defaultFrom);
                 message.setFrom(defaultFrom);
                 message.setTo(recipient);

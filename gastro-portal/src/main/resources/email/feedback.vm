@@ -1,0 +1,10 @@
+#set($subject = "Новый отзыв на ГастроМаркет")
+#parse("email/header.vm")
+<p>
+    Привет, мы получили новый отзыв.
+    <br/>
+    Автор $fullname<br/>
+    eMail: $email<br/>
+    Комментарий: $comment
+</p>
+#parse("email/footer.vm")

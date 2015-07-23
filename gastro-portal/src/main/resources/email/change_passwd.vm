@@ -1,0 +1,6 @@
+#set($subject = "Смена пароля на ГастроМаркет")
+#parse("email/header.vm")
+<p>
+    Новый пароль для входа на сайт <a href="http://gastromarket.ru/login" target="_blank">ГастроМаркет</a>: $password
+</p>
+#parse("email/footer.vm")
