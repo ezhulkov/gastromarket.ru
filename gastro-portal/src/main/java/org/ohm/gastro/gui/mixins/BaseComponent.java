@@ -218,8 +218,8 @@ public abstract class BaseComponent {
         return groupedTags.entrySet().stream()
                 .sorted((o1, o2) -> o1.getKey().getType().compareTo(o2.getKey().getType()))
                 .map(t -> {
-                    Type type = t.getKey().getType();
-                    String data = Type.LIST == type ?
+                    final Type type = t.getKey().getType();
+                    final String data = Type.LIST == type || Type.OPEN == type ?
                             t.getValue().stream().filter(k -> k.getValue() != null).map(k -> k.getValue().getName()).distinct().collect(Collectors.joining(", ")) :
                             t.getValue().stream().map(TagEntity::getData).collect(Collectors.joining());
                     TagEntity tag = new TagEntity();

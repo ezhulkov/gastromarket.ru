@@ -92,7 +92,7 @@ public class PropertyEdit extends BaseComponent {
     @Cached(watch = "property")
     public List<TagEntity> getRootTags() {
         final List<TagEntity> tags = productTags.stream()
-                .filter(t -> t.getProperty().getType() == Type.LIST)
+                .filter(t -> t.getProperty().getType() == Type.LIST || t.getProperty().getType() == Type.OPEN)
                 .filter(t -> t.getProperty().equals(property))
                 .filter(t -> t.getValue().isRootValue())
                 .sorted((o1, o2) -> o1.getId().compareTo(o2.getId()))

@@ -15,8 +15,8 @@ import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.javatuples.Pair;
+import org.javatuples.Triplet;
 import org.javatuples.Tuple;
-import org.javatuples.Unit;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
@@ -179,7 +179,6 @@ public class ProductEdit extends BaseComponent {
     }
 
     public Object onSubmitFromPropsForm(Long pid) {
-
         product = getProductService().findProduct(pid);
         final Set<Long> mandatoryIds = getMandatoryProperties().stream().map(PropertyEntity::getId).collect(Collectors.toSet());
         final Map<Long, String> propValues = getRequest().getParameterNames().stream()
@@ -194,10 +193,9 @@ public class ProductEdit extends BaseComponent {
                     final String[] split = t.split("-");
                     mandatoryIds.remove(Long.parseLong(split[1]));
                     return Arrays.stream(getRequest().getParameters(t)).map(v -> {
-                        final Long valueId = Long.parseLong(v);
-                        final String subList = "sublist-" + valueId + "-" + split[2];
+                        final String subList = "sublist-" + v + "-" + split[2];
                         final String subValueId = getRequest().getParameter(subList);
-                        return StringUtils.isEmpty(subValueId) ? new Unit<>(valueId) : new Pair<>(valueId, Long.parseLong(subValueId));
+                        return StringUtils.isEmpty(subValueId) ? new Pair<>(split[1], v) : new Triplet<>(split[1], v, Long.parseLong(subValueId));
                     });
                 }).collect(Collectors.toList());
         getProductService().saveProduct(product, propValues, listValues);

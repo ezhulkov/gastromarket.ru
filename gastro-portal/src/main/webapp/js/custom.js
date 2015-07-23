@@ -393,6 +393,17 @@ function initPropEdit(blocks) {
                 .attr('style', 'width: 249px!important');
             showSubSelect(subSelect);
         });
+        jQuery("select.parent-value.open-value", block).each(function (i, select) {
+            jQuery(select).on('chosen:no_results', function () {
+                var container = jQuery(this).next(".chosen-container");
+                jQuery(".no-results", container).on('click', function () {
+                    var newValue = jQuery("span", this).text();
+                    var newValueId = "new-{0}".format(newValue);
+                    jQuery(select).append("<option value='{0}'>{1}</option>".format(newValueId, newValue));
+                    jQuery(select).val(newValueId).trigger("chosen:updated");
+                });
+            });
+        });
     });
 }
 function showSubSelect(el) {
@@ -423,3 +434,12 @@ function triggerEvent(element, eventName) {
         }
     }
 }
+
+String.prototype.format = function () {
+    var formatted = this;
+    for (var i = 0; i < arguments.length; i++) {
+        var regexp = new RegExp('\\{' + i + '\\}', 'gi');
+        formatted = formatted.replace(regexp, arguments[i]);
+    }
+    return formatted;
+};

@@ -18,6 +18,8 @@ import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.misc.Throwables;
 import org.ohm.gastro.reps.PriceModifierRepository;
 import org.ohm.gastro.reps.ProductRepository;
+import org.ohm.gastro.reps.PropertyRepository;
+import org.ohm.gastro.reps.PropertyValueRepository;
 import org.ohm.gastro.reps.TagRepository;
 import org.ohm.gastro.service.ImageService;
 import org.ohm.gastro.service.ImageService.FileType;
@@ -52,12 +54,15 @@ import static org.scribe.utils.Preconditions.checkNotNull;
 /**
  * Created by ezhulkov on 01.02.15.
  */
+@SuppressWarnings("unchecked")
 @Component
 @Transactional
 @ImageUploader(FileType.PRODUCT)
 public class ProductServiceImpl implements ProductService, Logging {
 
     private final ProductRepository productRepository;
+    private final PropertyRepository propertyRepository;
+    private final PropertyValueRepository propertyValueRepository;
     private final TagRepository tagRepository;
     private final PropertyService propertyService;
     private final ImageService imageService;
@@ -65,11 +70,15 @@ public class ProductServiceImpl implements ProductService, Logging {
 
     @Autowired
     public ProductServiceImpl(final ProductRepository productRepository,
+                              final PropertyRepository propertyRepository,
+                              final PropertyValueRepository propertyValueRepository,
                               final TagRepository tagRepository,
                               final PropertyService propertyService,
                               final ImageService imageService,
                               final PriceModifierRepository priceModifierRepository) {
         this.productRepository = productRepository;
+        this.propertyRepository = propertyRepository;
+        this.propertyValueRepository = propertyValueRepository;
         this.tagRepository = tagRepository;
         this.propertyService = propertyService;
         this.imageService = imageService;
@@ -131,8 +140,9 @@ public class ProductServiceImpl implements ProductService, Logging {
                 .forEach(tagRepository::save);
         listValues.stream()
                 .forEach(t -> {
-                    final Long parentValueId = (Long) t.getValue(0);
-                    final Long childValueId = t.getSize() == 2 ? (Long) t.getValue(1) : null;
+                    final String parentValueIdStr = (String) t.getValue(1);
+                    final Long parentValueId = getPropertyValueId(parentValueIdStr, (String) t.getValue(0));
+                    final Long childValueId = t.getSize() == 3 ? (Long) t.getValue(2) : null;
                     final PropertyValueEntity parentValue = propertyService.findPropertyValue(parentValueId);
                     final PropertyEntity property = parentValue.getProperty();
                     final TagEntity parentTag = new TagEntity();
@@ -152,6 +162,20 @@ public class ProductServiceImpl implements ProductService, Logging {
                     }
                 });
         return product;
+    }
+
+    private Long getPropertyValueId(final String valueId, final String propId) {
+        final String[] split = valueId.split("-");
+        if (split.length == 2) {
+            final PropertyValueEntity newPropValue = new PropertyValueEntity();
+            newPropValue.setName(StringUtils.capitalize(split[1].toLowerCase()));
+            newPropValue.setClientGenerated(true);
+            newPropValue.setRootValue(true);
+            newPropValue.setProperty(propertyRepository.findOne(Long.parseLong(propId)));
+            return propertyValueRepository.save(newPropValue).getId();
+        } else {
+            return Long.parseLong(valueId);
+        }
     }
 
     @Override

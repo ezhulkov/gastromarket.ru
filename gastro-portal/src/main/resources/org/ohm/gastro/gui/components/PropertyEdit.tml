@@ -1,4 +1,4 @@
-<div class="form-group" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+<div class="form-group prop-edit" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
     <div class="col-sm-1"/>
 
     <t:delegate to="valueBlock"/>
@@ -47,7 +47,7 @@
             <label for="prop-${property.id}">${property.name}:</label><br/>
             <t:loop source="rootTags" value="rootTag" formState="NONE">
                 <div class="prop-edit-block">
-                    <select name="open-${property.id}" data-property="${property.id}" data-no_results_text="Создать новое значение?" data-placeholder="Выберите значение" class="chosen-select open-value">
+                    <select name="list-${property.id}-0" data-property="${property.id}" data-no_results_text="Создать новое значение?" data-placeholder="Выберите значение" class="chosen-select parent-value open-value">
                         <option value=""/>
                         <t:loop source="propertyValues" value="oneValue" formState="NONE">
                             <t:if test="rootSelected">

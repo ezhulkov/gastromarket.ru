@@ -969,6 +969,10 @@ body.modal-open {
   margin-bottom: 3px;
 }
 
+.property-select .no-results {
+  cursor: pointer;
+}
+
 .navbar {
   border: none;
   margin-bottom: 0;
