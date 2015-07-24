@@ -66,7 +66,7 @@ public class MailServiceImpl implements MailService, Logging {
     private final boolean production;
 
     @Autowired
-    public MailServiceImpl(@Value("${mail.from:contacts@gastromarket.ru}") String defaultFrom,
+    public MailServiceImpl(@Value("${mail.from:ГастроМаркет <contacts@gastromarket.ru>}") String defaultFrom,
                            @Value("${production}") boolean production) {
         final Properties properties = new Properties();
         properties.setProperty("input.encoding", "UTF-8");

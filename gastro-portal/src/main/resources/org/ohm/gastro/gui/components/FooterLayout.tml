@@ -94,7 +94,9 @@
                                 </div>
                                 <div class="col-sm-1"/>
                             </div>
-                            <input class="btn btn-red" type="submit" value="Послать отзыв"/>
+                            <div class="form-buttons">
+                                <input class="btn btn-red" type="submit" value="Послать отзыв"/>
+                            </div>
                         </t:form>
                     </t:block>
                 </div>
