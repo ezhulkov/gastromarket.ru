@@ -1,22 +1,15 @@
 package org.ohm.gastro.gui.pages.catalog;
 
-import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
-import org.ohm.gastro.gui.mixins.ScrollableProducts;
-import org.ohm.gastro.service.ProductService.OrderType;
-import org.springframework.data.domain.Sort.Direction;
-
-import java.util.List;
-import java.util.function.Consumer;
+import org.ohm.gastro.gui.mixins.BaseComponent;
 
 /**
  * Created by ezhulkov on 31.08.14.
  */
-public class Products extends ScrollableProducts {
+public class Products extends BaseComponent {
 
     @Property
     private ProductEntity editedProduct;
@@ -24,30 +17,19 @@ public class Products extends ScrollableProducts {
     @Property
     private ProductEntity oneProduct;
 
-    @Inject
+//    @Inject
+//    @Property
+//    private Block productEditBlock;
+
     @Property
-    private Block productEditBlock;
+    private CatalogEntity catalog;
 
-    public boolean onActivate(String catId) {
-        return onActivate(catId, null);
-    }
-
-    public boolean onActivate(String catId, String pid) {
-        return onActivate(catId, pid, null, null);
-    }
-
-    public boolean onActivate(String catId, String pid, OrderType orderType, Direction direction) {
-        CatalogEntity cat = getCatalogService().findCatalog(catId);
-        initScrollableContext(null, pid, cat.getId(), orderType, direction);
-        return true;
+    public void onActivate(String catId) {
+        this.catalog = getCatalogService().findCatalog(catId);
     }
 
     public Object[] onPassivate() {
-        return new Object[]{
-                catalog.getAltId(),
-                propertyValue == null ? null : propertyValue.getId(),
-                orderType == null ? null : orderType.name().toLowerCase(),
-                direction == null ? null : direction.name().toLowerCase()};
+        return new Object[]{catalog.getId()};
     }
 
     public String getTitle() {
@@ -57,15 +39,6 @@ public class Products extends ScrollableProducts {
     @Cached
     public boolean isCatalogOwner() {
         return catalog.getUser().equals(getAuthenticatedUserOpt().orElse(null));
-    }
-
-    public Consumer<ProductEntity> getProductSetter() {
-        return productEntity -> editedProduct = productEntity;
-    }
-
-    @Override
-    protected List<ProductEntity> getProductsInternal() {
-        return isCatalogOwner() ? getProductService().findAllProducts(propertyValue, catalog) : super.getProductsInternal();
     }
 
 }

@@ -484,13 +484,13 @@ ul.comments .glyphicon-thumbs-1 {
   margin-right: 5px;
 }
 ul.comments .glyphicon-thumbs-1:before {
-  content: "\e125";
+  content: "";
 }
 ul.comments .glyphicon-thumbs--1 {
   margin-right: 5px;
 }
 ul.comments .glyphicon-thumbs--1:before {
-  content: "\e126";
+  content: "";
 }
 
 .import-item .grid-block.albums {
