@@ -378,7 +378,7 @@ function initPropEdit(blocks) {
             jQuery(parentSelect).on('change', function (evt, params) {
                 var propId = jQuery(this).attr("data-property");
                 var container = jQuery(this).next(".chosen-container");
-                var subSelect = jQuery("select[name^='sublist-" + (params == undefined || params.length == 0 ? "none" : params.selected) + "']", block);
+                var subSelect = jQuery("select[name^='sublist-" + (params == undefined || params.length == 0 ? "none" : params.selected) + "']", block)[0];
                 var len = jQuery("option", subSelect).length > 1 ? 249 : 510;
                 //Destroy prev subs selected
                 jQuery("select.sublist-" + propId, block)
@@ -397,10 +397,12 @@ function initPropEdit(blocks) {
             });
         });
         jQuery("select.child-value.show-true", block).each(function (i, subSelect) {
-            jQuery(this).closest("div.prop-edit-block")
-                .find("select.parent-value").next(".chosen-container")
-                .attr('style', 'width: 249px!important');
-            showSubSelect(subSelect);
+            if (i === 0) {
+                jQuery(this).closest("div.prop-edit-block")
+                    .find("select.parent-value").next(".chosen-container")
+                    .attr('style', 'width: 249px!important');
+                showSubSelect(subSelect);
+            }
         });
         jQuery("select.parent-value.open-value", block).each(function (i, select) {
             jQuery(select).on('chosen:no_results', function () {
@@ -416,13 +418,15 @@ function initPropEdit(blocks) {
     });
 }
 function showSubSelect(el) {
-    el = el.tagName == 'SELECT' ? el : el.get(0);
-    if (el != undefined && el.length != 0 && jQuery("option", el).length > 1) {
-        initChosen(el, function () {
-            jQuery(this).next(".chosen-container").attr('style', 'width: 249px!important;margin-left:10px;');
-        });
+    if (el != undefined) {
+        el = el.tagName == 'SELECT' ? el : el.get(0);
+        if (el != undefined && el.length != 0 && jQuery("option", el).length > 1) {
+            initChosen(el, function () {
+                jQuery(this).next(".chosen-container").attr('style', 'width: 249px!important;margin-left:10px;');
+            });
+        }
     }
-};
+}
 function realTitleWidth(obj) {
     var clone = obj.clone();
     clone.css("visibility", "hidden");
@@ -431,7 +435,6 @@ function realTitleWidth(obj) {
     clone.remove();
     return width;
 }
-
 function triggerEvent(element, eventName) {
     if (element && eventName) {
         if (document.createEvent) {

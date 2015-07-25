@@ -132,13 +132,15 @@ public class UserServiceImpl implements UserService, Logging {
             user.getCatalogs().add(catalog);
             if (sendEmail) mailService.sendMailMessage(user.getEmail(),
                                                        MailService.NEW_CATALOG,
-                                                       ImmutableMap.of("cook", user,
+                                                       ImmutableMap.of("username", user.getFullName(),
+                                                                       "cook", user,
                                                                        "catalog", catalog,
                                                                        "password", password));
         } else if (Type.USER.equals(user.getType())) {
             if (sendEmail) mailService.sendMailMessage(user.getEmail(),
                                                        MailService.NEW_USER,
-                                                       ImmutableMap.of("user", user,
+                                                       ImmutableMap.of("username", user.getFullName(),
+                                                                       "user", user,
                                                                        "password", password));
         }
         saveUser(user, password);
@@ -178,9 +180,9 @@ public class UserServiceImpl implements UserService, Logging {
         mailService.sendAdminMessage(MailService.NEW_APPLICATION, ImmutableMap.of("username", defaultIfNull(fullName, ""),
                                                                                   "email", defaultIfNull(eMail, ""),
                                                                                   "about", defaultIfNull(about, "")));
-        mailService.sendAdminMessage(MailService.NEW_APPLICATION_COOK, ImmutableMap.of("username", defaultIfNull(fullName, ""),
-                                                                                       "email", defaultIfNull(eMail, ""),
-                                                                                       "about", defaultIfNull(about, "")));
+        mailService.sendMailMessage(eMail, MailService.NEW_APPLICATION_COOK, ImmutableMap.of("username", defaultIfNull(fullName, ""),
+                                                                                             "email", defaultIfNull(eMail, ""),
+                                                                                             "about", defaultIfNull(about, "")));
 
     }
 
