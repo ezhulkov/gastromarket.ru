@@ -1,45 +1,43 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+<div class="item product-item product-modal-trigger sortable ${additionalClass}" data-productid="${product?.id}" data-productaltid="${product?.altId}" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <t:zone t:id="productZone" id="${productZoneId}" class="item product-item product-modal-trigger ${additionalClass}" data-productid="${product?.id}" data-productaltid="${product?.altId}">
+    <t:zone t:id="productZone" id="${productZoneId}">
         <t:delegate to="productBlock"/>
     </t:zone>
-
     <t:zone t:id="editZone" id="${editZoneId}"/>
 
     <t:block t:id="editBlock">
-        <t:productEdit modalId="pr-${product?.id}" product="product" productBlock="productBlock" productZoneId="${productZoneId}" catalog="product.catalog"/>
-        <script>
-            var pe = jQuery("#pr-${product.id}");
-            pe.modal('show');
-        </script>
+        <t:if test="editMode">
+            <t:productEdit modalId="pr-${product?.id}" product="product" productBlock="productBlock" productZoneId="${productZoneId}" catalog="product.catalog"/>
+            <script>
+                var pe = jQuery("#pr-${product.id}");
+                pe.modal('show');
+            </script>
+        </t:if>
     </t:block>
-
-    <t:if test="editMode">
-        <div class="modal fade delete-product" id="deleteProduct${product.id}" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <div class="title">
-                            <h1><span>Удалить блюдо?</span></h1>
-                        </div>
-                        <a class="modal-close" data-dismiss="modal"></a>
-                    </div>
-                    <div class="modal-body form-buttons" style="text-align: center;">
-                        <t:actionlink t:id="delete" t:context="product.id" class="btn btn-red deleteConfirm" style="display: inline;">Удалить</t:actionlink>
-                        <a href="#" class="btn btn-white" style="display: inline;" data-dismiss="modal">Отмена</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </t:if>
-
     <t:block t:id="productBlock">
         <div class="pic">
             <t:if test="editMode">
                 <div class="edit-block upload-file" data-objectid="${product.id}" data-type="PRODUCT" data-size="SIZE2">
+                    <span class="glyphicon glyphicon-move handle" aria-hidden="true"></span>
                     <a class="uploader-button"/>
                     <t:actionlink t:id="edit" t:context="product.id" t:zone="${editZoneId}" class="edit"/>
                     <a href="#delete" data-toggle="modal" class="delete" data-target="#deleteProduct${product.id}"/>
+                </div>
+                <div class="modal fade delete-product" id="deleteProduct${product.id}" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="title">
+                                    <h1><span>Удалить блюдо?</span></h1>
+                                </div>
+                                <a class="modal-close" data-dismiss="modal"></a>
+                            </div>
+                            <div class="modal-body form-buttons" style="text-align: center;">
+                                <t:actionlink t:id="delete" t:context="product.id" class="btn btn-red deleteConfirm" style="display: inline;">Удалить</t:actionlink>
+                                <a href="#" class="btn btn-white" style="display: inline;" data-dismiss="modal">Отмена</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </t:if>
             <img class="image" src="${product.avatarUrlMedium}"/>

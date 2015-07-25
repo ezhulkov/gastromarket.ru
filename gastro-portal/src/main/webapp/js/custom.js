@@ -37,6 +37,7 @@ Event.observe(document, Tapestry.ZONE_UPDATED_EVENT, function (event) {
     initChosen(jQuery(this).find('select.chosen-select'));
     initTitle(jQuery(this).find("div.title"));
     initFineUploader(jQuery("div.upload-file"));
+    initSortable();
 });
 jQuery(document).ready(function () {
     jQuery("ul.dropdown-menu").each(function (e) {
@@ -65,7 +66,22 @@ jQuery(document).ready(function () {
             jQuery.cookie('howto.shown', 'true', {expires: 365});
         }, 2000);
     }
+    initSortable();
 });
+function initSortable() {
+    jQuery(".sortable-container").sortable({
+        placeholder: "ui-state-highlight",
+        handle: ".handle",
+        update: function (event, ui) {
+            var items = jQuery.map(jQuery(event.target).find(".item"), function (n, i) {
+                return jQuery(n).attr("data-productid");
+            });
+            var form = jQuery(event.target).find("form.reorder");
+            jQuery(form).find("input[type='text']").attr("value", items);
+            triggerEvent(jQuery(form).find("input[type='submit']").get(0), 'click');
+        }
+    });
+}
 function isMobile() {
     var ua = navigator.userAgent.toLowerCase(),
         isIOS = ua.match(/(iphone|ipod|ipad)/),

@@ -347,10 +347,6 @@ body.mobile .rub:after {
   max-height: 84px;
   overflow: hidden;
 }
-.catalog-item.tiny .pic {
-  width: 100px;
-  height: 100px;
-}
 .catalog-item .badges {
   height: 45px;
   margin: 20px 0;
@@ -740,9 +736,10 @@ body.modal-open {
   height: 270px;
 }
 .product-item .pic .edit-block {
+  cursor: default;
   display: none;
   position: absolute;
-  background-color: rgba(255, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
   top: 0;
   right: 0;
   bottom: 0;
@@ -750,6 +747,15 @@ body.modal-open {
   vertical-align: middle;
   text-align: center;
   line-height: 270px;
+}
+.product-item .pic .edit-block .handle {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 100;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
 }
 .product-item .pic .edit-block a {
   display: inline-block;
@@ -1438,7 +1444,7 @@ label.t-error {
   box-shadow: 0 0 6px 2px #ddd;
   background-color: #fff;
   margin: 10px;
-  display: inline-block;
+  display: list-item;
   border: 1px solid #aaa;
   overflow: hidden;
   white-space: nowrap;
@@ -1455,6 +1461,9 @@ label.t-error {
 }
 .grid-block.products .item .name {
   line-height: 60px;
+}
+.grid-block.products.fixed {
+  height: 520px;
 }
 .grid-block.cooks .item {
   width: 210px;
@@ -1534,6 +1543,15 @@ label.t-error {
 }
 .grid-block a {
   display: block;
+}
+
+.ui-state-highlight {
+  margin: 6px 8px;
+  border: 1px dashed lightgray;
+  width: 268px;
+  height: 498px;
+  display: list-item;
+  float: left;
 }
 
 .filter {

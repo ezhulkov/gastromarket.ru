@@ -10,7 +10,10 @@ import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.PropertyValueEntity.Tag;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.service.ProductService.OrderType;
+import org.springframework.data.domain.Sort.Direction;
 
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -36,6 +39,9 @@ public class Products extends BaseComponent {
     @Property
     private CatalogEntity catalog;
 
+    @Property
+    private String reorder;
+
     public void onActivate(String catId) {
         this.catalog = getCatalogService().findCatalog(catId);
     }
@@ -56,7 +62,7 @@ public class Products extends BaseComponent {
     public java.util.List<ProductEntity> getProducts() {
         return isCatalogOwner() ?
                 getProductService().findAllProducts(rootProperty, catalog) :
-                getProductService().findProductsForFrontend(rootProperty, catalog, null, null, 0, Integer.MAX_VALUE);
+                getProductService().findProductsForFrontend(rootProperty, catalog, OrderType.POSITION, Direction.ASC, 0, Integer.MAX_VALUE);
     }
 
     public java.util.List<PropertyValueEntity> getRootProperties() {
@@ -68,6 +74,15 @@ public class Products extends BaseComponent {
                 .flatMap(t -> t.getParents().isEmpty() ? Stream.of(t) : t.getParents().stream())
                 .distinct()
                 .collect(Collectors.toList());
+    }
+
+    public String getSortable() {
+        return isCatalogOwner() ? "sortable-container" : "";
+    }
+
+    public Block onActionFromReorderForm() {
+        getProductService().productPosition(Arrays.stream(reorder.split(",")).map(Long::parseLong).collect(Collectors.toList()));
+        return productsBlock;
     }
 
 }

@@ -35,8 +35,8 @@
     <script src="/js/jquery.cookie.js"></script>
     <script src="/js/jquery.fine-uploader.min.js"></script>
     <script src="/js/jquery.freetile.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
     <script src="/js/intlTelInput.min.js"></script>
-    <!--<script src="/js/custom.min.js"></script>-->
     <script src="/js/custom.js"></script>
     <script type="text/javascript" src="//vk.com/js/api/openapi.js?116"></script>
     <script type="text/template" id="qq-template">

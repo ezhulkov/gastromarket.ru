@@ -652,4 +652,10 @@
         </sql>
     </changeSet>
 
+    <changeSet id="47" author="ezhulkov">
+        <addColumn tableName="product">
+            <column name="position" type="java.sql.Types.INTEGER" defaultValue="1"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

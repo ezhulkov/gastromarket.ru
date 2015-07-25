@@ -9,11 +9,11 @@
     img
       width: 270px
       height: 270px
-
     .edit-block
+      cursor: default
       display: none
       position: absolute
-      background-color: rgba(255, 0, 0, 0.6)
+      background-color: rgba(0, 0, 0, 0.7)
       top: 0
       right: 0
       bottom: 0
@@ -21,6 +21,14 @@
       vertical-align: middle
       text-align: center
       line-height: 270px
+      .handle
+        position: absolute
+        right: 10px
+        top: 10px
+        z-index: 100
+        color: white
+        cursor: pointer
+        font-size: 16px
       & a
         display: inline-block
         margin: 0 8px

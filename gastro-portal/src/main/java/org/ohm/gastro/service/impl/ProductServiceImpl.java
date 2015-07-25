@@ -231,6 +231,16 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
+    public void productPosition(final List<Long> collect) {
+        int pos = 1;
+        for (Long id : collect) {
+            final ProductEntity product = productRepository.findOne(id);
+            product.setPosition(pos++);
+            productRepository.save(product);
+        }
+    }
+
+    @Override
     public List<ProductEntity> findAllProducts(PropertyValueEntity propertyValue, CatalogEntity catalog) {
         return findProductsInternal(propertyValue, catalog, null, null);
     }

@@ -45,6 +45,9 @@ public class ProductEntity extends AltIdBaseEntity implements PriceEntity {
     @Column(name = "unit_value")
     private int unitValue = 1;
 
+    @Column(name = "position")
+    private Integer position = 1;
+
     @Column
     private Timestamp date = new Timestamp(System.currentTimeMillis());
 
@@ -188,6 +191,14 @@ public class ProductEntity extends AltIdBaseEntity implements PriceEntity {
 
     public void setOffers(final List<OfferEntity> offers) {
         this.offers = offers;
+    }
+
+    public Integer getPosition() {
+        return position;
+    }
+
+    public void setPosition(final Integer position) {
+        this.position = position;
     }
 
     public String getDescriptionRaw() {

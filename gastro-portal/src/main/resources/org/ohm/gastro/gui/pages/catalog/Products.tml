@@ -20,10 +20,14 @@
                 <div class="title">
                     <h2><span>${rootProperty.name}</span></h2>
                 </div>
-                <div id="product-items" class="grid-block products fixed">
+                <div id="product-items" class="grid-block products fixed ${sortable}">
                     <t:loop source="products" value="oneProduct">
                         <t:product product="oneProduct" class="fixed" edit="${catalogOwner}"/>
                     </t:loop>
+                    <t:form t:id="reorderForm" t:clientValidation="none" t:zone="productsZone" class="hidden reorder">
+                        <input t:type="textfield" t:id="reorder" t:value="reorder"/>
+                        <input t:type="submit" t:id="ordersubmit"/>
+                    </t:form>
                 </div>
                 <t:parameter name="empty">
                     <div class="empty">Меню кулинара пусто</div>

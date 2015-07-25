@@ -32,8 +32,10 @@ public interface ProductService extends ImageUploaderService<ProductEntity>, Alt
 
     void attachPriceModifiers(PriceEntity object, List<PriceModifierEntity> submittedModifiers);
 
+    void productPosition(List<Long> collect);
+
     enum OrderType {
-        NAME, PRICE, NONE
+        NAME, PRICE, NONE, POSITION
     }
 
     List<ProductEntity> findAllProducts(final PropertyValueEntity propertyValue, final CatalogEntity catalog);
