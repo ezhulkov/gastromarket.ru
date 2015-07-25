@@ -347,6 +347,10 @@ body.mobile .rub:after {
   max-height: 84px;
   overflow: hidden;
 }
+.catalog-item.tiny .pic {
+  width: 100px;
+  height: 100px;
+}
 .catalog-item .badges {
   height: 45px;
   margin: 20px 0;

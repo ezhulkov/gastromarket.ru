@@ -373,15 +373,8 @@ function initPropEdit(blocks) {
                     .css("display", "none");
                 //Animate main select
                 if (jQuery(container).innerWidth() != len) {
-                    jQuery(container).animate({width: len}, {
-                        duration: 100,
-                        step: function (now, fx) {
-                            jQuery(container).attr('style', 'width: ' + now + 'px!important');
-                        },
-                        complete: function () {
-                            showSubSelect(subSelect);
-                        }
-                    });
+                    jQuery(container).attr('style', 'width: ' + len + 'px!important');
+                    showSubSelect(subSelect);
                 } else {
                     showSubSelect(subSelect);
                 }

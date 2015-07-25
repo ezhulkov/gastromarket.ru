@@ -84,7 +84,7 @@
         <div class="title">
             <h1><span>Блюда</span></h1>
             <t:if test="products">
-                <t:pagelink page="catalog/products" t:context="catalog.altId">Показать всё меню<span/></t:pagelink>
+                <t:pagelink page="catalog/products" t:context="catalog.altId">Показать все блюда<span/></t:pagelink>
                 <t:parameter name="else">
                     <t:if test="catalogOwner">
                         <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>

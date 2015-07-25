@@ -2,17 +2,14 @@
 
     <div class="container">
         <div class="title">
-            <h1><span>Готовые предложения</span></h1>
-            <t:if test="catalogOwner">
-                <a data-toggle="modal" data-target="#of-new" href="#of-new">Добавить предложение</a>
-            </t:if>
+            <h1><span>Предложения от ${catalog.name}</span></h1>
         </div>
         <t:if test="catalogOwner">
+            <div class="links-set">
+                <a data-toggle="modal" data-target="#of-new" href="#of-new">Добавить предложение</a>
+            </div>
             <t:offerEdit catalog="catalog" edit="false" offersBlock="offersBlock"/>
         </t:if>
-        <p class="modal-text">
-            <a href="/catalog/${catalog.altId}" class="red-text">Вернуться к странице кулинара</a>
-        </p>
     </div>
 
     <t:zone t:id="offersZone">

@@ -29,7 +29,7 @@
                             <div class="grey-text f16px">${oneCatalog.user.loginDatePrintable}</div>
                         </div>
                         <div class="col-sm-9 text-left">
-                            <t:pagelink page="catalog/products" t:context="oneCatalog.altId" class="round-link">Показать всё меню <span/></t:pagelink>
+                            <t:pagelink page="catalog/products" t:context="oneCatalog.altId" class="round-link">Показать все блюда<span/></t:pagelink>
                         </div>
                     </div>
                 </div>
