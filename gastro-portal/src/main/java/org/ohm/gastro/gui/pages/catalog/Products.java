@@ -10,6 +10,7 @@ import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.PropertyValueEntity.Tag;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.service.ProductService;
 import org.ohm.gastro.service.ProductService.OrderType;
 import org.springframework.data.domain.Sort.Direction;
 
@@ -42,12 +43,46 @@ public class Products extends BaseComponent {
     @Property
     private String reorder;
 
-    public void onActivate(String catId) {
+    @Property
+    private PropertyValueEntity propertyValue = null;
+
+    @Property
+    private PropertyValueEntity parentPropertyValue = null;
+
+    @Property
+    private ProductService.OrderType orderType = OrderType.NONE;
+
+    @Property
+    protected Direction direction = null;
+
+    public boolean onActivate(String catId) {
+        return onActivate(catId, null);
+    }
+
+    public boolean onActivate(String catId, String ppid) {
+        return onActivate(catId, ppid, null, OrderType.POSITION, null);
+    }
+
+    public boolean onActivate(String catId, String ppid, String pid) {
+        return onActivate(catId, ppid, pid, OrderType.POSITION, null);
+    }
+
+    public boolean onActivate(String catId, String ppid, String pid, ProductService.OrderType orderType, Direction direction) {
         this.catalog = getCatalogService().findCatalog(catId);
+        this.parentPropertyValue = ppid == null ? null : getPropertyService().findPropertyValue(ppid);
+        this.propertyValue = pid == null ? null : getPropertyService().findPropertyValue(pid);
+        this.direction = direction;
+        this.orderType = orderType;
+        return true;
     }
 
     public Object[] onPassivate() {
-        return new Object[]{catalog.getId()};
+        return new Object[]{
+                catalog.getId(),
+                parentPropertyValue == null ? null : parentPropertyValue.getAltId(),
+                propertyValue == null ? null : propertyValue.getAltId(),
+                orderType == null ? null : orderType.name().toLowerCase(),
+                direction == null ? null : direction.name().toLowerCase()};
     }
 
     public String getTitle() {
