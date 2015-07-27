@@ -97,6 +97,16 @@ public class Products extends BaseComponent {
                 getProductService().findProductsForFrontend(propertyValue, catalog, OrderType.POSITION, Direction.ASC, 0, Integer.MAX_VALUE);
     }
 
+    public java.util.List<PropertyValueEntity> getAllProperties() {
+        return getProductService().findProductsForFrontend(null, catalog, null, null, 0, Integer.MAX_VALUE).stream()
+                .flatMap(t -> t.getValues().stream())
+                .map(TagEntity::getValue)
+                .filter(t -> t.getTag() == Tag.ROOT)
+                .flatMap(t -> Stream.concat(Stream.of(t), t.getParents().stream()))
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
     public java.util.List<PropertyValueEntity> getRootProperties() {
         return getProductService().findProductsForFrontend(null, catalog, null, null, 0, Integer.MAX_VALUE).stream()
                 .flatMap(t -> t.getValues().stream())

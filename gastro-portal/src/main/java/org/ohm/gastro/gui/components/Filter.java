@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.components;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -39,6 +40,10 @@ public class Filter extends BaseComponent {
     @Parameter(name = "pageContext", allowNull = false, required = false)
     private String pageContext;
 
+    @Property
+    @Parameter(name = "allValues", allowNull = true, required = false)
+    private List<PropertyValueEntity> allValues;
+
     @Cached
     public java.util.List<PropertyValueEntity> getValues() {
         return getPropertyService().findAllValues(Tag.ROOT);
@@ -62,6 +67,14 @@ public class Filter extends BaseComponent {
 
     public List<PropertyValueEntity> getChildrenValues() {
         return getPropertyService().findAllChildrenValues(oneValue);
+    }
+
+    public boolean getShow() {
+        return CollectionUtils.isEmpty(allValues) || allValues.contains(oneValue);
+    }
+
+    public boolean getShowSub() {
+        return CollectionUtils.isEmpty(allValues) || allValues.contains(oneChildValue);
     }
 
 }

@@ -9,7 +9,12 @@
                 <t:loop source="values" value="oneValue">
                     <t:if test="oneValue.children">
                         <li class="submenu">
-                            <a href="${pageContext}/${oneValue.altId}">${oneValue.name}</a>
+                            <t:if test="show">
+                                <a href="${pageContext}/${oneValue.altId}">${oneValue.name}</a>
+                                <t:parameter name="else">
+                                    <span class="disable">${oneValue.name}</span>
+                                </t:parameter>
+                            </t:if>
 
                             <ul class="dropdown-menu">
                                 <t:loop source="childrenValues" value="oneChildValue">

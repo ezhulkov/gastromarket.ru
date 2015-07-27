@@ -1630,6 +1630,14 @@ label.t-error {
 .filter .order-DESC {
   background-position: 0 -5px;
 }
+.filter .disable {
+  font-size: 14px;
+  color: lightgray;
+  display: block;
+  width: 160px;
+  text-align: left;
+  margin: 3px 0 3px 20px;
+}
 
 .basket-block {
   line-height: 30px;
