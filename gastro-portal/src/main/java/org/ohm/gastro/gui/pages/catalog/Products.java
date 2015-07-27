@@ -30,9 +30,6 @@ public class Products extends BaseComponent {
     @Property
     private ProductEntity oneProduct;
 
-    @Property
-    private PropertyValueEntity rootProperty;
-
     @Inject
     @Property
     private Block productsBlock;
@@ -60,7 +57,7 @@ public class Products extends BaseComponent {
     }
 
     public boolean onActivate(String catId, String ppid) {
-        return onActivate(catId, ppid, null, OrderType.POSITION, null);
+        return onActivate(catId, null, ppid, OrderType.POSITION, null);
     }
 
     public boolean onActivate(String catId, String ppid, String pid) {
@@ -79,8 +76,8 @@ public class Products extends BaseComponent {
     public Object[] onPassivate() {
         return new Object[]{
                 catalog.getId(),
-                parentPropertyValue == null ? null : parentPropertyValue.getAltId(),
                 propertyValue == null ? null : propertyValue.getAltId(),
+                parentPropertyValue == null ? null : parentPropertyValue.getAltId(),
                 orderType == null ? null : orderType.name().toLowerCase(),
                 direction == null ? null : direction.name().toLowerCase()};
     }
@@ -96,8 +93,8 @@ public class Products extends BaseComponent {
 
     public java.util.List<ProductEntity> getProducts() {
         return isCatalogOwner() ?
-                getProductService().findAllProducts(rootProperty, catalog) :
-                getProductService().findProductsForFrontend(rootProperty, catalog, OrderType.POSITION, Direction.ASC, 0, Integer.MAX_VALUE);
+                getProductService().findAllProducts(propertyValue, catalog) :
+                getProductService().findProductsForFrontend(propertyValue, catalog, OrderType.POSITION, Direction.ASC, 0, Integer.MAX_VALUE);
     }
 
     public java.util.List<PropertyValueEntity> getRootProperties() {

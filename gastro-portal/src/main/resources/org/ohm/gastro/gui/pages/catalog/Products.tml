@@ -12,33 +12,53 @@
             </div>
             <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>
         </t:if>
-        <t:filter parentValue="parentPropertyValue" value="propertyValue" orderType="orderType" direction="direction" pageContext="literal:/catalog/products"/>
+        <t:filter parentValue="parentPropertyValue" value="propertyValue" orderType="orderType" direction="direction" pageContext="/catalog/products/${catalog.altId}"/>
         <t:zone t:id="productsZone">
             <t:delegate to="productsBlock"/>
         </t:zone>
         <t:block t:id="productsBlock">
-            <t:loop source="rootProperties" value="rootProperty">
-                <t:unless test="parentPropertyValue">
-                    <div class="title">
-                        <h2><span>${rootProperty.name}</span></h2>
-                    </div>
-                </t:unless>
-                <div id="product-items" class="grid-block products fixed ${sortable}">
+            <t:if test="propertyValue">
+                <div id="product-items" class="grid-block products fixed">
                     <t:loop source="products" value="oneProduct">
                         <t:product product="oneProduct" class="fixed" edit="${catalogOwner}"/>
                     </t:loop>
-                    <t:form t:id="reorderForm" t:clientValidation="none" t:zone="productsZone" class="hidden reorder">
-                        <input t:type="textfield" t:id="reorder" t:value="reorder"/>
-                        <input t:type="submit" t:id="ordersubmit"/>
-                    </t:form>
                 </div>
-                <t:parameter name="empty">
-                    <div class="empty">Меню кулинара пусто</div>
-                </t:parameter>
-            </t:loop>
+            </t:if>
+            <t:unless test="propertyValue">
+                <t:loop source="rootProperties" value="propertyValue">
+                    <div class="title">
+                        <h2><span>${propertyValue.name}</span></h2>
+                    </div>
+                    <div id="product-items" class="grid-block products fixed ${sortable}">
+                        <t:loop source="products" value="oneProduct">
+                            <t:product product="oneProduct" class="fixed" edit="${catalogOwner}"/>
+                        </t:loop>
+                        <t:form t:id="reorderForm" t:clientValidation="none" t:zone="productsZone" class="hidden reorder">
+                            <input t:type="textfield" t:id="reorder" t:value="reorder"/>
+                            <input t:type="submit" t:id="ordersubmit"/>
+                        </t:form>
+                    </div>
+                    <t:parameter name="empty">
+                        <div class="empty">Меню кулинара пусто</div>
+                    </t:parameter>
+                </t:loop>
+            </t:unless>
         </t:block>
         <t:productModalTemplate/>
 
     </div>
+
+    <script>
+        jQuery(document).ready(function () {
+            var init = function () {
+                initProductCatalogFixed();
+            };
+            init();
+            Event.observe(jQuery("#productsZone").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
+                init();
+                initTitle(jQuery("div.title"));
+            });
+        });
+    </script>
 
 </t:htmlLayout>
