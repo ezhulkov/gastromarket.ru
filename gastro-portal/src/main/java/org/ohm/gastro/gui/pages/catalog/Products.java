@@ -44,7 +44,7 @@ public class Products extends BaseComponent {
     private PropertyValueEntity parentPropertyValue = null;
 
     @Property
-    private ProductService.OrderType orderType = OrderType.NONE;
+    private ProductService.OrderType orderType = OrderType.POSITION;
 
     @Property
     protected Direction direction = null;
