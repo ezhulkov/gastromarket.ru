@@ -33,6 +33,7 @@ public class PriceModifierEntity extends AbstractBaseEntity {
                     @MetaValue(targetEntity = OfferEntity.class, value = "OFFER"),
             })
     @JoinColumn(name = "entity_id")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private PriceEntity entity;
 
     public PriceEntity getEntity() {
