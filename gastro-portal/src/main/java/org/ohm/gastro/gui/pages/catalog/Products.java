@@ -101,6 +101,7 @@ public class Products extends BaseComponent {
         return getProductService().findProductsForFrontend(null, catalog, null, null, 0, Integer.MAX_VALUE).stream()
                 .flatMap(t -> t.getValues().stream())
                 .map(TagEntity::getValue)
+                .filter(Objects::nonNull)
                 .filter(t -> t.getTag() == Tag.ROOT)
                 .flatMap(t -> Stream.concat(Stream.of(t), t.getParents().stream()))
                 .distinct()
