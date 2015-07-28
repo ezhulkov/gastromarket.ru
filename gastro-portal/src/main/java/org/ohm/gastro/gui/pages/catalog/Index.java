@@ -11,10 +11,7 @@ import org.ohm.gastro.domain.OfferEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
-import org.ohm.gastro.domain.PropertyValueEntity.Tag;
-import org.ohm.gastro.domain.TagEntity;
 
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -62,9 +59,7 @@ public class Index extends AbstractCatalogPage {
 
     @Cached
     public java.util.List<ProductEntity> getProducts() {
-        final java.util.List<ProductEntity> allProducts = isCatalogOwner() ?
-                getProductService().findAllProducts(null, catalog) :
-                getProductService().findProductsForFrontend(null, catalog, null, null, 0, Integer.MAX_VALUE);
+        final java.util.List<ProductEntity> allProducts = getProductService().findProductsForFrontend(null, catalog, isCatalogOwner() ? null : true, null, null, 0, Integer.MAX_VALUE);
         return allProducts.stream().limit(4).collect(Collectors.toList());
     }
 
@@ -95,11 +90,7 @@ public class Index extends AbstractCatalogPage {
     }
 
     public String getRootProperties() {
-        return getProductService().findProductsForFrontend(null, catalog, null, null, 0, Integer.MAX_VALUE).stream()
-                .flatMap(t -> t.getValues().stream())
-                .map(TagEntity::getValue)
-                .filter(Objects::nonNull)
-                .filter(t -> t.getTag() == Tag.ROOT)
+        return getProductService().findAllRootValues(catalog, isCatalogOwner() ? null : true).stream()
                 .map(PropertyValueEntity::getName)
                 .distinct()
                 .collect(Collectors.joining(", "));

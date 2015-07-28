@@ -7,15 +7,12 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
-import org.ohm.gastro.domain.PropertyValueEntity.Tag;
-import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.service.ProductService;
 import org.ohm.gastro.service.ProductService.OrderType;
 import org.springframework.data.domain.Sort.Direction;
 
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -92,28 +89,18 @@ public class Products extends BaseComponent {
     }
 
     public java.util.List<ProductEntity> getProducts() {
-        return isCatalogOwner() ?
-                getProductService().findAllProducts(propertyValue, catalog) :
-                getProductService().findProductsForFrontend(propertyValue, catalog, OrderType.POSITION, Direction.ASC, 0, Integer.MAX_VALUE);
+        return getProductService().findProductsForFrontend(propertyValue, catalog, isCatalogOwner() ? null : true, orderType, direction, 0, Integer.MAX_VALUE);
     }
 
     public java.util.List<PropertyValueEntity> getAllProperties() {
-        return getProductService().findProductsForFrontend(null, catalog, null, null, 0, Integer.MAX_VALUE).stream()
-                .flatMap(t -> t.getValues().stream())
-                .map(TagEntity::getValue)
-                .filter(Objects::nonNull)
-                .filter(t -> t.getTag() == Tag.ROOT)
+        return getProductService().findAllRootValues(catalog, isCatalogOwner() ? null : true).stream()
                 .flatMap(t -> Stream.concat(Stream.of(t), t.getParents().stream()))
                 .distinct()
                 .collect(Collectors.toList());
     }
 
     public java.util.List<PropertyValueEntity> getRootProperties() {
-        return getProductService().findProductsForFrontend(null, catalog, null, null, 0, Integer.MAX_VALUE).stream()
-                .flatMap(t -> t.getValues().stream())
-                .map(TagEntity::getValue)
-                .filter(Objects::nonNull)
-                .filter(t -> t.getTag() == Tag.ROOT)
+        return getProductService().findAllRootValues(catalog, isCatalogOwner() ? null : true).stream()
                 .flatMap(t -> t.getParents().isEmpty() ? Stream.of(t) : t.getParents().stream())
                 .distinct()
                 .collect(Collectors.toList());

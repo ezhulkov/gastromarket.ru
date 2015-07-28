@@ -8,22 +8,23 @@
                 </li>
                 <t:loop source="values" value="oneValue">
                     <t:if test="oneValue.children">
-                        <li class="submenu">
-                            <t:if test="show">
+                        <t:if test="show">
+                            <li class="submenu">
                                 <a href="${pageContext}/${oneValue.altId}">${oneValue.name}</a>
-                                <t:parameter name="else">
+                                <ul class="dropdown-menu">
+                                    <t:loop source="childrenValues" value="oneChildValue">
+                                        <li>
+                                            <a href="${pageContext}/${oneValue.altId}/${oneChildValue.altId}">${oneChildValue.name}</a>
+                                        </li>
+                                    </t:loop>
+                                </ul>
+                            </li>
+                            <t:parameter name="else">
+                                <li>
                                     <span class="disable">${oneValue.name}</span>
-                                </t:parameter>
-                            </t:if>
-
-                            <ul class="dropdown-menu">
-                                <t:loop source="childrenValues" value="oneChildValue">
-                                    <li>
-                                        <a href="${pageContext}/${oneValue.altId}/${oneChildValue.altId}">${oneChildValue.name}</a>
-                                    </li>
-                                </t:loop>
-                            </ul>
-                        </li>
+                                </li>
+                            </t:parameter>
+                        </t:if>
                         <t:parameter name="else">
                             <li><a href="${pageContext}/${oneValue.altId}">${oneValue.name}</a></li>
                         </t:parameter>

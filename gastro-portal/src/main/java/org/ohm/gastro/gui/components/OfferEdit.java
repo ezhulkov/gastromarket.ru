@@ -99,7 +99,7 @@ public class OfferEdit extends BaseComponent {
 
     @Cached
     public GenericSelectModel<ProductEntity> getProductsModel() {
-        return new GenericSelectModel<>(getProductService().findProductsForFrontend(null, catalog, null, null, 0, Integer.MAX_VALUE),
+        return new GenericSelectModel<>(getProductService().findProductsForFrontend(null, catalog, true, null, null, 0, Integer.MAX_VALUE),
                                         ProductEntity.class,
                                         "name", "id", getAccess());
     }

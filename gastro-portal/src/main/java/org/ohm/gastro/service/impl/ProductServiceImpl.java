@@ -14,6 +14,7 @@ import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.ProductEntity.Unit;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
+import org.ohm.gastro.domain.PropertyValueEntity.Tag;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.misc.Throwables;
 import org.ohm.gastro.reps.PriceModifierRepository;
@@ -241,17 +242,13 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
-    public List<ProductEntity> findAllProducts(PropertyValueEntity propertyValue, CatalogEntity catalog) {
-        return findProductsInternal(propertyValue, catalog, null, null);
-    }
-
-    @Override
-    public List<ProductEntity> findProductsForFrontend(PropertyValueEntity propertyValue, CatalogEntity catalog, OrderType orderType, Direction direction, int from, int to) {
+    public List<ProductEntity> findProductsForFrontend(PropertyValueEntity propertyValue, CatalogEntity catalog, Boolean wasSetup,
+                                                       OrderType orderType, Direction direction, int from, int to) {
         final int count = to - from;
         if (count == 0) return Lists.newArrayList();
         final int page = from / count;
         final Sort sort = orderType == OrderType.NONE || orderType == null ? null : new Sort(direction, orderType.name().toLowerCase());
-        return findProductsInternal(propertyValue, catalog, true, new PageRequest(page, count, sort));
+        return findProductsInternal(propertyValue, catalog, wasSetup, new PageRequest(page, count, sort));
     }
 
     @Override
@@ -306,6 +303,16 @@ public class ProductServiceImpl implements ProductService, Logging {
     @Override
     public List<PriceModifierEntity> findAllModifiers(PriceEntity object) {
         return priceModifierRepository.findAllByEntity(object);
+    }
+
+    @Override
+    public List<PropertyValueEntity> findAllRootValues(CatalogEntity catalog, Boolean wasSetup) {
+        return findProductsForFrontend(null, catalog, wasSetup, null, null, 0, Integer.MAX_VALUE).stream()
+                .flatMap(t -> t.getValues().stream())
+                .map(TagEntity::getValue)
+                .filter(java.util.Objects::nonNull)
+                .filter(t -> t.getTag() == Tag.ROOT)
+                .collect(Collectors.toList());
     }
 
 }

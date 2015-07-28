@@ -110,7 +110,7 @@ public class Wizard extends AbstractCatalogPage {
     }
 
     public java.util.List<ProductEntity> getProducts() {
-        return getProductService().findAllProducts(null, catalog);
+        return getProductService().findProductsForFrontend(null, catalog, null, null, null, 0, Integer.MAX_VALUE);
     }
 
 }

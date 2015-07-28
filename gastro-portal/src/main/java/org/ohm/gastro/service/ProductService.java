@@ -38,9 +38,8 @@ public interface ProductService extends ImageUploaderService<ProductEntity>, Alt
         NAME, PRICE, NONE, POSITION
     }
 
-    List<ProductEntity> findAllProducts(final PropertyValueEntity propertyValue, final CatalogEntity catalog);
-
-    List<ProductEntity> findProductsForFrontend(final PropertyValueEntity property, final CatalogEntity catalog, final OrderType orderType, final Direction direction, final int from, final int to);
+    List<ProductEntity> findProductsForFrontend(final PropertyValueEntity property, final CatalogEntity catalog, final Boolean wasSetup,
+                                                final OrderType orderType, final Direction direction, final int from, final int to);
 
     int findProductsForFrontendCount(final CatalogEntity catalog);
 
@@ -69,5 +68,7 @@ public interface ProductService extends ImageUploaderService<ProductEntity>, Alt
     void importProducts(Map<String, Set<MediaElement>> cachedElements, CatalogEntity catalog);
 
     List<PriceModifierEntity> findAllModifiers(PriceEntity entity);
+
+    List<PropertyValueEntity> findAllRootValues(CatalogEntity catalog, Boolean wasSetup);
 
 }

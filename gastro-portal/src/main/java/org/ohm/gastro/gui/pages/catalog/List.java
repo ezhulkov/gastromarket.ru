@@ -8,11 +8,8 @@ import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
-import org.ohm.gastro.domain.PropertyValueEntity.Tag;
-import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -39,16 +36,8 @@ public class List extends BaseComponent {
         return getCatalogService().findAllActiveCatalogs();
     }
 
-    public java.util.List<ProductEntity> getProducts() {
-        return getProductService().findProductsForFrontend(null, oneCatalog, null, null, 0, 3);
-    }
-
     public String getRootProperties() {
-        return getProductService().findProductsForFrontend(null, oneCatalog, null, null, 0, Integer.MAX_VALUE).stream()
-                .flatMap(t -> t.getValues().stream())
-                .map(TagEntity::getValue)
-                .filter(Objects::nonNull)
-                .filter(t -> t.getTag() == Tag.ROOT)
+        return getProductService().findAllRootValues(oneCatalog, true).stream()
                 .map(PropertyValueEntity::getName)
                 .distinct()
                 .collect(Collectors.joining(", "));
