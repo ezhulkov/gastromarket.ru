@@ -658,4 +658,8 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="48" author="ezhulkov">
+        <dropTable tableName="bill"/>
+    </changeSet>
+
 </databaseChangeLog>
