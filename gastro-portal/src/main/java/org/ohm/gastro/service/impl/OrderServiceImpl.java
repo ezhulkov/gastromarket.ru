@@ -1,15 +1,12 @@
 package org.ohm.gastro.service.impl;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateUtils;
-import org.ohm.gastro.domain.BillEntity;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.OrderProductEntity;
 import org.ohm.gastro.domain.UserEntity;
-import org.ohm.gastro.reps.BillRepository;
 import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.OrderProductRepository;
 import org.ohm.gastro.reps.OrderRepository;
@@ -27,7 +24,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -46,42 +42,23 @@ public class OrderServiceImpl implements OrderService, Logging {
     private final OrderRepository orderRepository;
     private final OrderProductRepository orderProductRepository;
     private final UserRepository userRepository;
-    private final BillRepository billRepository;
     private final CatalogRepository catalogRepository;
     private final MailService mailService;
     private final RatingService ratingService;
 
     @Autowired
-    public OrderServiceImpl(final OrderRepository orderRepository, final OrderProductRepository orderProductRepository,
-                            final UserRepository userRepository, final BillRepository billRepository,
-                            final CatalogRepository catalogRepository, final MailService mailService,
+    public OrderServiceImpl(final OrderRepository orderRepository,
+                            final OrderProductRepository orderProductRepository,
+                            final UserRepository userRepository,
+                            final CatalogRepository catalogRepository,
+                            final MailService mailService,
                             final RatingService ratingService) {
         this.orderRepository = orderRepository;
         this.orderProductRepository = orderProductRepository;
         this.userRepository = userRepository;
-        this.billRepository = billRepository;
         this.catalogRepository = catalogRepository;
         this.mailService = mailService;
         this.ratingService = ratingService;
-    }
-
-    private Date getBillingPeriodStart(Date catalogCreationDate) {
-        final Calendar calendar = Calendar.getInstance();
-        calendar.setTime(catalogCreationDate);
-        final int billingDay = calendar.get(Calendar.DAY_OF_MONTH);
-        calendar.setTime(new Date());
-        calendar.set(Calendar.DAY_OF_MONTH, billingDay);
-        return DateUtils.truncate(calendar, Calendar.DATE).getTime();
-    }
-
-    private Date getBillingPeriodEnd(Date catalogCreationDate) {
-        final Calendar calendar = Calendar.getInstance();
-        calendar.setTime(catalogCreationDate);
-        final int billingDay = calendar.get(Calendar.DAY_OF_MONTH);
-        calendar.setTime(new Date());
-        calendar.set(Calendar.DAY_OF_MONTH, billingDay);
-        final Date billingPeriodStart = DateUtils.truncate(calendar, Calendar.DATE).getTime();
-        return DateUtils.addMonths(billingPeriodStart, 1);
     }
 
     @Override
@@ -92,24 +69,13 @@ public class OrderServiceImpl implements OrderService, Logging {
                 .collect(Collectors.groupingBy(t -> t.getProduct().getCatalog())).entrySet().stream()
                 .map(t -> {
                     final CatalogEntity catalog = catalogRepository.findOne(t.getKey().getId());
-                    final Date billingPeriodStart = getBillingPeriodStart(catalog.getDate());
-                    final Date billingPeriodEnd = getBillingPeriodEnd(catalog.getDate());
                     final List<OrderProductEntity> products = t.getValue();
                     final OrderEntity order = new OrderEntity();
-                    BillEntity bill = billRepository.findByCatalogAndDateBetween(catalog, billingPeriodStart, billingPeriodEnd);
-                    if (bill == null) {
-                        bill = new BillEntity();
-                        bill.setDate(billingPeriodStart);
-                        bill.setStatus(BillEntity.Status.NEW);
-                        bill.setCatalog(catalog);
-                        billRepository.save(bill);
-                    }
                     order.setComment(totalOrder.getComment());
                     order.setDate(new Timestamp(System.currentTimeMillis()));
                     order.setCustomer(totalOrder.getCustomer());
                     order.setProducts(products);
                     order.setUsedBonuses(Math.min(totalOrder.getUsedBonuses() * order.getOrderTotalPrice() / totalPrice, order.getOrderTotalPrice()));
-                    order.setBill(bill);
                     order.setStatus(Status.NEW);
                     orderRepository.save(order);
                     products.stream().forEach(p -> p.setOrder(order));
@@ -161,18 +127,6 @@ public class OrderServiceImpl implements OrderService, Logging {
     @Override
     public List<OrderEntity> findAllOrders(final CatalogEntity catalog, final Status status) {
         return orderRepository.findAllByCatalog(catalog, status);
-    }
-
-    @Override
-    public List<OrderEntity> findAllOrders(BillEntity bill) {
-        return orderRepository.findAllByBill(bill);
-    }
-
-    @Override
-    public List<BillEntity> findAllBills(CatalogEntity catalog) {
-        final List<BillEntity> bills = billRepository.findByCatalogOrderByDateAsc(catalog);
-        bills.stream().forEach(bill -> bill.setTotalBill(0));
-        return bills;
     }
 
     @Override

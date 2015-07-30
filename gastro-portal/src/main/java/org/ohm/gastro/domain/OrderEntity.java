@@ -46,9 +46,6 @@ public class OrderEntity extends AbstractBaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private UserEntity customer;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private BillEntity bill;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
     private List<OrderProductEntity> products = Lists.newArrayList();
 
@@ -110,14 +107,6 @@ public class OrderEntity extends AbstractBaseEntity {
 
     public String getDatePrintable() {
         return CommonsUtils.GUI_DATE_LONG.get().format(new Date(date.getTime()));
-    }
-
-    public BillEntity getBill() {
-        return bill;
-    }
-
-    public void setBill(BillEntity bill) {
-        this.bill = bill;
     }
 
     public boolean isClosed() {

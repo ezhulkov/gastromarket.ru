@@ -1,6 +1,5 @@
 package org.ohm.gastro.service;
 
-import org.ohm.gastro.domain.BillEntity;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
@@ -21,10 +20,6 @@ public interface OrderService {
     List<OrderEntity> findAllOrders(CatalogEntity catalog);
 
     List<OrderEntity> findAllOrders(CatalogEntity catalog, OrderEntity.Status status);
-
-    List<OrderEntity> findAllOrders(BillEntity bill);
-
-    List<BillEntity> findAllBills(CatalogEntity catalog);
 
     int getBonuses(int price);
 

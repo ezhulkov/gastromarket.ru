@@ -1,6 +1,5 @@
 package org.ohm.gastro.reps;
 
-import org.ohm.gastro.domain.BillEntity;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.UserEntity;
@@ -24,7 +23,6 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
             "where p.customer=:customer and (c=:catalog or :catalog is null) " +
             "order by p.date desc")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-
     List<OrderEntity> findAllByCatalogAndCustomer(@Param("customer") UserEntity customer, @Param("catalog") CatalogEntity catalog);
 
     @Query("select distinct p from OrderEntity p " +
@@ -35,12 +33,5 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
             "order by p.date desc")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     List<OrderEntity> findAllByCatalog(@Param("catalog") CatalogEntity catalog, @Param("status") OrderEntity.Status status);
-
-    @Query("select o from OrderEntity o " +
-            "join o.bill b " +
-            "where b=:bill " +
-            "order by o.date asc")
-    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    List<OrderEntity> findAllByBill(@Param("bill") BillEntity bill);
 
 }

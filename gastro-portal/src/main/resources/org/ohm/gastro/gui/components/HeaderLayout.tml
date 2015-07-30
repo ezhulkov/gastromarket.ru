@@ -38,16 +38,10 @@
                                             <t:pagelink page="catalog/index" t:context="oneCatalog.altId">Страница '${oneCatalog.name}'</t:pagelink>
                                         </li>
                                     </t:loop>
-                                    <li>
-                                        <t:pagelink page="cook/bills">Мои счета</t:pagelink>
-                                    </li>
                                 </t:if>
                                 <t:if test="admin">
                                     <li>
                                         <t:pagelink page="admin/order/list">Все заказы</t:pagelink>
-                                    </li>
-                                    <li>
-                                        <t:pagelink page="cook/bills">Все счета</t:pagelink>
                                     </li>
                                     <li>
                                         <t:pagelink page="admin/property/list">Системные настройки</t:pagelink>

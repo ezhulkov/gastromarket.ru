@@ -22,14 +22,6 @@ SET search_path = public, pg_catalog;
 -- Data for Name: catalog; Type: TABLE DATA; Schema: public; Owner: gastro
 --
 
-
-
---
--- Data for Name: bill; Type: TABLE DATA; Schema: public; Owner: gastro
---
-
-
-
 --
 -- Data for Name: comment; Type: TABLE DATA; Schema: public; Owner: gastro
 --
