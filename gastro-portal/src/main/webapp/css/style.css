@@ -1,29 +1,29 @@
 @font-face {
-  font-family: 'PT Serif';
+  font-family: "PT Serif";
   font-style: normal;
   font-weight: 400;
   src: local("PT Serif"), local("PTSerif-Regular"), url(../fonts/pt-serif.ttf) format("truetype");
 }
 @font-face {
-  font-family: 'PT Sans';
+  font-family: "PT Sans";
   font-style: normal;
   font-weight: 400;
   src: local("PT Sans"), local("PTSans-Regular"), url(../fonts/pt-sans.ttf) format("truetype");
 }
 @font-face {
-  font-family: 'PT Sans';
+  font-family: "PT Sans";
   font-style: normal;
   font-weight: 700;
   src: local("PT Sans Bold"), local("PTSans-Bold"), url(../fonts/pt-sans-bold.ttf) format("truetype");
 }
 @font-face {
-  font-family: 'PT Sans';
+  font-family: "PT Sans";
   font-style: italic;
   font-weight: 400;
   src: local("PT Sans Italic"), local("PTSans-Italic"), url(../fonts/pt-sans-italic.ttf) format("truetype");
 }
 @font-face {
-  font-family: 'PT Sans';
+  font-family: "PT Sans";
   font-style: italic;
   font-weight: 700;
   src: local("PT Sans Bold Italic"), local("PTSans-BoldItalic"), url(../fonts/pt-sans-bold-italic.ttf) format("truetype");
@@ -196,14 +196,6 @@ body.mobile .rub:after {
   margin-right: 10px;
 }
 
-.pic-holder.delete > .purchase-edit {
-  background-position-x: -40px;
-}
-
-.pic-holder.used-bonuses > .purchase-edit {
-  background-position-x: -60px;
-}
-
 .pic-holder.basket-add > span {
   width: 30px;
   height: 30px;
@@ -313,6 +305,10 @@ body.mobile .rub:after {
 .form label {
   font-size: 16px;
   font-weight: normal;
+}
+
+.text-right {
+  text-align: right !important;
 }
 
 .catalog-item {
@@ -550,7 +546,6 @@ ul.comments .glyphicon-thumbs--1:before {
 }
 .offer-item .description, .offer-item .catalog-item.short .description, .catalog-item.short .offer-item .description {
   font-size: 16px;
-  margin-top: 5px;
 }
 .offer-item .edit {
   display: none;
@@ -577,9 +572,6 @@ ul.comments .glyphicon-thumbs--1:before {
   overflow: hidden;
 }
 .offer-item.short .catalog-link {
-  display: none;
-}
-.offer-item.short .price-modifier {
   display: none;
 }
 
@@ -1662,142 +1654,6 @@ label.t-error {
   cursor: pointer;
 }
 
-.attention {
-  border: 1px solid #bd0400;
-  padding: 20px 40px;
-  margin: 40px 250px;
-  border-radius: 11px;
-}
-.attention * {
-  font-size: 18px;
-  text-align: center;
-}
-
-.cart-catalog {
-  margin-bottom: 20px;
-}
-.cart-catalog .name a {
-  font-size: 20px;
-  color: #e70500;
-}
-.cart-catalog .details {
-  font-size: 20px;
-}
-
-.cart .total {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.order-info .row {
-  margin-bottom: 8px;
-}
-
-.order-body {
-  border-bottom: 3px solid #eee;
-  padding: 20px 0;
-}
-
-.order-products {
-  background-color: #eee;
-  padding: 20px;
-  margin: 10px -20px;
-}
-
-.order-products .edit {
-  font-size: 20px;
-}
-
-.order-products .info {
-  display: table;
-  font-size: 20px;
-}
-
-.order-products .info > div {
-  display: table-cell;
-  height: 40px;
-  vertical-align: middle;
-  width: 270px;
-}
-
-.order-product {
-  position: relative;
-  height: 100px;
-  background: white;
-  border: 1px solid #aaa;
-  -webkit-box-shadow: 0 0 6px 2px #ddd;
-  -moz-box-shadow: 0 0 6px 2px #ddd;
-  box-shadow: 0 0 6px 2px #ddd;
-  margin-bottom: 10px;
-  overflow: hidden;
-}
-
-.order-product .img {
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  overflow: hidden;
-  top: 0;
-  left: 0;
-}
-
-.order-product-row {
-  height: 48px;
-  width: 680px;
-  margin-left: 100px;
-  display: table;
-}
-
-.order-product-row > div {
-  display: table-cell;
-  height: 40px;
-  vertical-align: middle;
-  padding: 8px 20px;
-}
-
-.order-product-row:last-child > div {
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-.order-product-row .price {
-  width: 250px;
-}
-
-.order-product-row .count {
-  width: 250px;
-}
-
-.order-product-row .count input {
-  width: 100px;
-  height: 30px;
-  padding: 0 10px;
-  border-radius: 5px;
-  margin: 0 10px;
-}
-
-.order-product-row .delete {
-  width: 260px;
-  text-align: right;
-}
-
-.purchase-edit {
-  width: 20px;
-  height: 19px;
-  background: url("../img/purchase-edit.png") no-repeat 0 0;
-  display: inline-block;
-}
-
-.purchase-edit.inc {
-  background-position-x: 0;
-  vertical-align: middle;
-}
-
-.purchase-edit.dec {
-  background-position-x: -20px;
-  vertical-align: middle;
-}
-
 .search-bar {
   height: 50px;
   position: relative;
@@ -1970,23 +1826,8 @@ html div.office table.table td.toggle {
   display: none;
 }
 
-.billinfo .modal-dialog,
 .howto .modal-dialog {
   width: 1100px;
-}
-
-.billinfo .modal-dialog {
-  height: 80%;
-}
-
-.billinfo .info {
-  position: relative;
-}
-
-.billinfo .info .pay {
-  position: absolute;
-  top: 0;
-  right: 10px;
 }
 
 .dropdown-menu {
@@ -2015,21 +1856,6 @@ html div.office table.table td.toggle {
   border-bottom-color: #aaaaaa;
   border-width: 8px;
   margin-left: -8px;
-}
-.dropdown-menu.basket-show {
-  left: -200px;
-  width: 300px;
-  font-size: 14px;
-  text-align: left;
-  padding: 10px 10px 10px 20px;
-  color: black;
-  line-height: 18px;
-}
-.dropdown-menu.basket-show a {
-  color: #e70500;
-}
-.dropdown-menu.basket-show:after, .dropdown-menu.basket-show:before {
-  left: 85%;
 }
 
 .import > div {
@@ -2069,16 +1895,23 @@ html div.office table.table td.toggle {
   border: 1px solid #8a8a8a;
 }
 
+.price .sign {
+  width: 10px;
+  display: inline-block;
+}
+
 .price-modifier {
   margin: 10px 0;
 }
 .price-modifier .price {
   font-size: 20px;
-  line-height: 22px;
+  line-height: 31px;
 }
 .price-modifier .description, .price-modifier .catalog-item.short .description, .catalog-item.short .price-modifier .description {
   font-size: 16px;
-  line-height: 22px;
+  line-height: 31px;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .price-modifier .modifier-row {
   margin: 3px 0;

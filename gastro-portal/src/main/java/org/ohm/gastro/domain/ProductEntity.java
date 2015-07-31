@@ -117,6 +117,11 @@ public class ProductEntity extends AltIdBaseEntity implements PriceEntity {
         this.price = price;
     }
 
+    @Override
+    public Type getType() {
+        return Type.PRODUCT;
+    }
+
     public CatalogEntity getCatalog() {
         return catalog;
     }

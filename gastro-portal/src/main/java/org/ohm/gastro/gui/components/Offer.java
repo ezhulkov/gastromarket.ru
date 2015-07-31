@@ -111,8 +111,8 @@ public class Offer extends BaseComponent {
         return type == Type.FULL;
     }
 
-    public Block onActionFromPurchase(Long pid) {
-        return getShoppingCart().getBasketBlock();
+    public boolean isShort() {
+        return type == Type.SHORT;
     }
 
     public String getPersonsCountDecl() {

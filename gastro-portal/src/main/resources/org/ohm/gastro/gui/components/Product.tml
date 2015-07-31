@@ -60,7 +60,7 @@
                 <div class="unit">${productUnit}</div>
             </div>
             <div class="basket-add pull-right">
-                <t:actionLink class="pic-holder basket-add" t:zone="basketZone" t:context="product.id" t:id="purchase"><span/>В корзину</t:actionLink>
+                <t:orderAdd entity="product"/>
             </div>
         </div>
         <div class="modal-data hidden">
@@ -72,7 +72,7 @@
                     <div class="price-modifier">
                         <t:loop source="priceModifiers" value="priceModifier">
                             <div>
-                                <span class="price">${priceModifier.price} <span class="rub"/></span>&nbsp;
+                                <span class="price"><span class="sign">${priceModifier.signPrintable}</span>${priceModifier.price} <span class="rub"/></span>&nbsp;
                                 <span class="description">${priceModifier.description}</span>
                             </div>
                         </t:loop>

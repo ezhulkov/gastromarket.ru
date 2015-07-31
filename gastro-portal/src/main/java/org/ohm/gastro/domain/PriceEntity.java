@@ -5,6 +5,14 @@ package org.ohm.gastro.domain;
  */
 public interface PriceEntity extends BaseEntity {
 
+    enum Type {
+        PRODUCT, OFFER
+    }
+
     Integer getPrice();
+
+    Type getType();
+
+    String getName();
 
 }

@@ -261,14 +261,7 @@ function initProductCatalog(ajaxContainer) {
 
 function initBasket() {
     Event.observe(jQuery("span[id^='basketZone']").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
-        jQuery(".basket-show").show()
-            .mouseenter(function () {
-                jQuery(this).stop().fadeIn(100);
-            })
-            .mouseleave(function () {
-                jQuery(this).stop().fadeOut(1000);
-            })
-            .delay(2000).fadeOut(1000);
+        alert('show orders block')
     });
 }
 function initLoginModal() {

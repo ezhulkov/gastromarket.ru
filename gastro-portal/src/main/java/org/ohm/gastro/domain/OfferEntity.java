@@ -71,6 +71,11 @@ public class OfferEntity extends AltIdBaseEntity implements PriceEntity {
         this.price = price;
     }
 
+    @Override
+    public Type getType() {
+        return Type.OFFER;
+    }
+
     public CatalogEntity getCatalog() {
         return catalog;
     }

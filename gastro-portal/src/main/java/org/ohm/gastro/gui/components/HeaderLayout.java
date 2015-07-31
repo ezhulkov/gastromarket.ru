@@ -34,7 +34,7 @@ public class HeaderLayout extends BaseComponent {
     }
 
     public String getDeclProducts() {
-        return getDeclInfo("cart", getShoppingCart().getProducts().size());
+        return getDeclInfo("cart", (int) getShoppingCart().getProducts().stream().map(t -> t.getProduct().getCatalog()).distinct().count());
     }
 
     public String getBonusesMessage() {
@@ -48,10 +48,6 @@ public class HeaderLayout extends BaseComponent {
 
     public String getHidden() {
         return isCook() ? "hidden" : "";
-    }
-
-    public boolean isShowBonuses() {
-        return isUser();
     }
 
     public int getBonuses() {

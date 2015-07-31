@@ -659,7 +659,13 @@
     </changeSet>
 
     <changeSet id="48" author="ezhulkov">
-        <dropTable tableName="bill"/>
+        <dropTable tableName="bill" cascadeConstraints="true"/>
+    </changeSet>
+
+    <changeSet id="49" author="ezhulkov">
+        <addColumn tableName="price_modifier">
+            <column name="sign" type="text" defaultValue="PLUS"/>
+        </addColumn>
     </changeSet>
 
 </databaseChangeLog>
