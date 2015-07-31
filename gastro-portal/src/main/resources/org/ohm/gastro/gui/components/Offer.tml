@@ -86,10 +86,10 @@
                     <t:loop source="priceModifiers" value="priceModifier">
                         <div class="row">
                             <div class="${leftBlock} text-right">
-                                <span class="price">${priceModifier.price} <span class="rub"/></span>
+                                <span class="modifier-price">${priceModifier.price} <span class="rub"/></span>
                             </div>
                             <div class="${rightBlock} text-left">
-                                <span class="description">${priceModifier.description}</span>
+                                <span class="modifier-name">${priceModifier.description}</span>
                             </div>
                         </div>
                     </t:loop>

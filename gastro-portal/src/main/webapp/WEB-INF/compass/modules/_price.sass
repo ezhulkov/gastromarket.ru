@@ -1,25 +1,64 @@
 @import ../include/var
 
-.price
-  .sign
-    width: 10px
-    display: inline-block
+=name-class
+  text-align: left
+  font-size: $f16px
+  line-height: 30px
+  text-overflow: ellipsis
+  overflow: hidden
+
+=price-class
+  font-size: $f20px
+  line-height: 30px
+
+=unit-class
+  font-weight: normal
+  font-size: $f14px
+  line-height: 14px
 
 .price-modifier
   margin: $gap 0
-  .price
-    font-size: $f20px
-    line-height: 31px
-  .description
-    font-size: $f16px
-    line-height: 31px
-    text-overflow: ellipsis
-    overflow: hidden
+  .modifier-price
+    +price-class
+  .modifier-name
+    +name-class
   .modifier-row
     margin: 3px 0
   .del-modifier
     margin-top: 12px
     display: inline-block
   .add-modifier
-    margin-left: 15px
+    margin-left: $gap
     display: inline-block
+
+  .order-add &
+    .modifier-price
+      +price-class
+      float: right
+      margin-left: $gap
+    .modifier-name
+      +name-class
+    .unit
+      +unit-class
+
+  //.offer-item.list &
+  //  .
+
+.basket-block
+  line-height: 30px
+  .price
+    text-align: left
+    line-height: 30px
+    color: $blackTextColor
+    font-size: $priceFontSize
+    font-weight: bold
+    .unit
+      +unit-class
+    .sign
+      width: 10px
+      display: inline-block
+  .basket-add
+    text-align: left
+    line-height: 30px
+    color: $redTextColor
+    font-size: $f16px

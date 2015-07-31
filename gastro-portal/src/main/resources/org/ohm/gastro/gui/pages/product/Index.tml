@@ -35,8 +35,8 @@
                         <div class="price-modifier">
                             <t:loop source="priceModifiers" value="priceModifier">
                                 <div>
-                                    <span class="price"><span class="sign">${priceModifier.signPrintable}</span> ${priceModifier.price} <span class="rub"/></span>&nbsp;
-                                    <span class="description">${priceModifier.description}</span>
+                                    <span class="modifier-price"><span class="sign">${priceModifier.signPrintable}</span> ${priceModifier.price} <span class="rub"/></span>&nbsp;
+                                    <span class="modifier-name">${priceModifier.description}</span>
                                 </div>
                             </t:loop>
                         </div>

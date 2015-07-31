@@ -17,22 +17,25 @@
                         <div class="gap2"></div>
                         <div class="price-modifier">
                             <div class="row">
-                                <div class="col-sm-9 description">
-                                    ${entity.name}
-                                    <div class="price pull-right">
+                                <div class="col-sm-9">
+                                    <div class="modifier-price">
                                         ${entity.price}&nbsp;<span class="rub"/>
                                         <t:if test="productUnit">&nbsp;<span class="unit">${productUnit}</span></t:if>
+                                    </div>
+                                    <div class="modifier-name">
+                                        ${entity.name}
                                     </div>
                                 </div>
                                 <div class="col-sm-3"><a class="pic-holder basket-add"><span/>Заказать</a></div>
                             </div>
                             <t:loop source="priceModifiers" value="priceModifier" formState="NONE">
                                 <div class="row">
-                                    <div class="col-sm-9 description">
-                                        <div class="price pull-right" style="margin-left: 25px;">
+                                    <div class="col-sm-9">
+                                        <div class="modifier-price">
                                             <span class="sign">${priceModifier.signPrintable}</span>${priceModifier.price}&nbsp;<span class="rub"/> = ${modifiedPrice}&nbsp;<span class="rub"/>
+                                            <t:if test="productUnit">&nbsp;<span class="unit">${productUnit}</span></t:if>
                                         </div>
-                                        <div style="overflow:hidden; text-overflow: ellipsis;">
+                                        <div class="modifier-name">
                                             ${priceModifier.description}
                                         </div>
                                     </div>
