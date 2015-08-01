@@ -16,6 +16,10 @@
   font-size: $f14px
   line-height: 14px
 
+=col-class
+  padding: 0 10px
+  display: inline-block
+
 .price-modifier
   margin: $gap 0
   .modifier-price
@@ -30,7 +34,12 @@
   .add-modifier
     margin-left: $gap
     display: inline-block
-
+  .left
+    +col-class
+    width: 530px
+  .right
+    +col-class
+    width: 140px
   .order-add &
     .modifier-price
       +price-class
@@ -40,9 +49,8 @@
       +name-class
     .unit
       +unit-class
-
-  //.offer-item.list &
-  //  .
+    .basket-add
+      float: right
 
 .basket-block
   line-height: 30px

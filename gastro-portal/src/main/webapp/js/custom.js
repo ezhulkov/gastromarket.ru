@@ -60,14 +60,28 @@ jQuery(document).ready(function () {
     initLoginModal();
     initTitle(jQuery("div.title"));
     initFineUploader(jQuery("div.upload-file"));
-    if (jQuery.cookie('howto.shown') == undefined) {
-        setTimeout(function () {
-            jQuery("#howto").modal('show');
-            jQuery.cookie('howto.shown', 'true', {expires: 365});
-        }, 2000);
-    }
+    initModalStack();
+    initHowToModal();
     initSortable();
 });
+function initModalStack() {
+    jQuery(".modal").on("hide.bs.modal", function (event) {
+        jQuery("body").data("fv_open_modals", jQuery("body").data("fv_open_modals") - 1);
+    });
+    jQuery(".modal").on("show.bs.modal", function (event) {
+        if (jQuery("body").data("fv_open_modals") == undefined) jQuery("body").data("fv_open_modals", 0);
+        jQuery("body").data("fv_open_modals", jQuery("body").data("fv_open_modals") + 1);
+        jQuery(this).css("z-index", 1040 + (10 * jQuery("body").data("fv_open_modals")));
+    });
+}
+function initHowToModal() {
+    if (jQuery.cookie('howto.shown') == undefined) {
+        setTimeout(function () {
+            jQuery("#howto").modal({show: true});
+            jQuery.cookie('howto.shown', 'true', {expires: 365, path: '/'});
+        }, 2000);
+    }
+}
 function initSortable() {
     jQuery(".sortable-container").sortable({
         placeholder: "ui-state-highlight",
@@ -155,12 +169,12 @@ function showProductModal(pid) {
     block3.hide();
     //Start Modal
     if (!modal.hasClass("in")) {
-        modal.modal('show')
-            .unbind('shown.bs.modal').bind('shown.bs.modal', function () {
+        modal.modal({show: true})
+            .on('shown.bs.modal', function () {
                 layoutBlock3();
                 return false;
             })
-            .unbind('hidden.bs.modal').bind('hidden.bs.modal', function () {
+            .on('hidden.bs.modal', function () {
                 jQuery(document).unbind('keydown')
             });
     } else {
@@ -261,7 +275,7 @@ function initProductCatalog(ajaxContainer) {
 
 function initBasket() {
     Event.observe(jQuery("span[id^='basketZone']").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
-        alert('show orders block')
+        jQuery(".order-add .modal.in").modal('hide');
     });
 }
 function initLoginModal() {

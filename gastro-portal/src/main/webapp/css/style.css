@@ -674,6 +674,10 @@ body.modal-open {
   width: 900px;
 }
 
+.order-add .modal-dialog {
+  top: 100px;
+}
+
 .modal-backdrop.in {
   opacity: 0.8;
 }
@@ -1898,6 +1902,16 @@ html div.office table.table td.toggle {
   margin-left: 10px;
   display: inline-block;
 }
+.price-modifier .left {
+  padding: 0 10px;
+  display: inline-block;
+  width: 530px;
+}
+.price-modifier .right {
+  padding: 0 10px;
+  display: inline-block;
+  width: 140px;
+}
 .order-add .price-modifier .modifier-price {
   font-size: 20px;
   line-height: 30px;
@@ -1915,6 +1929,9 @@ html div.office table.table td.toggle {
   font-weight: normal;
   font-size: 14px;
   line-height: 14px;
+}
+.order-add .price-modifier .basket-add {
+  float: right;
 }
 
 .basket-block {

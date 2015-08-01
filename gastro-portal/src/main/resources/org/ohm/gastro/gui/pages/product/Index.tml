@@ -27,8 +27,8 @@
 
                             <div class="unit">${productUnit}</div>
                         </div>
-                        <div class="basket-add pull-right">
-                            <t:actionLink class="pic-holder basket-add" t:zone="basketZone" t:context="product.id" t:id="purchase"><span/>В корзину</t:actionLink>
+                        <div class="pull-right">
+                            <t:orderadd entity="product"/>
                         </div>
                     </div>
                     <t:if test="priceModifiers">

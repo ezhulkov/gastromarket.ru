@@ -26,13 +26,18 @@ public class OrderAdd extends BaseComponent {
     private PriceModifierEntity priceModifier;
 
     public Block onActionFromPurchase(Long pid) {
-        getShoppingCart().addProduct(createPurchaseItem(pid));
+//        getShoppingCart().addProduct(createPurchaseItem(pid));
         return getShoppingCart().getBasketBlock();
     }
 
-//    public Block onActionFromPurchase2(Long pid) {
-//        return onActionFromPurchase(pid);
-//    }
+    public Block onActionFromPurchase2(Long pid) {
+        return onActionFromPurchase(pid);
+    }
+
+    public Block onActionFromPurchaseModified(Long pid, Long mid) {
+//        getShoppingCart().addProduct(createPurchaseItem(pid));
+        return getShoppingCart().getBasketBlock();
+    }
 
     @Cached(watch = "entity")
     public java.util.List<PriceModifierEntity> getPriceModifiers() {
