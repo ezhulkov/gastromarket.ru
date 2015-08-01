@@ -8,7 +8,6 @@ import com.google.common.io.BaseEncoding;
 import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.LogEntity;
-import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.domain.UserEntity.Status;
 import org.ohm.gastro.domain.UserEntity.Type;
@@ -45,7 +44,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import static org.apache.commons.lang.ObjectUtils.defaultIfNull;
 import static org.scribe.utils.Preconditions.checkNotNull;
@@ -224,11 +222,12 @@ public class UserServiceImpl implements UserService, Logging {
     @Override
     public int getUserBonuses(final UserEntity user) {
         if (user.getType() == Type.USER) {
-            final Integer userBonus = user.getBonus();
-            final Integer usedBonus = orderRepository.findAllByCatalogAndCustomer(user, null).stream()
-                    .filter(t -> t.getStatus() == OrderEntity.Status.NEW || t.getStatus() == OrderEntity.Status.ACCEPTED)
-                    .collect(Collectors.summingInt(OrderEntity::getUsedBonuses));
-            return Math.max(0, userBonus - usedBonus);
+//            final Integer userBonus = user.getBonus(); todo
+//            final Integer usedBonus = orderRepository.findAllByCatalogAndCustomer(user, null).stream()
+//                    .filter(t -> t.getStatus() == OrderEntity.Status.NEW || t.getStatus() == OrderEntity.Status.ACCEPTED)
+//                    .collect(Collectors.summingInt(OrderEntity::getUsedBonuses));
+//            return Math.max(0, userBonus - usedBonus);
+            return 0;
         }
         return 0;
     }

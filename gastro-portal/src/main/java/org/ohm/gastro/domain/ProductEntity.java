@@ -26,7 +26,7 @@ import java.util.List;
 @Entity
 @Table(name = "product")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ProductEntity extends AltIdBaseEntity implements PriceEntity {
+public class ProductEntity extends AltIdBaseEntity implements PurchaseEntity {
 
     public enum Unit {
         PIECE, LITRE, GRAM

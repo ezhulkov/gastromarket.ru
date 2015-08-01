@@ -8,13 +8,13 @@ import org.apache.commons.lang.StringUtils;
 import org.javatuples.Tuple;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OfferEntity;
-import org.ohm.gastro.domain.PriceEntity;
 import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.ProductEntity.Unit;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.PropertyValueEntity.Tag;
+import org.ohm.gastro.domain.PurchaseEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.misc.Throwables;
 import org.ohm.gastro.reps.PriceModifierRepository;
@@ -221,7 +221,7 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
-    public void attachPriceModifiers(final PriceEntity object, final List<PriceModifierEntity> submittedModifiers) {
+    public void attachPriceModifiers(final PurchaseEntity object, final List<PriceModifierEntity> submittedModifiers) {
         final List<PriceModifierEntity> existing = priceModifierRepository.findAllByEntity(object);
         priceModifierRepository.delete(CollectionUtils.subtract(existing, submittedModifiers));
         final List<PriceModifierEntity> modifiers = submittedModifiers.stream().filter(t -> t.getPrice() != null && t.getDescription() != null).map(t -> {
@@ -301,7 +301,7 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
-    public List<PriceModifierEntity> findAllModifiers(PriceEntity object) {
+    public List<PriceModifierEntity> findAllModifiers(PurchaseEntity object) {
         return priceModifierRepository.findAllByEntity(object);
     }
 

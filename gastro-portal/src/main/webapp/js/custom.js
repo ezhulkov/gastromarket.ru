@@ -275,7 +275,7 @@ function initProductCatalog(ajaxContainer) {
 
 function initBasket() {
     Event.observe(jQuery("span[id^='basketZone']").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
-        jQuery(".order-add .modal.in").modal('hide');
+        jQuery(".modal.in").modal('hide');
     });
 }
 function initLoginModal() {

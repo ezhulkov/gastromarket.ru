@@ -39,7 +39,7 @@ public final class ShoppingCart {
     }
 
     public void addProduct(OrderProductEntity product) {
-        final OrderProductEntity purchaseItem = findPurchaseItem(product.getProduct().getId())
+        final OrderProductEntity purchaseItem = findPurchaseItem(product.getEntity().getId())
                 .orElseGet(() -> {
                     products.add(product);
                     return product;
@@ -71,11 +71,11 @@ public final class ShoppingCart {
 
     @Cached
     public List<Map.Entry<CatalogEntity, List<OrderProductEntity>>> getCatalogs() {
-        return Lists.newArrayList(products.stream().collect(Collectors.groupingBy(t -> t.getProduct().getCatalog())).entrySet());
+        return Lists.newArrayList(products.stream().collect(Collectors.groupingBy(t -> t.getEntity().getCatalog())).entrySet());
     }
 
     private Optional<OrderProductEntity> findPurchaseItem(Long pid) {
-        return products.stream().filter(t -> t.getProduct().getId().equals(pid)).findFirst();
+        return products.stream().filter(t -> t.getEntity().getId().equals(pid)).findFirst();
     }
 
 }

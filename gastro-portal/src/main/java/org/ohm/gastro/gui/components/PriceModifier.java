@@ -5,8 +5,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.ValueEncoder;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
-import org.ohm.gastro.domain.PriceEntity;
 import org.ohm.gastro.domain.PriceModifierEntity;
+import org.ohm.gastro.domain.PurchaseEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public class PriceModifier extends BaseComponent {
 
     @Property
     @Parameter(required = true, allowNull = false)
-    private PriceEntity object;
+    private PurchaseEntity object;
 
     private PriceModifierEntity modifier;
     private List<PriceModifierEntity> submittedModifiers = Lists.newArrayList();

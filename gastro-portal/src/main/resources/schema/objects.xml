@@ -668,4 +668,20 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="50" author="ezhulkov">
+        <dropForeignKeyConstraint baseTableName="order_product" constraintName="orderp_prod_fk"/>
+        <addColumn tableName="order_product">
+            <column name="entity_type" type="text"/>
+            <column name="entity_id" type="BIGINT"/>
+        </addColumn>
+        <createIndex tableName="order_product" indexName="order_product_ent_idx">
+            <column name="entity_type"/>
+            <column name="entity_id"/>
+        </createIndex>
+        <createIndex tableName="price_modifier" indexName="price_modifier_ent_idx">
+            <column name="entity_type"/>
+            <column name="entity_id"/>
+        </createIndex>
+    </changeSet>
+
 </databaseChangeLog>

@@ -17,6 +17,7 @@ import org.ohm.gastro.domain.OrderProductEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyEntity.Type;
+import org.ohm.gastro.domain.PurchaseEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.filter.SocialFilter;
@@ -270,14 +271,14 @@ public abstract class BaseComponent {
         return offerService;
     }
 
-    public OrderProductEntity createPurchaseItem(Long pid) {
+    public OrderProductEntity createPurchaseItem(PurchaseEntity.Type eType, Long eId, Long mid) {
         final OrderProductEntity purchaseItem = new OrderProductEntity();
-        final ProductEntity product = productService.findProduct(pid);
-        Hibernate.initialize(product);
-        Hibernate.initialize(product.getCatalog());
-        purchaseItem.setCount(0);
-        purchaseItem.setPrice(product.getPrice());
-        purchaseItem.setProduct(product);
+        final PurchaseEntity entity = eType == PurchaseEntity.Type.OFFER ? getOfferService().findOffer(eId) : getProductService().findProduct(eId);
+        Hibernate.initialize(entity);
+        Hibernate.initialize(entity.getCatalog());
+        purchaseItem.setCount(1);
+        purchaseItem.setPrice(entity.getPrice() + (mid == null ? 0 : getProductService().findPriceModifier(mid).getPriceSigned()));
+        purchaseItem.setEntity(entity);
         return purchaseItem;
     }
 

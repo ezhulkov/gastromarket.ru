@@ -3,10 +3,10 @@ package org.ohm.gastro.service;
 import org.javatuples.Tuple;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OfferEntity;
-import org.ohm.gastro.domain.PriceEntity;
 import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
+import org.ohm.gastro.domain.PurchaseEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.reps.ProductRepository;
 import org.ohm.gastro.service.social.MediaElement;
@@ -30,7 +30,7 @@ public interface ProductService extends ImageUploaderService<ProductEntity>, Alt
 
     PriceModifierEntity findPriceModifier(Long id);
 
-    void attachPriceModifiers(PriceEntity object, List<PriceModifierEntity> submittedModifiers);
+    void attachPriceModifiers(PurchaseEntity object, List<PriceModifierEntity> submittedModifiers);
 
     void productPosition(List<Long> collect);
 
@@ -67,7 +67,7 @@ public interface ProductService extends ImageUploaderService<ProductEntity>, Alt
 
     void importProducts(Map<String, Set<MediaElement>> cachedElements, CatalogEntity catalog);
 
-    List<PriceModifierEntity> findAllModifiers(PriceEntity entity);
+    List<PriceModifierEntity> findAllModifiers(PurchaseEntity entity);
 
     List<PropertyValueEntity> findAllRootValues(CatalogEntity catalog, Boolean wasSetup);
 

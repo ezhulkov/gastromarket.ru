@@ -39,13 +39,13 @@ public class PriceModifierEntity extends AbstractBaseEntity {
             })
     @JoinColumn(name = "entity_id")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private PriceEntity entity;
+    private PurchaseEntity entity;
 
-    public PriceEntity getEntity() {
+    public PurchaseEntity getEntity() {
         return entity;
     }
 
-    public void setEntity(final PriceEntity entity) {
+    public void setEntity(final PurchaseEntity entity) {
         this.entity = entity;
     }
 
@@ -63,6 +63,10 @@ public class PriceModifierEntity extends AbstractBaseEntity {
 
     public void setPrice(final Integer price) {
         this.price = price;
+    }
+
+    public Integer getPriceSigned() {
+        return sign == Sign.MINUS ? -price : price;
     }
 
     public Sign getSign() {

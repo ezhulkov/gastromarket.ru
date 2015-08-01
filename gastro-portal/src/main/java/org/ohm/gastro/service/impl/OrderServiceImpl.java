@@ -1,5 +1,6 @@
 package org.ohm.gastro.service.impl;
 
+import com.google.common.collect.Lists;
 import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
@@ -66,7 +67,7 @@ public class OrderServiceImpl implements OrderService, Logging {
         final Integer totalPrice = purchaseItems.stream().mapToInt(t -> t.getCount() * t.getPrice()).sum();
         userRepository.save(customer);
         List<OrderEntity> orders = purchaseItems.stream()
-                .collect(Collectors.groupingBy(t -> t.getProduct().getCatalog())).entrySet().stream()
+                .collect(Collectors.groupingBy(t -> t.getEntity().getCatalog())).entrySet().stream()
                 .map(t -> {
                     final CatalogEntity catalog = catalogRepository.findOne(t.getKey().getId());
                     final List<OrderProductEntity> products = t.getValue();
@@ -88,7 +89,7 @@ public class OrderServiceImpl implements OrderService, Logging {
         try {
             orders.stream().forEach(order -> {
                 if (!order.getProducts().isEmpty()) {
-                    final CatalogEntity catalog = catalogRepository.findOne(order.getProducts().get(0).getProduct().getCatalog().getId());
+                    final CatalogEntity catalog = catalogRepository.findOne(order.getProducts().get(0).getEntity().getCatalog().getId());
                     final Map<String, Object> params = new HashMap<String, Object>() {
                         {
                             put("products", order.getProducts());
@@ -116,17 +117,20 @@ public class OrderServiceImpl implements OrderService, Logging {
 
     @Override
     public List<OrderEntity> findAllOrders(final UserEntity customer, final CatalogEntity catalog) {
-        return orderRepository.findAllByCatalogAndCustomer(customer, catalog);
+//        return orderRepository.findAllByCatalogAndCustomer(customer, catalog); todo
+        return Lists.newArrayList();
     }
 
     @Override
     public List<OrderEntity> findAllOrders(final CatalogEntity catalog) {
-        return orderRepository.findAllByCatalog(catalog, null);
+//        return orderRepository.findAllByCatalog(catalog, null); todo
+        return Lists.newArrayList();
     }
 
     @Override
     public List<OrderEntity> findAllOrders(final CatalogEntity catalog, final Status status) {
-        return orderRepository.findAllByCatalog(catalog, status);
+//        return orderRepository.findAllByCatalog(catalog, status); todo
+        return Lists.newArrayList();
     }
 
     @Override

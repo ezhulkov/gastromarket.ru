@@ -118,7 +118,7 @@ public class OrderEntity extends AbstractBaseEntity {
     }
 
     public CatalogEntity getCatalog() {
-        return CollectionUtils.isEmpty(products) ? null : products.get(0).getProduct().getCatalog();
+        return CollectionUtils.isEmpty(products) ? null : products.get(0).getEntity().getCatalog();
     }
 
 }

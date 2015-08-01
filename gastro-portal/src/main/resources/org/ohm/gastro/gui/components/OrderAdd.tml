@@ -27,7 +27,7 @@
                                     </div>
                                 </div>
                                 <div class="right">
-                                    <t:actionLink class="pic-holder basket-add" t:zone="basketZone" t:context="entity.id" t:id="purchase"><span/>Заказать</t:actionLink>
+                                    <t:actionLink class="pic-holder basket-add" t:zone="basketZone" t:context="[entity.type,entity.id]" t:id="purchase"><span/>Заказать</t:actionLink>
                                 </div>
                             </div>
                             <t:loop source="priceModifiers" value="priceModifier" formState="NONE">
@@ -42,7 +42,7 @@
                                         </div>
                                     </div>
                                     <div class="right">
-                                        <t:actionLink class="pic-holder basket-add" t:zone="basketZone" t:context="[entity.id,priceModifier.id]" t:id="purchaseModified"><span/>Заказать</t:actionLink>
+                                        <t:actionLink class="pic-holder basket-add" t:zone="basketZone" t:context="[entity.type,entity.id,priceModifier.id]" t:id="purchaseModified"><span/>Заказать</t:actionLink>
                                     </div>
                                 </div>
                             </t:loop>
@@ -53,6 +53,6 @@
         </div>
     </t:if>
     <t:unless test="priceModifiers">
-        <t:actionLink class="pic-holder basket-add" t:zone="basketZone" t:context="entity.id" t:id="purchase2"><span/>Заказать</t:actionLink>
+        <t:actionLink class="pic-holder basket-add" t:zone="basketZone" t:context="[entity.type,entity.id]" t:id="purchase2"><span/>Заказать</t:actionLink>
     </t:unless>
 </div>

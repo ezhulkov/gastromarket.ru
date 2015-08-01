@@ -4,11 +4,11 @@ import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
-import org.ohm.gastro.domain.PriceEntity;
-import org.ohm.gastro.domain.PriceEntity.Type;
 import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.domain.PriceModifierEntity.Sign;
 import org.ohm.gastro.domain.ProductEntity;
+import org.ohm.gastro.domain.PurchaseEntity;
+import org.ohm.gastro.domain.PurchaseEntity.Type;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.stream.Collectors;
@@ -20,22 +20,22 @@ public class OrderAdd extends BaseComponent {
 
     @Parameter
     @Property
-    private PriceEntity entity;
+    private PurchaseEntity entity;
 
     @Property
     private PriceModifierEntity priceModifier;
 
-    public Block onActionFromPurchase(Long pid) {
-//        getShoppingCart().addProduct(createPurchaseItem(pid));
+    public Block onActionFromPurchase(PurchaseEntity.Type eType, Long eId) {
+        getShoppingCart().addProduct(createPurchaseItem(eType, eId, null));
         return getShoppingCart().getBasketBlock();
     }
 
-    public Block onActionFromPurchase2(Long pid) {
-        return onActionFromPurchase(pid);
+    public Block onActionFromPurchase2(PurchaseEntity.Type eType, Long eId) {
+        return onActionFromPurchase(eType, eId);
     }
 
-    public Block onActionFromPurchaseModified(Long pid, Long mid) {
-//        getShoppingCart().addProduct(createPurchaseItem(pid));
+    public Block onActionFromPurchaseModified(PurchaseEntity.Type eType, Long eId, Long mId) {
+        getShoppingCart().addProduct(createPurchaseItem(eType, eId, mId));
         return getShoppingCart().getBasketBlock();
     }
 

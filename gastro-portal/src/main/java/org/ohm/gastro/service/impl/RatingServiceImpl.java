@@ -158,7 +158,8 @@ public class RatingServiceImpl implements RatingService, Logging {
         final int negCount = (int) ratings.stream().filter(t -> t.getRating() < 0).count();
         final int totalSum = (int) catalogOps.stream().filter(t -> t.getType() == Type.ORDER_DONE).mapToLong(LogEntity::getCount).sum();
         final int doneOrdersCount = (int) catalogOps.stream().filter(t -> t.getType() == Type.ORDER_DONE).count();
-        final int totalOrdersCount = orderRepository.findAllByCatalog(catalog, null).size();
+//        final int totalOrdersCount = orderRepository.findAllByCatalog(catalog, null).size();  todo
+        final int totalOrdersCount = 0;
 
         final Integer prevLevel = catalog.getLevel();
         catalog.setRating(calcRating(productsCount, retentionCount, posCount, negCount, doneOrdersCount, totalOrdersCount, totalSum));

@@ -3,7 +3,7 @@ package org.ohm.gastro.domain;
 /**
  * Created by ezhulkov on 21.08.14.
  */
-public interface PriceEntity extends BaseEntity {
+public interface PurchaseEntity extends BaseEntity {
 
     enum Type {
         PRODUCT, OFFER
@@ -14,5 +14,7 @@ public interface PriceEntity extends BaseEntity {
     Type getType();
 
     String getName();
+
+    CatalogEntity getCatalog();
 
 }

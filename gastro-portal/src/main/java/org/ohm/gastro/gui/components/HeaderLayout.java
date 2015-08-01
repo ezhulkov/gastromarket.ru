@@ -34,7 +34,7 @@ public class HeaderLayout extends BaseComponent {
     }
 
     public String getDeclProducts() {
-        return getDeclInfo("cart", (int) getShoppingCart().getProducts().stream().map(t -> t.getProduct().getCatalog()).distinct().count());
+        return getDeclInfo("cart", (int) getShoppingCart().getProducts().stream().map(t -> t.getEntity().getCatalog()).distinct().count());
     }
 
     public String getBonusesMessage() {

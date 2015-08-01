@@ -23,7 +23,7 @@ import java.util.List;
 @Entity
 @Table(name = "offer")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class OfferEntity extends AltIdBaseEntity implements PriceEntity {
+public class OfferEntity extends AltIdBaseEntity implements PurchaseEntity {
 
     @Column
     private String description;
