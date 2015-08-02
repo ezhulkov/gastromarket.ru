@@ -13,7 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.PostLoad;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -52,7 +54,16 @@ public class OfferEntity extends AltIdBaseEntity implements PurchaseEntity {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<ProductEntity> products = Lists.newArrayList();
 
-    public OfferEntity() {
+    @Transient
+    private String avatarUrl;
+
+    @Transient
+    private String avatarUrlSmall;
+
+    @PostLoad
+    public void loaded() {
+        avatarUrlSmall = products.size() == 0 ? "/img/offer-stub-100x100.jpg" : products.get(0).getAvatarUrlSmall();
+        avatarUrl = products.size() == 0 ? "/img/offer-stub-270x270.jpg" : products.get(0).getAvatarUrlMedium();
     }
 
     public Integer getPersons() {
@@ -122,7 +133,12 @@ public class OfferEntity extends AltIdBaseEntity implements PurchaseEntity {
 
     @Override
     public String getAvatarUrlSmall() {
-        return products.size() == 0 ? "/img/offer-stub-100x100.jpg" : products.get(0).getAvatarUrlSmall();
+        return avatarUrlSmall;
+    }
+
+    @Override
+    public String getAvatarUrlMedium() {
+        return avatarUrl;
     }
 
     public String getDescriptionRaw() {

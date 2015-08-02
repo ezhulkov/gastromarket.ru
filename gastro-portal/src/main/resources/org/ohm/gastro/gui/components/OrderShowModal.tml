@@ -20,7 +20,11 @@
                         <t:pagelink class="red-text" page="cart">странице управления заказами</t:pagelink>
                     </p>
                 </t:if>
-                <!--<t:orderShowCatalog catalog="catalog"/>-->
+                <t:orderShowCatalog catalog="catalog"/>
+                <div class="form-buttons">
+                    <a href="#" class="btn btn-white" data-dismiss="modal">Продолжить работу</a>
+                    <t:pagelink class="btn btn-red" page="cart">Оформить заказ</t:pagelink>
+                </div>
             </div>
         </div>
     </div>

@@ -12,8 +12,6 @@ import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
-import java.util.List;
-
 /**
  * Created by ezhulkov on 30.05.15.
  */
@@ -68,10 +66,7 @@ public class Offer extends BaseComponent {
     }
 
     public String getAvatarUrl() {
-        List<ProductEntity> allProducts = getProductService().findAllProducts(offer);
-        return type == Type.SHORT ?
-                (allProducts.size() == 0 ? "/img/offer-stub-100x100.jpg" : allProducts.get(0).getAvatarUrlSmall()) :
-                (allProducts.size() == 0 ? "/img/offer-stub-270x270.jpg" : allProducts.get(0).getAvatarUrlMedium());
+        return type == Type.SHORT ? offer.getAvatarUrlSmall() : offer.getAvatarUrlMedium();
     }
 
     public String getLeftBlock() {

@@ -12,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.Objects;
 
 /**
  * Created by ezhulkov on 24.08.14.
@@ -25,6 +26,9 @@ public class OrderProductEntity extends AbstractBaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private OrderEntity order;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    private PriceModifierEntity modifier;
 
     @Any(metaColumn = @Column(name = "entity_type"), fetch = FetchType.LAZY)
     @AnyMetaDef(idType = "long", metaType = "string",
@@ -76,6 +80,20 @@ public class OrderProductEntity extends AbstractBaseEntity {
 
     public void setCount(final int count) {
         this.count = count;
+    }
+
+    public PriceModifierEntity getModifier() {
+        return modifier;
+    }
+
+    public void setModifier(final PriceModifierEntity modifier) {
+        this.modifier = modifier;
+    }
+
+    public boolean equals(PurchaseEntity.Type type, Long id, Long mid) {
+        return Objects.equals(mid, modifier == null ? null : modifier.getId()) &&
+                entity.getType() == type &&
+                entity.getId().equals(id);
     }
 
 }

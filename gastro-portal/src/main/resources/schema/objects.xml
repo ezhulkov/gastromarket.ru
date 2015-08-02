@@ -684,4 +684,13 @@
         </createIndex>
     </changeSet>
 
+    <changeSet id="51" author="ezhulkov">
+        <addColumn tableName="order_product">
+            <column name="modifier_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="order_product" baseColumnNames="modifier_id"
+                referencedTableName="price_modifier" referencedColumnNames="id"
+                constraintName="op_mod_fk" onDelete="CASCADE"/>
+    </changeSet>
+
 </databaseChangeLog>

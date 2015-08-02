@@ -22,6 +22,7 @@ public final class ShoppingCart {
 
     private final static ToIntFunction<OrderProductEntity> SUM_COUNTER = t -> t.getPrice() * t.getCount();
 
+    private OrderProductEntity lastItem;
     private boolean justAdded;
     private Block basketBlock;
     private Block orderShowBlock;
@@ -55,26 +56,36 @@ public final class ShoppingCart {
         return ImmutableList.copyOf(items);
     }
 
+    public OrderProductEntity getLastItem() {
+        return lastItem;
+    }
+
     public void addItem(OrderProductEntity item) {
-        final OrderProductEntity purchaseItem = findPurchaseItem(item.getEntity().getType(), item.getEntity().getId())
+        final OrderProductEntity purchaseItem = findPurchaseItem(item.getEntity().getType(),
+                                                                 item.getEntity().getId(),
+                                                                 item.getModifier() == null ? null : item.getModifier().getId())
+                .map(t -> {
+                    t.setCount(t.getCount() + 1);
+                    return t;
+                })
                 .orElseGet(() -> {
                     items.add(item);
                     return item;
                 });
-        purchaseItem.setCount(purchaseItem.getCount() + 1);
         justAdded = true;
+        lastItem = item;
     }
 
-    public void removeItem(PurchaseEntity.Type type, Long id) {
-        findPurchaseItem(type, id).ifPresent(items::remove);
+    public void removeItem(PurchaseEntity.Type type, Long id, Long mId) {
+        findPurchaseItem(type, id, mId).ifPresent(items::remove);
     }
 
-    public void incItem(PurchaseEntity.Type type, Long pid) {
-        findPurchaseItem(type, pid).ifPresent(t -> t.setCount(t.getCount() + 1));
+    public void incItem(PurchaseEntity.Type type, Long pid, Long mId) {
+        findPurchaseItem(type, pid, mId).ifPresent(t -> t.setCount(t.getCount() + 1));
     }
 
-    public void decItem(PurchaseEntity.Type type, Long pid) {
-        findPurchaseItem(type, pid).ifPresent(t -> t.setCount(Math.max(1, t.getCount() - 1)));
+    public void decItem(PurchaseEntity.Type type, Long pid, Long mId) {
+        findPurchaseItem(type, pid, mId).ifPresent(t -> t.setCount(Math.max(1, t.getCount() - 1)));
     }
 
     public void purge() {
@@ -107,8 +118,8 @@ public final class ShoppingCart {
         return Lists.newArrayList(items.stream().collect(Collectors.groupingBy(t -> t.getEntity().getCatalog())).entrySet());
     }
 
-    public Optional<OrderProductEntity> findPurchaseItem(PurchaseEntity.Type type, Long id) {
-        return items.stream().filter(t -> t.getEntity().equals(type, id)).findFirst();
+    public Optional<OrderProductEntity> findPurchaseItem(PurchaseEntity.Type type, Long id, Long mId) {
+        return items.stream().filter(t -> t.equals(type, id, mId)).findAny();
     }
 
 }

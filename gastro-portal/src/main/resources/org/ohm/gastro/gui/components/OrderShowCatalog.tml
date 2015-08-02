@@ -4,12 +4,13 @@
     </t:zone>
     <t:block t:id="orderShowBlock">
         <t:loop source="items" value="item" formState="NONE">
-            <div>
-                <img src="${item.entity.avatarUrlSmall}"/>
-                ${item.entity.name}
-                ${item.count}
-                ${item.price}
-                <t:actionlink t:id="delete" t:context="[item.entity.type,item.entity.id]">удалить</t:actionlink>
+            <div class="order-item">
+                <img class="pic" src="${item.entity.avatarUrlSmall}"/>
+                <!--${item.entity.name}-->
+                <!--<t:if test="item.modifier">(${item.modifier.description})</t:if>-->
+                <!--${item.count}-->
+                <!--${item.price}-->
+                <t:actionlink t:id="delete" t:context="[item.entity.type,item.entity.id,item.modifier?.id]">удалить</t:actionlink>
             </div>
         </t:loop>
     </t:block>

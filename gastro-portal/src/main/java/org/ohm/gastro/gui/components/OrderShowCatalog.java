@@ -35,8 +35,8 @@ public class OrderShowCatalog extends BaseComponent {
         return getShoppingCart().getItems(catalog);
     }
 
-    public void onActionFromDelete(PurchaseEntity.Type type, Long id) {
-        getShoppingCart().removeItem(type, id);
+    public void onActionFromDelete(PurchaseEntity.Type type, Long id, Long mid) {
+        getShoppingCart().removeItem(type, id, mid);
     }
 
 }

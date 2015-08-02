@@ -14,6 +14,7 @@ import org.apache.tapestry5.services.Response;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.hibernate.Hibernate;
 import org.ohm.gastro.domain.OrderProductEntity;
+import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyEntity.Type;
@@ -274,11 +275,14 @@ public abstract class BaseComponent {
     public OrderProductEntity createPurchaseItem(PurchaseEntity.Type eType, Long eId, Long mid) {
         final OrderProductEntity purchaseItem = new OrderProductEntity();
         final PurchaseEntity entity = eType == PurchaseEntity.Type.OFFER ? getOfferService().findOffer(eId) : getProductService().findProduct(eId);
+        final PriceModifierEntity modifier = mid == null ? null : getProductService().findPriceModifier(mid);
         Hibernate.initialize(entity);
         Hibernate.initialize(entity.getCatalog());
+        if (modifier != null) Hibernate.initialize(modifier);
         purchaseItem.setCount(1);
         purchaseItem.setPrice(entity.getPrice() + (mid == null ? 0 : getProductService().findPriceModifier(mid).getPriceSigned()));
         purchaseItem.setEntity(entity);
+        purchaseItem.setModifier(modifier);
         return purchaseItem;
     }
 

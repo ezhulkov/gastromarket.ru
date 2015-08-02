@@ -1961,4 +1961,9 @@ html div.office table.table td.toggle {
   font-size: 16px;
 }
 
+.order-show-catalog .item img.pic {
+  width: 100px;
+  height: 100px;
+}
+
 /*# sourceMappingURL=style.css.map */

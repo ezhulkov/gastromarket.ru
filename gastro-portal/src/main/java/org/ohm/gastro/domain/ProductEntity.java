@@ -66,13 +66,13 @@ public class ProductEntity extends AltIdBaseEntity implements PurchaseEntity {
     private boolean wasSetup = false;
 
     @Column(name = "avatar_url")
-    private String avatarUrl = "/img/product-stub.png";
+    private String avatarUrl = "/img/product-stub-560x404.png";
 
     @Column(name = "avatar_url_medium")
-    private String avatarUrlMedium = "/img/product-stub-medium.png";
+    private String avatarUrlMedium = "/img/product-stub-270x270.png";
 
     @Column(name = "avatar_url_small")
-    private String avatarUrlSmall = "/img/product-stub-small.png";
+    private String avatarUrlSmall = "/img/product-stub-100x100.png";
 
     @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinTable(name = "offer_product",
