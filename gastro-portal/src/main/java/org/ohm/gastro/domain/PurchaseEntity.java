@@ -17,4 +17,10 @@ public interface PurchaseEntity extends BaseEntity {
 
     CatalogEntity getCatalog();
 
+    String getAvatarUrlSmall();
+
+    default boolean equals(Type type, Long id) {
+        return getType() == type && id.equals(getId());
+    }
+
 }

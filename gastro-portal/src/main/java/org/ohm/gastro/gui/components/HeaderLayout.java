@@ -25,8 +25,14 @@ public class HeaderLayout extends BaseComponent {
     @Property
     private Block basketBlock;
 
+    @Inject
+    @Property
+    private Block orderShowBlock;
+
     public void beginRender() {
         getShoppingCart().setBasketBlock(basketBlock);
+        getShoppingCart().setOrderShowBlock(orderShowBlock);
+        getShoppingCart().setJustAdded(false);
     }
 
     public int getUnreadMessages() {
@@ -34,7 +40,7 @@ public class HeaderLayout extends BaseComponent {
     }
 
     public String getDeclProducts() {
-        return getDeclInfo("cart", (int) getShoppingCart().getProducts().stream().map(t -> t.getEntity().getCatalog()).distinct().count());
+        return getDeclInfo("cart", getShoppingCart().getCatalogs().size());
     }
 
     public String getBonusesMessage() {

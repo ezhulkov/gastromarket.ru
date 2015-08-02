@@ -120,6 +120,11 @@ public class OfferEntity extends AltIdBaseEntity implements PurchaseEntity {
         this.products = products;
     }
 
+    @Override
+    public String getAvatarUrlSmall() {
+        return products.size() == 0 ? "/img/offer-stub-100x100.jpg" : products.get(0).getAvatarUrlSmall();
+    }
+
     public String getDescriptionRaw() {
         String desc = (String) ObjectUtils.defaultIfNull(description, "");
         desc = desc.replaceAll("\\n", "<br/>");

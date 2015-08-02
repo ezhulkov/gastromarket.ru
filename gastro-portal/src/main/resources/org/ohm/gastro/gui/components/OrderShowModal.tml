@@ -1,0 +1,27 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="order-show-modal modal fade" id="order-new-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="title">
+                    <h1><span>
+                        <t:if test="newOrder">
+                            Новый заказ
+                            <t:parameter name="else">
+                                Изменение заказа
+                            </t:parameter>
+                        </t:if>
+                    </span></h1>
+                </div>
+                <a class="modal-close" data-dismiss="modal"></a>
+            </div>
+            <div class="modal-body">
+                <t:if test="manyCatalogs">
+                    <p class="modal-text">У вас есть другие незавершенные заказы, информацию о которых можно посмотреть на
+                        <t:pagelink class="red-text" page="cart">странице управления заказами</t:pagelink>
+                    </p>
+                </t:if>
+                <!--<t:orderShowCatalog catalog="catalog"/>-->
+            </div>
+        </div>
+    </div>
+</div>

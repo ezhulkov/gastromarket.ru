@@ -1,6 +1,5 @@
 package org.ohm.gastro.gui.components;
 
-import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -25,18 +24,19 @@ public class OrderAdd extends BaseComponent {
     @Property
     private PriceModifierEntity priceModifier;
 
-    public Block onActionFromPurchase(PurchaseEntity.Type eType, Long eId) {
-        getShoppingCart().addProduct(createPurchaseItem(eType, eId, null));
-        return getShoppingCart().getBasketBlock();
+    public void onActionFromPurchase(PurchaseEntity.Type eType, Long eId, Long mId) {
+        getShoppingCart().addItem(createPurchaseItem(eType, eId, mId));
+        getAjaxResponseRenderer()
+                .addRender("basketZone", getShoppingCart().getBasketBlock())
+                .addRender("orderShowZone", getShoppingCart().getOrderShowBlock());
     }
 
-    public Block onActionFromPurchase2(PurchaseEntity.Type eType, Long eId) {
-        return onActionFromPurchase(eType, eId);
+    public void onActionFromPurchase2(PurchaseEntity.Type eType, Long eId) {
+        onActionFromPurchase(eType, eId, null);
     }
 
-    public Block onActionFromPurchaseModified(PurchaseEntity.Type eType, Long eId, Long mId) {
-        getShoppingCart().addProduct(createPurchaseItem(eType, eId, mId));
-        return getShoppingCart().getBasketBlock();
+    public void onActionFromPurchase3(PurchaseEntity.Type eType, Long eId) {
+        onActionFromPurchase(eType, eId, null);
     }
 
     @Cached(watch = "entity")

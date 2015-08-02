@@ -274,8 +274,9 @@ function initProductCatalog(ajaxContainer) {
 }
 
 function initBasket() {
-    Event.observe(jQuery("span[id^='basketZone']").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
+    Event.observe(jQuery("div[id^='orderShowZone']").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
         jQuery(".modal.in").modal('hide');
+        jQuery("#order-new-modal").modal({show: true});
     });
 }
 function initLoginModal() {
