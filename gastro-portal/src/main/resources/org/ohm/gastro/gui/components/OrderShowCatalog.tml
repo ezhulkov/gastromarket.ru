@@ -3,15 +3,37 @@
         <t:delegate to="orderShowBlock"/>
     </t:zone>
     <t:block t:id="orderShowBlock">
-        <t:loop source="items" value="item" formState="NONE">
-            <div class="order-item">
-                <img class="pic" src="${item.entity.avatarUrlSmall}"/>
-                <!--${item.entity.name}-->
-                <!--<t:if test="item.modifier">(${item.modifier.description})</t:if>-->
-                <!--${item.count}-->
-                <!--${item.price}-->
-                <t:actionlink t:id="delete" t:context="[item.entity.type,item.entity.id,item.modifier?.id]">удалить</t:actionlink>
+        <t:loop source="items" index="index" value="item" formState="NONE">
+            <div class="order-item ${rowClass}">
+                <div class="index">${itemIndex}</div>
+                <div class="left">
+                    <div class="price">
+                        <t:if test="item.modifier">
+                            <span class="sign">${item.modifier.signPrintable}</span>${item.modifier.price}&nbsp;<span class="rub"/> = ${item.price}&nbsp;<span class="rub"/>
+                            <t:parameter name="else">
+                                ${item.price}&nbsp;<span class="rub"/>
+                            </t:parameter>
+                        </t:if>
+                        <t:if test="productUnit">&nbsp;<span class="unit">${productUnit}</span></t:if>
+                        <div class="count">x ${item.count}</div>
+                    </div>
+                    <div class="name">
+                        <a target="_blank" href="/${item.entity.type.toString().toLowerCase()}/index/${item.entity.altId}">${item.entity.name}</a>
+                        <t:if test="item.modifier">
+                            <div class="modifier">(${item.modifier.description})</div>
+                        </t:if>
+                    </div>
+                </div>
+                <div class="right">
+                    <t:actionlink t:id="delete" class="delete" t:context="[item.entity.type,item.entity.id,item.modifier?.id]">удалить</t:actionlink>
+                </div>
             </div>
         </t:loop>
+        <hr/>
+        <div class="total">
+            <div class="price">${total}&nbsp;<span class="rub"/></div>
+            <span class="f20px">Предположительная стоимость заказа:</span><br/>
+            Точная стоимость будет известна после обсуждения деталей с кулинаром.
+        </div>
     </t:block>
 </div>

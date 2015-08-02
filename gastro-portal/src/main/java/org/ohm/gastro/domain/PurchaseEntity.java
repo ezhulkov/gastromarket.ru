@@ -3,7 +3,7 @@ package org.ohm.gastro.domain;
 /**
  * Created by ezhulkov on 21.08.14.
  */
-public interface PurchaseEntity extends BaseEntity {
+public interface PurchaseEntity extends AltIdEntity {
 
     enum Type {
         PRODUCT, OFFER

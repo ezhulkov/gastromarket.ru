@@ -675,6 +675,10 @@ body.modal-open {
   width: 900px;
 }
 
+.modal.order-show-modal .modal-dialog {
+  width: 900px;
+}
+
 .order-add .modal-dialog {
   top: 100px;
 }
@@ -1884,11 +1888,13 @@ html div.office table.table td.toggle {
 .price-modifier .modifier-price {
   font-size: 20px;
   line-height: 30px;
+  color: #333;
 }
 .price-modifier .modifier-name {
   text-align: left;
   font-size: 16px;
   line-height: 30px;
+  color: #333;
   text-overflow: ellipsis;
   overflow: hidden;
 }
@@ -1916,6 +1922,7 @@ html div.office table.table td.toggle {
 .order-add .price-modifier .modifier-price {
   font-size: 20px;
   line-height: 30px;
+  color: #333;
   float: right;
   margin-left: 10px;
 }
@@ -1923,6 +1930,7 @@ html div.office table.table td.toggle {
   text-align: left;
   font-size: 16px;
   line-height: 30px;
+  color: #333;
   text-overflow: ellipsis;
   overflow: hidden;
 }
@@ -1930,6 +1938,7 @@ html div.office table.table td.toggle {
   font-weight: normal;
   font-size: 14px;
   line-height: 14px;
+  color: #333;
 }
 .order-add .price-modifier .basket-add {
   float: right;
@@ -1949,6 +1958,7 @@ html div.office table.table td.toggle {
   font-weight: normal;
   font-size: 14px;
   line-height: 14px;
+  color: #333;
 }
 .basket-block .price .sign {
   width: 10px;
@@ -1961,9 +1971,168 @@ html div.office table.table td.toggle {
   font-size: 16px;
 }
 
-.order-show-catalog .item img.pic {
+.price-modifier {
+  margin: 10px 0;
+}
+.price-modifier .modifier-price {
+  font-size: 20px;
+  line-height: 30px;
+  color: #333;
+}
+.price-modifier .modifier-name {
+  text-align: left;
+  font-size: 16px;
+  line-height: 30px;
+  color: #333;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.price-modifier .modifier-row {
+  margin: 3px 0;
+}
+.price-modifier .del-modifier {
+  margin-top: 12px;
+  display: inline-block;
+}
+.price-modifier .add-modifier {
+  margin-left: 10px;
+  display: inline-block;
+}
+.price-modifier .left {
+  padding: 0 10px;
+  display: inline-block;
+  width: 530px;
+}
+.price-modifier .right {
+  padding: 0 10px;
+  display: inline-block;
+  width: 140px;
+}
+.order-add .price-modifier .modifier-price {
+  font-size: 20px;
+  line-height: 30px;
+  color: #333;
+  float: right;
+  margin-left: 10px;
+}
+.order-add .price-modifier .modifier-name {
+  text-align: left;
+  font-size: 16px;
+  line-height: 30px;
+  color: #333;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.order-add .price-modifier .unit {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 14px;
+  color: #333;
+}
+.order-add .price-modifier .basket-add {
+  float: right;
+}
+
+.basket-block {
+  line-height: 30px;
+}
+.basket-block .price {
+  text-align: left;
+  line-height: 30px;
+  color: #333;
+  font-size: 30px;
+  font-weight: bold;
+}
+.basket-block .price .unit {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 14px;
+  color: #333;
+}
+.basket-block .price .sign {
+  width: 10px;
+  display: inline-block;
+}
+.basket-block .basket-add {
+  text-align: left;
+  line-height: 30px;
+  color: #e70500;
+  font-size: 16px;
+}
+
+.order-show-catalog .order-item {
+  padding: 5px 0;
+}
+.order-show-catalog .order-item > div {
+  display: inline-block;
+  vertical-align: top;
+}
+.order-show-catalog .order-item * {
+  color: #333;
+}
+.order-show-catalog .order-item.odd {
+  background-color: #f3f3f3;
+}
+.order-show-catalog .name a {
+  text-align: left;
+  font-size: 16px;
+  line-height: 30px;
+  color: #333;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 20px;
+}
+.order-show-catalog .modifier-name {
+  font-size: 16px;
+}
+.order-show-catalog .price {
+  font-size: 20px;
+  line-height: 30px;
+  color: #333;
+  float: right;
+  margin-left: 10px;
+}
+.order-show-catalog .count {
+  width: 40px;
+  display: inline-block;
+  margin-left: 5px;
+}
+.order-show-catalog .unit {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 14px;
+  color: #333;
+}
+.order-show-catalog .delete {
+  color: #e70500;
+}
+.order-show-catalog .index {
+  width: 20px;
+  font-size: 20px;
+  padding: 1px 0 0 5px;
+}
+.order-show-catalog .left {
+  padding: 0 10px;
+  display: inline-block;
+  width: 690px;
+}
+.order-show-catalog .right {
+  padding: 0 10px;
+  display: inline-block;
+  padding-top: 2px;
   width: 100px;
-  height: 100px;
+  text-align: right;
+}
+.order-show-catalog .total {
+  font-size: 16px;
+  vertical-align: top;
+}
+.order-show-catalog .total .price {
+  font-weight: bold;
+  font-size: 30px;
+  float: right;
+  vertical-align: top;
+  margin-right: 15px;
 }
 
 /*# sourceMappingURL=style.css.map */

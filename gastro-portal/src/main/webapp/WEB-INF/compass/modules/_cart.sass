@@ -1,8 +1,51 @@
 @import ../include/var
+@import price
 
 .order-show-catalog
-  .item
-    img.pic
-      width: 100px
-      height: 100px
-
+  .order-item
+    padding: 5px 0
+    & > div
+      display: inline-block
+      vertical-align: top
+    & *
+      color: $blackTextColor
+    &.odd
+      background-color: #f3f3f3
+  .name a
+    +name-class
+    font-size: 20px
+  .modifier-name
+    font-size: 16px
+  .price
+    +price-class
+    float: right
+    margin-left: $gap
+  .count
+    width: 40px
+    display: inline-block
+    margin-left: 5px
+  .unit
+    +unit-class
+  .delete
+    color: $redTextColor
+  .index
+    width: 20px
+    font-size: 20px
+    padding: 1px 0 0 5px
+  .left
+    +col-class
+    width: 690px
+  .right
+    +col-class
+    padding-top: 2px
+    width: 100px
+    text-align: right
+  .total
+    font-size: 16px
+    vertical-align: top
+    .price
+      font-weight: bold
+      font-size: 30px
+      float: right
+      vertical-align: top
+      margin-right: 15px
