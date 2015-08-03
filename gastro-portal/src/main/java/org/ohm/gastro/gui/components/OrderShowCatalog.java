@@ -46,7 +46,7 @@ public class OrderShowCatalog extends BaseComponent {
         return getItems().size() == 1;
     }
 
-    @Cached
+    @Cached(watch = "catalog")
     public List<OrderProductEntity> getItems() {
         return getShoppingCart().getItems(catalog);
     }

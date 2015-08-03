@@ -1476,18 +1476,18 @@ label.t-error {
   overflow: hidden;
 }
 .grid-block .item {
-  float: left;
   -webkit-box-shadow: 0 0 6px 2px #ddd;
   -moz-box-shadow: 0 0 6px 2px #ddd;
   box-shadow: 0 0 6px 2px #ddd;
   background-color: #fff;
+  border: 1px solid #aaa;
+  float: left;
   margin: 10px;
   display: list-item;
-  border: 1px solid #aaa;
-  overflow: hidden;
   white-space: nowrap;
   text-align: center;
   text-overflow: ellipsis;
+  overflow: hidden;
 }
 .grid-block.albums .item {
   padding: 5px 15px;
@@ -1518,49 +1518,6 @@ label.t-error {
 }
 .grid-block.promo .item .name {
   line-height: 60px;
-}
-.grid-block.categories .item {
-  margin: 15px;
-  width: 200px;
-  height: 186px;
-}
-.grid-block.categories .item .name {
-  line-height: 40px;
-}
-.grid-block.categories .item img {
-  height: 145px;
-  width: 100%;
-  display: block;
-}
-.grid-block.categories .item .category-supy {
-  background: transparent url("../img/category/soup-small.jpg") repeat-x;
-}
-.grid-block.categories .item .category-napitki {
-  background: transparent url("../img/category/lemonade-small.jpg") repeat-x;
-}
-.grid-block.categories .item .category-vypechka-i-deserty {
-  background: transparent url("../img/category/dessert-small.jpg") repeat-x;
-}
-.grid-block.categories .item .category-fermerskaya-eda {
-  background: transparent url("../img/category/country-small.jpg") repeat-x;
-}
-.grid-block.categories .item .category-keitering {
-  background: transparent url("../img/category/catering-small.jpg") repeat-x;
-}
-.grid-block.categories .item .category-garniry {
-  background: transparent url("../img/category/sidedishes-small.jpg") repeat-x;
-}
-.grid-block.categories .item .category-zakuski-i-burgery {
-  background: transparent url("../img/category/burger-small.jpg") repeat-x;
-}
-.grid-block.categories .item .category-salaty {
-  background: transparent url("../img/category/salad-small.jpg") repeat-x;
-}
-.grid-block.categories .item .category-torty {
-  background: transparent url("../img/category/cake-small.jpg") repeat-x;
-}
-.grid-block.categories .item .category-osnovnye-blyuda {
-  background: transparent url("../img/category/steak-small.jpg") repeat-x;
 }
 .grid-block .item img {
   opacity: 0.95;
@@ -1948,11 +1905,13 @@ html div.office table.table td.toggle {
 .price-modifier .left {
   padding: 0 10px;
   display: inline-block;
+  vertical-align: top;
   width: 530px;
 }
 .price-modifier .right {
   padding: 0 10px;
   display: inline-block;
+  vertical-align: top;
   width: 140px;
 }
 .order-add .price-modifier .modifier-price {
@@ -2037,11 +1996,13 @@ html div.office table.table td.toggle {
 .price-modifier .left {
   padding: 0 10px;
   display: inline-block;
+  vertical-align: top;
   width: 530px;
 }
 .price-modifier .right {
   padding: 0 10px;
   display: inline-block;
+  vertical-align: top;
   width: 140px;
 }
 .order-add .price-modifier .modifier-price {
@@ -2096,12 +2057,101 @@ html div.office table.table td.toggle {
   font-size: 16px;
 }
 
+.grid-block {
+  width: 1150px;
+  margin: 0 auto 10px auto;
+  font-size: 20px;
+  font-family: "PT Sans", sans-serif;
+  overflow: hidden;
+}
+.grid-block .item {
+  -webkit-box-shadow: 0 0 6px 2px #ddd;
+  -moz-box-shadow: 0 0 6px 2px #ddd;
+  box-shadow: 0 0 6px 2px #ddd;
+  background-color: #fff;
+  border: 1px solid #aaa;
+  float: left;
+  margin: 10px;
+  display: list-item;
+  white-space: nowrap;
+  text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.grid-block.albums .item {
+  padding: 5px 15px;
+  margin: 3px 10px;
+}
+.grid-block.products .item {
+  width: 270px;
+  margin: 7px;
+}
+.grid-block.products .item .name {
+  line-height: 60px;
+}
+.grid-block.cooks .item {
+  width: 210px;
+  height: 250px;
+}
+.grid-block.cooks .item .name {
+  line-height: 40px;
+}
+.grid-block.cooks .item img {
+  height: 210px;
+  width: 210px;
+}
+.grid-block.promo .item {
+  width: 270px;
+  height: 334px;
+  margin: 8px;
+}
+.grid-block.promo .item .name {
+  line-height: 60px;
+}
+.grid-block .item img {
+  opacity: 0.95;
+}
+.grid-block .item div:hover img {
+  opacity: 1;
+}
+.grid-block .name {
+  text-align: center;
+  line-height: 25px;
+  padding: 0 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #333;
+}
+.grid-block a {
+  display: block;
+}
+
+.ui-state-highlight {
+  margin: 6px 8px;
+  border: 1px dashed lightgray;
+  width: 268px;
+  height: 498px;
+  display: list-item;
+  float: left;
+}
+
 .order-show-modal .attention {
   margin-top: 0;
 }
 
-.order-show-catalog.short .pic, .order-show-catalog.full .pic {
-  display: none;
+.order-show-catalog.full {
+  -webkit-box-shadow: 0 0 6px 2px #ddd;
+  -moz-box-shadow: 0 0 6px 2px #ddd;
+  box-shadow: 0 0 6px 2px #ddd;
+  background-color: #fff;
+  border: 1px solid #aaa;
+  width: 900px;
+  padding: 30px 40px;
+  margin: 30px auto;
+}
+.order-show-catalog.full .round-link, .order-show-catalog.full .title-simple a, .title-simple .order-show-catalog.full a, .order-show-catalog.full .title a, .title .order-show-catalog.full a, .order-show-catalog.full .links-set a, .links-set .order-show-catalog.full a {
+  float: right;
+  margin: 0;
 }
 .order-show-catalog .catalog img {
   width: 100px;
@@ -2117,10 +2167,16 @@ html div.office table.table td.toggle {
   overflow: hidden;
   font-size: 20px;
 }
-.order-show-catalog .catalog .left, .order-show-catalog .catalog .right {
+.order-show-catalog .catalog .left {
   padding: 0 10px;
   display: inline-block;
   vertical-align: top;
+}
+.order-show-catalog .catalog .right {
+  padding: 0 10px;
+  display: inline-block;
+  vertical-align: top;
+  width: 695px;
 }
 .order-show-catalog .order-item {
   padding: 5px 0;
@@ -2138,11 +2194,13 @@ html div.office table.table td.toggle {
 .order-show-catalog .order-item .left {
   padding: 0 10px;
   display: inline-block;
+  vertical-align: top;
   width: 690px;
 }
 .order-show-catalog .order-item .right {
   padding: 0 10px;
   display: inline-block;
+  vertical-align: top;
   padding-top: 2px;
   width: 100px;
   text-align: right;
@@ -2195,6 +2253,50 @@ html div.office table.table td.toggle {
   float: right;
   vertical-align: top;
   margin-right: 15px;
+}
+
+.grid-block.categories .item {
+  margin: 15px;
+  width: 200px;
+  height: 186px;
+}
+.grid-block.categories .item .name {
+  line-height: 40px;
+}
+.grid-block.categories .item img {
+  height: 145px;
+  width: 100%;
+  display: block;
+}
+.grid-block.categories .item .category-supy {
+  background: url(../img/category/category-supy-small.jpg) no-repeat 0 0;
+}
+.grid-block.categories .item .category-napitki {
+  background: url(../img/category/category-napitki-small.jpg) no-repeat 0 0;
+}
+.grid-block.categories .item .category-vypechka-i-deserty {
+  background: url(../img/category/category-vypechka-i-deserty-small.jpg) no-repeat 0 0;
+}
+.grid-block.categories .item .category-fermerskaya-eda {
+  background: url(../img/category/category-fermerskaya-eda-small.jpg) no-repeat 0 0;
+}
+.grid-block.categories .item .category-keitering {
+  background: url(../img/category/category-keitering-small.jpg) no-repeat 0 0;
+}
+.grid-block.categories .item .category-garniry {
+  background: url(../img/category/category-garniry-small.jpg) no-repeat 0 0;
+}
+.grid-block.categories .item .category-zakuski-i-burgery {
+  background: url(../img/category/category-zakuski-i-burgery-small.jpg) no-repeat 0 0;
+}
+.grid-block.categories .item .category-salaty {
+  background: url(../img/category/category-salaty-small.jpg) no-repeat 0 0;
+}
+.grid-block.categories .item .category-torty {
+  background: url(../img/category/category-torty-small.jpg) no-repeat 0 0;
+}
+.grid-block.categories .item .category-osnovnye-blyuda {
+  background: url(../img/category/category-osnovnye-blyuda-small.jpg) no-repeat 0 0;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,0 +1,18 @@
+@import ../include/var
+
+$categories: supy napitki vypechka-i-deserty fermerskaya-eda keitering garniry zakuski-i-burgery salaty torty osnovnye-blyuda
+
+.grid-block
+  &.categories .item
+    margin: 15px
+    width: 200px
+    height: 186px
+    .name
+      line-height: 40px
+    img
+      height: 145px
+      width: 100%
+      display: block
+    @each $category in $categories
+      .category-#{$category}
+        background: url(../img/category/category-#{$category}-small.jpg) no-repeat 0 0

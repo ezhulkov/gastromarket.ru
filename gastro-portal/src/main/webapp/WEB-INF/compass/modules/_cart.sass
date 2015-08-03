@@ -1,13 +1,19 @@
 @import ../include/var
 @import price
+@import grid
 
 .order-show-modal .attention
   margin-top: 0
 
 .order-show-catalog
-  &.short, &.full
-    .pic
-      display: none
+  &.full
+    +border-class
+    width: 900px
+    padding: 30px 40px
+    margin: 30px auto
+    .round-link
+      float: right
+      margin: 0
   .catalog
     img
       width: 100px
@@ -16,9 +22,11 @@
     .name
       +name-class
       font-size: 20px
-    .left, .right
+    .left
       +col-class
-      vertical-align: top
+    .right
+      +col-class
+      width: 695px
   .order-item
     padding: 5px 0
     & > div

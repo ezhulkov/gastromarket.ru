@@ -6,12 +6,13 @@
 
         <div class="catalog">
             <div class="left">
-                <t:pagelink page="catalog/index" context="catalog.altId">
+                <t:pagelink target="_blank" page="catalog/index" context="catalog.altId">
                     <img src="${catalog.avatarUrlMedium}"/>
                 </t:pagelink>
             </div>
             <div class="right">
-                <t:pagelink class="name" page="catalog/index" context="catalog.altId">
+                <t:pagelink class="round-link" page="index" context="catalog.id">Отправить заказ <span/></t:pagelink>
+                <t:pagelink target="_blank" class="name" page="catalog/index" context="catalog.altId">
                     ${catalog.name}
                 </t:pagelink>
                 <t:badges catalog="catalog"/>
