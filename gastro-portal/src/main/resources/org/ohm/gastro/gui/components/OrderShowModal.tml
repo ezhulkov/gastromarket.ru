@@ -16,9 +16,11 @@
             </div>
             <div class="modal-body">
                 <t:if test="manyCatalogs">
-                    <p class="modal-text">У вас есть другие незавершенные заказы, информацию о которых можно посмотреть на
+                    <div class="attention">
+                        У вас есть другие незавершенные заказы,<br/>
+                        информацию о которых можно посмотреть на
                         <t:pagelink class="red-text" page="cart">странице управления заказами</t:pagelink>
-                    </p>
+                    </div>
                 </t:if>
                 <t:orderShowCatalog catalog="catalog" additionalClass="short"/>
                 <div class="form-buttons">

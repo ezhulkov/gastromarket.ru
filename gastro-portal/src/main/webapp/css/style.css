@@ -245,11 +245,18 @@ body.mobile .rub:after {
   font-size: 20px;
 }
 
-.modal-text {
+.modal-text, .attention {
   font-size: 16px;
   padding: 0 20px 0 20px;
   text-align: center;
   line-height: 22px;
+}
+
+.attention {
+  display: block;
+  margin: 10px 0 30px 0;
+  border: 1px solid;
+  padding: 20px;
 }
 
 .error {
@@ -2084,6 +2091,10 @@ html div.office table.table td.toggle {
   line-height: 30px;
   color: #e70500;
   font-size: 16px;
+}
+
+.order-show-modal .attention {
+  margin-top: 0;
 }
 
 .order-show-catalog.short .pic {

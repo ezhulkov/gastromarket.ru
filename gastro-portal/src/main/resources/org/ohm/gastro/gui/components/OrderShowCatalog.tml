@@ -1,8 +1,9 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="order-show-catalog ${additionalClass}">
-    <t:zone t:id="orderShowZone">
-        <t:delegate to="orderShowBlock"/>
+    <t:zone t:id="orderShowCatalogZone" id="orderShowCatalogZone">
+        <t:delegate to="orderShowCatalogBlock"/>
     </t:zone>
-    <t:block t:id="orderShowBlock">
+    <t:block t:id="orderShowCatalogBlock">
+
         <div class="catalog">
             <div class="left">
                 <t:pagelink page="catalog/index" context="catalog.altId">
@@ -41,15 +42,22 @@
                     </div>
                 </div>
                 <div class="right">
-                    <t:actionlink t:id="delete" class="delete" t:context="[item.entity.type,item.entity.id,item.modifier?.id]">удалить</t:actionlink>
+                    <t:actionLink t:id="deleteItem" class="delete" t:zone="orderShowCatalogZone" t:context="deleteContext">удалить</t:actionLink>
                 </div>
             </div>
+            <t:parameter name="empty">
+                <div class="empty">
+                    В заказе нет элементов :(
+                </div>
+            </t:parameter>
         </t:loop>
-        <hr/>
-        <div class="total">
-            <div class="price">${total}&nbsp;<span class="rub"/></div>
-            <span class="f20px">Предположительная стоимость заказа:</span><br/>
-            Точная стоимость будет известна после обсуждения деталей с кулинаром.
-        </div>
+        <t:if test="items">
+            <hr/>
+            <div class="total">
+                <div class="price">${total}&nbsp;<span class="rub"/></div>
+                <span class="f20px">Предположительная стоимость заказа:</span><br/>
+                Точная стоимость будет известна после обсуждения деталей с кулинаром.
+            </div>
+        </t:if>
     </t:block>
 </div>

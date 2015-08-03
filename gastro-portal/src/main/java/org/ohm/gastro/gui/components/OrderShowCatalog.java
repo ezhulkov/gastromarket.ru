@@ -2,6 +2,7 @@ package org.ohm.gastro.gui.components;
 
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
+import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -32,7 +33,7 @@ public class OrderShowCatalog extends BaseComponent {
 
     @Property
     @Inject
-    private Block orderShowBlock;
+    private Block orderShowCatalogBlock;
 
     @Property
     private int index;
@@ -45,12 +46,14 @@ public class OrderShowCatalog extends BaseComponent {
         return getItems().size() == 1;
     }
 
+    @Cached
     public List<OrderProductEntity> getItems() {
         return getShoppingCart().getItems(catalog);
     }
 
-    public void onActionFromDelete(PurchaseEntity.Type type, Long id, Long mid) {
+    public Block onActionFromDeleteItem(PurchaseEntity.Type type, Long id, Long mid) {
         getShoppingCart().removeItem(type, id, mid);
+        return orderShowCatalogBlock;
     }
 
     public String getProductUnit() {
@@ -65,6 +68,14 @@ public class OrderShowCatalog extends BaseComponent {
 
     public String getRowClass() {
         return index % 2 == 0 ? "odd" : "even";
+    }
+
+    public Object[] getDeleteContext() {
+        return new Object[]{
+                item.getEntity().getType(),
+                item.getEntity().getId(),
+                item.getModifier() == null ? null : item.getModifier().getId()
+        };
     }
 
 }

@@ -77,7 +77,10 @@ public final class ShoppingCart {
     }
 
     public void removeItem(PurchaseEntity.Type type, Long id, Long mId) {
-        findPurchaseItem(type, id, mId).ifPresent(items::remove);
+        findPurchaseItem(type, id, mId).ifPresent(t -> {
+            t.setCount(t.getCount() - 1);
+            if (t.getCount() <= 0) items.remove(t);
+        });
     }
 
     public void incItem(PurchaseEntity.Type type, Long pid, Long mId) {
