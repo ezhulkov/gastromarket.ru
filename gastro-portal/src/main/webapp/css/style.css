@@ -225,6 +225,9 @@ body.mobile .rub:after {
   font-size: 20px;
   font-family: "PT Serif", serif;
 }
+.empty a {
+  font-size: 20px;
+}
 
 .simple-text {
   width: 750px;
@@ -2097,7 +2100,7 @@ html div.office table.table td.toggle {
   margin-top: 0;
 }
 
-.order-show-catalog.short .pic {
+.order-show-catalog.short .pic, .order-show-catalog.full .pic {
   display: none;
 }
 .order-show-catalog .catalog img {

@@ -32,8 +32,6 @@
                         <t:if test="productUnit">&nbsp;<span class="unit">${productUnit}</span></t:if>
                         <div class="count">x ${item.count}</div>
                     </div>
-                    <img class="pic" src="${item.entity.avatarUrlSmall}"/>
-
                     <div class="name">
                         <a target="_blank" href="/${item.entity.type.toString().toLowerCase()}/index/${item.entity.altId}">${item.entity.name}</a>
                         <t:if test="item.modifier">
