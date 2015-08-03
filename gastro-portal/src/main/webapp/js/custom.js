@@ -34,10 +34,7 @@ jQuery.noConflict();
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 Event.observe(document, Tapestry.ZONE_UPDATED_EVENT, function (event) {
-    initChosen(jQuery(this).find('select.chosen-select'));
-    initTitle(jQuery(this).find("div.title"));
-    initFineUploader(jQuery("div.upload-file"));
-    initSortable();
+    initControls();
 });
 jQuery(document).ready(function () {
     jQuery("ul.dropdown-menu").each(function (e) {
@@ -48,7 +45,23 @@ jQuery(document).ready(function () {
         jQuery(this).css("margin-left", margin);
     });
     jQuery("body").addClass(isMobile() ? "mobile" : "desktop");
+    initLoginModal();
+    initModalStack();
+    initHowToModal();
+    initControls();
+});
+function initControls() {
+    initToolTip();
+    initPopover();
+    initChosen(jQuery("select.chosen-select"));
+    initTitle(jQuery("div.title"));
+    initFineUploader(jQuery("div.upload-file"));
+    initSortable();
+}
+function initToolTip() {
     jQuery(".tip").tooltip({placement: "bottom"});
+}
+function initPopover() {
     jQuery(".popover-holder")
         .on('mouseenter', function () {
             jQuery(this).popover({placement: "bottom"}).popover('show');
@@ -56,14 +69,7 @@ jQuery(document).ready(function () {
         .on('mouseleave', function () {
             jQuery(this).popover('hide');
         });
-    initChosen(jQuery("select.chosen-select"));
-    initLoginModal();
-    initTitle(jQuery("div.title"));
-    initFineUploader(jQuery("div.upload-file"));
-    initModalStack();
-    initHowToModal();
-    initSortable();
-});
+}
 function initModalStack() {
     jQuery(".modal").on("hide.bs.modal", function (event) {
         jQuery("body").data("fv_open_modals", jQuery("body").data("fv_open_modals") - 1);

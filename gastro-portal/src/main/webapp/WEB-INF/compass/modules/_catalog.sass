@@ -1,92 +1,46 @@
 @import ../include/var
 
+$badges: badge-product badge-order badge-rank
+
+=badge-class
+  display: inline-block
+  float: left
+  margin: 0 16px 0 0
+  cursor: pointer
+  width: 45px
+  height: 45px
+  border-radius: 100%
+  text-align: center
+  line-height: 50px
+  font-size: $f20px
+  font-weight: bold
+  color: white
+  background-color: white
+
 .catalog-item
   padding: 30px 0 20px 0
   .pic
     width: 270px
     height: 270px
-
   .data-header
     margin: 5px 0 0 0
     height: auto
     a
       margin: 0
-
   .name
     color: $blackTextColor
     font-size: $f30px
-
   .root-categories
     color: $greyTextColor
     font-size: $f18px
-
   .bottom
     padding-top: 10px
-
   .description
     font-size: $f16px
-
   &.short .description
     @extend .description
     max-height: 84px
     overflow: hidden
-
-  .badges
-    height: 45px
-    margin: 20px 0
-    .badge
-      display: inline-block
-      float: left
-      margin: 0 16px 0 0
-      cursor: pointer
-      width: 45px
-      height: 45px
-      border-radius: 100%
-      text-align: center
-      line-height: 50px
-      font-size: $f20px
-      font-weight: bold
-      color: white
-      background-color: white
-
-    .badge-product
-      @extend .badge
-      background: url(../img/badge1-small.png) no-repeat 0 0
-
-    .badge-rank
-      @extend .badge
-      background: url(../img/badge2-small.png) no-repeat 0 0
-
-    .badge-order
-      @extend .badge
-      background: url(../img/badge3-small.png) no-repeat 0 0
-
-    .badge-product.badge-stub
-      @extend .badge
-      background: url(../img/badge1-stub.png) no-repeat 0 0
-
-    .badge-rank.badge-stub
-      @extend .badge
-      background: url(../img/badge2-stub.png) no-repeat 0 0
-
-    .badge-order.badge-stub
-      @extend .badge
-      background: url(../img/badge3-stub.png) no-repeat 0 0
-
-  .ratings
-    margin: 10px 0
-    font-size: $f18px
-    color: $greyTextColor
-    .rating
-      color: $redTextColor
-      font-size: $f18px
-
-    .pos
-      color: $redTextColor
-
-    .neg
-      color: $blackTextColor
-
   .summary
     margin: -15px
     padding: 15px
@@ -101,10 +55,8 @@
         margin: 0 60px 0 0
         line-height: 30px
         vertical-align: middle
-
       .pic-holder
         color: $greyTextColor
-
       .pic-holder > span
         width: 26px
         height: 26px
@@ -114,16 +66,13 @@
         border: 1px solid $greyTextColor
         padding: 4px
         font-size: 16px
-
       .pic-holder > span.glyphicon-plus
         padding-left: 5px
-
       .pic-holder.active
         color: $blackTextColor
         span
           border: 1px solid $redTextColor
           background-color: $redTextColor
-
   ul.social
     list-style: none
     margin: -20px 0 0 20px
@@ -149,21 +98,16 @@ ul.comments
     img
       width: 50px
       height: 50px
-
   .date
     color: $greyTextColor
-
   .name
     font-size: $f20px
-
   .glyphicon-thumbs-0
     display: none
-
   .glyphicon-thumbs-1
     margin-right: 5px
     &:before
       content: "\e125"
-
   .glyphicon-thumbs--1
     margin-right: 5px
     &:before
@@ -175,7 +119,6 @@ ul.comments
     .item
       float: none
       margin: 3px 5px
-
   .grid-block.import
     .item
       width: 210px
@@ -184,7 +127,6 @@ ul.comments
         height: 210px
         cursor: pointer
         margin-bottom: 7px
-
   .element-item
     position: relative
     .checked
@@ -195,5 +137,27 @@ ul.comments
       width: 49px
       height: 49px
       background: transparent url("../img/product-edit.png") no-repeat -147px 0
-    
-  
+
+.badges
+  height: 45px
+  margin: 20px 0
+  @each $badge in $badges
+    .#{$badge}
+      +badge-class
+      background: url(../img/#{$badge}-small.png) no-repeat 0 0
+    .#{$badge}.badge-stub
+      background: url(../img/#{$badge}-stub.png) no-repeat 0 0
+
+.ratings
+  margin: 10px 0
+  font-size: $f18px
+  color: $greyTextColor
+  .rating
+    color: $redTextColor
+    font-size: $f18px
+  .pos
+    color: $redTextColor
+  .neg
+    color: $blackTextColor
+
+

@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.components;
 
+import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -21,6 +22,10 @@ public class OrderShowCatalog extends BaseComponent {
     @Parameter
     @Property
     private CatalogEntity catalog;
+
+    @Parameter(defaultPrefix = BindingConstants.LITERAL)
+    @Property
+    private String additionalClass;
 
     @Property
     private OrderProductEntity item;

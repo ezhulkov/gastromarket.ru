@@ -344,58 +344,6 @@ body.mobile .rub:after {
   max-height: 84px;
   overflow: hidden;
 }
-.catalog-item .badges {
-  height: 45px;
-  margin: 20px 0;
-}
-.catalog-item .badges .badge, .catalog-item .badges .badge-product, .catalog-item .badges .badge-rank, .catalog-item .badges .badge-order, .catalog-item .badges .badge-product.badge-stub, .catalog-item .badges .badge-rank.badge-stub, .catalog-item .badges .badge-order.badge-stub {
-  display: inline-block;
-  float: left;
-  margin: 0 16px 0 0;
-  cursor: pointer;
-  width: 45px;
-  height: 45px;
-  border-radius: 100%;
-  text-align: center;
-  line-height: 50px;
-  font-size: 20px;
-  font-weight: bold;
-  color: white;
-  background-color: white;
-}
-.catalog-item .badges .badge-product {
-  background: url(../img/badge1-small.png) no-repeat 0 0;
-}
-.catalog-item .badges .badge-rank {
-  background: url(../img/badge2-small.png) no-repeat 0 0;
-}
-.catalog-item .badges .badge-order {
-  background: url(../img/badge3-small.png) no-repeat 0 0;
-}
-.catalog-item .badges .badge-product.badge-stub {
-  background: url(../img/badge1-stub.png) no-repeat 0 0;
-}
-.catalog-item .badges .badge-rank.badge-stub {
-  background: url(../img/badge2-stub.png) no-repeat 0 0;
-}
-.catalog-item .badges .badge-order.badge-stub {
-  background: url(../img/badge3-stub.png) no-repeat 0 0;
-}
-.catalog-item .ratings {
-  margin: 10px 0;
-  font-size: 18px;
-  color: #8a8a8a;
-}
-.catalog-item .ratings .rating {
-  color: #e70500;
-  font-size: 18px;
-}
-.catalog-item .ratings .pos {
-  color: #e70500;
-}
-.catalog-item .ratings .neg {
-  color: #333;
-}
 .catalog-item .summary {
   margin: -15px;
   padding: 15px;
@@ -517,6 +465,84 @@ ul.comments .glyphicon-thumbs--1:before {
   width: 49px;
   height: 49px;
   background: transparent url("../img/product-edit.png") no-repeat -147px 0;
+}
+
+.badges {
+  height: 45px;
+  margin: 20px 0;
+}
+.badges .badge-product {
+  display: inline-block;
+  float: left;
+  margin: 0 16px 0 0;
+  cursor: pointer;
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+  text-align: center;
+  line-height: 50px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  background-color: white;
+  background: url(../img/badge-product-small.png) no-repeat 0 0;
+}
+.badges .badge-product.badge-stub {
+  background: url(../img/badge-product-stub.png) no-repeat 0 0;
+}
+.badges .badge-order {
+  display: inline-block;
+  float: left;
+  margin: 0 16px 0 0;
+  cursor: pointer;
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+  text-align: center;
+  line-height: 50px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  background-color: white;
+  background: url(../img/badge-order-small.png) no-repeat 0 0;
+}
+.badges .badge-order.badge-stub {
+  background: url(../img/badge-order-stub.png) no-repeat 0 0;
+}
+.badges .badge-rank {
+  display: inline-block;
+  float: left;
+  margin: 0 16px 0 0;
+  cursor: pointer;
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+  text-align: center;
+  line-height: 50px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  background-color: white;
+  background: url(../img/badge-rank-small.png) no-repeat 0 0;
+}
+.badges .badge-rank.badge-stub {
+  background: url(../img/badge-rank-stub.png) no-repeat 0 0;
+}
+
+.ratings {
+  margin: 10px 0;
+  font-size: 18px;
+  color: #8a8a8a;
+}
+.ratings .rating {
+  color: #e70500;
+  font-size: 18px;
+}
+.ratings .pos {
+  color: #e70500;
+}
+.ratings .neg {
+  color: #333;
 }
 
 .offer-item {
@@ -2060,6 +2086,28 @@ html div.office table.table td.toggle {
   font-size: 16px;
 }
 
+.order-show-catalog.short .pic {
+  display: none;
+}
+.order-show-catalog .catalog img {
+  width: 100px;
+  height: 100px;
+  display: block;
+}
+.order-show-catalog .catalog .name {
+  text-align: left;
+  font-size: 16px;
+  line-height: 30px;
+  color: #333;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 20px;
+}
+.order-show-catalog .catalog .left, .order-show-catalog .catalog .right {
+  padding: 0 10px;
+  display: inline-block;
+  vertical-align: top;
+}
 .order-show-catalog .order-item {
   padding: 5px 0;
 }
@@ -2073,7 +2121,19 @@ html div.office table.table td.toggle {
 .order-show-catalog .order-item.odd {
   background-color: #f3f3f3;
 }
-.order-show-catalog .name a {
+.order-show-catalog .order-item .left {
+  padding: 0 10px;
+  display: inline-block;
+  width: 690px;
+}
+.order-show-catalog .order-item .right {
+  padding: 0 10px;
+  display: inline-block;
+  padding-top: 2px;
+  width: 100px;
+  text-align: right;
+}
+.order-show-catalog .order-item .name a {
   text-align: left;
   font-size: 16px;
   line-height: 30px;
@@ -2082,46 +2142,34 @@ html div.office table.table td.toggle {
   overflow: hidden;
   font-size: 20px;
 }
-.order-show-catalog .modifier-name {
+.order-show-catalog .order-item .modifier-name {
   font-size: 16px;
 }
-.order-show-catalog .price {
+.order-show-catalog .order-item .price {
   font-size: 20px;
   line-height: 30px;
   color: #333;
   float: right;
   margin-left: 10px;
 }
-.order-show-catalog .count {
+.order-show-catalog .order-item .count {
   width: 40px;
   display: inline-block;
   margin-left: 5px;
 }
-.order-show-catalog .unit {
+.order-show-catalog .order-item .unit {
   font-weight: normal;
   font-size: 14px;
   line-height: 14px;
   color: #333;
 }
-.order-show-catalog .delete {
+.order-show-catalog .order-item .delete {
   color: #e70500;
 }
-.order-show-catalog .index {
+.order-show-catalog .order-item .index {
   width: 20px;
   font-size: 20px;
   padding: 1px 0 0 5px;
-}
-.order-show-catalog .left {
-  padding: 0 10px;
-  display: inline-block;
-  width: 690px;
-}
-.order-show-catalog .right {
-  padding: 0 10px;
-  display: inline-block;
-  padding-top: 2px;
-  width: 100px;
-  text-align: right;
 }
 .order-show-catalog .total {
   font-size: 16px;
