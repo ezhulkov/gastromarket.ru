@@ -1,4 +1,4 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="order-show-catalog ${additionalClass}">
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="order-show-catalog ${type.name().toLowerCase()}">
     <t:zone t:id="orderShowCatalogZone" id="orderShowCatalogZone">
         <t:delegate to="orderShowCatalogBlock"/>
     </t:zone>
@@ -11,7 +11,9 @@
                 </t:pagelink>
             </div>
             <div class="right">
-                <t:pagelink class="round-link" page="index" context="catalog.id">Отправить заказ <span/></t:pagelink>
+                <t:if test="items">
+                    <t:pagelink class="round-link" page="index" context="catalog.id">Отправить заказ <span/></t:pagelink>
+                </t:if>
                 <t:pagelink target="_blank" class="name" page="catalog/index" context="catalog.altId">
                     ${catalog.name}
                 </t:pagelink>
@@ -56,6 +58,10 @@
                 <div class="price">${total}&nbsp;<span class="rub"/></div>
                 <span class="f20px">Предположительная стоимость заказа:</span><br/>
                 Точная стоимость будет известна после обсуждения деталей с кулинаром.
+            </div>
+            <div class="info border">
+                <t:pagelink class="round-link" page="index" context="catalog.id">Отправить заказ <span/></t:pagelink>
+                <textarea rows="5" placeholder="комментарии к заказу" class=""></textarea>
             </div>
         </t:if>
     </t:block>

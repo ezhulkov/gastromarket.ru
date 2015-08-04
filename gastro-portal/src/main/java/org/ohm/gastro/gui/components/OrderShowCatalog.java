@@ -10,7 +10,6 @@ import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderProductEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PurchaseEntity;
-import org.ohm.gastro.domain.PurchaseEntity.Type;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.List;
@@ -20,13 +19,17 @@ import java.util.List;
  */
 public class OrderShowCatalog extends BaseComponent {
 
+    public enum Type {
+        SHORT, FULL
+    }
+
     @Parameter
     @Property
     private CatalogEntity catalog;
 
     @Parameter(defaultPrefix = BindingConstants.LITERAL)
     @Property
-    private String additionalClass;
+    private Type type = Type.SHORT;
 
     @Property
     private OrderProductEntity item;
@@ -57,8 +60,8 @@ public class OrderShowCatalog extends BaseComponent {
     }
 
     public String getProductUnit() {
-        if (item.getEntity().getType() == Type.PRODUCT) return getMessages().format(((ProductEntity) item.getEntity()).getUnit().name() + "_TEXT",
-                                                                                    ((ProductEntity) item.getEntity()).getUnitValue()).toLowerCase();
+        if (item.getEntity().getType() == PurchaseEntity.Type.PRODUCT) return getMessages().format(((ProductEntity) item.getEntity()).getUnit().name() + "_TEXT",
+                                                                                                   ((ProductEntity) item.getEntity()).getUnitValue()).toLowerCase();
         return null;
     }
 
@@ -76,6 +79,10 @@ public class OrderShowCatalog extends BaseComponent {
                 item.getEntity().getId(),
                 item.getModifier() == null ? null : item.getModifier().getId()
         };
+    }
+
+    public boolean isFull() {
+        return type == Type.FULL;
     }
 
 }

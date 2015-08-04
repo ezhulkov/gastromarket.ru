@@ -2149,7 +2149,7 @@ html div.office table.table td.toggle {
   padding: 30px 40px;
   margin: 30px auto;
 }
-.order-show-catalog.full .round-link, .order-show-catalog.full .title-simple a, .title-simple .order-show-catalog.full a, .order-show-catalog.full .title a, .title .order-show-catalog.full a, .order-show-catalog.full .links-set a, .links-set .order-show-catalog.full a {
+.order-show-catalog .round-link, .order-show-catalog .title-simple a, .title-simple .order-show-catalog a, .order-show-catalog .title a, .title .order-show-catalog a, .order-show-catalog .links-set a, .links-set .order-show-catalog a {
   float: right;
   margin: 0;
 }

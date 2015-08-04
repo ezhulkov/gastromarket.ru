@@ -7,8 +7,7 @@
             </div>
             <div class="row">
                 <t:loop source="catalogs" value="catalog" formState="NONE">
-
-                    <t:orderShowCatalog catalog="catalog" additionalClass="full"/>
+                    <t:orderShowCatalog catalog="catalog" type="FULL"/>
                     <t:parameter name="empty">
                         <div class="empty">
                             У вас нет незавершенных заказов<br/>
