@@ -6,11 +6,14 @@
   margin-top: 0
 
 .order-show-catalog
+  &.short
+    .register-order
+      display: none
   &.full
     +border-class
-    width: 900px
+    width: 950px
     padding: 30px 40px
-    margin: 30px auto
+    margin: 0 auto 50px auto
   .round-link
     float: right
     margin: 0
@@ -18,7 +21,6 @@
     img
       width: 100px
       height: 100px
-      display: block
     .name
       +name-class
       font-size: 20px
@@ -68,6 +70,7 @@
   .total
     font-size: 16px
     vertical-align: top
+    margin: 20px 0 40px 0
     .price
       font-weight: bold
       font-size: 30px

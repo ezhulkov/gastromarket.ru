@@ -2139,15 +2139,18 @@ html div.office table.table td.toggle {
   margin-top: 0;
 }
 
+.order-show-catalog.short .register-order {
+  display: none;
+}
 .order-show-catalog.full {
   -webkit-box-shadow: 0 0 6px 2px #ddd;
   -moz-box-shadow: 0 0 6px 2px #ddd;
   box-shadow: 0 0 6px 2px #ddd;
   background-color: #fff;
   border: 1px solid #aaa;
-  width: 900px;
+  width: 950px;
   padding: 30px 40px;
-  margin: 30px auto;
+  margin: 0 auto 50px auto;
 }
 .order-show-catalog .round-link, .order-show-catalog .title-simple a, .title-simple .order-show-catalog a, .order-show-catalog .title a, .title .order-show-catalog a, .order-show-catalog .links-set a, .links-set .order-show-catalog a {
   float: right;
@@ -2156,7 +2159,6 @@ html div.office table.table td.toggle {
 .order-show-catalog .catalog img {
   width: 100px;
   height: 100px;
-  display: block;
 }
 .order-show-catalog .catalog .name {
   text-align: left;
@@ -2246,6 +2248,7 @@ html div.office table.table td.toggle {
 .order-show-catalog .total {
   font-size: 16px;
   vertical-align: top;
+  margin: 20px 0 40px 0;
 }
 .order-show-catalog .total .price {
   font-weight: bold;

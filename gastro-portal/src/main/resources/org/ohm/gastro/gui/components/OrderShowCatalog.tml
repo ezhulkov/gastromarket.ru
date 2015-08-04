@@ -3,66 +3,85 @@
         <t:delegate to="orderShowCatalogBlock"/>
     </t:zone>
     <t:block t:id="orderShowCatalogBlock">
-
-        <div class="catalog">
-            <div class="left">
-                <t:pagelink target="_blank" page="catalog/index" context="catalog.altId">
-                    <img src="${catalog.avatarUrlMedium}"/>
-                </t:pagelink>
-            </div>
-            <div class="right">
-                <t:if test="items">
-                    <t:pagelink class="round-link" page="index" context="catalog.id">Отправить заказ <span/></t:pagelink>
-                </t:if>
-                <t:pagelink target="_blank" class="name" page="catalog/index" context="catalog.altId">
-                    ${catalog.name}
-                </t:pagelink>
-                <t:badges catalog="catalog"/>
-            </div>
-        </div>
-        <hr/>
-        <t:loop source="items" index="index" value="item" formState="NONE">
-            <div class="order-item ${rowClass}">
-                <div class="index">${itemIndex}</div>
-                <div class="left">
-                    <div class="price">
-                        <t:if test="item.modifier">
-                            <span class="sign">${item.modifier.signPrintable}</span>${item.modifier.price}&nbsp;<span class="rub"/> = ${item.price}&nbsp;<span class="rub"/>
-                            <t:parameter name="else">
-                                ${item.price}&nbsp;<span class="rub"/>
-                            </t:parameter>
-                        </t:if>
-                        <t:if test="productUnit">&nbsp;<span class="unit">${productUnit}</span></t:if>
-                        <div class="count">x ${item.count}</div>
-                    </div>
-                    <div class="name">
-                        <a target="_blank" href="/${item.entity.type.toString().toLowerCase()}/index/${item.entity.altId}">${item.entity.name}</a>
-                        <t:if test="item.modifier">
-                            <div class="modifier">(${item.modifier.description})</div>
-                        </t:if>
-                    </div>
+        <t:form t:id="cartForm" t:context="catalog.id" t:autofocus="false" t:clientValidation="none" class="form form-horizontal" role="form">
+            <div class="form-group catalog">
+                <div class="col-sm-2 text-right">
+                    <t:pagelink target="_blank" page="catalog/index" context="catalog.altId">
+                        <img src="${catalog.avatarUrlMedium}"/>
+                    </t:pagelink>
                 </div>
-                <div class="right">
-                    <t:actionLink t:id="deleteItem" class="delete" t:zone="orderShowCatalogZone" t:context="deleteContext">удалить</t:actionLink>
+                <div class="col-sm-10 text-right">
+                    <t:if test="items">
+                        <t:pagelink class="round-link register-order" page="index" context="catalog.id">Оформить заказ <span/></t:pagelink>
+                    </t:if>
+                    <t:pagelink target="_blank" class="name" page="catalog/index" context="catalog.altId">
+                        ${catalog.name}
+                    </t:pagelink>
+                    <t:badges catalog="catalog"/>
                 </div>
             </div>
-            <t:parameter name="empty">
-                <div class="empty">
-                    В заказе нет элементов :(
-                </div>
-            </t:parameter>
-        </t:loop>
-        <t:if test="items">
+            <!--<div class="catalog">-->
+                <!--<div class="left">-->
+                    <!--<t:pagelink target="_blank" page="catalog/index" context="catalog.altId">-->
+                        <!--<img src="${catalog.avatarUrlMedium}"/>-->
+                    <!--</t:pagelink>-->
+                <!--</div>-->
+                <!--<div class="right">-->
+                    <!--<t:if test="items">-->
+                        <!--<t:pagelink class="round-link register-order" page="index" context="catalog.id">Оформить заказ <span/></t:pagelink>-->
+                    <!--</t:if>-->
+                    <!--<t:pagelink target="_blank" class="name" page="catalog/index" context="catalog.altId">-->
+                        <!--${catalog.name}-->
+                    <!--</t:pagelink>-->
+                    <!--<t:badges catalog="catalog"/>-->
+                <!--</div>-->
+            <!--</div>-->
             <hr/>
-            <div class="total">
-                <div class="price">${total}&nbsp;<span class="rub"/></div>
-                <span class="f20px">Предположительная стоимость заказа:</span><br/>
-                Точная стоимость будет известна после обсуждения деталей с кулинаром.
-            </div>
-            <div class="info border">
-                <t:pagelink class="round-link" page="index" context="catalog.id">Отправить заказ <span/></t:pagelink>
-                <textarea rows="5" placeholder="комментарии к заказу" class=""></textarea>
-            </div>
-        </t:if>
+            <t:loop source="items" index="index" value="item" formState="NONE">
+                <div class="order-item ${rowClass}">
+                    <div class="index">${itemIndex}</div>
+                    <div class="left">
+                        <div class="price">
+                            <t:if test="item.modifier">
+                                <span class="sign">${item.modifier.signPrintable}</span>${item.modifier.price}&nbsp;<span class="rub"/> = ${item.price}&nbsp;<span class="rub"/>
+                                <t:parameter name="else">
+                                    ${item.price}&nbsp;<span class="rub"/>
+                                </t:parameter>
+                            </t:if>
+                            <t:if test="productUnit">&nbsp;<span class="unit">${productUnit}</span></t:if>
+                            <div class="count">x ${item.count}</div>
+                        </div>
+                        <div class="name">
+                            <a target="_blank" href="/${item.entity.type.toString().toLowerCase()}/index/${item.entity.altId}">${item.entity.name}</a>
+                            <t:if test="item.modifier">
+                                <div class="modifier">(${item.modifier.description})</div>
+                            </t:if>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <t:actionLink t:id="deleteItem" class="delete" t:zone="orderShowCatalogZone" t:context="deleteContext">удалить</t:actionLink>
+                    </div>
+                </div>
+                <t:parameter name="empty">
+                    <div class="empty">
+                        В заказе нет элементов :(
+                    </div>
+                </t:parameter>
+            </t:loop>
+            <t:if test="items">
+                <hr/>
+                <div class="total">
+                    <div class="price">${total}&nbsp;<span class="rub"/></div>
+                    <span class="f20px">Предположительная стоимость заказа:</span><br/>
+                    Точная стоимость будет известна после обсуждения деталей с кулинаром.
+                </div>
+                <t:if test="full">
+                    <div class="form-group info">
+                        <t:pagelink class="round-link" page="index" context="catalog.id">Оформить заказ <span/></t:pagelink>
+                    </div>
+                    <!--<textarea rows="5" placeholder="комментарии к заказу" class=""></textarea>-->
+                </t:if>
+            </t:if>
+        </t:form>
     </t:block>
 </div>
