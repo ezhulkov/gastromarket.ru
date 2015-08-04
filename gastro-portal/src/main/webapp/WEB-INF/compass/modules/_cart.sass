@@ -11,26 +11,30 @@
       display: none
   &.full
     +border-class
-    width: 950px
-    padding: 30px 40px
+    width: 990px
+    padding: 30px 60px
     margin: 0 auto 50px auto
   .round-link
     float: right
     margin: 0
   .catalog
+    margin-top: -1px
+    padding-bottom: 20px
+    border-bottom: 1px solid #aaaaaa
+    margin-bottom: 20px
     img
       width: 100px
       height: 100px
+      margin-right: 1px
     .name
       +name-class
-      font-size: 20px
-    .left
-      +col-class
-    .right
-      +col-class
-      width: 695px
+      font-size: 30px
+    .badges
+      margin-top: 15px
+      margin-left: -1px
   .order-item
-    padding: 5px 0
+    padding-top: 5px
+    padding-bottom: 5px
     & > div
       display: inline-block
       vertical-align: top
@@ -38,14 +42,6 @@
       color: $blackTextColor
     &.odd
       background-color: #f3f3f3
-    .left
-      +col-class
-      width: 690px
-    .right
-      +col-class
-      padding-top: 2px
-      width: 100px
-      text-align: right
     .name a
       +name-class
       font-size: 20px
@@ -55,25 +51,30 @@
       +price-class
       float: right
       margin-left: $gap
+    .delete
+      color: $redTextColor
+      float: right
+      width: 80px
+      text-align: right
+      padding-top: 4px
     .count
       width: 40px
       display: inline-block
       margin-left: 5px
     .unit
       +unit-class
-    .delete
-      color: $redTextColor
     .index
-      width: 20px
+      width: 30px
       font-size: 20px
-      padding: 1px 0 0 5px
+      padding-top: 1px
   .total
     font-size: 16px
     vertical-align: top
-    margin: 20px 0 40px 0
+    margin-bottom: 30px
+    padding-top: 20px
+    border-top: 1px solid #aaaaaa
     .price
       font-weight: bold
       font-size: 30px
       float: right
       vertical-align: top
-      margin-right: 15px

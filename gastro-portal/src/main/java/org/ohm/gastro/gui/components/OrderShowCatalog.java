@@ -54,7 +54,8 @@ public class OrderShowCatalog extends BaseComponent {
         return getShoppingCart().getItems(catalog);
     }
 
-    public Block onActionFromDeleteItem(PurchaseEntity.Type type, Long id, Long mid) {
+    public Block onActionFromDeleteItem(Long cId, PurchaseEntity.Type type, Long id, Long mid) {
+        this.catalog = getCatalogService().findCatalog(cId);
         getShoppingCart().removeItem(type, id, mid);
         return orderShowCatalogBlock;
     }
@@ -75,6 +76,7 @@ public class OrderShowCatalog extends BaseComponent {
 
     public Object[] getDeleteContext() {
         return new Object[]{
+                catalog.getId(),
                 item.getEntity().getType(),
                 item.getEntity().getId(),
                 item.getModifier() == null ? null : item.getModifier().getId()

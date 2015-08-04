@@ -2148,17 +2148,24 @@ html div.office table.table td.toggle {
   box-shadow: 0 0 6px 2px #ddd;
   background-color: #fff;
   border: 1px solid #aaa;
-  width: 950px;
-  padding: 30px 40px;
+  width: 990px;
+  padding: 30px 60px;
   margin: 0 auto 50px auto;
 }
 .order-show-catalog .round-link, .order-show-catalog .title-simple a, .title-simple .order-show-catalog a, .order-show-catalog .title a, .title .order-show-catalog a, .order-show-catalog .links-set a, .links-set .order-show-catalog a {
   float: right;
   margin: 0;
 }
+.order-show-catalog .catalog {
+  margin-top: -1px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #aaaaaa;
+  margin-bottom: 20px;
+}
 .order-show-catalog .catalog img {
   width: 100px;
   height: 100px;
+  margin-right: 1px;
 }
 .order-show-catalog .catalog .name {
   text-align: left;
@@ -2167,21 +2174,15 @@ html div.office table.table td.toggle {
   color: #333;
   text-overflow: ellipsis;
   overflow: hidden;
-  font-size: 20px;
+  font-size: 30px;
 }
-.order-show-catalog .catalog .left {
-  padding: 0 10px;
-  display: inline-block;
-  vertical-align: top;
-}
-.order-show-catalog .catalog .right {
-  padding: 0 10px;
-  display: inline-block;
-  vertical-align: top;
-  width: 695px;
+.order-show-catalog .catalog .badges {
+  margin-top: 15px;
+  margin-left: -1px;
 }
 .order-show-catalog .order-item {
-  padding: 5px 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 .order-show-catalog .order-item > div {
   display: inline-block;
@@ -2192,20 +2193,6 @@ html div.office table.table td.toggle {
 }
 .order-show-catalog .order-item.odd {
   background-color: #f3f3f3;
-}
-.order-show-catalog .order-item .left {
-  padding: 0 10px;
-  display: inline-block;
-  vertical-align: top;
-  width: 690px;
-}
-.order-show-catalog .order-item .right {
-  padding: 0 10px;
-  display: inline-block;
-  vertical-align: top;
-  padding-top: 2px;
-  width: 100px;
-  text-align: right;
 }
 .order-show-catalog .order-item .name a {
   text-align: left;
@@ -2226,6 +2213,13 @@ html div.office table.table td.toggle {
   float: right;
   margin-left: 10px;
 }
+.order-show-catalog .order-item .delete {
+  color: #e70500;
+  float: right;
+  width: 80px;
+  text-align: right;
+  padding-top: 4px;
+}
 .order-show-catalog .order-item .count {
   width: 40px;
   display: inline-block;
@@ -2237,25 +2231,23 @@ html div.office table.table td.toggle {
   line-height: 14px;
   color: #333;
 }
-.order-show-catalog .order-item .delete {
-  color: #e70500;
-}
 .order-show-catalog .order-item .index {
-  width: 20px;
+  width: 30px;
   font-size: 20px;
-  padding: 1px 0 0 5px;
+  padding-top: 1px;
 }
 .order-show-catalog .total {
   font-size: 16px;
   vertical-align: top;
-  margin: 20px 0 40px 0;
+  margin-bottom: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #aaaaaa;
 }
 .order-show-catalog .total .price {
   font-weight: bold;
   font-size: 30px;
   float: right;
   vertical-align: top;
-  margin-right: 15px;
 }
 
 .grid-block.categories .item {

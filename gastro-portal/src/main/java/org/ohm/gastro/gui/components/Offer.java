@@ -70,11 +70,11 @@ public class Offer extends BaseComponent {
     }
 
     public String getLeftBlock() {
-        return type == Type.SHORT ? "col-sm-2" : "col-sm-3";
+        return type == Type.SHORT ? "col-sm-3" : "col-sm-3";
     }
 
     public String getRightBlock() {
-        return type == Type.SHORT ? "col-sm-9" : "col-sm-8";
+        return type == Type.SHORT ? "col-sm-8" : "col-sm-8";
     }
 
     public Block onActionFromDelete(Long oid) {
