@@ -51,12 +51,23 @@ jQuery(document).ready(function () {
     initControls();
 });
 function initControls() {
+    initDatePicker();
     initToolTip();
     initPopover();
     initChosen(jQuery("select.chosen-select"));
     initTitle(jQuery("div.title"));
     initFineUploader(jQuery("div.upload-file"));
     initSortable();
+}
+function initDatePicker() {
+    jQuery('.date-picker').datepicker({
+        format: "dd-mm-yyyy",
+        weekStart: 1,
+        todayBtn: true,
+        language: "ru",
+        autoclose: true,
+        todayHighlight: true
+    });
 }
 function initToolTip() {
     jQuery(".tip").tooltip({placement: "bottom"});

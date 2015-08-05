@@ -66,12 +66,16 @@
                             <textarea rows="5" id="comments" class="form-control"/>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-8">
-                            <label for="comments">Предполагаемая дата:</label>
-                            <input type="date" class="form-control"/>
+                    <div class="form-group ">
+                        <div class="col-sm-4">
+                            <label for="comments">Дата исполнения:</label>
+                            <input type="text" class="form-control date-picker"/>
                         </div>
                         <div class="col-sm-4">
+                            <label for="promo">Промо код:</label>
+                            <input type="text" class="form-control"/>
+                        </div>
+                        <div class="col-sm-4 last-cell">
                             <t:pagelink class="round-link" page="index" context="catalog.id">Оформить заказ <span/></t:pagelink>
                         </div>
                     </div>

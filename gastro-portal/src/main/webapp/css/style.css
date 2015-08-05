@@ -1810,6 +1810,10 @@ html div.office table.table td.toggle {
   width: 1100px;
 }
 
+.datepicker:after, .datepicker:before {
+  display: none !important;
+}
+
 .dropdown-menu {
   text-align: center;
   border-radius: 8px;
@@ -2248,6 +2252,15 @@ html div.office table.table td.toggle {
   font-size: 30px;
   float: right;
   vertical-align: top;
+}
+.order-show-catalog .last-cell {
+  height: 65px;
+  position: relative;
+}
+.order-show-catalog .last-cell .round-link, .order-show-catalog .last-cell .title-simple a, .title-simple .order-show-catalog .last-cell a, .order-show-catalog .last-cell .title a, .title .order-show-catalog .last-cell a, .order-show-catalog .last-cell .links-set a, .links-set .order-show-catalog .last-cell a {
+  position: absolute;
+  right: 15px;
+  bottom: 0;
 }
 
 .grid-block.categories .item {
