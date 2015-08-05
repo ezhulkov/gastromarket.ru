@@ -2179,9 +2179,10 @@ html div.office table.table td.toggle {
   text-overflow: ellipsis;
   overflow: hidden;
   font-size: 30px;
+  line-height: 42px;
 }
 .order-show-catalog .catalog .badges {
-  margin-top: 15px;
+  margin-top: 3px;
   margin-left: -1px;
 }
 .order-show-catalog .order-item {
