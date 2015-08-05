@@ -89,7 +89,7 @@ public class OrderShowCatalog extends BaseComponent {
 
     public String getItemPage() {
         if (item.getEntity().getType() == PurchaseEntity.Type.PRODUCT) return "/product/" + item.getEntity().getAltId();
-        return "/product/offer/" + item.getEntity().getAltId();
+        return "/catalog/offer/" + item.getEntity().getAltId();
     }
 
 }
