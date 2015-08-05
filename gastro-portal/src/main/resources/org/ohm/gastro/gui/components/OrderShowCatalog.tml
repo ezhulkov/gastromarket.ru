@@ -36,7 +36,7 @@
                         </div>
                         <div class="index">${itemIndex}</div>
                         <div class="name">
-                            <a target="_blank" href="/${item.entity.type.toString().toLowerCase()}/index/${item.entity.altId}">${item.entity.name}</a>
+                            <a href="${itemPage}" target="_blank">${item.entity.name}</a>
                             <t:if test="item.modifier">
                                 <div class="modifier">(${item.modifier.description})</div>
                             </t:if>
