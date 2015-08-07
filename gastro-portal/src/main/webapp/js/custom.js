@@ -177,8 +177,10 @@ function showProductModal(pid) {
     block1.find("div.cook").empty().append(product.find(".cook").clone().children());
     block1.find("div.pname").empty().append(product.find(".pname").clone().children());
     block1.find("div.basket-block").empty().append(product.find(".basket-block").clone().children());
-    block1.find("div.basket-block").find("div.basket-add").click(function () {
+    block1.find("div.basket-block").click(function (e) {
         triggerEvent(productMain.find("a.basket-add").get(0), "click");
+        e.stopPropagation();
+        return false;
     });
     block2.find("div.desc").empty().append(product.find(".desc").clone().html());
     block2.find("div.price-modifier").empty().append(product.find(".price-modifier").clone().html());

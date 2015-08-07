@@ -1061,8 +1061,11 @@ body.modal-open {
 .navbar .pic-holder.orders > span:first-child {
   background-position-x: -84px;
 }
-.navbar .pic-holder.basket > span:first-child {
-  background-position-x: -56px;
+.navbar .pic-holder.basket {
+  color: #e70500;
+}
+.navbar .pic-holder.basket span:first-child {
+  background-position-x: -110px;
 }
 
 .header-block {
