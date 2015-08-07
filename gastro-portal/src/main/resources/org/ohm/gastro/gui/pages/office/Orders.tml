@@ -28,13 +28,13 @@
             <script>
                 activate_menu('#active-orders');
             </script>
-            ACTIVE
+            <t:ordershow status="ACTIVE"/>
         </t:block>
         <t:block t:id="closedOrdersBlock">
             <script>
                 activate_menu('#closed-orders');
             </script>
-            CLOSED
+            <t:ordershow status="CLOSED"/>
         </t:block>
     </div>
 

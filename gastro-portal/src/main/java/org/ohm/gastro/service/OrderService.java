@@ -3,7 +3,6 @@ package org.ohm.gastro.service;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
-import org.ohm.gastro.domain.OrderProductEntity;
 import org.ohm.gastro.domain.UserEntity;
 
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.List;
  */
 public interface OrderService {
 
-    List<OrderEntity> placeOrder(OrderEntity newOrder, List<OrderProductEntity> purchaseItems, final UserEntity customer, final String eMail);
+    OrderEntity placeOrder(OrderEntity preOrder);
 
     List<OrderEntity> findAllOrders(UserEntity customer, CatalogEntity catalog);
 

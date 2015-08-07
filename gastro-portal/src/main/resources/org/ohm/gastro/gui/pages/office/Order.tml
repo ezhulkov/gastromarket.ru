@@ -1,0 +1,20 @@
+<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <div class="container orders office">
+        <div class="title">
+            <h1><span>Заказ №${order.orderNumber}</span></h1>
+        </div>
+        <ul class="office-menu">
+            <li id="new-orders">
+                <t:actionlink t:id="newOrders" t:zone="ordersZone">Новые</t:actionlink>
+            </li>
+            <li id="active-orders">
+                <t:actionlink t:id="activeOrders" t:zone="ordersZone">Активные</t:actionlink>
+            </li>
+            <li id="closed-orders">
+                <t:actionlink t:id="closedOrders" t:zone="ordersZone">Закрытые</t:actionlink>
+            </li>
+        </ul>
+    </div>
+
+</t:htmllayout>

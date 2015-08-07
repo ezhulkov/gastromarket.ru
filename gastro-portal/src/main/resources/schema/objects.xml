@@ -693,4 +693,11 @@
                 constraintName="op_mod_fk" onDelete="CASCADE"/>
     </changeSet>
 
+    <changeSet id="53" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="due_date" type="java.sql.Types.TIMESTAMP"/>
+            <column name="promo_code" type="text"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

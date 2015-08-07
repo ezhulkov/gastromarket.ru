@@ -59,22 +59,22 @@
                 <t:if test="full">
                     <div class="form-group info">
                         <div class="col-sm-8">
-                            <label for="comments">Комментарии к заказу:</label>
-                            <textarea rows="5" id="comments" class="form-control"/>
+                            <t:label t:for="comment">Комментарии к заказу:</t:label>
+                            <input t:id="comment" rows="5" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group ">
                         <div class="col-sm-4">
-                            <label for="comments">Дата исполнения:</label>
-                            <input type="text" class="form-control date-picker"/>
+                            <t:label t:for="dueDate">Дата исполнения:</t:label>
+                            <input t:id="dueDate" class="form-control date-picker"/>
                         </div>
                         <div class="col-sm-4">
-                            <label for="promo">Промо код:</label>
-                            <input type="text" class="form-control"/>
+                            <t:label t:for="promoCode">Промо код:</t:label>
+                            <input t:id="promoCode" class="form-control"/>
                         </div>
                         <div class="col-sm-4 last-cell">
                             <t:if test="authenticated">
-                                <t:pagelink class="round-link" page="index" context="catalog.id">Оформить заказ <span/></t:pagelink>
+                                <t:actionlink class="round-link" t:id="makeOrder" t:context="catalog.id" t:zone="ordersZone">Оформить заказ <span/></t:actionlink>
                                 <t:parameter name="else">
                                     <a href="#cart_login" data-toggle="modal" class="login-link round-link" data-target="#cart_login">Оформить заказ <span/></a>
                                 </t:parameter>

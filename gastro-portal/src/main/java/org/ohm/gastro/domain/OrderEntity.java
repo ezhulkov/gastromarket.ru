@@ -2,6 +2,7 @@ package org.ohm.gastro.domain;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.util.CommonsUtils;
 
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +34,12 @@ public class OrderEntity extends AbstractBaseEntity {
 
     @Column
     private String comment;
+
+    @Column(name = "promo_code")
+    private String promoCode;
+
+    @Column(name = "due_date")
+    private Date dueDate;
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -115,6 +123,26 @@ public class OrderEntity extends AbstractBaseEntity {
 
     public CatalogEntity getCatalog() {
         return CollectionUtils.isEmpty(products) ? null : products.get(0).getEntity().getCatalog();
+    }
+
+    public String getPromoCode() {
+        return promoCode;
+    }
+
+    public void setPromoCode(final String promoCode) {
+        this.promoCode = promoCode;
+    }
+
+    public String getDueDate() {
+        return dueDate == null ? "" : CommonsUtils.GUI_DATE.get().format(dueDate);
+    }
+
+    public void setDueDate(final String dueDate) {
+        try {
+            this.dueDate = StringUtils.isEmpty(dueDate) ? null : CommonsUtils.GUI_DATE.get().parse(dueDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
 }

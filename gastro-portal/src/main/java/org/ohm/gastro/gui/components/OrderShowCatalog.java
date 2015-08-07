@@ -2,14 +2,19 @@ package org.ohm.gastro.gui.components;
 
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
+import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.corelib.components.TextArea;
+import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
+import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderProductEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PurchaseEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.pages.office.Order;
 
 import java.util.List;
 
@@ -39,6 +44,18 @@ public class OrderShowCatalog extends BaseComponent {
 
     @Property
     private int index;
+
+    @Property
+    private OrderEntity preOrder;
+
+    @Component(id = "comment", parameters = {"value=preOrder.comment", "validate=maxlength=1024"})
+    private TextArea commentField;
+
+    @Component(id = "dueDate", parameters = {"value=preOrder.dueDate"})
+    private TextField dueDateField;
+
+    @Component(id = "promoCode", parameters = {"value=preOrder.promoCode"})
+    private TextField promoCodeField;
 
     public String getItemIndex() {
         return String.format("%s.", index + 1);
@@ -92,6 +109,20 @@ public class OrderShowCatalog extends BaseComponent {
 
     public String getOrderShowCatalogZoneId() {
         return "orderShowCatalogZoneId" + catalog.getId();
+    }
+
+    public void onPrepareFromCartForm() {
+        preOrder = new OrderEntity();
+    }
+
+    public Object onSuccessFromMakeOrder(Long cId) {
+        final CatalogEntity catalog = getCatalogService().findCatalog(cId);
+        final List<OrderProductEntity> items = getShoppingCart().getItems(catalog);
+        preOrder.setCustomer(getAuthenticatedUser());
+        preOrder.setProducts(getShoppingCart().getItems(catalog));
+        final OrderEntity order = getOrderService().placeOrder(preOrder);
+        getShoppingCart().removeItems(items);
+        return getPageLinkSource().createPageRenderLinkWithContext(Order.class, order.getId());
     }
 
 }

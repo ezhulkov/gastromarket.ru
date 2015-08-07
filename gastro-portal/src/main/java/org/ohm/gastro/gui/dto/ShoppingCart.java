@@ -125,4 +125,10 @@ public final class ShoppingCart {
         return items.stream().filter(t -> t.equals(type, id, mId)).findAny();
     }
 
+    public void removeItems(final List<OrderProductEntity> items) {
+        items.forEach(item -> removeItem(item.getEntity().getType(),
+                                         item.getEntity().getId(),
+                                         item.getModifier() == null ? null : item.getModifier().getId()));
+    }
+
 }

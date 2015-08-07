@@ -61,7 +61,7 @@ function initControls() {
 }
 function initDatePicker() {
     jQuery('.date-picker').datepicker({
-        format: "dd-mm-yyyy",
+        format: "dd/mm/yyyy",
         weekStart: 1,
         todayBtn: true,
         language: "ru",

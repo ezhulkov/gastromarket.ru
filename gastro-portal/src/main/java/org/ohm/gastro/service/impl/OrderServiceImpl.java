@@ -18,18 +18,12 @@ import org.ohm.gastro.service.RatingTarget;
 import org.ohm.gastro.trait.Logging;
 import org.ohm.gastro.util.CommonsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import static org.apache.commons.lang.ObjectUtils.defaultIfNull;
 
 /**
  * Created by ezhulkov on 12.10.14.
@@ -61,56 +55,43 @@ public class OrderServiceImpl implements OrderService, Logging {
     }
 
     @Override
-    public List<OrderEntity> placeOrder(OrderEntity totalOrder, List<OrderProductEntity> purchaseItems, final UserEntity customer, final String eMail) {
-        final Integer totalPrice = purchaseItems.stream().mapToInt(t -> t.getCount() * t.getPrice()).sum();
-        userRepository.save(customer);
-        List<OrderEntity> orders = purchaseItems.stream()
-                .collect(Collectors.groupingBy(t -> t.getEntity().getCatalog())).entrySet().stream()
-                .map(t -> {
-                    final CatalogEntity catalog = catalogRepository.findOne(t.getKey().getId());
-                    final List<OrderProductEntity> products = t.getValue();
-                    final OrderEntity order = new OrderEntity();
-                    order.setComment(totalOrder.getComment());
-                    order.setDate(new Timestamp(System.currentTimeMillis()));
-                    order.setCustomer(totalOrder.getCustomer());
-                    order.setProducts(products);
-                    order.setUsedBonuses(Math.min(totalOrder.getUsedBonuses() * order.getOrderTotalPrice() / totalPrice, order.getOrderTotalPrice()));
-                    order.setStatus(Status.NEW);
-                    orderRepository.save(order);
-                    products.stream().forEach(p -> p.setOrder(order));
-                    orderProductRepository.save(products);
-                    order.setOrderNumber(CommonsUtils.ORDER_DATE.get().format(new Date(System.currentTimeMillis())) + "-" + order.getId());
-                    return orderRepository.save(order);
-                })
-                .collect(Collectors.toList());
-
-        try {
-            orders.stream().forEach(order -> {
-                if (!order.getProducts().isEmpty()) {
-                    final CatalogEntity catalog = catalogRepository.findOne(order.getProducts().get(0).getEntity().getCatalog().getId());
-                    final Map<String, Object> params = new HashMap<String, Object>() {
-                        {
-                            put("products", order.getProducts());
-                            put("ordernumber", order.getOrderNumber());
-                            put("customer", customer);
-                            put("customer_email", eMail);
-                            put("comment", defaultIfNull(order.getComment(), ""));
-                            put("cook", catalog);
-                            put("total", order.getOrderTotalPrice());
-                            put("hasBonuses", order.getUsedBonuses() > 0);
-                            put("bonuses", order.getUsedBonuses());
-                        }
-                    };
-                    mailService.sendAdminMessage(MailService.NEW_ORDER_ADMIN, params);
-                    mailService.sendMailMessage(catalog.getUser().getEmail(), MailService.NEW_ORDER_COOK, params);
-                    mailService.sendMailMessage(eMail, MailService.NEW_ORDER_CUSTOMER, params);
-                }
-            });
-        } catch (MailException e) {
-            logger.error("", e);
-        }
-
-        return orders;
+    public OrderEntity placeOrder(final OrderEntity preOrder) {
+        final OrderEntity order = new OrderEntity();
+        order.setDate(new Timestamp(System.currentTimeMillis()));
+        order.setCustomer(preOrder.getCustomer());
+        order.setComment(preOrder.getComment());
+        order.setProducts(preOrder.getProducts());
+        order.setStatus(Status.ACTIVE);
+        orderRepository.save(order);
+        order.getProducts().stream().forEach(p -> p.setOrder(order));
+        orderProductRepository.save(order.getProducts());
+        order.setOrderNumber(CommonsUtils.ORDER_DATE.get().format(new Date(System.currentTimeMillis())) + "-" + order.getId());
+        //        try {
+        //            orders.stream().forEach(order -> {
+        //                if (!items.isEmpty()) {
+        //                    final CatalogEntity catalog = catalogRepository.findOne(order.getProducts().get(0).getEntity().getCatalog().getId());
+        //                    final Map<String, Object> params = new HashMap<String, Object>() {
+        //                        {
+        //                            put("products", order.getProducts());
+        //                            put("ordernumber", order.getOrderNumber());
+        //                            put("customer", customer);
+        //                            put("customer_email", eMail);
+        //                            put("comment", defaultIfNull(order.getComment(), ""));
+        //                            put("cook", catalog);
+        //                            put("total", order.getOrderTotalPrice());
+        //                            put("hasBonuses", order.getUsedBonuses() > 0);
+        //                            put("bonuses", order.getUsedBonuses());
+        //                        }
+        //                    };
+        //                    mailService.sendAdminMessage(MailService.NEW_ORDER_ADMIN, params);
+        //                    mailService.sendMailMessage(catalog.getUser().getEmail(), MailService.NEW_ORDER_COOK, params);
+        //                    mailService.sendMailMessage(eMail, MailService.NEW_ORDER_CUSTOMER, params);
+        //                }
+        //            });
+        //        } catch (MailException e) {
+        //            logger.error("", e);
+        //        }
+        return order;
     }
 
     @Override
