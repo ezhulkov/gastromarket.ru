@@ -177,7 +177,7 @@ function showProductModal(pid) {
     block1.find("div.cook").empty().append(product.find(".cook").clone().children());
     block1.find("div.pname").empty().append(product.find(".pname").clone().children());
     block1.find("div.basket-block").empty().append(product.find(".basket-block").clone().children());
-    block1.find("div.basket-block").click(function (e) {
+    block1.find("div.basket-block").unbind('click').bind('click', function (e) {
         triggerEvent(productMain.find("a.basket-add").get(0), "click");
         e.stopPropagation();
         return false;
