@@ -258,7 +258,7 @@ body.mobile .rub:after {
 .attention {
   display: block;
   margin: 10px 0 30px 0;
-  border: 1px solid;
+  border: 1px solid #bd0400;
   padding: 20px;
 }
 
@@ -713,6 +713,10 @@ body.modal-open {
 
 .modal.order-show-modal .modal-dialog {
   width: 900px;
+}
+
+.modal.howto .modal-dialog {
+  width: 1100px;
 }
 
 .order-add .modal-dialog {
@@ -1302,6 +1306,9 @@ body.modal-open {
   display: inline-block;
   margin-right: 10px;
 }
+.round-link:focus, .title-simple a:focus, .title a:focus, .links-set a:focus {
+  color: #e70500;
+}
 .round-link span, .title-simple a span, .title a span, .links-set a span {
   margin-bottom: -4px;
   margin-left: 5px;
@@ -1662,60 +1669,63 @@ label.t-error {
   top: 4px;
 }
 
-.office .title {
-  margin-bottom: 30px;
-}
-
-.office-menu a:hover {
-  border-bottom: 1px dashed #bd0400;
-  text-decoration: none;
-}
-
-.office-menu li {
-  display: inline;
-  padding: 0 25px;
-}
-
-.office-menu li.sel {
-  background-color: #bd0400;
-  padding: 12px 20px 8px 20px;
-  border-radius: 20px;
-}
-
-.office-menu li.sel a {
-  border-bottom: none;
-  color: #ffffff;
-}
-
 .office {
   min-height: 600px;
 }
-
-.office table th {
+.office .title {
+  margin-bottom: 30px;
+}
+.office .office-menu {
+  list-style-type: none;
+  margin-top: 40px;
+  text-align: center;
+}
+.office .office-menu a {
+  font-size: 20px;
+  color: #bd0400;
+  border-bottom: 1px dashed #bd0400;
+}
+.office .office-menu a:hover {
+  border-bottom: 1px dashed #bd0400;
+  text-decoration: none;
+}
+.office .office-menu a:focus {
+  border-bottom: none;
+  text-decoration: none;
+}
+.office .office-menu li {
+  display: inline;
+  padding: 0 25px;
+}
+.office .office-menu li.sel {
+  background-color: #bd0400;
+  padding: 12px 25px 8px 25px;
+  border-radius: 20px;
+}
+.office .office-menu li.sel a, .office .office-menu li.sel a:focus, .office .office-menu li.sel a:active {
+  border-bottom: none;
+  color: #ffffff;
+}
+.office.orders .office-menu {
+  margin-bottom: 30px;
+}
+.office .table th {
   font-size: 20px;
   font-weight: normal;
   background-color: #dddddd;
   border: 2px solid #ffffff;
   padding: 10px 0 10px 20px !important;
 }
-
-.office table tr {
+.office .table tr {
   border-bottom: 2px solid #dddddd;
 }
-
-html div.office table.table td {
+.office .table td {
   text-align: left;
   font-size: 16px;
   border-right: 2px solid #ffffff;
   padding: 10px 0 10px 20px;
 }
-
-html div.office table.table td.img img {
-  width: 100px;
-  height: 100px;
-}
-
-html div.office table.table td.img {
+.office .table td.img {
   padding: 0;
   margin: 0;
   width: 102px;
@@ -1723,94 +1733,32 @@ html div.office table.table td.img {
   border: 1px solid white;
   overflow: hidden;
 }
-
-.office td.del a,
-.office td.toggle a {
+.office .table td.del a,
+.office .table td.toggle a {
   text-decoration: none;
 }
-
-.office td.del,
-.office td.toggle {
-  width: 50px;
-}
-
-.office .more,
-html div.office table.table td.del,
-html div.office table.table td.toggle {
-  text-align: center;
-  padding: 10px 0 !important;
-}
-
-.office td.user,
-.office td.rating,
-.office td.products,
-.office td.referrer,
-.office td.type,
-.office td.publish,
-.office td.promote,
-.office td.price,
-.office td.date {
+.office .table td.user,
+.office .table td.rating,
+.office .table td.products,
+.office .table td.referrer,
+.office .table td.type,
+.office .table td.publish,
+.office .table td.promote,
+.office .table td.price,
+.office .table td.date {
   width: 180px;
 }
-
-.office td.fullName {
+.office .table td.del,
+.office .table td.toggle {
+  width: 50px;
+}
+.office .table td.fullName {
   width: 300px;
 }
-
-.office-menu {
-  list-style-type: none;
-  margin-top: 50px;
+.office .table td.del,
+.office .table td.toggle {
   text-align: center;
-}
-
-.office-menu a {
-  font-size: 20px;
-  color: #bd0400;
-  border-bottom: 1px dashed #bd0400;
-}
-
-.office .orders-table tr {
-  border: none;
-}
-
-.order-status {
-  border-radius: 3px;
-  padding: 3px 15px;
-  background-color: grey;
-  color: white;
-  font-size: 14px;
-}
-
-.status-NEW {
-  background-color: red;
-}
-
-.status-ACCEPTED {
-  background-color: green;
-}
-
-.status-READY {
-  background-color: blue;
-}
-
-.status-CANCELLED {
-  background-color: grey;
-}
-
-.orders-table {
-  width: 100%;
-}
-
-.orders-table thead {
-  display: none;
-}
-
-.child-value {
-  display: none;
-}
-
-.howto .modal-dialog {
-  width: 1100px;
+  padding: 10px 0 !important;
 }
 
 .datepicker:after, .datepicker:before {

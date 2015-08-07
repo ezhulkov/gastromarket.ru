@@ -18,15 +18,18 @@ public class OrderShowModal extends BaseComponent {
     private OrderProductEntity item;
 
     @Property
+    private CatalogEntity catalog;
+
+    @Property
     @Inject
     private Block orderShowBlock;
 
-    public CatalogEntity getCatalog() {
-        return getShoppingCart().getLastItem().getEntity().getCatalog();
+    public void beginRender() {
+        catalog = getShoppingCart().getLastItem().getEntity().getCatalog();
     }
 
     public boolean isNewOrder() {
-        List<OrderProductEntity> items = getShoppingCart().getItems(getCatalog());
+        List<OrderProductEntity> items = getShoppingCart().getItems(catalog);
         return items.size() == 1 && items.stream().allMatch(t -> t.getCount() == 1);
     }
 

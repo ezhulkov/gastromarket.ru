@@ -6,19 +6,17 @@
                 <h1><span>Заказы</span></h1>
             </div>
             <div class="row">
-                <t:loop source="catalogs" value="catalog" formState="NONE">
-                    <t:orderShowCatalog catalog="catalog" type="FULL"/>
-                    <t:parameter name="empty">
-                        <div class="empty">
-                            У вас нет незавершенных заказов<br/>
-                            Перейдите в
-                            <t:pagelink page="catalog/list">каталог</t:pagelink>
-                            и начните поиск.
-                        </div>
-                    </t:parameter>
-                </t:loop>
+                <t:ordershow status="NEW"/>
             </div>
         </div>
     </div>
+
+    <t:loginUserModal modalId="cart_login">
+        <t:parameter name="addText">
+            <div class="attention">
+                Для оформления заказа и связи с кулинаром необходимо войти или зарегистрироваться.
+            </div>
+        </t:parameter>
+    </t:loginUserModal>
 
 </t:htmlLayout>

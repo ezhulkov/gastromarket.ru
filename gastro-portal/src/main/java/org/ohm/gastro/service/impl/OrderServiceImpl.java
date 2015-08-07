@@ -1,9 +1,7 @@
 package org.ohm.gastro.service.impl;
 
 import com.google.common.collect.Lists;
-import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
-import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.OrderProductEntity;
@@ -174,32 +172,7 @@ public class OrderServiceImpl implements OrderService, Logging {
     @Override
     @RatingModifier
     public void changeStatus(final OrderEntity order, final Status status, @RatingTarget final CatalogEntity catalog) {
-        if (status == Status.CANCELLED) order.setUsedBonuses(0);
-        if (status == Status.READY) {
-            final UserEntity customer = order.getCustomer();
-            if (StringUtils.isNotEmpty(customer.getEmail())) {
-                if (order.getUsedBonuses() > 0) {
-                    customer.setBonus(Math.max(0, customer.getBonus() - order.getUsedBonuses()));
-                } else {
-                    customer.setBonus((int) (customer.getBonus() + getBonuses(order.getOrderTotalPrice())));
-                }
-                userRepository.save(customer);
-            }
-            ratingService.registerEvent(Type.ORDER_DONE, catalog, order.getOrderTotalPrice());
-        }
-        order.setStatus(status);
-        orderRepository.save(order);
-        final Map<String, Object> params = new HashMap<String, Object>() {
-            {
-                put("ordernumber", order.getOrderNumber());
-                put("catalog", catalog);
-                put("status", status);
-            }
-        };
-        mailService.sendAdminMessage(MailService.EDIT_ORDER, params);
-        if (order.getCustomer().getEmail() != null) {
-            mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.EDIT_ORDER, params);
-        }
+
     }
 
 }

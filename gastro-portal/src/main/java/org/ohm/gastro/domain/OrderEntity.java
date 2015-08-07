@@ -24,7 +24,7 @@ import java.util.List;
 public class OrderEntity extends AbstractBaseEntity {
 
     public enum Status {
-        NEW, ACCEPTED, READY, CANCELLED
+        NEW, ACTIVE, CONFIRMED, PAID, DONE, CLOSED, CANCELLED
     }
 
     @Column(name = "order_number")
@@ -107,10 +107,6 @@ public class OrderEntity extends AbstractBaseEntity {
 
     public String getDatePrintable() {
         return CommonsUtils.GUI_DATE_LONG.get().format(new Date(date.getTime()));
-    }
-
-    public boolean isClosed() {
-        return status == Status.READY;
     }
 
     public int getOrderTotalPrice() {

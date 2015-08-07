@@ -1,11 +1,14 @@
 package org.ohm.gastro.gui.components;
 
 import org.apache.tapestry5.Block;
+import org.apache.tapestry5.Link;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.pages.Cart;
+import org.ohm.gastro.gui.pages.office.Orders;
 
 import java.util.List;
 
@@ -62,6 +65,10 @@ public class HeaderLayout extends BaseComponent {
 
     public String getAvatarUrl() {
         return getAuthenticatedUser().getAvatarUrlSmall();
+    }
+
+    public Link getCartLink() {
+        return isAuthenticated() ? getPageLinkSource().createPageRenderLink(Orders.class) : getPageLinkSource().createPageRenderLink(Cart.class);
     }
 
 }

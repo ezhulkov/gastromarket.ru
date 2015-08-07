@@ -6,7 +6,7 @@
             <t:if test="header">
                 <div class="pull-right">
                     <t:if test="cook">
-                        <t:pagelink class="header-block pic-holder orders" page="office/orders">
+                        <t:pagelink page="office/orders" class="header-block pic-holder orders">
                             <span/>
                             Заказы
                         </t:pagelink>
@@ -38,9 +38,6 @@
                                 </t:if>
                                 <t:if test="admin">
                                     <li>
-                                        <t:pagelink page="admin/order/list">Все заказы</t:pagelink>
-                                    </li>
-                                    <li>
                                         <t:pagelink page="admin/property/list">Системные настройки</t:pagelink>
                                     </li>
                                 </t:if>
@@ -71,10 +68,10 @@
     <t:zone t:id="orderShowZone"/>
 
     <t:block t:id="basketBlock">
-        <t:pagelink class="pic-holder basket" page="cart">
+        <a class="pic-holder basket" href="${cartLink}">
             <span/>
             ${declProducts}
-        </t:pagelink>
+        </a>
     </t:block>
 
     <t:block t:id="orderShowBlock">

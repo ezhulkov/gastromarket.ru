@@ -86,7 +86,7 @@ public class Index extends AbstractCatalogPage {
     }
 
     public String getOrderCount() {
-        return getDeclInfo("orders", getOrderService().findAllOrders(catalog, Status.READY).size());
+        return getDeclInfo("orders", getOrderService().findAllOrders(catalog, Status.CLOSED).size());
     }
 
     public String getRootProperties() {

@@ -1,124 +1,77 @@
 @import ../include/var
 
-.office .title
-  margin-bottom: 30px
-
-.office-menu a:hover
-  border-bottom: 1px dashed #bd0400
-  text-decoration: none
-
-.office-menu li
-  display: inline
-  padding: 0 25px
-
-.office-menu li.sel
-  background-color: #bd0400
-  padding: 12px 20px 8px 20px
-  border-radius: 20px
-
-.office-menu li.sel a
-  border-bottom: none
-  color: #ffffff
-
 .office
   min-height: 600px
-
-.office table th
-  font-size: 20px
-  font-weight: normal
-  background-color: #dddddd
-  border: 2px solid #ffffff
-  padding: 10px 0 10px 20px !important
-
-.office table tr
-  border-bottom: 2px solid #dddddd
-
-html div.office table.table td
-  text-align: left
-  font-size: 16px
-  border-right: 2px solid #ffffff
-  padding: 10px 0 10px 20px
-
-html div.office table.table td.img img
-  width: 100px
-  height: 100px
-
-html div.office table.table td.img
-  padding: 0
-  margin: 0
-  width: 102px
-  height: 102px
-  border: 1px solid white
-  overflow: hidden
-
-.office td.del a,
-.office td.toggle a
-  text-decoration: none
-
-.office td.del,
-.office td.toggle
-  width: 50px
-
-.office .more,
-html div.office table.table td.del,
-html div.office table.table td.toggle
-  text-align: center
-  padding: 10px 0 !important
-
-.office td.user,
-.office td.rating,
-.office td.products,
-.office td.referrer,
-.office td.type,
-.office td.publish,
-.office td.promote,
-.office td.price,
-.office td.date
-  width: 180px
-
-.office td.fullName
-  width: 300px
-
-.office-menu
-  list-style-type: none
-  margin-top: 50px
-  text-align: center
-
-.office-menu a
-  font-size: 20px
-  color: #bd0400
-  border-bottom: 1px dashed #bd0400
-
-.office .orders-table tr
-  border: none
-
-.order-status
-  border-radius: 3px
-  padding: 3px 15px
-  background-color: grey
-  color: white
-  font-size: 14px
-
-.status-NEW
-  background-color: red
-
-.status-ACCEPTED
-  background-color: green
-
-.status-READY
-  background-color: blue
-
-.status-CANCELLED
-  background-color: grey
-
-.orders-table
-  width: 100%
-
-.orders-table thead
-  display: none
-
-.child-value
-  display: none
-
-.howto .modal-dialog
-  width: 1100px
+  .title
+    margin-bottom: 30px
+  .office-menu
+    list-style-type: none
+    margin-top: 40px
+    text-align: center
+    a
+      font-size: 20px
+      color: #bd0400
+      border-bottom: 1px dashed #bd0400
+      &:hover
+        border-bottom: 1px dashed #bd0400
+        text-decoration: none
+      &:focus
+        border-bottom: none
+        text-decoration: none
+    li
+      display: inline
+      padding: 0 25px
+      &.sel
+        background-color: #bd0400
+        padding: 12px 25px 8px 25px
+        border-radius: 20px
+      &.sel a,
+      &.sel a:focus,
+      &.sel a:active
+        border-bottom: none
+        color: #ffffff
+  &.orders .office-menu
+    margin-bottom: 30px
+  .table
+    th
+      font-size: 20px
+      font-weight: normal
+      background-color: #dddddd
+      border: 2px solid #ffffff
+      padding: 10px 0 10px 20px !important
+    tr
+      border-bottom: 2px solid #dddddd
+    td
+      text-align: left
+      font-size: 16px
+      border-right: 2px solid #ffffff
+      padding: 10px 0 10px 20px
+      &.img
+        padding: 0
+        margin: 0
+        width: 102px
+        height: 102px
+        border: 1px solid white
+        overflow: hidden
+    td.del a,
+    td.toggle a
+      text-decoration: none
+    td.user,
+    td.rating,
+    td.products,
+    td.referrer,
+    td.type,
+    td.publish,
+    td.promote,
+    td.price,
+    td.date
+      width: 180px
+    td.del,
+    td.toggle
+      width: 50px
+    td.fullName
+      width: 300px
+    td.del,
+    td.toggle
+      text-align: center
+      padding: 10px 0 !important

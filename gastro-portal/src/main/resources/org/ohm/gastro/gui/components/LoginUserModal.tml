@@ -1,4 +1,4 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="modal fade" id="login" tabindex="-1" role="dialog" aria-hidden="true">
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="modal fade" id="${modalId}" tabindex="-1" role="dialog" aria-hidden="true">
 
     <div class="modal-dialog login">
         <div class="modal-content">
@@ -9,6 +9,9 @@
                 <a class="modal-close" data-dismiss="modal"></a>
             </div>
             <div class="modal-body">
+                <t:if test="addText">
+                    <t:delegate to="addText"/>
+                </t:if>
                 <div class="row">
                     <p class="modal-text">Вход через аккаунт одной из социальных сетей</p>
                 </div>
@@ -73,6 +76,9 @@
             </div>
             <t:zone t:id="rememberZone"/>
             <div class="modal-body data">
+                <t:if test="addText">
+                    <t:delegate to="addText"/>
+                </t:if>
                 <div class="row">
                     <p class="modal-text">Укажите свой почтовый адрес для восстановления пароля.<br/> Новый пароль будет выслан на указанный адрес.</p>
                 </div>
@@ -113,7 +119,9 @@
                 <a class="modal-close" data-dismiss="modal"></a>
             </div>
             <div class="modal-body">
-
+                <t:if test="addText">
+                    <t:delegate to="addText"/>
+                </t:if>
                 <div class="row">
                     <p class="modal-text">Регистрация через аккаунт одной из социальных сетей</p>
                 </div>

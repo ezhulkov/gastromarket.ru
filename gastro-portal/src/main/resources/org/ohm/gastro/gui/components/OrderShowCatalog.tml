@@ -1,5 +1,5 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="order-show-catalog ${type.name().toLowerCase()}">
-    <t:zone t:id="orderShowCatalogZone" id="orderShowCatalogZone">
+    <t:zone t:id="orderShowCatalogZone" id="${orderShowCatalogZoneId}">
         <t:delegate to="orderShowCatalogBlock"/>
     </t:zone>
     <t:block t:id="orderShowCatalogBlock">
@@ -11,9 +11,6 @@
                     </t:pagelink>
                 </div>
                 <div class="col-sm-10 text-left">
-                    <t:if test="items">
-                        <t:pagelink class="round-link register-order" page="index" context="catalog.id">Оформить заказ <span/></t:pagelink>
-                    </t:if>
                     <t:pagelink target="_blank" class="name" page="catalog/index" context="catalog.altId">
                         ${catalog.name}
                     </t:pagelink>
@@ -23,7 +20,7 @@
             <t:loop source="items" index="index" value="item" formState="NONE">
                 <div class="form-group">
                     <div class="col-sm-12 order-item ${rowClass}">
-                        <t:actionLink t:id="deleteItem" class="delete" t:zone="orderShowCatalogZone" t:context="deleteContext">удалить</t:actionLink>
+                        <t:actionLink t:id="deleteItem" class="delete" t:zone="${orderShowCatalogZoneId}" t:context="deleteContext">удалить</t:actionLink>
                         <div class="price">
                             <t:if test="item.modifier">
                                 <span class="sign">${item.modifier.signPrintable}</span>${item.modifier.price}&nbsp;<span class="rub"/> = ${item.price}&nbsp;<span class="rub"/>
@@ -38,7 +35,7 @@
                         <div class="name">
                             <a href="${itemPage}" target="_blank">${item.entity.name}</a>
                             <t:if test="item.modifier">
-                                <div class="modifier">(${item.modifier.description})</div>
+                                <div class="modifier-name">(${item.modifier.description})</div>
                             </t:if>
                         </div>
                     </div>
@@ -76,7 +73,12 @@
                             <input type="text" class="form-control"/>
                         </div>
                         <div class="col-sm-4 last-cell">
-                            <t:pagelink class="round-link" page="index" context="catalog.id">Оформить заказ <span/></t:pagelink>
+                            <t:if test="authenticated">
+                                <t:pagelink class="round-link" page="index" context="catalog.id">Оформить заказ <span/></t:pagelink>
+                                <t:parameter name="else">
+                                    <a href="#cart_login" data-toggle="modal" class="login-link round-link" data-target="#cart_login">Оформить заказ <span/></a>
+                                </t:parameter>
+                            </t:if>
                         </div>
                     </div>
                 </t:if>

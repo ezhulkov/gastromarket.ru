@@ -2,7 +2,6 @@ package org.ohm.gastro.gui.components;
 
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
-import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -49,7 +48,6 @@ public class OrderShowCatalog extends BaseComponent {
         return getItems().size() == 1;
     }
 
-    @Cached(watch = "catalog")
     public List<OrderProductEntity> getItems() {
         return getShoppingCart().getItems(catalog);
     }
@@ -90,6 +88,10 @@ public class OrderShowCatalog extends BaseComponent {
     public String getItemPage() {
         if (item.getEntity().getType() == PurchaseEntity.Type.PRODUCT) return "/product/" + item.getEntity().getAltId();
         return "/catalog/offer/" + item.getEntity().getAltId();
+    }
+
+    public String getOrderShowCatalogZoneId() {
+        return "orderShowCatalogZoneId" + catalog.getId();
     }
 
 }

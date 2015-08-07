@@ -1,9 +1,41 @@
 <t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="container office ">
+    <div class="container orders office">
         <div class="title">
             <h1><span>Заказы</span></h1>
         </div>
+        <ul class="office-menu">
+            <li id="new-orders">
+                <t:actionlink t:id="newOrders" t:zone="ordersZone">Новые</t:actionlink>
+            </li>
+            <li id="active-orders">
+                <t:actionlink t:id="activeOrders" t:zone="ordersZone">Активные</t:actionlink>
+            </li>
+            <li id="closed-orders">
+                <t:actionlink t:id="closedOrders" t:zone="ordersZone">Закрытые</t:actionlink>
+            </li>
+        </ul>
+        <t:zone t:id="ordersZone">
+            <t:delegate to="currentBlock"/>
+        </t:zone>
+        <t:block t:id="newOrdersBlock">
+            <script>
+                activate_menu('#new-orders');
+            </script>
+            <t:ordershow status="NEW"/>
+        </t:block>
+        <t:block t:id="activeOrdersBlock">
+            <script>
+                activate_menu('#active-orders');
+            </script>
+            ACTIVE
+        </t:block>
+        <t:block t:id="closedOrdersBlock">
+            <script>
+                activate_menu('#closed-orders');
+            </script>
+            CLOSED
+        </t:block>
     </div>
 
 </t:htmllayout>
