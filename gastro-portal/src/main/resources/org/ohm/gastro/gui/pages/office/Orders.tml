@@ -38,4 +38,14 @@
         </t:block>
     </div>
 
+    <script>
+        jQuery(document).ready(function () {
+            jQuery("#mobilePhone").intlTelInput({
+                onlyCountries: ["ru"],
+                defaultCountry: "ru",
+                utilsScript: "/js/intlTelInputUtils.min.js"
+            });
+        });
+    </script>
+
 </t:htmllayout>

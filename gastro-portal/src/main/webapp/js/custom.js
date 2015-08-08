@@ -66,7 +66,8 @@ function initDatePicker() {
         todayBtn: true,
         language: "ru",
         autoclose: true,
-        todayHighlight: true
+        todayHighlight: true,
+        autoPlaceholder: false
     });
 }
 function initToolTip() {

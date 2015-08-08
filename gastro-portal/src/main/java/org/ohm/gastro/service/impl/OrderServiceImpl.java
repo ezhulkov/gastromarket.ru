@@ -16,13 +16,11 @@ import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingService;
 import org.ohm.gastro.service.RatingTarget;
 import org.ohm.gastro.trait.Logging;
-import org.ohm.gastro.util.CommonsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -56,16 +54,20 @@ public class OrderServiceImpl implements OrderService, Logging {
 
     @Override
     public OrderEntity placeOrder(final OrderEntity preOrder) {
-        final OrderEntity order = new OrderEntity();
-        order.setDate(new Timestamp(System.currentTimeMillis()));
-        order.setCustomer(preOrder.getCustomer());
-        order.setComment(preOrder.getComment());
-        order.setProducts(preOrder.getProducts());
-        order.setStatus(Status.ACTIVE);
-        orderRepository.save(order);
-        order.getProducts().stream().forEach(p -> p.setOrder(order));
-        orderProductRepository.save(order.getProducts());
-        order.setOrderNumber(CommonsUtils.ORDER_DATE.get().format(new Date(System.currentTimeMillis())) + "-" + order.getId());
+        if (!preOrder.getProducts().isEmpty()) {
+            final OrderEntity order = new OrderEntity();
+            order.setDate(new Timestamp(System.currentTimeMillis()));
+            order.setCustomer(preOrder.getCustomer());
+            order.setComment(preOrder.getComment());
+            order.setProducts(preOrder.getProducts());
+            order.setStatus(Status.ACTIVE);
+            orderRepository.save(order);
+            order.getProducts().stream().forEach(p -> p.setOrder(order));
+            orderProductRepository.save(order.getProducts());
+            order.setOrderNumber(preOrder.getProducts().get(0).getEntity().getCatalog().getId() + "-" + order.getOrderSeq());
+            return order;
+        }
+        return null;
         //        try {
         //            orders.stream().forEach(order -> {
         //                if (!items.isEmpty()) {
@@ -91,7 +93,6 @@ public class OrderServiceImpl implements OrderService, Logging {
         //        } catch (MailException e) {
         //            logger.error("", e);
         //        }
-        return order;
     }
 
     @Override

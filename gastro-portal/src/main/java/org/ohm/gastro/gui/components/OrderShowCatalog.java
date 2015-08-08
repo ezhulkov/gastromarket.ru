@@ -51,6 +51,15 @@ public class OrderShowCatalog extends BaseComponent {
     @Component(id = "comment", parameters = {"value=preOrder.comment", "validate=maxlength=1024"})
     private TextArea commentField;
 
+    @Component(id = "deliveryAddress", parameters = {"value=preOrder.customer.deliveryAddress", "validate=required"})
+    private TextArea dAddressField;
+
+    @Component(id = "mobilePhone", parameters = {"value=preOrder.customer.mobilePhone", "validate=required"})
+    private TextField mobileField;
+
+    @Component(id = "fullName", parameters = {"value=preOrder.customer.fullName", "validate=required"})
+    private TextField fNameField;
+
     @Component(id = "dueDate", parameters = {"value=preOrder.dueDate"})
     private TextField dueDateField;
 
@@ -111,18 +120,20 @@ public class OrderShowCatalog extends BaseComponent {
         return "orderShowCatalogZoneId" + catalog.getId();
     }
 
-    public void onPrepareFromCartForm() {
-        preOrder = new OrderEntity();
+    public void onPrepareFromOrderForm() {
+        if (isAuthenticated()) {
+            preOrder = new OrderEntity();
+            preOrder.setCustomer(getAuthenticatedUser());
+        }
     }
 
-    public Object onSuccessFromMakeOrder(Long cId) {
+    public Object onSuccessFromOrderForm(Long cId) {
         final CatalogEntity catalog = getCatalogService().findCatalog(cId);
         final List<OrderProductEntity> items = getShoppingCart().getItems(catalog);
-        preOrder.setCustomer(getAuthenticatedUser());
         preOrder.setProducts(getShoppingCart().getItems(catalog));
         final OrderEntity order = getOrderService().placeOrder(preOrder);
         getShoppingCart().removeItems(items);
-        return getPageLinkSource().createPageRenderLinkWithContext(Order.class, order.getId());
+        return getPageLinkSource().createPageRenderLinkWithContext(Order.class, order.getId(), true);
     }
 
 }

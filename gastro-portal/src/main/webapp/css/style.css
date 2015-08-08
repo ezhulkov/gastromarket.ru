@@ -322,6 +322,10 @@ body.mobile .rub:after {
   text-align: right !important;
 }
 
+.intl-tel-input {
+  display: block;
+}
+
 .catalog-item {
   padding: 30px 0 20px 0;
 }
@@ -2205,11 +2209,11 @@ label.t-error {
   float: right;
   vertical-align: top;
 }
-.order-show-catalog .last-cell {
-  height: 65px;
+.order-show-catalog .submit-cell {
+  min-height: 50px;
   position: relative;
 }
-.order-show-catalog .last-cell .round-link, .order-show-catalog .last-cell .title-simple a, .title-simple .order-show-catalog .last-cell a, .order-show-catalog .last-cell .title a, .title .order-show-catalog .last-cell a, .order-show-catalog .last-cell .links-set a, .links-set .order-show-catalog .last-cell a {
+.order-show-catalog .submit-cell .round-link, .order-show-catalog .submit-cell .title-simple a, .title-simple .order-show-catalog .submit-cell a, .order-show-catalog .submit-cell .title a, .title .order-show-catalog .submit-cell a, .order-show-catalog .submit-cell .links-set a, .links-set .order-show-catalog .submit-cell a {
   position: absolute;
   right: 15px;
   bottom: 0;

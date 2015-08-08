@@ -1,6 +1,5 @@
 package org.ohm.gastro.gui.pages.office;
 
-import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
@@ -10,14 +9,24 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
  */
 public class Order extends BaseComponent {
 
-    @Parameter
-    private Long orderId;
-
     @Property
     private OrderEntity order;
 
-    public void beginRender() {
+    @Property
+    private boolean newOrder = false;
+
+    public void onActivate(Long orderId, boolean newOrder) {
         this.order = getOrderService().findOrder(orderId);
+        this.newOrder = newOrder;
     }
+
+    public void onActivate(Long orderId) {
+        onActivate(orderId, false);
+    }
+
+    public Object[] onPassivate() {
+        return new Object[]{order.getId(), newOrder};
+    }
+
 
 }

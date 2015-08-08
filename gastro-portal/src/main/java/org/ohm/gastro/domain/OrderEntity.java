@@ -29,6 +29,9 @@ public class OrderEntity extends AbstractBaseEntity {
         NEW, ACTIVE, CONFIRMED, PAID, DONE, CLOSED, CANCELLED
     }
 
+    @Column(name = "order_seq", columnDefinition = "serial")
+    private Long orderSeq;
+
     @Column(name = "order_number")
     private String orderNumber;
 
@@ -56,6 +59,14 @@ public class OrderEntity extends AbstractBaseEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
     private List<OrderProductEntity> products = Lists.newArrayList();
+
+    public Long getOrderSeq() {
+        return orderSeq;
+    }
+
+    public void setOrderSeq(final Long orderSeq) {
+        this.orderSeq = orderSeq;
+    }
 
     public String getComment() {
         return comment;
