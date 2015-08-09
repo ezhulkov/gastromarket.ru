@@ -1,7 +1,6 @@
 package org.ohm.gastro.domain;
 
 import com.google.common.collect.Lists;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.util.CommonsUtils;
 
@@ -129,7 +128,7 @@ public class OrderEntity extends AbstractBaseEntity {
     }
 
     public CatalogEntity getCatalog() {
-        return CollectionUtils.isEmpty(products) ? null : products.get(0).getEntity().getCatalog();
+        return catalog;
     }
 
     public String getPromoCode() {

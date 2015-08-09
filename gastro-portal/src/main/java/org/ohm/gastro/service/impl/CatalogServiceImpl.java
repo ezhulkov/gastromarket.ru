@@ -6,6 +6,7 @@ import com.google.common.collect.Lists;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.reps.CatalogRepository;
+import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.ImageService.FileType;
 import org.ohm.gastro.service.ImageService.ImageSize;
@@ -30,11 +31,13 @@ import static org.scribe.utils.Preconditions.checkNotNull;
 public class CatalogServiceImpl implements CatalogService, Logging {
 
     private final CatalogRepository catalogRepository;
+    private final OrderRepository orderRepository;
     private final MailService mailService;
 
     @Autowired
-    public CatalogServiceImpl(CatalogRepository catalogRepository, MailService mailService) {
+    public CatalogServiceImpl(CatalogRepository catalogRepository, final OrderRepository orderRepository, MailService mailService) {
         this.catalogRepository = catalogRepository;
+        this.orderRepository = orderRepository;
         this.mailService = mailService;
     }
 
