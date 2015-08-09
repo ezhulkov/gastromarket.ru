@@ -1,0 +1,20 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+    <t:if test="fromCart">
+        <t:loop source="catalogs" value="catalog" formState="NONE">
+            <t:orderShow catalog="catalog" type="FULL"/>
+            <t:parameter name="empty">
+                <div class="empty">
+                    У вас нет неоформленных заказов<br/>
+                    Перейдите в
+                    <t:pagelink page="catalog/list">каталог</t:pagelink>
+                    и начните поиск.
+                </div>
+            </t:parameter>
+        </t:loop>
+    </t:if>
+    <t:unless test="fromCart">
+        <t:loop source="orders" value="order" forState="NONE">
+            <t:orderShow order="order" type="EDIT"/>
+        </t:loop>
+    </t:unless>
+</div>

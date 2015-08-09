@@ -9,7 +9,7 @@
   &.short
     .register-order
       display: none
-  &.full
+  &.full, &.edit
     +border-class
     width: 990px
     padding: 30px 60px
@@ -86,3 +86,12 @@
       position: absolute
       right: 15px
       bottom: 0
+  .order-info
+    .number
+      text-align: right
+      a
+        font-size: $f30px
+        color: $blackTextColor
+    .status
+      text-align: right
+      font-size: $f20px

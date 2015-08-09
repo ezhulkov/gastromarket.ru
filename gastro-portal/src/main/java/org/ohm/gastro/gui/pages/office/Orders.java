@@ -3,6 +3,8 @@ package org.ohm.gastro.gui.pages.office;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.ohm.gastro.domain.OrderEntity;
+import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 /**
@@ -10,33 +12,19 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
  */
 public class Orders extends BaseComponent {
 
-    @Inject
-    private Block newOrdersBlock;
-    @Inject
-    private Block activeOrdersBlock;
-    @Inject
-    private Block closedOrdersBlock;
     @Property
-//    @Persist
-    private Block currentBlock;
+    @Inject
+    private Block ordersBlock;
 
-    public void beginRender() {
-        if (currentBlock == null) currentBlock = newOrdersBlock;
+    @Property
+    private OrderEntity.Status status = Status.NEW;
+
+    public void onActivate(OrderEntity.Status status) {
+        this.status = status;
     }
 
-    public Block onActionFromNewOrders() {
-        currentBlock = newOrdersBlock;
-        return currentBlock;
-    }
-
-    public Block onActionFromActiveOrders() {
-        currentBlock = activeOrdersBlock;
-        return currentBlock;
-    }
-
-    public Block onActionFromClosedOrders() {
-        currentBlock = closedOrdersBlock;
-        return currentBlock;
+    public Object[] onPassivate() {
+        return new Object[]{status};
     }
 
 }

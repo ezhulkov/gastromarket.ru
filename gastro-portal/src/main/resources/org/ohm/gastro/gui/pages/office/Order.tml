@@ -6,15 +6,37 @@
         </div>
         <ul class="office-menu">
             <li id="new-orders">
-                <t:actionlink t:id="newOrders" t:zone="ordersZone">Новые</t:actionlink>
+                <t:pagelink page="office/orders" t:context="literal:NEW">Новые</t:pagelink>
             </li>
             <li id="active-orders">
-                <t:actionlink t:id="activeOrders" t:zone="ordersZone">Активные</t:actionlink>
+                <t:pagelink page="office/orders" t:context="literal:ACTIVE">Активные</t:pagelink>
             </li>
             <li id="closed-orders">
-                <t:actionlink t:id="closedOrders" t:zone="ordersZone">Закрытые</t:actionlink>
+                <t:pagelink page="office/orders" t:context="literal:CLOSED">Закрытые</t:pagelink>
             </li>
         </ul>
+        <t:zone t:id="orderZone">
+            <t:delegate to="orderBlock"/>
+        </t:zone>
+        <t:block t:id="orderBlock">
+            <t:if test="newOrder">
+                <div class="attention new-order">
+                    <p class="modal-text">Мы отправили детали заказа на указанный адрес и в ближайшее время с Вами свяжется кулинар для уточнения деталей.</p>
+                    <p class="modal-text">В случае возникновения вопросов, пишите на <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет заказы" class="red-text">contacts@gastromarket.ru</a> или звоните по телефону +7 926 6712145.</p>
+                </div>
+            </t:if>
+            <t:ordershow order="order" type="EDIT"/>
+        </t:block>
+        <script>
+            activate_menu('#${order.metaStatusString}-orders');
+            jQuery(document).ready(function () {
+                jQuery("#mobilePhone").intlTelInput({
+                    onlyCountries: ["ru"],
+                    defaultCountry: "ru",
+                    utilsScript: "/js/intlTelInputUtils.min.js"
+                });
+            });
+        </script>
     </div>
 
 </t:htmllayout>

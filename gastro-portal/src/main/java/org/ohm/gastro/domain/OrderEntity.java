@@ -29,9 +29,6 @@ public class OrderEntity extends AbstractBaseEntity {
         NEW, ACTIVE, CONFIRMED, PAID, DONE, CLOSED, CANCELLED
     }
 
-    @Column(name = "order_seq", columnDefinition = "serial")
-    private Long orderSeq;
-
     @Column(name = "order_number")
     private String orderNumber;
 
@@ -60,12 +57,11 @@ public class OrderEntity extends AbstractBaseEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
     private List<OrderProductEntity> products = Lists.newArrayList();
 
-    public Long getOrderSeq() {
-        return orderSeq;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    private CatalogEntity catalog;
 
-    public void setOrderSeq(final Long orderSeq) {
-        this.orderSeq = orderSeq;
+    public void setCatalog(final CatalogEntity catalog) {
+        this.catalog = catalog;
     }
 
     public String getComment() {
@@ -154,6 +150,15 @@ public class OrderEntity extends AbstractBaseEntity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getMetaStatusString() {
+        return getMetaStatus().name().toLowerCase();
+    }
+
+    public Status getMetaStatus() {
+        if (status == Status.NEW || status == Status.CLOSED) return status;
+        return Status.ACTIVE;
     }
 
 }

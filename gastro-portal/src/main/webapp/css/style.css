@@ -257,9 +257,12 @@ body.mobile .rub:after {
 
 .attention {
   display: block;
-  margin: 10px 0 30px 0;
+  margin: 10px auto 30px auto;
   border: 1px solid #bd0400;
   padding: 20px;
+}
+.attention.new-order {
+  width: 990px;
 }
 
 .error {
@@ -2101,7 +2104,7 @@ label.t-error {
 .order-show-catalog.short .register-order {
   display: none;
 }
-.order-show-catalog.full {
+.order-show-catalog.full, .order-show-catalog.edit {
   -webkit-box-shadow: 0 0 6px 2px #ddd;
   -moz-box-shadow: 0 0 6px 2px #ddd;
   box-shadow: 0 0 6px 2px #ddd;
@@ -2217,6 +2220,17 @@ label.t-error {
   position: absolute;
   right: 15px;
   bottom: 0;
+}
+.order-show-catalog .order-info .number {
+  text-align: right;
+}
+.order-show-catalog .order-info .number a {
+  font-size: 30px;
+  color: #333;
+}
+.order-show-catalog .order-info .status {
+  text-align: right;
+  font-size: 20px;
 }
 
 .grid-block.categories .item {

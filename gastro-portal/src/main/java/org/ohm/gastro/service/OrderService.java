@@ -3,6 +3,7 @@ package org.ohm.gastro.service;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
+import org.ohm.gastro.domain.OrderProductEntity;
 import org.ohm.gastro.domain.UserEntity;
 
 import java.util.List;
@@ -20,6 +21,8 @@ public interface OrderService {
 
     List<OrderEntity> findAllOrders(CatalogEntity catalog, OrderEntity.Status status);
 
+    List<OrderProductEntity> findAllItems(OrderEntity order);
+
     int getBonuses(int price);
 
     OrderEntity findOrder(Long id);
@@ -27,10 +30,6 @@ public interface OrderService {
     void saveOrder(OrderEntity order);
 
     void deleteProduct(Long oid, Long pid);
-
-    void incProduct(Long oid, Long pid);
-
-    void decProduct(Long oid, Long pid);
 
     void changeStatus(OrderEntity oneOrder, Status status, CatalogEntity catalog);
 

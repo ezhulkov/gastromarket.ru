@@ -6,46 +6,31 @@
         </div>
         <ul class="office-menu">
             <li id="new-orders">
-                <t:actionlink t:id="newOrders" t:zone="ordersZone">Новые</t:actionlink>
+                <t:pagelink page="office/orders" t:context="literal:NEW">Новые</t:pagelink>
             </li>
             <li id="active-orders">
-                <t:actionlink t:id="activeOrders" t:zone="ordersZone">Активные</t:actionlink>
+                <t:pagelink page="office/orders" t:context="literal:ACTIVE">Активные</t:pagelink>
             </li>
             <li id="closed-orders">
-                <t:actionlink t:id="closedOrders" t:zone="ordersZone">Закрытые</t:actionlink>
+                <t:pagelink page="office/orders" t:context="literal:CLOSED">Закрытые</t:pagelink>
             </li>
         </ul>
         <t:zone t:id="ordersZone">
-            <t:delegate to="currentBlock"/>
+            <t:delegate to="ordersBlock"/>
         </t:zone>
-        <t:block t:id="newOrdersBlock">
-            <script>
-                activate_menu('#new-orders');
-            </script>
-            <t:ordershow status="NEW"/>
+        <t:block t:id="ordersBlock">
+            <t:ordersShow status="prop:status"/>
         </t:block>
-        <t:block t:id="activeOrdersBlock">
-            <script>
-                activate_menu('#active-orders');
-            </script>
-            <t:ordershow status="ACTIVE"/>
-        </t:block>
-        <t:block t:id="closedOrdersBlock">
-            <script>
-                activate_menu('#closed-orders');
-            </script>
-            <t:ordershow status="CLOSED"/>
-        </t:block>
-    </div>
-
-    <script>
-        jQuery(document).ready(function () {
-            jQuery("#mobilePhone").intlTelInput({
-                onlyCountries: ["ru"],
-                defaultCountry: "ru",
-                utilsScript: "/js/intlTelInputUtils.min.js"
+        <script>
+            activate_menu('#${status.name().toLowerCase()}-orders');
+            jQuery(document).ready(function () {
+                jQuery("#mobilePhone").intlTelInput({
+                    onlyCountries: ["ru"],
+                    defaultCountry: "ru",
+                    utilsScript: "/js/intlTelInputUtils.min.js"
+                });
             });
-        });
-    </script>
+        </script>
+    </div>
 
 </t:htmllayout>

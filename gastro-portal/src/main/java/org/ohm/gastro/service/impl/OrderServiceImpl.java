@@ -64,7 +64,7 @@ public class OrderServiceImpl implements OrderService, Logging {
             orderRepository.save(order);
             order.getProducts().stream().forEach(p -> p.setOrder(order));
             orderProductRepository.save(order.getProducts());
-            order.setOrderNumber(preOrder.getProducts().get(0).getEntity().getCatalog().getId() + "-" + order.getOrderSeq());
+            order.setOrderNumber(Long.toString(order.getId()));
             return order;
         }
         return null;
@@ -97,8 +97,7 @@ public class OrderServiceImpl implements OrderService, Logging {
 
     @Override
     public List<OrderEntity> findAllOrders(final UserEntity customer, final CatalogEntity catalog) {
-//        return orderRepository.findAllByCatalogAndCustomer(customer, catalog); todo
-        return Lists.newArrayList();
+        return orderRepository.findAllByCustomer(customer);
     }
 
     @Override
@@ -120,7 +119,7 @@ public class OrderServiceImpl implements OrderService, Logging {
 
     @Override
     public OrderEntity findOrder(final Long id) {
-        return orderRepository.findOne(id);
+        return id == null ? null : orderRepository.findOne(id);
     }
 
     @Override
@@ -138,23 +137,13 @@ public class OrderServiceImpl implements OrderService, Logging {
     }
 
     @Override
-    public void incProduct(final Long oid, final Long pid) {
-        final OrderProductEntity product = orderProductRepository.findOne(pid);
-        product.setCount(product.getCount() + 1);
-        orderProductRepository.save(product);
-    }
-
-    @Override
-    public void decProduct(final Long oid, final Long pid) {
-        final OrderProductEntity product = orderProductRepository.findOne(pid);
-        product.setCount(Math.max(1, product.getCount() - 1));
-        orderProductRepository.save(product);
-    }
-
-    @Override
     @RatingModifier
     public void changeStatus(final OrderEntity order, final Status status, @RatingTarget final CatalogEntity catalog) {
 
     }
 
+    @Override
+    public List<OrderProductEntity> findAllItems(final OrderEntity order) {
+        return orderProductRepository.findAllByOrder(order);
+    }
 }

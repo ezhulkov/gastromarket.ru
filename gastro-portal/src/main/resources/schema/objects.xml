@@ -701,16 +701,17 @@
     </changeSet>
 
     <changeSet id="54" author="ezhulkov">
-        <createSequence sequenceName="hibernate_order_sequence" startValue="1" incrementBy="1"/>
-        <addColumn tableName="orders">
-            <column name="order_seq" type="java.sql.Types.BIGINT"/>
-        </addColumn>
-    </changeSet>
-
-    <changeSet id="55" author="ezhulkov">
         <modifyDataType tableName="users" columnName="mobile_phone" newDataType="text"/>
         <modifyDataType tableName="users" columnName="email" newDataType="text"/>
         <modifyDataType tableName="users" columnName="delivery_address" newDataType="text"/>
+    </changeSet>
+
+    <changeSet id="55" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="catalog_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="orders" baseColumnNames="catalog_id"
+                constraintName="order_cat_fk" referencedTableName="catalog" referencedColumnNames="id" onDelete="CASCADE"/>
     </changeSet>
 
 </databaseChangeLog>

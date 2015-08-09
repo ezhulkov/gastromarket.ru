@@ -6,7 +6,7 @@
                 <h1><span>Заказы</span></h1>
             </div>
             <div class="row">
-                <t:ordershow status="NEW"/>
+                <t:ordersShow status="NEW"/>
             </div>
         </div>
     </div>
