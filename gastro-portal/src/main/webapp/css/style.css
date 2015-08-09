@@ -307,9 +307,6 @@ body.mobile .rub:after {
 .form-group div {
   text-align: left;
 }
-.form-group label {
-  padding-left: 5px;
-}
 
 .form-control {
   height: 38px;
@@ -715,11 +712,11 @@ body.modal-open {
 }
 
 .modal.catalog-edit .modal-dialog {
-  width: 900px;
+  width: 950px;
 }
 
 .modal.order-show-modal .modal-dialog {
-  width: 900px;
+  width: 950px;
 }
 
 .modal.howto .modal-dialog {
@@ -2202,7 +2199,6 @@ label.t-error {
 .order-show-catalog .total {
   font-size: 16px;
   vertical-align: top;
-  margin-bottom: 30px;
   padding-top: 20px;
   border-top: 1px solid #aaaaaa;
 }

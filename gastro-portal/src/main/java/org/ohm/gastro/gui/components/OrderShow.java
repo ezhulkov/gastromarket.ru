@@ -88,10 +88,14 @@ public class OrderShow extends BaseComponent {
         if (order != null) catalog = order.getCatalog();
     }
 
-    public Block onActionFromDeleteItem(Long cId, Long oId, PurchaseEntity.Type type, Long id, Long mid) {
+    public Block onActionFromDeleteItem(Long cId, Long oId, Long opId, PurchaseEntity.Type type, Long id, Long mid) {
         this.catalog = getCatalogService().findCatalog(cId);
         this.order = getOrderService().findOrder(oId);
-        getShoppingCart().removeItem(type, id, mid);
+        if (order == null) {
+            getShoppingCart().removeItem(type, id, mid);
+        } else {
+            getOrderService().deleteProduct(oId, opId);
+        }
         return orderShowCatalogBlock;
     }
 
@@ -120,6 +124,7 @@ public class OrderShow extends BaseComponent {
         return new Object[]{
                 catalog.getId(),
                 order == null ? null : order.getId(),
+                item.getId(),
                 item.getEntity().getType(),
                 item.getEntity().getId(),
                 item.getModifier() == null ? null : item.getModifier().getId()
@@ -128,6 +133,10 @@ public class OrderShow extends BaseComponent {
 
     public boolean isFull() {
         return type == Type.FULL;
+    }
+
+    public boolean isEdit() {
+        return type == Type.EDIT;
     }
 
     public String getItemPage() {
@@ -152,6 +161,7 @@ public class OrderShow extends BaseComponent {
         this.order = getOrderService().findOrder(oId);
         List<OrderProductEntity> items = getItems();
         preOrder.setProducts(items);
+        preOrder.setCatalog(catalog);
         if (order == null) {
             final OrderEntity order = getOrderService().placeOrder(preOrder);
             getShoppingCart().removeItems(items);

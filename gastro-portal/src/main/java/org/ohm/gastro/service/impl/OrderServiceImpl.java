@@ -58,9 +58,12 @@ public class OrderServiceImpl implements OrderService, Logging {
             final OrderEntity order = new OrderEntity();
             order.setDate(new Timestamp(System.currentTimeMillis()));
             order.setCustomer(preOrder.getCustomer());
+            order.setDueDate(preOrder.getDueDate());
+            order.setPromoCode(preOrder.getPromoCode());
             order.setComment(preOrder.getComment());
             order.setProducts(preOrder.getProducts());
             order.setStatus(Status.ACTIVE);
+            order.setCatalog(preOrder.getCatalog());
             orderRepository.save(order);
             order.getProducts().stream().forEach(p -> p.setOrder(order));
             orderProductRepository.save(order.getProducts());
@@ -131,8 +134,13 @@ public class OrderServiceImpl implements OrderService, Logging {
     public void deleteProduct(final Long oid, final Long pid) {
         final OrderEntity order = orderRepository.findOne(oid);
         final OrderProductEntity product = orderProductRepository.findOne(pid);
-        order.getProducts().remove(product);
-        orderProductRepository.delete(product);
+        product.setCount(product.getCount() - 1);
+        if (product.getCount() <= 0) {
+            order.getProducts().remove(product);
+            orderProductRepository.delete(product);
+        } else {
+            orderProductRepository.save(product);
+        }
         orderRepository.save(order);
     }
 
