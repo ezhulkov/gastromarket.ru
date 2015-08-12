@@ -9,6 +9,7 @@ import org.ohm.gastro.domain.OrderProductEntity;
 import org.ohm.gastro.domain.PurchaseEntity;
 import org.ohm.gastro.domain.PurchaseEntity.Type;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -79,7 +80,16 @@ public final class ShoppingCart {
     public void removeItem(PurchaseEntity.Type type, Long id, Long mId) {
         findPurchaseItem(type, id, mId).ifPresent(t -> {
             t.setCount(t.getCount() - 1);
-            if (t.getCount() <= 0) items.remove(t);
+            if (t.getCount() <= 0) {
+                Iterator<OrderProductEntity> it = items.iterator();
+                while (it.hasNext()) {
+                    OrderProductEntity item = it.next();
+                    if (item.equals(type, id, mId)) {
+                        it.remove();
+                        break;
+                    }
+                }
+            }
         });
     }
 

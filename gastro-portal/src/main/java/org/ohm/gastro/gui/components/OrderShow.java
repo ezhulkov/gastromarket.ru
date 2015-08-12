@@ -48,6 +48,9 @@ public class OrderShow extends BaseComponent {
     @Inject
     private Block orderShowCatalogBlock;
 
+    @Inject
+    private Block clientEditBlock;
+
     @Property
     private int index;
 
@@ -56,6 +59,9 @@ public class OrderShow extends BaseComponent {
 
     @Component(id = "comment", parameters = {"value=preOrder.comment", "validate=maxlength=1024"})
     private TextArea commentField;
+
+    @Component(id = "comment2", parameters = {"value=order.comment", "validate=maxlength=1024"})
+    private TextArea comment2Field;
 
     @Component(id = "deliveryAddress", parameters = {"value=preOrder.customer.deliveryAddress", "validate=required"})
     private TextArea dAddressField;
@@ -66,11 +72,26 @@ public class OrderShow extends BaseComponent {
     @Component(id = "fullName", parameters = {"value=preOrder.customer.fullName", "validate=required"})
     private TextField fNameField;
 
+    @Component(id = "deliveryAddress2", parameters = {"value=order.customer.deliveryAddress", "validate=required"})
+    private TextArea dAddress2Field;
+
+    @Component(id = "mobilePhone2", parameters = {"value=order.customer.mobilePhone", "validate=required"})
+    private TextField mobile2Field;
+
+    @Component(id = "fullName2", parameters = {"value=order.customer.fullName", "validate=required"})
+    private TextField fName2Field;
+
     @Component(id = "dueDate", parameters = {"value=preOrder.dueDate"})
     private TextField dueDateField;
 
     @Component(id = "promoCode", parameters = {"value=preOrder.promoCode"})
     private TextField promoCodeField;
+
+    @Component(id = "dueDate2", parameters = {"value=order.dueDate"})
+    private TextField dueDate2Field;
+
+    @Component(id = "promoCode2", parameters = {"value=order.promoCode"})
+    private TextField promoCode2Field;
 
     public String getItemIndex() {
         return String.format("%s.", index + 1);
@@ -170,6 +191,44 @@ public class OrderShow extends BaseComponent {
         } else {
             getOrderService().saveOrder(order);
         }
+    }
+
+    public String getBasketMinText() {
+        return getMessages().format("basket.min.text", catalog.getBasketMin());
+    }
+
+    public String getPrepaymentText() {
+        return getMessages().format("prepayment.text", catalog.getPrepayment());
+    }
+
+    public String getOrderStatusText() {
+        return getMessages().format("order.status." + order.getStatus());
+    }
+
+    public boolean isClientChangeAllowed() {
+        if (order == null) return false;
+        switch (order.getStatus()) {
+            case NEW:
+            case ACTIVE:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public Block getEditOrderBlock() {
+        if (!isCook() && isClientChangeAllowed()) return clientEditBlock;
+        return null;
+    }
+
+    public void onPrepareFromOrderDetailsForm(Long oId) {
+        this.order = getOrderService().findOrder(oId);
+        this.catalog = order.getCatalog();
+    }
+
+    public Block onSuccessFromOrderDetailsForm(Long oId) {
+        getOrderService().saveOrder(order);
+        return orderShowCatalogBlock;
     }
 
 }

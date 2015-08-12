@@ -322,6 +322,10 @@ body.mobile .rub:after {
   text-align: right !important;
 }
 
+.text-center {
+  text-align: center !important;
+}
+
 .intl-tel-input {
   display: block;
 }
@@ -747,6 +751,9 @@ body.modal-open {
 }
 .wizard .container {
   min-height: 769px;
+}
+.wizard .attention {
+  margin-bottom: 10px;
 }
 
 .bottom-image {
@@ -1358,7 +1365,7 @@ body.modal-open {
   margin: 40px 0;
 }
 
-.dotted-link, .dotted-link:hover {
+.dotted-link, .dotted-link:hover, .dotted-link:active, .dotted-link:focus {
   color: #e70500;
   border-bottom: 1px dashed #e70500;
   cursor: pointer;
@@ -1367,7 +1374,6 @@ body.modal-open {
 
 .label-tip {
   font-style: italic;
-  padding-left: 5px;
   font-size: 12px;
   color: #8a8a8a;
   margin-bottom: 3px;
@@ -2214,7 +2220,7 @@ label.t-error {
 }
 .order-show-catalog .submit-cell .round-link, .order-show-catalog .submit-cell .title-simple a, .title-simple .order-show-catalog .submit-cell a, .order-show-catalog .submit-cell .title a, .title .order-show-catalog .submit-cell a, .order-show-catalog .submit-cell .links-set a, .links-set .order-show-catalog .submit-cell a {
   position: absolute;
-  right: 15px;
+  right: 0;
   bottom: 0;
 }
 .order-show-catalog .order-info .number {
@@ -2227,6 +2233,18 @@ label.t-error {
 .order-show-catalog .order-info .status {
   text-align: right;
   font-size: 20px;
+}
+.order-show-catalog .edit-cell {
+  position: relative;
+}
+.order-show-catalog .edit-cell .edit-link {
+  display: none;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.order-show-catalog .edit-cell:hover .edit-link {
+  display: block;
 }
 
 .grid-block.categories .item {

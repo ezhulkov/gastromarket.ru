@@ -83,7 +83,7 @@
     position: relative
     .round-link
       position: absolute
-      right: 15px
+      right: 0
       bottom: 0
   .order-info
     .number
@@ -94,3 +94,13 @@
     .status
       text-align: right
       font-size: $f20px
+  .edit-cell
+    position: relative
+    .edit-link
+      display: none
+      position: absolute
+      right: 0
+      bottom: 0
+    &:hover
+      .edit-link
+        display: block

@@ -39,6 +39,9 @@ public class CatalogEntity extends AltIdBaseEntity {
     private String description;
 
     @Column
+    private String cancellation;
+
+    @Column
     private String delivery;
 
     @Column
@@ -64,6 +67,9 @@ public class CatalogEntity extends AltIdBaseEntity {
 
     @Column(name = "basket_min")
     private Integer basketMin = 0;
+
+    @Column(name = "prepayment")
+    private Integer prepayment = 10;
 
     @Column
     private Date date = new Date(System.currentTimeMillis());
@@ -239,6 +245,26 @@ public class CatalogEntity extends AltIdBaseEntity {
 
     public void setOrderBadge(Integer orderBadge) {
         this.orderBadge = orderBadge;
+    }
+
+    public String getCancellation() {
+        return cancellation;
+    }
+
+    public String getCancellationRaw() {
+        return ((String) ObjectUtils.defaultIfNull(cancellation, "")).replaceAll("\\n", "<br/>");
+    }
+
+    public void setCancellation(final String cancellation) {
+        this.cancellation = cancellation;
+    }
+
+    public Integer getPrepayment() {
+        return prepayment;
+    }
+
+    public void setPrepayment(final Integer prepayment) {
+        this.prepayment = prepayment;
     }
 
     public String getDescriptionRaw() {

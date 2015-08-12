@@ -714,4 +714,14 @@
                 constraintName="order_cat_fk" referencedTableName="catalog" referencedColumnNames="id" onDelete="CASCADE"/>
     </changeSet>
 
+    <changeSet id="56" author="ezhulkov">
+        <addColumn tableName="catalog">
+            <column name="cancellation" type="text"/>
+            <column name="prepayment" type="java.sql.Types.INTEGER"/>
+        </addColumn>
+        <sql>
+            update catalog set prepayment=10 where prepayment is null;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

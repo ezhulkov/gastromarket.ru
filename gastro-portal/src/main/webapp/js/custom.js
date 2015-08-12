@@ -51,6 +51,7 @@ jQuery(document).ready(function () {
     initControls();
 });
 function initControls() {
+    initMobilePhone();
     initDatePicker();
     initToolTip();
     initPopover();
@@ -68,6 +69,15 @@ function initDatePicker() {
         autoclose: true,
         todayHighlight: true,
         autoPlaceholder: false
+    });
+}
+function initMobilePhone() {
+    jQuery(document).ready(function () {
+        jQuery(".mobile-phone").intlTelInput({
+            onlyCountries: ["ru"],
+            defaultCountry: "ru",
+            utilsScript: "/js/intlTelInputUtils.min.js"
+        });
     });
 }
 function initToolTip() {

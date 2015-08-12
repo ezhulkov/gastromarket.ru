@@ -131,4 +131,12 @@ public class Index extends AbstractCatalogPage {
         return getMessages().get("desc.label.nologo." + catalog.getType().name().toLowerCase());
     }
 
+    public String getBasketMinText() {
+        return getMessages().format("basket.min.text", catalog.getBasketMin());
+    }
+
+    public String getPrepaymentText() {
+        return getMessages().format("prepayment.text", catalog.getPrepayment());
+    }
+
 }

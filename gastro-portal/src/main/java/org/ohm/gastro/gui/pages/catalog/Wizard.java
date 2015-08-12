@@ -43,8 +43,11 @@ public class Wizard extends AbstractCatalogPage {
     @Component
     private Form wizardForm2;
 
-    @Component(id = "fullName", parameters = {"value=authenticatedUser?.fullName", "validate=maxlength=64"})
+    @Component(id = "fullName", parameters = {"value=authenticatedUser?.fullName", "validate=maxlength=64,required"})
     private TextField fNameField;
+
+    @Component(id = "mobilePhone", parameters = {"value=authenticatedUser?.mobilePhone", "validate=maxlength=64,required"})
+    private TextField mobfNameField;
 
     public Object onActivate(String pid) {
         catalog = getCatalogService().findCatalog(pid);
@@ -86,6 +89,10 @@ public class Wizard extends AbstractCatalogPage {
         catalog.setWizardStep(Math.min(catalog.getWizardStep() + 1, catalog.getMaxWizardStep()));
         getCatalogService().saveCatalog(catalog);
         getUserService().saveUser(getAuthenticatedUser());
+    }
+
+    public void onPrepareFromWizardForm2() {
+        if (catalog.getPrepayment() == null || catalog.getPrepayment() < 10) catalog.setPrepayment(10);
     }
 
     public void onSubmitFromWizardForm2() {

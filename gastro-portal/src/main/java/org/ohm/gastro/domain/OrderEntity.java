@@ -25,7 +25,7 @@ import java.util.List;
 public class OrderEntity extends AbstractBaseEntity {
 
     public enum Status {
-        NEW, ACTIVE, CONFIRMED, PAID, DONE, CLOSED, CANCELLED
+        NEW, ACTIVE, CONFIRMED, PAID, PROGRESS, DONE, CLOSED, CANCELLED
     }
 
     @Column(name = "order_number")

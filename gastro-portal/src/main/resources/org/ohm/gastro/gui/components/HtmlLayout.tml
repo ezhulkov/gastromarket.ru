@@ -40,7 +40,7 @@
     <script src="/js/bootstrap-datepicker.ru.min.js" charset="UTF-8"></script>
     <script src="/js/intlTelInput.min.js"></script>
     <script src="/js/custom.js"></script>
-    <script type="text/javascript" src="//vk.com/js/api/openapi.js?116"></script>
+    <!--<script type="text/javascript" src="//vk.com/js/api/openapi.js?116"></script>-->
     <script type="text/template" id="qq-template">
         <div class="qq-uploader-selector qq-uploader">
             <div class="qq-upload-button-selector"/>
@@ -50,7 +50,7 @@
         </div>
     </script>
     <script type="text/javascript">
-      VK.init({apiId: 4721365, onlyWidgets: true});
+//      VK.init({apiId: 4721365, onlyWidgets: true});
     </script>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
