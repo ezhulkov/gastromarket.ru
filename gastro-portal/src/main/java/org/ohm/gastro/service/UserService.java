@@ -32,8 +32,6 @@ public interface UserService extends UserDetailsService, ImageUploaderService<Us
 
     void signupSocial(UserEntity userProfile);
 
-    int getUserBonuses(UserEntity user);
-
     void afterSuccessfulLogin(@Nonnull UserDetails user);
 
     void importUsers(String csvUsers);

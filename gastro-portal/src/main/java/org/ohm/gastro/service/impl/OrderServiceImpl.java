@@ -1,7 +1,7 @@
 package org.ohm.gastro.service.impl;
 
-import com.google.common.collect.Lists;
 import org.ohm.gastro.domain.CatalogEntity;
+import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.OrderProductEntity;
@@ -105,14 +105,12 @@ public class OrderServiceImpl implements OrderService, Logging {
 
     @Override
     public List<OrderEntity> findAllOrders(final CatalogEntity catalog) {
-//        return orderRepository.findAllByCatalog(catalog, null); todo
-        return Lists.newArrayList();
+        return orderRepository.findAllByCatalog(catalog);
     }
 
     @Override
     public List<OrderEntity> findAllOrders(final CatalogEntity catalog, final Status status) {
-//        return orderRepository.findAllByCatalog(catalog, status); todo
-        return Lists.newArrayList();
+        return orderRepository.findAllByCatalogAndStatus(catalog, status);
     }
 
     @Override
@@ -147,11 +145,27 @@ public class OrderServiceImpl implements OrderService, Logging {
     @Override
     @RatingModifier
     public void changeStatus(final OrderEntity order, final Status status, @RatingTarget final CatalogEntity catalog) {
-
+        if (status == Status.CLOSED) {
+            ratingService.registerEvent(Type.ORDER_DONE, catalog, order.getOrderTotalPrice());
+        }
+        order.setStatus(status);
+        orderRepository.save(order);
+//        final Map<String, Object> params = new HashMap<String, Object>() {
+//            {
+//                put("ordernumber", order.getOrderNumber());
+//                put("catalog", catalog);
+//                put("status", status);
+//            }
+//        };
+//        mailService.sendAdminMessage(MailService.EDIT_ORDER, params);
+//        if (order.getCustomer().getEmail() != null) {
+//            mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.EDIT_ORDER, params);
+//        }
     }
 
     @Override
     public List<OrderProductEntity> findAllItems(final OrderEntity order) {
         return orderProductRepository.findAllByOrder(order);
     }
+
 }

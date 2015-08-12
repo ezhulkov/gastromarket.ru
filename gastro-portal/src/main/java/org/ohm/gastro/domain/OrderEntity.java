@@ -31,11 +31,11 @@ public class OrderEntity extends AbstractBaseEntity {
                new Status[]{}),
         DONE(new Status[]{},
              new Status[]{Status.CLOSED}),
-        PROGRESS(new Status[]{},
-                 new Status[]{Status.DONE}),
-        PAID(new Status[]{},
-             new Status[]{Status.PROGRESS}),
-        CONFIRMED(new Status[]{Status.CANCELLED, Status.PAID},
+        PROGRESS(new Status[]{Status.CANCELLED},
+                 new Status[]{Status.DONE, Status.CANCELLED}),
+        PAID(new Status[]{Status.CANCELLED},
+             new Status[]{Status.PROGRESS, Status.CANCELLED}),
+        CONFIRMED(new Status[]{Status.CANCELLED},
                   new Status[]{Status.CANCELLED}),
         ACTIVE(new Status[]{Status.CANCELLED},
                new Status[]{Status.CONFIRMED, Status.CANCELLED}),
@@ -189,8 +189,15 @@ public class OrderEntity extends AbstractBaseEntity {
     }
 
     public Status getMetaStatus() {
-        if (status == Status.NEW || status == Status.CLOSED) return status;
-        return Status.ACTIVE;
+        switch (status) {
+            case NEW:
+                return Status.NEW;
+            case CANCELLED:
+            case CLOSED:
+                return Status.CLOSED;
+            default:
+                return Status.ACTIVE;
+        }
     }
 
 }

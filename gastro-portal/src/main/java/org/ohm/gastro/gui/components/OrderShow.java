@@ -56,6 +56,9 @@ public class OrderShow extends BaseComponent {
     @Inject
     private Block clientEditBlock;
 
+    @Inject
+    private Block clientPaymentBlock;
+
     @Property
     private int index;
 
@@ -211,7 +214,7 @@ public class OrderShow extends BaseComponent {
     }
 
     public boolean isClientChangeAllowed() {
-        return order != null && order.getStatus().getClientGraph().length > 0;
+        return !isCook() && order != null && getStatuses().length > 0;
     }
 
     public String getStatusTitle() {
@@ -222,8 +225,15 @@ public class OrderShow extends BaseComponent {
         return getMessages().format("order.action." + status);
     }
 
+    public Status[] getStatuses() {
+        return isCook() ? order.getStatus().getCookGraph() : order.getStatus().getClientGraph();
+    }
+
     public Block getEditOrderBlock() {
-        if (!isCook() && isClientChangeAllowed()) return clientEditBlock;
+        if (!isCook()) {
+            if (order.getStatus() == Status.CONFIRMED) return clientPaymentBlock;
+            if (isClientChangeAllowed()) return clientEditBlock;
+        }
         return null;
     }
 
@@ -240,11 +250,12 @@ public class OrderShow extends BaseComponent {
     public Block onActionFromStatusChange(Long oId, Status status) {
         this.order = getOrderService().findOrder(oId);
         this.catalog = order.getCatalog();
+        getOrderService().changeStatus(order, status, catalog);
         return orderShowCatalogBlock;
     }
 
     public boolean isHasCancel() {
-        return Arrays.asList(order.getStatus().getClientGraph()).contains(Status.CANCELLED);
+        return Arrays.asList(getStatuses()).contains(Status.CANCELLED);
     }
 
 }

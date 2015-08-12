@@ -78,13 +78,21 @@
       font-size: 30px
       float: right
       vertical-align: top
-  .submit-cell
+  .submit-row
     min-height: 50px
     position: relative
     .round-link
       position: absolute
       right: 0
       bottom: 0
+    .edit-link
+      display: none
+      position: absolute
+      right: 0
+      bottom: 0
+    &:hover
+      .edit-link
+        display: block
   .order-info
     .number
       text-align: right
@@ -94,16 +102,6 @@
     .status
       text-align: right
       font-size: $f20px
-  .edit-cell
-    position: relative
-    .edit-link
-      display: none
-      position: absolute
-      right: 0
-      bottom: 0
-    &:hover
-      .edit-link
-        display: block
   .status-change
     padding: 10px 0
     font-size: 20px

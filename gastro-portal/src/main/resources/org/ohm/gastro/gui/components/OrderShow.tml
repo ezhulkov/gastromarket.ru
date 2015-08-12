@@ -36,11 +36,11 @@
                                                 <a class="modal-close" data-dismiss="modal"></a>
                                             </div>
                                             <div class="modal-body">
-                                                <t:loop source="order.status.clientGraph" value="status" t:formState="NONE">
+                                                <t:loop source="statuses" value="status" t:formState="NONE">
                                                     <t:if test="statusAction">
                                                         <div class="status-change">
                                                             <t:actionlink t:id="statusChange" t:context="[order.id,status]" t:zone="${orderShowCatalogZoneId}" class="dotted-link">${statusAction}</t:actionlink>
-                                                            <span>${statusTitle}</span>
+                                                            <span> &mdash; ${statusTitle}</span>
                                                         </div>
                                                     </t:if>
                                                 </t:loop>
@@ -110,7 +110,7 @@
                     </div>
                 </div>
                 <t:if test="full">
-                    <div class="submit-cell">
+                    <div class="submit-row">
                         <t:if test="authenticated">
                             <div class="form-group">
                                 <div class="col-sm-8">
@@ -179,7 +179,7 @@
             </t:if>
         </t:form>
         <t:if test="edit">
-            <div class="edit-cell form form-horizontal">
+            <div class="submit-row form form-horizontal">
                 <div class="form-group f16px">
                     <div class="col-sm-8">
                         <span class="f20px">Комментарии к заказу:</span><br/>
@@ -279,6 +279,9 @@
                     <script>
                         jQuery("body").removeClass("modal-open");
                     </script>
+                </t:block>
+                <t:block t:id="clientPaymentBlock">
+                    <a class="round-link">Внести предоплату <span/></a>
                 </t:block>
             </div>
         </t:if>

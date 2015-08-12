@@ -66,9 +66,6 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
     @Column(name = "login_date")
     private Date loginDate;
 
-    @Column
-    private Integer bonus = 0;
-
     @Column(name = "avatar_url")
     private String avatarUrl = "/img/avatar-stub-210x210.png";
 
@@ -222,14 +219,6 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
     public void setMobilePhone(String mobilePhone) {
         this.mobilePhone = mobilePhone;
-    }
-
-    public Integer getBonus() {
-        return bonus;
-    }
-
-    public void setBonus(Integer bonus) {
-        this.bonus = bonus;
     }
 
     public String getAvatarUrl() {

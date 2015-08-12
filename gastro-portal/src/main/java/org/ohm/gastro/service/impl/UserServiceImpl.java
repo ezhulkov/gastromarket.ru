@@ -220,19 +220,6 @@ public class UserServiceImpl implements UserService, Logging {
     }
 
     @Override
-    public int getUserBonuses(final UserEntity user) {
-        if (user.getType() == Type.USER) {
-//            final Integer userBonus = user.getBonus(); todo
-//            final Integer usedBonus = orderRepository.findAllByCatalogAndCustomer(user, null).stream()
-//                    .filter(t -> t.getStatus() == OrderEntity.Status.NEW || t.getStatus() == OrderEntity.Status.ACCEPTED)
-//                    .collect(Collectors.summingInt(OrderEntity::getUsedBonuses));
-//            return Math.max(0, userBonus - usedBonus);
-            return 0;
-        }
-        return 0;
-    }
-
-    @Override
     @RatingModifier
     public void afterSuccessfulLogin(@Nonnull @RatingTarget final UserDetails userDetails) {
 

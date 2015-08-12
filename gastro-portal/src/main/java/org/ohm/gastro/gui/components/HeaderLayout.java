@@ -46,21 +46,12 @@ public class HeaderLayout extends BaseComponent {
         return getDeclInfo("cart", getShoppingCart().getCatalogs().size());
     }
 
-    public String getBonusesMessage() {
-        final int bonuses = getBonuses();
-        return getDeclInfo("bonus", bonuses);
-    }
-
     public List<CatalogEntity> getCatalogs() {
         return getCatalogService().findAllCatalogs(getAuthenticatedUserOpt().orElse(null));
     }
 
     public String getHidden() {
         return isCook() ? "hidden" : "";
-    }
-
-    public int getBonuses() {
-        return getAuthenticatedUserOpt().map(t -> getUserService().getUserBonuses(t)).orElse(0);
     }
 
     public String getAvatarUrl() {

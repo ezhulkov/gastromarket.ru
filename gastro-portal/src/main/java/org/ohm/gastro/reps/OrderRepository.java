@@ -1,6 +1,8 @@
 package org.ohm.gastro.reps;
 
+import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
+import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,22 +23,10 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     List<OrderEntity> findAllByCustomer(@Param("customer") UserEntity customer);
 
-//    @Query("select p from OrderEntity p " +
-//            "join p.products pp " +
-//            "join pp.entity en " +
-//            "join en.catalog c " +
-//            "where p.customer=:customer and (c=:catalog or :catalog is null) " +
-//            "order by p.date desc")
-//    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-//    List<OrderEntity> findAllByCatalogAndCustomer(@Param("customer") UserEntity customer, @Param("catalog") CatalogEntity catalog);
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    List<OrderEntity> findAllByCatalogAndStatus(@Param("catalog") CatalogEntity catalog, @Param("status") Status status);
 
-//    @Query("select distinct p from OrderEntity p " +  todo
-//            "join p.products pp " +
-//            "join pp.entity pr " +
-//            "join pr.catalog c " +
-//            "where (c=:catalog or :catalog is null) and (p.status=:status or :status is null) " +
-//            "order by p.date desc")
-//    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-//    List<OrderEntity> findAllByCatalog(@Param("catalog") CatalogEntity catalog, @Param("status") OrderEntity.Status status);
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    List<OrderEntity> findAllByCatalog(@Param("catalog") CatalogEntity catalog);
 
 }
