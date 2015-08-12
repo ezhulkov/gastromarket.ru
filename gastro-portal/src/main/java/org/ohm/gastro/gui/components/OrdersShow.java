@@ -32,7 +32,14 @@ public class OrdersShow extends BaseComponent {
     }
 
     public List<OrderEntity> getOrders() {
-        List<OrderEntity> orders = getOrderService().findAllOrders(getAuthenticatedUser(), null);
+        final List<OrderEntity> orders;
+        if (isCook()) {
+            orders = getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream()
+                    .flatMap(t -> getOrderService().findAllOrders(t).stream())
+                    .collect(Collectors.toList());
+        } else {
+            orders = getOrderService().findAllOrders(getAuthenticatedUser(), null);
+        }
         return orders.stream().filter(t -> t.getMetaStatus() == status).collect(Collectors.toList());
     }
 

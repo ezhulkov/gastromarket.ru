@@ -214,7 +214,7 @@ public class OrderShow extends BaseComponent {
     }
 
     public boolean isClientChangeAllowed() {
-        return !isCook() && order != null && getStatuses().length > 0;
+        return order != null && getStatuses().length > 0;
     }
 
     public String getStatusTitle() {

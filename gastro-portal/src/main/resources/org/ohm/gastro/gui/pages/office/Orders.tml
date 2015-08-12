@@ -5,9 +5,11 @@
             <h1><span>Заказы</span></h1>
         </div>
         <ul class="office-menu">
-            <li id="new-orders">
-                <t:pagelink page="office/orders" t:context="literal:NEW">Новые</t:pagelink>
-            </li>
+            <t:unless test="cook">
+                <li id="new-orders">
+                    <t:pagelink page="office/orders" t:context="literal:NEW">Новые</t:pagelink>
+                </li>
+            </t:unless>
             <li id="active-orders">
                 <t:pagelink page="office/orders" t:context="literal:ACTIVE">Активные</t:pagelink>
             </li>
