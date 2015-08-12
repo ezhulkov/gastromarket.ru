@@ -3,7 +3,7 @@
         <t:delegate to="orderShowCatalogBlock"/>
     </t:zone>
     <t:block t:id="orderShowCatalogBlock">
-        <t:form t:id="orderForm" t:context="formContext" t:autofocus="false" t:clientValidation="none" class="form form-horizontal" role="form">
+        <div class="form form-horizontal">
             <div class="form-group catalog">
                 <div class="col-sm-2 text-right">
                     <t:pagelink target="_blank" page="catalog/index" context="catalog.altId">
@@ -22,7 +22,42 @@
                             <t:pagelink page="office/order" t:context="order.id">№ ${order.orderNumber}</t:pagelink>
                         </div>
                         <div class="status">
-                            Статус заказа:&nbsp;&nbsp;<a href="#" class="dotted-link f20px">${orderStatusText}</a>
+                            Статус заказа:&nbsp;
+                            <t:if test="clientChangeAllowed">
+                                <a href="#order_status_${order.id}" class="dotted-link f20px" data-toggle="modal" data-target="#order_status_${order.id}">${orderStatusText}</a>
+
+                                <div class="modal fade" id="order_status_${order.id}" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog application">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="title">
+                                                    <h1><span>Изменение статуса заказа</span></h1>
+                                                </div>
+                                                <a class="modal-close" data-dismiss="modal"></a>
+                                            </div>
+                                            <div class="modal-body">
+                                                <t:loop source="order.status.clientGraph" value="status" t:formState="NONE">
+                                                    <t:if test="statusAction">
+                                                        <div class="status-change">
+                                                            <t:actionlink t:id="statusChange" t:context="[order.id,status]" t:zone="${orderShowCatalogZoneId}" class="dotted-link">${statusAction}</t:actionlink>
+                                                            <span>${statusTitle}</span>
+                                                        </div>
+                                                    </t:if>
+                                                </t:loop>
+                                                <t:if test="hasCancel">
+                                                    <div class="description gap">
+                                                        <div class="f18px">Условия отмены:</div>
+                                                        <t:outputraw value="catalog.cancellationRaw"/>
+                                                    </div>
+                                                </t:if>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <t:parameter name="else">
+                                    <span class="red-text">${orderStatusText}</span>
+                                </t:parameter>
+                            </t:if>
                         </div>
                     </t:if>
                 </div>
@@ -58,6 +93,8 @@
                     </div>
                 </t:parameter>
             </t:loop>
+        </div>
+        <t:form t:id="orderForm" t:context="formContext" t:autofocus="false" t:clientValidation="none" class="form form-horizontal" role="form">
             <t:if test="items">
                 <div class="form-group total">
                     <div class="col-sm-8">
@@ -245,5 +282,8 @@
                 </t:block>
             </div>
         </t:if>
+        <script>
+            jQuery("body").removeClass("modal-open");
+        </script>
     </t:block>
 </div>

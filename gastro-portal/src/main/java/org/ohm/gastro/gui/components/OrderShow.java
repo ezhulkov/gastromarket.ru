@@ -11,6 +11,7 @@ import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
+import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.OrderProductEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PurchaseEntity;
@@ -18,6 +19,7 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.office.Order;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -28,6 +30,9 @@ public class OrderShow extends BaseComponent {
     public enum Type {
         SHORT, FULL, EDIT
     }
+
+    @Property
+    private Status status;
 
     @Parameter
     @Property
@@ -202,18 +207,19 @@ public class OrderShow extends BaseComponent {
     }
 
     public String getOrderStatusText() {
-        return getMessages().format("order.status." + order.getStatus());
+        return getMessages().format("order.status." + order.getStatus()).toLowerCase();
     }
 
     public boolean isClientChangeAllowed() {
-        if (order == null) return false;
-        switch (order.getStatus()) {
-            case NEW:
-            case ACTIVE:
-                return true;
-            default:
-                return false;
-        }
+        return order != null && order.getStatus().getClientGraph().length > 0;
+    }
+
+    public String getStatusTitle() {
+        return getMessages().format("order.title." + status);
+    }
+
+    public String getStatusAction() {
+        return getMessages().format("order.action." + status);
     }
 
     public Block getEditOrderBlock() {
@@ -229,6 +235,16 @@ public class OrderShow extends BaseComponent {
     public Block onSuccessFromOrderDetailsForm(Long oId) {
         getOrderService().saveOrder(order);
         return orderShowCatalogBlock;
+    }
+
+    public Block onActionFromStatusChange(Long oId, Status status) {
+        this.order = getOrderService().findOrder(oId);
+        this.catalog = order.getCatalog();
+        return orderShowCatalogBlock;
+    }
+
+    public boolean isHasCancel() {
+        return Arrays.asList(order.getStatus().getClientGraph()).contains(Status.CANCELLED);
     }
 
 }

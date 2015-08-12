@@ -1320,6 +1320,9 @@ body.modal-open {
 .round-link:focus, .title-simple a:focus, .title a:focus, .links-set a:focus {
   color: #e70500;
 }
+.round-link:active, .title-simple a:active, .title a:active, .links-set a:active {
+  text-decoration: none;
+}
 .round-link span, .title-simple a span, .title a span, .links-set a span {
   margin-bottom: -4px;
   margin-left: 5px;
@@ -1370,6 +1373,9 @@ body.modal-open {
   border-bottom: 1px dashed #e70500;
   cursor: pointer;
   text-decoration: none;
+}
+.dotted-link:active, .dotted-link:hover:active, .dotted-link:active:active, .dotted-link:focus:active {
+  border-bottom: none;
 }
 
 .label-tip {
@@ -2245,6 +2251,20 @@ label.t-error {
 }
 .order-show-catalog .edit-cell:hover .edit-link {
   display: block;
+}
+.order-show-catalog .status-change {
+  padding: 10px 0;
+  font-size: 20px;
+}
+.order-show-catalog .status-change a {
+  font-size: 20px;
+}
+.order-show-catalog .status-change span {
+  float: right;
+  width: 400px;
+  font-size: 16px;
+  line-height: 30px;
+  font-style: italic;
 }
 
 .grid-block.categories .item {

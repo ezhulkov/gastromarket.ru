@@ -56,6 +56,8 @@
   margin-right: $gap
   &:focus
     color: $redTextColor
+  &:active
+    text-decoration: none
   span
     margin-bottom: -4px
     margin-left: 5px
@@ -104,6 +106,8 @@
   border-bottom: 1px dashed $redTextColor
   cursor: pointer
   text-decoration: none
+  &:active
+    border-bottom: none
 
 .label-tip
   font-style: italic
@@ -135,18 +139,3 @@ label.t-error
 
 .t-banner, .t-error-icon
   display: none !important
-
-//.ui-state-default
-//  margin: 5px
-//  width: 250px
-//  height: 480px
-//  border: 1px solid black
-//  float: left
-//  display: list-item
-//
-//
-//.ui-state-highlight
-//  @extend .ui-state-default
-//  border: 1px solid grey
-//
-//

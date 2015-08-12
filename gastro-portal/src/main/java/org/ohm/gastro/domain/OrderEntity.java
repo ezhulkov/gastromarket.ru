@@ -25,7 +25,40 @@ import java.util.List;
 public class OrderEntity extends AbstractBaseEntity {
 
     public enum Status {
-        NEW, ACTIVE, CONFIRMED, PAID, PROGRESS, DONE, CLOSED, CANCELLED
+        CANCELLED(new Status[]{},
+                  new Status[]{}),
+        CLOSED(new Status[]{},
+               new Status[]{}),
+        DONE(new Status[]{},
+             new Status[]{Status.CLOSED}),
+        PROGRESS(new Status[]{},
+                 new Status[]{Status.DONE}),
+        PAID(new Status[]{},
+             new Status[]{Status.PROGRESS}),
+        CONFIRMED(new Status[]{Status.CANCELLED, Status.PAID},
+                  new Status[]{Status.CANCELLED}),
+        ACTIVE(new Status[]{Status.CANCELLED},
+               new Status[]{Status.CONFIRMED, Status.CANCELLED}),
+        NEW(new Status[]{OrderEntity.Status.ACTIVE, OrderEntity.Status.CANCELLED},
+            new Status[]{});
+
+        private Status[] clientGraph;
+        private Status[] cookGraph;
+
+        Status(Status[] clientGraph, Status[] cookGraph) {
+            this.cookGraph = cookGraph;
+            this.clientGraph = clientGraph;
+
+        }
+
+        public Status[] getClientGraph() {
+            return clientGraph;
+        }
+
+        public Status[] getCookGraph() {
+            return cookGraph;
+        }
+
     }
 
     @Column(name = "order_number")
