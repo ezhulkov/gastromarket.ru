@@ -174,6 +174,10 @@ public class OrderShow extends BaseComponent {
         return type == Type.EDIT;
     }
 
+    public boolean isContactsAllowed() {
+        return isCook() && order.getStatus().getLevel() >= Status.PAID.getLevel();
+    }
+
     public String getItemPage() {
         if (item.getEntity().getType() == PurchaseEntity.Type.PRODUCT) return "/product/" + item.getEntity().getAltId();
         return "/catalog/offer/" + item.getEntity().getAltId();

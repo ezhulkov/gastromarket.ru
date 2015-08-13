@@ -25,30 +25,59 @@ import java.util.List;
 public class OrderEntity extends AbstractBaseEntity {
 
     public enum Status {
-        CANCELLED(new Status[]{},
-                  new Status[]{}),
-        CLOSED(new Status[]{},
-               new Status[]{}),
-        DONE(new Status[]{},
-             new Status[]{Status.CLOSED}),
-        PROGRESS(new Status[]{},
-                 new Status[]{Status.DONE, Status.CANCELLED}),
-        PAID(new Status[]{},
-             new Status[]{Status.PROGRESS, Status.CANCELLED}),
-        CONFIRMED(new Status[]{Status.CANCELLED},
-                  new Status[]{Status.CANCELLED}),
-        ACTIVE(new Status[]{Status.CANCELLED},
-               new Status[]{Status.CONFIRMED, Status.CANCELLED}),
-        NEW(new Status[]{OrderEntity.Status.ACTIVE, OrderEntity.Status.CANCELLED},
-            new Status[]{});
+        CANCELLED(
+                7,
+                new Status[]{},
+                new Status[]{}
+        ),
+        CLOSED(
+                6,
+                new Status[]{},
+                new Status[]{}
+        ),
+        DONE(
+                5,
+                new Status[]{},
+                new Status[]{Status.CLOSED}
+        ),
+        PROGRESS(
+                4,
+                new Status[]{},
+                new Status[]{Status.DONE, Status.CANCELLED}
+        ),
+        PAID(
+                3,
+                new Status[]{},
+                new Status[]{Status.PROGRESS, Status.CANCELLED}
+        ),
+        CONFIRMED(
+                2,
+                new Status[]{Status.CANCELLED},
+                new Status[]{Status.CANCELLED}
+        ),
+        ACTIVE(
+                1,
+                new Status[]{Status.CANCELLED},
+                new Status[]{Status.CONFIRMED, Status.CANCELLED}
+        ),
+        NEW(
+                0,
+                new Status[]{OrderEntity.Status.ACTIVE, OrderEntity.Status.CANCELLED},
+                new Status[]{}
+        );
 
-        private Status[] clientGraph;
-        private Status[] cookGraph;
+        private final int level;
+        private final Status[] clientGraph;
+        private final Status[] cookGraph;
 
-        Status(Status[] clientGraph, Status[] cookGraph) {
+        Status(int level, Status[] clientGraph, Status[] cookGraph) {
             this.cookGraph = cookGraph;
             this.clientGraph = clientGraph;
+            this.level = level;
+        }
 
+        public int getLevel() {
+            return level;
         }
 
         public Status[] getClientGraph() {

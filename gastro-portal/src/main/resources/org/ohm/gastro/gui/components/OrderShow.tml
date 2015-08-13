@@ -241,6 +241,19 @@
                         </div>
                     </div>
                 </t:if>
+                <t:if test="contactsAllowed">
+                    <div class="form-group f16px">
+                        <div class="col-sm-8">
+                            <span class="f20px">Контакты:</span><br/>
+
+                            <div>
+                                ${order.customer.fullName}<br/>
+                                ${order.customer.mobilePhone}<br/>
+                                ${order.customer.deliveryAddress}<br/>
+                            </div>
+                        </div>
+                    </div>
+                </t:if>
                 <t:delegate to="editOrderBlock"/>
                 <t:block t:id="clientEditBlock">
                     <a href="#order_edit_${order.id}" class="edit-link" data-toggle="modal" data-target="#order_edit_${order.id}">Редактировать</a>
