@@ -22,6 +22,10 @@ public class OrdersShow extends BaseComponent {
     private OrderEntity.Status status;
 
     @Property
+    @Parameter(allowNull = false, required = true)
+    private boolean privateOrders;
+
+    @Property
     private CatalogEntity catalog;
 
     @Property

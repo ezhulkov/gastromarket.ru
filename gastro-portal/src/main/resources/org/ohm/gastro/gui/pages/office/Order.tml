@@ -4,19 +4,7 @@
         <div class="title">
             <h1><span>Заказ №${order.orderNumber}</span></h1>
         </div>
-        <ul class="office-menu">
-            <t:unless test="cook">
-                <li id="new-orders">
-                    <t:pagelink page="office/orders" t:context="literal:NEW">Новые</t:pagelink>
-                </li>
-            </t:unless>
-            <li id="active-orders">
-                <t:pagelink page="office/orders" t:context="literal:ACTIVE">Активные</t:pagelink>
-            </li>
-            <li id="closed-orders">
-                <t:pagelink page="office/orders" t:context="literal:CLOSED">Закрытые</t:pagelink>
-            </li>
-        </ul>
+        <t:orderFilter status="order.metaStatus" privateOrders="privateOrders"/>
         <t:zone t:id="orderZone">
             <t:delegate to="orderBlock"/>
         </t:zone>
@@ -30,11 +18,8 @@
                     <p class="modal-text">В случае возникновения вопросов, пишите на <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет заказы" class="red-text">contacts@gastromarket.ru</a> или звоните по телефону +7 926 6712145.</p>
                 </div>
             </t:if>
-            <t:ordershow order="order" type="EDIT"/>
+            <t:orderShow order="order" type="EDIT" privateOrders="privateOrders"/>
         </t:block>
-        <script>
-            activate_menu('#${order.metaStatusString}-orders');
-        </script>
     </div>
 
 </t:htmllayout>

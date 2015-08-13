@@ -6,11 +6,10 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
+import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.Cart;
 import org.ohm.gastro.gui.pages.office.Orders;
-
-import java.util.List;
 
 /**
  * Created by ezhulkov on 23.08.14.
@@ -46,7 +45,7 @@ public class HeaderLayout extends BaseComponent {
         return getDeclInfo("cart", getShoppingCart().getCatalogs().size());
     }
 
-    public List<CatalogEntity> getCatalogs() {
+    public java.util.List getCatalogs() {
         return getCatalogService().findAllCatalogs(getAuthenticatedUserOpt().orElse(null));
     }
 
@@ -59,7 +58,9 @@ public class HeaderLayout extends BaseComponent {
     }
 
     public Link getCartLink() {
-        return isAuthenticated() ? getPageLinkSource().createPageRenderLink(Orders.class) : getPageLinkSource().createPageRenderLink(Cart.class);
+        return isAuthenticated() ?
+                getPageLinkSource().createPageRenderLinkWithContext(Orders.class, true, Status.NEW) :
+                getPageLinkSource().createPageRenderLink(Cart.class);
     }
 
 }

@@ -736,4 +736,13 @@
         </sql>
     </changeSet>
 
+    <changeSet id="58" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="type" type="text"/>
+        </addColumn>
+        <sql>
+            update orders set type='PRIVATE';
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

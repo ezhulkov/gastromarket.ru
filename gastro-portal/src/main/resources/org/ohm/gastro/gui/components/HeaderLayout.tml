@@ -6,7 +6,7 @@
             <t:if test="header">
                 <div class="pull-right">
                     <t:if test="cook">
-                        <t:pagelink page="office/orders" context="['ACTIVE']" class="header-block pic-holder orders">
+                        <t:pagelink page="office/orders" context="['true','ACTIVE']" class="header-block pic-holder orders">
                             <span/>
                             Заказы
                         </t:pagelink>
@@ -26,7 +26,7 @@
                                 </li>
                                 <t:if test="user">
                                     <li>
-                                        <t:pagelink page="office/orders">Мои заказы</t:pagelink>
+                                        <t:pagelink page="office/orders" context="['true','NEW']">Мои заказы</t:pagelink>
                                     </li>
                                 </t:if>
                                 <t:if test="cook">

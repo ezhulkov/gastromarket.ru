@@ -90,6 +90,14 @@ public class OrderEntity extends AbstractBaseEntity {
 
     }
 
+    public enum Type {
+        PUBLIC, PRIVATE
+    }
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Type type = Type.PRIVATE;
+
     @Column(name = "order_number")
     private String orderNumber;
 
@@ -217,6 +225,14 @@ public class OrderEntity extends AbstractBaseEntity {
         return getMetaStatus().name().toLowerCase();
     }
 
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(final Type type) {
+        this.type = type;
+    }
+
     public Status getMetaStatus() {
         switch (status) {
             case NEW:
@@ -227,6 +243,10 @@ public class OrderEntity extends AbstractBaseEntity {
             default:
                 return Status.ACTIVE;
         }
+    }
+
+    public boolean isAllowed(final UserEntity user) {
+        return user != null && (getCustomer().equals(user) || getCatalog().getUser().equals(user));
     }
 
 }

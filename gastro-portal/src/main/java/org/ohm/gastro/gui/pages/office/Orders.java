@@ -19,12 +19,16 @@ public class Orders extends BaseComponent {
     @Property
     private OrderEntity.Status status = Status.NEW;
 
-    public void onActivate(OrderEntity.Status status) {
+    @Property
+    private boolean privateOrders = false;
+
+    public void onActivate(boolean privateOrders, OrderEntity.Status status) {
         this.status = status;
+        this.privateOrders = privateOrders;
     }
 
     public Object[] onPassivate() {
-        return new Object[]{status};
+        return new Object[]{privateOrders, status};
     }
 
 }

@@ -4,35 +4,13 @@
         <div class="title">
             <h1><span>Заказы</span></h1>
         </div>
-        <ul class="office-menu">
-            <t:unless test="cook">
-                <li id="new-orders">
-                    <t:pagelink page="office/orders" t:context="literal:NEW">Новые</t:pagelink>
-                </li>
-            </t:unless>
-            <li id="active-orders">
-                <t:pagelink page="office/orders" t:context="literal:ACTIVE">Активные</t:pagelink>
-            </li>
-            <li id="closed-orders">
-                <t:pagelink page="office/orders" t:context="literal:CLOSED">Закрытые</t:pagelink>
-            </li>
-        </ul>
+        <t:orderFilter status="status" privateOrders="privateOrders"/>
         <t:zone t:id="ordersZone">
             <t:delegate to="ordersBlock"/>
         </t:zone>
         <t:block t:id="ordersBlock">
-            <t:ordersShow status="prop:status"/>
+            <t:ordersShow status="prop:status" privateOrders="privateOrders"/>
         </t:block>
-        <script>
-            activate_menu('#${status.name().toLowerCase()}-orders');
-            jQuery(document).ready(function () {
-                jQuery("#mobilePhone").intlTelInput({
-                    onlyCountries: ["ru"],
-                    defaultCountry: "ru",
-                    utilsScript: "/js/intlTelInputUtils.min.js"
-                });
-            });
-        </script>
     </div>
 
 </t:htmllayout>

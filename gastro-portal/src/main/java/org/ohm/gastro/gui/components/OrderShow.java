@@ -42,6 +42,10 @@ public class OrderShow extends BaseComponent {
     @Property
     private OrderEntity order;
 
+    @Property
+    @Parameter(allowNull = false, required = true)
+    private boolean privateOrders;
+
     @Parameter(defaultPrefix = BindingConstants.LITERAL)
     @Property
     private Type type = Type.SHORT;
@@ -49,9 +53,14 @@ public class OrderShow extends BaseComponent {
     @Property
     private OrderProductEntity item;
 
-    @Property
     @Inject
-    private Block orderShowCatalogBlock;
+    private Block privateOrderBlock;
+
+    @Inject
+    private Block publicOrderBlock;
+
+    @Inject
+    private Block deniedOrderBlock;
 
     @Inject
     private Block clientEditBlock;
@@ -131,7 +140,7 @@ public class OrderShow extends BaseComponent {
         } else {
             getOrderService().deleteProduct(oId, opId);
         }
-        return orderShowCatalogBlock;
+        return privateOrderBlock;
     }
 
     public String getProductUnit() {
@@ -204,7 +213,7 @@ public class OrderShow extends BaseComponent {
         if (order == null) {
             final OrderEntity order = getOrderService().placeOrder(preOrder);
             getShoppingCart().removeItems(items);
-            Link link = getPageLinkSource().createPageRenderLinkWithContext(Order.class, order.getId(), true);
+            final Link link = getPageLinkSource().createPageRenderLinkWithContext(Order.class, true, order.getId(), true);
             getResponse().sendRedirect(link);
         } else {
             getOrderService().saveOrder(order);
@@ -266,14 +275,14 @@ public class OrderShow extends BaseComponent {
 
     public Block onSuccessFromOrderDetailsForm(Long oId) {
         getOrderService().saveOrder(order);
-        return orderShowCatalogBlock;
+        return isTender() ? publicOrderBlock : privateOrderBlock;
     }
 
     public Block onActionFromStatusChange(Long oId, Status status) {
         this.order = getOrderService().findOrder(oId);
         this.catalog = order.getCatalog();
         getOrderService().changeStatus(order, status, catalog);
-        return orderShowCatalogBlock;
+        return privateOrderBlock;
     }
 
     public boolean isHasCancel() {
@@ -288,7 +297,7 @@ public class OrderShow extends BaseComponent {
         this.order = getOrderService().findOrder(oId);
         this.catalog = order.getCatalog();
         getOrderService().changeStatus(order, Status.PAID, catalog);
-        return orderShowCatalogBlock;
+        return privateOrderBlock;
     }
 
     public long getClientPosRating() {
@@ -297,6 +306,23 @@ public class OrderShow extends BaseComponent {
 
     public long getClientNegRating() {
         return getRatingService().findAllComments(order.getCustomer()).stream().filter(t -> t.getRating() < 0).count();
+    }
+
+    public boolean isPublic() {
+        return order != null && order.getType() == OrderEntity.Type.PUBLIC;
+    }
+
+    public boolean isTender() {
+        return order != null && order.getType() == OrderEntity.Type.PUBLIC && order.getCatalog() == null;
+    }
+
+    public Block getCurrentOrderBlock() {
+        if (isTender()) return publicOrderBlock;
+        if (isAuthenticated()) {
+            return order == null || order.isAllowed(getAuthenticatedUser()) ? privateOrderBlock : deniedOrderBlock;
+        } else {
+            return deniedOrderBlock;
+        }
     }
 
 }
