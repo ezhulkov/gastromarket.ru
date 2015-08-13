@@ -37,12 +37,16 @@ public class OrdersShow extends BaseComponent {
 
     public List<OrderEntity> getOrders() {
         final List<OrderEntity> orders;
-        if (isCook()) {
-            orders = getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream()
-                    .flatMap(t -> getOrderService().findAllOrders(t).stream())
-                    .collect(Collectors.toList());
+        if (privateOrders) {
+            if (isCook()) {
+                orders = getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream()
+                        .flatMap(t -> getOrderService().findAllOrders(t).stream())
+                        .collect(Collectors.toList());
+            } else {
+                orders = getOrderService().findAllOrders(getAuthenticatedUser(), null);
+            }
         } else {
-            orders = getOrderService().findAllOrders(getAuthenticatedUser(), null);
+            orders = getOrderService().findAllTenders();
         }
         return orders.stream().filter(t -> t.getMetaStatus() == status).sorted((o1, o2) -> o2.getDate().compareTo(o1.getDate())).collect(Collectors.toList());
     }

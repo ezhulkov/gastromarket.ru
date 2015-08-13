@@ -18,13 +18,19 @@ import java.util.List;
 public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
 
     @Query("select p from OrderEntity p " +
-            "where p.customer=:customer " +
+            "where p.customer=:customer and p.type=:type " +
             "order by p.date desc")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    List<OrderEntity> findAllByCustomer(@Param("customer") UserEntity customer);
+    List<OrderEntity> findAllByCustomerAndType(@Param("customer") UserEntity customer, @Param("type") OrderEntity.Type type);
 
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    List<OrderEntity> findAllByCatalogAndStatus(@Param("catalog") CatalogEntity catalog, @Param("status") Status status);
+    List<OrderEntity> findAllByType(@Param("type") OrderEntity.Type type);
+
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    List<OrderEntity> findAllByCatalogAndStatusAndType(@Param("catalog") CatalogEntity catalog, @Param("status") Status status, @Param("type") OrderEntity.Type type);
+
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    List<OrderEntity> findAllByCatalogAndType(@Param("catalog") CatalogEntity catalog, @Param("type") OrderEntity.Type type);
 
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     List<OrderEntity> findAllByCatalog(@Param("catalog") CatalogEntity catalog);

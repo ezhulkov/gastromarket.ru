@@ -33,4 +33,6 @@ public interface OrderService {
 
     void changeStatus(OrderEntity oneOrder, Status status, CatalogEntity catalog);
 
+    List<OrderEntity> findAllTenders();
+
 }

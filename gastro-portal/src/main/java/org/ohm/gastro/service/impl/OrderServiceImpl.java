@@ -100,17 +100,22 @@ public class OrderServiceImpl implements OrderService, Logging {
 
     @Override
     public List<OrderEntity> findAllOrders(final UserEntity customer, final CatalogEntity catalog) {
-        return orderRepository.findAllByCustomer(customer);
+        return orderRepository.findAllByCustomerAndType(customer, OrderEntity.Type.PRIVATE);
     }
 
     @Override
     public List<OrderEntity> findAllOrders(final CatalogEntity catalog) {
-        return orderRepository.findAllByCatalog(catalog);
+        return orderRepository.findAllByCatalogAndType(catalog, OrderEntity.Type.PRIVATE);
     }
 
     @Override
     public List<OrderEntity> findAllOrders(final CatalogEntity catalog, final Status status) {
-        return orderRepository.findAllByCatalogAndStatus(catalog, status);
+        return orderRepository.findAllByCatalogAndStatusAndType(catalog, status, OrderEntity.Type.PRIVATE);
+    }
+
+    @Override
+    public List<OrderEntity> findAllTenders() {
+        return orderRepository.findAllByType(OrderEntity.Type.PUBLIC);
     }
 
     @Override
