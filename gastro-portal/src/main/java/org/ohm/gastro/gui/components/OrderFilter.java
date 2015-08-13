@@ -18,4 +18,8 @@ public class OrderFilter extends BaseComponent {
     @Parameter(allowNull = false, required = true)
     private boolean privateOrders;
 
+    @Property
+    @Parameter(value = "false")
+    private boolean frontend;
+
 }
