@@ -5,9 +5,11 @@
             <h1><span>Заказ №${order.orderNumber}</span></h1>
         </div>
         <ul class="office-menu">
-            <li id="new-orders">
-                <t:pagelink page="office/orders" t:context="literal:NEW">Новые</t:pagelink>
-            </li>
+            <t:unless test="cook">
+                <li id="new-orders">
+                    <t:pagelink page="office/orders" t:context="literal:NEW">Новые</t:pagelink>
+                </li>
+            </t:unless>
             <li id="active-orders">
                 <t:pagelink page="office/orders" t:context="literal:ACTIVE">Активные</t:pagelink>
             </li>
@@ -21,8 +23,10 @@
         <t:block t:id="orderBlock">
             <t:if test="newOrder">
                 <h2 class="gap">Спасибо за заказ!</h2>
+
                 <div class="attention new-order">
                     <p class="modal-text">Мы отправили информацию на указанный адрес и в ближайшее время с Вами свяжется кулинар для уточнения деталей.</p>
+
                     <p class="modal-text">В случае возникновения вопросов, пишите на <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет заказы" class="red-text">contacts@gastromarket.ru</a> или звоните по телефону +7 926 6712145.</p>
                 </div>
             </t:if>

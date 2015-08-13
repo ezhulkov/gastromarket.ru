@@ -23,9 +23,8 @@ public class Order extends BaseComponent {
 
     public boolean onActivate(Long orderId, boolean newOrder) {
         this.order = getOrderService().findOrder(orderId);
-        this.newOrder = newOrder;
+        this.newOrder = !isCook() && newOrder;
         return true;
-
     }
 
     public boolean onActivate(Long orderId) {

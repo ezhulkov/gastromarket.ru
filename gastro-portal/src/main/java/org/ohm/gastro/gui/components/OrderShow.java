@@ -213,8 +213,12 @@ public class OrderShow extends BaseComponent {
         return getMessages().format("order.status." + order.getStatus()).toLowerCase();
     }
 
-    public boolean isClientChangeAllowed() {
+    public boolean isCanChangeState() {
         return order != null && getStatuses().length > 0;
+    }
+
+    public boolean isCanEdit() {
+        return !isCook() && (order == null || order.getStatus() == Status.ACTIVE || order.getStatus() == Status.NEW);
     }
 
     public String getStatusTitle() {
@@ -232,7 +236,7 @@ public class OrderShow extends BaseComponent {
     public Block getEditOrderBlock() {
         if (!isCook()) {
             if (order.getStatus() == Status.CONFIRMED) return clientPaymentBlock;
-            if (isClientChangeAllowed()) return clientEditBlock;
+            if (isCanEdit()) return clientEditBlock;
         }
         return null;
     }
@@ -256,6 +260,10 @@ public class OrderShow extends BaseComponent {
 
     public boolean isHasCancel() {
         return Arrays.asList(getStatuses()).contains(Status.CANCELLED);
+    }
+
+    public boolean isTotalEnough() {
+        return catalog.getBasketMin() == null || catalog.getBasketMin() <= getShoppingCart().getCatalogPrice(catalog);
     }
 
 }
