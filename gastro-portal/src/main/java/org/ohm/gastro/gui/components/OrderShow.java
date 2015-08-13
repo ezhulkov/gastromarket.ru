@@ -59,6 +59,12 @@ public class OrderShow extends BaseComponent {
     @Inject
     private Block clientPaymentBlock;
 
+    @Inject
+    private Block clientRateCook;
+
+    @Inject
+    private Block cookRateClient;
+
     @Property
     private int index;
 
@@ -206,7 +212,12 @@ public class OrderShow extends BaseComponent {
     }
 
     public String getPrepaymentText() {
-        return getMessages().format("prepayment.text", catalog.getPrepayment());
+        if (catalog.getPrepayment() != null) {
+            final float total = getTotal();
+            final float prepayment = catalog.getPrepayment();
+            return getMessages().format("prepayment.text", catalog.getPrepayment(), (int) Math.ceil(prepayment * total / 100));
+        }
+        return null;
     }
 
     public String getOrderStatusText() {
@@ -236,7 +247,10 @@ public class OrderShow extends BaseComponent {
     public Block getEditOrderBlock() {
         if (!isCook()) {
             if (order.getStatus() == Status.CONFIRMED) return clientPaymentBlock;
+            if (order.getStatus() == Status.CANCELLED || order.getStatus() == Status.CLOSED) return clientRateCook;
             if (isCanEdit()) return clientEditBlock;
+        } else {
+            if (order.getStatus() == Status.CANCELLED || order.getStatus() == Status.CLOSED) return cookRateClient;
         }
         return null;
     }
@@ -264,6 +278,13 @@ public class OrderShow extends BaseComponent {
 
     public boolean isTotalEnough() {
         return catalog.getBasketMin() == null || catalog.getBasketMin() <= getShoppingCart().getCatalogPrice(catalog);
+    }
+
+    public Block onActionFromPrepay(Long oId) {
+        this.order = getOrderService().findOrder(oId);
+        this.catalog = order.getCatalog();
+        getOrderService().changeStatus(order, Status.PAID, catalog);
+        return orderShowCatalogBlock;
     }
 
 }

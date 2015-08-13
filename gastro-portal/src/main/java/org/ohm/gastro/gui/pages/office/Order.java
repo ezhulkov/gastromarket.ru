@@ -32,7 +32,7 @@ public class Order extends BaseComponent {
     }
 
     public Object[] onPassivate() {
-        return new Object[]{order.getId(), newOrder};
+        return newOrder ? new Object[]{order.getId(), newOrder} : new Object[]{order.getId()};
     }
 
 }

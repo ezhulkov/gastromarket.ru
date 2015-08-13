@@ -22,10 +22,11 @@ public interface RatingService {
 
     List<LogEntity> findEvents(UserEntity user, Date dateFrom, Type type);
 
-    void rateCatalog(final CatalogEntity catalog, final String comment, final int rating, final UserEntity user);
+    void rateCatalog(CatalogEntity catalog, String comment, int rating, UserEntity author);
 
-    void updateRating(final CatalogEntity catalog);
+    void rateClient(UserEntity user, String comment, int rating, UserEntity author);
+
+    void updateRating(CatalogEntity catalog);
 
     List<CommentEntity> findAllComments(CatalogEntity user);
-
 }

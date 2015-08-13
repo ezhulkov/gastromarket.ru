@@ -130,17 +130,29 @@ public class RatingServiceImpl implements RatingService, Logging {
 
     @Override
     @RatingModifier
-    public void rateCatalog(@RatingTarget final CatalogEntity catalog, final String text, final int rating, final UserEntity user) {
-
-        if (StringUtils.isEmpty(text) || user == null) return;
-        CommentEntity commentEntity = new CommentEntity();
+    public void rateCatalog(@RatingTarget final CatalogEntity catalog, final String comment, final int rating, final UserEntity author) {
+        if (StringUtils.isEmpty(comment) || author == null) return;
+        final CommentEntity commentEntity = new CommentEntity();
+        commentEntity.setType(CommentEntity.Type.CATALOG);
         commentEntity.setCatalog(catalog);
-        commentEntity.setAuthor(user);
-        commentEntity.setText(text);
+        commentEntity.setAuthor(author);
+        commentEntity.setText(comment);
         commentEntity.setDate(new Date());
         commentEntity.setRating(rating);
         commentRepository.save(commentEntity);
+    }
 
+    @Override
+    public void rateClient(final UserEntity user, final String comment, final int rating, final UserEntity author) {
+        if (StringUtils.isEmpty(comment) || user == null) return;
+        final CommentEntity commentEntity = new CommentEntity();
+        commentEntity.setType(CommentEntity.Type.CUSTOMER);
+        commentEntity.setUser(user);
+        commentEntity.setAuthor(user);
+        commentEntity.setText(comment);
+        commentEntity.setDate(new Date());
+        commentEntity.setRating(rating);
+        commentRepository.save(commentEntity);
     }
 
     @Override

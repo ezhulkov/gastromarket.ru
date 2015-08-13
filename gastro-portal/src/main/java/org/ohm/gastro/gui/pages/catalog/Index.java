@@ -31,12 +31,6 @@ public class Index extends AbstractCatalogPage {
     @Property
     private OfferEntity offer;
 
-    @Property
-    private String rateComment;
-
-    @Property
-    private boolean opinion = true;
-
     @Inject
     @Property
     private Block catalogFormBlock;
@@ -77,10 +71,6 @@ public class Index extends AbstractCatalogPage {
                 .orElse(0) > 0;
     }
 
-    public void onSuccessFromRateForm() {
-        getRatingService().rateCatalog(catalog, rateComment, opinion ? 1 : -1, getAuthenticatedUserOpt().orElse(null));
-    }
-
     public String getProductsCount() {
         return getDeclInfo("products", getProductService().findProductsForFrontendCount(catalog));
     }
@@ -94,14 +84,6 @@ public class Index extends AbstractCatalogPage {
                 .map(PropertyValueEntity::getName)
                 .distinct()
                 .collect(Collectors.joining(", "));
-    }
-
-    public boolean getLike() {
-        return true;
-    }
-
-    public boolean getDislike() {
-        return false;
     }
 
     public String getMedActiveClass() {
@@ -136,7 +118,7 @@ public class Index extends AbstractCatalogPage {
     }
 
     public String getPrepaymentText() {
-        return getMessages().format("prepayment.text", catalog.getPrepayment());
+        return getMessages().format("prepayment.text2", catalog.getPrepayment());
     }
 
 }
