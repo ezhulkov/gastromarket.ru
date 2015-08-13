@@ -28,5 +28,8 @@ public interface RatingService {
 
     void updateRating(CatalogEntity catalog);
 
-    List<CommentEntity> findAllComments(CatalogEntity user);
+    List<CommentEntity> findAllComments(CatalogEntity catalog);
+
+    List<CommentEntity> findAllComments(UserEntity customer);
+
 }

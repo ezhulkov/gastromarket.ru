@@ -291,4 +291,12 @@ public class OrderShow extends BaseComponent {
         return orderShowCatalogBlock;
     }
 
+    public long getClientPosRating() {
+        return getRatingService().findAllComments(order.getCustomer()).stream().filter(t -> t.getRating() > 0).count();
+    }
+
+    public long getClientNegRating() {
+        return getRatingService().findAllComments(order.getCustomer()).stream().filter(t -> t.getRating() < 0).count();
+    }
+
 }

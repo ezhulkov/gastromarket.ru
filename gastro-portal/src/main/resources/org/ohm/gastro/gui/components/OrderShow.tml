@@ -248,6 +248,7 @@
 
                             <div>
                                 ${order.customer.fullName}<br/>
+                                Отзывы +${clientPosRating}/-${clientNegRating}<br/>
                                 ${order.customer.mobilePhone}<br/>
                                 ${order.customer.deliveryAddress}<br/>
                             </div>
