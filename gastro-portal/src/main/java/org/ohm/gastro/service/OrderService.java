@@ -23,16 +23,18 @@ public interface OrderService {
 
     List<OrderProductEntity> findAllItems(OrderEntity order);
 
-    int getBonuses(int price);
-
     OrderEntity findOrder(Long id);
 
-    void saveOrder(OrderEntity order);
+    void saveOrder(OrderEntity order, final UserEntity caller);
 
-    void deleteProduct(Long oid, Long pid);
+    void deleteProduct(Long oid, Long pid, final UserEntity caller);
 
-    void changeStatus(OrderEntity oneOrder, Status status, CatalogEntity catalog);
+    void changeStatus(OrderEntity oneOrder, Status status, CatalogEntity catalog, final UserEntity caller);
 
     List<OrderEntity> findAllTenders();
+
+    OrderEntity saveTender(OrderEntity tender, UserEntity caller);
+
+    OrderEntity placeTender(OrderEntity tender, UserEntity caller);
 
 }

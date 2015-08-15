@@ -745,4 +745,14 @@
         </sql>
     </changeSet>
 
+    <changeSet id="59" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="total_price" type="java.sql.Types.INTEGER" defaultValue="0"/>
+            <column name="person_count" type="java.sql.Types.INTEGER" defaultValue="0"/>
+        </addColumn>
+        <sql>
+            update orders set total_price=0,person_count=0;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

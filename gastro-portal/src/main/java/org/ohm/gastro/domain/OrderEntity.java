@@ -129,6 +129,12 @@ public class OrderEntity extends AbstractBaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private CatalogEntity catalog;
 
+    @Column(name = "total_price")
+    private Integer totalPrice;
+
+    @Column(name = "person_count")
+    private Integer personCount;
+
     public void setCatalog(final CatalogEntity catalog) {
         this.catalog = catalog;
     }
@@ -193,8 +199,20 @@ public class OrderEntity extends AbstractBaseEntity {
         return CommonsUtils.GUI_DATE_LONG.get().format(new Date(date.getTime()));
     }
 
-    public int getOrderTotalPrice() {
-        return products.stream().mapToInt(t -> t.getCount() * t.getPrice()).sum();
+    public Integer getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(final Integer totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public Integer getPersonCount() {
+        return personCount;
+    }
+
+    public void setPersonCount(final Integer personCount) {
+        this.personCount = personCount;
     }
 
     public CatalogEntity getCatalog() {

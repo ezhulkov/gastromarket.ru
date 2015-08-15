@@ -63,7 +63,9 @@ public class OrderServiceImpl implements OrderService, Logging {
             order.setComment(preOrder.getComment());
             order.setProducts(preOrder.getProducts());
             order.setStatus(Status.ACTIVE);
+            order.setType(OrderEntity.Type.PRIVATE);
             order.setCatalog(preOrder.getCatalog());
+            order.setTotalPrice(order.getProducts().stream().mapToInt(t -> t.getCount() * t.getPrice()).sum());
             orderRepository.save(order);
             order.getProducts().stream().forEach(p -> p.setOrder(order));
             orderProductRepository.save(order.getProducts());
@@ -119,8 +121,20 @@ public class OrderServiceImpl implements OrderService, Logging {
     }
 
     @Override
-    public int getBonuses(int price) {
-        return (int) Math.ceil(price * 0.03);
+    public OrderEntity placeTender(final OrderEntity tender, final UserEntity caller) {
+        if (tender == null || !tender.isAllowed(caller)) return tender;
+        tender.setDate(new Timestamp(System.currentTimeMillis()));
+        tender.setType(OrderEntity.Type.PUBLIC);
+        tender.setStatus(Status.ACTIVE);
+        orderRepository.save(tender);
+        tender.setOrderNumber(Long.toString(tender.getId()));
+        return tender;
+    }
+
+    @Override
+    public OrderEntity saveTender(final OrderEntity tender, final UserEntity caller) {
+        if (tender == null || !tender.isAllowed(caller)) return tender;
+        return orderRepository.save(tender);
     }
 
     @Override
@@ -129,14 +143,17 @@ public class OrderServiceImpl implements OrderService, Logging {
     }
 
     @Override
-    public void saveOrder(final OrderEntity order) {
+    public void saveOrder(final OrderEntity order, final UserEntity caller) {
+        if (order == null || !order.isAllowed(caller)) return;
+        order.setTotalPrice(order.getProducts().stream().mapToInt(t -> t.getCount() * t.getPrice()).sum());
         orderRepository.save(order);
     }
 
     @Override
-    public void deleteProduct(final Long oid, final Long pid) {
+    public void deleteProduct(final Long oid, final Long pid, final UserEntity caller) {
         final OrderEntity order = orderRepository.findOne(oid);
         final OrderProductEntity product = orderProductRepository.findOne(pid);
+        if (order == null || !order.isAllowed(caller)) return;
         product.setCount(product.getCount() - 1);
         if (product.getCount() <= 0) {
             order.getProducts().remove(product);
@@ -144,14 +161,16 @@ public class OrderServiceImpl implements OrderService, Logging {
         } else {
             orderProductRepository.save(product);
         }
+        order.setTotalPrice(order.getProducts().stream().mapToInt(t -> t.getCount() * t.getPrice()).sum());
         orderRepository.save(order);
     }
 
     @Override
     @RatingModifier
-    public void changeStatus(final OrderEntity order, final Status status, @RatingTarget final CatalogEntity catalog) {
+    public void changeStatus(final OrderEntity order, final Status status, @RatingTarget final CatalogEntity catalog, final UserEntity caller) {
+        if (order == null || !order.isAllowed(caller)) return;
         if (status == Status.CLOSED) {
-            ratingService.registerEvent(Type.ORDER_DONE, catalog, order.getOrderTotalPrice());
+            ratingService.registerEvent(Type.ORDER_DONE, catalog, order.getTotalPrice());
         }
         order.setStatus(status);
         orderRepository.save(order);

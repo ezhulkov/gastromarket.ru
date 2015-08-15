@@ -3,14 +3,22 @@
     <div class="container orders office">
         <div class="title">
             <h1><span>Все заявки</span></h1>
+            <t:if test="authenticated">
+                <a href="#tender-new" data-toggle="modal" class="round-link" data-target="#tender-new">Разместить заявку</a>
+                <t:parameter name="else">
+                    <a href="#tender_login" data-toggle="modal" class="login-link round-link" data-target="#tender_login">Разместить заявку</a>
+                </t:parameter>
+            </t:if>
         </div>
         <t:orderFilter status="status" privateOrders="false" frontend="true"/>
-        <t:zone t:id="ordersZone">
+        <t:zone t:id="tendersZone">
             <t:delegate to="ordersBlock"/>
         </t:zone>
         <t:block t:id="ordersBlock">
             <t:ordersShow status="prop:status" privateOrders="false"/>
         </t:block>
     </div>
+
+    <t:tenderAdd tendersBlock="ordersBlock" edit="false" modalId="tender-new"/>
 
 </t:htmllayout>

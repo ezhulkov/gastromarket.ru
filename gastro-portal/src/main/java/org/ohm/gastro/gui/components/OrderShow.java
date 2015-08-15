@@ -138,7 +138,7 @@ public class OrderShow extends BaseComponent {
         if (order == null) {
             getShoppingCart().removeItem(type, id, mid);
         } else {
-            getOrderService().deleteProduct(oId, opId);
+            getOrderService().deleteProduct(oId, opId, getAuthenticatedUser());
         }
         return privateOrderBlock;
     }
@@ -150,7 +150,7 @@ public class OrderShow extends BaseComponent {
     }
 
     public int getTotal() {
-        return order == null ? getShoppingCart().getCatalogPrice(catalog) : order.getOrderTotalPrice();
+        return order == null ? getShoppingCart().getCatalogPrice(catalog) : order.getTotalPrice();
     }
 
     public String getRowClass() {
@@ -216,7 +216,7 @@ public class OrderShow extends BaseComponent {
             final Link link = getPageLinkSource().createPageRenderLinkWithContext(Order.class, true, order.getId(), true);
             getResponse().sendRedirect(link);
         } else {
-            getOrderService().saveOrder(order);
+            getOrderService().saveOrder(order, getAuthenticatedUser());
         }
     }
 
@@ -274,14 +274,14 @@ public class OrderShow extends BaseComponent {
     }
 
     public Block onSuccessFromOrderDetailsForm(Long oId) {
-        getOrderService().saveOrder(order);
+        getOrderService().saveOrder(order, getAuthenticatedUser());
         return isTender() ? publicOrderBlock : privateOrderBlock;
     }
 
     public Block onActionFromStatusChange(Long oId, Status status) {
         this.order = getOrderService().findOrder(oId);
         this.catalog = order.getCatalog();
-        getOrderService().changeStatus(order, status, catalog);
+        getOrderService().changeStatus(order, status, catalog, getAuthenticatedUser());
         return privateOrderBlock;
     }
 
@@ -296,7 +296,7 @@ public class OrderShow extends BaseComponent {
     public Block onActionFromPrepay(Long oId) {
         this.order = getOrderService().findOrder(oId);
         this.catalog = order.getCatalog();
-        getOrderService().changeStatus(order, Status.PAID, catalog);
+        getOrderService().changeStatus(order, Status.PAID, catalog, getAuthenticatedUser());
         return privateOrderBlock;
     }
 
