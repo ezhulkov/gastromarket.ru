@@ -19,6 +19,6 @@
         </t:block>
     </div>
 
-    <t:tenderAdd tendersBlock="ordersBlock" edit="false" modalId="tender-new"/>
+    <t:tenderEdit tendersBlock="ordersBlock" edit="false"/>
 
 </t:htmllayout>

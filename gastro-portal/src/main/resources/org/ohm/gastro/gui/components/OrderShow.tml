@@ -172,6 +172,13 @@
                                                 </div>
                                                 <div class="col-sm-1"/>
                                             </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-1"/>
+                                                <div class="col-sm-10 label-tip">
+                                                    * - персональные данные скрыты для посетителей и кулинаров. <br/>Кулинар получит к ним доступ только внесении предоплаты.
+                                                </div>
+                                                <div class="col-sm-1"/>
+                                            </div>
                                             <div class="form-buttons">
                                                 <input class="btn btn-red" type="submit" value="Завершить оформление заказа"/>
                                             </div>
@@ -277,6 +284,26 @@
                                         <div class="form-group">
                                             <div class="col-sm-1"/>
                                             <div class="col-sm-10">
+                                                <t:label t:for="comment2">Комментарии к заказу:</t:label>
+                                                <input t:id="comment2" rows="5" class="form-control"/>
+                                            </div>
+                                            <div class="col-sm-1"/>
+                                        </div>
+                                        <div class="form-group ">
+                                            <div class="col-sm-1"/>
+                                            <div class="col-sm-5">
+                                                <t:label t:for="dueDate2">Дата исполнения:</t:label>
+                                                <input t:id="dueDate2" class="form-control date-picker" placeholder="дд/мм/гггг"/>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <t:label t:for="promoCode2">Промо-код:</t:label>
+                                                <input t:id="promoCode2" class="form-control"/>
+                                            </div>
+                                            <div class="col-sm-1"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-1"/>
+                                            <div class="col-sm-10">
                                                 <t:label for="fullName2">Ваше имя:</t:label>
                                                 <input t:id="fullName2" class="form-control"/>
                                             </div>
@@ -300,21 +327,8 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-1"/>
-                                            <div class="col-sm-10">
-                                                <t:label t:for="comment2">Комментарии к заказу:</t:label>
-                                                <input t:id="comment2" rows="5" class="form-control"/>
-                                            </div>
-                                            <div class="col-sm-1"/>
-                                        </div>
-                                        <div class="form-group ">
-                                            <div class="col-sm-1"/>
-                                            <div class="col-sm-5">
-                                                <t:label t:for="dueDate2">Дата исполнения:</t:label>
-                                                <input t:id="dueDate2" class="form-control date-picker" placeholder="дд/мм/гггг"/>
-                                            </div>
-                                            <div class="col-sm-5">
-                                                <t:label t:for="promoCode2">Промо-код:</t:label>
-                                                <input t:id="promoCode2" class="form-control"/>
+                                            <div class="col-sm-10 label-tip">
+                                                * - персональные данные скрыты для посетителей и кулинаров. <br/>Кулинар получит к ним доступ только внесении предоплаты.
                                             </div>
                                             <div class="col-sm-1"/>
                                         </div>

@@ -14,7 +14,7 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 /**
  * Created by ezhulkov on 31.07.15.
  */
-public class TenderAdd extends BaseComponent {
+public class TenderEdit extends BaseComponent {
 
     public enum Stage {
         DESC, CONTACTS
@@ -72,7 +72,7 @@ public class TenderAdd extends BaseComponent {
     private boolean reloadPage;
 
     @Property
-    @Parameter(name = "modalId", defaultPrefix = BindingConstants.LITERAL)
+    @Parameter(name = "modalId", defaultPrefix = BindingConstants.LITERAL, value = "tender-new")
     private String modalId;
 
     public String getTenderEditZone() {
