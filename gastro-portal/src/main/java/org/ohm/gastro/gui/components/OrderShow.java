@@ -38,6 +38,10 @@ public class OrderShow extends BaseComponent {
     @Property
     private CatalogEntity catalog;
 
+    @Parameter(value = "false")
+    @Property
+    private boolean mainPage;
+
     @Parameter
     @Property
     private OrderEntity order;
@@ -57,6 +61,7 @@ public class OrderShow extends BaseComponent {
     private Block privateOrderBlock;
 
     @Inject
+    @Property
     private Block publicOrderBlock;
 
     @Inject
@@ -73,6 +78,10 @@ public class OrderShow extends BaseComponent {
 
     @Inject
     private Block cookRateClient;
+
+    @Inject
+    @Property
+    private Block editTenderBlock;
 
     @Property
     private int index;
@@ -323,6 +332,19 @@ public class OrderShow extends BaseComponent {
         } else {
             return deniedOrderBlock;
         }
+    }
+
+    public String getEditZoneId() {
+        return "editZone" + order.getId();
+    }
+
+    public Block onActionFromEditTender(Long tid) {
+        this.order = getOrderService().findOrder(tid);
+        return editTenderBlock;
+    }
+
+    public boolean isEditTender() {
+        return isAuthenticated() && order != null && order.getCustomer() != null && order.getCustomer().equals(getAuthenticatedUser()) && order.getStatus() == Status.ACTIVE;
     }
 
 }

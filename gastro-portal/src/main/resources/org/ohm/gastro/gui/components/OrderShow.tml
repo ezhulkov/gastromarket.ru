@@ -385,9 +385,24 @@
         </script>
     </t:block>
     <t:block t:id="publicOrderBlock">
-        TENDER
+        ${order.comment}
+        <t:if test="editTender">
+            <t:actionlink t:id="editTender" t:context="order.id" t:zone="${editZoneId}">Редактировать</t:actionlink>
+        </t:if>
     </t:block>
     <t:block t:id="deniedOrderBlock">
-
+        <div class="row">
+            <p class="modal-text">
+                Код 403 - доступ запрещен
+            </p>
+        </div>
+    </t:block>
+    <t:zone t:id="editZone" id="${editZoneId}"/>
+    <t:block t:id="editTenderBlock">
+        <t:tenderedit modalId="tender-${order.id}" tender="order" tenderBlock="publicOrderBlock" tenderZoneId="${orderShowCatalogZoneId}" reloadPage="mainPage"/>
+        <script>
+            var pe = jQuery("#tender-${order.id}");
+            pe.modal('show');
+        </script>
     </t:block>
 </div>

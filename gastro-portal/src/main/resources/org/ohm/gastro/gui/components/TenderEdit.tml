@@ -96,7 +96,7 @@
                                 </div>
                                 <div class="form-buttons">
                                     <input class="btn btn-red" t:type="submit" t:id="saveAndBack" value="&lt; Назад"/>
-                                    <input class="btn btn-red" t:type="submit" t:id="saveAndClose" value="Разместить заявку"/>
+                                    <input class="btn btn-red" t:type="submit" t:id="saveAndClose" value="${closeLabel}"/>
                                 </div>
                             </t:form>
                         </t:block>

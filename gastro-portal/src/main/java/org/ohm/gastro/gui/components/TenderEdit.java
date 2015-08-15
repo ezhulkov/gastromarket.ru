@@ -21,6 +21,7 @@ public class TenderEdit extends BaseComponent {
     }
 
     @Property
+    @Parameter(defaultPrefix = BindingConstants.PROP, allowNull = true, required = false)
     private OrderEntity tender;
 
     @Inject
@@ -64,6 +65,12 @@ public class TenderEdit extends BaseComponent {
     @Parameter(name = "tendersBlock", required = false, allowNull = false)
     private Block tendersBlock;
 
+    @Parameter(name = "tenderBlock", required = false, allowNull = false)
+    private Block tenderBlock;
+
+    @Parameter(name = "tenderZoneId", required = false, allowNull = false)
+    private String tenderZoneId;
+
     @Property
     @Parameter(name = "edit", defaultPrefix = BindingConstants.LITERAL, value = "true")
     private boolean editTender;
@@ -76,11 +83,15 @@ public class TenderEdit extends BaseComponent {
     private String modalId;
 
     public String getTenderEditZone() {
-        return "tenderZoneNew";
+        return editTender ? "tenderEditZone" + tender.getId() : "tenderZoneNew";
     }
 
     public Long getTenderId() {
         return tender == null || tender.getId() == null ? null : tender.getId();
+    }
+
+    public String getCloseLabel() {
+        return editTender ? getMessages().get("tender.modal.save") : getMessages().get("tender.modal.place");
     }
 
     //Desc section
@@ -109,6 +120,7 @@ public class TenderEdit extends BaseComponent {
                 tender = getOrderService().saveTender(origOrder, getAuthenticatedUser());
             }
             if (tendersBlock != null) getAjaxResponseRenderer().addRender("tendersZone", tendersBlock);
+            if (tenderBlock != null) getAjaxResponseRenderer().addRender(tenderZoneId, tenderBlock);
             getAjaxResponseRenderer().addRender(getTenderEditZone(), editContactsBlock);
         } else {
             getAjaxResponseRenderer().addRender(getTenderEditZone(), editDescBlock);
