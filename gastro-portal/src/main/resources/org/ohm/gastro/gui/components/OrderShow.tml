@@ -2,7 +2,7 @@
     <t:zone t:id="orderShowCatalogZone" id="${orderShowCatalogZoneId}">
         <t:delegate to="currentOrderBlock"/>
     </t:zone>
-    <t:block t:id="privateOrderBlock">
+    <t:block t:id="orderBlock">
         <div class="form form-horizontal">
             <t:if test="catalog">
                 <div class="form-group catalog">
@@ -22,46 +22,7 @@
                             <div class="number">
                                 <t:pagelink page="office/order" t:context="[privateOrders,order.id]">№ ${order.orderNumber}</t:pagelink>
                             </div>
-                            <div class="status">
-                                Статус заказа:&nbsp;
-                                <t:if test="canChangeState">
-                                    <a href="#order_status_${order.id}" class="dotted-link f20px" data-toggle="modal" data-target="#order_status_${order.id}">${orderStatusText}</a>
-
-                                    <div class="modal fade" id="order_status_${order.id}" tabindex="-1" role="dialog" aria-hidden="true">
-                                        <div class="modal-dialog application">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <div class="title">
-                                                        <h1><span>Изменение статуса заказа</span></h1>
-                                                    </div>
-                                                    <a class="modal-close" data-dismiss="modal"></a>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <t:loop source="statuses" value="status" t:formState="NONE">
-                                                        <t:if test="statusAction">
-                                                            <div class="status-change">
-                                                                <t:actionlink t:id="statusChange" t:context="[order.id,status]" t:zone="${orderShowCatalogZoneId}" class="dotted-link">${statusAction}</t:actionlink>
-                                                                <span> &mdash; ${statusTitle}</span>
-                                                            </div>
-                                                        </t:if>
-                                                    </t:loop>
-                                                    <t:if test="hasCancel">
-                                                        <t:if test="catalog.cancellationRaw">
-                                                            <div class="description gap">
-                                                                <div class="f18px">Условия отмены:</div>
-                                                                <t:outputraw value="catalog.cancellationRaw"/>
-                                                            </div>
-                                                        </t:if>
-                                                    </t:if>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <t:parameter name="else">
-                                        <span class="red-text">${orderStatusText}</span>
-                                    </t:parameter>
-                                </t:if>
-                            </div>
+                            <t:orderChangeStatus order="order" orderShowCatalogZoneId="orderShowCatalogZoneId" orderBlock="orderBlock"/>
                         </t:if>
                     </div>
                 </div>
@@ -101,23 +62,25 @@
             </t:loop>
         </div>
         <t:form t:id="orderForm" t:context="formContext" t:autofocus="false" t:clientValidation="none" class="form form-horizontal" role="form">
-            <t:if test="items">
-                <div class="form-group total">
-                    <div class="col-sm-8">
-                        <span class="f20px">Стоимость заказа:</span><br/>
-                        <t:if test="catalog.basketMin">
-                            ${basketMinText}<br/>
-                        </t:if>
-                        <t:if test="catalog.prepayment">
-                            ${prepaymentText}<br/>
-                        </t:if>
-                        При внесении изменений в заказ конечная стоимость может измениться.
+            <t:unless test="tender">
+                <t:if test="items">
+                    <div class="form-group total">
+                        <div class="col-sm-8">
+                            <span class="f20px">Стоимость заказа:</span><br/>
+                            <t:if test="catalog.basketMin">
+                                ${basketMinText}<br/>
+                            </t:if>
+                            <t:if test="catalog.prepayment">
+                                ${prepaymentText}<br/>
+                            </t:if>
+                            При внесении изменений в заказ конечная стоимость может измениться.
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="price">${total}&nbsp;<span class="rub"/></div>
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="price">${total}&nbsp;<span class="rub"/></div>
-                    </div>
-                </div>
-            </t:if>
+                </t:if>
+            </t:unless>
             <t:if test="full">
                 <div class="submit-row">
                     <t:if test="authenticated">
@@ -243,6 +206,15 @@
                         </div>
                     </div>
                 </t:if>
+                <t:if test="order.personCount">
+                    <div class="form-group f16px">
+                        <div class="col-sm-8">
+                            <span class="f20px">Количество персон:</span><br/>
+
+                            <div>${order.personCount}</div>
+                        </div>
+                    </div>
+                </t:if>
                 <t:if test="order.promoCode">
                     <div class="form-group f16px">
                         <div class="col-sm-8">
@@ -268,8 +240,14 @@
                 </t:if>
                 <t:delegate to="editOrderBlock"/>
                 <t:block t:id="clientEditBlock">
-                    <a href="#order_edit_${order.id}" class="edit-link" data-toggle="modal" data-target="#order_edit_${order.id}">Редактировать</a>
-
+                    <t:if test="tender">
+                        <t:if test="editTender">
+                            <t:actionlink class="edit-link" t:id="editTender" t:context="order.id" t:zone="${editZoneId}">Редактировать</t:actionlink>
+                        </t:if>
+                        <t:parameter name="else">
+                            <a href="#order_edit_${order.id}" class="edit-link" data-toggle="modal" data-target="#order_edit_${order.id}">Редактировать</a>
+                        </t:parameter>
+                    </t:if>
                     <div class="modal fade" id="order_edit_${order.id}" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog application">
                             <div class="modal-content">
@@ -371,54 +349,22 @@
                     </div>
                 </t:block>
                 <t:block t:id="clientRateCook">
-                    <a href="#cook_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#cook_rate_${order.id}">Оценить кулинара</a>
-                    <t:ratecookuser type="CATALOG" catalog="catalog" commentAllowed="true" modalId="cook_rate_${order.id}"/>
+                    <t:unless test="frontend">
+                        <a href="#cook_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#cook_rate_${order.id}">Оценить кулинара</a>
+                        <t:ratecookuser type="CATALOG" catalog="catalog" commentAllowed="true" modalId="cook_rate_${order.id}"/>
+                    </t:unless>
                 </t:block>
                 <t:block t:id="cookRateClient">
-                    <a href="#client_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#client_rate_${order.id}">Оценить заказчика</a>
-                    <t:ratecookuser type="CUSTOMER" user="order.customer" commentAllowed="true" modalId="client_rate_${order.id}"/>
+                    <t:unless test="frontend">
+                        <a href="#client_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#client_rate_${order.id}">Оценить заказчика</a>
+                        <t:ratecookuser type="CUSTOMER" user="order.customer" commentAllowed="true" modalId="client_rate_${order.id}"/>
+                    </t:unless>
                 </t:block>
             </div>
         </t:if>
         <script>
             jQuery("body").removeClass("modal-open");
         </script>
-    </t:block>
-    <t:block t:id="publicOrderBlock">
-        <div class="submit-row form form-horizontal">
-            <div class="form-group f16px">
-                <div class="col-sm-8">
-                    <span class="f20px">Описание заявки:</span><br/>
-                    <t:if test="order.comment">
-                        ${order.comment}
-                        <t:parameter name="else">
-                            Нет описания
-                        </t:parameter>
-                    </t:if>
-                </div>
-            </div>
-            <t:if test="order.dueDate">
-                <div class="form-group f16px">
-                    <div class="col-sm-8">
-                        <span class="f20px">Дата исполнения:</span><br/>
-
-                        <div>${order.dueDate}</div>
-                    </div>
-                </div>
-            </t:if>
-            <t:if test="order.personCount">
-                <div class="form-group f16px">
-                    <div class="col-sm-8">
-                        <span class="f20px">Количество персон:</span><br/>
-
-                        <div>${order.personCount}</div>
-                    </div>
-                </div>
-            </t:if>
-            <t:if test="editTender">
-                <t:actionlink class="edit-link" t:id="editTender" t:context="order.id" t:zone="${editZoneId}">Редактировать</t:actionlink>
-            </t:if>
-        </div>
     </t:block>
     <t:block t:id="deniedOrderBlock">
         <div class="row">
@@ -430,7 +376,7 @@
     <t:unless test="privateOrders">
         <t:zone t:id="editZone" id="${editZoneId}"/>
         <t:block t:id="editTenderBlock">
-            <t:tenderedit modalId="tender-${order.id}" tender="order" tenderBlock="publicOrderBlock" tenderZoneId="${orderShowCatalogZoneId}" reloadPage="mainPage"/>
+            <t:tenderedit modalId="tender-${order.id}" tender="order" tenderBlock="orderBlock" tenderZoneId="${orderShowCatalogZoneId}" reloadPage="mainPage"/>
             <script>
                 var pe = jQuery("#tender-${order.id}");
                 pe.modal('show');

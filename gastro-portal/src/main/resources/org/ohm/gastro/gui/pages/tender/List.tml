@@ -15,7 +15,7 @@
             <t:delegate to="ordersBlock"/>
         </t:zone>
         <t:block t:id="ordersBlock">
-            <t:ordersShow status="prop:status" privateOrders="false"/>
+            <t:ordersShow status="prop:status" privateOrders="false" frontend="true"/>
         </t:block>
     </div>
 

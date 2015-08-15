@@ -264,7 +264,9 @@ public class OrderEntity extends AbstractBaseEntity {
     }
 
     public boolean isAllowed(final UserEntity user) {
-        return user != null && (getCustomer().equals(user) || getCatalog().getUser().equals(user));
+        return user != null &&
+                (getCustomer() != null && getCustomer().equals(user) ||
+                        getCatalog() != null && getCatalog().getUser().equals(user));
     }
 
 }

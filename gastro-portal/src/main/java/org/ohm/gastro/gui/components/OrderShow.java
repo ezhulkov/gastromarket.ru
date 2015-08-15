@@ -19,7 +19,6 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.office.Order;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -31,9 +30,6 @@ public class OrderShow extends BaseComponent {
         SHORT, FULL, EDIT
     }
 
-    @Property
-    private Status status;
-
     @Parameter
     @Property
     private CatalogEntity catalog;
@@ -41,6 +37,10 @@ public class OrderShow extends BaseComponent {
     @Parameter(value = "false")
     @Property
     private boolean mainPage;
+
+    @Property
+    @Parameter(value = "false")
+    private boolean frontend;
 
     @Parameter
     @Property
@@ -58,11 +58,8 @@ public class OrderShow extends BaseComponent {
     private OrderProductEntity item;
 
     @Inject
-    private Block privateOrderBlock;
-
-    @Inject
     @Property
-    private Block publicOrderBlock;
+    private Block orderBlock;
 
     @Inject
     private Block deniedOrderBlock;
@@ -149,7 +146,7 @@ public class OrderShow extends BaseComponent {
         } else {
             getOrderService().deleteProduct(oId, opId, getAuthenticatedUser());
         }
-        return privateOrderBlock;
+        return orderBlock;
     }
 
     public String getProductUnit() {
@@ -168,14 +165,14 @@ public class OrderShow extends BaseComponent {
 
     public Object[] getFormContext() {
         return new Object[]{
-                catalog.getId(),
+                catalog == null ? null : catalog.getId(),
                 order == null ? null : order.getId()
         };
     }
 
     public Object[] getDeleteContext() {
         return new Object[]{
-                catalog.getId(),
+                catalog == null ? null : catalog.getId(),
                 order == null ? null : order.getId(),
                 item.getId(),
                 item.getEntity().getType(),
@@ -242,28 +239,8 @@ public class OrderShow extends BaseComponent {
         return null;
     }
 
-    public String getOrderStatusText() {
-        return getMessages().format("order.status." + order.getStatus()).toLowerCase();
-    }
-
-    public String getTenderStatusText() {
-        return getMessages().format("tender.status." + order.getStatus()).toLowerCase();
-    }
-
-    public boolean isCanChangeState() {
-        return order != null && getStatuses().length > 0;
-    }
-
     public boolean isCanEdit() {
         return !isCook() && (order == null || order.getStatus() == Status.ACTIVE || order.getStatus() == Status.NEW);
-    }
-
-    public String getStatusTitle() {
-        return getMessages().format("order.title." + status);
-    }
-
-    public String getStatusAction() {
-        return getMessages().format("order.action." + status);
     }
 
     public Status[] getStatuses() {
@@ -288,18 +265,7 @@ public class OrderShow extends BaseComponent {
 
     public Block onSuccessFromOrderDetailsForm(Long oId) {
         getOrderService().saveOrder(order, getAuthenticatedUser());
-        return isTender() ? publicOrderBlock : privateOrderBlock;
-    }
-
-    public Block onActionFromStatusChange(Long oId, Status status) {
-        this.order = getOrderService().findOrder(oId);
-        this.catalog = order.getCatalog();
-        getOrderService().changeStatus(order, status, catalog, getAuthenticatedUser());
-        return privateOrderBlock;
-    }
-
-    public boolean isHasCancel() {
-        return Arrays.asList(getStatuses()).contains(Status.CANCELLED);
+        return orderBlock;
     }
 
     public boolean isTotalEnough() {
@@ -310,7 +276,7 @@ public class OrderShow extends BaseComponent {
         this.order = getOrderService().findOrder(oId);
         this.catalog = order.getCatalog();
         getOrderService().changeStatus(order, Status.PAID, catalog, getAuthenticatedUser());
-        return privateOrderBlock;
+        return orderBlock;
     }
 
     public long getClientPosRating() {
@@ -330,9 +296,8 @@ public class OrderShow extends BaseComponent {
     }
 
     public Block getCurrentOrderBlock() {
-        if (isTender()) return publicOrderBlock;
         if (isAuthenticated()) {
-            return order == null || order.isAllowed(getAuthenticatedUser()) ? privateOrderBlock : deniedOrderBlock;
+            return order == null || order.isAllowed(getAuthenticatedUser()) ? orderBlock : deniedOrderBlock;
         } else {
             return deniedOrderBlock;
         }

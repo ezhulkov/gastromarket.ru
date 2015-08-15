@@ -26,6 +26,10 @@ public class OrdersShow extends BaseComponent {
     private boolean privateOrders;
 
     @Property
+    @Parameter(value = "false")
+    private boolean frontend;
+
+    @Property
     private CatalogEntity catalog;
 
     @Property
