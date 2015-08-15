@@ -246,6 +246,10 @@ public class OrderShow extends BaseComponent {
         return getMessages().format("order.status." + order.getStatus()).toLowerCase();
     }
 
+    public String getTenderStatusText() {
+        return getMessages().format("tender.status." + order.getStatus()).toLowerCase();
+    }
+
     public boolean isCanChangeState() {
         return order != null && getStatuses().length > 0;
     }

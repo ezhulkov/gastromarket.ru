@@ -2121,7 +2121,7 @@ label.t-error {
   border: 1px solid #aaa;
   width: 990px;
   padding: 30px 60px;
-  margin: 0 auto 50px auto;
+  margin: 0 auto 30px auto;
 }
 .order-show-catalog .round-link, .order-show-catalog .title-simple a, .title-simple .order-show-catalog a, .order-show-catalog .title a, .title .order-show-catalog a, .order-show-catalog .links-set a, .links-set .order-show-catalog a {
   float: right;

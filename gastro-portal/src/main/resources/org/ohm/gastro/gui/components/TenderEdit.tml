@@ -5,7 +5,12 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <div class="title">
-                            <h1><span>Новая заявка</span></h1>
+                            <t:if test="editTender">
+                                <h1><span>Редактировать</span></h1>
+                            </t:if>
+                            <t:unless test="editTender">
+                                <h1><span>Новая заявка</span></h1>
+                            </t:unless>
                         </div>
                         <a class="modal-close" data-dismiss="modal"></a>
                     </div>

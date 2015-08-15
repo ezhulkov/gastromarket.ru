@@ -45,10 +45,12 @@ public class OrdersShow extends BaseComponent {
             } else {
                 orders = getOrderService().findAllOrders(getAuthenticatedUser(), null);
             }
+            return orders.stream().filter(t -> t.getMetaStatus() == status).sorted((o1, o2) -> o2.getDate().compareTo(o1.getDate())).collect(Collectors.toList());
         } else {
             orders = getOrderService().findAllTenders();
+            return orders.stream().filter(t -> t.getStatus() == status).sorted((o1, o2) -> o2.getDate().compareTo(o1.getDate())).collect(Collectors.toList());
         }
-        return orders.stream().filter(t -> t.getMetaStatus() == status).sorted((o1, o2) -> o2.getDate().compareTo(o1.getDate())).collect(Collectors.toList());
+
     }
 
     public boolean isFromCart() {
