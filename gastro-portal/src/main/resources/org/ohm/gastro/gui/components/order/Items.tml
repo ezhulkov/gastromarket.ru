@@ -1,33 +1,35 @@
-<t:loop xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" source="items" index="index" value="item" formState="NONE">
-    <div class="form-group">
-        <div class="col-sm-12 order-item ${rowClass}">
-            <t:if test="canEdit">
-                <t:actionLink t:id="deleteItem" class="delete" t:zone="${orderShowCatalogZoneId}" t:context="deleteContext">удалить</t:actionLink>
-            </t:if>
-            <div class="price">
-                <t:if test="item.modifier">
-                    <span class="sign">${item.modifier.signPrintable}</span>${item.modifier.price}&nbsp;<span class="rub"/> = ${item.price}&nbsp;<span class="rub"/>
-                    <t:parameter name="else">
-                        ${item.price}&nbsp;<span class="rub"/>
-                    </t:parameter>
+<t:if xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" test="items">
+    <div class="form-group  items">
+        <t:loop source="items" index="index" value="item" formState="NONE">
+            <div class="col-sm-12 order-item ${rowClass}">
+                <t:if test="canEdit">
+                    <t:actionLink t:id="deleteItem" class="delete" t:zone="${orderShowCatalogZoneId}" t:context="deleteContext">удалить</t:actionLink>
                 </t:if>
-                <t:if test="productUnit">&nbsp;<span class="unit">${productUnit}</span></t:if>
-                <div class="count">x ${item.count}</div>
+                <div class="price">
+                    <t:if test="item.modifier">
+                        <span class="sign">${item.modifier.signPrintable}</span>${item.modifier.price}&nbsp;<span class="rub"/> = ${item.price}&nbsp;<span class="rub"/>
+                        <t:parameter name="else">
+                            ${item.price}&nbsp;<span class="rub"/>
+                        </t:parameter>
+                    </t:if>
+                    <t:if test="productUnit">&nbsp;<span class="unit">${productUnit}</span></t:if>
+                    <div class="count">x ${item.count}</div>
+                </div>
+                <div class="index">${itemIndex}</div>
+                <div class="name">
+                    <a href="${itemPage}" target="_blank">${item.entity.name}</a>
+                    <t:if test="item.modifier">
+                        <div class="modifier-name">(${item.modifier.description})</div>
+                    </t:if>
+                </div>
             </div>
-            <div class="index">${itemIndex}</div>
-            <div class="name">
-                <a href="${itemPage}" target="_blank">${item.entity.name}</a>
-                <t:if test="item.modifier">
-                    <div class="modifier-name">(${item.modifier.description})</div>
-                </t:if>
-            </div>
-        </div>
+        </t:loop>
     </div>
-    <t:parameter name="empty">
+    <t:parameter name="else">
         <t:unless test="tender">
             <div class="empty">
                 В заказе нет элементов :(
             </div>
         </t:unless>
     </t:parameter>
-</t:loop>
+</t:if>

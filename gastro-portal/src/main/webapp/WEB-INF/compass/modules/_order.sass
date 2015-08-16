@@ -9,7 +9,7 @@
   &.short
     .register-order
       display: none
-  &.full, &.edit
+  &.basket, &.edit
     +border-class
     width: 990px
     padding: 30px 60px
@@ -21,7 +21,7 @@
     margin-top: -1px
     padding-bottom: 20px
     border-bottom: 1px solid #aaaaaa
-    margin-bottom: 20px
+    margin-bottom: 15px
     img
       width: 100px
       height: 100px
@@ -33,46 +33,48 @@
     .badges
       margin-top: 3px
       margin-left: -1px
-  .order-item
-    padding-top: 5px
-    padding-bottom: 5px
-    & > div
-      display: inline-block
-      vertical-align: top
-    & *
-      color: $blackTextColor
-    &.odd
-      background-color: #f3f3f3
-    .name a
-      +name-class
-      font-size: 20px
-    .modifier-name
-      font-size: 16px
-    .price
-      +price-class
-      float: right
-      margin-left: $gap
-    .delete
-      color: $redTextColor
-      float: right
-      width: 80px
-      text-align: right
-      padding-top: 4px
-    .count
-      width: 40px
-      display: inline-block
-      margin-left: 5px
-    .unit
-      +unit-class
-    .index
-      width: 30px
-      font-size: 20px
-      padding-top: 1px
+  .items
+    border-bottom: 1px solid #aaaaaa
+    margin-bottom: 20px
+    padding-bottom: 15px
+    .order-item
+      padding-top: 5px
+      padding-bottom: 5px
+      & > div
+        display: inline-block
+        vertical-align: top
+      & *
+        color: $blackTextColor
+      &.odd
+        background-color: #f3f3f3
+      .name a
+        +name-class
+        font-size: 20px
+      .modifier-name
+        font-size: 16px
+      .price
+        +price-class
+        float: right
+        margin-left: $gap
+      .delete
+        color: $redTextColor
+        float: right
+        width: 80px
+        text-align: right
+        padding-top: 4px
+      .count
+        width: 40px
+        display: inline-block
+        margin-left: 5px
+      .unit
+        +unit-class
+      .index
+        width: 30px
+        font-size: 20px
+        padding-top: 1px
   .total
     font-size: 16px
     vertical-align: top
-    padding-top: 20px
-    border-top: 1px solid #aaaaaa
     .price
       font-weight: bold
       font-size: 30px

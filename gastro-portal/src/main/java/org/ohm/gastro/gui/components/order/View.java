@@ -25,7 +25,7 @@ import java.util.List;
 public class View extends BaseComponent {
 
     public enum Type {
-        SHORT, FULL, EDIT
+        SHORT, BASKET, EDIT
     }
 
     @Parameter
@@ -133,8 +133,8 @@ public class View extends BaseComponent {
         };
     }
 
-    public boolean isFull() {
-        return type == Type.FULL;
+    public boolean isBasket() {
+        return type == Type.BASKET;
     }
 
     public boolean isEdit() {
@@ -240,6 +240,7 @@ public class View extends BaseComponent {
 
     public Block getCurrentOrderBlock() {
         if (order != null && order.getType() == OrderEntity.Type.PUBLIC) return orderBlock;
+        if (type == Type.BASKET || type == Type.SHORT) return orderBlock;
         if (isAuthenticated()) {
             return order == null || order.isAllowed(getAuthenticatedUser()) ? orderBlock : deniedOrderBlock;
         } else {

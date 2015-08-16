@@ -10,6 +10,16 @@
             <t:order.items order="order" catalog="catalog" items="items" orderBlock="orderBlock" orderShowCatalogZoneId="orderShowCatalogZoneId"/>
         </div>
         <t:form t:id="orderForm" t:context="formContext" t:autofocus="false" t:clientValidation="none" class="form form-horizontal" role="form">
+            <t:if test="tender">
+                <div class="form-group total">
+                    <div class="col-sm-8">
+                        <span class="f20px">Бюджет заявки:</span><br/>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="price">${total}&nbsp;<span class="rub"/></div>
+                    </div>
+                </div>
+            </t:if>
             <t:unless test="tender">
                 <t:if test="items">
                     <div class="form-group total">
@@ -29,7 +39,7 @@
                     </div>
                 </t:if>
             </t:unless>
-            <t:if test="full">
+            <t:if test="basket">
                 <div class="submit-row">
                     <t:if test="authenticated">
                         <div class="form-group">
