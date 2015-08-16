@@ -1,4 +1,4 @@
-package org.ohm.gastro.gui.components;
+package org.ohm.gastro.gui.components.order;
 
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -8,7 +8,7 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 /**
  * Created by ezhulkov on 31.07.15.
  */
-public class OrderFilter extends BaseComponent {
+public class Filter extends BaseComponent {
 
     @Property
     @Parameter(allowNull = false, required = true)

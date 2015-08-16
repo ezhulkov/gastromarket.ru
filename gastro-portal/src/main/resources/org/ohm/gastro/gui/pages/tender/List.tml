@@ -10,12 +10,12 @@
                 </t:parameter>
             </t:if>
         </div>
-        <t:orderFilter status="status" privateOrders="false" frontend="true"/>
+        <t:order.filter status="status" privateOrders="false" frontend="true"/>
         <t:zone t:id="tendersZone">
             <t:delegate to="ordersBlock"/>
         </t:zone>
         <t:block t:id="ordersBlock">
-            <t:ordersShow status="prop:status" privateOrders="false" frontend="true"/>
+            <t:order.list status="prop:status" privateOrders="false" frontend="true"/>
         </t:block>
     </div>
 

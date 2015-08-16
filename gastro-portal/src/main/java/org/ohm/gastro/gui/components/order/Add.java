@@ -1,4 +1,4 @@
-package org.ohm.gastro.gui.components;
+package org.ohm.gastro.gui.components.order;
 
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Parameter;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 /**
  * Created by ezhulkov on 31.07.15.
  */
-public class OrderAdd extends BaseComponent {
+public class Add extends BaseComponent {
 
     @Parameter
     @Property

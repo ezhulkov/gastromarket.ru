@@ -1,4 +1,4 @@
-package org.ohm.gastro.gui.components;
+package org.ohm.gastro.gui.components.order;
 
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
@@ -13,8 +13,6 @@ import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.OrderProductEntity;
-import org.ohm.gastro.domain.ProductEntity;
-import org.ohm.gastro.domain.PurchaseEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.office.Order;
 
@@ -24,7 +22,7 @@ import java.util.List;
 /**
  * Created by ezhulkov on 31.07.15.
  */
-public class OrderShow extends BaseComponent {
+public class View extends BaseComponent {
 
     public enum Type {
         SHORT, FULL, EDIT
@@ -54,9 +52,6 @@ public class OrderShow extends BaseComponent {
     @Property
     private Type type = Type.SHORT;
 
-    @Property
-    private OrderProductEntity item;
-
     @Inject
     @Property
     private Block orderBlock;
@@ -79,9 +74,6 @@ public class OrderShow extends BaseComponent {
     @Inject
     @Property
     private Block editTenderBlock;
-
-    @Property
-    private int index;
 
     @Property
     private OrderEntity preOrder;
@@ -122,14 +114,6 @@ public class OrderShow extends BaseComponent {
     @Component(id = "promoCode2", parameters = {"value=order.promoCode"})
     private TextField promoCode2Field;
 
-    public String getItemIndex() {
-        return String.format("%s.", index + 1);
-    }
-
-    public boolean isNewOrder() {
-        return getItems().size() == 1;
-    }
-
     public List<OrderProductEntity> getItems() {
         return order == null ? getShoppingCart().getItems(catalog) : getOrderService().findAllItems(order);
     }
@@ -138,46 +122,14 @@ public class OrderShow extends BaseComponent {
         if (order != null) catalog = order.getCatalog();
     }
 
-    public Block onActionFromDeleteItem(Long cId, Long oId, Long opId, PurchaseEntity.Type type, Long id, Long mid) {
-        this.catalog = getCatalogService().findCatalog(cId);
-        this.order = getOrderService().findOrder(oId);
-        if (order == null) {
-            getShoppingCart().removeItem(type, id, mid);
-        } else {
-            getOrderService().deleteProduct(oId, opId, getAuthenticatedUser());
-        }
-        return orderBlock;
-    }
-
-    public String getProductUnit() {
-        if (item.getEntity().getType() == PurchaseEntity.Type.PRODUCT) return getMessages().format(((ProductEntity) item.getEntity()).getUnit().name() + "_TEXT",
-                                                                                                   ((ProductEntity) item.getEntity()).getUnitValue()).toLowerCase();
-        return null;
-    }
-
     public int getTotal() {
         return order == null ? getShoppingCart().getCatalogPrice(catalog) : order.getTotalPrice();
-    }
-
-    public String getRowClass() {
-        return index % 2 == 0 ? "odd" : "even";
     }
 
     public Object[] getFormContext() {
         return new Object[]{
                 catalog == null ? null : catalog.getId(),
                 order == null ? null : order.getId()
-        };
-    }
-
-    public Object[] getDeleteContext() {
-        return new Object[]{
-                catalog == null ? null : catalog.getId(),
-                order == null ? null : order.getId(),
-                item.getId(),
-                item.getEntity().getType(),
-                item.getEntity().getId(),
-                item.getModifier() == null ? null : item.getModifier().getId()
         };
     }
 
@@ -191,11 +143,6 @@ public class OrderShow extends BaseComponent {
 
     public boolean isContactsAllowed() {
         return isCook() && order.getStatus().getLevel() >= Status.PAID.getLevel();
-    }
-
-    public String getItemPage() {
-        if (item.getEntity().getType() == PurchaseEntity.Type.PRODUCT) return "/product/" + item.getEntity().getAltId();
-        return "/catalog/offer/" + item.getEntity().getAltId();
     }
 
     public String getOrderShowCatalogZoneId() {
@@ -287,15 +234,12 @@ public class OrderShow extends BaseComponent {
         return getRatingService().findAllComments(order.getCustomer()).stream().filter(t -> t.getRating() < 0).count();
     }
 
-    public boolean isPublic() {
-        return order != null && order.getType() == OrderEntity.Type.PUBLIC;
-    }
-
     public boolean isTender() {
         return order != null && order.getType() == OrderEntity.Type.PUBLIC && order.getCatalog() == null;
     }
 
     public Block getCurrentOrderBlock() {
+        if (order != null && order.getType() == OrderEntity.Type.PUBLIC) return orderBlock;
         if (isAuthenticated()) {
             return order == null || order.isAllowed(getAuthenticatedUser()) ? orderBlock : deniedOrderBlock;
         } else {
@@ -312,7 +256,7 @@ public class OrderShow extends BaseComponent {
         return editTenderBlock;
     }
 
-    public boolean isEditTender() {
+    public boolean isCanEditTender() {
         return isAuthenticated() && order != null && order.getCustomer() != null && order.getCustomer().equals(getAuthenticatedUser()) && order.getStatus() == Status.ACTIVE;
     }
 

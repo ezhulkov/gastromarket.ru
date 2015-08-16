@@ -1,4 +1,4 @@
-package org.ohm.gastro.gui.components;
+package org.ohm.gastro.gui.components.order;
 
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.annotations.Parameter;
@@ -8,14 +8,13 @@ import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
-import java.util.List;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 31.07.15.
  */
-public class OrdersShow extends BaseComponent {
+public class List extends BaseComponent {
 
     @Parameter(defaultPrefix = BindingConstants.LITERAL)
     @Property
@@ -35,12 +34,12 @@ public class OrdersShow extends BaseComponent {
     @Property
     private OrderEntity order;
 
-    public List<CatalogEntity> getCatalogs() {
+    public java.util.List<CatalogEntity> getCatalogs() {
         return getShoppingCart().getCatalogs().stream().map(Entry::getKey).collect(Collectors.toList());
     }
 
-    public List<OrderEntity> getOrders() {
-        final List<OrderEntity> orders;
+    public java.util.List<OrderEntity> getOrders() {
+        final java.util.List<OrderEntity> orders;
         if (privateOrders) {
             if (isCook()) {
                 orders = getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream()

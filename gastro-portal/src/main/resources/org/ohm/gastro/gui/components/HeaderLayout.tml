@@ -76,7 +76,7 @@
 
     <t:block t:id="orderShowBlock">
         <t:if test="shoppingCart.justAdded">
-            <t:orderShowModal/>
+            <t:order.viewmodal/>
         </t:if>
     </t:block>
 

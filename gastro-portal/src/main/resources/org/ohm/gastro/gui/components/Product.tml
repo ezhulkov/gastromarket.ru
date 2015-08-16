@@ -60,7 +60,7 @@
                 <div class="unit">${productUnit}</div>
             </div>
             <div class="basket-add pull-right">
-                <t:orderAdd entity="product"/>
+                <t:order.add entity="product"/>
             </div>
         </div>
         <div class="modal-data hidden">
@@ -91,7 +91,7 @@
                     <div class="unit">${productUnit}</div>
                 </div>
                 <div class="pull-right">
-                    <t:orderadd entity="product"/>
+                    <t:order.add entity="product"/>
                 </div>
             </div>
             <div class="cook">

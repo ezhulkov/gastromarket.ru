@@ -1,41 +1,19 @@
-package org.ohm.gastro.gui.components;
+package org.ohm.gastro.gui.components.order;
 
 import org.apache.tapestry5.Block;
-import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
-import org.ohm.gastro.domain.CatalogEntity;
-import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.OrderEntity.Type;
-import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.Arrays;
 
 /**
  * Created by ezhulkov on 31.07.15.
  */
-public class OrderChangeStatus extends BaseComponent {
-
-    @Property
-    @Parameter
-    private OrderEntity order;
-
-    @Property
-    @Parameter
-    private String orderShowCatalogZoneId;
-
-    @Parameter
-    private Block orderBlock;
+public class StatusChange extends AbstractOrder {
 
     @Property
     private Status status;
-
-    @Property
-    private CatalogEntity catalog;
-
-    public void beginRender() {
-        catalog = order.getCatalog();
-    }
 
     public boolean isCanChangeState() {
         return order != null && getStatuses().length > 0;

@@ -4,12 +4,12 @@
         <div class="title">
             <h1><span>Заказы</span></h1>
         </div>
-        <t:orderFilter status="status" privateOrders="privateOrders"/>
+        <t:order.filter status="status" privateOrders="privateOrders"/>
         <t:zone t:id="ordersZone">
             <t:delegate to="ordersBlock"/>
         </t:zone>
         <t:block t:id="ordersBlock">
-            <t:ordersShow status="prop:status" privateOrders="privateOrders"/>
+            <t:order.list status="prop:status" privateOrders="privateOrders"/>
         </t:block>
     </div>
 
