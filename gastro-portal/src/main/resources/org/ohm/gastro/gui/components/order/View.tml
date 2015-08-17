@@ -8,314 +8,34 @@
                                   orderShowCatalogZoneId="orderShowCatalogZoneId"
                                   catalog="catalog" privateOrders="privateOrders"/>
             <t:order.items order="order" catalog="catalog" items="items" orderBlock="orderBlock" orderShowCatalogZoneId="orderShowCatalogZoneId"/>
+            <div class="submit-row">
+                <t:order.price items="items" catalog="catalog" order="order"/>
+                <t:order.basketSubmit items="items" order="order" catalog="catalog" type="type"/>
+            </div>
         </div>
-        <t:form t:id="orderForm" t:context="formContext" t:autofocus="false" t:clientValidation="none" class="form form-horizontal" role="form">
-            <t:if test="tender">
-                <div class="form-group total">
-                    <div class="col-sm-8">
-                        <span class="f20px">Бюджет заявки:</span><br/>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="price">${total}&nbsp;<span class="rub"/></div>
-                    </div>
-                </div>
-            </t:if>
-            <t:unless test="tender">
-                <t:if test="items">
-                    <div class="form-group total">
-                        <div class="col-sm-8">
-                            <span class="f20px">Стоимость заказа:</span><br/>
-                            <t:if test="catalog.basketMin">
-                                ${basketMinText}<br/>
-                            </t:if>
-                            <t:if test="catalog.prepayment">
-                                ${prepaymentText}<br/>
-                            </t:if>
-                            При внесении изменений в заказ конечная стоимость может измениться.
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="price">${total}&nbsp;<span class="rub"/></div>
-                        </div>
-                    </div>
-                </t:if>
-            </t:unless>
-            <t:if test="basket">
-                <div class="submit-row">
-                    <t:if test="authenticated">
-                        <div class="form-group">
-                            <div class="col-sm-8">
-                                <t:label t:for="comment">Комментарии к заказу:</t:label>
-                                <input t:id="comment" rows="5" class="form-control"/>
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <div class="col-sm-4">
-                                <t:label t:for="dueDate">Дата исполнения:</t:label>
-                                <input t:id="dueDate" class="form-control date-picker" placeholder="дд/мм/гггг"/>
-                            </div>
-                            <div class="col-sm-4">
-                                <t:label t:for="promoCode">Промо-код:</t:label>
-                                <input t:id="promoCode" class="form-control"/>
-                            </div>
-                        </div>
-                        <t:if test="totalEnough">
-                            <div class="modal fade" id="cart_address_${catalog.id}" tabindex="-1" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog application">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <div class="title">
-                                                <h1><span>Контактная информация</span></h1>
-                                            </div>
-                                            <a class="modal-close" data-dismiss="modal"></a>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="form-group">
-                                                <div class="col-sm-1"/>
-                                                <div class="col-sm-10">
-                                                    <t:label for="fullName">Ваше имя:</t:label>
-                                                    <input t:id="fullName" class="form-control"/>
-                                                </div>
-                                                <div class="col-sm-1"/>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-1"/>
-                                                <div class="col-sm-10">
-                                                    <t:label for="deliveryAddress">Адрес доставки:</t:label>
-                                                    <input t:id="deliveryAddress" class="form-control" rows="5"/>
-                                                </div>
-                                                <div class="col-sm-1"/>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-1"/>
-                                                <div class="col-sm-10">
-                                                    <t:label for="mobilePhone">Контактный телефон:</t:label>
-                                                    <input t:id="mobilePhone" class="form-control mobile-phone" placeholder="+7 xxx xxx-xx-xx"/>
-                                                </div>
-                                                <div class="col-sm-1"/>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-1"/>
-                                                <div class="col-sm-10 label-tip">
-                                                    * - персональные данные скрыты для посетителей и кулинаров. <br/>Кулинар получит к ним доступ только внесении предоплаты.
-                                                </div>
-                                                <div class="col-sm-1"/>
-                                            </div>
-                                            <div class="form-buttons">
-                                                <input class="btn btn-red" type="submit" value="Завершить оформление заказа"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#cart_address_${catalog.id}" data-toggle="modal" class="round-link" data-target="#cart_address_${catalog.id}">Оформить заказ <span/></a>
-                            <t:parameter name="else">
-                                <div class="modal fade" id="cart_more_${catalog.id}" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog application">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <div class="title">
-                                                    <h1><span>Недостаточная стоимость</span></h1>
-                                                </div>
-                                                <a class="modal-close" data-dismiss="modal"></a>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="row">
-                                                    <p class="modal-text">
-                                                        Кулинар установил минимальную стоимость заказа в ${catalog.basketMin} <span class="rub"/><br/>
-                                                        Вам необходимо дополнить заказ.
-                                                    </p>
-                                                </div>
-                                                <div class="form-buttons">
-                                                    <t:pagelink page="catalog/index" context="catalog.altId" class="btn btn-red">Выбрать еще</t:pagelink>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="#cart_more_${catalog.id}" data-toggle="modal" class="round-link" data-target="#cart_more_${catalog.id}">Оформить заказ <span/></a>
-                            </t:parameter>
-                        </t:if>
-                        <t:parameter name="else">
-                            <a href="#cart_login" data-toggle="modal" class="login-link round-link" data-target="#cart_login">Оформить заказ <span/></a>
-                        </t:parameter>
-                    </t:if>
-                </div>
-            </t:if>
-        </t:form>
         <t:if test="edit">
             <div class="submit-row form form-horizontal">
-                <div class="form-group f16px">
-                    <div class="col-sm-8">
-                        <span class="f20px">Комментарии к заказу:</span><br/>
-                        <t:if test="order.comment">
-                            ${order.comment}
-                            <t:parameter name="else">
-                                Нет комментариев
-                            </t:parameter>
-                        </t:if>
-                    </div>
-                </div>
-                <t:if test="order.dueDate">
-                    <div class="form-group f16px">
-                        <div class="col-sm-8">
-                            <span class="f20px">Дата исполнения:</span><br/>
-
-                            <div>${order.dueDate}</div>
-                        </div>
-                    </div>
-                </t:if>
-                <t:if test="order.personCount">
-                    <div class="form-group f16px">
-                        <div class="col-sm-8">
-                            <span class="f20px">Количество персон:</span><br/>
-
-                            <div>${order.personCount}</div>
-                        </div>
-                    </div>
-                </t:if>
-                <t:if test="order.promoCode">
-                    <div class="form-group f16px">
-                        <div class="col-sm-8">
-                            <span class="f20px">Промо-код:</span><br/>
-
-                            <div>${order.promoCode}</div>
-                        </div>
-                    </div>
-                </t:if>
-                <t:if test="contactsAllowed">
-                    <div class="form-group f16px">
-                        <div class="col-sm-8">
-                            <span class="f20px">Контакты:</span><br/>
-
-                            <div>
-                                ${order.customer.fullName}<br/>
-                                Отзывы +${clientPosRating}/-${clientNegRating}<br/>
-                                ${order.customer.mobilePhone}<br/>
-                                ${order.customer.deliveryAddress}<br/>
-                            </div>
-                        </div>
-                    </div>
-                </t:if>
+                <t:order.info order="order" catalog="catalog"/>
                 <t:delegate to="editOrderBlock"/>
                 <t:block t:id="clientEditBlock">
-                    <t:if test="tender">
-                        <t:if test="canEditTender">
-                            <t:actionlink class="edit-link" t:id="editTender" t:context="order.id" t:zone="${editZoneId}">Редактировать</t:actionlink>
-                        </t:if>
-                        <t:parameter name="else">
-                            <a href="#order_edit_${order.id}" class="edit-link" data-toggle="modal" data-target="#order_edit_${order.id}">Редактировать</a>
-                        </t:parameter>
-                    </t:if>
-                    <div class="modal fade" id="order_edit_${order.id}" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog application">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <div class="title">
-                                        <h1><span>Детали заказа</span></h1>
-                                    </div>
-                                    <a class="modal-close" data-dismiss="modal"></a>
-                                </div>
-                                <div class="modal-body">
-                                    <t:form t:id="orderDetailsForm" t:context="order.id" t:autofocus="false" t:clientValidation="none" class="form form-horizontal" role="form" t:zone="${orderShowCatalogZoneId}">
-                                        <div class="form-group">
-                                            <div class="col-sm-1"/>
-                                            <div class="col-sm-10">
-                                                <t:label t:for="comment2">Комментарии к заказу:</t:label>
-                                                <input t:id="comment2" rows="5" class="form-control"/>
-                                            </div>
-                                            <div class="col-sm-1"/>
-                                        </div>
-                                        <div class="form-group ">
-                                            <div class="col-sm-1"/>
-                                            <div class="col-sm-5">
-                                                <t:label t:for="dueDate2">Дата исполнения:</t:label>
-                                                <input t:id="dueDate2" class="form-control date-picker" placeholder="дд/мм/гггг"/>
-                                            </div>
-                                            <div class="col-sm-5">
-                                                <t:label t:for="promoCode2">Промо-код:</t:label>
-                                                <input t:id="promoCode2" class="form-control"/>
-                                            </div>
-                                            <div class="col-sm-1"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-1"/>
-                                            <div class="col-sm-10">
-                                                <t:label for="fullName2">Ваше имя:</t:label>
-                                                <input t:id="fullName2" class="form-control"/>
-                                            </div>
-                                            <div class="col-sm-1"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-1"/>
-                                            <div class="col-sm-10">
-                                                <t:label for="deliveryAddress2">Адрес доставки:</t:label>
-                                                <input t:id="deliveryAddress2" class="form-control" rows="5"/>
-                                            </div>
-                                            <div class="col-sm-1"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-1"/>
-                                            <div class="col-sm-10">
-                                                <t:label for="mobilePhone2">Контактный телефон:</t:label>
-                                                <input t:id="mobilePhone2" class="form-control mobile-phone" placeholder="+7 xxx xxx-xx-xx"/>
-                                            </div>
-                                            <div class="col-sm-1"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-1"/>
-                                            <div class="col-sm-10 label-tip">
-                                                * - персональные данные скрыты для посетителей и кулинаров. <br/>Кулинар получит к ним доступ только внесении предоплаты.
-                                            </div>
-                                            <div class="col-sm-1"/>
-                                        </div>
-                                        <div class="form-buttons">
-                                            <input class="btn btn-red" type="submit" value="Сохранить"/>
-                                        </div>
-                                    </t:form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <t:order.edit order="order" editTenderBlock="editTenderBlock"/>
                     <script>
                         jQuery("body").removeClass("modal-open");
                     </script>
                 </t:block>
                 <t:block t:id="clientPaymentBlock">
-                    <a href="#order_prepay_${order.id}" class="round-link" data-toggle="modal" data-target="#order_prepay_${order.id}">Внести предоплату <span/></a>
-
-                    <div class="modal fade" id="order_prepay_${order.id}" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog application">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <div class="title">
-                                        <h1><span>Предоплата</span></h1>
-                                    </div>
-                                    <a class="modal-close" data-dismiss="modal"></a>
-                                </div>
-                                <div class="modal-body">
-                                    <p class="modal-text">
-                                        ГастроМаркет работает в тестовом режиме и у не подключен платежный шлюз<br/>
-                                        Для продолжения оформления заказа нажмите кнопку ниже
-                                    </p>
-
-                                    <div class="form-buttons">
-                                        <t:actionlink t:id="prepay" t:context="[order.id]" t:zone="${orderShowCatalogZoneId}" class="btn btn-red">Как бы оплатить</t:actionlink>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <t:order.payment order="order"/>
                 </t:block>
                 <t:block t:id="clientRateCook">
                     <t:unless test="frontend">
                         <a href="#cook_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#cook_rate_${order.id}">Оценить кулинара</a>
-                        <!--<t:ratecookuser type="CATALOG" catalog="catalog" commentAllowed="true" modalId="cook_rate_${order.id}"/>-->
+                        <t:ratecookuser type="CATALOG" catalog="catalog" commentAllowed="true" modalId="cook_rate_${order.id}"/>
                     </t:unless>
                 </t:block>
                 <t:block t:id="cookRateClient">
                     <t:unless test="frontend">
                         <a href="#client_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#client_rate_${order.id}">Оценить заказчика</a>
-                        <!--<t:ratecookuser type="CUSTOMER" user="order.customer" commentAllowed="true" modalId="client_rate_${order.id}"/>-->
+                        <t:ratecookuser type="CUSTOMER" user="order.customer" commentAllowed="true" modalId="client_rate_${order.id}"/>
                     </t:unless>
                 </t:block>
             </div>
@@ -334,7 +54,7 @@
     <t:unless test="privateOrders">
         <t:zone t:id="editZone" id="${editZoneId}"/>
         <t:block t:id="editTenderBlock">
-            <t:tenderedit modalId="tender-${order.id}" tender="order" tenderBlock="orderBlock" tenderZoneId="${orderShowCatalogZoneId}" reloadPage="mainPage"/>
+            <t:order.tenderedit modalId="tender-${order.id}" tender="order" tenderBlock="orderBlock" tenderZoneId="${orderShowCatalogZoneId}" reloadPage="mainPage"/>
             <script>
                 var pe = jQuery("#tender-${order.id}");
                 pe.modal('show');

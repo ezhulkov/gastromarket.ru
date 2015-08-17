@@ -1,0 +1,102 @@
+<t:if xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" test="basket">
+    <t:form t:id="orderForm" t:context="formContext" t:autofocus="false" t:clientValidation="none" class="form form-horizontal" role="form">
+        <t:if test="authenticated">
+            <div class="form-group">
+                <div class="col-sm-8">
+                    <t:label t:for="comment">Комментарии к заказу:</t:label>
+                    <input t:id="comment" rows="5" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group ">
+                <div class="col-sm-4">
+                    <t:label t:for="dueDate">Дата исполнения:</t:label>
+                    <input t:id="dueDate" class="form-control date-picker" placeholder="дд/мм/гггг"/>
+                </div>
+                <div class="col-sm-4">
+                    <t:label t:for="promoCode">Промо-код:</t:label>
+                    <input t:id="promoCode" class="form-control"/>
+                </div>
+            </div>
+            <t:if test="totalEnough">
+                <div class="modal fade" id="cart_address_${catalog.id}" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog application">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="title">
+                                    <h1><span>Контактная информация</span></h1>
+                                </div>
+                                <a class="modal-close" data-dismiss="modal"></a>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <div class="col-sm-1"/>
+                                    <div class="col-sm-10">
+                                        <t:label for="fullName">Ваше имя:</t:label>
+                                        <input t:id="fullName" class="form-control"/>
+                                    </div>
+                                    <div class="col-sm-1"/>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-1"/>
+                                    <div class="col-sm-10">
+                                        <t:label for="deliveryAddress">Адрес доставки:</t:label>
+                                        <input t:id="deliveryAddress" class="form-control" rows="5"/>
+                                    </div>
+                                    <div class="col-sm-1"/>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-1"/>
+                                    <div class="col-sm-10">
+                                        <t:label for="mobilePhone">Контактный телефон:</t:label>
+                                        <input t:id="mobilePhone" class="form-control mobile-phone" placeholder="+7 xxx xxx-xx-xx"/>
+                                    </div>
+                                    <div class="col-sm-1"/>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-1"/>
+                                    <div class="col-sm-10 label-tip">
+                                        * - персональные данные скрыты для посетителей и кулинаров. <br/>Кулинар получит к ним доступ только внесении предоплаты.
+                                    </div>
+                                    <div class="col-sm-1"/>
+                                </div>
+                                <div class="form-buttons">
+                                    <input class="btn btn-red" type="submit" value="Завершить оформление заказа"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#cart_address_${catalog.id}" data-toggle="modal" class="round-link" data-target="#cart_address_${catalog.id}">Оформить заказ <span/></a>
+                <t:parameter name="else">
+                    <div class="modal fade" id="cart_more_${catalog.id}" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog application">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <div class="title">
+                                        <h1><span>Недостаточная стоимость</span></h1>
+                                    </div>
+                                    <a class="modal-close" data-dismiss="modal"></a>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <p class="modal-text">
+                                            Кулинар установил минимальную стоимость заказа в ${catalog.basketMin} <span class="rub"/><br/>
+                                            Вам необходимо дополнить заказ.
+                                        </p>
+                                    </div>
+                                    <div class="form-buttons">
+                                        <t:pagelink page="catalog/index" context="catalog.altId" class="btn btn-red">Выбрать еще</t:pagelink>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#cart_more_${catalog.id}" data-toggle="modal" class="round-link" data-target="#cart_more_${catalog.id}">Оформить заказ <span/></a>
+                </t:parameter>
+            </t:if>
+            <t:parameter name="else">
+                <a href="#cart_login" data-toggle="modal" class="login-link round-link" data-target="#cart_login">Оформить заказ <span/></a>
+            </t:parameter>
+        </t:if>
+    </t:form>
+</t:if>

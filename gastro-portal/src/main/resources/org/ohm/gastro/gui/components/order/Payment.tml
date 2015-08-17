@@ -1,0 +1,26 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+    <a href="#order_prepay_${order.id}" class="round-link" data-toggle="modal" data-target="#order_prepay_${order.id}">Внести предоплату <span/></a>
+
+    <div class="modal fade" id="order_prepay_${order.id}" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog application">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="title">
+                        <h1><span>Предоплата</span></h1>
+                    </div>
+                    <a class="modal-close" data-dismiss="modal"></a>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-text">
+                        ГастроМаркет работает в тестовом режиме и у не подключен платежный шлюз<br/>
+                        Для продолжения оформления заказа нажмите кнопку ниже
+                    </p>
+
+                    <div class="form-buttons">
+                        <t:actionlink t:id="prepay" t:context="[order.id]" class="btn btn-red">Как бы оплатить</t:actionlink>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

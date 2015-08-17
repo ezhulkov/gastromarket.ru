@@ -285,7 +285,7 @@
 
     <script>
         jQuery(document).ready(function () {
-//            VK.Widgets.Like("vk_like", {type: "mini"});
+            VK.Widgets.Like("vk_like", {type: "mini"});
             var init = function () {
                 initProductCatalogFixed();
             };

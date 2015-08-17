@@ -1,4 +1,4 @@
-package org.ohm.gastro.gui.components;
+package org.ohm.gastro.gui.components.order;
 
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;

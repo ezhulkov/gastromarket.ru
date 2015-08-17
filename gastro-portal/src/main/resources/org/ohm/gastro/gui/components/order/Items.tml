@@ -1,5 +1,5 @@
 <t:if xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" test="items">
-    <div class="form-group  items">
+    <div class="form-group items">
         <t:loop source="items" index="index" value="item" formState="NONE">
             <div class="col-sm-12 order-item ${rowClass}">
                 <t:if test="canEdit">

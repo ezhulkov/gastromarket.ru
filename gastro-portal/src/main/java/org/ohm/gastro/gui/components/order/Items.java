@@ -1,7 +1,6 @@
 package org.ohm.gastro.gui.components.order;
 
 import org.apache.tapestry5.Block;
-import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.OrderProductEntity;
 import org.ohm.gastro.domain.ProductEntity;
@@ -14,10 +13,6 @@ public class Items extends AbstractOrder {
 
     @Property
     private OrderProductEntity item;
-
-    @Property
-    @Parameter
-    private java.util.List<OrderProductEntity> items;
 
     @Property
     private int index;

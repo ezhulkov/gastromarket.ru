@@ -19,6 +19,6 @@
         </t:block>
     </div>
 
-    <t:tenderEdit tendersBlock="ordersBlock" edit="false"/>
+    <t:order.tenderEdit tendersBlock="ordersBlock" edit="false"/>
 
 </t:htmllayout>
