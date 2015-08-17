@@ -50,6 +50,9 @@ public class TenderEdit extends BaseComponent {
     @Component(id = "deliveryAddress", parameters = {"value=tender.customer.deliveryAddress", "validate=required"})
     private TextField deliveryAddress;
 
+    @Component(id = "name", parameters = {"value=tender.name", "validate=required"})
+    private TextField name;
+
     @Component(id = "comment", parameters = {"value=tender.comment", "validate=required"})
     private TextArea comment;
 
@@ -109,20 +112,22 @@ public class TenderEdit extends BaseComponent {
 
     public void onSubmitFromDescForm(Long tId) {
         if (!error) {
-            final OrderEntity origOrder = tId != null ? getOrderService().findOrder(tId) : tender;
-            origOrder.setComment(tender.getComment());
-            origOrder.setPersonCount(tender.getPersonCount());
-            origOrder.setTotalPrice(tender.getTotalPrice());
-            origOrder.setDueDate(tender.getDueDate());
-            if (origOrder.getId() == null) {
-                tender = getOrderService().placeTender(origOrder, getAuthenticatedUser());
+            final OrderEntity origTender = tId != null ? getOrderService().findOrder(tId) : tender;
+            origTender.setName(tender.getName());
+            origTender.setComment(tender.getComment());
+            origTender.setPersonCount(tender.getPersonCount());
+            origTender.setTotalPrice(tender.getTotalPrice());
+            origTender.setDueDate(tender.getDueDate());
+            if (origTender.getId() == null) {
+                tender = getOrderService().placeTender(origTender, getAuthenticatedUser());
             } else {
-                tender = getOrderService().saveTender(origOrder, getAuthenticatedUser());
+                tender = getOrderService().saveTender(origTender, getAuthenticatedUser());
             }
             if (tendersBlock != null) getAjaxResponseRenderer().addRender("tendersZone", tendersBlock);
             if (tenderBlock != null) getAjaxResponseRenderer().addRender(tenderZoneId, tenderBlock);
             getAjaxResponseRenderer().addRender(getTenderEditZone(), editContactsBlock);
         } else {
+            tender = tId != null ? getOrderService().findOrder(tId) : tender;
             getAjaxResponseRenderer().addRender(getTenderEditZone(), editDescBlock);
         }
     }

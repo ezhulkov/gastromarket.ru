@@ -755,4 +755,10 @@
         </sql>
     </changeSet>
 
+    <changeSet id="60" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="name" type="text"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

@@ -17,6 +17,10 @@
   .round-link
     float: right
     margin: 0
+  .name
+    +name-class
+    font-size: 30px
+    line-height: 42px
   .catalog
     margin-top: -1px
     padding-bottom: 20px
@@ -26,10 +30,6 @@
       width: 100px
       height: 100px
       margin-right: 1px
-    .name
-      +name-class
-      font-size: 30px
-      line-height: 42px
     .badges
       margin-top: 3px
       margin-left: -1px
@@ -73,13 +73,15 @@
         font-size: 20px
         padding-top: 1px
   .total
+    position: relative
     font-size: 16px
     vertical-align: top
     .price
+      position: absolute
+      top: 0
+      right: 15px
       font-weight: bold
       font-size: 30px
-      float: right
-      vertical-align: top
   .submit-row
     min-height: 50px
     position: relative

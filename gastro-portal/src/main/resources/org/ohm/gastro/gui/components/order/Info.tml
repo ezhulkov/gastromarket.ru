@@ -1,7 +1,9 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
     <div class="form-group f16px">
         <div class="col-sm-8">
-            <span class="f20px">Комментарии к заказу:</span><br/>
+            <t:unless test="tender">
+                <span class="f20px">Комментарии к заказу:</span><br/>
+            </t:unless>
             <t:if test="order.comment">
                 ${order.comment}
                 <t:parameter name="else">

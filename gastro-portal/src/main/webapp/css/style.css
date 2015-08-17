@@ -2131,6 +2131,16 @@ label.t-error {
   float: right;
   margin: 0;
 }
+.order-show-catalog .name {
+  text-align: left;
+  font-size: 16px;
+  line-height: 30px;
+  color: #333;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 30px;
+  line-height: 42px;
+}
 .order-show-catalog .catalog {
   margin-top: -1px;
   padding-bottom: 20px;
@@ -2141,16 +2151,6 @@ label.t-error {
   width: 100px;
   height: 100px;
   margin-right: 1px;
-}
-.order-show-catalog .catalog .name {
-  text-align: left;
-  font-size: 16px;
-  line-height: 30px;
-  color: #333;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  font-size: 30px;
-  line-height: 42px;
 }
 .order-show-catalog .catalog .badges {
   margin-top: 3px;
@@ -2218,14 +2218,16 @@ label.t-error {
   padding-top: 1px;
 }
 .order-show-catalog .total {
+  position: relative;
   font-size: 16px;
   vertical-align: top;
 }
 .order-show-catalog .total .price {
+  position: absolute;
+  top: 0;
+  right: 15px;
   font-weight: bold;
   font-size: 30px;
-  float: right;
-  vertical-align: top;
 }
 .order-show-catalog .submit-row {
   min-height: 50px;

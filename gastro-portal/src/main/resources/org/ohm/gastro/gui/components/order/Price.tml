@@ -1,18 +1,16 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
     <t:if test="tender">
         <div class="form-group total">
-            <div class="col-sm-8">
+            <div class="col-sm-12">
                 <span class="f20px">Бюджет заявки:</span><br/>
             </div>
-            <div class="col-sm-4">
-                <div class="price">${total}&nbsp;<span class="rub"/></div>
-            </div>
+            <div class="price">${total}&nbsp;<span class="rub"/></div>
         </div>
     </t:if>
     <t:unless test="tender">
         <t:if test="items">
             <div class="form-group total">
-                <div class="col-sm-8">
+                <div class="col-sm-12">
                     <span class="f20px">Стоимость заказа:</span><br/>
                     <t:if test="catalog.basketMin">
                         ${basketMinText}<br/>
@@ -22,9 +20,7 @@
                     </t:if>
                     При внесении изменений в заказ конечная стоимость может измениться.
                 </div>
-                <div class="col-sm-4">
-                    <div class="price">${total}&nbsp;<span class="rub"/></div>
-                </div>
+                <div class="price">${total}&nbsp;<span class="rub"/></div>
             </div>
         </t:if>
     </t:unless>

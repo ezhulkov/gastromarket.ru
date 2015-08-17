@@ -3,18 +3,21 @@
         <t:delegate to="currentOrderBlock"/>
     </t:zone>
     <t:block t:id="orderBlock">
-        <div class="form form-horizontal">
+        <div class="form form-horizontal submit-row">
             <t:order.catalogBlock order="order" orderBlock="orderBlock"
                                   orderShowCatalogZoneId="orderShowCatalogZoneId"
                                   catalog="catalog" privateOrders="privateOrders"/>
             <t:order.items order="order" catalog="catalog" items="items" orderBlock="orderBlock" orderShowCatalogZoneId="orderShowCatalogZoneId"/>
-            <div class="submit-row">
-                <t:order.price items="items" catalog="catalog" order="order"/>
-                <t:order.basketSubmit items="items" order="order" catalog="catalog" type="type"/>
-            </div>
-        </div>
-        <t:if test="edit">
-            <div class="submit-row form form-horizontal">
+            <t:if test="order?.name">
+                <div class="form-group">
+                    <div class="col-sm-8">
+                        <t:pagelink page="tender/index" t:context="order.id" class="name">${order.name}</t:pagelink>
+                    </div>
+                </div>
+            </t:if>
+            <t:order.price items="items" catalog="catalog" order="order"/>
+            <t:order.basketSubmit items="items" order="order" catalog="catalog" type="type"/>
+            <t:if test="edit">
                 <t:order.info order="order" catalog="catalog"/>
                 <t:delegate to="editOrderBlock"/>
                 <t:block t:id="clientEditBlock">
@@ -38,11 +41,11 @@
                         <t:ratecookuser type="CUSTOMER" user="order.customer" commentAllowed="true" modalId="client_rate_${order.id}"/>
                     </t:unless>
                 </t:block>
-            </div>
-        </t:if>
-        <script>
-            jQuery("body").removeClass("modal-open");
-        </script>
+            </t:if>
+            <script>
+                jQuery("body").removeClass("modal-open");
+            </script>
+        </div>
     </t:block>
     <t:block t:id="deniedOrderBlock">
         <div class="row">

@@ -102,6 +102,9 @@ public class OrderEntity extends AbstractBaseEntity {
     private String orderNumber;
 
     @Column
+    private String name;
+
+    @Column
     private String comment;
 
     @Column(name = "promo_code")
@@ -137,6 +140,14 @@ public class OrderEntity extends AbstractBaseEntity {
 
     public void setCatalog(final CatalogEntity catalog) {
         this.catalog = catalog;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(final String name) {
+        this.name = name;
     }
 
     public String getComment() {
