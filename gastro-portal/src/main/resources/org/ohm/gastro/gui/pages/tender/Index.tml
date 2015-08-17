@@ -3,12 +3,6 @@
     <div class="container orders office">
         <div class="title">
             <h1><span>Заявка</span></h1>
-            <t:if test="authenticated">
-                <a href="#tender_add" data-toggle="modal" class="round-link" data-target="#tender_add">Разместить заявку</a>
-                <t:parameter name="else">
-                    <a href="#tender_login" data-toggle="modal" class="login-link round-link" data-target="#tender_login">Разместить заявку</a>
-                </t:parameter>
-            </t:if>
         </div>
         <t:order.filter status="order.metaStatus" privateOrders="false" frontend="true"/>
         <t:zone t:id="orderZone">
@@ -24,7 +18,7 @@
                     <p class="modal-text">В случае возникновения вопросов, пишите на <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет заказы" class="red-text">contacts@gastromarket.ru</a> или звоните по телефону +7 926 6712145.</p>
                 </div>
             </t:if>
-            <t:order.order  order="order" replies="true" type="EDIT" privateOrders="false" mainPage="true" frontend="true"/>
+            <t:order.order order="order" replies="true" type="EDIT" privateOrders="false" mainPage="true" frontend="true"/>
         </t:block>
     </div>
 

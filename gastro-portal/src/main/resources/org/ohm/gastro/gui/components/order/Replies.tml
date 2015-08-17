@@ -23,7 +23,7 @@
     <t:block t:id="replyBlock">
         <t:if test="commentAllowed">
             <div class="row">
-                <t:form t:id="replyForm" class="form form-horizontal edit" t:clientValidation="none" role="form" t:zone="replyZone">
+                <t:form t:id="replyForm" class="form form-horizontal edit" t:clientValidation="none" autofocus="false" role="form" t:zone="replyZone">
                     <div class="form-group">
                         <div class="col-sm-2"/>
                         <div class="col-sm-8">
