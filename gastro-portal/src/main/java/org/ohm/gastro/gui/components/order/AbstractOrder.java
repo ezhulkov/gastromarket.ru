@@ -7,7 +7,7 @@ import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.OrderProductEntity;
-import org.ohm.gastro.gui.components.order.View.Type;
+import org.ohm.gastro.gui.components.order.Order.Type;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 /**

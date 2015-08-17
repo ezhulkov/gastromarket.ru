@@ -1,6 +1,7 @@
 package org.ohm.gastro.domain;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.util.CommonsUtils;
 
@@ -278,6 +279,12 @@ public class OrderEntity extends AbstractBaseEntity {
         return user != null &&
                 (getCustomer() != null && getCustomer().equals(user) ||
                         getCatalog() != null && getCatalog().getUser().equals(user));
+    }
+
+    public String getCommentRaw() {
+        String text = (String) ObjectUtils.defaultIfNull(comment, "");
+        text = text.replaceAll("\\n", "<br/>");
+        return text;
     }
 
 }

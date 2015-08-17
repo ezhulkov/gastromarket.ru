@@ -165,7 +165,7 @@
                             </div>
                             <div class="text">
                                 <span class="glyphicon glyphicon-thumbs-${oneComment.rating}" aria-hidden="true"/>
-                                <t:outputraw value="oneCommentText"/>
+                                <t:outputraw value="oneComment.textRaw"/>
                             </div>
                         </div>
                     </li>

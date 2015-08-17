@@ -1,5 +1,6 @@
 package org.ohm.gastro.domain;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.ohm.gastro.util.CommonsUtils;
@@ -108,6 +109,12 @@ public class CommentEntity extends AbstractBaseEntity {
 
     public String getDatePrintable() {
         return CommonsUtils.GUI_DATE_LONG.get().format(date);
+    }
+
+    public String getTextRaw() {
+        String text = (String) ObjectUtils.defaultIfNull(this.text, "");
+        text = text.replaceAll("\\n", "<br/>");
+        return text;
     }
 
 }

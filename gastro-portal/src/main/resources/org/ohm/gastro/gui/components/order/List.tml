@@ -1,7 +1,7 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
     <t:if test="fromCart">
         <t:loop source="catalogs" value="catalog" formState="NONE">
-            <t:order.view catalog="catalog" type="BASKET" privateOrders="true" frontend="false"/>
+            <t:order.order  catalog="catalog" type="BASKET" privateOrders="true" frontend="false"/>
             <t:parameter name="empty">
                 <div class="empty">
                     У вас нет неоформленных заказов<br/>
@@ -14,7 +14,7 @@
     </t:if>
     <t:unless test="fromCart">
         <t:loop source="orders" value="order" forState="NONE">
-            <t:order.view order="order" type="EDIT" privateOrders="privateOrders" frontend="frontend"/>
+            <t:order.order  order="order" type="EDIT" privateOrders="privateOrders" frontend="frontend"/>
         </t:loop>
     </t:unless>
 </div>

@@ -761,4 +761,8 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="61" author="ezhulkov">
+        <modifyDataType tableName="orders" columnName="comment" newDataType="text"/>
+    </changeSet>
+
 </databaseChangeLog>

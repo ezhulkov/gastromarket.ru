@@ -1,0 +1,82 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+    <div class="order-show-catalog ${type.name().toLowerCase()}">
+        <t:zone t:id="orderShowCatalogZone" id="${orderShowCatalogZoneId}">
+            <t:delegate to="currentOrderBlock"/>
+        </t:zone>
+        <t:block t:id="orderBlock">
+            <div class="form form-horizontal submit-row">
+                <t:order.catalogBlock order="order" orderBlock="orderBlock"
+                                      orderShowCatalogZoneId="orderShowCatalogZoneId"
+                                      catalog="catalog" privateOrders="privateOrders"/>
+                <t:order.items order="order" catalog="catalog" items="items" orderBlock="orderBlock" orderShowCatalogZoneId="orderShowCatalogZoneId"/>
+                <t:if test="order?.name">
+                    <div class="form-group">
+                        <div class="col-sm-8">
+                            <t:pagelink page="tender/index" t:context="order.id" class="name">${order.name}</t:pagelink>
+                            <t:pageLink class="pic-holder catalog-link" page="user/index" t:context="order.customer.id">
+                                <span><img src="${order.customer.avatarUrlSmall}"/></span>${order.customer.fullName}
+                            </t:pageLink>
+                        </div>
+                    </div>
+                </t:if>
+                <t:order.price items="items" catalog="catalog"   order="order"/>
+                <t:order.basketSubmit items="items" order="order" catalog="catalog" type="type"/>
+                <t:if test="edit">
+                    <t:order.info order="order" catalog="catalog"/>
+                    <t:delegate to="editOrderBlock"/>
+                    <t:block t:id="clientEditBlock">
+                        <t:order.edit order="order" editTenderBlock="editTenderBlock"/>
+                        <script>
+                            jQuery("body").removeClass("modal-open");
+                        </script>
+                    </t:block>
+                    <t:block t:id="clientPaymentBlock">
+                        <t:order.payment order="order"/>
+                    </t:block>
+                    <t:block t:id="clientRateCook">
+                        <t:unless test="frontend">
+                            <a href="#cook_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#cook_rate_${order.id}">Оценить кулинара</a>
+                            <t:ratecookuser type="CATALOG" catalog="catalog" commentAllowed="true" modalId="cook_rate_${order.id}"/>
+                        </t:unless>
+                    </t:block>
+                    <t:block t:id="cookRateClient">
+                        <t:unless test="frontend">
+                            <a href="#client_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#client_rate_${order.id}">Оценить заказчика</a>
+                            <t:ratecookuser type="CUSTOMER" user="order.customer" commentAllowed="true" modalId="client_rate_${order.id}"/>
+                        </t:unless>
+                    </t:block>
+                    <t:block t:id="tenderReplyBlock">
+                        <t:pagelink page="tender/index" t:context="order.id" class="round-link" anchor="reply">Откликнуться<span/></t:pagelink>
+                    </t:block>
+                </t:if>
+                <script>
+                    jQuery("body").removeClass("modal-open");
+                </script>
+            </div>
+        </t:block>
+        <t:block t:id="deniedOrderBlock">
+            <div class="row">
+                <p class="modal-text">
+                    Код 403 - доступ запрещен
+                </p>
+            </div>
+        </t:block>
+        <t:unless test="privateOrders">
+            <t:zone t:id="editZone" id="${editZoneId}"/>
+            <t:block t:id="editTenderBlock">
+                <t:order.tenderedit modalId="tender-${order.id}" tender="order" tenderBlock="orderBlock" tenderZoneId="${orderShowCatalogZoneId}" reloadPage="mainPage"/>
+                <script>
+                    var pe = jQuery("#tender-${order.id}");
+                    pe.modal('show');
+                </script>
+            </t:block>
+        </t:unless>
+    </div>
+    <t:if test="replies">
+        <div id="reply" class="replies">
+            <div class="title">
+                <h1><span>Комментарии</span></h1>
+            </div>
+        </div>
+    </t:if>
+</div>

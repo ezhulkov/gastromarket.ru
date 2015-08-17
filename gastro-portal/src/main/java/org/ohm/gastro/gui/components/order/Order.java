@@ -14,7 +14,7 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 /**
  * Created by ezhulkov on 31.07.15.
  */
-public class View extends BaseComponent {
+public class Order extends BaseComponent {
 
     public enum Type {
         SHORT, BASKET, EDIT
@@ -44,6 +44,10 @@ public class View extends BaseComponent {
     @Property
     private Type type = Type.SHORT;
 
+    @Parameter(value = "false")
+    @Property
+    private boolean replies;
+
     @Inject
     @Property
     private Block orderBlock;
@@ -59,6 +63,9 @@ public class View extends BaseComponent {
 
     @Inject
     private Block clientRateCook;
+
+    @Inject
+    private Block tenderReplyBlock;
 
     @Inject
     private Block cookRateClient;
@@ -104,12 +111,16 @@ public class View extends BaseComponent {
     }
 
     public Block getEditOrderBlock() {
+        if (order != null &&
+                order.getType() == OrderEntity.Type.PUBLIC &&
+                order.getStatus() == Status.ACTIVE &&
+                !order.getCustomer().equals(getAuthenticatedUserOpt().orElse(null))) return tenderReplyBlock;
         if (!isCook()) {
-            if (order.getStatus() == Status.CONFIRMED) return clientPaymentBlock;
-            if (order.getStatus() == Status.CANCELLED || order.getStatus() == Status.CLOSED) return clientRateCook;
+            if (order != null && order.getStatus() == Status.CONFIRMED) return clientPaymentBlock;
+            if (order != null && order.getStatus() == Status.CANCELLED || order.getStatus() == Status.CLOSED) return clientRateCook;
             if (isCanEdit()) return clientEditBlock;
         } else {
-            if (order.getStatus() == Status.CANCELLED || order.getStatus() == Status.CLOSED) return cookRateClient;
+            if (order != null && order.getStatus() == Status.CANCELLED || order.getStatus() == Status.CLOSED) return cookRateClient;
         }
         return null;
     }

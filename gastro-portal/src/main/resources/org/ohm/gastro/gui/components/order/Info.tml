@@ -5,10 +5,7 @@
                 <span class="f20px">Комментарии к заказу:</span><br/>
             </t:unless>
             <t:if test="order.comment">
-                ${order.comment}
-                <t:parameter name="else">
-                    Нет комментариев
-                </t:parameter>
+                <t:outputraw value="order.commentRaw"/>
             </t:if>
         </div>
     </div>

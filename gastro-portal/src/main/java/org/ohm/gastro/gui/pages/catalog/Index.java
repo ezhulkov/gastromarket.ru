@@ -1,6 +1,5 @@
 package org.ohm.gastro.gui.pages.catalog;
 
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
@@ -55,12 +54,6 @@ public class Index extends AbstractCatalogPage {
     public java.util.List<ProductEntity> getProducts() {
         final java.util.List<ProductEntity> allProducts = getProductService().findProductsForFrontend(null, catalog, isCatalogOwner() ? null : true, null, null, 0, Integer.MAX_VALUE);
         return allProducts.stream().limit(4).collect(Collectors.toList());
-    }
-
-    public String getOneCommentText() {
-        String text = (String) ObjectUtils.defaultIfNull(oneComment.getText(), "");
-        text = text.replaceAll("\\n", "<br/>");
-        return text;
     }
 
     @Cached
