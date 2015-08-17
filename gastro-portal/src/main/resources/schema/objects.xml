@@ -765,4 +765,12 @@
         <modifyDataType tableName="orders" columnName="comment" newDataType="text"/>
     </changeSet>
 
+    <changeSet id="62" author="ezhulkov">
+        <addColumn tableName="comment">
+            <column name="order_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="comment" baseColumnNames="order_id"
+                constraintName="comment_order_fk" referencedTableName="orders" referencedColumnNames="id" onDelete="CASCADE"/>
+    </changeSet>
+
 </databaseChangeLog>

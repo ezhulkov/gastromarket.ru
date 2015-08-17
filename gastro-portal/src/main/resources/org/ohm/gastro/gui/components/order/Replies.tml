@@ -1,0 +1,23 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" id="reply" class="replies">
+    <div class="title">
+        <h1><span>Комментарии</span></h1>
+    </div>
+    <t:unless test="commentAllowed">
+        <div class="row">
+            <div class="col-sm-1"/>
+            <div class="col-sm-10 attention">
+                Только зарегистрированные кулинары с заполненными каталогами или автор заявки могут оставлять комментарии.
+                <t:unless test="authenticated">
+                    <br/>
+                    <br/>
+                    <a href="#login" data-toggle="modal" class="login-link gap dotted-link" data-target="#login">Войти на ГастроМаркет</a>
+                    <br/>
+                </t:unless>
+            </div>
+            <div class="col-sm-1"/>
+        </div>
+    </t:unless>
+    <t:if test="comments">
+        <t:comments comments="comments"/>
+    </t:if>
+</div>

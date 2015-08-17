@@ -23,7 +23,7 @@ import java.util.Date;
 public class CommentEntity extends AbstractBaseEntity {
 
     public enum Type {
-        CATALOG, CUSTOMER
+        CATALOG, CUSTOMER, ORDER
     }
 
     @Column
@@ -42,6 +42,10 @@ public class CommentEntity extends AbstractBaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private CatalogEntity catalog;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private OrderEntity order;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -109,6 +113,14 @@ public class CommentEntity extends AbstractBaseEntity {
 
     public String getDatePrintable() {
         return CommonsUtils.GUI_DATE_LONG.get().format(date);
+    }
+
+    public OrderEntity getOrder() {
+        return order;
+    }
+
+    public void setOrder(final OrderEntity order) {
+        this.order = order;
     }
 
     public String getTextRaw() {

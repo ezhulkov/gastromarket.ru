@@ -73,10 +73,6 @@
         </t:unless>
     </div>
     <t:if test="replies">
-        <div id="reply" class="replies">
-            <div class="title">
-                <h1><span>Комментарии</span></h1>
-            </div>
-        </div>
+        <t:order.replies order="order"/>
     </t:if>
 </div>

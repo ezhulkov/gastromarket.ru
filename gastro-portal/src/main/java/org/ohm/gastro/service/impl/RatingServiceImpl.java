@@ -12,6 +12,7 @@ import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.LogEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
+import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.CommentRepository;
@@ -202,6 +203,11 @@ public class RatingServiceImpl implements RatingService, Logging {
     @Override
     public List<CommentEntity> findAllComments(final UserEntity customer) {
         return commentRepository.findAllByUserOrderByIdDesc(customer);
+    }
+
+    @Override
+    public List<CommentEntity> findAllComments(final OrderEntity order) {
+        return commentRepository.findAllByOrderOrderByIdDesc(order);
     }
 
     private int calcRating(final int productsCount, final int retentionCount, final int posCount, final int negCount, final int doneCount, final int allCount, final int totalSum) {

@@ -149,28 +149,7 @@
             <a href="#rate" data-toggle="modal" data-target="#rate">Оставить отзыв</a>
         </div>
         <t:if test="comments">
-            <ul class="comments">
-                <t:loop source="comments" value="oneComment">
-                    <li class="row">
-                        <div class="col-sm-1"/>
-                        <div class="col-sm-2 pic text-right">
-                            <img src="${oneComment.author.avatarUrlMedium}"/>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="date">
-                                ${oneComment.datePrintable}
-                            </div>
-                            <div class="name">
-                                ${oneComment.author.fullName}
-                            </div>
-                            <div class="text">
-                                <span class="glyphicon glyphicon-thumbs-${oneComment.rating}" aria-hidden="true"/>
-                                <t:outputraw value="oneComment.textRaw"/>
-                            </div>
-                        </div>
-                    </li>
-                </t:loop>
-            </ul>
+            <t:comments comments="comments"/>
             <t:parameter name="else">
                 <div class="empty">Нет отзывов</div>
             </t:parameter>

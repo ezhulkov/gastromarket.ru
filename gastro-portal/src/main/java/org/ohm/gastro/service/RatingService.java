@@ -4,6 +4,7 @@ import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.LogEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
+import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.UserEntity;
 
 import java.util.Date;
@@ -31,5 +32,7 @@ public interface RatingService {
     List<CommentEntity> findAllComments(CatalogEntity catalog);
 
     List<CommentEntity> findAllComments(UserEntity customer);
+
+    List<CommentEntity> findAllComments(OrderEntity order);
 
 }
