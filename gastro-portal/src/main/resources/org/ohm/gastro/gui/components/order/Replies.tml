@@ -17,7 +17,27 @@
             <div class="col-sm-1"/>
         </div>
     </t:unless>
-    <t:if test="comments">
-        <t:comments comments="comments"/>
-    </t:if>
+    <t:zone t:id="replyZone">
+        <t:delegate to="replyBlock"/>
+    </t:zone>
+    <t:block t:id="replyBlock">
+        <t:if test="commentAllowed">
+            <div class="row">
+                <t:form t:id="replyForm" class="form form-horizontal edit" t:clientValidation="none" role="form" t:zone="replyZone">
+                    <div class="form-group">
+                        <div class="col-sm-2"/>
+                        <div class="col-sm-8">
+                            <textarea t:type="TextArea" t:id="replyText" t:value="replyText" rows="3" class="form-control"/>
+                        </div>
+                        <!--<div class="col-sm-4">-->
+                        <!--</div>-->
+                        <div class="col-sm-2"/>
+                    </div>
+                </t:form>
+            </div>
+        </t:if>
+        <t:if test="comments">
+            <t:comments comments="comments"/>
+        </t:if>
+    </t:block>
 </div>
