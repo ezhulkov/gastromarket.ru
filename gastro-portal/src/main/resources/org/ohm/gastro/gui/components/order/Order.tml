@@ -12,14 +12,14 @@
                 <t:if test="order?.name">
                     <div class="form-group">
                         <div class="col-sm-8">
-                            <t:pagelink page="tender/index" t:context="order.id" class="name">${order.name}</t:pagelink>
+                            <t:pagelink page="tender/index" t:context="order.id" class="f30px black-text">${order.name}</t:pagelink>
                             <t:pageLink class="pic-holder catalog-link" page="user/index" t:context="order.customer.id">
                                 <span><img src="${order.customer.avatarUrlSmall}"/></span>${order.customer.fullName}
                             </t:pageLink>
                         </div>
                     </div>
                 </t:if>
-                <t:order.price items="items" catalog="catalog"   order="order"/>
+                <t:order.price items="items" catalog="catalog" order="order"/>
                 <t:order.basketSubmit items="items" order="order" catalog="catalog" type="type"/>
                 <t:if test="edit">
                     <t:order.info order="order" catalog="catalog"/>
