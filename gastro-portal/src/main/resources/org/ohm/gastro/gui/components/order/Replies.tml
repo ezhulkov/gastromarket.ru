@@ -1,4 +1,12 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" id="reply" class="replies">
+    <div class="row">
+        <div class="col-sm-1"/>
+        <div class="col-sm-10 attention">
+            Все зарегистрированные кулинары, у которых заполнен каталог, могут оставить отклик к заявке.<br/>
+            Автору заявки достаточно просто выбрать лучшего кулинара и нажать ссылку "Отдать заявку". После этого заявка перейдет в статус заказа и будет скрыта для публичного просмотра.
+        </div>
+        <div class="col-sm-1"/>
+    </div>
     <div class="title">
         <h1><span>Отклики</span></h1>
         <t:if test="authenticated">
@@ -65,7 +73,7 @@
     </t:zone>
     <t:block t:id="replyBlock">
         <t:if test="comments">
-            <t:comments comments="comments" reply="true"/>
+            <t:comments comments="comments" reply="true" order="order"/>
         </t:if>
         <script>
             jQuery("#tender_reply").modal("hide");

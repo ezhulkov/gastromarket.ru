@@ -9,6 +9,9 @@ ul.comments
       height: 50px
   .date
     color: $greyTextColor
+  .text
+    font-size: 16px
+    color: $blackTextColor
   .name a
     font-size: $f20px
     color: $blackTextColor
@@ -22,4 +25,9 @@ ul.comments
     margin-right: 5px
     &:before
       content: "\e126"
-
+  .reply-block
+    min-height: 30px
+    & > a
+      display: none
+    &:hover > a
+      display: inline

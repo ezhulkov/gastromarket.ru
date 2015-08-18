@@ -35,4 +35,6 @@ public interface RatingService {
 
     List<CommentEntity> findAllComments(OrderEntity order);
 
+    List<CommentEntity> findAllComments(CommentEntity comment);
+
 }

@@ -2298,6 +2298,10 @@ ul.comments .pic img {
 ul.comments .date {
   color: #8a8a8a;
 }
+ul.comments .text {
+  font-size: 16px;
+  color: #333;
+}
 ul.comments .name a {
   font-size: 20px;
   color: #333;
@@ -2316,6 +2320,15 @@ ul.comments .glyphicon-thumbs--1 {
 }
 ul.comments .glyphicon-thumbs--1:before {
   content: "";
+}
+ul.comments .reply-block {
+  min-height: 30px;
+}
+ul.comments .reply-block > a {
+  display: none;
+}
+ul.comments .reply-block:hover > a {
+  display: inline;
 }
 
 /*# sourceMappingURL=style.css.map */

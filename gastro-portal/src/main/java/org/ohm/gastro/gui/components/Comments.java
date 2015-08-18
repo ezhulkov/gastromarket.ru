@@ -1,9 +1,11 @@
 package org.ohm.gastro.gui.components;
 
+import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
+import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.List;
@@ -23,7 +25,14 @@ public class Comments extends BaseComponent {
     private boolean reply;
 
     @Property
+    @Parameter
+    private OrderEntity order;
+
+    @Property
     private CommentEntity comment;
+
+    @Property
+    private CommentEntity childComment;
 
     public String getAvatarUrl() {
         return isCookeReply() ?
@@ -49,6 +58,15 @@ public class Comments extends BaseComponent {
 
     public boolean isCookeReply() {
         return comment.getAuthor().isCook();
+    }
+
+    @Cached(watch = "comment")
+    public java.util.List<CommentEntity> getChildren() {
+        return getRatingService().findAllComments(comment);
+    }
+
+    public boolean isOrderUser() {
+        return order != null && order.getCustomer().equals(getAuthenticatedUserOpt().orElse(null));
     }
 
 }

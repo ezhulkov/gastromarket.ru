@@ -773,4 +773,12 @@
                 constraintName="comment_order_fk" referencedTableName="orders" referencedColumnNames="id" onDelete="CASCADE"/>
     </changeSet>
 
+    <changeSet id="63" author="ezhulkov">
+        <addColumn tableName="comment">
+            <column name="parent_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="comment" baseColumnNames="parent_id"
+                constraintName="comment_parent_fk" referencedTableName="comment" referencedColumnNames="id" onDelete="CASCADE"/>
+    </changeSet>
+
 </databaseChangeLog>

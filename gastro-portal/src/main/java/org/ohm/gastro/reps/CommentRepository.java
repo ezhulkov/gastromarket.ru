@@ -30,4 +30,8 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     List<CommentEntity> findAllRatings(@Param("catalog") CatalogEntity catalog);
 
+    @Query("from CommentEntity where parent=:parent order by id desc")
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    List<CommentEntity> findAllChildren(@Param("parent") CommentEntity parent);
+
 }

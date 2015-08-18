@@ -210,6 +210,11 @@ public class RatingServiceImpl implements RatingService, Logging {
         return commentRepository.findAllByOrderOrderByIdDesc(order);
     }
 
+    @Override
+    public List<CommentEntity> findAllComments(final CommentEntity comment) {
+        return commentRepository.findAllChildren(comment);
+    }
+
     private int calcRating(final int productsCount, final int retentionCount, final int posCount, final int negCount, final int doneCount, final int allCount, final int totalSum) {
         return (int) Math.max(0, productsCount * productsCoeff +
                                       retentionCount * retentionCoeff +

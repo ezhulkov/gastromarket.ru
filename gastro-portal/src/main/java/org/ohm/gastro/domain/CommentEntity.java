@@ -45,6 +45,10 @@ public class CommentEntity extends AbstractBaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private CommentEntity parent;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private OrderEntity order;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
