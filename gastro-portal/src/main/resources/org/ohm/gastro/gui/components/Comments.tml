@@ -23,6 +23,7 @@
                     <div class="reply-block">
                         <t:if test="orderUser">
                             <a href="#" class="dotted-link">ответить</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="dotted-link">отдать заявку</a>
+
                         </t:if>
                         <t:if test="children">
                             <ul class="children-comments">
