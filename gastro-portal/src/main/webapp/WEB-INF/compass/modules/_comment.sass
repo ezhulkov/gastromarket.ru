@@ -1,0 +1,25 @@
+@import ../include/var
+
+ul.comments
+  list-style: none
+  .pic
+    margin: 25px 0
+    img
+      width: 50px
+      height: 50px
+  .date
+    color: $greyTextColor
+  .name a
+    font-size: $f20px
+    color: $blackTextColor
+  .glyphicon-thumbs-0
+    display: none
+  .glyphicon-thumbs-1
+    margin-right: 5px
+    &:before
+      content: "\e125"
+  .glyphicon-thumbs--1
+    margin-right: 5px
+    &:before
+      content: "\e126"
+

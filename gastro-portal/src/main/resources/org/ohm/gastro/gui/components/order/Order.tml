@@ -46,7 +46,9 @@
                         </t:unless>
                     </t:block>
                     <t:block t:id="tenderReplyBlock">
-                        <t:pagelink page="tender/index" t:context="order.id" class="round-link" anchor="reply">Откликнуться<span/></t:pagelink>
+                        <t:unless test="replies">
+                            <t:pagelink page="tender/index" t:context="order.id" class="round-link" anchor="reply">Откликнуться<span/></t:pagelink>
+                        </t:unless>
                     </t:block>
                 </t:if>
                 <script>

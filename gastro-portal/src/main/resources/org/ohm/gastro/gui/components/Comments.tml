@@ -1,15 +1,19 @@
 <ul xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="comments">
     <t:loop source="comments" value="comment">
-        <li xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="row">
+        <li class="row">
             <div class="col-sm-2 pic text-right">
-                <img src="${comment.author.avatarUrlMedium}"/>
+                <a href="${linkUrl}">
+                    <img src="${avatarUrl}"/>
+                </a>
             </div>
             <div class="col-sm-6">
                 <div class="date">
                     ${comment.datePrintable}
                 </div>
                 <div class="name">
-                    ${comment.author.fullName}
+                    <a href="${linkUrl}">
+                        ${linkName}
+                    </a>
                 </div>
                 <div class="text">
                     <span class="glyphicon glyphicon-thumbs-${comment.rating}" aria-hidden="true"/>

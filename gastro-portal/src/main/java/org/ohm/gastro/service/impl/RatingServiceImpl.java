@@ -149,7 +149,7 @@ public class RatingServiceImpl implements RatingService, Logging {
         final CommentEntity commentEntity = new CommentEntity();
         commentEntity.setType(CommentEntity.Type.CUSTOMER);
         commentEntity.setUser(user);
-        commentEntity.setAuthor(user);
+        commentEntity.setAuthor(author);
         commentEntity.setText(comment);
         commentEntity.setDate(new Date());
         commentEntity.setRating(rating);

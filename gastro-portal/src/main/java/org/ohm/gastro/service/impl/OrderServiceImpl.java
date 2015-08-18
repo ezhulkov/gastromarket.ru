@@ -1,15 +1,17 @@
 package org.ohm.gastro.service.impl;
 
+import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
+import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.OrderProductEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.reps.CatalogRepository;
+import org.ohm.gastro.reps.CommentRepository;
 import org.ohm.gastro.reps.OrderProductRepository;
 import org.ohm.gastro.reps.OrderRepository;
-import org.ohm.gastro.reps.UserRepository;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.OrderService;
 import org.ohm.gastro.service.RatingModifier;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,23 +35,23 @@ public class OrderServiceImpl implements OrderService, Logging {
 
     private final OrderRepository orderRepository;
     private final OrderProductRepository orderProductRepository;
-    private final UserRepository userRepository;
     private final CatalogRepository catalogRepository;
     private final MailService mailService;
+    private final CommentRepository commentRepository;
     private final RatingService ratingService;
 
     @Autowired
     public OrderServiceImpl(final OrderRepository orderRepository,
                             final OrderProductRepository orderProductRepository,
-                            final UserRepository userRepository,
                             final CatalogRepository catalogRepository,
                             final MailService mailService,
+                            final CommentRepository commentRepository,
                             final RatingService ratingService) {
         this.orderRepository = orderRepository;
         this.orderProductRepository = orderProductRepository;
-        this.userRepository = userRepository;
         this.catalogRepository = catalogRepository;
         this.mailService = mailService;
+        this.commentRepository = commentRepository;
         this.ratingService = ratingService;
     }
 
@@ -129,6 +132,19 @@ public class OrderServiceImpl implements OrderService, Logging {
         orderRepository.save(tender);
         tender.setOrderNumber(Long.toString(tender.getId()));
         return tender;
+    }
+
+    @Override
+    public void placeReply(final OrderEntity order, final UserEntity cook, final String replyText) {
+        if (cook.isCook() && StringUtils.isNotEmpty(replyText)) {
+            final CommentEntity reply = new CommentEntity();
+            reply.setType(CommentEntity.Type.ORDER);
+            reply.setOrder(order);
+            reply.setAuthor(cook);
+            reply.setText(replyText);
+            reply.setDate(new Date());
+            commentRepository.save(reply);
+        }
     }
 
     @Override

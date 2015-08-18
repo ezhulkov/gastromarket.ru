@@ -28,7 +28,19 @@ public class Replies extends AbstractOrder {
 
     @Cached
     public boolean isCommentAllowed() {
-        return order != null && isAuthenticated() && (order.getCustomer().equals(getAuthenticatedUser()) || isCook());
+        if (order == null || !isAuthenticated()) return false;
+        if (isCook()) {
+            if (getRatingService().findAllComments(order).stream().filter(t -> t.getAuthor().equals(getAuthenticatedUser())).findAny().isPresent()) return false;
+            if (getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream().mapToInt(t -> getProductService().findProductsForFrontendCount(t)).sum() == 0) return false;
+            return true;
+        }
+        return false;
+    }
+
+    public Block onSubmitFromReplyForm(Long oId) {
+        order = getOrderService().findOrder(oId);
+        getOrderService().placeReply(order, getAuthenticatedUser(), replyText);
+        return replyBlock;
     }
 
 }

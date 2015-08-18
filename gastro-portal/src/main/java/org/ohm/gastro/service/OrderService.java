@@ -37,4 +37,6 @@ public interface OrderService {
 
     OrderEntity placeTender(OrderEntity tender, UserEntity caller);
 
+    void placeReply(OrderEntity order, UserEntity cook, String replyText);
+
 }

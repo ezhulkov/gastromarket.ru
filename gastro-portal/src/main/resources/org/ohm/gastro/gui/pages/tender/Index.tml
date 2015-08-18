@@ -22,4 +22,14 @@
         </t:block>
     </div>
 
+    <t:unless test="authenticated">
+        <t:loginUserModal modalId="tender_login">
+            <t:parameter name="addText">
+                <div class="attention">
+                    Только зарегистрированные кулинары с заполненными каталогами или автор заявки могут оставлять комментарии.
+                </div>
+            </t:parameter>
+        </t:loginUserModal>
+    </t:unless>
+
 </t:htmllayout>
