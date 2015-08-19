@@ -89,11 +89,11 @@ public class Products extends BaseComponent {
     }
 
     public java.util.List<ProductEntity> getProducts() {
-        return getProductsInt(propertyValue);
+        return getProductsInt(propertyValue, propertyValue.getId().toString());
     }
 
-    private java.util.List<ProductEntity> getProductsInt(PropertyValueEntity propertyValue) {
-        return getProductService().findProductsForFrontend(propertyValue, catalog, isCatalogOwner() ? null : true, orderType, direction, 0, Integer.MAX_VALUE);
+    private java.util.List<ProductEntity> getProductsInt(PropertyValueEntity propertyValue, String positionType) {
+        return getProductService().findProductsForFrontend(propertyValue, catalog, isCatalogOwner() ? null : true, orderType, direction, positionType, 0, Integer.MAX_VALUE);
     }
 
     public java.util.List<PropertyValueEntity> getAllProperties() {
@@ -107,7 +107,7 @@ public class Products extends BaseComponent {
         return getProductService().findAllRootValues(catalog, isCatalogOwner() ? null : true).stream()
                 .flatMap(t -> t.getParents().isEmpty() ? Stream.of(t) : t.getParents().stream())
                 .distinct()
-                .sorted((o1, o2) -> getProductsInt(o2).size() - getProductsInt(o1).size())
+                .sorted((o1, o2) -> getProductsInt(o2, null).size() - getProductsInt(o1, null).size())
                 .collect(Collectors.toList());
     }
 
@@ -115,8 +115,8 @@ public class Products extends BaseComponent {
         return isCatalogOwner() ? "sortable-container" : "";
     }
 
-    public Block onActionFromReorderForm() {
-        getProductService().productPosition(Arrays.stream(reorder.split(",")).map(Long::parseLong).collect(Collectors.toList()));
+    public Block onActionFromReorderForm(Long vid) {
+        getProductService().productPosition(Arrays.stream(reorder.split(",")).map(Long::parseLong).collect(Collectors.toList()), vid.toString());
         return productsBlock;
     }
 

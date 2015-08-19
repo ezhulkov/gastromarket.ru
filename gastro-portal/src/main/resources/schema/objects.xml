@@ -781,4 +781,11 @@
                 constraintName="comment_parent_fk" referencedTableName="comment" referencedColumnNames="id" onDelete="CASCADE"/>
     </changeSet>
 
+    <changeSet id="64" author="ezhulkov">
+        <sql>
+            update product set position=null;
+        </sql>
+        <modifyDataType tableName="product" columnName="position" newDataType="text"/>
+    </changeSet>
+
 </databaseChangeLog>

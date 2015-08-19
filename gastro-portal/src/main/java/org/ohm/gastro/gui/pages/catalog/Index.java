@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.pages.catalog;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
@@ -11,6 +12,7 @@ import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 /**
@@ -23,6 +25,9 @@ public class Index extends AbstractCatalogPage {
 
     @Property
     private ProductEntity editedProduct;
+
+    @Property
+    private String reorder;
 
     @Property
     private CommentEntity oneComment;
@@ -52,8 +57,8 @@ public class Index extends AbstractCatalogPage {
 
     @Cached
     public java.util.List<ProductEntity> getProducts() {
-        final java.util.List<ProductEntity> allProducts = getProductService().findProductsForFrontend(null, catalog, isCatalogOwner() ? null : true, null, null, 0, Integer.MAX_VALUE);
-        return allProducts.stream().limit(4).collect(Collectors.toList());
+        final java.util.List<ProductEntity> allProducts = getProductService().findProductsForFrontend(null, catalog, isCatalogOwner() ? null : true, null, null, null, 0, Integer.MAX_VALUE);
+        return allProducts.stream().limit(4).sorted((o1, o2) -> ObjectUtils.compare(o1.getPositionOfType("main"), o2.getPositionOfType("main"))).collect(Collectors.toList());
     }
 
     @Cached
@@ -114,4 +119,8 @@ public class Index extends AbstractCatalogPage {
         return getMessages().format("prepayment.text2", catalog.getPrepayment());
     }
 
+    public Block onActionFromReorderForm() {
+        getProductService().productPosition(Arrays.stream(reorder.split(",")).map(Long::parseLong).collect(Collectors.toList()), "main");
+        return productsBlock;
+    }
 }

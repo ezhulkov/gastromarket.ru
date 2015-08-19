@@ -4,6 +4,7 @@ import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.javatuples.Tuple;
 import org.ohm.gastro.domain.CatalogEntity;
@@ -232,23 +233,28 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
-    public void productPosition(final List<Long> collect) {
+    public void productPosition(final List<Long> collect, String type) {
         int pos = 1;
         for (Long id : collect) {
             final ProductEntity product = productRepository.findOne(id);
-            product.setPosition(pos++);
+            product.setPositionOfType(type, pos++);
             productRepository.save(product);
         }
     }
 
     @Override
     public List<ProductEntity> findProductsForFrontend(PropertyValueEntity propertyValue, CatalogEntity catalog, Boolean wasSetup,
-                                                       OrderType orderType, Direction direction, int from, int to) {
+                                                       OrderType orderType, Direction direction, String positionType, int from, int to) {
         final int count = to - from;
         if (count == 0) return Lists.newArrayList();
         final int page = from / count;
-        final Sort sort = orderType == OrderType.NONE || orderType == null ? null : new Sort(direction, orderType.name().toLowerCase());
-        return findProductsInternal(propertyValue, catalog, wasSetup, new PageRequest(page, count, sort));
+        final Sort sort = orderType == OrderType.POSITION || orderType == OrderType.NONE || orderType == null ?
+                null :
+                new Sort(direction, orderType.name().toLowerCase());
+        final List<ProductEntity> products = findProductsInternal(propertyValue, catalog, wasSetup, new PageRequest(page, count, sort));
+        return orderType == OrderType.POSITION ?
+                products.stream().sorted(((o1, o2) -> ObjectUtils.compare(o1.getPositionOfType(positionType), o2.getPositionOfType(positionType)))).collect(Collectors.toList()) :
+                products;
     }
 
     @Override
@@ -307,7 +313,7 @@ public class ProductServiceImpl implements ProductService, Logging {
 
     @Override
     public List<PropertyValueEntity> findAllRootValues(CatalogEntity catalog, Boolean wasSetup) {
-        return findProductsForFrontend(null, catalog, wasSetup, null, null, 0, Integer.MAX_VALUE).stream()
+        return findProductsForFrontend(null, catalog, wasSetup, null, null, null, 0, Integer.MAX_VALUE).stream()
                 .flatMap(t -> t.getValues().stream())
                 .map(TagEntity::getValue)
                 .filter(java.util.Objects::nonNull)

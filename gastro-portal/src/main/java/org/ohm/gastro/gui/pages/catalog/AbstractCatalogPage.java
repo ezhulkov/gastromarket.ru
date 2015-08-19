@@ -68,4 +68,8 @@ public abstract class AbstractCatalogPage extends BaseComponent {
         return getMessages().get("name.label." + catalog.getType().name().toLowerCase());
     }
 
+    public String getSortable() {
+        return isCatalogOwner() ? "sortable-container" : "";
+    }
+
 }

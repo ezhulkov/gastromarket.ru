@@ -1,7 +1,9 @@
 package org.ohm.gastro.domain;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -18,7 +20,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 24.08.14.
@@ -46,7 +51,7 @@ public class ProductEntity extends AltIdBaseEntity implements PurchaseEntity {
     private int unitValue = 1;
 
     @Column(name = "position")
-    private Integer position = 1;
+    private String position = "";
 
     @Column
     private Timestamp date = new Timestamp(System.currentTimeMillis());
@@ -198,12 +203,35 @@ public class ProductEntity extends AltIdBaseEntity implements PurchaseEntity {
         this.offers = offers;
     }
 
-    public Integer getPosition() {
+    public String getPosition() {
         return position;
     }
 
-    public void setPosition(final Integer position) {
+    public void setPosition(final String position) {
         this.position = position;
+    }
+
+    public Integer getPositionOfType(String type) {
+        return type == null ? 1 : getPositionAsTypes().get(type);
+    }
+
+    public void setPositionOfType(String type, Integer position) {
+        final Map<String, Integer> map = getPositionAsTypes();
+        map.put(type, position);
+        setPositionAsTypes(map);
+    }
+
+    private Map<String, Integer> getPositionAsTypes() {
+        return position == null ?
+                Maps.newHashMap() :
+                Arrays.stream(position.split(";"))
+                        .map(t -> t.split(":"))
+                        .filter(t -> StringUtils.isNotEmpty(t[0]) && StringUtils.isNotEmpty(t[1]))
+                        .collect(Collectors.toMap(t -> t[0], t -> Integer.parseInt(t[1])));
+    }
+
+    private void setPositionAsTypes(Map<String, Integer> map) {
+        this.position = map.entrySet().stream().map(t -> String.format("%s:%s", t.getKey(), t.getValue())).collect(Collectors.joining(";"));
     }
 
     public String getDescriptionRaw() {
