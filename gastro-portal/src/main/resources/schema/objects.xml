@@ -727,7 +727,7 @@
     <changeSet id="57" author="ezhulkov">
         <addColumn tableName="comment">
             <column name="user_id" type="java.sql.Types.BIGINT"/>
-            <column name="type" type="java.sql.Types.BIGINT"/>
+            <column name="type" type="text"/>
         </addColumn>
         <addForeignKeyConstraint baseTableName="comment" baseColumnNames="user_id"
                 constraintName="comment_user_fk" referencedTableName="users" referencedColumnNames="id" onDelete="CASCADE"/>
