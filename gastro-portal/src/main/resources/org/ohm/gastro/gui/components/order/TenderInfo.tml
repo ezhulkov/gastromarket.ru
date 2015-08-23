@@ -3,7 +3,7 @@
         <div class="col-sm-8">
             <t:pagelink page="tender/index" t:context="order.id" class="f30px black-text">${order.name}</t:pagelink>
             <t:pageLink class="pic-holder catalog-link" page="user/index" t:context="order.customer.id">
-                <span><img src="${order.customer.avatarUrlSmall}"/></span>${order.customer.fullName}
+                <span><img src="${order.customer.avatarUrlSmall}" class="avatar-small"/></span>${order.customer.fullName}
             </t:pageLink>
         </div>
         <div class="col-sm-4 order-info total">

@@ -1,5 +1,6 @@
 package org.ohm.gastro.service.impl;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
@@ -17,11 +18,14 @@ import org.ohm.gastro.service.RatingService;
 import org.ohm.gastro.service.RatingTarget;
 import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ezhulkov on 12.10.14.
@@ -128,6 +132,30 @@ public class OrderServiceImpl implements OrderService, Logging {
         tender.setStatus(Status.NEW);
         orderRepository.save(tender);
         tender.setOrderNumber(Long.toString(tender.getId()));
+        orderRepository.save(tender);
+        try {
+            final Map<String, Object> params = new HashMap<String, Object>() {
+                {
+                    put("username", tender.getCustomer().getFullName());
+                    put("customer", tender.getCustomer());
+                    put("name", ObjectUtils.defaultIfNull(tender.getName(), ""));
+                    put("comment", ObjectUtils.defaultIfNull(tender.getComment(), ""));
+                    put("total", ObjectUtils.defaultIfNull(tender.getTotalPrice(), ""));
+                    put("date", ObjectUtils.defaultIfNull(tender.getDatePrintable(), "-"));
+                    put("address", String.format("http://gastromarket.ru/tender/%s", tender.getId()));
+                }
+            };
+            mailService.sendAdminMessage(MailService.NEW_TENDER_ADMIN, params);
+            mailService.sendMailMessage(tender.getCustomer().getEmail(), MailService.NEW_TENDER_CUSTOMER, params);
+//            todo uncomment
+//            catalogRepository.findAll().stream().map(CatalogEntity::getUser).distinct().
+//                    forEach(cook -> {
+//                        params.put("username", cook.getFullName());
+//                        mailService.sendMailMessage(cook.getEmail(), MailService.NEW_TENDER_COOK, params);
+//                    });
+        } catch (MailException e) {
+            logger.error("", e);
+        }
         return tender;
     }
 

@@ -175,7 +175,7 @@ public class UserServiceImpl implements UserService, Logging {
         logger.info("fullName: {}", fullName);
         logger.info("about: {}", about);
 
-        mailService.sendAdminMessage(MailService.NEW_APPLICATION, ImmutableMap.of("username", defaultIfNull(fullName, ""),
+        mailService.sendAdminMessage(MailService.NEW_APPLICATION, ImmutableMap.of("cookname", defaultIfNull(fullName, ""),
                                                                                   "email", defaultIfNull(eMail, ""),
                                                                                   "about", defaultIfNull(about, "")));
         mailService.sendMailMessage(eMail, MailService.NEW_APPLICATION_COOK, ImmutableMap.of("username", defaultIfNull(fullName, ""),

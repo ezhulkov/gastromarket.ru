@@ -78,7 +78,7 @@ public class MailServiceImpl implements MailService, Logging {
         properties.put("runtime.log.logsystem.log4j.logger", "velocity");
         this.velocityEngine = new VelocityEngine(properties);
         this.defaultFrom = defaultFrom;
-        this.executorService = Executors.newFixedThreadPool(5);
+        this.executorService = Executors.newFixedThreadPool(16);
         final JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("localhost");
         mailSender.setDefaultEncoding("UTF-8");
