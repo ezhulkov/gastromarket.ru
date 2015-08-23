@@ -4,6 +4,7 @@ import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
@@ -25,7 +26,7 @@ public abstract class AbstractOrder extends BaseComponent {
     protected OrderEntity order;
 
     @Property
-    @Parameter
+    @Inject
     protected Block orderBlock;
 
     @Property

@@ -5,10 +5,10 @@
         </t:zone>
         <t:block t:id="orderBlock">
             <div class="form form-horizontal submit-row">
-                <t:order.catalogBlock order="order" orderBlock="orderBlock"
+                <t:order.catalogBlock order="order"
                                       orderShowCatalogZoneId="orderShowCatalogZoneId"
                                       catalog="catalog" privateOrders="privateOrders"/>
-                <t:order.items order="order" catalog="catalog" items="items" orderBlock="orderBlock" orderShowCatalogZoneId="orderShowCatalogZoneId"/>
+                <t:order.items order="order" catalog="catalog" items="items" orderShowCatalogZoneId="orderShowCatalogZoneId"/>
                 <t:if test="tender">
                     <div class="form-group">
                         <div class="col-sm-8">
@@ -63,16 +63,16 @@
                 </p>
             </div>
         </t:block>
-        <t:unless test="privateOrders">
-            <t:zone t:id="editZone" id="${editZoneId}"/>
-            <t:block t:id="editTenderBlock">
-                <t:order.tenderedit modalId="tender-${order.id}" tender="order" tenderBlock="orderBlock" tenderZoneId="${orderShowCatalogZoneId}" reloadPage="mainPage"/>
-                <script>
-                    var pe = jQuery("#tender-${order.id}");
-                    pe.modal('show');
-                </script>
-            </t:block>
-        </t:unless>
+        <!--<t:unless test="privateOrders">-->
+        <t:zone t:id="editZone" id="${editZoneId}"/>
+        <t:block t:id="editTenderBlock">
+            <t:order.tenderedit modalId="tender-${order.id}" tender="order" tenderBlock="orderBlock" tenderZoneId="${orderShowCatalogZoneId}" reloadPage="mainPage"/>
+            <script>
+                var pe = jQuery("#tender-${order.id}");
+                pe.modal('show');
+            </script>
+        </t:block>
+        <!--</t:unless>-->
     </div>
     <t:if test="replies">
         <t:order.replies order="order"/>

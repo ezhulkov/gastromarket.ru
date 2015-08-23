@@ -1,12 +1,12 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
-    <t:if test="tender">
-        <t:if test="canEditTender">
-            <t:actionlink class="edit-link" t:id="editTender" t:context="order.id" t:zone="${editZoneId}">Редактировать</t:actionlink>
-        </t:if>
-        <t:parameter name="else">
-            <a href="#order_edit_${order.id}" class="edit-link" data-toggle="modal" data-target="#order_edit_${order.id}">Редактировать</a>
-        </t:parameter>
-    </t:if>
+    <!--<t:if test="tender">-->
+    <!--<t:if test="canEditTender">-->
+    <t:actionlink class="edit-link" t:id="editTender" t:context="order.id" t:zone="${editZoneId}">Редактировать</t:actionlink>
+    <!--</t:if>-->
+    <!--<t:parameter name="else">-->
+    <!--<a href="#order_edit_${order.id}" class="edit-link" data-toggle="modal" data-target="#order_edit_${order.id}">Редактировать</a>-->
+    <!--</t:parameter>-->
+    <!--</t:if>-->
     <div class="modal fade" id="order_edit_${order.id}" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog application">
             <div class="modal-content">

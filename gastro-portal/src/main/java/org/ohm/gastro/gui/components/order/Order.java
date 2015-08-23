@@ -30,9 +30,6 @@ public class Order extends AbstractOrder {
     private boolean replies;
 
     @Inject
-    private Block orderBlock;
-
-    @Inject
     private Block deniedOrderBlock;
 
     @Inject
@@ -60,7 +57,7 @@ public class Order extends AbstractOrder {
 
     public void beginRender() {
         if (order != null) catalog = order.getCatalog();
-        super.orderBlock = orderBlock;
+//        super.orderBlock = orderBlock;
     }
 
     public boolean isFull() {
