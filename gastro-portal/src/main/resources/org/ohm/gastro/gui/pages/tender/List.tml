@@ -20,7 +20,7 @@
     </div>
 
     <t:if test="authenticated">
-        <t:order.tenderEdit tendersBlock="ordersBlock" edit="false"/>
+        <t:order.edit tendersBlock="ordersBlock" edit="false"/>
     </t:if>
     <t:unless test="authenticated">
         <t:loginUserModal modalId="tender_login">

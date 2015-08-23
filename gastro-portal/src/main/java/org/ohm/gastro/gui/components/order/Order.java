@@ -46,7 +46,7 @@ public class Order extends AbstractOrder {
 
     @Inject
     @Property
-    private Block editTenderBlock;
+    private Block editOrderBlock;
 
     public java.util.List<OrderProductEntity> getItems() {
         return order == null ? getShoppingCart().getItems(catalog) : getOrderService().findAllItems(order);
@@ -58,7 +58,7 @@ public class Order extends AbstractOrder {
 
     public Block onActionFromEditTender(Long tid) {
         this.order = getOrderService().findOrder(tid);
-        return editTenderBlock;
+        return editOrderBlock;
     }
 
     public boolean isFull() {
@@ -73,7 +73,7 @@ public class Order extends AbstractOrder {
         return isCook() ? order.getStatus().getCookGraph() : order.getStatus().getClientGraph();
     }
 
-    public Block getEditOrderBlock() {
+    public Block getOrderAdditionalBlock() {
         if (order != null &&
                 order.getType() == OrderEntity.Type.PUBLIC &&
                 order.getStatus() == Status.NEW &&

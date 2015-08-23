@@ -23,12 +23,11 @@
                 <t:order.basketSubmit items="items" order="order" catalog="catalog" type="prop:type"/>
                 <t:if test="full">
                     <t:order.info order="order" catalog="catalog"/>
-                    <t:delegate to="editOrderBlock"/>
+                    <t:delegate to="orderAdditionalBlock"/>
                     <t:block t:id="clientEditBlock">
                         <t:if test="canEditOrder">
                             <t:actionlink class="edit-link" t:id="editTender" t:context="order.id" t:zone="${editZoneId}">Редактировать</t:actionlink>
                         </t:if>
-                        <t:order.edit order="order" editTenderBlock="editTenderBlock"/>
                         <script>
                             jQuery("body").removeClass("modal-open");
                         </script>
@@ -64,8 +63,8 @@
             </div>
         </t:block>
         <t:zone t:id="editZone" id="${editZoneId}"/>
-        <t:block t:id="editTenderBlock">
-            <t:order.tenderedit modalId="tender-${order.id}" tender="order" tenderBlock="orderBlock" tenderZoneId="${orderShowCatalogZoneId}" reloadPage="mainPage"/>
+        <t:block t:id="editOrderBlock">
+            <t:order.edit modalId="tender-${order.id}" tender="order" tenderBlock="orderBlock" tenderZoneId="${orderShowCatalogZoneId}" reloadPage="mainPage"/>
             <script>
                 var pe = jQuery("#tender-${order.id}");
                 pe.modal('show');
