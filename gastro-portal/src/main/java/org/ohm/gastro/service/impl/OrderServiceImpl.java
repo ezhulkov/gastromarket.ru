@@ -148,11 +148,12 @@ public class OrderServiceImpl implements OrderService, Logging {
             mailService.sendAdminMessage(MailService.NEW_TENDER_ADMIN, params);
             mailService.sendMailMessage(tender.getCustomer().getEmail(), MailService.NEW_TENDER_CUSTOMER, params);
 //            todo uncomment
-//            catalogRepository.findAll().stream().map(CatalogEntity::getUser).distinct().
-//                    forEach(cook -> {
-//                        params.put("username", cook.getFullName());
+            catalogRepository.findAll().stream().map(CatalogEntity::getUser).distinct().
+                    forEach(cook -> {
+                        params.put("username", cook.getFullName());
+                        mailService.sendMailMessage("eugenezh@zeptolab.com", MailService.NEW_TENDER_COOK, params);
 //                        mailService.sendMailMessage(cook.getEmail(), MailService.NEW_TENDER_COOK, params);
-//                    });
+                    });
         } catch (MailException e) {
             logger.error("", e);
         }
