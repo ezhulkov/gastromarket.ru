@@ -25,7 +25,7 @@ public interface OrderService {
 
     OrderEntity findOrder(Long id);
 
-    void saveOrder(OrderEntity order, final UserEntity caller);
+    OrderEntity saveOrder(OrderEntity order, final UserEntity caller);
 
     void deleteProduct(Long oid, Long pid, final UserEntity caller);
 
