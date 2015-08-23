@@ -69,7 +69,7 @@ public class CatalogEntity extends AltIdBaseEntity {
     private Integer basketMin = 0;
 
     @Column(name = "prepayment")
-    private Integer prepayment = 10;
+    private Integer prepayment;
 
     @Column
     private Date date = new Date(System.currentTimeMillis());

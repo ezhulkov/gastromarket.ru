@@ -92,7 +92,6 @@ public class Wizard extends AbstractCatalogPage {
     }
 
     public void onPrepareFromWizardForm2() {
-        if (catalog.getPrepayment() == null || catalog.getPrepayment() < 10) catalog.setPrepayment(10);
     }
 
     public void onSubmitFromWizardForm2() {
