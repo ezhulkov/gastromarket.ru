@@ -275,6 +275,10 @@ public class OrderEntity extends AbstractBaseEntity {
         }
     }
 
+    public boolean isTender() {
+        return type == Type.PUBLIC;
+    }
+
     public boolean isAllowed(final UserEntity user) {
         return user != null &&
                 (getCustomer() != null && getCustomer().equals(user) ||

@@ -4,17 +4,17 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="title">
-                        <t:if test="editTender">
+                        <t:if test="editOrder">
                             <h1><span>Редактировать</span></h1>
                         </t:if>
-                        <t:unless test="editTender">
+                        <t:unless test="editOrder">
                             <h1><span>Новая заявка</span></h1>
                         </t:unless>
                     </div>
                     <a class="modal-close" data-dismiss="modal"></a>
                 </div>
-                <div class="modal-body tender-create">
-                    <t:zone t:id="tenderEditZone" id="${tenderEditZone}">
+                <div class="modal-body order-create">
+                    <t:zone t:id="orderEditZone" id="${orderEditZone}">
                         <t:delegate to="editDescBlock"/>
                     </t:zone>
                     <t:block t:id="editDescBlock">
@@ -26,7 +26,7 @@
                                 jQuery("#${modalId}").modal('hide');
                             </script>
                         </t:if>
-                        <t:form t:id="descForm" t:context="[tenderId]" t:zone="${tenderEditZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
+                        <t:form t:id="descForm" t:context="[orderId]" t:zone="${orderEditZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
                             <t:errors/>
                             <div class="form-group">
                                 <div class="col-sm-1"/>
@@ -73,7 +73,7 @@
                         <p class="modal-text">
                             Шаг 2 из 2 - контактные данные
                         </p>
-                        <t:form t:id="contactsForm" t:context="[tenderId]" t:zone="${tenderEditZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
+                        <t:form t:id="contactsForm" t:context="[orderId]" t:zone="${orderEditZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
                             <t:errors/>
                             <div class="form-group">
                                 <div class="col-sm-1"/>

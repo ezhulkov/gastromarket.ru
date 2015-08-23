@@ -98,7 +98,7 @@ public class Order extends AbstractOrder {
     }
 
     public String getEditZoneId() {
-        return "editZone" + order.getId();
+        return order == null ? "editZoneNew" : "editZone" + order.getId();
     }
 
     public boolean isCanEditOrder() {

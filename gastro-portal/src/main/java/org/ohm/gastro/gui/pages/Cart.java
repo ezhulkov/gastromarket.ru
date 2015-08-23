@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.pages;
 
+import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.office.Orders;
 
@@ -9,7 +10,7 @@ import org.ohm.gastro.gui.pages.office.Orders;
 public class Cart extends BaseComponent {
 
     public Object onActivate() {
-        if (isAuthenticated()) return getPageLinkSource().createPageRenderLink(Orders.class);
+        if (isAuthenticated()) return getPageLinkSource().createPageRenderLinkWithContext(Orders.class, true, Status.NEW);
         return true;
     }
 

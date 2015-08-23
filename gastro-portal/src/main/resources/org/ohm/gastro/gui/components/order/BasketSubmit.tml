@@ -13,8 +13,8 @@
                     <input t:id="dueDate" class="form-control date-picker" placeholder="дд/мм/гггг"/>
                 </div>
                 <div class="col-sm-4">
-                    <t:label t:for="promoCode">Промо-код:</t:label>
-                    <input t:id="promoCode" class="form-control"/>
+                    <t:label t:for="personCount">Количество персон:</t:label>
+                    <input t:id="personCount" class="form-control"/>
                 </div>
             </div>
             <t:if test="totalEnough">

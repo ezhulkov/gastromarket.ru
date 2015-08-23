@@ -4,14 +4,14 @@
         <div class="title">
             <h1><span>Все заявки</span></h1>
             <t:if test="authenticated">
-                <a href="#tender-new" data-toggle="modal" class="round-link" data-target="#tender-new">Разместить заявку</a>
+                <a href="#tender-new" data-toggle="modal" class="round-link" data-target="#order-new">Разместить заявку</a>
                 <t:parameter name="else">
-                    <a href="#tender_login" data-toggle="modal" class="login-link round-link" data-target="#tender_login">Разместить заявку</a>
+                    <a href="#tender_login" data-toggle="modal" class="login-link round-link" data-target="#order-login">Разместить заявку</a>
                 </t:parameter>
             </t:if>
         </div>
         <t:order.filter status="status" privateOrders="false" frontend="true"/>
-        <t:zone t:id="tendersZone">
+        <t:zone t:id="ordersZone">
             <t:delegate to="ordersBlock"/>
         </t:zone>
         <t:block t:id="ordersBlock">
@@ -20,10 +20,10 @@
     </div>
 
     <t:if test="authenticated">
-        <t:order.edit tendersBlock="ordersBlock" edit="false"/>
+        <t:order.edit ordersBlock="ordersBlock" edit="false" tender="true"/>
     </t:if>
     <t:unless test="authenticated">
-        <t:loginUserModal modalId="tender_login">
+        <t:loginUserModal modalId="order-login">
             <t:parameter name="addText">
                 <div class="attention">
                     Для оформления заявки необходимо войти или зарегистрироваться.

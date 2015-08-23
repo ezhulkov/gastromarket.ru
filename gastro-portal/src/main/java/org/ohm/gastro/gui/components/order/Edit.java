@@ -22,7 +22,11 @@ public class Edit extends BaseComponent {
 
     @Property
     @Parameter(defaultPrefix = BindingConstants.PROP, allowNull = true, required = false)
-    private OrderEntity tender;
+    private OrderEntity order;
+
+    @Property
+    @Parameter
+    private boolean tender;
 
     @Inject
     @Property
@@ -41,67 +45,67 @@ public class Edit extends BaseComponent {
     @Property
     private boolean goBack;
 
-    @Component(id = "fullName", parameters = {"value=tender.customer.fullName", "validate=required"})
+    @Component(id = "fullName", parameters = {"value=order.customer.fullName", "validate=required"})
     private TextField fullName;
 
-    @Component(id = "mobilePhone", parameters = {"value=tender.customer.mobilePhone", "validate=required"})
+    @Component(id = "mobilePhone", parameters = {"value=order.customer.mobilePhone", "validate=required"})
     private TextField mobilePhone;
 
-    @Component(id = "deliveryAddress", parameters = {"value=tender.customer.deliveryAddress", "validate=required"})
+    @Component(id = "deliveryAddress", parameters = {"value=order.customer.deliveryAddress", "validate=required"})
     private TextField deliveryAddress;
 
-    @Component(id = "name", parameters = {"value=tender.name", "validate=required"})
+    @Component(id = "name", parameters = {"value=order.name", "validate=required"})
     private TextField name;
 
-    @Component(id = "comment", parameters = {"value=tender.comment", "validate=required"})
+    @Component(id = "comment", parameters = {"value=order.comment", "validate=required"})
     private TextArea comment;
 
-    @Component(id = "dueDate", parameters = {"value=tender.dueDate"})
+    @Component(id = "dueDate", parameters = {"value=order.dueDate"})
     private TextField dueDate;
 
-    @Component(id = "budget", parameters = {"value=tender.totalPrice", "validate=required"})
+    @Component(id = "budget", parameters = {"value=order.totalPrice", "validate=required"})
     private TextField budget;
 
-    @Component(id = "personCount", parameters = {"value=tender.personCount"})
+    @Component(id = "personCount", parameters = {"value=order.personCount"})
     private TextField personCount;
 
-    @Parameter(name = "tendersBlock", required = false, allowNull = false)
-    private Block tendersBlock;
+    @Parameter(name = "ordersBlock", required = false, allowNull = false)
+    private Block ordersBlock;
 
-    @Parameter(name = "tenderBlock", required = false, allowNull = false)
-    private Block tenderBlock;
+    @Parameter(name = "orderBlock", required = false, allowNull = false)
+    private Block orderBlock;
 
-    @Parameter(name = "tenderZoneId", required = false, allowNull = false)
-    private String tenderZoneId;
+    @Parameter(name = "orderZoneId", required = false, allowNull = false)
+    private String orderZoneId;
 
     @Property
     @Parameter(name = "edit", defaultPrefix = BindingConstants.LITERAL, value = "true")
-    private boolean editTender;
+    private boolean editOrder;
 
     @Parameter(name = "reloadPage", required = false, allowNull = false, value = "false")
     private boolean reloadPage;
 
     @Property
-    @Parameter(name = "modalId", defaultPrefix = BindingConstants.LITERAL, value = "tender-new")
+    @Parameter(name = "modalId", defaultPrefix = BindingConstants.LITERAL, value = "order-new")
     private String modalId;
 
-    public String getTenderEditZone() {
-        return editTender ? "tenderEditZone" + tender.getId() : "tenderZoneNew";
+    public String getOrderEditZone() {
+        return editOrder ? "orderEditZone" + order.getId() : "orderZoneNew";
     }
 
-    public Long getTenderId() {
-        return tender == null || tender.getId() == null ? null : tender.getId();
+    public Long getOrderId() {
+        return order == null || order.getId() == null ? null : order.getId();
     }
 
     public String getCloseLabel() {
-        return editTender ? getMessages().get("tender.modal.save") : getMessages().get("tender.modal.place");
+        return editOrder ? getMessages().get("order.modal.save") : getMessages().get("order.modal.place");
     }
 
     //Desc section
     public void onPrepareFromDescForm() {
-        if (tender == null || tender.getId() == null) {
-            tender = new OrderEntity();
-            tender.setCustomer(getAuthenticatedUserOpt().orElse(null));
+        if (order == null || order.getId() == null) {
+            order = new OrderEntity();
+            order.setCustomer(getAuthenticatedUserOpt().orElse(null));
         }
     }
 
@@ -111,23 +115,27 @@ public class Edit extends BaseComponent {
 
     public void onSubmitFromDescForm(Long tId) {
         if (!error) {
-            final OrderEntity origTender = tId != null ? getOrderService().findOrder(tId) : tender;
-            origTender.setName(tender.getName());
-            origTender.setComment(tender.getComment());
-            origTender.setPersonCount(tender.getPersonCount());
-            origTender.setTotalPrice(tender.getTotalPrice());
-            origTender.setDueDate(tender.getDueDate());
-            if (origTender.getId() == null) {
-                tender = getOrderService().placeTender(origTender, getAuthenticatedUser());
+            final OrderEntity origOrder = tId != null ? getOrderService().findOrder(tId) : order;
+            origOrder.setName(order.getName());
+            origOrder.setComment(order.getComment());
+            origOrder.setPersonCount(order.getPersonCount());
+            origOrder.setTotalPrice(order.getTotalPrice());
+            origOrder.setDueDate(order.getDueDate());
+            if (origOrder.getId() == null) {
+                order = tender ?
+                        getOrderService().placeTender(origOrder, getAuthenticatedUser()) :
+                        getOrderService().placeOrder(origOrder);
             } else {
-                tender = getOrderService().saveTender(origTender, getAuthenticatedUser());
+                order = tender ?
+                        getOrderService().saveTender(origOrder, getAuthenticatedUser()) :
+                        getOrderService().saveOrder(origOrder, getAuthenticatedUser());
             }
-            if (tendersBlock != null) getAjaxResponseRenderer().addRender("tendersZone", tendersBlock);
-            if (tenderBlock != null) getAjaxResponseRenderer().addRender(tenderZoneId, tenderBlock);
-            getAjaxResponseRenderer().addRender(getTenderEditZone(), editContactsBlock);
+            if (ordersBlock != null) getAjaxResponseRenderer().addRender("ordersZone", ordersBlock);
+            if (orderBlock != null) getAjaxResponseRenderer().addRender(orderZoneId, orderBlock);
+            getAjaxResponseRenderer().addRender(getOrderEditZone(), editContactsBlock);
         } else {
-            tender = tId != null ? getOrderService().findOrder(tId) : tender;
-            getAjaxResponseRenderer().addRender(getTenderEditZone(), editDescBlock);
+            order = tId != null ? getOrderService().findOrder(tId) : order;
+            getAjaxResponseRenderer().addRender(getOrderEditZone(), editDescBlock);
         }
     }
 
@@ -145,23 +153,27 @@ public class Edit extends BaseComponent {
     }
 
     public void onPrepareFromContactsForm(Long tid) {
-        tender = getOrderService().findOrder(tid);
+        order = getOrderService().findOrder(tid);
     }
 
     public Object onSubmitFromContactsForm(Long tid) {
-        tender = getOrderService().findOrder(tid);
+        order = getOrderService().findOrder(tid);
         if (goBack) {
-            getAjaxResponseRenderer().addRender(getTenderEditZone(), editDescBlock);
+            getAjaxResponseRenderer().addRender(getOrderEditZone(), editDescBlock);
             return null;
         }
         if (!error) {
-            getUserService().saveUser(tender.getCustomer());
+            getUserService().saveUser(order.getCustomer());
         } else {
-            getAjaxResponseRenderer().addRender(getTenderEditZone(), editContactsBlock);
+            getAjaxResponseRenderer().addRender(getOrderEditZone(), editContactsBlock);
         }
-        if (closeImmediately && !editTender) tender = null;
-        if (closeImmediately) getAjaxResponseRenderer().addRender(getTenderEditZone(), editDescBlock);
-        return closeImmediately && reloadPage ? org.ohm.gastro.gui.pages.tender.Index.class : null;
+        if (closeImmediately && !editOrder) order = null;
+        if (closeImmediately) getAjaxResponseRenderer().addRender(getOrderEditZone(), editDescBlock);
+        return closeImmediately && reloadPage ?
+                (tender ?
+                        org.ohm.gastro.gui.pages.tender.Index.class :
+                        org.ohm.gastro.gui.pages.office.Order.class) :
+                null;
     }
 
 }

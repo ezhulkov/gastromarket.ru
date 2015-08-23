@@ -64,9 +64,9 @@
         </t:block>
         <t:zone t:id="editZone" id="${editZoneId}"/>
         <t:block t:id="editOrderBlock">
-            <t:order.edit modalId="tender-${order.id}" tender="order" tenderBlock="orderBlock" tenderZoneId="${orderShowCatalogZoneId}" reloadPage="mainPage"/>
+            <t:order.edit modalId="order-${order.id}" order="order" orderBlock="orderBlock" orderZoneId="${orderShowCatalogZoneId}" reloadPage="mainPage" tender="tender"/>
             <script>
-                var pe = jQuery("#tender-${order.id}");
+                var pe = jQuery("#order-${order.id}");
                 pe.modal('show');
             </script>
         </t:block>
