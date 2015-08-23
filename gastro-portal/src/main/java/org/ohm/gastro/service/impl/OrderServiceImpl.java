@@ -1,8 +1,6 @@
 package org.ohm.gastro.service.impl;
 
-import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
-import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
@@ -23,7 +21,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -132,19 +129,6 @@ public class OrderServiceImpl implements OrderService, Logging {
         orderRepository.save(tender);
         tender.setOrderNumber(Long.toString(tender.getId()));
         return tender;
-    }
-
-    @Override
-    public void placeReply(final OrderEntity order, final UserEntity cook, final String replyText) {
-        if (cook.isCook() && StringUtils.isNotEmpty(replyText)) {
-            final CommentEntity reply = new CommentEntity();
-            reply.setType(CommentEntity.Type.ORDER);
-            reply.setOrder(order);
-            reply.setAuthor(cook);
-            reply.setText(replyText);
-            reply.setDate(new Date());
-            commentRepository.save(reply);
-        }
     }
 
     @Override

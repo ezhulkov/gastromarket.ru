@@ -46,15 +46,10 @@ public class OrderEntity extends AbstractBaseEntity {
                 new Status[]{},
                 new Status[]{Status.DONE, Status.CANCELLED}
         ),
-        PAID(
-                3,
-                new Status[]{},
-                new Status[]{Status.PROGRESS, Status.CANCELLED}
-        ),
         CONFIRMED(
                 2,
                 new Status[]{Status.CANCELLED},
-                new Status[]{Status.CANCELLED}
+                new Status[]{Status.CANCELLED, Status.PROGRESS}
         ),
         ACTIVE(
                 1,

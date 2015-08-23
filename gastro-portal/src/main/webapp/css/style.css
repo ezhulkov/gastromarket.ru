@@ -2107,6 +2107,11 @@ label.t-error {
   float: right;
   margin: 0;
 }
+.order-show-catalog .tender-info {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #aaaaaa;
+  margin-bottom: 15px;
+}
 .order-show-catalog .catalog {
   margin-top: -1px;
   padding-bottom: 20px;
@@ -2330,13 +2335,16 @@ ul.comments .glyphicon-thumbs--1:before {
   content: "";
 }
 ul.comments .reply-block {
-  min-height: 30px;
+  min-height: 27px;
 }
 ul.comments .reply-block > a {
   display: none;
 }
 ul.comments .reply-block:hover > a {
   display: inline;
+}
+ul.comments .children-comments {
+  list-style: none;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -37,4 +37,10 @@ public interface RatingService {
 
     List<CommentEntity> findAllComments(CommentEntity comment);
 
+    CommentEntity findComment(Long cId);
+
+    void placeReply(OrderEntity order, UserEntity author, String replyText);
+
+    void placeReply(CommentEntity comment, UserEntity author, String replyText);
+
 }

@@ -2,7 +2,12 @@
     <div class="form-group f16px">
         <div class="col-sm-8">
             <t:unless test="tender">
-                <span class="f20px">Комментарии к заказу:</span><br/>
+                <t:if test="tenderType">
+                    <span class="f20px">Комментарии к заявке:</span><br/>
+                    <t:parameter name="else">
+                        <span class="f20px">Комментарии к заказу:</span><br/>
+                    </t:parameter>
+                </t:if>
             </t:unless>
             <t:if test="order.comment">
                 <t:outputraw value="order.commentRaw"/>

@@ -127,6 +127,14 @@ public class CommentEntity extends AbstractBaseEntity {
         this.order = order;
     }
 
+    public CommentEntity getParent() {
+        return parent;
+    }
+
+    public void setParent(final CommentEntity parent) {
+        this.parent = parent;
+    }
+
     public String getTextRaw() {
         String text = (String) ObjectUtils.defaultIfNull(this.text, "");
         text = text.replaceAll("\\n", "<br/>");

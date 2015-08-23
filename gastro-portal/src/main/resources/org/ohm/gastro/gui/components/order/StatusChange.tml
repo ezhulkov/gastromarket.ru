@@ -5,7 +5,6 @@
             Статус заказа:&nbsp;
         </t:parameter>
     </t:if>
-
     <t:if test="canChangeState">
         <a href="#order_status_${order.id}" class="dotted-link f20px" data-toggle="modal" data-target="#order_status_${order.id}">${orderStatusText}</a>
 

@@ -215,6 +215,35 @@ public class RatingServiceImpl implements RatingService, Logging {
         return commentRepository.findAllChildren(comment);
     }
 
+    @Override
+    public void placeReply(final OrderEntity order, final UserEntity author, final String replyText) {
+        if (author.isCook() && StringUtils.isNotEmpty(replyText)) {
+            final CommentEntity reply = new CommentEntity();
+            reply.setType(CommentEntity.Type.ORDER);
+            reply.setOrder(order);
+            reply.setAuthor(author);
+            reply.setText(replyText);
+            reply.setDate(new Date());
+            commentRepository.save(reply);
+        }
+    }
+
+    @Override
+    public void placeReply(final CommentEntity comment, final UserEntity author, final String replyText) {
+        final CommentEntity reply = new CommentEntity();
+        reply.setType(CommentEntity.Type.ORDER);
+        reply.setParent(comment);
+        reply.setAuthor(author);
+        reply.setText(replyText);
+        reply.setDate(new Date());
+        commentRepository.save(reply);
+    }
+
+    @Override
+    public CommentEntity findComment(final Long cId) {
+        return commentRepository.findOne(cId);
+    }
+
     private int calcRating(final int productsCount, final int retentionCount, final int posCount, final int negCount, final int doneCount, final int allCount, final int totalSum) {
         return (int) Math.max(0, productsCount * productsCoeff +
                                       retentionCount * retentionCoeff +

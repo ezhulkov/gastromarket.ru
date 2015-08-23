@@ -20,10 +20,48 @@
                     <t:outputraw value="comment.textRaw"/>
                 </div>
                 <t:if test="reply">
+                    <t:if test="children">
+                        <ul class="children-comments">
+                            <t:loop source="children" value="childComment">
+                                <li>
+                                    &mdash; ${childComment.textRaw}
+                                </li>
+                            </t:loop>
+                        </ul>
+                    </t:if>
                     <div class="reply-block">
+                        <t:if test="replyAllowed">
+                            <a href="#reply" data-toggle="modal" class="dotted-link" data-target="#reply_${comment.id}">ответить</a>
+                            &nbsp;&nbsp;
+
+                            <div class="modal fade" id="reply_${comment.id}" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="title">
+                                                <h1><span>Обсуждение</span></h1>
+                                            </div>
+                                            <a class="modal-close" data-dismiss="modal"></a>
+                                        </div>
+                                        <div class="modal-body">
+                                            <t:form t:id="replyForm" class="form form-horizontal" context="[order.id,comment.id]" t:clientValidation="none" autofocus="false" role="form" t:zone="replyZone">
+                                                <div class="form-group">
+                                                    <div class="col-sm-1"/>
+                                                    <div class="col-sm-10">
+                                                        <textarea t:type="TextArea" t:id="replyText" t:value="replyText" rows="5" class="form-control"/>
+                                                    </div>
+                                                    <div class="col-sm-1"/>
+                                                </div>
+                                                <div class="form-buttons">
+                                                    <input class="btn btn-red" type="submit" value="Ответить"/>
+                                                </div>
+                                            </t:form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t:if>
                         <t:if test="orderUser">
-                            <a href="#" class="dotted-link">ответить</a>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
                             <a href="#choose_cook" data-toggle="modal" class="dotted-link" data-target="#choose_cook_${comment.id}">выбрать исполнителя</a>
 
                             <div class="modal fade" id="choose_cook_${comment.id}" tabindex="-1" role="dialog" aria-hidden="true">
@@ -47,13 +85,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </t:if>
-                        <t:if test="children">
-                            <ul class="children-comments">
-                                <t:loop source="children" value="childComment">
-                                    <li>${childComment.text}</li>
-                                </t:loop>
-                            </ul>
                         </t:if>
                     </div>
                 </t:if>

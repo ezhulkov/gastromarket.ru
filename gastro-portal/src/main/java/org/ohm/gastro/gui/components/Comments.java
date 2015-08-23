@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.components;
 
+import org.apache.tapestry5.Block;
 import org.apache.tapestry5.Link;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Parameter;
@@ -14,11 +15,16 @@ import org.ohm.gastro.gui.pages.office.Order;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 14.02.15.
  */
 public class Comments extends BaseComponent {
+
+    @Property
+    @Parameter
+    private Block replyBlock;
 
     @Property
     @Parameter
@@ -37,6 +43,9 @@ public class Comments extends BaseComponent {
 
     @Property
     private CommentEntity childComment;
+
+    @Property
+    private String replyText;
 
     public String getAvatarUrl() {
         return isCookeReply() ?
@@ -70,7 +79,7 @@ public class Comments extends BaseComponent {
 
     @Cached(watch = "comment")
     public java.util.List<CommentEntity> getChildren() {
-        return getRatingService().findAllComments(comment);
+        return getRatingService().findAllComments(comment).stream().sorted((o1, o2) -> o1.getDate().compareTo(o2.getDate())).collect(Collectors.toList());
     }
 
     public boolean isOrderUser() {
@@ -80,11 +89,22 @@ public class Comments extends BaseComponent {
     public Link onActionFromChooseCook(Long cid) {
         final Link link = getFirstCatalog(getUserService().findUser(cid)).map(catalog -> {
             order.setCatalog(catalog);
-            order.setStatus(Status.ACTIVE);
+            order.setStatus(Status.CONFIRMED);
             getOrderService().saveOrder(order, getAuthenticatedUser());
-            return getPageLinkSource().createPageRenderLinkWithContext(Order.class, false, order.getId(), false);
+            return getPageLinkSource().createPageRenderLinkWithContext(Order.class, true, order.getId(), false);
         }).orElse(null);
         return link;
+    }
+
+    public boolean isReplyAllowed() {
+        return isOrderUser() || comment.getAuthor().equals(getAuthenticatedUserOpt().orElse(null));
+    }
+
+    public Block onSubmitFromReplyForm(Long oId, Long cId) {
+        final CommentEntity comment = getRatingService().findComment(cId);
+        order = getOrderService().findOrder(oId);
+        getRatingService().placeReply(comment, getAuthenticatedUser(), replyText);
+        return replyBlock;
     }
 
 }

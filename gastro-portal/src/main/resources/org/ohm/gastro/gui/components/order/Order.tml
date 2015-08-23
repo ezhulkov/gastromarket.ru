@@ -3,24 +3,15 @@
         <t:zone t:id="orderShowCatalogZone" id="${orderShowCatalogZoneId}">
             <t:delegate to="currentOrderBlock"/>
         </t:zone>
-        <t:block t:id="orderBlock">
+        <t:block t:id="orderMainBlock">
             <div class="form form-horizontal submit-row">
                 <t:order.catalogBlock order="order"
-                                      orderBlock="orderBlock"
+                                      orderBlock="orderMainBlock"
                                       catalog="catalog"
                                       orderShowCatalogZoneId="orderShowCatalogZoneId"
                                       privateOrders="privateOrders"/>
+                <t:order.tenderInfo order="order"/>
                 <t:order.items order="order" catalog="catalog" items="items" orderShowCatalogZoneId="orderShowCatalogZoneId"/>
-                <t:if test="tender">
-                    <div class="form-group">
-                        <div class="col-sm-8">
-                            <t:pagelink page="tender/index" t:context="order.id" class="f30px black-text">${order.name}</t:pagelink>
-                            <t:pageLink class="pic-holder catalog-link" page="user/index" t:context="order.customer.id">
-                                <span><img src="${order.customer.avatarUrlSmall}"/></span>${order.customer.fullName}
-                            </t:pageLink>
-                        </div>
-                    </div>
-                </t:if>
                 <t:order.price items="items" catalog="catalog" order="order"/>
                 <t:order.basketSubmit items="items" order="order" catalog="catalog" type="prop:type"/>
                 <t:if test="full">
@@ -66,7 +57,7 @@
         </t:block>
         <t:zone t:id="editZone" id="${editZoneId}"/>
         <t:block t:id="editOrderBlock">
-            <t:order.edit modalId="order-${order.id}" order="order" orderBlock="orderBlock" orderZoneId="${orderShowCatalogZoneId}" reloadPage="mainPage" tender="tender"/>
+            <t:order.edit modalId="order-${order.id}" order="order" orderBlock="orderMainBlock" orderZoneId="${orderShowCatalogZoneId}" reloadPage="mainPage" tender="tender"/>
             <script>
                 var pe = jQuery("#order-${order.id}");
                 pe.modal('show');

@@ -16,10 +16,15 @@ public class List extends BaseComponent {
     private Block ordersBlock;
 
     @Property
-    private Status status = Status.ACTIVE;
+    private Status status = Status.NEW;
 
-    public void onActivate(Status status) {
+    public boolean onActivate() {
+        return onActivate(Status.NEW);
+    }
+
+    public boolean onActivate(Status status) {
         this.status = status;
+        return true;
     }
 
     public Object[] onPassivate() {

@@ -39,7 +39,7 @@ public class Replies extends AbstractOrder {
 
     public Block onSubmitFromReplyForm(Long oId) {
         order = getOrderService().findOrder(oId);
-        getOrderService().placeReply(order, getAuthenticatedUser(), replyText);
+        getRatingService().placeReply(order, getAuthenticatedUser(), replyText);
         return replyBlock;
     }
 

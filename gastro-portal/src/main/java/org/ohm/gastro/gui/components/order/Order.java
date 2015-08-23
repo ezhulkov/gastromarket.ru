@@ -48,6 +48,10 @@ public class Order extends AbstractOrder {
     @Property
     private Block editOrderBlock;
 
+    @Inject
+    @Property
+    protected Block orderMainBlock;
+
     public java.util.List<OrderProductEntity> getItems() {
         return order == null ? getShoppingCart().getItems(catalog) : getOrderService().findAllItems(order);
     }
@@ -88,10 +92,10 @@ public class Order extends AbstractOrder {
     }
 
     public Block getCurrentOrderBlock() {
-        if (order != null && order.getType() == OrderEntity.Type.PUBLIC) return orderBlock;
-        if (type == Type.BASKET || type == Type.SHORT) return orderBlock;
+        if (order != null && order.getType() == OrderEntity.Type.PUBLIC) return orderMainBlock;
+        if (type == Type.BASKET || type == Type.SHORT) return orderMainBlock;
         if (isAuthenticated()) {
-            return order == null || order.isAllowed(getAuthenticatedUser()) ? orderBlock : deniedOrderBlock;
+            return order == null || order.isAllowed(getAuthenticatedUser()) ? orderMainBlock : deniedOrderBlock;
         } else {
             return deniedOrderBlock;
         }

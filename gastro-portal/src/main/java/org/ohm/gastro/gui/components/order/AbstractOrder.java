@@ -4,7 +4,6 @@ import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
@@ -25,7 +24,7 @@ public abstract class AbstractOrder extends BaseComponent {
     protected OrderEntity order;
 
     @Property
-    @Inject
+    @Parameter(allowNull = false)
     protected Block orderBlock;
 
     @Property
@@ -61,7 +60,11 @@ public abstract class AbstractOrder extends BaseComponent {
     }
 
     public boolean isContactsAllowed() {
-        return isCook() && order.getStatus().getLevel() >= Status.PAID.getLevel();
+        return isCook() && order.getStatus().getLevel() >= Status.CONFIRMED.getLevel();
+    }
+
+    public boolean isOrderClosed() {
+        return order != null && order.getStatus().getLevel() >= Status.CLOSED.getLevel();
     }
 
     public boolean isCanEdit() {
