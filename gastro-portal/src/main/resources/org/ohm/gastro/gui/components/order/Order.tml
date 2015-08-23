@@ -25,13 +25,13 @@
                     <t:order.info order="order" catalog="catalog"/>
                     <t:delegate to="editOrderBlock"/>
                     <t:block t:id="clientEditBlock">
+                        <t:if test="canEditOrder">
+                            <t:actionlink class="edit-link" t:id="editTender" t:context="order.id" t:zone="${editZoneId}">Редактировать</t:actionlink>
+                        </t:if>
                         <t:order.edit order="order" editTenderBlock="editTenderBlock"/>
                         <script>
                             jQuery("body").removeClass("modal-open");
                         </script>
-                    </t:block>
-                    <t:block t:id="clientPaymentBlock">
-                        <t:order.payment order="order"/>
                     </t:block>
                     <t:block t:id="clientRateCook">
                         <t:unless test="frontend">
@@ -63,7 +63,6 @@
                 </p>
             </div>
         </t:block>
-        <!--<t:unless test="privateOrders">-->
         <t:zone t:id="editZone" id="${editZoneId}"/>
         <t:block t:id="editTenderBlock">
             <t:order.tenderedit modalId="tender-${order.id}" tender="order" tenderBlock="orderBlock" tenderZoneId="${orderShowCatalogZoneId}" reloadPage="mainPage"/>
@@ -72,7 +71,6 @@
                 pe.modal('show');
             </script>
         </t:block>
-        <!--</t:unless>-->
     </div>
     <t:if test="replies">
         <t:order.replies order="order"/>

@@ -51,9 +51,4 @@ public class Edit extends AbstractOrder {
         return "editZone" + order.getId();
     }
 
-    public Block onActionFromEditTender(Long tid) {
-        this.order = getOrderService().findOrder(tid);
-        return editTenderBlock;
-    }
-
 }

@@ -36,9 +36,6 @@ public class Order extends AbstractOrder {
     private Block clientEditBlock;
 
     @Inject
-    private Block clientPaymentBlock;
-
-    @Inject
     private Block clientRateCook;
 
     @Inject
@@ -57,7 +54,11 @@ public class Order extends AbstractOrder {
 
     public void beginRender() {
         if (order != null) catalog = order.getCatalog();
-//        super.orderBlock = orderBlock;
+    }
+
+    public Block onActionFromEditTender(Long tid) {
+        this.order = getOrderService().findOrder(tid);
+        return editTenderBlock;
     }
 
     public boolean isFull() {
@@ -78,7 +79,6 @@ public class Order extends AbstractOrder {
                 order.getStatus() == Status.NEW &&
                 !order.getCustomer().equals(getAuthenticatedUserOpt().orElse(null))) return tenderReplyBlock;
         if (!isCook()) {
-            if (order != null && order.getStatus() == Status.CONFIRMED) return clientPaymentBlock;
             if (order != null && (order.getStatus() == Status.CANCELLED || order.getStatus() == Status.CLOSED)) return clientRateCook;
             if (isCanEdit()) return clientEditBlock;
         } else {
@@ -99,6 +99,10 @@ public class Order extends AbstractOrder {
 
     public String getEditZoneId() {
         return "editZone" + order.getId();
+    }
+
+    public boolean isCanEditOrder() {
+        return isAuthenticated() && order != null && order.getCustomer().equals(getAuthenticatedUser());
     }
 
 }

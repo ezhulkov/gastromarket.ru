@@ -19,6 +19,17 @@
         </t:block>
     </div>
 
-    <t:order.tenderEdit tendersBlock="ordersBlock" edit="false"/>
+    <t:if test="authenticated">
+        <t:order.tenderEdit tendersBlock="ordersBlock" edit="false"/>
+    </t:if>
+    <t:unless test="authenticated">
+        <t:loginUserModal modalId="tender_login">
+            <t:parameter name="addText">
+                <div class="attention">
+                    Для оформления заявки необходимо войти или зарегистрироваться.
+                </div>
+            </t:parameter>
+        </t:loginUserModal>
+    </t:unless>
 
 </t:htmllayout>
