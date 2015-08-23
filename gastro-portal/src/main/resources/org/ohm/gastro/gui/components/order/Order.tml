@@ -9,7 +9,7 @@
                                       orderShowCatalogZoneId="orderShowCatalogZoneId"
                                       catalog="catalog" privateOrders="privateOrders"/>
                 <t:order.items order="order" catalog="catalog" items="items" orderBlock="orderBlock" orderShowCatalogZoneId="orderShowCatalogZoneId"/>
-                <t:if test="order?.name">
+                <t:if test="tender">
                     <div class="form-group">
                         <div class="col-sm-8">
                             <t:pagelink page="tender/index" t:context="order.id" class="f30px black-text">${order.name}</t:pagelink>
@@ -20,8 +20,8 @@
                     </div>
                 </t:if>
                 <t:order.price items="items" catalog="catalog" order="order"/>
-                <t:order.basketSubmit items="items" order="order" catalog="catalog" type="type"/>
-                <t:if test="edit">
+                <t:order.basketSubmit items="items" order="order" catalog="catalog" type="prop:type"/>
+                <t:if test="full">
                     <t:order.info order="order" catalog="catalog"/>
                     <t:delegate to="editOrderBlock"/>
                     <t:block t:id="clientEditBlock">

@@ -18,7 +18,7 @@
                     <p class="modal-text">В случае возникновения вопросов, пишите на <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет заказы" class="red-text">contacts@gastromarket.ru</a> или звоните по телефону +7 926 6712145.</p>
                 </div>
             </t:if>
-            <t:order.order order="order" replies="true" type="EDIT" privateOrders="false" mainPage="true" frontend="true"/>
+            <t:order.order order="order" replies="true" type="FULL" privateOrders="false" mainPage="true" frontend="true"/>
         </t:block>
     </div>
 

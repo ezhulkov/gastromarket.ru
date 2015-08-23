@@ -44,7 +44,7 @@ public class Edit extends AbstractOrder {
     }
 
     public boolean isCanEditTender() {
-        return isAuthenticated() && order != null && order.getCustomer() != null && order.getCustomer().equals(getAuthenticatedUser()) && order.getStatus() == Status.ACTIVE;
+        return isAuthenticated() && order != null && order.getCustomer() != null && order.getCustomer().equals(getAuthenticatedUser()) && order.getStatus() == Status.NEW;
     }
 
     public String getEditZoneId() {

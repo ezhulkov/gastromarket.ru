@@ -9,6 +9,7 @@ import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.OrderEntity;
+import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 /**
@@ -103,6 +104,7 @@ public class TenderEdit extends BaseComponent {
             tender = new OrderEntity();
             tender.setCustomer(getAuthenticatedUserOpt().orElse(null));
             tender.setType(OrderEntity.Type.PRIVATE);
+            tender.setStatus(Status.NEW);
         }
     }
 

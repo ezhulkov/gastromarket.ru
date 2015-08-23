@@ -26,7 +26,7 @@
         </t:loop>
     </div>
     <t:parameter name="else">
-        <t:unless test="tender">
+        <t:unless test="tenderType">
             <div class="empty">
                 В заказе нет элементов :(
             </div>

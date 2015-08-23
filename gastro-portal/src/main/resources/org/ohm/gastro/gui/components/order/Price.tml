@@ -1,5 +1,5 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
-    <t:if test="tender">
+    <t:if test="tenderType">
         <div class="form-group total">
             <div class="col-sm-12">
                 <span class="f20px">Бюджет заявки:</span><br/>
@@ -7,7 +7,7 @@
             <div class="price">${total}&nbsp;<span class="rub"/></div>
         </div>
     </t:if>
-    <t:unless test="tender">
+    <t:unless test="tenderType">
         <t:if test="items">
             <div class="form-group total">
                 <div class="col-sm-12">

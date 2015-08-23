@@ -57,7 +57,7 @@ public class List extends BaseComponent {
     }
 
     public boolean isFromCart() {
-        return status == Status.NEW;
+        return privateOrders && status == Status.NEW;
     }
 
 }

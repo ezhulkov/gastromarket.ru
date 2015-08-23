@@ -18,8 +18,8 @@
         </li>
     </t:unless>
     <t:if test="frontend">
-        <li id="active-orders">
-            <t:pagelink page="tender/list" t:context="'ACTIVE'">Активные</t:pagelink>
+        <li id="new-orders">
+            <t:pagelink page="tender/list" t:context="'NEW'">Активные</t:pagelink>
         </li>
         <li id="closed-orders">
             <t:pagelink page="tender/list" t:context="'CLOSED'">Закрытые</t:pagelink>

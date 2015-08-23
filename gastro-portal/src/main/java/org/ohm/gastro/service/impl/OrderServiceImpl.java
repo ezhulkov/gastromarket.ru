@@ -128,7 +128,7 @@ public class OrderServiceImpl implements OrderService, Logging {
         if (tender == null || !tender.isAllowed(caller)) return tender;
         tender.setDate(new Timestamp(System.currentTimeMillis()));
         tender.setType(OrderEntity.Type.PUBLIC);
-        tender.setStatus(Status.ACTIVE);
+        tender.setStatus(Status.NEW);
         orderRepository.save(tender);
         tender.setOrderNumber(Long.toString(tender.getId()));
         return tender;
@@ -161,7 +161,7 @@ public class OrderServiceImpl implements OrderService, Logging {
     @Override
     public void saveOrder(final OrderEntity order, final UserEntity caller) {
         if (order == null || !order.isAllowed(caller)) return;
-        order.setTotalPrice(order.getProducts().stream().mapToInt(t -> t.getCount() * t.getPrice()).sum());
+        if (order.getType() == OrderEntity.Type.PRIVATE) order.setTotalPrice(order.getProducts().stream().mapToInt(t -> t.getCount() * t.getPrice()).sum());
         orderRepository.save(order);
     }
 
@@ -177,7 +177,7 @@ public class OrderServiceImpl implements OrderService, Logging {
         } else {
             orderProductRepository.save(product);
         }
-        order.setTotalPrice(order.getProducts().stream().mapToInt(t -> t.getCount() * t.getPrice()).sum());
+        if (order.getType() == OrderEntity.Type.PRIVATE) order.setTotalPrice(order.getProducts().stream().mapToInt(t -> t.getCount() * t.getPrice()).sum());
         orderRepository.save(order);
     }
 

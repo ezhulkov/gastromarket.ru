@@ -14,7 +14,7 @@
     </t:if>
     <t:unless test="fromCart">
         <t:loop source="orders" value="order" forState="NONE">
-            <t:order.order  order="order" type="EDIT" privateOrders="privateOrders" frontend="frontend"/>
+            <t:order.order  order="order" type="FULL" privateOrders="privateOrders" frontend="frontend"/>
         </t:loop>
     </t:unless>
 </div>

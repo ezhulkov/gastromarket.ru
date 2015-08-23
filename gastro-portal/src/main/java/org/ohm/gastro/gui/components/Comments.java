@@ -1,12 +1,16 @@
 package org.ohm.gastro.gui.components;
 
+import org.apache.tapestry5.Link;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.OrderEntity;
+import org.ohm.gastro.domain.OrderEntity.Status;
+import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.pages.office.Order;
 
 import java.util.List;
 import java.util.Optional;
@@ -53,7 +57,11 @@ public class Comments extends BaseComponent {
     }
 
     private Optional<CatalogEntity> getFirstCatalog() {
-        return getCatalogService().findAllCatalogs(comment.getAuthor()).stream().findFirst();
+        return getFirstCatalog(comment.getAuthor());
+    }
+
+    private Optional<CatalogEntity> getFirstCatalog(UserEntity cook) {
+        return getCatalogService().findAllCatalogs(cook).stream().findFirst();
     }
 
     public boolean isCookeReply() {
@@ -67,6 +75,16 @@ public class Comments extends BaseComponent {
 
     public boolean isOrderUser() {
         return order != null && order.getCustomer().equals(getAuthenticatedUserOpt().orElse(null));
+    }
+
+    public Link onActionFromChooseCook(Long cid) {
+        final Link link = getFirstCatalog(getUserService().findUser(cid)).map(catalog -> {
+            order.setCatalog(catalog);
+            order.setStatus(Status.ACTIVE);
+            getOrderService().saveOrder(order, getAuthenticatedUser());
+            return getPageLinkSource().createPageRenderLinkWithContext(Order.class, false, order.getId(), false);
+        }).orElse(null);
+        return link;
     }
 
 }

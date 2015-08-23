@@ -2093,7 +2093,7 @@ label.t-error {
 .order-show-catalog.short .register-order {
   display: none;
 }
-.order-show-catalog.basket, .order-show-catalog.edit {
+.order-show-catalog.basket, .order-show-catalog.full {
   -webkit-box-shadow: 0 0 6px 2px #ddd;
   -moz-box-shadow: 0 0 6px 2px #ddd;
   box-shadow: 0 0 6px 2px #ddd;

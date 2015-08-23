@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.components.order;
 
+import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -40,11 +41,15 @@ public abstract class AbstractOrder extends BaseComponent {
     protected java.util.List<OrderProductEntity> items;
 
     @Property
-    @Parameter
-    protected Type type;
+    @Parameter(defaultPrefix = BindingConstants.LITERAL)
+    protected Type type = Type.SHORT;
 
     public boolean isTender() {
-        return order != null && order.getType() == OrderEntity.Type.PUBLIC && order.getCatalog() == null;
+        return isTenderType() && order.getCatalog() == null;
+    }
+
+    public boolean isTenderType() {
+        return order != null && order.getType() == OrderEntity.Type.PUBLIC;
     }
 
     public boolean isBasket() {
@@ -52,7 +57,7 @@ public abstract class AbstractOrder extends BaseComponent {
     }
 
     public boolean isEdit() {
-        return type == Type.EDIT;
+        return type == Type.FULL;
     }
 
     public boolean isContactsAllowed() {

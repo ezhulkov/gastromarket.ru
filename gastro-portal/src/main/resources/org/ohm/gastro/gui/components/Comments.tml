@@ -22,8 +22,31 @@
                 <t:if test="reply">
                     <div class="reply-block">
                         <t:if test="orderUser">
-                            <a href="#" class="dotted-link">ответить</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="dotted-link">отдать заявку</a>
+                            <a href="#" class="dotted-link">ответить</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="#choose_cook" data-toggle="modal" class="dotted-link" data-target="#choose_cook_${comment.id}">выбрать исполнителя</a>
 
+                            <div class="modal fade" id="choose_cook_${comment.id}" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="title">
+                                                <h1><span>Выбрать исполнителя</span></h1>
+                                            </div>
+                                            <a class="modal-close" data-dismiss="modal"></a>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="modal-text">
+                                                Вы уверены, что хотите выбрать исполнителем ${linkName}?
+                                            </p>
+
+                                            <div class="form-buttons">
+                                                <t:actionlink t:id="chooseCook" t:context="comment.author.id" class="btn btn-red">Выбрать</t:actionlink>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </t:if>
                         <t:if test="children">
                             <ul class="children-comments">

@@ -1,28 +1,21 @@
 package org.ohm.gastro.gui.components.order;
 
-import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.OrderProductEntity;
-import org.ohm.gastro.gui.mixins.BaseComponent;
 
 /**
  * Created by ezhulkov on 31.07.15.
  */
-public class Order extends BaseComponent {
+public class Order extends AbstractOrder {
 
     public enum Type {
-        SHORT, BASKET, EDIT
+        SHORT, BASKET, FULL
     }
-
-    @Parameter
-    @Property
-    private CatalogEntity catalog;
 
     @Parameter(value = "false")
     @Property
@@ -32,24 +25,11 @@ public class Order extends BaseComponent {
     @Parameter(value = "false")
     private boolean frontend;
 
-    @Parameter
-    @Property
-    private OrderEntity order;
-
-    @Property
-    @Parameter(allowNull = false, required = true)
-    private boolean privateOrders;
-
-    @Parameter(defaultPrefix = BindingConstants.LITERAL)
-    @Property
-    private Type type = Type.SHORT;
-
     @Parameter(value = "false")
     @Property
     private boolean replies;
 
     @Inject
-    @Property
     private Block orderBlock;
 
     @Inject
@@ -80,30 +60,15 @@ public class Order extends BaseComponent {
 
     public void beginRender() {
         if (order != null) catalog = order.getCatalog();
+        super.orderBlock = orderBlock;
     }
 
-    public int getTotal() {
-        return order == null ? getShoppingCart().getCatalogPrice(catalog) : order.getTotalPrice();
-    }
-
-    public boolean isBasket() {
-        return type == Type.BASKET;
-    }
-
-    public boolean isEdit() {
-        return type == Type.EDIT;
-    }
-
-    public boolean isContactsAllowed() {
-        return isCook() && order.getStatus().getLevel() >= Status.PAID.getLevel();
+    public boolean isFull() {
+        return type == Type.FULL;
     }
 
     public String getOrderShowCatalogZoneId() {
         return String.format("orderShowCatalogZoneId%s", order == null ? catalog.getId() : order.getId());
-    }
-
-    public boolean isCanEdit() {
-        return !isCook() && (order == null || order.getStatus() == Status.ACTIVE || order.getStatus() == Status.NEW);
     }
 
     public Status[] getStatuses() {
@@ -113,20 +78,16 @@ public class Order extends BaseComponent {
     public Block getEditOrderBlock() {
         if (order != null &&
                 order.getType() == OrderEntity.Type.PUBLIC &&
-                order.getStatus() == Status.ACTIVE &&
+                order.getStatus() == Status.NEW &&
                 !order.getCustomer().equals(getAuthenticatedUserOpt().orElse(null))) return tenderReplyBlock;
         if (!isCook()) {
             if (order != null && order.getStatus() == Status.CONFIRMED) return clientPaymentBlock;
-            if (order != null && order.getStatus() == Status.CANCELLED || order.getStatus() == Status.CLOSED) return clientRateCook;
+            if (order != null && (order.getStatus() == Status.CANCELLED || order.getStatus() == Status.CLOSED)) return clientRateCook;
             if (isCanEdit()) return clientEditBlock;
         } else {
-            if (order != null && order.getStatus() == Status.CANCELLED || order.getStatus() == Status.CLOSED) return cookRateClient;
+            if (order != null && (order.getStatus() == Status.CANCELLED || order.getStatus() == Status.CLOSED)) return cookRateClient;
         }
         return null;
-    }
-
-    public boolean isTender() {
-        return order != null && order.getType() == OrderEntity.Type.PUBLIC && order.getCatalog() == null;
     }
 
     public Block getCurrentOrderBlock() {
