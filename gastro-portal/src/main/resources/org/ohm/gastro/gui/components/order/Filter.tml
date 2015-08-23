@@ -2,7 +2,7 @@
     <t:unless test="frontend">
         <t:if test="cook">
             <li id="public-orders">
-                <t:pagelink page="office/orders" t:context="['false','ACTIVE']">Заявки</t:pagelink>
+                <t:pagelink page="office/orders" t:context="['false','NEW']">Заявки</t:pagelink>
             </li>
         </t:if>
         <t:unless test="cook">

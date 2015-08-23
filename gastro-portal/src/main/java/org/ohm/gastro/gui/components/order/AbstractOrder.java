@@ -17,7 +17,6 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
  */
 public abstract class AbstractOrder extends BaseComponent {
 
-    @Property
     @Parameter
     protected CatalogEntity catalog;
 
@@ -73,4 +72,11 @@ public abstract class AbstractOrder extends BaseComponent {
         return order == null ? getShoppingCart().getCatalogPrice(catalog) : order.getTotalPrice();
     }
 
+    public CatalogEntity getCatalog() {
+        return catalog != null ? catalog : order != null ? order.getCatalog() : null;
+    }
+
+    public void setCatalog(final CatalogEntity catalog) {
+        this.catalog = catalog;
+    }
 }

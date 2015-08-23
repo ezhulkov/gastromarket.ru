@@ -24,10 +24,16 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
     List<OrderEntity> findAllByCustomerAndType(@Param("customer") UserEntity customer, @Param("type") OrderEntity.Type type);
 
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    List<OrderEntity> findAllByCustomer(@Param("customer") UserEntity customer);
+
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     List<OrderEntity> findAllByType(@Param("type") OrderEntity.Type type);
 
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     List<OrderEntity> findAllByCatalogAndStatusAndType(@Param("catalog") CatalogEntity catalog, @Param("status") Status status, @Param("type") OrderEntity.Type type);
+
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    List<OrderEntity> findAllByCatalogAndStatus(@Param("catalog") CatalogEntity catalog, @Param("status") Status status);
 
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     List<OrderEntity> findAllByCatalogAndType(@Param("catalog") CatalogEntity catalog, @Param("type") OrderEntity.Type type);

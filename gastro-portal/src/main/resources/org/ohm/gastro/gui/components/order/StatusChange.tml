@@ -1,5 +1,11 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="status">
-    Статус заказа:&nbsp;
+    <t:if test="tenderType">
+        Статус заявки:&nbsp;
+        <t:parameter name="else">
+            Статус заказа:&nbsp;
+        </t:parameter>
+    </t:if>
+
     <t:if test="canChangeState">
         <a href="#order_status_${order.id}" class="dotted-link f20px" data-toggle="modal" data-target="#order_status_${order.id}">${orderStatusText}</a>
 

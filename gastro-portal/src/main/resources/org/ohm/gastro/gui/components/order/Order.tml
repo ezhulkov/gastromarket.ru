@@ -6,8 +6,10 @@
         <t:block t:id="orderBlock">
             <div class="form form-horizontal submit-row">
                 <t:order.catalogBlock order="order"
+                                      orderBlock="orderBlock"
+                                      catalog="catalog"
                                       orderShowCatalogZoneId="orderShowCatalogZoneId"
-                                      catalog="catalog" privateOrders="privateOrders"/>
+                                      privateOrders="privateOrders"/>
                 <t:order.items order="order" catalog="catalog" items="items" orderShowCatalogZoneId="orderShowCatalogZoneId"/>
                 <t:if test="tender">
                     <div class="form-group">

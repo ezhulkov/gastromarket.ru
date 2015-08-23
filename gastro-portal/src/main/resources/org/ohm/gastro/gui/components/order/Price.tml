@@ -3,6 +3,9 @@
         <div class="form-group total">
             <div class="col-sm-12">
                 <span class="f20px">Бюджет заявки:</span><br/>
+                <t:if test="catalog?.prepayment">
+                    ${prepaymentText}<br/>
+                </t:if>
             </div>
             <div class="price">${total}&nbsp;<span class="rub"/></div>
         </div>
