@@ -71,34 +71,30 @@ public class OrderServiceImpl implements OrderService, Logging {
             order.getProducts().stream().forEach(p -> p.setOrder(order));
             orderProductRepository.save(order.getProducts());
             order.setOrderNumber(Long.toString(order.getId()));
+            try {
+                final Map<String, Object> params = new HashMap<String, Object>() {
+                    {
+                        put("products", order.getProducts());
+                        put("ordernumber", order.getOrderNumber());
+                        put("customer", order.getCustomer());
+                        put("comment", ObjectUtils.defaultIfNull(order.getComment(), "-"));
+                        put("cook", order.getCatalog());
+                        put("total", order.getTotalPrice());
+                        put("address", order.getOrderUrl());
+                    }
+                };
+                mailService.sendAdminMessage(MailService.NEW_ORDER_ADMIN, params);
+                params.put("username", order.getCatalog().getUser().getFullName());
+//                mailService.sendMailMessage(order.getCatalog().getUser().getEmail(), MailService.NEW_ORDER_COOK, params);
+                mailService.sendMailMessage("eugenezh@zeptolab.com", MailService.NEW_ORDER_COOK, params);
+                params.put("username", order.getCustomer().getFullName());
+                mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.NEW_ORDER_CUSTOMER, params);
+            } catch (MailException e) {
+                logger.error("", e);
+            }
             return order;
         }
-        return null;
-        //        try {
-        //            orders.stream().forEach(order -> {
-        //                if (!items.isEmpty()) {
-        //                    final CatalogEntity catalog = catalogRepository.findOne(order.getProducts().get(0).getEntity().getCatalog().getId());
-        //                    final Map<String, Object> params = new HashMap<String, Object>() {
-        //                        {
-        //                            put("products", order.getProducts());
-        //                            put("ordernumber", order.getOrderNumber());
-        //                            put("customer", customer);
-        //                            put("customer_email", eMail);
-        //                            put("comment", defaultIfNull(order.getComment(), ""));
-        //                            put("cook", catalog);
-        //                            put("total", order.getOrderTotalPrice());
-        //                            put("hasBonuses", order.getUsedBonuses() > 0);
-        //                            put("bonuses", order.getUsedBonuses());
-        //                        }
-        //                    };
-        //                    mailService.sendAdminMessage(MailService.NEW_ORDER_ADMIN, params);
-        //                    mailService.sendMailMessage(catalog.getUser().getEmail(), MailService.NEW_ORDER_COOK, params);
-        //                    mailService.sendMailMessage(eMail, MailService.NEW_ORDER_CUSTOMER, params);
-        //                }
-        //            });
-        //        } catch (MailException e) {
-        //            logger.error("", e);
-        //        }
+        return preOrder;
     }
 
     @Override

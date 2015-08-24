@@ -25,8 +25,8 @@ public interface MailService {
     String NEW_ORDER_ADMIN = "new_order_admin";
     String NEW_ORDER_COOK = "new_order_cook";
     String NEW_ORDER_CUSTOMER = "new_order_customer";
-    String NEW_ORDER_COMMENT = "new_order_comment";
-    String EDIT_ORDER = "change_order";
+    String ORDER_COMMENT = "order_comment";
+    String EDIT_ORDER = "edit_order";
 
     String MC_CATALOG = "CATALOG";
     String MC_FNAME = "FNAME";

@@ -241,7 +241,7 @@ public class RatingServiceImpl implements RatingService, Logging {
                         put("text", replyText);
                     }
                 };
-                mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.NEW_ORDER_COMMENT, params);
+                mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.ORDER_COMMENT, params);
             } catch (MailException e) {
                 logger.error("", e);
             }
@@ -268,7 +268,7 @@ public class RatingServiceImpl implements RatingService, Logging {
                         put("text", replyText);
                     }
                 };
-                mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.NEW_ORDER_COMMENT, params);
+                mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.ORDER_COMMENT, params);
             } catch (MailException e) {
                 logger.error("", e);
             }

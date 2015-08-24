@@ -3,7 +3,8 @@
 #parse("email/header.vm")
 <p>
     Мы получили новую заявку.
-    <br/>
+</p>
+<p>
     eMail: $customer.email<br/>
     Имя: $customer.fullName<br/>
     Дата исполнения: $date<br/>
