@@ -85,8 +85,7 @@ public class OrderServiceImpl implements OrderService, Logging {
                 };
                 mailService.sendAdminMessage(MailService.NEW_ORDER_ADMIN, params);
                 params.put("username", order.getCatalog().getUser().getFullName());
-//                mailService.sendMailMessage(order.getCatalog().getUser().getEmail(), MailService.NEW_ORDER_COOK, params);
-                mailService.sendMailMessage("eugenezh@zeptolab.com", MailService.NEW_ORDER_COOK, params);
+                mailService.sendMailMessage(order.getCatalog().getUser().getEmail(), MailService.NEW_ORDER_COOK, params);
                 params.put("username", order.getCustomer().getFullName());
                 mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.NEW_ORDER_CUSTOMER, params);
             } catch (MailException e) {

@@ -1,8 +1,7 @@
 #set($subject = "Новый заказ на ГастроМаркет")
 #parse("email/header.vm")
 <p>
-    Спасибо за размещенный заказ!<br/>
-    В ближайшее время с вами свяжется кулинар для обсуждения деталей заказа.<br/>
+    Вам оставили новый заказ<br/>
     В случае возникновения вопросов пишите на contacts@gastromarket.ru
 </p>
 <p>
@@ -10,16 +9,16 @@
     <ol>
         #foreach( $product in $products )
             <li>
-                ${product.entity.name}x${product.count} &mdash; ${product.price}
+                ${product.entity.name} x ${product.count} &mdash; ${product.price} руб.
                 #if( $product.modifier )
                     <br/>
-                    <i>Модификатор цены: ${product.modifier.signPrintable} ${product.modifier.price} ${product.modifier.name}</i>
+                    <i>&mdash; ${product.modifier.description}</i>
                 #end
             </li>
         #end
     </ol>
     Комментарий к заказу: <br/>${comment}<br/>
-    Общая стоимость заказа: ${total}
+    <b>Общая стоимость заказа: ${total} руб.</b>
 </p>
 <p>
     eMail покупателя: $customer.email<br/>
