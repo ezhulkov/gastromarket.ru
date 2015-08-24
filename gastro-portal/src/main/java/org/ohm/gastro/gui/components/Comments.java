@@ -8,7 +8,6 @@ import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.OrderEntity;
-import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.office.Order;
@@ -86,11 +85,9 @@ public class Comments extends BaseComponent {
         return order != null && order.getCustomer().equals(getAuthenticatedUserOpt().orElse(null));
     }
 
-    public Link onActionFromChooseCook(Long cid) {
+    public Link onActionFromAttachCook(Long cid) {
         final Link link = getFirstCatalog(getUserService().findUser(cid)).map(catalog -> {
-            order.setCatalog(catalog);
-            order.setStatus(Status.CONFIRMED);
-            getOrderService().saveOrder(order, getAuthenticatedUser());
+            getOrderService().attachTender(catalog, order, getAuthenticatedUser());
             return getPageLinkSource().createPageRenderLinkWithContext(Order.class, true, order.getId(), false);
         }).orElse(null);
         return link;

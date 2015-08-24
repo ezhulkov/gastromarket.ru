@@ -2337,13 +2337,14 @@ ul.comments .glyphicon-thumbs--1:before {
 ul.comments .reply-block {
   min-height: 27px;
 }
-ul.comments .reply-block > a {
+ul.comments .comment .reply-block a {
   display: none;
 }
-ul.comments .reply-block:hover > a {
+ul.comments .comment:hover .reply-block a {
   display: inline;
 }
 ul.comments .children-comments {
+  margin-top: 10px;
   list-style: none;
 }
 

@@ -1,0 +1,9 @@
+#set($subject = "Статус заказа изменен")
+#parse("email/header.vm")
+<p>
+    Статус заказа ${ordernumber} изменен и переведен в ${status}.
+</p>
+<p>
+    Вы можете следить за выполнением заказа по адресу: <a href="$address">$address</a>
+</p>
+#parse("email/footer.vm")

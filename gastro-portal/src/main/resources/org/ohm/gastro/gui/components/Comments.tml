@@ -1,6 +1,6 @@
 <ul xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="comments">
     <t:loop source="comments" value="comment">
-        <li class="row">
+        <li class="row comment">
             <div class="col-sm-2 pic text-right">
                 <a href="${linkUrl}">
                     <img src="${avatarUrl}"/>
@@ -79,7 +79,7 @@
                                             </p>
 
                                             <div class="form-buttons">
-                                                <t:actionlink t:id="chooseCook" t:context="comment.author.id" class="btn btn-red">Выбрать</t:actionlink>
+                                                <t:actionlink t:id="attachCook" t:context="comment.author.id" class="btn btn-red">Выбрать</t:actionlink>
                                             </div>
                                         </div>
                                     </div>

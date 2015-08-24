@@ -286,4 +286,10 @@ public class OrderEntity extends AbstractBaseEntity {
         return text;
     }
 
+    public String getOrderUrl() {
+        return getCatalog() == null ?
+                String.format("http://gastromarket.ru/tender/%s", getId()) :
+                String.format("http://gastromarket.ru/office/order/true/%s", getId());
+    }
+
 }

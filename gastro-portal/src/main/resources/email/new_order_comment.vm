@@ -1,0 +1,12 @@
+#set($subject = "Новый комментарий к заявке")
+#parse("email/header.vm")
+<p>
+    Новый комментарий к заявке:
+</p>
+<p>
+    <i style="margin-left: 10px;">&mdash; ${text}</i>
+</p>
+<p>
+    Вы можете следить за откликами кулинаров и выбрать исполнителя по адресу: <a href="$address">$address</a>
+</p>
+#parse("email/footer.vm")

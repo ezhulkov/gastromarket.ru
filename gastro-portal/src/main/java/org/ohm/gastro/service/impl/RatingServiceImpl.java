@@ -19,18 +19,22 @@ import org.ohm.gastro.reps.CommentRepository;
 import org.ohm.gastro.reps.LogRepository;
 import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.reps.ProductRepository;
+import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingService;
 import org.ohm.gastro.service.RatingTarget;
 import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -45,6 +49,8 @@ public class RatingServiceImpl implements RatingService, Logging {
     private final CommentRepository commentRepository;
     private final CatalogRepository catalogRepository;
     private final ProductRepository productRepository;
+    private final MailService mailService;
+
 
     private final int historyDays;
     private final float retentionCoeff;
@@ -64,6 +70,7 @@ public class RatingServiceImpl implements RatingService, Logging {
                              CommentRepository commentRepository,
                              CatalogRepository catalogRepository,
                              ProductRepository productRepository,
+                             MailService mailService,
                              @Value("${rating.series}") String ratingSeries,
                              @Value("${rank.badge.series}") String badgeRankSeries,
                              @Value("${product.badge.series}") String badgeProductSeries,
@@ -80,6 +87,7 @@ public class RatingServiceImpl implements RatingService, Logging {
         this.commentRepository = commentRepository;
         this.catalogRepository = catalogRepository;
         this.productRepository = productRepository;
+        this.mailService = mailService;
         this.historyDays = historyDays;
         this.retentionCoeff = retentionCoeff;
         this.posRatingCoeff = posRatingCoeff;
@@ -225,18 +233,46 @@ public class RatingServiceImpl implements RatingService, Logging {
             reply.setText(replyText);
             reply.setDate(new Date());
             commentRepository.save(reply);
+            try {
+                final Map<String, Object> params = new HashMap<String, Object>() {
+                    {
+                        put("username", order.getCustomer().getFullName());
+                        put("address", order.getOrderUrl());
+                        put("text", replyText);
+                    }
+                };
+                mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.NEW_ORDER_COMMENT, params);
+            } catch (MailException e) {
+                logger.error("", e);
+            }
         }
     }
 
     @Override
     public void placeReply(final CommentEntity comment, final UserEntity author, final String replyText) {
         final CommentEntity reply = new CommentEntity();
+        final OrderEntity order = comment.getOrder();
         reply.setType(CommentEntity.Type.ORDER);
         reply.setParent(comment);
         reply.setAuthor(author);
         reply.setText(replyText);
         reply.setDate(new Date());
         commentRepository.save(reply);
+        if (!order.getCustomer().equals(author)) {
+            try {
+
+                final Map<String, Object> params = new HashMap<String, Object>() {
+                    {
+                        put("username", order.getCustomer().getFullName());
+                        put("address", order.getOrderUrl());
+                        put("text", replyText);
+                    }
+                };
+                mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.NEW_ORDER_COMMENT, params);
+            } catch (MailException e) {
+                logger.error("", e);
+            }
+        }
     }
 
     @Override

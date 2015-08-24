@@ -27,9 +27,10 @@ ul.comments
       content: "\e126"
   .reply-block
     min-height: 27px
-    & > a
-      display: none
-    &:hover > a
-      display: inline
+  .comment .reply-block a
+    display: none
+  .comment:hover .reply-block a
+    display: inline
   .children-comments
+    margin-top: $gap
     list-style: none

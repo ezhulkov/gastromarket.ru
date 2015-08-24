@@ -20,6 +20,8 @@ public interface MailService {
     String NEW_TENDER_ADMIN = "new_tender_admin";
     String NEW_TENDER_COOK = "new_tender_cook";
     String NEW_TENDER_CUSTOMER = "new_tender_customer";
+    String TENDER_ATTACHED_COOK = "tender_attached_cook";
+    String TENDER_ATTACHED_CUSTOMER = "tender_attached_customer";
     String NEW_ORDER_ADMIN = "new_order_admin";
     String NEW_ORDER_COOK = "new_order_cook";
     String NEW_ORDER_CUSTOMER = "new_order_customer";

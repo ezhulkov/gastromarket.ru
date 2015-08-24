@@ -8,7 +8,6 @@ import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.OrderProductEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.reps.CatalogRepository;
-import org.ohm.gastro.reps.CommentRepository;
 import org.ohm.gastro.reps.OrderProductRepository;
 import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.service.MailService;
@@ -39,7 +38,6 @@ public class OrderServiceImpl implements OrderService, Logging {
     private final OrderProductRepository orderProductRepository;
     private final CatalogRepository catalogRepository;
     private final MailService mailService;
-    private final CommentRepository commentRepository;
     private final RatingService ratingService;
 
     @Autowired
@@ -47,13 +45,11 @@ public class OrderServiceImpl implements OrderService, Logging {
                             final OrderProductRepository orderProductRepository,
                             final CatalogRepository catalogRepository,
                             final MailService mailService,
-                            final CommentRepository commentRepository,
                             final RatingService ratingService) {
         this.orderRepository = orderRepository;
         this.orderProductRepository = orderProductRepository;
         this.catalogRepository = catalogRepository;
         this.mailService = mailService;
-        this.commentRepository = commentRepository;
         this.ratingService = ratingService;
     }
 
@@ -144,7 +140,7 @@ public class OrderServiceImpl implements OrderService, Logging {
                         put("comment", ObjectUtils.defaultIfNull(tender.getComment(), ""));
                         put("total", ObjectUtils.defaultIfNull(tender.getTotalPrice(), ""));
                         put("date", ObjectUtils.defaultIfNull(tender.getDatePrintable(), "-"));
-                        put("address", String.format("http://gastromarket.ru/tender/%s", tender.getId()));
+                        put("address", tender.getOrderUrl());
                     }
                 };
                 mailService.sendAdminMessage(MailService.NEW_TENDER_ADMIN, params);
@@ -160,6 +156,27 @@ public class OrderServiceImpl implements OrderService, Logging {
             }
         });
         return tender;
+    }
+
+    @Override
+    public OrderEntity attachTender(CatalogEntity catalog, OrderEntity order, UserEntity caller) {
+        order.setCatalog(catalog);
+        order.setStatus(Status.CONFIRMED);
+        saveOrder(order, caller);
+        try {
+            final Map<String, Object> params = new HashMap<String, Object>() {
+                {
+                    put("address", order.getOrderUrl());
+                }
+            };
+            params.put("username", catalog.getUser().getFullName());
+            mailService.sendMailMessage(catalog.getUser().getEmail(), MailService.TENDER_ATTACHED_COOK, params);
+            params.put("username", order.getCustomer().getFullName());
+            mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.TENDER_ATTACHED_CUSTOMER, params);
+        } catch (MailException e) {
+            logger.error("", e);
+        }
+        return order;
     }
 
     @Override
@@ -205,17 +222,17 @@ public class OrderServiceImpl implements OrderService, Logging {
         }
         order.setStatus(status);
         orderRepository.save(order);
-//        final Map<String, Object> params = new HashMap<String, Object>() {
-//            {
-//                put("ordernumber", order.getOrderNumber());
-//                put("catalog", catalog);
-//                put("status", status);
-//            }
-//        };
-//        mailService.sendAdminMessage(MailService.EDIT_ORDER, params);
-//        if (order.getCustomer().getEmail() != null) {
-//            mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.EDIT_ORDER, params);
-//        }
+        final Map<String, Object> params = new HashMap<String, Object>() {
+            {
+                put("ordernumber", order.getOrderNumber());
+                put("status", status);
+                put("address", order.getOrderUrl());
+            }
+        };
+        params.put("username", order.getCustomer().getFullName());
+        mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.EDIT_ORDER, params);
+        params.put("username", order.getCatalog().getUser().getFullName());
+        mailService.sendMailMessage(order.getCatalog().getUser().getEmail(), MailService.EDIT_ORDER, params);
     }
 
     @Override
