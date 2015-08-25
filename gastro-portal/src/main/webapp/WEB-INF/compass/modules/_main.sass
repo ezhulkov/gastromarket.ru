@@ -1,6 +1,8 @@
 @import ../include/var
+@import ../modules/grid
 
 $categories: supy napitki vypechka-i-deserty fermerskaya-eda keitering garniry zakuski-i-burgery salaty torty osnovnye-blyuda
+$mainpics: main1 main2 main3 main4 main5 main6 main7 main8
 
 .grid-block
   &.categories .item
@@ -16,3 +18,57 @@ $categories: supy napitki vypechka-i-deserty fermerskaya-eda keitering garniry z
     @each $category in $categories
       .category-#{$category}
         background: url(../img/category/category-#{$category}-small.jpg) no-repeat 0 0
+
+.main-header
+  padding-top: 50px
+  height: 500px
+  display: block
+  position: relative
+  .main-img-after
+    -webkit-background-size: cover
+    -moz-background-size: cover
+    -o-background-size: cover
+    background-size: cover
+    content: ""
+    top: 0
+    left: 0
+    bottom: 0
+    right: 0
+    position: absolute
+    z-index: -1
+    display: none
+    @each $mainpic in $mainpics
+      &.#{$mainpic}
+        background: url("../img/main/#{$mainpic}.jpg") center top no-repeat
+  .data
+    -webkit-box-shadow: 0 0 6px 2px #353535
+    -moz-box-shadow: 0 0 6px 2px #353535
+    box-shadow: 0 0 6px 2px #353535
+    border: 1px solid #333
+    color: white
+    width: 900px
+    margin: 0 auto
+    padding: 20px 60px 30px 60px
+    height: 380px
+    background-color: rgba(0, 0, 0, 0.4)
+    .blocks
+      width: 100%
+      height: 200px
+      & > div
+        font-size: 16px
+        display: inline-block
+        width: 50%
+        height: 100%
+        text-align: center
+        padding: 45px 30px
+        a
+          margin-top: 5px
+          font-size: 20px
+          width: 220px
+          padding: 15px 40px
+    h1
+      font-size: 60px
+    h2
+      font-size: 20px
+      color: #eee
+      font-family: "PT Sans", sans-serif

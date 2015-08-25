@@ -1076,80 +1076,6 @@ body.modal-open {
   margin-left: 10px;
 }
 
-.main-header {
-  padding-top: 70px;
-  height: 500px;
-  display: block;
-  position: relative;
-}
-.main-header .main-img-after {
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  content: "";
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  z-index: -1;
-  display: none;
-}
-.main-header .main-img-after.main1 {
-  background: url("../img/main/main1.jpg") center top no-repeat;
-}
-.main-header .main-img-after.main2 {
-  background: url("../img/main/main2.jpg") center top no-repeat;
-}
-.main-header .main-img-after.main3 {
-  background: url("../img/main/main3.jpg") center top no-repeat;
-}
-.main-header .main-img-after.main4 {
-  background: url("../img/main/main4.jpg") center top no-repeat;
-}
-.main-header .main-img-after.main5 {
-  background: url("../img/main/main5.jpg") center top no-repeat;
-}
-.main-header .main-img-after.main6 {
-  background: url("../img/main/main6.jpg") center top no-repeat;
-}
-.main-header .main-img-after.main7 {
-  background: url("../img/main/main7.jpg") center top no-repeat;
-}
-.main-header .main-img-after.main8 {
-  background: url("../img/main/main8.jpg") center top no-repeat;
-}
-.main-header .data {
-  text-align: center;
-  color: #fff;
-  width: 804px;
-  height: 318px;
-  background: url("../img/chef-shadow.png") center top no-repeat;
-  margin: 0 auto;
-  max-height: 318px;
-}
-.main-header .data > h1 {
-  font-size: 60px;
-}
-.main-header .data h2 {
-  font-size: 22px;
-  font-family: "PT Sans", sans-serif;
-}
-.main-header .howto div {
-  text-align: center;
-}
-.main-header .howto h2 {
-  font-size: 20px;
-  font-weight: bold;
-}
-.main-header .howto p {
-  font-size: 16px;
-}
-.main-header .howto .howto-row {
-  margin-bottom: 20px;
-}
-
 .footer {
   background-color: #242424;
   height: 190px;
@@ -2254,6 +2180,86 @@ label.t-error {
   font-style: italic;
 }
 
+.grid-block {
+  width: 1150px;
+  margin: 0 auto 10px auto;
+  font-size: 20px;
+  font-family: "PT Sans", sans-serif;
+  overflow: hidden;
+}
+.grid-block .item {
+  -webkit-box-shadow: 0 0 6px 2px #ddd;
+  -moz-box-shadow: 0 0 6px 2px #ddd;
+  box-shadow: 0 0 6px 2px #ddd;
+  background-color: #fff;
+  border: 1px solid #aaa;
+  float: left;
+  margin: 10px;
+  display: list-item;
+  white-space: nowrap;
+  text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.grid-block.albums .item {
+  padding: 5px 15px;
+  margin: 3px 10px;
+  float: initial;
+  display: inline-block;
+}
+.grid-block.products .item {
+  width: 270px;
+  margin: 7px;
+}
+.grid-block.products .item .name {
+  line-height: 60px;
+}
+.grid-block.cooks .item {
+  width: 210px;
+  height: 250px;
+}
+.grid-block.cooks .item .name {
+  line-height: 40px;
+}
+.grid-block.cooks .item img {
+  height: 210px;
+  width: 210px;
+}
+.grid-block.promo .item {
+  width: 270px;
+  height: 334px;
+  margin: 8px;
+}
+.grid-block.promo .item .name {
+  line-height: 60px;
+}
+.grid-block .item img {
+  opacity: 0.95;
+}
+.grid-block .item div:hover img {
+  opacity: 1;
+}
+.grid-block .name {
+  text-align: center;
+  line-height: 25px;
+  padding: 0 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #333;
+}
+.grid-block a {
+  display: block;
+}
+
+.ui-state-highlight {
+  margin: 6px 8px;
+  border: 1px dashed lightgray;
+  width: 268px;
+  height: 498px;
+  display: list-item;
+  float: left;
+}
+
 .grid-block.categories .item {
   margin: 15px;
   width: 200px;
@@ -2296,6 +2302,89 @@ label.t-error {
 }
 .grid-block.categories .item .category-osnovnye-blyuda {
   background: url(../img/category/category-osnovnye-blyuda-small.jpg) no-repeat 0 0;
+}
+
+.main-header {
+  padding-top: 50px;
+  height: 500px;
+  display: block;
+  position: relative;
+}
+.main-header .main-img-after {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  content: "";
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+  display: none;
+}
+.main-header .main-img-after.main1 {
+  background: url("../img/main/main1.jpg") center top no-repeat;
+}
+.main-header .main-img-after.main2 {
+  background: url("../img/main/main2.jpg") center top no-repeat;
+}
+.main-header .main-img-after.main3 {
+  background: url("../img/main/main3.jpg") center top no-repeat;
+}
+.main-header .main-img-after.main4 {
+  background: url("../img/main/main4.jpg") center top no-repeat;
+}
+.main-header .main-img-after.main5 {
+  background: url("../img/main/main5.jpg") center top no-repeat;
+}
+.main-header .main-img-after.main6 {
+  background: url("../img/main/main6.jpg") center top no-repeat;
+}
+.main-header .main-img-after.main7 {
+  background: url("../img/main/main7.jpg") center top no-repeat;
+}
+.main-header .main-img-after.main8 {
+  background: url("../img/main/main8.jpg") center top no-repeat;
+}
+.main-header .data {
+  -webkit-box-shadow: 0 0 6px 2px #353535;
+  -moz-box-shadow: 0 0 6px 2px #353535;
+  box-shadow: 0 0 6px 2px #353535;
+  border: 1px solid #333;
+  color: white;
+  width: 900px;
+  margin: 0 auto;
+  padding: 20px 60px 30px 60px;
+  height: 380px;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.main-header .data .blocks {
+  width: 100%;
+  height: 200px;
+}
+.main-header .data .blocks > div {
+  font-size: 16px;
+  display: inline-block;
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  padding: 45px 30px;
+}
+.main-header .data .blocks > div a {
+  margin-top: 5px;
+  font-size: 20px;
+  width: 220px;
+  padding: 15px 40px;
+}
+.main-header .data h1 {
+  font-size: 60px;
+}
+.main-header .data h2 {
+  font-size: 20px;
+  color: #eee;
+  font-family: "PT Sans", sans-serif;
 }
 
 ul.comments {
