@@ -55,12 +55,7 @@
 
         <div id="tender_start" class="title">
             <h1><span>Как работают заявки?</span></h1>
-            <t:if test="authenticated">
-                <a href="#tender-new" data-toggle="modal" class="round-link" data-target="#order-new">Разместить заявку</a>
-                <t:parameter name="else">
-                    <a href="#tender_login" data-toggle="modal" class="login-link round-link" data-target="#order-login">Разместить заявку</a>
-                </t:parameter>
-            </t:if>
+            <t:pagelink page="tender/list" context="literal:NEW">Все заявки<span/></t:pagelink>
         </div>
 
         <ul class="tender-howto">
