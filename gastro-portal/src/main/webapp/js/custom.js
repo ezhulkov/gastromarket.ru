@@ -47,9 +47,23 @@ jQuery(document).ready(function () {
     jQuery("body").addClass(isMobile() ? "mobile" : "desktop");
     initLoginModal();
     initModalStack();
-    initHowToModal();
     initControls();
+    initSmoothScroll();
 });
+function initSmoothScroll() {
+    jQuery('a.smooth-scroll').click(function () {
+        if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+            var target = jQuery(this.hash);
+            target = target.length ? target : jQuery('[name=' + this.hash.slice(1) + ']');
+            if (target.length) {
+                jQuery('html,body').animate({
+                    scrollTop: target.offset().top - 70
+                }, 500);
+                return false;
+            }
+        }
+    });
+}
 function initControls() {
     initMobilePhone();
     initDatePicker();
@@ -101,14 +115,6 @@ function initModalStack() {
         jQuery("body").data("fv_open_modals", jQuery("body").data("fv_open_modals") + 1);
         jQuery(this).css("z-index", 1040 + (10 * jQuery("body").data("fv_open_modals")));
     });
-}
-function initHowToModal() {
-    if (jQuery.cookie('howto.shown') == undefined) {
-        setTimeout(function () {
-            jQuery("#howto").modal({show: true});
-            jQuery.cookie('howto.shown', 'true', {expires: 365, path: '/'});
-        }, 2000);
-    }
 }
 function initSortable() {
     jQuery(".sortable-container").sortable({

@@ -39,7 +39,6 @@
     <script src="/js/bootstrap-datepicker.min.js"></script>
     <script src="/js/bootstrap-datepicker.ru.min.js" charset="UTF-8"></script>
     <script src="/js/intlTelInput.min.js"></script>
-    <script src="/js/smoothscroll.js"></script>
     <script src="/js/custom.js"></script>
     <script type="text/javascript" src="//vk.com/js/api/openapi.js?116"></script>
     <script type="text/template" id="qq-template">

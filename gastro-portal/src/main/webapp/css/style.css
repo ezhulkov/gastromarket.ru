@@ -2349,10 +2349,10 @@ label.t-error {
   background: url("../img/main/main8.jpg") center top no-repeat;
 }
 .main-header .data {
-  -webkit-box-shadow: 0 0 6px 2px #353535;
-  -moz-box-shadow: 0 0 6px 2px #353535;
-  box-shadow: 0 0 6px 2px #353535;
-  border: 1px solid #333;
+  -webkit-box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.4);
   color: white;
   width: 900px;
   margin: 0 auto;
@@ -2385,6 +2385,10 @@ label.t-error {
   font-size: 20px;
   color: #eee;
   font-family: "PT Sans", sans-serif;
+}
+
+.search-bar {
+  margin: 40px 0 20px 0;
 }
 
 ul.comments {
