@@ -31,7 +31,7 @@ public class List extends BaseComponent {
 
     public boolean onActivate(Status status, boolean forceModal) {
         this.status = status;
-        this.forceModal = forceModal;
+        this.forceModal = !isCook() && forceModal;
         return true;
     }
 

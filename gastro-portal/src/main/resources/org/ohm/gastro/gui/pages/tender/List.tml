@@ -3,7 +3,9 @@
     <div class="container orders office">
         <div class="title">
             <h1><span>Все заявки</span></h1>
-            <a href="#tender-new" data-toggle="modal" class="round-link" data-target="#order-new">Разместить заявку</a>
+            <t:unless test="cook">
+                <a href="#tender-new" data-toggle="modal" class="round-link" data-target="#order-new">Разместить заявку</a>
+            </t:unless>
         </div>
         <t:order.filter status="status" privateOrders="false" frontend="true"/>
         <t:zone t:id="ordersZone">
@@ -13,8 +15,6 @@
             <t:order.list status="prop:status" privateOrders="false" frontend="true"/>
         </t:block>
     </div>
-
-    <!--<a href="#tender_login" data-toggle="modal" class="login-link round-link" data-target="#order-login">Разместить заявку</a>-->
 
     <t:order.edit ordersBlock="ordersBlock" edit="false" tender="true"/>
     <t:unless test="authenticated">
