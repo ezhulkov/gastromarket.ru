@@ -2180,6 +2180,34 @@ label.t-error {
   font-style: italic;
 }
 
+.tender-howto {
+  list-style: none;
+  width: 800px;
+  margin: 40px auto;
+  padding: 0;
+}
+.tender-howto li {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.tender-howto li > div {
+  display: inline-block;
+  height: 180px;
+}
+.tender-howto li > div:first-child {
+  width: 200px;
+  text-align: center;
+}
+.tender-howto li > div:last-child {
+  width: 550px;
+  text-align: left;
+  padding: 27px 0 0 70px;
+  font-size: 20px;
+}
+.tender-howto li > div img {
+  height: 100%;
+}
+
 .grid-block {
   width: 1150px;
   margin: 0 auto 10px auto;
@@ -2372,11 +2400,16 @@ label.t-error {
   text-align: center;
   padding: 45px 30px;
 }
+.main-header .data .blocks > div:first-child {
+  padding-left: 70px;
+}
+.main-header .data .blocks > div:last-child {
+  padding-right: 70px;
+}
 .main-header .data .blocks > div a {
-  margin-top: 5px;
+  margin-top: 15px;
   font-size: 20px;
   width: 220px;
-  padding: 15px 40px;
 }
 .main-header .data h1 {
   font-size: 60px;

@@ -17,11 +17,11 @@
             <div class="blocks">
                 <div>
                     <p>Я хочу выбрать из каталога блюд и предложений</p>
-                    <a href="#order_start" class="btn btn-red smooth-scroll">Начать поиск</a>
+                    <a href="#order_start" class="btn btn-red btn-lg smooth-scroll">Начать поиск</a>
                 </div>
                 <div>
                     <p>Я хочу оставить заявку и найти лучшего исполнителя</p>
-                    <a href="#tender_start" class="btn btn-red smooth-scroll">Оставить заявку</a>
+                    <a href="#tender_start" class="btn btn-red btn-lg smooth-scroll">Оставить заявку</a>
                 </div>
             </div>
         </div>
@@ -60,21 +60,28 @@
 
         <ul class="tender-howto">
             <li>
-                <img src="http://gastromarket.ru/img/howto1.jpg"/>
-
-                <p>Donec rutrum congue leo eget malesuada. Pellentesque in ipsum id orci porta dapibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <div>
+                    <img src="http://gastromarket.ru/img/howto1.jpg"/>
+                </div>
+                <div>Donec rutrum congue leo eget malesuada. Pellentesque in ipsum id orci porta dapibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
             </li>
             <li>
-                <img src="http://gastromarket.ru/img/howto2.jpg"/>
-
-                <p>Donec rutrum congue leo eget malesuada. Pellentesque in ipsum id orci porta dapibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <div>
+                    <img src="http://gastromarket.ru/img/howto2.jpg"/>
+                </div>
+                <div>Donec rutrum congue leo eget malesuada. Pellentesque in ipsum id orci porta dapibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
             </li>
             <li>
-                <img src="http://gastromarket.ru/img/howto3.jpg"/>
-
-                <p>Donec rutrum congue leo eget malesuada. Pellentesque in ipsum id orci porta dapibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <div>
+                    <img src="http://gastromarket.ru/img/howto3.jpg"/>
+                </div>
+                <div>Donec rutrum congue leo eget malesuada. Pellentesque in ipsum id orci porta dapibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
             </li>
         </ul>
+
+        <div class="gap3 text-center">
+            <t:pagelink page="tender/list" context="literal:NEW" class="btn btn-lg btn-red">Разместить заявку</t:pagelink>
+        </div>
 
         <t:if test="tenders">
             <div id="tender_start" class="title">
@@ -84,6 +91,9 @@
             <t:loop source="tenders" value="oneTender" forState="NONE">
                 <t:order.order order="oneTender" type="MAIN_PAGE" privateOrders="false" frontend="true"/>
             </t:loop>
+            <div class="gap3 text-center">
+                <t:pagelink page="tender/list" context="literal:NEW" class="btn btn-lg btn-red">Разместить заявку</t:pagelink>
+            </div>
         </t:if>
 
         <div class="title">
