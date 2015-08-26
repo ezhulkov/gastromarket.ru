@@ -1,0 +1,77 @@
+@import ../include/var
+
+.office
+  min-height: 600px
+  .title
+    margin-bottom: 30px
+  .office-menu
+    list-style-type: none
+    margin-top: 40px
+    text-align: center
+    a
+      font-size: 20px
+      color: #bd0400
+      border-bottom: 1px dashed #bd0400
+      &:hover
+        border-bottom: 1px dashed #bd0400
+        text-decoration: none
+      &:focus
+        border-bottom: none
+        text-decoration: none
+    li
+      display: inline
+      padding: 0 25px
+      &.sel
+        background-color: #bd0400
+        padding: 12px 25px 8px 25px
+        border-radius: 20px
+      &.sel a,
+      &.sel a:focus,
+      &.sel a:active
+        border-bottom: none
+        color: #ffffff
+  &.orders .office-menu
+    margin-bottom: 30px
+  .table
+    th
+      font-size: 20px
+      font-weight: normal
+      background-color: #dddddd
+      border: 2px solid #ffffff
+      padding: 10px 0 10px 20px !important
+    tr
+      border-bottom: 2px solid #dddddd
+    td
+      text-align: left
+      font-size: 16px
+      border-right: 2px solid #ffffff
+      padding: 10px 0 10px 20px
+      &.img
+        padding: 0
+        margin: 0
+        width: 102px
+        height: 102px
+        border: 1px solid white
+        overflow: hidden
+    td.del a,
+    td.toggle a
+      text-decoration: none
+    td.user,
+    td.rating,
+    td.products,
+    td.referrer,
+    td.type,
+    td.publish,
+    td.promote,
+    td.price,
+    td.date
+      width: 180px
+    td.del,
+    td.toggle
+      width: 50px
+    td.fullName
+      width: 300px
+    td.del,
+    td.toggle
+      text-align: center
+      padding: 10px 0 !important

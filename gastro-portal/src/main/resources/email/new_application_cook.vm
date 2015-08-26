@@ -1,0 +1,9 @@
+#set($subject = "Запрос на подключение к ГастроМаркет")
+#parse("email/header.vm")
+<p>
+    Спасибо за оставленную заявку, мы свяжемся с Вами в ближайшее время по указанному адресу $email.<br/>
+</p>
+<p>
+    В случае возникновения вопросов, пишите на <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет заявка" class="red-link">contacts@gastromarket.ru</a>.
+</p>
+#parse("email/footer.vm")

@@ -1,0 +1,280 @@
+<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="${catalog.name}">
+
+    <div class="container">
+        <div class="title">
+            <h1><span>${catalog.name}</span></h1>
+        </div>
+        <t:if test="catalogOwner">
+            <div class="links-set">
+                <a data-toggle="modal" data-target="#catalog-edit" href="#catalog-edit">Редактировать страницу</a>
+                <a data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>
+                <a data-toggle="modal" data-target="#of-new" href="#of-new">Добавить готовое меню</a>
+                <t:pagelink page="office/import" context="catalog.altId">Импортировать меню <span/></t:pagelink>
+            </div>
+            <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>
+            <t:offerEdit catalog="catalog" edit="false" offersBlock="offersBlock"/>
+        </t:if>
+
+        <div class="catalog-item">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3 text-right">
+                        <t:if test="catalogOwner">
+                            <t:uploadfile type="CATALOG" responseSize="SIZE3" imageUrl="${catalog.avatarUrl}" objectId="${catalog.id}"/>
+                            <t:parameter name="else">
+                                <img class="pic" src="${catalog.avatarUrl}"/>
+                            </t:parameter>
+                        </t:if>
+                        <div class="bottom">
+                            <div class="grey-text f16px">Последний вход на сайт:</div>
+                            <div class="grey-text f16px">${catalog.user.loginDatePrintable}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-9 text-left">
+                        <div class="root-categories">${rootProperties}</div>
+                        <t:badges catalog="catalog"/>
+                        <t:ratings catalog="catalog"/>
+                        <div class="description">
+                            <t:outputraw value="catalog.descriptionRaw"/>
+                        </div>
+                        <t:if test="catalog.deliveryRaw">
+                            <div class="description gap">
+                                <div class="f18px">Условия доставки:</div>
+                                <t:outputraw value="catalog.deliveryRaw"/>
+                            </div>
+                        </t:if>
+                        <t:if test="catalog.paymentRaw">
+                            <div class="description gap">
+                                <div class="f18px">Условия оплаты:</div>
+                                <t:outputraw value="catalog.paymentRaw"/>
+                            </div>
+                        </t:if>
+                        <div class="description">
+                            ${prepaymentText}
+                        </div>
+                        <t:if test="catalog.basketMin">
+                            <div class="description">
+                                ${basketMinText}
+                            </div>
+                        </t:if>
+                        <t:if test="catalog.cancellationRaw">
+                            <div class="description gap">
+                                <div class="f18px">Условия отмены:</div>
+                                <t:outputraw value="catalog.cancellationRaw"/>
+                            </div>
+                        </t:if>
+                    </div>
+                </div>
+                <div class="row gap5">
+                    <div class="col-sm-3">
+                        <!--<div class="f18px">Поделиться:</div>-->
+                        <ul class="social">
+                            <li>
+                                <div id="vk_like"></div>
+                            </li>
+                            <li>
+                                <div class="fb-like" data-href="${currentPage}" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="summary">
+                            <div>
+                                <span>Дата регистрации: ${catalog.user.datePrintable}</span>
+                                <span>${productsCount}</span>
+                                <span>${orderCount}</span>
+                            </div>
+                            <div>
+                                <span class="med pic-holder ${medActiveClass}"><span class="glyphicon glyphicon-plus"/>Есть медкнижка</span>
+                                <span class="zak pic-holder ${zakActiveClass}"><span class="glyphicon glyphicon-cutlery"/>Проведена контрольная закупка</span>
+                                <span class="add pic-holder ${addActiveClass}"><span class="glyphicon glyphicon-map-marker"/>Адрес проверен</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="title">
+            <h1><span>Блюда</span></h1>
+            <t:if test="products">
+                <t:pagelink page="catalog/products" t:context="catalog.altId">Показать все блюда<span/></t:pagelink>
+                <t:parameter name="else">
+                    <t:if test="catalogOwner">
+                        <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>
+                    </t:if>
+                </t:parameter>
+            </t:if>
+        </div>
+        <t:zone t:id="productsZone">
+            <t:delegate to="productsBlock"/>
+        </t:zone>
+        <t:block t:id="productsBlock">
+            <div id="product-items" class="grid-block products fixed ${sortable}">
+                <t:loop source="products" value="oneProduct">
+                    <t:product product="oneProduct" class="fixed" edit="${catalogOwner}"/>
+                    <t:parameter name="empty">
+                        <div class="empty">Меню кулинара пусто</div>
+                    </t:parameter>
+                </t:loop>
+                <t:form t:id="reorderForm" t:clientValidation="none" t:zone="productsZone" class="hidden reorder">
+                    <input t:type="textfield" t:id="reorder" t:value="reorder"/>
+                    <input t:type="submit" t:id="ordersubmit"/>
+                </t:form>
+            </div>
+        </t:block>
+        <t:productModalTemplate/>
+
+        <div class="title">
+            <h1><span>Готовые меню</span></h1>
+            <t:if test="offers">
+                <t:pagelink page="catalog/offers" t:context="catalog.altId">Показать все меню<span/></t:pagelink>
+                <t:parameter name="else">
+                    <t:if test="catalogOwner">
+                        <a class="offer-edit-link" data-toggle="modal" data-target="#of-new" href="#of-new">Добавить готовое меню</a>
+                    </t:if>
+                </t:parameter>
+            </t:if>
+        </div>
+        <t:zone t:id="offersZone">
+            <t:delegate to="offersBlock"/>
+        </t:zone>
+        <t:block t:id="offersBlock">
+            <t:loop source="offers" value="offer">
+                <t:offer offer="offer" type="SHORT" editMode="catalogOwner" offersBlock="offersBlock"/>
+                <t:parameter name="empty">
+                    <div class="empty">Нет готовых меню</div>
+                </t:parameter>
+            </t:loop>
+        </t:block>
+
+        <div class="title">
+            <h1><span>Отзывы о кулинаре</span></h1>
+            <a href="#rate" data-toggle="modal" data-target="#rate">Оставить отзыв</a>
+        </div>
+        <t:if test="comments">
+            <t:comments comments="comments"/>
+            <t:parameter name="else">
+                <div class="empty">Нет отзывов</div>
+            </t:parameter>
+        </t:if>
+        <t:ratecookuser type="CATALOG" catalog="catalog" commentAllowed="commentAllowed" modalId="rate"/>
+
+    </div>
+
+    <div class="modal fade catalog-edit" id="catalog-edit" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="title">
+                        <h1><span>Редактировать страницу</span></h1>
+                    </div>
+                    <a class="modal-close" data-dismiss="modal"></a>
+                </div>
+                <div class="modal-body">
+                    <t:zone t:id="catalogEditZone">
+                        <t:delegate to="catalogFormBlock"/>
+                    </t:zone>
+                    <t:block t:id="catalogFormBlock">
+                        <t:if test="catalogOwner">
+                            <t:form t:zone="catalogEditZone" t:id="catalogForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
+                                <t:errors/>
+                                <div class="form-group">
+                                    <div class="col-sm-1"/>
+                                    <div class="col-sm-10">
+                                        <t:label for="desc">${nameLabel}:</t:label>
+                                        <input t:id="name" class="form-control"/>
+                                    </div>
+                                    <div class="col-sm-1"/>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-1"/>
+                                    <div class="col-sm-10">
+                                        <t:label for="desc">${descLabel}:</t:label>
+                                        <div class="label-tip">
+                                            ${descText}<br/>
+                                            Помните, что доверие покупателей повышается, если они узнают о Вашей работе.
+                                        </div>
+                                        <input t:id="desc" rows="3" class="form-control"/>
+                                    </div>
+                                    <div class="col-sm-1"/>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-1"/>
+                                    <div class="col-sm-10">
+                                        <t:label for="delivery">Условия доставки:</t:label>
+                                        <div class="label-tip">
+                                            Доставка готовых блюд осуществляется Вами, опишите здесь условия доставки.
+                                        </div>
+                                        <input t:id="delivery" rows="3" class="form-control"/>
+                                    </div>
+                                    <div class="col-sm-1"/>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-1"/>
+                                    <div class="col-sm-10">
+                                        <t:label for="payment">Условия оплаты:</t:label>
+                                        <div class="label-tip">
+                                            Опишите в этом поле как происходит оплата стоимости заказа - предоплата, способы оплаты и тд.
+                                        </div>
+                                        <input t:id="payment" rows="2" class="form-control"/>
+                                    </div>
+                                    <div class="col-sm-1"/>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-1"/>
+                                    <div class="col-sm-10">
+                                        <t:label for="cancellation">Условия отмены:</t:label>
+                                        <div class="label-tip">
+                                            Возможно ли отменить заказ и какую часть предоплаты Вы возвращаете?
+                                        </div>
+                                        <input t:id="cancellation" rows="2" class="form-control"/>
+                                    </div>
+                                    <div class="col-sm-1"/>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-1"/>
+                                    <div class="col-sm-10">
+                                        <t:label for="basketMin">Минимальная стоимость заказа, руб:</t:label>
+                                        <div class="label-tip">
+                                            Мы попросим покупателя дополнить заказ, если стоимость заказа меньше указанной.
+                                        </div>
+                                        <input t:id="basketMin" class="form-control"/>
+                                    </div>
+                                    <div class="col-sm-1"/>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-1"/>
+                                    <div class="col-sm-10">
+                                        <t:label for="prepayment">Предоплата, %:</t:label>
+                                        <input t:id="prepayment" class="form-control" tabindex="4"/>
+                                    </div>
+                                    <div class="col-sm-1"/>
+                                </div>
+                                <div class="form-buttons">
+                                    <input class="btn btn-red" type="submit" value="Сохранить"/>
+                                </div>
+                            </t:form>
+                        </t:if>
+                    </t:block>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        jQuery(document).ready(function () {
+            VK.Widgets.Like("vk_like", {type: "mini"});
+            var init = function () {
+                initProductCatalogFixed();
+            };
+            init();
+            Event.observe(jQuery("#productsZone").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
+                init();
+                initTitle(jQuery("div.title"));
+            });
+        });
+    </script>
+
+</t:htmlLayout>

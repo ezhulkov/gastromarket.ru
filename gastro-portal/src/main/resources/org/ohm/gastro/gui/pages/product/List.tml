@@ -1,0 +1,41 @@
+<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="prop:title">
+
+    <div class="container">
+        <div class="title">
+            <h1><span>${title}</span></h1>
+        </div>
+
+        <t:filter parentValue="parentPropertyValue" value="propertyValue" orderType="orderType" direction="direction" pageContext="literal:/product/list"/>
+
+        <div id="product-items" class="grid-block products"/>
+        <t:zone t:id="productsZone">
+            <t:delegate to="productsBlock"/>
+        </t:zone>
+        <t:block t:id="productsBlock">
+            <t:loop source="products" value="oneProduct">
+                <t:product product="oneProduct"/>
+            </t:loop>
+            <div class="more-products">
+                <t:if test="hasProducts">
+                    <div class="links-set">
+                        <t:actionlink t:id="fetchProducts" t:context="fetchContext" t:zone="productsZone">Показать еще...</t:actionlink>
+                    </div>
+                </t:if>
+            </div>
+            <t:unless test="wasProducts">
+                <div class="row">
+                    <div class="text-center f20px">
+                        В выбранной категории пока ничего нет
+                    </div>
+                </div>
+            </t:unless>
+        </t:block>
+        <t:productModalTemplate/>
+
+    </div>
+
+    <script>
+        jQuery(initProductCatalog(jQuery("#productsZone")));
+    </script>
+
+</t:htmlLayout>

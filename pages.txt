@@ -1,0 +1,50 @@
+catalog
+    Index.tml
+        offer               CH OP FF
+        offer add           CH OP FF
+        product             CH OP FF
+        product modal       CH OP FF
+        product edit        CH OP FF
+        comment             CH OP FF
+        edit                CH OP FF
+    List.tml                CH OP FF
+    Offer.tml               CH OP FF
+    Offers.tml              CH OP FF
+    Products.tml            CH OP FF
+    Wizard.tml              CH OP FF
+office
+    Import.tml              CH OP FF
+    ImportResults.tml       CH OP FF
+    Index.tml               CH OP FF
+    Orders.tml              -
+product
+    Index.tml               CH OP FF
+    List.tml                CH OP FF
+    Promoted.tml            CH OP FF
+    Search.tml              CH OP FF
+About.tml                   CH OP FF
+AppResults.tml              CH OP FF
+Cart.tml                    -
+CartResults.tml             CH OP FF
+Contacts.tml                CH OP FF
+CookInfo.tml                CH OP FF
+E403.tml                    CH OP FF
+E404.tml                    CH OP FF
+E500.tml                    CH OP FF
+Index.tml                   CH OP FF
+License.tml                 CH OP FF
+Login.tml                   CH OP FF
+UserInfo.tml                CH OP FF
+
+
+
+IE9 issues
+    PT family fonts
+    buttons gradient
+    Ruble symbol
+    Catalog name - overflow hidden
+    No placeholders
+
+IE10 issues
+
+

@@ -1,0 +1,7 @@
+[all:vars]
+dns_postfix=
+nginx_send_file=on
+tomcat_opts=
+
+[portal]
+gastromarket.ru ansible_ssh_user=eugenezh

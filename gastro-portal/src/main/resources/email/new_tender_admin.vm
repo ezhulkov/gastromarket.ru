@@ -1,0 +1,13 @@
+#set($subject = "Новая заявка на ГастроМаркет")
+#set($toadmin = true)
+#parse("email/header.vm")
+<p>
+    Мы получили новую заявку.
+</p>
+<p>
+    eMail: $customer.email<br/>
+    Имя: $customer.fullName<br/>
+    Дата исполнения: $date<br/>
+    Заявка по адресу: <a href="$address">$address</a>
+</p>
+#parse("email/footer.vm")

@@ -1,0 +1,30 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="form-group param${property.id}">
+
+    <t:label class="col-sm-2 control-label" for="${property.id}">${property.name}</t:label>
+
+    <t:if test="property.type.toString().equals('LIST')">
+        <div class="col-sm-10">
+            <select name="list-${property.id}" class="form-control pull-left" style="width:88%;">
+                <t:unless test="tag">
+                    <option value="" disabled="disabled" selected="selected">Выберите значение</option>
+                </t:unless>
+                <t:loop source="propertyValues" value="oneValue" formState="NONE">
+                    <t:if test="tagSelected">
+                        <option value="${oneValue.id}" selected="selected">${oneValue.name}</option>
+                        <t:parameter name="else">
+                            <option value="${oneValue.id}">${oneValue.name}</option>
+                        </t:parameter>
+                    </t:if>
+                </t:loop>
+            </select>
+            <a class="pull-right del-btn" data="${property.id}" onclick="delClick(this)" style="padding-top:6px;padding-left:10px;cursor:pointer;">Удалить</a>
+            <a class="pull-right more-btn" data="${property.id}" onclick="moreClick(this)" style="padding-top:6px;cursor:pointer;">Ещё</a>
+        </div>
+    </t:if>
+    <t:unless test="property.type.toString().equals('LIST')">
+        <div class="col-sm-10">
+            <input class="form-control" type="${property.type.name().toLowerCase()}" name="prop-${property.id}" value="${tag?.data}"/>
+        </div>
+    </t:unless>
+
+</div>

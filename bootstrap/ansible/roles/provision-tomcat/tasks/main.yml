@@ -1,0 +1,6 @@
+---
+#Tomcat7
+  - apt: name=tomcat7
+  - service: name=tomcat7 state=stopped
+  - template: src=tomcat7 dest=/etc/default/tomcat7 owner=tomcat7 group=tomcat7 mode=0644
+  - template: src=server.xml dest=/etc/tomcat7/server.xml owner=tomcat7 group=tomcat7 mode=0644

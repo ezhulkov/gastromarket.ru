@@ -1,0 +1,201 @@
+@import ../include/var
+
+.rub
+  display: inline !important
+
+body.desktop .rub:after
+  content: "₽"
+
+body.mobile .rub:after
+  content: "руб"
+
+.bold
+  font-weight: bold
+
+.relative
+  position: relative !important
+
+.absolute
+  position: absolute !important
+
+.f14px
+  font-size: $f14px !important
+
+.f16px
+  font-size: $f16px !important
+
+.f18px
+  font-size: $f18px !important
+
+.f20px
+  font-size: $f20px !important
+
+.f24px
+  font-size: $f24px !important
+
+.f30px
+  font-size: $f30px !important
+
+.black-text
+  color: $blackTextColor !important
+
+.black-text:hover
+  color: $blackTextColor
+
+.grey-text
+  color: $greyTextColor
+
+.grey-text:hover
+  color: $greyTextColor
+
+.red-text
+  color: $redTextColor !important
+
+.red-text:hover
+  color: $redTextColor !important
+
+.border
+  border: 1px solid $blackTextColor !important
+
+.gap
+  margin-top: $gap
+
+.gap2
+  margin-top: 2*$gap
+
+.gap3
+  margin-top: 3*$gap
+
+.gap5
+  margin-top: 5*$gap
+
+.gap10
+  margin-top: 10*$gap
+
+.center
+  text-align: center !important
+
+.multiple
+  height: 150px !important
+
+.pic-holder
+  position: relative
+
+.pic-holder > span:first-child
+  display: inline-block
+  vertical-align: middle
+  margin-right: $gap
+
+.pic-holder.basket-add > span
+  width: 30px
+  height: 30px
+  background: url("../img/basket-add.png") no-repeat 0 0
+  display: inline-block
+
+.spinner
+  text-align: center
+  height: 50px
+  width: 50px
+  margin: 2px auto
+  background: url("../img/spinner.gif") no-repeat
+  background-size: 50px
+
+.popover-content
+  font-size: $f16px
+  padding: 5px 10px 10px 10px
+  color: $blackTextColor
+
+.empty
+  padding: 20px 0 40px 0
+  width: 100%
+  text-align: center
+  font-size: $f20px
+  font-family: "PT Serif", serif
+  a
+    font-size: $f20px
+
+.simple-text
+  width: 750px
+  margin: 30px auto 0 auto
+  p
+    font-size: $f16px
+    padding: 5px 0 5px 150px
+
+  h2
+    font-size: $f20px
+    padding: 0
+    margin: 0 0 20px 0
+    line-height: normal
+    text-align: left
+
+  h2 *
+    font-size: $f20px
+
+.modal-text
+  font-size: 16px
+  padding: 0 20px 0 20px
+  text-align: center
+  line-height: 22px
+
+.attention
+  @extend .modal-text
+  display: block
+  margin: 10px auto 30px auto
+  border: 1px solid $deepRedTextColor
+  padding: 20px
+  &.new-order
+    width: 1000px
+
+.error
+  font-size: 16px
+  margin: 5px 0 5px 0
+  color: $deepRedTextColor
+  font-weight: bold
+
+//noinspection CssInvalidPropertyValue
+.wrapword
+  white-space: -moz-pre-wrap !important
+  /* Mozilla, since 1999 */
+  white-space: -pre-wrap
+  /* Opera 4-6 */
+  white-space: -o-pre-wrap
+  /* Opera 7 */
+  white-space: pre-wrap
+  /* css-3 */
+  word-wrap: normal
+  /* Internet Explorer 5.5+ */
+  white-space: -webkit-pre-wrap
+  /* Newer versions of Chrome/Safari*/
+  word-break: normal
+  white-space: normal
+
+.za
+  line-height: 50px
+  vertical-align: middle
+
+.chosen-container
+  display: inline-block
+  .search-choice-close
+    margin-top: 3px
+
+.form-group
+  margin-bottom: 15px
+  div
+    text-align: left
+
+.form-control
+  height: 38px
+  border-radius: 5px
+
+.form label
+  font-size: 16px
+  font-weight: normal
+
+.text-right
+  text-align: right !important
+
+.text-center
+  text-align: center !important
+
+.intl-tel-input
+  display: block

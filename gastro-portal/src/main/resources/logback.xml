@@ -1,0 +1,85 @@
+<configuration>
+
+    <property name="PATTERN" value="[%d{HH:mm:ss.SSS}][%-5level][%X{ip}][%X{sid}][%X{uid}][%X{op}] - %msg%n"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="CONSOLE-PERF" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE-SYNC" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/var/log/gastro/gastro-manager.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/var/log/gastro/gastro-manager.%d.log</fileNamePattern>
+            <maxHistory>14</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="FILE-SYNC"/>
+    </appender>
+
+    <appender name="FILE-PERF-SYNC" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/var/log/gastro/gastro-manager-perf.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/var/log/gastro/gastro-manager-perf.%d.log</fileNamePattern>
+            <maxHistory>14</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE-PERF" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="FILE-PERF-SYNC"/>
+    </appender>
+
+    <appender name="EMAIL" class="ch.qos.logback.classic.net.SMTPAppender">
+        <smtpHost>localhost</smtpHost>
+        <to>contacts@gastromarket.ru</to>
+        <from>noreply@gastromarket.ru</from>
+        <subject>Portal Error</subject>
+        <layout class="org.ohm.gastro.util.HTMLLayout">
+            <pattern>%date%level%msg</pattern>
+        </layout>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator>
+                <expression>java.lang.Throwable.class.isInstance(throwable)</expression>
+            </evaluator>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <logger name="org.perf4j" level="DEBUG" additivity="false">
+        <appender-ref ref="${mvn.logging.appender}-PERF"/>
+    </logger>
+
+    <logger name="org.ohm" level="${mvn.logging.level}" additivity="false">
+        <appender-ref ref="${mvn.logging.appender}"/>
+        <appender-ref ref="EMAIL"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="${mvn.logging.appender}"/>
+        <appender-ref ref="EMAIL"/>
+        <level value="INFO"/>
+    </root>
+
+</configuration>

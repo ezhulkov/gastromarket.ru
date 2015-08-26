@@ -1,0 +1,112 @@
+<footer xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="footer container-flex">
+
+    <div>
+        <div class="col-sm-12 menu">
+            <ul>
+                <li>
+                    <a href="/product/list">Каталог</a>
+                </li>
+                <li>
+                    <a href="/catalog/list">Кулинары</a>
+                </li>
+                <li>
+                    <a href="/about">О проекте</a>
+                </li>
+                <li>
+                    <a href="/contacts">Контакты</a>
+                </li>
+                <t:unless test="authenticated">
+                    <li>
+                        <a href="#login" class="login-link" data-toggle="modal" data-target="#login">Вход</a>
+                    </li>
+                    <t:parameter name="else">
+                        <a href="/logout">Выход</a>
+                    </t:parameter>
+                </t:unless>
+                <li>
+                    <a href="#feedback" class="application-link" data-toggle="modal" data-target="#feedback">Обратная связь</a>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <a href="/license">Пользовательское соглашение</a>
+                </li>
+                <li>
+                    <a href="/confident">Политика конфиденциальности</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-12 social">
+            <ul>
+                <li><a href="http://vk.com/gastromarket" title="vk.com" class="vk">vk.com</a></li>
+                <li><a href="https://www.facebook.com/gastromarket.ru" title="facebook.com" class="fb">facebook.com</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-12  copyright">
+            &copy;&nbsp;Gastromarket.ru&nbsp;&nbsp;Все права защищены
+        </div>
+    </div>
+
+    <div class="modal fade" id="feedback" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog application">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="title">
+                        <h1><span>Обратная связь</span></h1>
+                    </div>
+                    <a class="modal-close" data-dismiss="modal"></a>
+                </div>
+                <div class="modal-body">
+                    <t:zone t:id="feedbackZone">
+                        <t:delegate to="feedbackFormBlock"/>
+                    </t:zone>
+                    <t:block t:id="feedbackResultBlock">
+                        <div class="modal-body result">
+                            <div class="row">
+                                <p class="modal-text"><b>Спасибо, мы получили отзыв и постараемся в ближайшее время его обработать</b></p>
+
+                                <p class="modal-text"><a data-dismiss="modal" href="#" class="red-text">Продолжить работу</a></p>
+                            </div>
+                        </div>
+                    </t:block>
+                    <t:block t:id="feedbackFormBlock">
+                        <div class="row">
+                            <p class="modal-text">Если у Вас возникли вопросы, пожелания или жалобы по работе нашего проекта, напишите нам, пожалуйста, на адрес <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет отзыв" class="red-text">contacts@gastromarket.ru</a> или оставьте комментарий ниже</p>
+                        </div>
+                        <t:form t:zone="feedbackZone" t:id="feedbackForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
+                            <t:errors/>
+                            <div class="form-group">
+                                <div class="col-sm-1"/>
+                                <div class="col-sm-10">
+                                    <t:label for="eMail">Адрес почты:</t:label>
+                                    <input t:type="TextField" id="eMail" t:id="eMail" t:value="eMail" t:validate="email,maxlength=64" class="form-control"/>
+                                </div>
+                                <div class="col-sm-1"/>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-1"/>
+                                <div class="col-sm-10">
+                                    <t:label for="fullName">Полное имя:</t:label>
+                                    <input t:type="TextField" id="fullName" t:id="fullName" t:value="fullName" t:validate="maxlength=64" class="form-control"/>
+                                </div>
+                                <div class="col-sm-1"/>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-1"/>
+                                <div class="col-sm-10">
+                                    <t:label for="comment">Комментарий:</t:label>
+                                    <textarea t:type="TextArea" t:id="comment" t:value="comment" rows="5" class="form-control"/>
+                                </div>
+                                <div class="col-sm-1"/>
+                            </div>
+                            <div class="form-buttons">
+                                <input class="btn btn-red" type="submit" value="Послать отзыв"/>
+                            </div>
+                        </t:form>
+                    </t:block>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</footer>

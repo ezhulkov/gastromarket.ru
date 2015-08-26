@@ -1,0 +1,117 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" data-backdrop="static" class="modal fade" id="${modalId}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog offer-edit">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="title">
+                    <t:if test="editOffer">
+                        <h1><span>Редактировать</span></h1>
+                    </t:if>
+                    <t:unless test="editOffer">
+                        <h1><span>Новое готовое меню</span></h1>
+                    </t:unless>
+                </div>
+                <a class="modal-close" data-dismiss="modal"></a>
+            </div>
+            <div class="modal-body offer-create">
+
+                <t:zone t:id="offerEditZone" id="${offerEditZone}">
+                    <t:delegate to="editDescBlock"/>
+                </t:zone>
+
+                <t:block t:id="editDescBlock">
+                    <p class="modal-text">
+                        Шаг 1 из 2 - описание и цена
+                    </p>
+                    <t:if test="closeImmediately">
+                        <script>
+                            jQuery("#${modalId}").modal('hide');
+                        </script>
+                    </t:if>
+                    <t:form id="descForm" t:id="descForm" t:context="[offerId]" t:zone="${offerEditZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
+                        <t:errors/>
+                        <div class="form-group">
+                            <div class="col-sm-1"/>
+                            <div class="col-sm-10">
+                                <t:label t:for="offerName">Название:</t:label>
+                                <input t:id="offerName" class="form-control"/>
+                            </div>
+                            <div class="col-sm-1"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-1"/>
+                            <div class="col-sm-10">
+                                <t:label t:for="offerDescription">Описание:</t:label>
+                                <input t:id="offerDescription" rows="4" class="form-control"/>
+                            </div>
+                            <div class="col-sm-1"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-3">
+                                <t:label t:for="offerPrice">Цена, руб:</t:label>
+                                <input t:id="offerPrice" class="form-control price"/>
+                            </div>
+                            <div class="col-sm-7">
+                                <t:label t:for="offerPersons">Рассчитано на количество человек:</t:label>
+                                <input t:id="offerPersons" class="form-control price"/>
+                            </div>
+                            <div class="col-sm-1"></div>
+                        </div>
+                        <t:pricemodifier object="offer"/>
+                        <div class="form-buttons">
+                            <input class="btn btn-red" t:type="submit" t:id="saveAndProducts" value="${editProductsLabel}"/>
+                        </div>
+                    </t:form>
+                </t:block>
+                <t:block t:id="editProductsBlock">
+                    <p class="modal-text">
+                        Шаг 2 из 2 - состав меню
+                    </p>
+                    <t:form t:id="productsForm" t:context="[offerId]" t:zone="${offerEditZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
+                        <div class="form-group">
+                            <div class="col-sm-1"/>
+                            <div class="col-sm-8">
+                                <t:label t:for="products">Выберите блюдо:</t:label>
+                                <t:select t:id="products" data-placeholder=" " class="form-control chosen-select"/>
+                            </div>
+                            <div class="col-sm-2">
+                                <label>&nbsp;</label>
+                                <input class="btn btn-red" t:type="submit" t:id="addProduct" value="Добавить"/>
+                            </div>
+                            <div class="col-sm-1"/>
+                        </div>
+                        <div class="form-group gap3">
+                            <div class="col-sm-12">
+                                <t:if test="products">
+                                    <h2>Блюда в меню</h2>
+                                    <ul class="offer-products">
+                                        <t:loop source="products" value="product" formState="NONE">
+                                            <li>
+                                                <t:pagelink page="product/index" targer="_blank" t:context="product.altId">
+                                                    <img src="${product.avatarUrlSmall}" class="popover-holder" data-content="${product.name}"/>
+                                                </t:pagelink>
+                                                <div class="delete">
+                                                    <t:actionlink t:id="deleteProduct" t:context="[product.id,offer.id]" t:zone="${offerEditZone}"/>
+                                                </div>
+                                            </li>
+                                        </t:loop>
+                                    </ul>
+                                    <t:parameter name="else">
+                                        <p class="modal-text">
+                                            В меню нет блюд
+                                        </p>
+                                    </t:parameter>
+                                </t:if>
+                            </div>
+                        </div>
+                        <div class="form-buttons gap3">
+                            <input class="btn btn-red" t:type="submit" t:id="saveAndBack2" value="&lt; Назад"/>
+                            <input class="btn btn-red" t:type="submit" t:id="saveAndClose2" value="Сохранить и закрыть"/>
+                        </div>
+                    </t:form>
+                </t:block>
+
+            </div>
+        </div>
+    </div>
+</div>

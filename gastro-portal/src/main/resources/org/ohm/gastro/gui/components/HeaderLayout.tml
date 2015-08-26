@@ -1,0 +1,87 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+    <nav class="navbar navbar-inverse navbar-fixed-top header">
+
+        <div class="container">
+            <a class="logo" href="/"><img src="${contextPath}/img/logotype1-small.png" alt="logo"/></a>
+            <t:if test="header">
+                <div class="pull-right">
+                    <t:if test="cook">
+                        <t:pagelink page="office/orders" context="['true','ACTIVE']" class="header-block pic-holder orders">
+                            <span/>
+                            Заказы
+                        </t:pagelink>
+                    </t:if>
+                    <t:if test="authenticated">
+                        <span class="header-block pic-holder dropdown username">
+                            <a data-target="#" href="#userMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                                <img class="avatar-small" src="${avatarUrl}"/>
+                                ${authenticatedUser.printableName}
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <t:unless test="cook">
+                                        <t:pagelink page="office/index" context="['UPDATE','0']">Мой профиль</t:pagelink>
+                                    </t:unless>
+                                </li>
+                                <t:if test="user">
+                                    <li>
+                                        <t:pagelink page="office/orders" context="['true','NEW']">Мои заказы</t:pagelink>
+                                    </li>
+                                </t:if>
+                                <t:if test="cook">
+                                    <t:loop source="catalogs" value="oneCatalog">
+                                        <li>
+                                            <t:pagelink page="catalog/index" t:context="oneCatalog.altId">Страница '${oneCatalog.name}'</t:pagelink>
+                                        </li>
+                                    </t:loop>
+                                </t:if>
+                                <t:if test="admin">
+                                    <li>
+                                        <t:pagelink page="admin/property/list">Системные настройки</t:pagelink>
+                                    </li>
+                                </t:if>
+                                <li>
+                                    <t:if test="cook">
+                                        <t:pagelink page="office/index" context="['UPDATE','0']">Настройки</t:pagelink>
+                                    </t:if>
+                                </li>
+                                <li><a href="/logout" class="red">Выход</a></li>
+                            </ul>
+                        </span>
+                    </t:if>
+                    <t:unless test="authenticated">
+                        <a href="#login" data-toggle="modal" class="header-block pic-holder login-link" data-target="#login"><span/>Войти или зарегистрироваться</a>
+                    </t:unless>
+                    <t:zone elementName="span" t:id="basketZone" class="header-block ${hidden}">
+                        <t:unless test="cook">
+                            <t:delegate to="basketBlock"/>
+                        </t:unless>
+                    </t:zone>
+                </div>
+            </t:if>
+
+        </div>
+
+    </nav>
+
+    <t:zone t:id="orderShowZone"/>
+
+    <t:block t:id="basketBlock">
+        <a class="pic-holder basket" href="${cartLink}">
+            <span/>
+            ${declProducts}
+        </a>
+    </t:block>
+
+    <t:block t:id="orderShowBlock">
+        <t:if test="shoppingCart.justAdded">
+            <t:order.viewmodal/>
+        </t:if>
+    </t:block>
+
+    <t:unless test="authenticated">
+        <t:loginUserModal/>
+    </t:unless>
+
+</div>

@@ -1,0 +1,21 @@
+<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" floatingHeader="literal:false">
+
+    <div class="container office">
+        <div class="title">
+            <h1><span>Системные настройки</span></h1>
+        </div>
+        <ul class="office-menu">
+            <li id="property">
+                <t:pagelink page="admin/property/list">Свойства</t:pagelink>
+            </li>
+            <li id="user">
+                <t:pagelink page="admin/user/list">Пользователи</t:pagelink>
+            </li>
+            <li id="catalog">
+                <t:pagelink page="admin/catalog/list">Каталоги</t:pagelink>
+            </li>
+        </ul>
+        <t:body/>
+    </div>
+
+</t:htmllayout>

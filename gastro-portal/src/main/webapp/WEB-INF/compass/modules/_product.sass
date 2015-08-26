@@ -1,0 +1,238 @@
+@import ../include/var
+
+.product-item
+  display: none
+  position: relative
+  .pic
+    cursor: pointer
+    position: relative
+    img
+      width: 270px
+      height: 270px
+    .edit-block
+      cursor: default
+      display: none
+      position: absolute
+      background-color: rgba(0, 0, 0, 0.7)
+      top: 0
+      right: 0
+      bottom: 0
+      left: 0
+      vertical-align: middle
+      text-align: center
+      line-height: 270px
+      .handle
+        position: absolute
+        right: 10px
+        top: 10px
+        z-index: 100
+        color: white
+        cursor: pointer
+        font-size: 16px
+      & a
+        display: inline-block
+        margin: 0 8px
+        width: 49px
+        height: 49px
+        z-index: 25
+        &.uploader-button
+          .qq-uploader-selector
+            position: relative
+            bottom: auto
+            right: auto
+
+        &.edit
+          background: url("../img/product-edit.png") no-repeat 0 0
+
+        &.delete
+          background: url("../img/product-edit.png") no-repeat -98px 0
+
+  &:hover
+    .edit-block
+      display: block
+
+  .basket-block
+    width: 240px
+    height: 44px
+    margin: 5px 15px 10px 15px
+
+  .data
+    overflow: hidden
+    padding: 15px
+    word-wrap: break-word
+    text-align: left
+    .pname
+      @extend .wrapword
+      font-size: $f20px
+      color: $blackTextColor
+      line-height: 25px
+
+    .desc
+      @extend .wrapword
+      font-size: $f14px
+      line-height: 17px
+
+  &.fixed
+    height: 500px
+    overflow: hidden
+    .data
+      height: 170px
+      .desc
+        overflow: hidden
+        text-overflow: ellipsis
+        max-height: 70px
+
+  &.full
+    padding: 30px 0 20px 0
+    display: block
+    .pic
+      img
+        width: 560px
+        height: 404px
+
+    .basket-block
+      margin: 2*$gap 0 $gap 0
+      width: 450px
+
+    .tags ul
+      list-style: none
+      margin: $gap 0
+      padding: 0
+      .tag
+        font-weight: bold
+
+.more-products
+  height: 100px
+  margin-top: 3*$gap
+  .links-set
+    margin: 0
+
+.product-modal-template
+  .modal-dialog
+    width: 920px
+
+  .modal-close
+    background: url("../img/modal-close-inv.png") no-repeat
+    position: absolute
+    right: -25px
+    top: 10px
+
+  .modal-arrow
+    background: url("../img/arrow-big.png") no-repeat
+    height: 26px
+    width: 14px
+    position: absolute
+    cursor: pointer
+    &.arrow-left
+      background-position: 0 0
+      left: -35px
+      top: 50%
+
+    &.arrow-right
+      background-position: -13px 0
+      right: -35px
+      top: 50%
+
+  .blocks
+    position: relative
+    display: table
+    width: 920px
+    & > div
+      background-color: white
+      border-radius: 6px
+      overflow: hidden
+      .data
+        padding: 8px 20px 5px 20px
+        position: relative
+        color: black
+        overflow: hidden
+
+    .block1
+      width: 560px
+      min-height: 510px
+      float: left
+      .product-image
+        width: 560px
+        height: 404px
+
+      .data
+        padding-top: 15px
+        height: 200px
+        .pname
+          max-height: 70px
+          overflow: hidden
+          a
+            font-size: $f24px
+            color: $blackTextColor
+            text-align: left
+
+        .basket-block
+          position: absolute
+          bottom: 15px
+          width: 510px
+
+    .block2
+      width: 330px
+      min-height: 100px
+      float: right
+      margin-bottom: 10px
+      .data
+        padding: 15px 20px
+        .desc
+          max-height: 200px
+          overflow: hidden
+
+        .tags ul
+          list-style: none
+          margin: $gap 0
+          padding: 0
+          .tag
+            font-weight: bold
+
+    .block3
+      width: 330px
+      min-height: 100px
+      float: right
+      .data
+        overflow: hidden
+        font-size: $f20px
+        ul
+          list-style: none
+          padding: 0
+          margin: 10px 0 0 0
+          width: 100%
+          li
+            float: left
+            padding: 8px
+
+        img
+          width: 80px
+          height: 80px
+
+        img:hover
+          opacity: 0.9
+
+.product-edit-modal
+  .t-error
+    margin: 0 0 0 0
+  .unit
+    height: 50px
+  .more-btn
+    padding-top: 37px
+    &:hover
+      text-decoration: none
+  .price
+    font-weight: bold
+  .price, .unit
+    font-size: 20px
+    height: 50px
+  .prop-edit-block
+    margin-bottom: 3px
+  .show-true,
+  .show-false
+    display: none
+
+.property-select
+  .no-results
+    cursor: pointer
+  

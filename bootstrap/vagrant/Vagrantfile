@@ -1,0 +1,14 @@
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+ config.vm.provider "virtualbox" do |v|
+   v.memory = 4048
+   v.cpus = 1
+   v.name= "gastromarket-dev"
+ end
+ config.vm.box = "ubuntu/trusty64"
+ config.vm.hostname = "gastromarket-dev"
+ config.vm.network "private_network", ip: "192.168.50.5"
+ config.vm.synced_folder "../../gastro-portal/src/main/webapp", "/usr/share/nginx/www"
+ config.vm.synced_folder "../../gastro-portal/target/gastro-portal-1.0-SNAPSHOT", "/var/lib/tomcat7/webapps/ROOT"
+end

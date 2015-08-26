@@ -1,0 +1,115 @@
+<t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <div class="title-simple">
+        <h1>Свойство "${object?.name}"</h1>
+    </div>
+
+    <t:editObject t:id="editObject" showUpdate="true" showDelete="true" autoFocus="literal:true">
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="type">Тип:</label>
+
+            <div class="col-sm-9">
+                <input id="type" class="form-control" type="text" disabled="disabled" value="${object?.type}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <t:label class="col-sm-2 control-label" for="name">Название:</t:label>
+
+            <div class="col-sm-9">
+                <input t:id="name" class="form-control" type="text" placeholder="Название свойства"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <t:label class="col-sm-2 control-label" for="mandatory">Обязательный:</t:label>
+
+            <div class="col-sm-9">
+                <input t:id="mandatory" style="margin-top:13px;"/>
+            </div>
+        </div>
+    </t:editObject>
+
+    <t:delegate to="valuesBlock"/>
+
+    <t:block id="openBlock">
+        <div class="title-simple">
+            <h1>Значения свойства</h1>
+            <a data-toggle="modal" data-target="#create" href="#create">Добавить значение<span/></a>
+        </div>
+        <t:grid source="values" row="onePropertyValue"
+                exclude="id,tag,altId"
+                add="del"
+                reorder="name,clientGenerated,del"
+                t:mixins="GridSortingDisabled" class="table table-hover">
+            <t:parameter name="clientGeneratedCell">
+                <t:if test="onePropertyValue.clientGenerated">yes</t:if>
+            </t:parameter>
+            <t:parameter name="nameCell">
+                <t:pagelink page="admin/property/value" context="['UPDATE',onePropertyValue.id]">${onePropertyValue.name}</t:pagelink>
+            </t:parameter>
+            <t:parameter name="delCell">
+                <t:actionlink t:id="delete2" context="onePropertyValue.id" class="glyphicon glyphicon-remove"/>
+            </t:parameter>
+            <t:parameter name="empty">
+                <div class="empty">Нет данных</div>
+            </t:parameter>
+        </t:grid>
+    </t:block>
+
+    <t:block id="listBlock">
+        <div class="title-simple">
+            <h1>Значения свойства</h1>
+            <a data-toggle="modal" data-target="#create" href="#create">Добавить значение<span/></a>
+        </div>
+        <t:grid source="values" row="onePropertyValue"
+                exclude="id,tag,altId,clientGenerated"
+                add="children,del"
+                reorder="name,children,del"
+                t:mixins="GridSortingDisabled" class="table table-hover">
+            <t:parameter name="nameCell">
+                <t:pagelink page="admin/property/value" context="['UPDATE',onePropertyValue.id]">${onePropertyValue.name}</t:pagelink>
+            </t:parameter>
+            <t:parameter name="childrenCell">
+                ${children}
+            </t:parameter>
+            <t:parameter name="delCell">
+                <t:actionlink t:id="delete" context="onePropertyValue.id" class="glyphicon glyphicon-remove"/>
+            </t:parameter>
+            <t:parameter name="empty">
+                <div class="empty">Нет данных</div>
+            </t:parameter>
+        </t:grid>
+    </t:block>
+
+    <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="title">
+                        <h1><span>Новое значение</span></h1>
+                    </div>
+                    <a class="modal-close" data-dismiss="modal"></a>
+                </div>
+                <div class="modal-body">
+                    <t:form t:id="valueForm" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
+                        <div class="form-group">
+                            <div class="col-sm-1"/>
+                            <div class="col-sm-10">
+                                <t:label for="propertyValue">Значение свойства:</t:label>
+                                <input t:id="propertyValue" type="text" class="form-control"/>
+                            </div>
+                            <div class="col-sm-1"/>
+                        </div>
+                        <div class="form-buttons">
+                            <input class="btn btn-red" type="submit" value="Добавить"/>
+                        </div>
+                    </t:form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        activate_menu('#property');
+    </script>
+
+</t:adminlayout>

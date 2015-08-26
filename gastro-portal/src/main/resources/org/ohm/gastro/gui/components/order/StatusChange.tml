@@ -1,0 +1,45 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="status">
+    <t:if test="tenderType">
+        Статус заявки:&nbsp;
+        <t:parameter name="else">
+            Статус заказа:&nbsp;
+        </t:parameter>
+    </t:if>
+    <t:if test="canChangeState">
+        <a href="#order_status_${order.id}" class="dotted-link f20px" data-toggle="modal" data-target="#order_status_${order.id}">${orderStatusText}</a>
+
+        <div class="modal fade" id="order_status_${order.id}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog application">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="title">
+                            <h1><span>Изменение статуса заказа</span></h1>
+                        </div>
+                        <a class="modal-close" data-dismiss="modal"></a>
+                    </div>
+                    <div class="modal-body">
+                        <t:loop source="statuses" value="status" t:formState="NONE">
+                            <t:if test="statusAction">
+                                <div class="status-change">
+                                    <t:actionlink t:id="statusChange" t:context="[order.id,status]" t:zone="${orderShowCatalogZoneId}" class="dotted-link">${statusAction}</t:actionlink>
+                                    <span> &mdash; ${statusTitle}</span>
+                                </div>
+                            </t:if>
+                        </t:loop>
+                        <t:if test="hasCancel">
+                            <t:if test="catalog?.cancellationRaw">
+                                <div class="description gap">
+                                    <div class="f18px">Условия отмены:</div>
+                                    <t:outputraw value="catalog.cancellationRaw"/>
+                                </div>
+                            </t:if>
+                        </t:if>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <t:parameter name="else">
+            <span class="red-text">${orderStatusText}</span>
+        </t:parameter>
+    </t:if>
+</div>

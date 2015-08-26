@@ -1,0 +1,76 @@
+@import ../include/var
+
+=name-class
+  text-align: left
+  font-size: $f16px
+  line-height: 30px
+  color: $blackTextColor
+  text-overflow: ellipsis
+  overflow: hidden
+
+=price-class
+  font-size: $f20px
+  line-height: 30px
+  color: $blackTextColor
+
+=unit-class
+  font-weight: normal
+  font-size: $f14px
+  line-height: 14px
+  color: $blackTextColor
+
+=col-class
+  padding: 0 10px
+  display: inline-block
+  vertical-align: top
+
+.price-modifier
+  margin: $gap 0
+  .modifier-price
+    +price-class
+  .modifier-name
+    +name-class
+  .modifier-row
+    margin: 3px 0
+  .del-modifier
+    margin-top: 12px
+    display: inline-block
+  .add-modifier
+    margin-left: $gap
+    display: inline-block
+  .left
+    +col-class
+    width: 530px
+  .right
+    +col-class
+    width: 140px
+  .order-add &
+    .modifier-price
+      +price-class
+      float: right
+      margin-left: $gap
+    .modifier-name
+      +name-class
+    .unit
+      +unit-class
+    .basket-add
+      float: right
+
+.basket-block
+  line-height: 30px
+  .price
+    text-align: left
+    line-height: 30px
+    color: $blackTextColor
+    font-size: $priceFontSize
+    font-weight: bold
+    .unit
+      +unit-class
+    .sign
+      width: 10px
+      display: inline-block
+  .basket-add
+    text-align: left
+    line-height: 30px
+    color: $redTextColor
+    font-size: $f16px

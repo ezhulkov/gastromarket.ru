@@ -1,0 +1,69 @@
+@import ../include/var
+
+=border-class($border:#aaa, $background:#fff, $shadow: #ddd)
+  -webkit-box-shadow: 0 0 6px 2px $shadow
+  -moz-box-shadow: 0 0 6px 2px $shadow
+  box-shadow: 0 0 6px 2px $shadow
+  background-color: $background
+  border: 1px solid $border
+
+.grid-block
+  width: 1150px
+  margin: 0 auto 10px auto
+  font-size: 20px
+  font-family: "PT Sans", sans-serif
+  overflow: hidden
+  .item
+    +border-class
+    float: left
+    margin: 10px
+    display: list-item
+    white-space: nowrap
+    text-align: center
+    text-overflow: ellipsis
+    overflow: hidden
+  &.albums .item
+    padding: 5px 15px
+    margin: 3px 10px
+    float: initial
+    display: inline-block
+  &.products .item
+    width: 270px
+    margin: 7px
+    .name
+      line-height: 60px
+  &.cooks .item
+    width: 210px
+    height: 250px
+    .name
+      line-height: 40px
+    img
+      height: 210px
+      width: 210px
+  &.promo .item
+    width: 270px
+    height: 334px
+    margin: 8px
+    .name
+      line-height: 60px
+  .item img
+    opacity: 0.95
+  .item div:hover img
+    opacity: 1
+  .name
+    text-align: center
+    line-height: 25px
+    padding: 0 10px
+    overflow: hidden
+    text-overflow: ellipsis
+    color: $blackTextColor
+  a
+    display: block
+
+.ui-state-highlight
+  margin: 6px 8px
+  border: 1px dashed lightgray
+  width: 268px
+  height: 498px
+  display: list-item
+  float: left

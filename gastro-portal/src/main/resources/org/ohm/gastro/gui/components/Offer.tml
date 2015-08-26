@@ -1,0 +1,109 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <t:zone t:id="offerZone" id="${offerZoneId}" class="offer-item ${additionalClass}">
+        <t:delegate to="offerBlock"/>
+    </t:zone>
+
+    <t:zone t:id="editZone" id="${editZoneId}"/>
+
+    <t:block t:id="editBlock">
+        <t:offerEdit modalId="of-${offer.id}" offer="offer" offerBlock="offerBlock" offerZoneId="${offerZoneId}" reloadPage="mainPage" catalog="offer.catalog"/>
+        <script>
+            var pe = jQuery("#of-${offer.id}");
+            pe.modal('show');
+        </script>
+    </t:block>
+
+    <t:block t:id="offerBlock">
+        <div class="row">
+            <div class="${leftBlock} text-right">
+                <t:pagelink page="catalog/offer" t:context="offer.altId">
+                    <img class="pic" src="${avatarUrl}"/>
+                </t:pagelink>
+            </div>
+            <div class="${rightBlock} text-left">
+                <t:pagelink page="catalog/offer" t:context="offer.altId" class="name">${offer.name}</t:pagelink>
+                <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="offer.catalog.altId">
+                    <span><img src="${offer.catalog.avatarUrlSmall}"/></span>${offer.catalog.name}
+                </t:pageLink>
+                <div class="persons">
+                    ${personsCountDecl}
+                </div>
+                <div class="description">
+                    <t:outputraw value="offer.descriptionRaw"/>
+                </div>
+                <t:if test="products">
+                    <h3>Блюда в готово меню:</h3>
+                    <ul class="offer-products">
+                        <t:loop source="products" value="product">
+                            <li>
+                                <t:pagelink page="product/index" t:context="product.altId">
+                                    <img src="${product.avatarUrlSmall}" class="popover-holder" data-content="${product.name}"/>
+                                </t:pagelink>
+                                <t:if test="editMode">
+                                    <div class="delete">
+                                        <t:actionlink t:id="deleteProduct" t:context="[product.id,offer.id]" t:zone="${offerZoneId}"/>
+                                    </div>
+                                </t:if>
+                            </li>
+                        </t:loop>
+                    </ul>
+                </t:if>
+                <t:if test="editMode">
+                    <div class="edit">
+                        <t:actionlink t:id="edit" t:context="offer.id" t:zone="${editZoneId}">Редактировать</t:actionlink>
+                        <t:unless test="mainPage">
+                            <a href="#delete" data-toggle="modal" class="delete" data-target="#deleteOffer${offer.id}">Удалить</a>
+                        </t:unless>
+                    </div>
+                    <div class="modal fade delete-offer" id="deleteOffer${offer.id}" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <div class="title">
+                                        <h1><span>Удалить готовое меню?</span></h1>
+                                    </div>
+                                    <a class="modal-close" data-dismiss="modal"></a>
+                                </div>
+                                <div class="modal-body" style="text-align: center;">
+                                    <br/>
+                                    <t:unless test="mainPage">
+                                        <t:actionlink t:id="delete" t:zone="offersZone" t:context="offer.id" class="btn btn-red deleteConfirm" style="display: inline;">Удалить</t:actionlink>
+                                    </t:unless>
+                                    <a href="#" class="btn btn-white" style="display: inline;" data-dismiss="modal">Отмена</a>
+                                    <br/>
+                                    <br/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t:if>
+            </div>
+        </div>
+        <t:unless test="short">
+            <t:if test="priceModifiers">
+                <div class="price-modifier gap">
+                    <t:loop source="priceModifiers" value="priceModifier">
+                        <div class="row">
+                            <div class="${leftBlock} text-right">
+                                <span class="modifier-price"><span class="sign">${priceModifier.signPrintable}</span>${priceModifier.price} <span class="rub"/></span>
+                            </div>
+                            <div class="${rightBlock} text-left">
+                                <span class="modifier-name">${priceModifier.description}</span>
+                            </div>
+                        </div>
+                    </t:loop>
+                </div>
+            </t:if>
+        </t:unless>
+        <div class="row gap">
+            <div class="${leftBlock} basket-block text-right">
+                <span class="price">${offer.price} <span class="rub"/></span>
+            </div>
+            <div class="${rightBlock} basket-block text-left">
+                <t:order.add entity="offer"/>
+            </div>
+        </div>
+    </t:block>
+
+</div>

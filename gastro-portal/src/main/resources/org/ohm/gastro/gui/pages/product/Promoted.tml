@@ -1,0 +1,22 @@
+<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <div class="container">
+        <div class="title">
+            <h1><span>Предложения недели</span></h1>
+        </div>
+
+        <div id="product-items" class="grid-block products">
+            <t:loop source="products" value="oneProduct">
+                <t:product product="oneProduct" class="fixed"/>
+            </t:loop>
+        </div>
+        <t:productModalTemplate/>
+    </div>
+
+    <script>
+        jQuery(document).ready(function () {
+            initProductCatalogFixed();
+        });
+    </script>
+
+</t:htmlLayout>

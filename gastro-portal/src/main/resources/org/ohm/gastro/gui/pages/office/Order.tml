@@ -1,0 +1,25 @@
+<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <div class="container orders office">
+        <div class="title">
+            <h1><span>Заказ №${order.orderNumber}</span></h1>
+        </div>
+        <t:order.filter status="order.metaStatus" privateOrders="privateOrders"/>
+        <t:zone t:id="orderZone">
+            <t:delegate to="orderBlock"/>
+        </t:zone>
+        <t:block t:id="orderBlock">
+            <t:if test="newOrder">
+                <h2 class="gap">Спасибо за заказ!</h2>
+
+                <div class="attention new-order">
+                    <p class="modal-text">Мы отправили информацию на указанный адрес и в ближайшее время с Вами свяжется кулинар для уточнения деталей.</p>
+
+                    <p class="modal-text">В случае возникновения вопросов, пишите на <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет заказы" class="red-text">contacts@gastromarket.ru</a> или звоните по телефону +7 926 6712145.</p>
+                </div>
+            </t:if>
+            <t:order.order  order="order" type="FULL" privateOrders="privateOrders" replies="true"/>
+        </t:block>
+    </div>
+
+</t:htmllayout>

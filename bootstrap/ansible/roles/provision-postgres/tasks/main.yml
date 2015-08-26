@@ -1,0 +1,16 @@
+---
+#Postgres
+  - shell: apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 7FCC7D46ACCC4CF8
+  - shell: echo "deb http://apt.postgresql.org/pub/repos/apt/ wheezy-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+  - apt: update_cache=yes
+  - apt: name=postgresql-9.4 force=yes
+  - service: name=postgresql state=stopped
+  - shell: sudo rm -fr /var/lib/postgresql/9.4/main/*
+  - shell: sudo -u postgres /usr/lib/postgresql/9.4/bin/initdb --locale=ru_RU.UTF-8 /var/lib/postgresql/9.4/main
+  - copy: src=russian.affix dest=/usr/share/postgresql/9.4/tsearch_data/russian.affix owner=postgres group=postgres mode=0644
+  - copy: src=russian.dict dest=/usr/share/postgresql/9.4/tsearch_data/russian.dict owner=postgres group=postgres mode=0644
+  - copy: src=russian.stop dest=/usr/share/postgresql/9.4/tsearch_data/russian.stop owner=postgres group=postgres mode=0644
+  - copy: src=postgresql.conf dest=/etc/postgresql/9.4/main/postgresql.conf owner=postgres group=postgres mode=0644
+  - copy: src=init.sql dest=/etc/postgresql/9.4/main/init.sql owner=postgres group=postgres mode=0644
+  - service: name=postgresql state=started  enabled=yes
+  - shell: sudo -u postgres psql -f /etc/postgresql/9.4/main/init.sql

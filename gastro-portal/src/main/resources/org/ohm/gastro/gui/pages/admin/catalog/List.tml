@@ -1,0 +1,40 @@
+<t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <div class="title-simple">
+        <h1>Список каталогов</h1>
+    </div>
+
+    <t:grid source="catalogs" row="oneCatalog"
+            reorder="name,type,date,user,rating,level,products,del"
+            exclude="id,description,delivery,avatarUrl,avatarUrlSmall,avatarUrlMedium,payment,wasSetup,altId,basketMin,wizardStep,maxWizardStep,productBadge,orderBadge,
+            descriptionRaw,deliveryRaw,rankBadge,paymentRaw,fullUrl"
+            add="user,del,products"
+            t:mixins="GridSortingDisabled" class="table table-hover">
+        <t:parameter name="nameHeader">
+            Название
+        </t:parameter>
+        <t:parameter name="userCell">
+            <t:pagelink t:page="admin/user/index" t:context="['UPDATE',oneCatalog.user.id]">${oneCatalog.user.email}</t:pagelink>
+        </t:parameter>
+        <t:parameter name="nameCell">
+            <t:pagelink page="admin/catalog/index" context="['UPDATE',oneCatalog.altId]">${oneCatalog.name}</t:pagelink>
+        </t:parameter>
+        <t:parameter name="ratingCell">
+            ${oneCatalog.rating}
+        </t:parameter>
+        <t:parameter name="productsCell">
+            ${oneCatalog.products.size()}
+        </t:parameter>
+        <t:parameter name="delCell">
+            <t:actionlink t:id="delete" context="oneCatalog.id" class="glyphicon glyphicon-remove"/>
+        </t:parameter>
+        <t:parameter name="empty">
+            <div class="empty">Нет данных</div>
+        </t:parameter>
+    </t:grid>
+
+    <script>
+        activate_menu('#catalog');
+    </script>
+
+</t:adminlayout>

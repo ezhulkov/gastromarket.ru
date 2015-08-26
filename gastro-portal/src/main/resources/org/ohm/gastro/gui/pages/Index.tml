@@ -1,0 +1,122 @@
+<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <div class="container-flex main-header">
+        <div class="main-img-after main1"/>
+        <div class="main-img-after main2"/>
+        <div class="main-img-after main3"/>
+        <div class="main-img-after main4"/>
+        <div class="main-img-after main5"/>
+        <div class="main-img-after main6"/>
+        <div class="main-img-after main7"/>
+        <div class="main-img-after main8"/>
+        <div class="data">
+            <h1>Всё готово!</h1>
+
+            <h2>Заказывайте вкусную еду у независимых кулинаров Москвы</h2>
+
+            <div class="blocks">
+                <div>
+                    <p>Я хочу выбрать из каталога блюд и предложений</p>
+                    <a href="#order_start" class="btn btn-red btn-lg smooth-scroll">Начать поиск</a>
+                </div>
+                <div>
+                    <p>Я хочу оставить заявку и найти лучшего исполнителя</p>
+                    <a href="#tender_start" class="btn btn-red btn-lg smooth-scroll">Оставить заявку</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+
+        <div id="order_start" class="title">
+            <h1><span>Заказ еды для любого события</span></h1>
+        </div>
+
+        <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="search-bar">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10">
+                <input t:id="search" t:value="searchString" t:type="TextField" placeholder="Поиск"/>
+                <input type="submit" value=""/>
+            </div>
+            <div class="col-sm-1"></div>
+        </t:form>
+        <div class="grid-block categories">
+            <t:loop source="propertyValues" value="onePropertyValue">
+                <div class="item">
+                    <t:pagelink page="product/list" context="onePropertyValue.altId" class="category">
+                        <img class="category-${onePropertyValue.altId}"/>
+                    </t:pagelink>
+                    <t:pagelink page="product/list" context="onePropertyValue.altId" class="name f18px">
+                        ${onePropertyValue.name}
+                    </t:pagelink>
+                </div>
+            </t:loop>
+        </div>
+
+        <div id="tender_start" class="title">
+            <h1><span>Как работают заявки?</span></h1>
+            <t:pagelink page="tender/list" context="literal:NEW">Все заявки<span/></t:pagelink>
+        </div>
+
+        <ul class="tender-howto">
+            <li>
+                <div>
+                    <img src="http://gastromarket.ru/img/howto1.jpg"/>
+                </div>
+                <p>Вы описываете детали заявки - бюджет, желаемую дату изготовления, комментарии и количество персон.<br/>Заявку увидят все зарегистрированные кулинары.</p>
+            </li>
+            <li>
+                <div>
+                    <img src="http://gastromarket.ru/img/howto2.jpg"/>
+                </div>
+                <p>Кулинары оставляют отклики к заявке, описывают условия выполнения и показывают своё портфолио блюд и услуг</p>
+            </li>
+            <li>
+                <div>
+                    <img src="http://gastromarket.ru/img/howto3.jpg"/>
+                </div>
+                <p>Вам остается только выбрать лучшего кулинара и ждать исполнения заявки в компании друзей и близких.<br/><br/><b>ГастроМаркет - Всё готово!</b></p>
+            </li>
+        </ul>
+
+        <div class="gap3 text-center">
+            <t:pagelink page="tender/list" context="['NEW','true']" class="btn btn-lg btn-red">Разместить заявку</t:pagelink>
+        </div>
+
+        <t:if test="tenders">
+            <div id="tender_start" class="title">
+                <h1><span>Последние заявки</span></h1>
+                <t:pagelink page="tender/list" context="literal:NEW">Все заявки<span/></t:pagelink>
+            </div>
+            <t:loop source="tenders" value="oneTender" forState="NONE">
+                <t:order.order order="oneTender" type="MAIN_PAGE" privateOrders="false" frontend="true"/>
+            </t:loop>
+            <div class="gap3 text-center">
+                <t:pagelink page="tender/list" context="['NEW','true']" class="btn btn-lg btn-red">Разместить заявку</t:pagelink>
+            </div>
+        </t:if>
+
+        <div class="title">
+            <h1><span>Лучшие кулинары</span></h1>
+            <t:pagelink page="catalog/list">Все кулинары<span/></t:pagelink>
+        </div>
+
+        <div class="grid-block cooks">
+            <t:loop source="cooks" value="oneCook">
+                <div class="item">
+                    <t:pagelink page="catalog/index" context="oneCook.altId">
+                        <img src="${oneCook.avatarUrl}"/>
+                    </t:pagelink>
+                    <t:pagelink page="catalog/index" context="oneCook.altId" class="name f18px">
+                        ${oneCook.name}
+                    </t:pagelink>
+                </div>
+            </t:loop>
+        </div>
+    </div>
+
+    <script>
+        jQuery(initMainPage);
+    </script>
+
+</t:htmllayout>

@@ -1,0 +1,141 @@
+@import ../include/var
+
+.btn
+  padding: 8px 25px
+  font-size: $f16px
+  margin: 0 5px
+  -webkit-border-radius: 6px
+  -moz-border-radius: 6px
+  border-radius: 6px
+  &.btn-red
+    background-image: -webkit-gradient(linear, left top, left bottom, from($redTextColor), to($deepRedTextColor))
+    background-image: -webkit-linear-gradient(top, $redTextColor, $deepRedTextColor)
+    background-image: -moz-linear-gradient(top, $redTextColor, $deepRedTextColor)
+    background-image: -ms-linear-gradient(top, $redTextColor, $deepRedTextColor)
+    background-image: -o-linear-gradient(top, $redTextColor, $deepRedTextColor)
+    background-image: linear-gradient(to bottom, $redTextColor, $deepRedTextColor)
+    color: #FFF !important
+    &:hover
+      background-image: -webkit-gradient(linear, left top, left bottom, from(#a00000), to(#900000))
+      background-image: -webkit-linear-gradient(top, #a00000, #900000)
+      background-image: -moz-linear-gradient(top, #a00000, #900000)
+      background-image: -ms-linear-gradient(top, #a00000, #900000)
+      background-image: -o-linear-gradient(top, #a00000, #900000)
+      background-image: linear-gradient(to bottom, #a00000, #900000)
+      color: #FFF
+
+    &:focus
+      color: #fff !important
+
+  &.btn-white
+    border: 2px solid $redTextColor
+    color: $redTextColor
+    &:hover
+      color: $deepRedTextColor
+      border: 2px solid $deepRedTextColor
+
+    &:focus
+      color: $deepRedTextColor !important
+
+  &.btn-lg
+    padding: 10px 45px
+    font-size: 20px
+
+  &.btn-howto
+    border-radius: 25px
+    padding: 5px 35px
+
+.round-link
+  background-color: white
+  border: 2px solid $deepRedTextColor
+  color: $deepRedTextColor
+  font-size: 16px
+  padding: 5px 20px 5px 20px
+  border-radius: 20px
+  display: inline-block
+  margin-right: $gap
+  &:focus
+    color: $redTextColor
+  &:active
+    text-decoration: none
+  span
+    margin-bottom: -4px
+    margin-left: 5px
+    width: 10px
+    height: 18px
+    display: inline-block
+    background: url("../img/title-forward.png") center top no-repeat
+
+.title-simple
+  position: relative
+  h1, h2
+    position: relative
+    margin: 20px auto
+    text-align: center
+    padding-top: 23px
+  & > a
+    @extend .round-link
+    position: absolute
+    top: 25px
+    right: 0
+
+.title
+  @extend .title-simple
+  h1.line:after, h2.line:after
+    content: ""
+    border-top: 1px solid $greyTextColor
+    position: absolute
+    left: -25%
+    top: 75%
+    width: 150%
+  h1 span, h2 span
+    background: #fff
+    position: relative
+    z-index: 1
+    padding: 0 20px
+
+.links-set
+  width: 100%
+  text-align: center
+  margin: 40px 0
+  a
+    @extend .round-link
+
+.dotted-link, .dotted-link:hover, .dotted-link:active, .dotted-link:focus
+  color: $redTextColor
+  border-bottom: 1px dashed $redTextColor
+  cursor: pointer
+  text-decoration: none
+  &:active
+    border-bottom: none
+
+.label-tip
+  font-style: italic
+  font-size: 12px
+  color: $greyTextColor
+  margin-bottom: 3px
+
+.form-buttons
+  text-align: center
+  margin: 2*$gap 0 3*$gap 0
+
+.t-error
+  border: 1 ps solid $redTextColor !important
+  ul
+    list-style-type: none !important
+    margin-bottom: 3*$gap !important
+    li
+      text-align: center !important
+      font-size: 16px !important
+      font-weight: bold !important
+      margin: 0 !important
+      color: $redTextColor
+
+div.t-error
+  border: none !important
+
+label.t-error
+  font-weight: bold !important
+
+.t-banner, .t-error-icon
+  display: none !important

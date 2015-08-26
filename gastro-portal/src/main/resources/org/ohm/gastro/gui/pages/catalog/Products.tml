@@ -1,0 +1,60 @@
+<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <div class="container">
+        <div class="title">
+            <h1><span>Все блюда от ${catalog.name}</span></h1>
+            <t:pagelink page="catalog/index" t:context="catalog.altId">На страницу кулинара<span/></t:pagelink>
+        </div>
+        <t:if test="catalogOwner">
+            <div class="links-set">
+                <a data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>
+                <t:pagelink page="office/import" context="catalog.altId">Импортировать меню <span/></t:pagelink>
+            </div>
+            <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>
+        </t:if>
+        <t:filter parentValue="parentPropertyValue"
+                  allValues="allProperties"
+                  value="propertyValue"
+                  orderType="orderType"
+                  direction="direction"
+                  pageContext="/catalog/products/${catalog.altId}"/>
+        <t:zone t:id="productsZone">
+            <t:delegate to="productsBlock"/>
+        </t:zone>
+        <t:block t:id="productsBlock">
+            <t:loop source="rootProperties" value="propertyValue">
+                <div class="title">
+                    <h2><span>${propertyValue.name}</span></h2>
+                </div>
+                <div id="product-items" class="grid-block products fixed ${sortable}">
+                    <t:loop source="products" value="oneProduct">
+                        <t:product product="oneProduct" class="fixed" edit="${catalogOwner}"/>
+                    </t:loop>
+                    <t:form t:id="reorderForm" t:context="propertyValue.id" t:clientValidation="none" t:zone="productsZone" class="hidden reorder">
+                        <input t:type="textfield" t:id="reorder" t:value="reorder"/>
+                        <input t:type="submit" t:id="ordersubmit"/>
+                    </t:form>
+                </div>
+                <t:parameter name="empty">
+                    <div class="empty">Меню кулинара пусто</div>
+                </t:parameter>
+            </t:loop>
+        </t:block>
+        <t:productModalTemplate/>
+
+    </div>
+
+    <script>
+        jQuery(document).ready(function () {
+            var init = function () {
+                initProductCatalogFixed();
+            };
+            init();
+            Event.observe(jQuery("#productsZone").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
+                init();
+                initTitle(jQuery("div.title"));
+            });
+        });
+    </script>
+
+</t:htmlLayout>

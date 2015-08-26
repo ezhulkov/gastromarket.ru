@@ -1,0 +1,91 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" id="reply" class="replies">
+    <t:if test="tender">
+        <div class="row">
+            <div class="col-sm-1"/>
+            <div class="col-sm-10 attention">
+                Все зарегистрированные кулинары, у которых заполнен каталог, могут оставить отклик к заявке.<br/>
+                Автору заявки достаточно просто выбрать лучшего кулинара и нажать ссылку "выбрать исполнителя". После этого заявка перейдет в статус заказа и будет скрыта для публичного просмотра.
+            </div>
+            <div class="col-sm-1"/>
+        </div>
+    </t:if>
+
+    <div class="title">
+        <h1><span>Отклики</span></h1>
+        <t:unless test="orderClosed">
+            <t:if test="authenticated">
+                <t:if test="commentAllowed">
+                    <a href="#tender_reply" data-toggle="modal" class="round-link" data-target="#tender_reply">Откликнуться</a>
+
+                    <div class="modal fade" id="tender_reply" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <div class="title">
+                                        <h1><span>Отклик</span></h1>
+                                    </div>
+                                    <a class="modal-close" data-dismiss="modal"></a>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="modal-text">
+                                        Оставьте отклик к заявке и заинтересуйте заказчика. Ваша заполненная страница кулинара и меню помогут вам в этом!
+                                    </p>
+                                    <t:form t:id="replyForm" class="form form-horizontal gap2" context="order.id" t:clientValidation="none" autofocus="false" role="form" t:zone="replyZone">
+                                        <div class="form-group">
+                                            <div class="col-sm-1"/>
+                                            <div class="col-sm-10">
+                                                <textarea t:type="TextArea" t:id="replyText" t:value="replyText" rows="5" class="form-control"/>
+                                            </div>
+                                            <div class="col-sm-1"/>
+                                        </div>
+                                        <div class="form-buttons">
+                                            <input class="btn btn-red" type="submit" value="Оставить отклик"/>
+                                        </div>
+                                    </t:form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <t:parameter name="else">
+                        <a href="#tender_reply_denied" data-toggle="modal" class="round-link" data-target="#tender_reply_denied">Откликнуться</a>
+
+                        <div class="modal fade" id="tender_reply_denied" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div class="title">
+                                            <h1><span>Отклик</span></h1>
+                                        </div>
+                                        <a class="modal-close" data-dismiss="modal"></a>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <p class="modal-text">
+                                                Только зарегистрированные кулинары с заполненными каталогами могут оставлять отклик.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t:parameter>
+                </t:if>
+                <t:parameter name="else">
+                    <a href="#tender_login" data-toggle="modal" class="login-link round-link" data-target="#tender_login">Откликнуться</a>
+                </t:parameter>
+            </t:if>
+        </t:unless>
+    </div>
+    <t:zone t:id="replyZone">
+        <t:delegate to="replyBlock"/>
+    </t:zone>
+    <t:block t:id="replyBlock">
+        <t:if test="comments">
+            <t:comments comments="comments" reply="tender" order="order" replyBlock="replyBlock"/>
+        </t:if>
+        <script>
+            jQuery("#tender_reply").modal("hide");
+            jQuery("body").removeClass("modal-open");
+        </script>
+    </t:block>
+</div>

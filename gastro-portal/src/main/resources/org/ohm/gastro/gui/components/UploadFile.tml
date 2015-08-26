@@ -1,0 +1,7 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+     class="upload-file ${type} ${additionalClass}" data-objectid="${objectId}" data-type="${type}" data-size="${responseSize}">
+    <img src="${imageUrl}"/>
+    <t:unless test="hide">
+        <div class="uploader-button"></div>
+    </t:unless>
+</div>

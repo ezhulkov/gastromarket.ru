@@ -1,0 +1,791 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet author="ezhulkov" id="1">
+        <createSequence sequenceName="hibernate_sequence"/>
+        <createTable tableName="property">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="java.sql.Types.VARCHAR(64)"/>
+            <column name="type" type="java.sql.Types.VARCHAR(64)"/>
+        </createTable>
+        <createTable tableName="property_value">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="property_id" type="java.sql.Types.BIGINT"/>
+            <column name="value" type="java.sql.Types.VARCHAR(64)"/>
+        </createTable>
+        <createTable tableName="category">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="java.sql.Types.VARCHAR(64)"/>
+        </createTable>
+        <createTable tableName="category_property">
+            <column name="category_id" type="java.sql.Types.BIGINT"/>
+            <column name="property_id" type="java.sql.Types.BIGINT"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="property_value" baseColumnNames="property_id"
+                constraintName="value_property_fk" referencedTableName="property" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="category_property" baseColumnNames="property_id"
+                constraintName="cp_property_fk" referencedTableName="property" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="category_property" baseColumnNames="category_id"
+                constraintName="cp_category_fk" referencedTableName="category" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <createIndex tableName="property_value" indexName="value_prop_idx">
+            <column name="property_id"/>
+        </createIndex>
+        <createIndex tableName="category_property" indexName="cat_prop_prop_idx">
+            <column name="property_id"/>
+        </createIndex>
+        <createIndex tableName="category_property" indexName="cat_prop_cat_idx">
+            <column name="category_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="ezhulkov" id="2">
+        <createTable tableName="person">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="email" type="java.sql.Types.VARCHAR(64)"/>
+            <column name="password" type="java.sql.Types.VARCHAR(256)"/>
+            <column name="type" type="java.sql.Types.VARCHAR(32)"/>
+        </createTable>
+        <createTable tableName="catalog">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="java.sql.Types.VARCHAR(4096)"/>
+            <column name="description" type="java.sql.Types.VARCHAR(4096)"/>
+            <column name="user_id" type="java.sql.Types.BIGINT"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="catalog" baseColumnNames="user_id"
+                constraintName="catalog_user_fk" referencedTableName="person" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <addUniqueConstraint tableName="person" columnNames="email"/>
+        <createIndex tableName="catalog" indexName="cat_user_idx">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="ezhulkov" id="3">
+        <createTable tableName="product">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="catalog_id" type="java.sql.Types.BIGINT"/>
+            <column name="category_id" type="java.sql.Types.BIGINT"/>
+            <column name="name" type="java.sql.Types.VARCHAR(512)"/>
+            <column name="description" type="java.sql.Types.VARCHAR(1024)"/>
+            <column name="price" type="java.sql.Types.INTEGER"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="product" baseColumnNames="catalog_id"
+                constraintName="prod_catalog_fk" referencedTableName="catalog" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="product" baseColumnNames="category_id"
+                constraintName="prod_category_fk" referencedTableName="category" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <createIndex tableName="product" indexName="prod_catalog_idx">
+            <column name="catalog_id"/>
+        </createIndex>
+        <createIndex tableName="product" indexName="prod_category_idx">
+            <column name="category_id"/>
+        </createIndex>
+        <createTable tableName="product_property">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_id" type="java.sql.Types.BIGINT"/>
+            <column name="property_id" type="java.sql.Types.BIGINT"/>
+            <column name="value_id" type="java.sql.Types.BIGINT"/>
+            <column name="data" type="java.sql.Types.VARCHAR(64)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="product_property" baseColumnNames="product_id"
+                constraintName="pv_prod_fk" referencedTableName="product" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="product_property" baseColumnNames="value_id"
+                constraintName="pv_val_fk" referencedTableName="property_value" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="product_property" baseColumnNames="property_id"
+                constraintName="pv_prop_fk" referencedTableName="property" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <createIndex tableName="product_property" indexName="pr_val_product_idx">
+            <column name="product_id"/>
+        </createIndex>
+        <createIndex tableName="product_property" indexName="pr_val_prop_idx">
+            <column name="property_id"/>
+        </createIndex>
+        <createIndex tableName="product_property" indexName="pr_val_val_idx">
+            <column name="value_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="6" author="ezhulkov">
+        <addColumn tableName="category">
+            <column name="parent_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="category" baseColumnNames="parent_id"
+                constraintName="cat_parent_fk" referencedTableName="category" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <createIndex tableName="category" indexName="cat_parent_idx">
+            <column name="parent_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="7" author="ezhulkov">
+        <addColumn tableName="catalog">
+            <column name="was_setup" type="java.sql.Types.BOOLEAN" defaultValueBoolean="false"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="8" author="ezhulkov">
+        <addColumn tableName="catalog">
+            <column name="rating" type="java.sql.Types.INTEGER" defaultValue="0"/>
+        </addColumn>
+        <createTable tableName="rating">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="catalog_id" type="java.sql.Types.BIGINT"/>
+            <column name="author_id" type="java.sql.Types.BIGINT"/>
+            <column name="comment" type="java.sql.Types.VARCHAR(512)"/>
+            <column name="rating" type="java.sql.Types.INTEGER"/>
+            <column name="date" type="java.sql.Types.TIMESTAMP"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="rating" baseColumnNames="catalog_id"
+                constraintName="rating_cat_fk" referencedTableName="catalog" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="rating" baseColumnNames="author_id"
+                constraintName="rating_author_fk" referencedTableName="person" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <createIndex tableName="rating" indexName="rating_catalog_idx">
+            <column name="catalog_id"/>
+        </createIndex>
+        <createIndex tableName="rating" indexName="rating_author_idx">
+            <column name="author_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="9" author="ezhulkov">
+        <addColumn tableName="catalog">
+            <column name="date" type="java.sql.Types.TIMESTAMP"/>
+        </addColumn>
+        <addColumn tableName="person">
+            <column name="date" type="java.sql.Types.TIMESTAMP"/>
+        </addColumn>
+        <addColumn tableName="product">
+            <column name="date" type="java.sql.Types.TIMESTAMP"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="10" author="ezhulkov">
+        <addColumn tableName="person">
+            <column name="status" type="java.sql.Types.VARCHAR(16)"/>
+            <column name="referrer_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="person" baseColumnNames="referrer_id"
+                constraintName="person_ref_fk" referencedTableName="person" referencedColumnNames="id" onDelete="NO ACTION"/>
+        <createIndex tableName="person" indexName="person_ref_idx">
+            <column name="referrer_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="11" author="ezhulkov">
+        <addColumn tableName="catalog">
+            <column name="delivery" type="java.sql.Types.VARCHAR(512)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="12" author="ezhulkov">
+        <addColumn tableName="person">
+            <column name="anonymous" type="java.sql.Types.BOOLEAN" defaultValueBoolean="false"/>
+            <column name="full_name" type="java.sql.Types.VARCHAR(64)"/>
+            <column name="delivery_address" type="java.sql.Types.VARCHAR(512)"/>
+            <column name="mobile_phone" type="java.sql.Types.VARCHAR(16)"/>
+        </addColumn>
+        <createTable tableName="orders">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="customer_id" type="java.sql.Types.BIGINT"/>
+            <column name="comment" type="java.sql.Types.VARCHAR(512)"/>
+            <column name="date" type="java.sql.Types.TIMESTAMP"/>
+            <column name="status" type="java.sql.Types.VARCHAR(16)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="orders" baseColumnNames="customer_id"
+                constraintName="order_cust_fk" referencedTableName="person" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <createIndex tableName="orders" indexName="order_cust_idx">
+            <column name="customer_id"/>
+        </createIndex>
+        <createTable tableName="order_product">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="order_id" type="java.sql.Types.BIGINT"/>
+            <column name="product_id" type="java.sql.Types.BIGINT"/>
+            <column name="price" type="java.sql.Types.INTEGER"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="order_product" baseColumnNames="order_id"
+                constraintName="orderp_order_fk" referencedTableName="orders" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="order_product" baseColumnNames="product_id"
+                constraintName="orderp_prod_fk" referencedTableName="product" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <createIndex tableName="order_product" indexName="orderp_orderr_idx">
+            <column name="order_id"/>
+        </createIndex>
+        <createIndex tableName="order_product" indexName="orderp_prod_idx">
+            <column name="product_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="13" author="ezhulkov">
+        <createTable tableName="message">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sender_id" type="java.sql.Types.BIGINT"/>
+            <column name="recipient_id" type="java.sql.Types.BIGINT"/>
+            <column name="sender_status" type="java.sql.Types.VARCHAR(16)"/>
+            <column name="recipient_status" type="java.sql.Types.VARCHAR(16)"/>
+            <column name="recipient_type" type="java.sql.Types.VARCHAR(16)"/>
+            <column name="subject" type="java.sql.Types.VARCHAR(128)"/>
+            <column name="body" type="java.sql.Types.VARCHAR(1024)"/>
+            <column name="create_date" type="java.sql.Types.TIMESTAMP"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="message" baseColumnNames="sender_id"
+                constraintName="message_sender_fk" referencedTableName="person" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="message" baseColumnNames="recipient_id"
+                constraintName="message_rcpt_fk" referencedTableName="person" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <createIndex tableName="message" indexName="message_sender_idx">
+            <column name="sender_id"/>
+        </createIndex>
+        <createIndex tableName="message" indexName="message_rcpt_idx">
+            <column name="recipient_id"/>
+        </createIndex>
+        <createIndex tableName="message" indexName="message_sender_status_idx">
+            <column name="sender_status"/>
+        </createIndex>
+        <createIndex tableName="message" indexName="message_rcpt_status_idx">
+            <column name="recipient_status"/>
+        </createIndex>
+        <createIndex tableName="message" indexName="message_rcpt_type_idx">
+            <column name="recipient_type"/>
+        </createIndex>
+        <createIndex tableName="message" indexName="message_date_idx">
+            <column name="create_date"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="14" author="ezhulkov">
+        <addColumn tableName="person">
+            <column name="bonus" type="java.sql.Types.INTEGER" defaultValue="0"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="15" author="ezhulkov">
+        <addColumn tableName="product">
+            <column name="promoted" type="java.sql.Types.BOOLEAN"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="16" author="ezhulkov">
+        <addColumn tableName="person">
+            <column name="avatar_url" type="java.sql.Types.VARCHAR(256)"/>
+            <column name="avatar_url_small" type="java.sql.Types.VARCHAR(256)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="17" author="ezhulkov">
+        <addColumn tableName="person">
+            <column name="avatar_url_medium" type="java.sql.Types.VARCHAR(256)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="18" author="ezhulkov">
+        <addColumn tableName="product">
+            <column name="hidden" type="java.sql.Types.BOOLEAN"/>
+        </addColumn>
+        <sql>
+            update product set hidden=false;
+        </sql>
+    </changeSet>
+
+    <changeSet id="19" author="ezhulkov">
+        <addColumn tableName="product">
+            <column name="avatar_url" type="java.sql.Types.VARCHAR(256)"/>
+            <column name="avatar_url_small" type="java.sql.Types.VARCHAR(256)"/>
+            <column name="avatar_url_medium" type="java.sql.Types.VARCHAR(256)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20" author="ezhulkov">
+        <addColumn tableName="catalog">
+            <column name="avatar_url" type="java.sql.Types.VARCHAR(256)"/>
+            <column name="avatar_url_small" type="java.sql.Types.VARCHAR(256)"/>
+            <column name="avatar_url_medium" type="java.sql.Types.VARCHAR(256)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="21" author="ezhulkov">
+        <addColumn tableName="catalog">
+            <column name="payment" type="java.sql.Types.VARCHAR(4096)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="22" author="ezhulkov">
+        <addColumn tableName="catalog">
+            <column name="basket_min" type="java.sql.Types.INTEGER"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="23" author="ezhulkov">
+        <addColumn tableName="order_product">
+            <column name="count" type="java.sql.Types.INTEGER"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="24" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="user_bonuses" type="java.sql.Types.INTEGER" defaultValue="0"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="26" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="order_number" type="java.sql.Types.VARCHAR(32)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="27" author="ezhulkov">
+        <createTable tableName="bill">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="catalog_id" type="java.sql.Types.BIGINT"/>
+            <column name="date" type="java.sql.Types.TIMESTAMP"/>
+            <column name="status" type="java.sql.Types.VARCHAR(16)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="bill" baseColumnNames="catalog_id"
+                constraintName="bill_catalog_fk" referencedTableName="catalog" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <createIndex tableName="bill" indexName="bill_cat_idx">
+            <column name="catalog_id"/>
+        </createIndex>
+        <addColumn tableName="orders">
+            <column name="bill_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="orders" baseColumnNames="bill_id"
+                constraintName="order_bill_fk" referencedTableName="bill" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <createIndex tableName="orders" indexName="order_bill_idx">
+            <column name="bill_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="28" author="ezhulkov">
+        <addColumn tableName="product">
+            <column name="unit" type="java.sql.Types.VARCHAR(16)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="29" author="ezhulkov">
+        <addColumn tableName="catalog">
+            <column name="alt_id" type="java.sql.Types.VARCHAR(256)"/>
+        </addColumn>
+        <addColumn tableName="product">
+            <column name="alt_id" type="java.sql.Types.VARCHAR(256)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="30" author="ezhulkov">
+        <addColumn tableName="product">
+            <column name="unit_value" type="java.sql.Types.INTEGER"/>
+        </addColumn>
+        <sql>
+            update product set unit='GRAM',unit_value='1000' where unit='KILO';
+            update product set unit='GRAM',unit_value='100' where unit='HUNDRED_GRAM';
+            update product set unit='GRAM',unit_value='250' where unit='TWO_FIFTY_GRAM';
+            update product set unit='GRAM',unit_value='250' where unit='TWO_FIFTY_GRAM';
+            update product set unit='LITRE',unit_value='1000' where unit='LITRE';
+            update product set unit='LITRE',unit_value='100' where unit='HUNDRED_MILLIS';
+            update product set unit='LITRE',unit_value='250' where unit='TWO_FIFTY_MILLIS';
+            update product set unit_value='0' where unit='PIECE';
+        </sql>
+    </changeSet>
+
+    <changeSet id="31" author="ezhulkov">
+        <addColumn tableName="product">
+            <column name="was_setup" type="java.sql.Types.BOOLEAN" defaultValueBoolean="false"/>
+        </addColumn>
+        <dropColumn tableName="product" columnName="hidden"/>
+    </changeSet>
+
+    <changeSet id="32" author="ezhulkov">
+        <createTable tableName="logs">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="java.sql.Types.BIGINT"/>
+            <column name="catalog_id" type="java.sql.Types.BIGINT"/>
+            <column name="date" type="java.sql.Types.TIMESTAMP"/>
+            <column name="type" type="java.sql.Types.VARCHAR(16)"/>
+            <column name="count" type="java.sql.Types.BIGINT"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="logs" baseColumnNames="user_id"
+                constraintName="log_user_fk" referencedTableName="person"
+                referencedColumnNames="id" onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="logs" baseColumnNames="catalog_id"
+                constraintName="log_catalog_fk" referencedTableName="catalog"
+                referencedColumnNames="id" onDelete="CASCADE"/>
+        <createIndex tableName="logs" indexName="logs_date_idx">
+            <column name="date"/>
+        </createIndex>
+        <createIndex tableName="logs" indexName="logs_type_idx">
+            <column name="type"/>
+        </createIndex>
+        <addColumn tableName="catalog">
+            <column name="rating_date" type="java.sql.Types.TIMESTAMP"/>
+        </addColumn>
+        <renameTable oldTableName="rating" newTableName="comment"/>
+        <renameColumn tableName="comment" oldColumnName="comment" newColumnName="text"/>
+    </changeSet>
+
+    <changeSet id="33" author="ezhulkov">
+        <addColumn tableName="catalog">
+            <column name="level" type="java.sql.Types.INTEGER"/>
+            <column name="type" type="java.sql.Types.VARCHAR(16)"/>
+        </addColumn>
+        <sql>
+            update catalog set type='PRIVATE';
+        </sql>
+        <addColumn tableName="person">
+            <column name="login_date" type="java.sql.Types.TIMESTAMP"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="34" author="ezhulkov">
+        <addColumn tableName="catalog">
+            <column name="wizard_step" type="java.sql.Types.INTEGER" defaultValue="1"/>
+        </addColumn>
+        <sql>
+            update catalog set wizard_step=1;
+        </sql>
+    </changeSet>
+
+    <changeSet id="35" author="ezhulkov">
+        <dropTable tableName="category_property"/>
+        <sql>update product set category_id=null;</sql>
+        <dropForeignKeyConstraint baseTableName="product" constraintName="prod_category_fk"/>
+        <dropTable tableName="category"/>
+        <dropColumn tableName="product" columnName="category_id"/>
+        <addColumn tableName="property">
+            <column name="mandatory" type="java.sql.Types.BOOLEAN"/>
+        </addColumn>
+        <addColumn tableName="property_value">
+            <column name="tag" type="java.sql.Types.VARCHAR(16)"/>
+            <column name="alt_id" type="java.sql.Types.VARCHAR(256)"/>
+            <column name="root_value" type="java.sql.Types.BOOLEAN" defaultValueBoolean="true"/>
+        </addColumn>
+        <createTable tableName="value_value">
+            <column name="parent_id" type="java.sql.Types.BIGINT"/>
+            <column name="child_id" type="java.sql.Types.BIGINT"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="value_value" baseColumnNames="parent_id"
+                constraintName="value_value_parent_fk" referencedTableName="property_value"
+                referencedColumnNames="id" onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="value_value" baseColumnNames="child_id"
+                constraintName="value_value_child_fk" referencedTableName="property_value"
+                referencedColumnNames="id" onDelete="CASCADE"/>
+        <createIndex tableName="value_value" indexName="value_value_parent_idx">
+            <column name="parent_id"/>
+            <column name="child_id"/>
+        </createIndex>
+        <createIndex tableName="property_value" indexName="prop_value_tag_idx">
+            <column name="tag"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="36" author="ezhulkov">
+        <renameTable oldTableName="product_property" newTableName="tags"/>
+    </changeSet>
+
+    <changeSet id="37" author="ezhulkov">
+        <sql>
+            CREATE TEXT SEARCH DICTIONARY russian_ispell (
+            TEMPLATE = ispell,
+            DictFile = russian,
+            AffFile = russian,
+            StopWords = russian
+            );
+            CREATE TEXT SEARCH CONFIGURATION ru ( COPY = russian );
+            ALTER TEXT SEARCH CONFIGURATION ru ALTER MAPPING FOR hword, hword_part, word WITH russian_ispell, russian_stem;
+            create index product_fts_idx on product using gin(to_tsvector('russian', name || ' ' || description));
+            create index value_fts_idx on property_value using gin(to_tsvector('russian', value));
+            create index property_fts_idx on property using gin(to_tsvector('russian', name));
+        </sql>
+    </changeSet>
+
+    <changeSet id="38" author="ezhulkov">
+        <renameTable oldTableName="person" newTableName="users"/>
+    </changeSet>
+
+    <changeSet id="39" author="ezhulkov">
+        <addColumn tableName="catalog">
+            <column name="rank_badge" type="java.sql.Types.VARCHAR(32)"/>
+            <column name="order_badge" type="java.sql.Types.VARCHAR(32)"/>
+            <column name="product_badge" type="java.sql.Types.VARCHAR(32)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="40" author="ezhulkov">
+        <createTable tableName="offer">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="alt_id" type="java.sql.Types.VARCHAR(256)"/>
+            <column name="catalog_id" type="java.sql.Types.BIGINT"/>
+            <column name="date" type="java.sql.Types.TIMESTAMP"/>
+            <column name="promoted" type="java.sql.Types.BOOLEAN"/>
+            <column name="name" type="java.sql.Types.VARCHAR(512)"/>
+            <column name="description" type="java.sql.Types.VARCHAR(1024)"/>
+            <column name="price" type="java.sql.Types.INTEGER"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="offer" baseColumnNames="catalog_id"
+                constraintName="offer_catalog_fk" referencedTableName="catalog" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <createTable tableName="offer_product">
+            <column name="offer_id" type="java.sql.Types.BIGINT"/>
+            <column name="product_id" type="java.sql.Types.BIGINT"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="offer_product" baseColumnNames="offer_id"
+                constraintName="offer_product_offer_fk" referencedTableName="offer"
+                referencedColumnNames="id" onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="offer_product" baseColumnNames="product_id"
+                constraintName="offer_product_product_fk" referencedTableName="product"
+                referencedColumnNames="id" onDelete="CASCADE"/>
+        <createIndex tableName="offer_product" indexName="offer_product_parent_idx">
+            <column name="offer_id"/>
+            <column name="product_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="41" author="ezhulkov">
+        <addColumn tableName="offer">
+            <column name="persons" type="java.sql.Types.INTEGER"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="42" author="ezhulkov">
+        <addColumn tableName="users">
+            <column name="source_url" type="java.sql.Types.VARCHAR(256)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="43" author="ezhulkov">
+        <createTable tableName="price_modifier">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="description" type="java.sql.Types.VARCHAR(512)"/>
+            <column name="price" type="java.sql.Types.INTEGER"/>
+            <column name="entity_type" type="java.sql.Types.VARCHAR(16)"/>
+            <column name="entity_id" type="java.sql.Types.BIGINT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="44" author="ezhulkov">
+        <renameColumn tableName="property_value" oldColumnName="value" newColumnName="name"/>
+    </changeSet>
+
+    <changeSet id="45" author="ezhulkov">
+        <addColumn tableName="property_value">
+            <column name="client_generated" type="java.sql.Types.BOOLEAN" defaultValueBoolean="false"/>
+        </addColumn>
+        <sql>
+            update property set type='OPEN' where id in (1,8,9,11);
+            delete from property_value where root_value=true and property_id in (1,8,9,11);
+            update property_value set root_value=true where property_id in (1,8,9,11);
+            update property_value set client_generated=false;
+        </sql>
+    </changeSet>
+
+    <changeSet id="46" author="ezhulkov">
+        <sql>
+            update property set mandatory=false where id not in (10,11);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Кокос','kokos',true);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Сметана','smetana',true);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Сгущенка','sguschenka',true);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Вафли','vafli',true);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Нуга','nuga',true);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Карамель','karamel',true);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Кофе','cofe',true);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Алкоголь','alkogol',true);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Желе','zhele',true);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Ягоды','yagody',true);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Мастика' ,'mastika',true);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Изюм','izum',true);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Сухофрукты','suhofrukty',true);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Кекс','keks',true);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Крем масляный' ,'krem_maslyany',true);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Крем сливочный' ,'krem_slivochny',true);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Крем заварной' ,'krem_zavarnoy',true);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Крем сметанный' ,'krem_smetanny',true);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Крем белковый','krem_belkovy',true);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Крем шоколадный' ,'krem_shokoladny',true);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Крем творожный','krem_tvorozhny',true);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Глазурь шоколадная' ,'',true);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Глазурь белковая' ,'',true);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Глазурь сахарная' ,'',true);
+            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Глазурь помадка','',true);
+        </sql>
+    </changeSet>
+
+    <changeSet id="47" author="ezhulkov">
+        <addColumn tableName="product">
+            <column name="position" type="java.sql.Types.INTEGER" defaultValue="1"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="48" author="ezhulkov">
+        <dropTable tableName="bill" cascadeConstraints="true"/>
+    </changeSet>
+
+    <changeSet id="49" author="ezhulkov">
+        <addColumn tableName="price_modifier">
+            <column name="sign" type="text" defaultValue="PLUS"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="50" author="ezhulkov">
+        <dropForeignKeyConstraint baseTableName="order_product" constraintName="orderp_prod_fk"/>
+        <addColumn tableName="order_product">
+            <column name="entity_type" type="text"/>
+            <column name="entity_id" type="BIGINT"/>
+        </addColumn>
+        <createIndex tableName="order_product" indexName="order_product_ent_idx">
+            <column name="entity_type"/>
+            <column name="entity_id"/>
+        </createIndex>
+        <createIndex tableName="price_modifier" indexName="price_modifier_ent_idx">
+            <column name="entity_type"/>
+            <column name="entity_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="51" author="ezhulkov">
+        <addColumn tableName="order_product">
+            <column name="modifier_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="order_product" baseColumnNames="modifier_id"
+                referencedTableName="price_modifier" referencedColumnNames="id"
+                constraintName="op_mod_fk" onDelete="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="53" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="due_date" type="java.sql.Types.TIMESTAMP"/>
+            <column name="promo_code" type="text"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="54" author="ezhulkov">
+        <modifyDataType tableName="users" columnName="mobile_phone" newDataType="text"/>
+        <modifyDataType tableName="users" columnName="email" newDataType="text"/>
+        <modifyDataType tableName="users" columnName="delivery_address" newDataType="text"/>
+    </changeSet>
+
+    <changeSet id="55" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="catalog_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="orders" baseColumnNames="catalog_id"
+                constraintName="order_cat_fk" referencedTableName="catalog" referencedColumnNames="id" onDelete="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="56" author="ezhulkov">
+        <addColumn tableName="catalog">
+            <column name="cancellation" type="text"/>
+            <column name="prepayment" type="java.sql.Types.INTEGER"/>
+        </addColumn>
+        <sql>
+            update catalog set prepayment=10 where prepayment is null;
+        </sql>
+    </changeSet>
+
+    <changeSet id="57" author="ezhulkov">
+        <addColumn tableName="comment">
+            <column name="user_id" type="java.sql.Types.BIGINT"/>
+            <column name="type" type="text"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="comment" baseColumnNames="user_id"
+                constraintName="comment_user_fk" referencedTableName="users" referencedColumnNames="id" onDelete="CASCADE"/>
+        <sql>
+            update comment set type='CATALOG';
+        </sql>
+    </changeSet>
+
+    <changeSet id="58" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="type" type="text"/>
+        </addColumn>
+        <sql>
+            update orders set type='PRIVATE';
+        </sql>
+    </changeSet>
+
+    <changeSet id="59" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="total_price" type="java.sql.Types.INTEGER" defaultValue="0"/>
+            <column name="person_count" type="java.sql.Types.INTEGER" defaultValue="0"/>
+        </addColumn>
+        <sql>
+            update orders set total_price=0,person_count=0;
+        </sql>
+    </changeSet>
+
+    <changeSet id="60" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="name" type="text"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="61" author="ezhulkov">
+        <modifyDataType tableName="orders" columnName="comment" newDataType="text"/>
+    </changeSet>
+
+    <changeSet id="62" author="ezhulkov">
+        <addColumn tableName="comment">
+            <column name="order_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="comment" baseColumnNames="order_id"
+                constraintName="comment_order_fk" referencedTableName="orders" referencedColumnNames="id" onDelete="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="63" author="ezhulkov">
+        <addColumn tableName="comment">
+            <column name="parent_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="comment" baseColumnNames="parent_id"
+                constraintName="comment_parent_fk" referencedTableName="comment" referencedColumnNames="id" onDelete="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="64" author="ezhulkov">
+        <sql>
+            update product set position=null;
+        </sql>
+        <modifyDataType tableName="product" columnName="position" newDataType="text"/>
+    </changeSet>
+
+</databaseChangeLog>
