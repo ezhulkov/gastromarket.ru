@@ -3,12 +3,7 @@
     <div class="container orders office">
         <div class="title">
             <h1><span>Все заявки</span></h1>
-            <t:if test="authenticated">
-                <a href="#tender-new" data-toggle="modal" class="round-link" data-target="#order-new">Разместить заявку</a>
-                <t:parameter name="else">
-                    <a href="#tender_login" data-toggle="modal" class="login-link round-link" data-target="#order-login">Разместить заявку</a>
-                </t:parameter>
-            </t:if>
+            <a href="#tender-new" data-toggle="modal" class="round-link" data-target="#order-new">Разместить заявку</a>
         </div>
         <t:order.filter status="status" privateOrders="false" frontend="true"/>
         <t:zone t:id="ordersZone">
@@ -19,9 +14,9 @@
         </t:block>
     </div>
 
-    <t:if test="authenticated">
-        <t:order.edit ordersBlock="ordersBlock" edit="false" tender="true"/>
-    </t:if>
+    <!--<a href="#tender_login" data-toggle="modal" class="login-link round-link" data-target="#order-login">Разместить заявку</a>-->
+
+    <t:order.edit ordersBlock="ordersBlock" edit="false" tender="true"/>
     <t:unless test="authenticated">
         <t:loginUserModal modalId="order-login">
             <t:parameter name="addText">
@@ -31,5 +26,11 @@
             </t:parameter>
         </t:loginUserModal>
     </t:unless>
+
+    <t:if test="forceModal">
+        <script>
+            jQuery("#order-new").modal('show');
+        </script>
+    </t:if>
 
 </t:htmllayout>

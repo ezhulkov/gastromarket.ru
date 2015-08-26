@@ -31,6 +31,11 @@
                                 jQuery("#${modalId}").modal('hide');
                             </script>
                         </t:if>
+                        <t:if test="showLoginPopup">
+                            <script>
+                                jQuery("#order-login").modal('show');
+                            </script>
+                        </t:if>
                         <t:form t:id="descForm" t:context="[orderId]" t:zone="${orderEditZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
                             <t:errors/>
                             <t:if test="tender">

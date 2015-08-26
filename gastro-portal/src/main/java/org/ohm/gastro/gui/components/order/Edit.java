@@ -4,6 +4,7 @@ import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Parameter;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
@@ -24,6 +25,9 @@ public class Edit extends BaseComponent {
     @Parameter(defaultPrefix = BindingConstants.PROP, allowNull = true, required = false)
     private OrderEntity order;
 
+    @Persist
+    private OrderEntity newOrder;
+
     @Property
     @Parameter
     private boolean tender;
@@ -35,6 +39,9 @@ public class Edit extends BaseComponent {
     @Inject
     @Property
     private Block editContactsBlock;
+
+    @Property
+    private boolean showLoginPopup = false;
 
     @Property
     private boolean error = false;
@@ -104,7 +111,8 @@ public class Edit extends BaseComponent {
     //Desc section
     public void onPrepareFromDescForm() {
         if (order == null || order.getId() == null) {
-            order = new OrderEntity();
+            if (newOrder == null) newOrder = new OrderEntity();
+            order = newOrder;
             order.setCustomer(getAuthenticatedUserOpt().orElse(null));
         }
     }
@@ -121,18 +129,24 @@ public class Edit extends BaseComponent {
             origOrder.setPersonCount(order.getPersonCount());
             origOrder.setTotalPrice(order.getTotalPrice());
             origOrder.setDueDate(order.getDueDate());
-            if (origOrder.getId() == null) {
-                order = tender ?
-                        getOrderService().placeTender(origOrder, getAuthenticatedUser()) :
-                        getOrderService().placeOrder(origOrder);
+            if (isAuthenticated()) {
+                if (origOrder.getId() == null) {
+                    order = tender ?
+                            getOrderService().placeTender(origOrder, getAuthenticatedUser()) :
+                            getOrderService().placeOrder(origOrder);
+                } else {
+                    order = tender ?
+                            getOrderService().saveTender(origOrder, getAuthenticatedUser()) :
+                            getOrderService().saveOrder(origOrder, getAuthenticatedUser());
+                }
+                if (ordersBlock != null) getAjaxResponseRenderer().addRender("ordersZone", ordersBlock);
+                if (orderBlock != null) getAjaxResponseRenderer().addRender(orderZoneId, orderBlock);
+                getAjaxResponseRenderer().addRender(getOrderEditZone(), editContactsBlock);
             } else {
-                order = tender ?
-                        getOrderService().saveTender(origOrder, getAuthenticatedUser()) :
-                        getOrderService().saveOrder(origOrder, getAuthenticatedUser());
+                order = newOrder;
+                showLoginPopup = true;
+                getAjaxResponseRenderer().addRender(getOrderEditZone(), editDescBlock);
             }
-            if (ordersBlock != null) getAjaxResponseRenderer().addRender("ordersZone", ordersBlock);
-            if (orderBlock != null) getAjaxResponseRenderer().addRender(orderZoneId, orderBlock);
-            getAjaxResponseRenderer().addRender(getOrderEditZone(), editContactsBlock);
         } else {
             order = tId != null ? getOrderService().findOrder(tId) : order;
             getAjaxResponseRenderer().addRender(getOrderEditZone(), editDescBlock);

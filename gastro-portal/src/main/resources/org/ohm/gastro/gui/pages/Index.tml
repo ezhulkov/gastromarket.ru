@@ -80,7 +80,7 @@
         </ul>
 
         <div class="gap3 text-center">
-            <t:pagelink page="tender/list" context="literal:NEW" class="btn btn-lg btn-red">Разместить заявку</t:pagelink>
+            <t:pagelink page="tender/list" context="['NEW','true']" class="btn btn-lg btn-red">Разместить заявку</t:pagelink>
         </div>
 
         <t:if test="tenders">
@@ -92,7 +92,7 @@
                 <t:order.order order="oneTender" type="MAIN_PAGE" privateOrders="false" frontend="true"/>
             </t:loop>
             <div class="gap3 text-center">
-                <t:pagelink page="tender/list" context="literal:NEW" class="btn btn-lg btn-red">Разместить заявку</t:pagelink>
+                <t:pagelink page="tender/list" context="['NEW','true']" class="btn btn-lg btn-red">Разместить заявку</t:pagelink>
             </div>
         </t:if>
 
@@ -114,19 +114,6 @@
             </t:loop>
         </div>
     </div>
-
-    <t:if test="authenticated">
-        <t:order.edit edit="false" tender="true"/>
-    </t:if>
-    <t:unless test="authenticated">
-        <t:loginUserModal modalId="order-login">
-            <t:parameter name="addText">
-                <div class="attention">
-                    Для оформления заявки необходимо войти или зарегистрироваться.
-                </div>
-            </t:parameter>
-        </t:loginUserModal>
-    </t:unless>
 
     <script>
         jQuery(initMainPage);

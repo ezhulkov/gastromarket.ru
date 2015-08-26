@@ -18,17 +18,26 @@ public class List extends BaseComponent {
     @Property
     private Status status = Status.NEW;
 
+    @Property
+    private boolean forceModal;
+
     public boolean onActivate() {
         return onActivate(Status.NEW);
     }
 
     public boolean onActivate(Status status) {
+        return onActivate(status, false);
+    }
+
+    public boolean onActivate(Status status, boolean forceModal) {
         this.status = status;
+        this.forceModal = forceModal;
         return true;
     }
 
+
     public Object[] onPassivate() {
-        return new Object[]{status};
+        return forceModal ? new Object[]{status, true} : new Object[]{status};
     }
 
 }
