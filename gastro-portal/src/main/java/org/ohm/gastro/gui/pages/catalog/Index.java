@@ -12,6 +12,7 @@ import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 /**
@@ -26,16 +27,13 @@ public class Index extends AbstractCatalogPage {
     private ProductEntity editedProduct;
 
     @Property
+    private String reorder;
+
+    @Property
     private CommentEntity oneComment;
 
     @Property
     private OfferEntity offer;
-
-    @Property
-    private String rateComment;
-
-    @Property
-    private boolean opinion = true;
 
     @Inject
     @Property
@@ -59,14 +57,8 @@ public class Index extends AbstractCatalogPage {
 
     @Cached
     public java.util.List<ProductEntity> getProducts() {
-        final java.util.List<ProductEntity> allProducts = getProductService().findProductsForFrontend(null, catalog, isCatalogOwner() ? null : true, null, null, 0, Integer.MAX_VALUE);
-        return allProducts.stream().limit(4).collect(Collectors.toList());
-    }
-
-    public String getOneCommentText() {
-        String text = (String) ObjectUtils.defaultIfNull(oneComment.getText(), "");
-        text = text.replaceAll("\\n", "<br/>");
-        return text;
+        final java.util.List<ProductEntity> allProducts = getProductService().findProductsForFrontend(null, catalog, isCatalogOwner() ? null : true, null, null, null, 0, Integer.MAX_VALUE);
+        return allProducts.stream().limit(4).sorted((o1, o2) -> ObjectUtils.compare(o1.getPositionOfType("main"), o2.getPositionOfType("main"))).collect(Collectors.toList());
     }
 
     @Cached
@@ -77,16 +69,12 @@ public class Index extends AbstractCatalogPage {
                 .orElse(0) > 0;
     }
 
-    public void onSuccessFromRateForm() {
-        getRatingService().rateCatalog(catalog, rateComment, opinion ? 1 : -1, getAuthenticatedUserOpt().orElse(null));
-    }
-
     public String getProductsCount() {
         return getDeclInfo("products", getProductService().findProductsForFrontendCount(catalog));
     }
 
     public String getOrderCount() {
-        return getDeclInfo("orders", getOrderService().findAllOrders(catalog, Status.READY).size());
+        return getDeclInfo("orders", getOrderService().findAllOrders(catalog, Status.CLOSED).size());
     }
 
     public String getRootProperties() {
@@ -94,14 +82,6 @@ public class Index extends AbstractCatalogPage {
                 .map(PropertyValueEntity::getName)
                 .distinct()
                 .collect(Collectors.joining(", "));
-    }
-
-    public boolean getLike() {
-        return true;
-    }
-
-    public boolean getDislike() {
-        return false;
     }
 
     public String getMedActiveClass() {
@@ -131,4 +111,16 @@ public class Index extends AbstractCatalogPage {
         return getMessages().get("desc.label.nologo." + catalog.getType().name().toLowerCase());
     }
 
+    public String getBasketMinText() {
+        return getMessages().format("basket.min.text", catalog.getBasketMin());
+    }
+
+    public String getPrepaymentText() {
+        return getMessages().format("prepayment.text2", catalog.getPrepayment());
+    }
+
+    public Block onActionFromReorderForm() {
+        getProductService().productPosition(Arrays.stream(reorder.split(",")).map(Long::parseLong).collect(Collectors.toList()), "main");
+        return productsBlock;
+    }
 }

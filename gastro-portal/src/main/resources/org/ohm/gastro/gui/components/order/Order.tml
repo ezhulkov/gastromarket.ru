@@ -1,0 +1,76 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+    <div class="order-show-catalog ${type.name().toLowerCase()}">
+        <t:zone t:id="orderShowCatalogZone" id="${orderShowCatalogZoneId}">
+            <t:delegate to="currentOrderBlock"/>
+        </t:zone>
+        <t:block t:id="orderMainBlock">
+            <div class="form form-horizontal submit-row">
+                <t:order.catalogBlock order="order"
+                                      orderBlock="orderMainBlock"
+                                      catalog="catalog"
+                                      orderShowCatalogZoneId="orderShowCatalogZoneId"
+                                      privateOrders="privateOrders"/>
+                <t:order.tenderInfo order="order"/>
+                <t:order.items order="order" catalog="catalog" items="items" orderShowCatalogZoneId="orderShowCatalogZoneId"/>
+                <t:order.price items="items" catalog="catalog" order="order"/>
+                <t:order.basketSubmit items="items" order="order" catalog="catalog" type="prop:type"/>
+                <t:if test="full">
+                    <t:order.info order="order" catalog="catalog" mainPage="mainPage"/>
+                    <t:delegate to="orderAdditionalBlock"/>
+                    <t:block t:id="clientEditBlock">
+                        <t:unless test="mainPage">
+                            <t:if test="canEditOrder">
+                                <t:actionlink class="edit-link" t:id="editTender" t:context="order.id" t:zone="${editZoneId}">Редактировать</t:actionlink>
+                            </t:if>
+                            <script>
+                                jQuery("body").removeClass("modal-open");
+                            </script>
+                        </t:unless>
+                    </t:block>
+                    <t:block t:id="clientRateCook">
+                        <t:unless test="mainPage">
+                            <t:unless test="frontend">
+                                <a href="#cook_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#cook_rate_${order.id}">Оценить кулинара</a>
+                                <t:ratecookuser type="CATALOG" catalog="catalog" commentAllowed="true" modalId="cook_rate_${order.id}"/>
+                            </t:unless>
+                        </t:unless>
+                    </t:block>
+                    <t:block t:id="cookRateClient">
+                        <t:unless test="mainPage">
+                            <t:unless test="frontend">
+                                <a href="#client_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#client_rate_${order.id}">Оценить заказчика</a>
+                                <t:ratecookuser type="CUSTOMER" user="order.customer" commentAllowed="true" modalId="client_rate_${order.id}"/>
+                            </t:unless>
+                        </t:unless>
+                    </t:block>
+                    <t:block t:id="tenderReplyBlock">
+                        <t:unless test="replies">
+                            <t:pagelink page="tender/index" t:context="order.id" class="round-link" anchor="reply">Откликнуться<span/></t:pagelink>
+                        </t:unless>
+                    </t:block>
+                </t:if>
+                <script>
+                    jQuery("body").removeClass("modal-open");
+                </script>
+            </div>
+        </t:block>
+        <t:block t:id="deniedOrderBlock">
+            <div class="row">
+                <p class="modal-text">
+                    Код 403 - доступ запрещен
+                </p>
+            </div>
+        </t:block>
+        <t:zone t:id="editZone" id="${editZoneId}"/>
+        <t:block t:id="editOrderBlock">
+            <t:order.edit modalId="order-${order.id}" order="order" orderBlock="orderMainBlock" orderZoneId="${orderShowCatalogZoneId}" reloadPage="reloadPage" tender="tender"/>
+            <script>
+                var pe = jQuery("#order-${order.id}");
+                pe.modal('show');
+            </script>
+        </t:block>
+    </div>
+    <t:if test="replies">
+        <t:order.replies order="order"/>
+    </t:if>
+</div>

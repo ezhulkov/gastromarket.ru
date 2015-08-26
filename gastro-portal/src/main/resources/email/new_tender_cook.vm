@@ -1,0 +1,15 @@
+#set($subject = "Новая заявка на ГастроМаркет")
+#parse("email/header.vm")
+<p>
+    На сайте ГастроМаркет появилась новая заявка от заказчика ${customer.fullName}
+</p>
+<p>
+    Имя: $name<br/>
+    Бюджет: $total руб.<br/>
+    Дата исполнения: $date<br/>
+    Комментарий: $comment<br/>
+</p>
+<p>
+    Вы можете уточнить детали заявки и оставить отклик по адресу: <a href="$address">$address</a>
+</p>
+#parse("email/footer.vm")

@@ -1,0 +1,12 @@
+#set($subject = "Новый заказ на ГастроМаркет")
+#set($toadmin = true)
+#parse("email/header.vm")
+<p>
+    Мы получили новый заказ №${ordernumber}.
+</p>
+<p>
+    eMail покупателя: $customer.email<br/>
+    Имя покупателя: $customer.fullName<br/>
+    Детали заказа по адресу: <a href="$address">$address</a>
+</p>
+#parse("email/footer.vm")

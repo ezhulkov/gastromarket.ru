@@ -1,6 +1,5 @@
 package org.ohm.gastro.service;
 
-import org.ohm.gastro.domain.BillEntity;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
@@ -14,7 +13,7 @@ import java.util.List;
  */
 public interface OrderService {
 
-    List<OrderEntity> placeOrder(OrderEntity newOrder, List<OrderProductEntity> purchaseItems, final UserEntity customer, final String eMail);
+    OrderEntity placeOrder(OrderEntity preOrder);
 
     List<OrderEntity> findAllOrders(UserEntity customer, CatalogEntity catalog);
 
@@ -22,22 +21,22 @@ public interface OrderService {
 
     List<OrderEntity> findAllOrders(CatalogEntity catalog, OrderEntity.Status status);
 
-    List<OrderEntity> findAllOrders(BillEntity bill);
-
-    List<BillEntity> findAllBills(CatalogEntity catalog);
-
-    int getBonuses(int price);
+    List<OrderProductEntity> findAllItems(OrderEntity order);
 
     OrderEntity findOrder(Long id);
 
-    void saveOrder(OrderEntity order);
+    OrderEntity saveOrder(OrderEntity order, final UserEntity caller);
 
-    void deleteProduct(Long oid, Long pid);
+    void deleteProduct(Long oid, Long pid, final UserEntity caller);
 
-    void incProduct(Long oid, Long pid);
+    void changeStatus(OrderEntity oneOrder, Status status, CatalogEntity catalog, final UserEntity caller);
 
-    void decProduct(Long oid, Long pid);
+    List<OrderEntity> findAllTenders();
 
-    void changeStatus(OrderEntity oneOrder, Status status, CatalogEntity catalog);
+    OrderEntity saveTender(OrderEntity tender, UserEntity caller);
+
+    OrderEntity placeTender(OrderEntity tender, UserEntity caller);
+
+    OrderEntity attachTender(CatalogEntity catalog, OrderEntity order, UserEntity caller);
 
 }

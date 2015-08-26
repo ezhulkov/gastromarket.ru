@@ -12,8 +12,6 @@ import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
-import java.util.List;
-
 /**
  * Created by ezhulkov on 30.05.15.
  */
@@ -68,18 +66,15 @@ public class Offer extends BaseComponent {
     }
 
     public String getAvatarUrl() {
-        List<ProductEntity> allProducts = getProductService().findAllProducts(offer);
-        return type == Type.SHORT ?
-                (allProducts.size() == 0 ? "/img/offer-stub-100x100.jpg" : allProducts.get(0).getAvatarUrlSmall()) :
-                (allProducts.size() == 0 ? "/img/offer-stub-270x270.jpg" : allProducts.get(0).getAvatarUrlMedium());
+        return type == Type.SHORT ? offer.getAvatarUrlSmall() : offer.getAvatarUrlMedium();
     }
 
     public String getLeftBlock() {
-        return type == Type.SHORT ? "col-sm-2" : "col-sm-3";
+        return type == Type.SHORT ? "col-sm-3" : "col-sm-3";
     }
 
     public String getRightBlock() {
-        return type == Type.SHORT ? "col-sm-9" : "col-sm-8";
+        return type == Type.SHORT ? "col-sm-8" : "col-sm-8";
     }
 
     public Block onActionFromDelete(Long oid) {
@@ -111,8 +106,8 @@ public class Offer extends BaseComponent {
         return type == Type.FULL;
     }
 
-    public Block onActionFromPurchase(Long pid) {
-        return getShoppingCart().getBasketBlock();
+    public boolean isShort() {
+        return type == Type.SHORT;
     }
 
     public String getPersonsCountDecl() {

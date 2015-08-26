@@ -658,4 +658,134 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="48" author="ezhulkov">
+        <dropTable tableName="bill" cascadeConstraints="true"/>
+    </changeSet>
+
+    <changeSet id="49" author="ezhulkov">
+        <addColumn tableName="price_modifier">
+            <column name="sign" type="text" defaultValue="PLUS"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="50" author="ezhulkov">
+        <dropForeignKeyConstraint baseTableName="order_product" constraintName="orderp_prod_fk"/>
+        <addColumn tableName="order_product">
+            <column name="entity_type" type="text"/>
+            <column name="entity_id" type="BIGINT"/>
+        </addColumn>
+        <createIndex tableName="order_product" indexName="order_product_ent_idx">
+            <column name="entity_type"/>
+            <column name="entity_id"/>
+        </createIndex>
+        <createIndex tableName="price_modifier" indexName="price_modifier_ent_idx">
+            <column name="entity_type"/>
+            <column name="entity_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="51" author="ezhulkov">
+        <addColumn tableName="order_product">
+            <column name="modifier_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="order_product" baseColumnNames="modifier_id"
+                referencedTableName="price_modifier" referencedColumnNames="id"
+                constraintName="op_mod_fk" onDelete="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="53" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="due_date" type="java.sql.Types.TIMESTAMP"/>
+            <column name="promo_code" type="text"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="54" author="ezhulkov">
+        <modifyDataType tableName="users" columnName="mobile_phone" newDataType="text"/>
+        <modifyDataType tableName="users" columnName="email" newDataType="text"/>
+        <modifyDataType tableName="users" columnName="delivery_address" newDataType="text"/>
+    </changeSet>
+
+    <changeSet id="55" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="catalog_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="orders" baseColumnNames="catalog_id"
+                constraintName="order_cat_fk" referencedTableName="catalog" referencedColumnNames="id" onDelete="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="56" author="ezhulkov">
+        <addColumn tableName="catalog">
+            <column name="cancellation" type="text"/>
+            <column name="prepayment" type="java.sql.Types.INTEGER"/>
+        </addColumn>
+        <sql>
+            update catalog set prepayment=10 where prepayment is null;
+        </sql>
+    </changeSet>
+
+    <changeSet id="57" author="ezhulkov">
+        <addColumn tableName="comment">
+            <column name="user_id" type="java.sql.Types.BIGINT"/>
+            <column name="type" type="text"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="comment" baseColumnNames="user_id"
+                constraintName="comment_user_fk" referencedTableName="users" referencedColumnNames="id" onDelete="CASCADE"/>
+        <sql>
+            update comment set type='CATALOG';
+        </sql>
+    </changeSet>
+
+    <changeSet id="58" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="type" type="text"/>
+        </addColumn>
+        <sql>
+            update orders set type='PRIVATE';
+        </sql>
+    </changeSet>
+
+    <changeSet id="59" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="total_price" type="java.sql.Types.INTEGER" defaultValue="0"/>
+            <column name="person_count" type="java.sql.Types.INTEGER" defaultValue="0"/>
+        </addColumn>
+        <sql>
+            update orders set total_price=0,person_count=0;
+        </sql>
+    </changeSet>
+
+    <changeSet id="60" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="name" type="text"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="61" author="ezhulkov">
+        <modifyDataType tableName="orders" columnName="comment" newDataType="text"/>
+    </changeSet>
+
+    <changeSet id="62" author="ezhulkov">
+        <addColumn tableName="comment">
+            <column name="order_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="comment" baseColumnNames="order_id"
+                constraintName="comment_order_fk" referencedTableName="orders" referencedColumnNames="id" onDelete="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="63" author="ezhulkov">
+        <addColumn tableName="comment">
+            <column name="parent_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="comment" baseColumnNames="parent_id"
+                constraintName="comment_parent_fk" referencedTableName="comment" referencedColumnNames="id" onDelete="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="64" author="ezhulkov">
+        <sql>
+            update product set position=null;
+        </sql>
+        <modifyDataType tableName="product" columnName="position" newDataType="text"/>
+    </changeSet>
+
 </databaseChangeLog>

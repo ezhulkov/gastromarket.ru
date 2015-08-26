@@ -36,7 +36,7 @@
     </t:editObject>
 
     <t:grid source="products" row="oneProduct"
-            exclude="id,properties,date,description,promoted,avatarUrl,avatarUrlMedium,avatarUrlSmall,unit,altId,unitValue,wasSetup,descriptionRaw"
+            exclude="id,properties,date,description,promoted,avatarUrl,avatarUrlMedium,avatarUrlSmall,unit,altId,unitValue,wasSetup,descriptionRaw,position,type"
             reorder="img,name,price,promote"
             add="img,properties,promote"
             t:mixins="GridSortingDisabled" class="table table-hover">

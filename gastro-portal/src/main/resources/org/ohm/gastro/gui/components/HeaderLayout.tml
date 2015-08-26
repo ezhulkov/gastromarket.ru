@@ -6,13 +6,10 @@
             <t:if test="header">
                 <div class="pull-right">
                     <t:if test="cook">
-                        <t:pagelink class="header-block pic-holder orders" page="office/orders">
+                        <t:pagelink page="office/orders" context="['true','ACTIVE']" class="header-block pic-holder orders">
                             <span/>
                             Заказы
                         </t:pagelink>
-                    </t:if>
-                    <t:if test="showBonuses">
-                        <a href="#bonus" data-toggle="modal" data-target="#bonus">${bonusesMessage}</a>
                     </t:if>
                     <t:if test="authenticated">
                         <span class="header-block pic-holder dropdown username">
@@ -29,7 +26,7 @@
                                 </li>
                                 <t:if test="user">
                                     <li>
-                                        <t:pagelink page="office/orders">Мои заказы</t:pagelink>
+                                        <t:pagelink page="office/orders" context="['true','NEW']">Мои заказы</t:pagelink>
                                     </li>
                                 </t:if>
                                 <t:if test="cook">
@@ -38,17 +35,8 @@
                                             <t:pagelink page="catalog/index" t:context="oneCatalog.altId">Страница '${oneCatalog.name}'</t:pagelink>
                                         </li>
                                     </t:loop>
-                                    <li>
-                                        <t:pagelink page="cook/bills">Мои счета</t:pagelink>
-                                    </li>
                                 </t:if>
                                 <t:if test="admin">
-                                    <li>
-                                        <t:pagelink page="admin/order/list">Все заказы</t:pagelink>
-                                    </li>
-                                    <li>
-                                        <t:pagelink page="cook/bills">Все счета</t:pagelink>
-                                    </li>
                                     <li>
                                         <t:pagelink page="admin/property/list">Системные настройки</t:pagelink>
                                     </li>
@@ -77,98 +65,23 @@
 
     </nav>
 
+    <t:zone t:id="orderShowZone"/>
+
     <t:block t:id="basketBlock">
-        <t:pagelink class="pic-holder basket" page="cart">
+        <a class="pic-holder basket" href="${cartLink}">
             <span/>
             ${declProducts}
-        </t:pagelink>
+        </a>
+    </t:block>
+
+    <t:block t:id="orderShowBlock">
         <t:if test="shoppingCart.justAdded">
-            <div class="dropdown-menu basket-show">
-                Блюдо добавлено в корзину. <br/>Вы можете продолжить поиск или перейти
-                <t:pagelink page="cart">к оформлению заказа</t:pagelink>
-            </div>
+            <t:order.viewmodal/>
         </t:if>
     </t:block>
 
     <t:unless test="authenticated">
         <t:loginUserModal/>
     </t:unless>
-
-    <t:if test="showBonuses">
-        <div class="modal fade" id="bonus" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog bonus">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <div class="title">
-                            <h1><span>Бонусные баллы</span></h1>
-                        </div>
-                        <a class="modal-close" data-dismiss="modal"></a>
-                    </div>
-                    <div class="modal-body">
-                        <t:if test="authenticated">
-                            <p class="modal-text f20px">Сейчас на Вашем счету ${bonusesMessage.toLowerCase()}</p>
-                        </t:if>
-                        <p class="modal-text">Каждый раз когда Вы совершаете покупку на ГастроМаркет, мы возвращаем Вам 3 процента от стоимости заказа в виде бонусных баллов.</p>
-
-                        <p class="modal-text">Вы можете расплатиться баллами при размещении новых заказов.</p>
-
-                        <p class="modal-text center">
-                            <a href="/userinfo" class="red-text">Узнать подробности</a>
-                        </p>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </t:if>
-
-    <div class="modal fade howto" id="howto" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="title">
-                        <h1><span>Как это работает?</span></h1>
-                    </div>
-                    <a class="modal-close" data-dismiss="modal"></a>
-                </div>
-                <div class="modal-body">
-                    <div class="row howto-row">
-                        <div class="col-sm-4">
-                            <img src="${contextPath}/img/howto1.jpg"/>
-                        </div>
-                        <div class="col-sm-4">
-                            <img src="${contextPath}/img/howto2.jpg"/>
-                        </div>
-                        <div class="col-sm-4">
-                            <img src="${contextPath}/img/howto3.jpg"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <h2>Выбирайте еду на любой вкус и для любого события</h2>
-                        </div>
-                        <div class="col-sm-4">
-                            <h2>Размещайте заказ и следите за его выполнением</h2>
-                        </div>
-                        <div class="col-sm-4">
-                            <h2>Отдыхайте и наслаждайтесь праздником</h2>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <p class="text-center">Ищите торт на свадьбу или капкейки для детского праздника, бургеры или домашние лимонады - любые блюда на Ваш вкус.</p>
-                        </div>
-                        <div class="col-sm-4">
-                            <p class="text-center">Оформите заказ - кулинары ГастроМаркета свяжутся с Вами и с любовью приготовят выбранные Вами блюда или напитки.</p>
-                        </div>
-                        <div class="col-sm-4">
-                            <p class="text-center">Вcё готово! Посвятите свое время общению с любимыми людьми и не тратьте усилия на подготовку праздничгого стола.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
 </div>

@@ -13,7 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.PostLoad;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -23,7 +25,7 @@ import java.util.List;
 @Entity
 @Table(name = "offer")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class OfferEntity extends AltIdBaseEntity implements PriceEntity {
+public class OfferEntity extends AltIdBaseEntity implements PurchaseEntity {
 
     @Column
     private String description;
@@ -52,7 +54,16 @@ public class OfferEntity extends AltIdBaseEntity implements PriceEntity {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<ProductEntity> products = Lists.newArrayList();
 
-    public OfferEntity() {
+    @Transient
+    private String avatarUrl;
+
+    @Transient
+    private String avatarUrlSmall;
+
+    @PostLoad
+    public void loaded() {
+        avatarUrlSmall = products.size() == 0 ? "/img/offer-stub-100x100.jpg" : products.get(0).getAvatarUrlSmall();
+        avatarUrl = products.size() == 0 ? "/img/offer-stub-270x270.jpg" : products.get(0).getAvatarUrlMedium();
     }
 
     public Integer getPersons() {
@@ -69,6 +80,11 @@ public class OfferEntity extends AltIdBaseEntity implements PriceEntity {
 
     public void setPrice(Integer price) {
         this.price = price;
+    }
+
+    @Override
+    public Type getType() {
+        return Type.OFFER;
     }
 
     public CatalogEntity getCatalog() {
@@ -113,6 +129,16 @@ public class OfferEntity extends AltIdBaseEntity implements PriceEntity {
 
     public void setProducts(List<ProductEntity> products) {
         this.products = products;
+    }
+
+    @Override
+    public String getAvatarUrlSmall() {
+        return avatarUrlSmall;
+    }
+
+    @Override
+    public String getAvatarUrlMedium() {
+        return avatarUrl;
     }
 
     public String getDescriptionRaw() {

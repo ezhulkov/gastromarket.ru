@@ -8,6 +8,8 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.HttpError;
 import org.apache.tapestry5.services.URLEncoder;
 import org.ohm.gastro.domain.CatalogEntity;
+import org.ohm.gastro.domain.OrderEntity;
+import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
@@ -37,6 +39,9 @@ public class Index extends BaseComponent {
     @Property
     private ProductEntity oneProduct;
 
+    @Property
+    private OrderEntity oneTender;
+
     public Object onActivate(EventContext context) {
         if (context.getCount() == 0) return null;
         return new HttpError(404, "Page not found.");
@@ -47,18 +52,28 @@ public class Index extends BaseComponent {
         return getPropertyService().findAllValues(PropertyValueEntity.Tag.ROOT);
     }
 
-    public Link onSubmitFromSearchForm() throws IOException {
-        return getPageLinkSource().createPageRenderLinkWithContext(Search.class, Search.processSearchString(searchString));
-    }
-
     @Cached
     public List<CatalogEntity> getCooks() {
-        return getCatalogService().findAllActiveCatalogs().stream().limit(5).collect(Collectors.toList());
+        return getCatalogService().findAllActiveCatalogs().stream()
+                .sorted(((o1, o2) -> o2.getRating().compareTo(o1.getRating())))
+                .limit(5).collect(Collectors.toList());
     }
 
     @Cached
     public List<ProductEntity> getProducts() {
         return getProductService().findPromotedProducts().stream().limit(4).collect(Collectors.toList());
+    }
+
+    public Link onSubmitFromSearchForm() throws IOException {
+        return getPageLinkSource().createPageRenderLinkWithContext(Search.class, Search.processSearchString(searchString));
+    }
+
+    @Cached
+    public List<OrderEntity> getTenders() {
+        return getOrderService().findAllTenders().stream()
+                .filter(t -> t.getStatus() == Status.NEW)
+                .sorted(((o1, o2) -> o1.getDate().compareTo(o2.getDate())))
+                .limit(3).collect(Collectors.toList());
     }
 
 }

@@ -49,6 +49,13 @@
                     <t:if test="catalog.type">
                         <div class="form-group">
                             <div class="col-sm-1"/>
+                            <div class="col-sm-10 attention">
+                                Контактная информация будет доступна только для администрации ГастроМаркет и не будет передана покупателям.
+                            </div>
+                            <div class="col-sm-1"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-1"/>
                             <div class="col-sm-10">
                                 <label for="email">Адрес почты:</label>
                                 <input class="form-control" type="text" value="${authenticatedUser.email}" disabled="disabled"/>
@@ -69,11 +76,11 @@
                         <div class="form-group">
                             <div class="col-sm-1"/>
                             <div class="col-sm-10">
-                                <t:label for="desc">${nameLabel}:</t:label>
+                                <t:label for="mobilePhone">Телефон для связи:</t:label>
                                 <div class="label-tip">
-                                    Как бы Вы хотели, чтобы называлась Ваша страница? Примеры - 'Кулинар Сергей Петров' или 'Кондитерская SmartCakes'
+                                    Как мы сможем с Вами связаться?
                                 </div>
-                                <input t:id="name" rows="6" class="form-control"/>
+                                <input t:id="mobilePhone" class="form-control mobile-phone" placeholder="+7 xxx xxx-xx-xx"/>
                             </div>
                             <div class="col-sm-1"/>
                         </div>
@@ -91,6 +98,17 @@
         <t:block id="step2">
             <t:form t:id="wizardForm2" t:clientValidation="none" class="form form-horizontal edit wizard" t:autofocus="false" role="form">
                 <t:errors/>
+                <div class="form-group">
+                    <div class="col-sm-1"/>
+                    <div class="col-sm-10">
+                        <t:label for="desc">${nameLabel}:</t:label>
+                        <div class="label-tip">
+                            Как бы Вы хотели, чтобы называлась Ваша страница? Примеры - 'Кулинар Сергей Петров' или 'Кондитерская SmartCakes'
+                        </div>
+                        <input t:id="name" rows="6" class="form-control"/>
+                    </div>
+                    <div class="col-sm-1"/>
+                </div>
                 <div class="form-group">
                     <div class="col-sm-1"/>
                     <div class="col-sm-7">
@@ -113,7 +131,7 @@
                         <div class="label-tip">
                             Доставка готовых блюд осуществляется Вами, опишите здесь условия доставки.
                         </div>
-                        <input t:id="delivery" rows="6" class="form-control" tabindex="2"/>
+                        <input t:id="delivery" rows="3" class="form-control" tabindex="2"/>
                     </div>
                     <div class="col-sm-1"/>
                 </div>
@@ -122,9 +140,20 @@
                     <div class="col-sm-10">
                         <t:label for="payment">Условия оплаты:</t:label>
                         <div class="label-tip">
-                            Напишите, например, есть ли у Вас предоплата, принимаете банковские переводы или оплата происходит наличными при передаче заказа.
+                            Опишите в этом поле как происходит оплата стоимости заказа - предоплата, способы оплаты и тд.
                         </div>
-                        <input t:id="payment" rows="5" class="form-control" tabindex="3"/>
+                        <input t:id="payment" rows="3" class="form-control" tabindex="3"/>
+                    </div>
+                    <div class="col-sm-1"/>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-1"/>
+                    <div class="col-sm-10">
+                        <t:label for="cancellation">Условия отмены:</t:label>
+                        <div class="label-tip">
+                            Возможно ли отменить заказ и какую часть предоплаты Вы возвращаете?
+                        </div>
+                        <input t:id="cancellation" rows="3" class="form-control" tabindex="3"/>
                     </div>
                     <div class="col-sm-1"/>
                 </div>
@@ -133,9 +162,17 @@
                     <div class="col-sm-10">
                         <t:label for="basketMin">Минимальная стоимость заказа, руб:</t:label>
                         <div class="label-tip">
-                            Мы попросим покупателя дополнить заказ, если стоимость заказа меньше указанной
+                            Мы попросим покупателя дополнить заказ, если стоимость заказа меньше указанной.
                         </div>
                         <input t:id="basketMin" class="form-control" tabindex="4"/>
+                    </div>
+                    <div class="col-sm-1"/>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-1"/>
+                    <div class="col-sm-10">
+                        <t:label for="prepayment">Предоплата, %:</t:label>
+                        <input t:id="prepayment" class="form-control" tabindex="4"/>
                     </div>
                     <div class="col-sm-1"/>
                 </div>
@@ -152,7 +189,7 @@
         <t:block id="step3">
             <div class="links-set">
                 <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>
-                <t:pagelink class="product-edit-link" page="office/import" context="catalog.altId">Импортировать<span/></t:pagelink>
+                <t:pagelink page="office/import" class="product-edit-link" context="catalog.altId">Импортировать<span/></t:pagelink>
             </div>
             <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>
 

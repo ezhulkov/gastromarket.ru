@@ -1,6 +1,8 @@
 package org.ohm.gastro.gui.components;
 
+import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
+import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.UserEntity;
@@ -54,6 +56,14 @@ public class LoginUserModal extends BaseComponent {
 
     @Property
     private boolean error = false;
+
+    @Property
+    @Parameter(name = "addText", defaultPrefix = BindingConstants.LITERAL)
+    private Block addText;
+
+    @Property
+    @Parameter(name = "modalId", defaultPrefix = BindingConstants.LITERAL, value = "login")
+    private String modalId;
 
     public Block onSubmitFromRememberForm() {
         getUserService().resetPassword(eMail);

@@ -1,148 +1,15 @@
 <t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="container office ">
+    <div class="container orders office">
         <div class="title">
             <h1><span>Заказы</span></h1>
         </div>
-        <t:if test="cook">
-            <ul class="office-menu">
-                <li id="ALL">
-                    <t:actionlink t:id="all" t:zone="ordersZone">Все</t:actionlink>
-                </li>
-                <li id="NEW">
-                    <t:actionlink t:id="new" t:zone="ordersZone">Новые</t:actionlink>
-                </li>
-                <li id="ACCEPTED">
-                    <t:actionlink t:id="accepted" t:zone="ordersZone">В работе</t:actionlink>
-                </li>
-                <li id="READY">
-                    <t:actionlink t:id="ready" t:zone="ordersZone">Выполненные</t:actionlink>
-                </li>
-            </ul>
-            <br/>
-        </t:if>
-        <t:zone t:id="ordersZone" class="p-zone">
+        <t:order.filter status="status" privateOrders="privateOrders"/>
+        <t:zone t:id="ordersZone">
             <t:delegate to="ordersBlock"/>
         </t:zone>
         <t:block t:id="ordersBlock">
-            <t:grid source="orders" row="oneOrder" exclude="id,comment,status,date,usedBonuses,orderNumber,datePrintable,closed,orderTotalPrice" add="item" class="orders-table">
-                <t:parameter name="itemCell">
-                    <div class="row">
-                        <div class="col-sm-2"/>
-                        <div class="col-sm-8 order-body">
-                            <t:zone t:id="orderZone" id="${orderZoneId}" class="p-zone">
-                                <t:delegate to="orderBlock"/>
-                            </t:zone>
-                            <t:block t:id="orderBlock">
-                                <div class="f30px">Заказ <b>№${oneOrder.orderNumber}</b>, общая стоимость <b>${oneOrder.orderTotalPrice} р</b></div>
-                                <t:if test="oneOrder.usedBonuses">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <span class="used-bonuses pic-holder"><span class="purchase-edit"/>Оплата бонусными баллами на <b>${oneOrder.usedBonuses} р</b></span>
-                                        </div>
-                                    </div>
-                                </t:if>
-                                <div class="order-products">
-                                    <t:loop source="oneOrder.products" value="oneProduct">
-                                        <div class="order-product">
-                                            <a class="img" href="/product/${oneProduct.product.altId}"><img class="pic pull-left" src="${oneProduct.product.avatarUrlSmall}"/></a>
-
-                                            <div class="order-product-row">
-                                                <div>
-                                                    <a class="f20px red" href="/product/${oneProduct.product.altId}">${oneProduct.product.name}</a>
-                                                </div>
-                                            </div>
-                                            <div class="order-product-row">
-                                                <div class="f30px black price">${oneProduct.price} <span class="rub"/> <span class="unit f14px">${oneProductUnit}</span></div>
-                                                <div class="count">
-                                                    <t:if test="statusChangeAllowed">
-                                                        <t:actionlink t:id="decProduct" t:zone="${orderZoneId}" context="[oneOrder.id,oneProduct.id]" class="dec purchase-edit"/>
-                                                    </t:if>
-                                                    <input type="text" value="${oneProduct.count}" disabled="disabled"/>
-                                                    <t:if test="statusChangeAllowed">
-                                                        <t:actionlink t:id="incProduct" t:zone="${orderZoneId}" context="[oneOrder.id,oneProduct.id]" class="inc purchase-edit"/>
-                                                    </t:if>
-                                                </div>
-                                                <t:if test="statusChangeAllowed">
-                                                    <div class="delete pic-holder">
-                                                        <span class="purchase-edit"/>
-                                                        <t:actionlink t:id="deleteProduct" t:zone="${orderZoneId}" context="[oneOrder.id,oneProduct.id]" class="f14px red">Удалить</t:actionlink>
-                                                    </div>
-                                                </t:if>
-                                            </div>
-                                        </div>
-                                    </t:loop>
-                                    <div class="info">
-                                        <div class="status">Статус:
-                                            <t:if test="statusChangeAllowed">
-                                                <a class="dotted-link" data-toggle="modal" data-target="#status${oneOrder.id}">${oneOrderStatus.toLowerCase()}</a>
-                                                <t:parameter name="else">
-                                                    ${oneOrderStatus.toLowerCase()}
-                                                </t:parameter>
-                                            </t:if>
-                                        </div>
-                                    </div>
-                                    <div class="modal fade" id="status${oneOrder.id}" tabindex="-1" role="dialog" aria-hidden="true">
-                                        <div class="modal-dialog application">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <div class="title">
-                                                        <h1><span>Смена статуса заказа</span></h1>
-                                                    </div>
-                                                    <a class="modal-close" data-dismiss="modal"></a>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p>
-                                                        <t:actionlink t:id="changeStatusAccepted" t:zone="ordersZone" context="oneOrder.id" class="f20px dotted-link">В работе</t:actionlink>
-                                                        <br/>
-                                                        Вы уже связались с клиентом для уточнения деталей заказа и начали выполнять этот заказ.
-                                                    </p>
-                                                    <p>
-                                                        <t:actionlink t:id="changeStatusReady" t:zone="ordersZone" context="oneOrder.id" class="f20px dotted-link">Выполнен</t:actionlink>
-                                                        <br/>
-                                                        Заказ полностью выполнен и доставлен клиенту, клиент погасил всю стоимость заказа.
-                                                    </p>
-                                                    <p>
-                                                        <t:actionlink t:id="changeStatusCancelled" t:zone="ordersZone" context="oneOrder.id" class="f20px dotted-link">Отменен</t:actionlink>
-                                                        <br/>
-                                                        По какой-либо причине выполнение заказа отменено.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="order-info">
-                                    <div class="row">
-                                        <div class="col-sm-3">Заказчик:</div>
-                                        <div class="col-sm-8">${oneOrder.customer.fullName}</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-3">Адрес доставки:</div>
-                                        <div class="col-sm-8">${oneOrder.customer.deliveryAddress}</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-3">Телефон для связи:</div>
-                                        <div class="col-sm-8">${oneOrder.customer.mobilePhone}</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-3">Комментарии к заказу:</div>
-                                        <div class="col-sm-8">${oneOrder.comment}</div>
-                                    </div>
-                                </div>
-                            </t:block>
-                        </div>
-                        <div class="col-sm-2"/>
-                    </div>
-                </t:parameter>
-                <t:parameter name="empty">
-                    <div class="empty">Пустой список</div>
-                </t:parameter>
-            </t:grid>
-            <script>
-                activate_menu('#${menuActivation}');
-                jQuery("body").removeClass("modal-open");
-            </script>
+            <t:order.list status="prop:status" privateOrders="privateOrders"/>
         </t:block>
     </div>
 

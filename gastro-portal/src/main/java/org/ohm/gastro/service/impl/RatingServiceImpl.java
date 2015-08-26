@@ -12,24 +12,29 @@ import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.LogEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
+import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.CommentRepository;
 import org.ohm.gastro.reps.LogRepository;
 import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.reps.ProductRepository;
+import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingService;
 import org.ohm.gastro.service.RatingTarget;
 import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -44,6 +49,8 @@ public class RatingServiceImpl implements RatingService, Logging {
     private final CommentRepository commentRepository;
     private final CatalogRepository catalogRepository;
     private final ProductRepository productRepository;
+    private final MailService mailService;
+
 
     private final int historyDays;
     private final float retentionCoeff;
@@ -63,6 +70,7 @@ public class RatingServiceImpl implements RatingService, Logging {
                              CommentRepository commentRepository,
                              CatalogRepository catalogRepository,
                              ProductRepository productRepository,
+                             MailService mailService,
                              @Value("${rating.series}") String ratingSeries,
                              @Value("${rank.badge.series}") String badgeRankSeries,
                              @Value("${product.badge.series}") String badgeProductSeries,
@@ -79,6 +87,7 @@ public class RatingServiceImpl implements RatingService, Logging {
         this.commentRepository = commentRepository;
         this.catalogRepository = catalogRepository;
         this.productRepository = productRepository;
+        this.mailService = mailService;
         this.historyDays = historyDays;
         this.retentionCoeff = retentionCoeff;
         this.posRatingCoeff = posRatingCoeff;
@@ -130,17 +139,29 @@ public class RatingServiceImpl implements RatingService, Logging {
 
     @Override
     @RatingModifier
-    public void rateCatalog(@RatingTarget final CatalogEntity catalog, final String text, final int rating, final UserEntity user) {
-
-        if (StringUtils.isEmpty(text) || user == null) return;
-        CommentEntity commentEntity = new CommentEntity();
+    public void rateCatalog(@RatingTarget final CatalogEntity catalog, final String comment, final int rating, final UserEntity author) {
+        if (StringUtils.isEmpty(comment) || author == null) return;
+        final CommentEntity commentEntity = new CommentEntity();
+        commentEntity.setType(CommentEntity.Type.CATALOG);
         commentEntity.setCatalog(catalog);
-        commentEntity.setAuthor(user);
-        commentEntity.setText(text);
+        commentEntity.setAuthor(author);
+        commentEntity.setText(comment);
         commentEntity.setDate(new Date());
         commentEntity.setRating(rating);
         commentRepository.save(commentEntity);
+    }
 
+    @Override
+    public void rateClient(final UserEntity user, final String comment, final int rating, final UserEntity author) {
+        if (StringUtils.isEmpty(comment) || user == null) return;
+        final CommentEntity commentEntity = new CommentEntity();
+        commentEntity.setType(CommentEntity.Type.CUSTOMER);
+        commentEntity.setUser(user);
+        commentEntity.setAuthor(author);
+        commentEntity.setText(comment);
+        commentEntity.setDate(new Date());
+        commentEntity.setRating(rating);
+        commentRepository.save(commentEntity);
     }
 
     @Override
@@ -158,7 +179,7 @@ public class RatingServiceImpl implements RatingService, Logging {
         final int negCount = (int) ratings.stream().filter(t -> t.getRating() < 0).count();
         final int totalSum = (int) catalogOps.stream().filter(t -> t.getType() == Type.ORDER_DONE).mapToLong(LogEntity::getCount).sum();
         final int doneOrdersCount = (int) catalogOps.stream().filter(t -> t.getType() == Type.ORDER_DONE).count();
-        final int totalOrdersCount = orderRepository.findAllByCatalog(catalog, null).size();
+        final int totalOrdersCount = orderRepository.findAllByCatalog(catalog).size();
 
         final Integer prevLevel = catalog.getLevel();
         catalog.setRating(calcRating(productsCount, retentionCount, posCount, negCount, doneOrdersCount, totalOrdersCount, totalSum));
@@ -185,6 +206,78 @@ public class RatingServiceImpl implements RatingService, Logging {
     @Override
     public List<CommentEntity> findAllComments(CatalogEntity catalog) {
         return commentRepository.findAllByCatalogOrderByIdDesc(catalog);
+    }
+
+    @Override
+    public List<CommentEntity> findAllComments(final UserEntity customer) {
+        return commentRepository.findAllByUserOrderByIdDesc(customer);
+    }
+
+    @Override
+    public List<CommentEntity> findAllComments(final OrderEntity order) {
+        return commentRepository.findAllByOrderOrderByIdDesc(order);
+    }
+
+    @Override
+    public List<CommentEntity> findAllComments(final CommentEntity comment) {
+        return commentRepository.findAllChildren(comment);
+    }
+
+    @Override
+    public void placeReply(final OrderEntity order, final UserEntity author, final String replyText) {
+        if (author.isCook() && StringUtils.isNotEmpty(replyText)) {
+            final CommentEntity reply = new CommentEntity();
+            reply.setType(CommentEntity.Type.ORDER);
+            reply.setOrder(order);
+            reply.setAuthor(author);
+            reply.setText(replyText);
+            reply.setDate(new Date());
+            commentRepository.save(reply);
+            try {
+                final Map<String, Object> params = new HashMap<String, Object>() {
+                    {
+                        put("username", order.getCustomer().getFullName());
+                        put("address", order.getOrderUrl());
+                        put("text", replyText);
+                    }
+                };
+                mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.ORDER_COMMENT, params);
+            } catch (MailException e) {
+                logger.error("", e);
+            }
+        }
+    }
+
+    @Override
+    public void placeReply(final CommentEntity comment, final UserEntity author, final String replyText) {
+        final CommentEntity reply = new CommentEntity();
+        final OrderEntity order = comment.getOrder();
+        reply.setType(CommentEntity.Type.ORDER);
+        reply.setParent(comment);
+        reply.setAuthor(author);
+        reply.setText(replyText);
+        reply.setDate(new Date());
+        commentRepository.save(reply);
+        if (!order.getCustomer().equals(author)) {
+            try {
+
+                final Map<String, Object> params = new HashMap<String, Object>() {
+                    {
+                        put("username", order.getCustomer().getFullName());
+                        put("address", order.getOrderUrl());
+                        put("text", replyText);
+                    }
+                };
+                mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.ORDER_COMMENT, params);
+            } catch (MailException e) {
+                logger.error("", e);
+            }
+        }
+    }
+
+    @Override
+    public CommentEntity findComment(final Long cId) {
+        return commentRepository.findOne(cId);
     }
 
     private int calcRating(final int productsCount, final int retentionCount, final int posCount, final int negCount, final int doneCount, final int allCount, final int totalSum) {

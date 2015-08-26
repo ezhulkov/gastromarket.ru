@@ -15,9 +15,6 @@
                 <li>
                     <a href="/contacts">Контакты</a>
                 </li>
-                <li>
-                    <a href="/license">Пользовательское соглашение</a>
-                </li>
                 <t:unless test="authenticated">
                     <li>
                         <a href="#login" class="login-link" data-toggle="modal" data-target="#login">Вход</a>
@@ -28,6 +25,14 @@
                 </t:unless>
                 <li>
                     <a href="#feedback" class="application-link" data-toggle="modal" data-target="#feedback">Обратная связь</a>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <a href="/license">Пользовательское соглашение</a>
+                </li>
+                <li>
+                    <a href="/confident">Политика конфиденциальности</a>
                 </li>
             </ul>
         </div>

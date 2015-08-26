@@ -1,0 +1,58 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="order-add">
+    <t:if test="priceModifiers">
+        <a class="pic-holder basket-add" href="#" data-toggle="modal" data-target="#order-modifier-${entity.id}"><span/>Заказать</a>
+
+        <div class="modal fade" id="order-modifier-${entity.id}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="title">
+                            <h1><span>Выбор вариантов</span></h1>
+                        </div>
+                        <a class="modal-close" data-dismiss="modal"></a>
+                    </div>
+                    <div class="modal-body row">
+                        <p class="modal-text">Пожалуйста, выберите один из вариантов ${entityTypeText}</p>
+
+                        <div class="gap2"></div>
+                        <div class="price-modifier">
+                            <div class="row">
+                                <div class="left">
+                                    <div class="modifier-price">
+                                        ${entity.price}&nbsp;<span class="rub"/>
+                                        <t:if test="productUnit">&nbsp;<span class="unit">${productUnit}</span></t:if>
+                                    </div>
+                                    <div class="modifier-name">
+                                        ${entity.name}
+                                    </div>
+                                </div>
+                                <div class="right">
+                                    <t:actionLink class="pic-holder basket-add" t:zone="basketZone" t:context="[entity.type,entity.id]" t:id="purchase2"><span/>Заказать</t:actionLink>
+                                </div>
+                            </div>
+                            <t:loop source="priceModifiers" value="priceModifier" formState="NONE">
+                                <div class="row">
+                                    <div class="left">
+                                        <div class="modifier-price">
+                                            <span class="sign">${priceModifier.signPrintable}</span>${priceModifier.price}&nbsp;<span class="rub"/> = ${modifiedPrice}&nbsp;<span class="rub"/>
+                                            <t:if test="productUnit">&nbsp;<span class="unit">${productUnit}</span></t:if>
+                                        </div>
+                                        <div class="modifier-name">
+                                            ${priceModifier.description}
+                                        </div>
+                                    </div>
+                                    <div class="right">
+                                        <t:actionLink class="pic-holder basket-add" t:zone="basketZone" t:context="[entity.type,entity.id,priceModifier.id]" t:id="purchase"><span/>Заказать</t:actionLink>
+                                    </div>
+                                </div>
+                            </t:loop>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t:if>
+    <t:unless test="priceModifiers">
+        <t:actionLink class="pic-holder basket-add" t:zone="basketZone" t:context="[entity.type,entity.id]" t:id="purchase3"><span/>Заказать</t:actionLink>
+    </t:unless>
+</div>

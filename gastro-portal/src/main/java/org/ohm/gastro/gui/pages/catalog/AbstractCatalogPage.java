@@ -39,11 +39,17 @@ public abstract class AbstractCatalogPage extends BaseComponent {
     @Component(id = "payment", parameters = {"value=catalog.payment", "validate=maxlength=4096"})
     private TextArea pmtField;
 
+    @Component(id = "cancellation", parameters = {"value=catalog.cancellation", "validate=maxlength=4096"})
+    private TextArea cnlField;
+
     @Component(id = "name", parameters = {"value=catalog.name", "validate=maxlength=512,required"})
     private TextField nameField;
 
     @Component(id = "basketMin", parameters = {"value=catalog.basketMin"})
-    private TextField bmField;
+    private TextField basketField;
+
+    @Component(id = "prepayment", parameters = {"value=catalog.prepayment", "validate=required,min=10"})
+    private TextField prepaymentField;
 
     @Cached
     public boolean isCatalogOwner() {
@@ -60,6 +66,10 @@ public abstract class AbstractCatalogPage extends BaseComponent {
 
     public String getNameLabel() {
         return getMessages().get("name.label." + catalog.getType().name().toLowerCase());
+    }
+
+    public String getSortable() {
+        return isCatalogOwner() ? "sortable-container" : "";
     }
 
 }

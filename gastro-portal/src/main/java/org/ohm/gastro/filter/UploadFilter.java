@@ -26,7 +26,6 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * todo add authorization
  * Created by ezhulkov on 08.01.15.
  */
 public class UploadFilter extends BaseApplicationFilter implements Logging {

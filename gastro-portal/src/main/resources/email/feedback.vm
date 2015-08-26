@@ -1,10 +1,11 @@
 #set($subject = "Новый отзыв на ГастроМаркет")
+#set($toadmin = true)
 #parse("email/header.vm")
 <p>
-    Привет, мы получили новый отзыв.
+    Мы получили новый отзыв.
     <br/>
-    Автор $fullname<br/>
     eMail: $email<br/>
+    Автор: $fullname<br/>
     Комментарий: $comment
 </p>
 #parse("email/footer.vm")

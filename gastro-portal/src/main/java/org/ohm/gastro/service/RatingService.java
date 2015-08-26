@@ -4,6 +4,7 @@ import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.LogEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
+import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.UserEntity;
 
 import java.util.Date;
@@ -22,10 +23,24 @@ public interface RatingService {
 
     List<LogEntity> findEvents(UserEntity user, Date dateFrom, Type type);
 
-    void rateCatalog(final CatalogEntity catalog, final String comment, final int rating, final UserEntity user);
+    void rateCatalog(CatalogEntity catalog, String comment, int rating, UserEntity author);
 
-    void updateRating(final CatalogEntity catalog);
+    void rateClient(UserEntity user, String comment, int rating, UserEntity author);
 
-    List<CommentEntity> findAllComments(CatalogEntity user);
+    void updateRating(CatalogEntity catalog);
+
+    List<CommentEntity> findAllComments(CatalogEntity catalog);
+
+    List<CommentEntity> findAllComments(UserEntity customer);
+
+    List<CommentEntity> findAllComments(OrderEntity order);
+
+    List<CommentEntity> findAllComments(CommentEntity comment);
+
+    CommentEntity findComment(Long cId);
+
+    void placeReply(OrderEntity order, UserEntity author, String replyText);
+
+    void placeReply(CommentEntity comment, UserEntity author, String replyText);
 
 }

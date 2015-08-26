@@ -8,7 +8,7 @@
             <div class="links-set">
                 <a data-toggle="modal" data-target="#catalog-edit" href="#catalog-edit">Редактировать страницу</a>
                 <a data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>
-                <a data-toggle="modal" data-target="#of-new" href="#of-new">Добавить предложение</a>
+                <a data-toggle="modal" data-target="#of-new" href="#of-new">Добавить готовое меню</a>
                 <t:pagelink page="office/import" context="catalog.altId">Импортировать меню <span/></t:pagelink>
             </div>
             <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>
@@ -47,6 +47,20 @@
                             <div class="description gap">
                                 <div class="f18px">Условия оплаты:</div>
                                 <t:outputraw value="catalog.paymentRaw"/>
+                            </div>
+                        </t:if>
+                        <div class="description">
+                            ${prepaymentText}
+                        </div>
+                        <t:if test="catalog.basketMin">
+                            <div class="description">
+                                ${basketMinText}
+                            </div>
+                        </t:if>
+                        <t:if test="catalog.cancellationRaw">
+                            <div class="description gap">
+                                <div class="f18px">Условия отмены:</div>
+                                <t:outputraw value="catalog.cancellationRaw"/>
                             </div>
                         </t:if>
                     </div>
@@ -96,24 +110,28 @@
             <t:delegate to="productsBlock"/>
         </t:zone>
         <t:block t:id="productsBlock">
-            <div id="product-items" class="grid-block products fixed">
+            <div id="product-items" class="grid-block products fixed ${sortable}">
                 <t:loop source="products" value="oneProduct">
                     <t:product product="oneProduct" class="fixed" edit="${catalogOwner}"/>
                     <t:parameter name="empty">
                         <div class="empty">Меню кулинара пусто</div>
                     </t:parameter>
                 </t:loop>
+                <t:form t:id="reorderForm" t:clientValidation="none" t:zone="productsZone" class="hidden reorder">
+                    <input t:type="textfield" t:id="reorder" t:value="reorder"/>
+                    <input t:type="submit" t:id="ordersubmit"/>
+                </t:form>
             </div>
         </t:block>
         <t:productModalTemplate/>
 
         <div class="title">
-            <h1><span>Готовые предложения</span></h1>
+            <h1><span>Готовые меню</span></h1>
             <t:if test="offers">
-                <t:pagelink page="catalog/offers" t:context="catalog.altId">Показать все предложения<span/></t:pagelink>
+                <t:pagelink page="catalog/offers" t:context="catalog.altId">Показать все меню<span/></t:pagelink>
                 <t:parameter name="else">
                     <t:if test="catalogOwner">
-                        <a class="offer-edit-link" data-toggle="modal" data-target="#of-new" href="#of-new">Добавить предложение</a>
+                        <a class="offer-edit-link" data-toggle="modal" data-target="#of-new" href="#of-new">Добавить готовое меню</a>
                     </t:if>
                 </t:parameter>
             </t:if>
@@ -125,7 +143,7 @@
             <t:loop source="offers" value="offer">
                 <t:offer offer="offer" type="SHORT" editMode="catalogOwner" offersBlock="offersBlock"/>
                 <t:parameter name="empty">
-                    <div class="empty">Нет готовых предложений</div>
+                    <div class="empty">Нет готовых меню</div>
                 </t:parameter>
             </t:loop>
         </t:block>
@@ -135,79 +153,12 @@
             <a href="#rate" data-toggle="modal" data-target="#rate">Оставить отзыв</a>
         </div>
         <t:if test="comments">
-            <ul class="comments">
-                <t:loop source="comments" value="oneComment">
-                    <li class="row">
-                        <div class="col-sm-1"/>
-                        <div class="col-sm-2 pic text-right">
-                            <img src="${oneComment.author.avatarUrlMedium}"/>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="date">
-                                ${oneComment.datePrintable}
-                            </div>
-                            <div class="name">
-                                ${oneComment.author.fullName}
-                            </div>
-                            <div class="text">
-                                <span class="glyphicon glyphicon-thumbs-${oneComment.rating}" aria-hidden="true"/>
-                                <t:outputraw value="oneCommentText"/>
-                            </div>
-                        </div>
-                    </li>
-                </t:loop>
-            </ul>
+            <t:comments comments="comments"/>
             <t:parameter name="else">
                 <div class="empty">Нет отзывов</div>
             </t:parameter>
         </t:if>
-        <div class="modal fade rate" id="rate" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <div class="title">
-                            <h1><span>Отзыв о кулинаре</span></h1>
-                        </div>
-                        <a class="modal-close" data-dismiss="modal"></a>
-                    </div>
-                    <div class="modal-body">
-                        <t:if test="commentAllowed">
-                            <t:form t:id="rateForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
-                                <div class="form-group">
-                                    <div class="col-sm-1"/>
-                                    <t:radiogroup t:id="opinion" value="opinion">
-                                        <div class="col-sm-6">
-                                            <t:label for="like">Мне понравилась работа кулинара</t:label>
-                                            &nbsp;
-                                            <t:radio t:id="like"/>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <t:label for="dislike">Нет, было плохо</t:label>
-                                            &nbsp;
-                                            <t:radio t:id="dislike"/>
-                                        </div>
-                                    </t:radiogroup>
-                                    <div class="col-sm-1"/>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-1"/>
-                                    <div class="col-sm-10">
-                                        <textarea t:type="TextArea" t:id="rateComment" t:value="rateComment" rows="5" class="form-control"/>
-                                    </div>
-                                    <div class="col-sm-1"/>
-                                </div>
-                                <div class="form-buttons">
-                                    <input class="btn btn-red" type="submit" value="Оставить отзыв"/>
-                                </div>
-                            </t:form>
-                        </t:if>
-                        <t:unless test="commentAllowed">
-                            <p class="modal-text">Если хотите оставить отзыв о работе кулинара, Вам надо совершить у него как минимум одну покупку.</p>
-                        </t:unless>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <t:ratecookuser type="CATALOG" catalog="catalog" commentAllowed="commentAllowed" modalId="rate"/>
 
     </div>
 
@@ -240,6 +191,10 @@
                                     <div class="col-sm-1"/>
                                     <div class="col-sm-10">
                                         <t:label for="desc">${descLabel}:</t:label>
+                                        <div class="label-tip">
+                                            ${descText}<br/>
+                                            Помните, что доверие покупателей повышается, если они узнают о Вашей работе.
+                                        </div>
                                         <input t:id="desc" rows="3" class="form-control"/>
                                     </div>
                                     <div class="col-sm-1"/>
@@ -248,7 +203,10 @@
                                     <div class="col-sm-1"/>
                                     <div class="col-sm-10">
                                         <t:label for="delivery">Условия доставки:</t:label>
-                                        <input t:id="delivery" rows="2" class="form-control"/>
+                                        <div class="label-tip">
+                                            Доставка готовых блюд осуществляется Вами, опишите здесь условия доставки.
+                                        </div>
+                                        <input t:id="delivery" rows="3" class="form-control"/>
                                     </div>
                                     <div class="col-sm-1"/>
                                 </div>
@@ -256,6 +214,9 @@
                                     <div class="col-sm-1"/>
                                     <div class="col-sm-10">
                                         <t:label for="payment">Условия оплаты:</t:label>
+                                        <div class="label-tip">
+                                            Опишите в этом поле как происходит оплата стоимости заказа - предоплата, способы оплаты и тд.
+                                        </div>
                                         <input t:id="payment" rows="2" class="form-control"/>
                                     </div>
                                     <div class="col-sm-1"/>
@@ -263,8 +224,30 @@
                                 <div class="form-group">
                                     <div class="col-sm-1"/>
                                     <div class="col-sm-10">
+                                        <t:label for="cancellation">Условия отмены:</t:label>
+                                        <div class="label-tip">
+                                            Возможно ли отменить заказ и какую часть предоплаты Вы возвращаете?
+                                        </div>
+                                        <input t:id="cancellation" rows="2" class="form-control"/>
+                                    </div>
+                                    <div class="col-sm-1"/>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-1"/>
+                                    <div class="col-sm-10">
                                         <t:label for="basketMin">Минимальная стоимость заказа, руб:</t:label>
+                                        <div class="label-tip">
+                                            Мы попросим покупателя дополнить заказ, если стоимость заказа меньше указанной.
+                                        </div>
                                         <input t:id="basketMin" class="form-control"/>
+                                    </div>
+                                    <div class="col-sm-1"/>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-1"/>
+                                    <div class="col-sm-10">
+                                        <t:label for="prepayment">Предоплата, %:</t:label>
+                                        <input t:id="prepayment" class="form-control" tabindex="4"/>
                                     </div>
                                     <div class="col-sm-1"/>
                                 </div>

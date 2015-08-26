@@ -70,11 +70,6 @@ public class Product extends BaseComponent {
         return getProductTags(product);
     }
 
-    public Block onActionFromPurchase(Long pid) {
-        getShoppingCart().addProduct(createPurchaseItem(pid));
-        return getShoppingCart().getBasketBlock();
-    }
-
     public boolean isHasBlock2() {
         return StringUtils.isNotEmpty(product.getDescription()) || getProductTags().size() > 0;
     }

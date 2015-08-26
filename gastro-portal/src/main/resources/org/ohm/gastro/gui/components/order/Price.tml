@@ -1,0 +1,32 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+    <t:if test="tenderType">
+        <t:if test="order.catalog">
+            <div class="form-group total">
+                <div class="col-sm-12">
+                    <span class="f20px">Бюджет заявки:</span><br/>
+                    <t:if test="catalog?.prepayment">
+                        ${prepaymentText}<br/>
+                    </t:if>
+                </div>
+                <div class="price">${total}&nbsp;<span class="rub"/></div>
+            </div>
+        </t:if>
+    </t:if>
+    <t:unless test="tenderType">
+        <t:if test="items">
+            <div class="form-group total">
+                <div class="col-sm-12">
+                    <span class="f20px">Стоимость заказа:</span><br/>
+                    <t:if test="catalog.basketMin">
+                        ${basketMinText}<br/>
+                    </t:if>
+                    <t:if test="catalog.prepayment">
+                        ${prepaymentText}<br/>
+                    </t:if>
+                    При внесении изменений в заказ конечная стоимость может измениться.
+                </div>
+                <div class="price">${total}&nbsp;<span class="rub"/></div>
+            </div>
+        </t:if>
+    </t:unless>
+</div>

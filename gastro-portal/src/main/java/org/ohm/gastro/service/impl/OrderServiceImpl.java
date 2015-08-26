@@ -1,40 +1,31 @@
 package org.ohm.gastro.service.impl;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateUtils;
-import org.ohm.gastro.domain.BillEntity;
+import org.apache.commons.lang.ObjectUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.OrderProductEntity;
 import org.ohm.gastro.domain.UserEntity;
-import org.ohm.gastro.reps.BillRepository;
 import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.OrderProductRepository;
 import org.ohm.gastro.reps.OrderRepository;
-import org.ohm.gastro.reps.UserRepository;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.OrderService;
 import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingService;
 import org.ohm.gastro.service.RatingTarget;
 import org.ohm.gastro.trait.Logging;
-import org.ohm.gastro.util.CommonsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-
-import static org.apache.commons.lang.ObjectUtils.defaultIfNull;
+import java.util.concurrent.Executors;
 
 /**
  * Created by ezhulkov on 12.10.14.
@@ -45,203 +36,203 @@ public class OrderServiceImpl implements OrderService, Logging {
 
     private final OrderRepository orderRepository;
     private final OrderProductRepository orderProductRepository;
-    private final UserRepository userRepository;
-    private final BillRepository billRepository;
     private final CatalogRepository catalogRepository;
     private final MailService mailService;
     private final RatingService ratingService;
 
     @Autowired
-    public OrderServiceImpl(final OrderRepository orderRepository, final OrderProductRepository orderProductRepository,
-                            final UserRepository userRepository, final BillRepository billRepository,
-                            final CatalogRepository catalogRepository, final MailService mailService,
+    public OrderServiceImpl(final OrderRepository orderRepository,
+                            final OrderProductRepository orderProductRepository,
+                            final CatalogRepository catalogRepository,
+                            final MailService mailService,
                             final RatingService ratingService) {
         this.orderRepository = orderRepository;
         this.orderProductRepository = orderProductRepository;
-        this.userRepository = userRepository;
-        this.billRepository = billRepository;
         this.catalogRepository = catalogRepository;
         this.mailService = mailService;
         this.ratingService = ratingService;
     }
 
-    private Date getBillingPeriodStart(Date catalogCreationDate) {
-        final Calendar calendar = Calendar.getInstance();
-        calendar.setTime(catalogCreationDate);
-        final int billingDay = calendar.get(Calendar.DAY_OF_MONTH);
-        calendar.setTime(new Date());
-        calendar.set(Calendar.DAY_OF_MONTH, billingDay);
-        return DateUtils.truncate(calendar, Calendar.DATE).getTime();
-    }
-
-    private Date getBillingPeriodEnd(Date catalogCreationDate) {
-        final Calendar calendar = Calendar.getInstance();
-        calendar.setTime(catalogCreationDate);
-        final int billingDay = calendar.get(Calendar.DAY_OF_MONTH);
-        calendar.setTime(new Date());
-        calendar.set(Calendar.DAY_OF_MONTH, billingDay);
-        final Date billingPeriodStart = DateUtils.truncate(calendar, Calendar.DATE).getTime();
-        return DateUtils.addMonths(billingPeriodStart, 1);
-    }
-
     @Override
-    public List<OrderEntity> placeOrder(OrderEntity totalOrder, List<OrderProductEntity> purchaseItems, final UserEntity customer, final String eMail) {
-        final Integer totalPrice = purchaseItems.stream().mapToInt(t -> t.getCount() * t.getPrice()).sum();
-        userRepository.save(customer);
-        List<OrderEntity> orders = purchaseItems.stream()
-                .collect(Collectors.groupingBy(t -> t.getProduct().getCatalog())).entrySet().stream()
-                .map(t -> {
-                    final CatalogEntity catalog = catalogRepository.findOne(t.getKey().getId());
-                    final Date billingPeriodStart = getBillingPeriodStart(catalog.getDate());
-                    final Date billingPeriodEnd = getBillingPeriodEnd(catalog.getDate());
-                    final List<OrderProductEntity> products = t.getValue();
-                    final OrderEntity order = new OrderEntity();
-                    BillEntity bill = billRepository.findByCatalogAndDateBetween(catalog, billingPeriodStart, billingPeriodEnd);
-                    if (bill == null) {
-                        bill = new BillEntity();
-                        bill.setDate(billingPeriodStart);
-                        bill.setStatus(BillEntity.Status.NEW);
-                        bill.setCatalog(catalog);
-                        billRepository.save(bill);
+    public OrderEntity placeOrder(final OrderEntity preOrder) {
+        if (!preOrder.getProducts().isEmpty()) {
+            final OrderEntity order = new OrderEntity();
+            order.setDate(new Timestamp(System.currentTimeMillis()));
+            order.setCustomer(preOrder.getCustomer());
+            order.setDueDate(preOrder.getDueDate());
+            order.setPromoCode(preOrder.getPromoCode());
+            order.setComment(preOrder.getComment());
+            order.setProducts(preOrder.getProducts());
+            order.setStatus(Status.ACTIVE);
+            order.setType(OrderEntity.Type.PRIVATE);
+            order.setCatalog(preOrder.getCatalog());
+            order.setTotalPrice(order.getProducts().stream().mapToInt(t -> t.getCount() * t.getPrice()).sum());
+            orderRepository.save(order);
+            order.getProducts().stream().forEach(p -> p.setOrder(order));
+            orderProductRepository.save(order.getProducts());
+            order.setOrderNumber(Long.toString(order.getId()));
+            try {
+                final Map<String, Object> params = new HashMap<String, Object>() {
+                    {
+                        put("products", order.getProducts());
+                        put("ordernumber", order.getOrderNumber());
+                        put("customer", order.getCustomer());
+                        put("comment", ObjectUtils.defaultIfNull(order.getComment(), "-"));
+                        put("cook", order.getCatalog());
+                        put("total", order.getTotalPrice());
+                        put("address", order.getOrderUrl());
                     }
-                    order.setComment(totalOrder.getComment());
-                    order.setDate(new Timestamp(System.currentTimeMillis()));
-                    order.setCustomer(totalOrder.getCustomer());
-                    order.setProducts(products);
-                    order.setUsedBonuses(Math.min(totalOrder.getUsedBonuses() * order.getOrderTotalPrice() / totalPrice, order.getOrderTotalPrice()));
-                    order.setBill(bill);
-                    order.setStatus(Status.NEW);
-                    orderRepository.save(order);
-                    products.stream().forEach(p -> p.setOrder(order));
-                    orderProductRepository.save(products);
-                    order.setOrderNumber(CommonsUtils.ORDER_DATE.get().format(new Date(System.currentTimeMillis())) + "-" + order.getId());
-                    return orderRepository.save(order);
-                })
-                .collect(Collectors.toList());
-
-        try {
-            orders.stream().forEach(order -> {
-                if (!order.getProducts().isEmpty()) {
-                    final CatalogEntity catalog = catalogRepository.findOne(order.getProducts().get(0).getProduct().getCatalog().getId());
-                    final Map<String, Object> params = new HashMap<String, Object>() {
-                        {
-                            put("products", order.getProducts());
-                            put("ordernumber", order.getOrderNumber());
-                            put("customer", customer);
-                            put("customer_email", eMail);
-                            put("comment", defaultIfNull(order.getComment(), ""));
-                            put("cook", catalog);
-                            put("total", order.getOrderTotalPrice());
-                            put("hasBonuses", order.getUsedBonuses() > 0);
-                            put("bonuses", order.getUsedBonuses());
-                        }
-                    };
-                    mailService.sendAdminMessage(MailService.NEW_ORDER_ADMIN, params);
-                    mailService.sendMailMessage(catalog.getUser().getEmail(), MailService.NEW_ORDER_COOK, params);
-                    mailService.sendMailMessage(eMail, MailService.NEW_ORDER_CUSTOMER, params);
-                }
-            });
-        } catch (MailException e) {
-            logger.error("", e);
+                };
+                mailService.sendAdminMessage(MailService.NEW_ORDER_ADMIN, params);
+                params.put("username", order.getCatalog().getUser().getFullName());
+                mailService.sendMailMessage(order.getCatalog().getUser().getEmail(), MailService.NEW_ORDER_COOK, params);
+                params.put("username", order.getCustomer().getFullName());
+                mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.NEW_ORDER_CUSTOMER, params);
+            } catch (MailException e) {
+                logger.error("", e);
+            }
+            return order;
         }
-
-        return orders;
+        return preOrder;
     }
 
     @Override
     public List<OrderEntity> findAllOrders(final UserEntity customer, final CatalogEntity catalog) {
-        return orderRepository.findAllByCatalogAndCustomer(customer, catalog);
+        return orderRepository.findAllByCustomer(customer);
     }
 
     @Override
     public List<OrderEntity> findAllOrders(final CatalogEntity catalog) {
-        return orderRepository.findAllByCatalog(catalog, null);
+        return orderRepository.findAllByCatalog(catalog);
     }
 
     @Override
     public List<OrderEntity> findAllOrders(final CatalogEntity catalog, final Status status) {
-        return orderRepository.findAllByCatalog(catalog, status);
+        return orderRepository.findAllByCatalogAndStatus(catalog, status);
     }
 
     @Override
-    public List<OrderEntity> findAllOrders(BillEntity bill) {
-        return orderRepository.findAllByBill(bill);
+    public List<OrderEntity> findAllTenders() {
+        return orderRepository.findAllByType(OrderEntity.Type.PUBLIC);
     }
 
     @Override
-    public List<BillEntity> findAllBills(CatalogEntity catalog) {
-        final List<BillEntity> bills = billRepository.findByCatalogOrderByDateAsc(catalog);
-        bills.stream().forEach(bill -> bill.setTotalBill(0));
-        return bills;
+    public OrderEntity placeTender(final OrderEntity tender, final UserEntity caller) {
+        if (tender == null || !tender.isAllowed(caller)) return tender;
+        tender.setDate(new Timestamp(System.currentTimeMillis()));
+        tender.setType(OrderEntity.Type.PUBLIC);
+        tender.setStatus(Status.NEW);
+        orderRepository.save(tender);
+        tender.setOrderNumber(Long.toString(tender.getId()));
+        orderRepository.save(tender);
+        Executors.newSingleThreadExecutor().execute(() -> {
+            try {
+                final Map<String, Object> params = new HashMap<String, Object>() {
+                    {
+                        put("username", tender.getCustomer().getFullName());
+                        put("customer", tender.getCustomer());
+                        put("name", ObjectUtils.defaultIfNull(tender.getName(), ""));
+                        put("comment", ObjectUtils.defaultIfNull(tender.getComment(), ""));
+                        put("total", ObjectUtils.defaultIfNull(tender.getTotalPrice(), ""));
+                        put("date", ObjectUtils.defaultIfNull(tender.getDatePrintable(), "-"));
+                        put("address", tender.getOrderUrl());
+                    }
+                };
+                mailService.sendAdminMessage(MailService.NEW_TENDER_ADMIN, params);
+                mailService.sendMailMessage(tender.getCustomer().getEmail(), MailService.NEW_TENDER_CUSTOMER, params);
+//                todo uncomment
+//                catalogRepository.findAll().stream().map(CatalogEntity::getUser).distinct().
+//                        forEach(cook -> {
+//                            params.put("username", cook.getFullName());
+//                            mailService.sendMailMessage(cook.getEmail(), MailService.NEW_TENDER_COOK, params);
+//                        });
+            } catch (MailException e) {
+                logger.error("", e);
+            }
+        });
+        return tender;
     }
 
     @Override
-    public int getBonuses(int price) {
-        return (int) Math.ceil(price * 0.03);
+    public OrderEntity attachTender(CatalogEntity catalog, OrderEntity order, UserEntity caller) {
+        order.setCatalog(catalog);
+        order.setStatus(Status.CONFIRMED);
+        saveOrder(order, caller);
+        try {
+            final Map<String, Object> params = new HashMap<String, Object>() {
+                {
+                    put("address", order.getOrderUrl());
+                }
+            };
+            params.put("username", catalog.getUser().getFullName());
+            mailService.sendMailMessage(catalog.getUser().getEmail(), MailService.TENDER_ATTACHED_COOK, params);
+            params.put("username", order.getCustomer().getFullName());
+            mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.TENDER_ATTACHED_CUSTOMER, params);
+        } catch (MailException e) {
+            logger.error("", e);
+        }
+        return order;
+    }
+
+    @Override
+    public OrderEntity saveTender(final OrderEntity tender, final UserEntity caller) {
+        if (tender == null || !tender.isAllowed(caller)) return tender;
+        return orderRepository.save(tender);
     }
 
     @Override
     public OrderEntity findOrder(final Long id) {
-        return orderRepository.findOne(id);
+        return id == null ? null : orderRepository.findOne(id);
     }
 
     @Override
-    public void saveOrder(final OrderEntity order) {
-        orderRepository.save(order);
+    public OrderEntity saveOrder(final OrderEntity order, final UserEntity caller) {
+        if (order == null || !order.isAllowed(caller)) return order;
+        if (order.getType() == OrderEntity.Type.PRIVATE) order.setTotalPrice(order.getProducts().stream().mapToInt(t -> t.getCount() * t.getPrice()).sum());
+        return orderRepository.save(order);
     }
 
     @Override
-    public void deleteProduct(final Long oid, final Long pid) {
+    public void deleteProduct(final Long oid, final Long pid, final UserEntity caller) {
         final OrderEntity order = orderRepository.findOne(oid);
         final OrderProductEntity product = orderProductRepository.findOne(pid);
-        order.getProducts().remove(product);
-        orderProductRepository.delete(product);
+        if (order == null || !order.isAllowed(caller)) return;
+        product.setCount(product.getCount() - 1);
+        if (product.getCount() <= 0) {
+            order.getProducts().remove(product);
+            orderProductRepository.delete(product);
+        } else {
+            orderProductRepository.save(product);
+        }
+        if (order.getType() == OrderEntity.Type.PRIVATE) order.setTotalPrice(order.getProducts().stream().mapToInt(t -> t.getCount() * t.getPrice()).sum());
         orderRepository.save(order);
-    }
-
-    @Override
-    public void incProduct(final Long oid, final Long pid) {
-        final OrderProductEntity product = orderProductRepository.findOne(pid);
-        product.setCount(product.getCount() + 1);
-        orderProductRepository.save(product);
-    }
-
-    @Override
-    public void decProduct(final Long oid, final Long pid) {
-        final OrderProductEntity product = orderProductRepository.findOne(pid);
-        product.setCount(Math.max(1, product.getCount() - 1));
-        orderProductRepository.save(product);
     }
 
     @Override
     @RatingModifier
-    public void changeStatus(final OrderEntity order, final Status status, @RatingTarget final CatalogEntity catalog) {
-        if (status == Status.CANCELLED) order.setUsedBonuses(0);
-        if (status == Status.READY) {
-            final UserEntity customer = order.getCustomer();
-            if (StringUtils.isNotEmpty(customer.getEmail())) {
-                if (order.getUsedBonuses() > 0) {
-                    customer.setBonus(Math.max(0, customer.getBonus() - order.getUsedBonuses()));
-                } else {
-                    customer.setBonus((int) (customer.getBonus() + getBonuses(order.getOrderTotalPrice())));
-                }
-                userRepository.save(customer);
-            }
-            ratingService.registerEvent(Type.ORDER_DONE, catalog, order.getOrderTotalPrice());
+    public void changeStatus(final OrderEntity order, final Status status, @RatingTarget final CatalogEntity catalog, final UserEntity caller) {
+        if (order == null || !order.isAllowed(caller)) return;
+        if (status == Status.CLOSED) {
+            ratingService.registerEvent(Type.ORDER_DONE, catalog, order.getTotalPrice());
         }
         order.setStatus(status);
         orderRepository.save(order);
         final Map<String, Object> params = new HashMap<String, Object>() {
             {
                 put("ordernumber", order.getOrderNumber());
-                put("catalog", catalog);
                 put("status", status);
+                put("address", order.getOrderUrl());
             }
         };
-        mailService.sendAdminMessage(MailService.EDIT_ORDER, params);
-        if (order.getCustomer().getEmail() != null) {
-            mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.EDIT_ORDER, params);
-        }
+        params.put("username", order.getCustomer().getFullName());
+        mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.EDIT_ORDER, params);
+        params.put("username", order.getCatalog().getUser().getFullName());
+        mailService.sendMailMessage(order.getCatalog().getUser().getEmail(), MailService.EDIT_ORDER, params);
+    }
+
+    @Override
+    public List<OrderProductEntity> findAllItems(final OrderEntity order) {
+        return orderProductRepository.findAllByOrder(order);
     }
 
 }

@@ -1,6 +1,5 @@
 package org.ohm.gastro.gui.pages.product;
 
-import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.services.HttpError;
@@ -41,11 +40,6 @@ public class Index extends BaseComponent {
     @Cached
     public java.util.List<ProductEntity> getRecommendedProducts() {
         return getProductService().findRecommendedProducts(product.getId(), 4).stream().limit(4).collect(Collectors.toList());
-    }
-
-    public Block onActionFromPurchase(Long pid) {
-        getShoppingCart().addProduct(createPurchaseItem(pid));
-        return getShoppingCart().getBasketBlock();
     }
 
     public java.util.List<TagEntity> getProductTags() {

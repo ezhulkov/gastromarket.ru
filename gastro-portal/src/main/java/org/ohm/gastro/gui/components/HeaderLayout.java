@@ -1,13 +1,15 @@
 package org.ohm.gastro.gui.components;
 
 import org.apache.tapestry5.Block;
+import org.apache.tapestry5.Link;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
+import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.gui.mixins.BaseComponent;
-
-import java.util.List;
+import org.ohm.gastro.gui.pages.Cart;
+import org.ohm.gastro.gui.pages.office.Orders;
 
 /**
  * Created by ezhulkov on 23.08.14.
@@ -25,8 +27,14 @@ public class HeaderLayout extends BaseComponent {
     @Property
     private Block basketBlock;
 
+    @Inject
+    @Property
+    private Block orderShowBlock;
+
     public void beginRender() {
         getShoppingCart().setBasketBlock(basketBlock);
+        getShoppingCart().setOrderShowBlock(orderShowBlock);
+        getShoppingCart().setJustAdded(false);
     }
 
     public int getUnreadMessages() {
@@ -34,15 +42,10 @@ public class HeaderLayout extends BaseComponent {
     }
 
     public String getDeclProducts() {
-        return getDeclInfo("cart", getShoppingCart().getProducts().size());
+        return getDeclInfo("cart", getShoppingCart().getCatalogs().size());
     }
 
-    public String getBonusesMessage() {
-        final int bonuses = getBonuses();
-        return getDeclInfo("bonus", bonuses);
-    }
-
-    public List<CatalogEntity> getCatalogs() {
+    public java.util.List getCatalogs() {
         return getCatalogService().findAllCatalogs(getAuthenticatedUserOpt().orElse(null));
     }
 
@@ -50,16 +53,14 @@ public class HeaderLayout extends BaseComponent {
         return isCook() ? "hidden" : "";
     }
 
-    public boolean isShowBonuses() {
-        return isUser();
-    }
-
-    public int getBonuses() {
-        return getAuthenticatedUserOpt().map(t -> getUserService().getUserBonuses(t)).orElse(0);
-    }
-
     public String getAvatarUrl() {
         return getAuthenticatedUser().getAvatarUrlSmall();
+    }
+
+    public Link getCartLink() {
+        return isAuthenticated() ?
+                getPageLinkSource().createPageRenderLinkWithContext(Orders.class, true, Status.NEW) :
+                getPageLinkSource().createPageRenderLink(Cart.class);
     }
 
 }

@@ -43,8 +43,11 @@ public class Wizard extends AbstractCatalogPage {
     @Component
     private Form wizardForm2;
 
-    @Component(id = "fullName", parameters = {"value=authenticatedUser?.fullName", "validate=maxlength=64"})
+    @Component(id = "fullName", parameters = {"value=authenticatedUser?.fullName", "validate=maxlength=64,required"})
     private TextField fNameField;
+
+    @Component(id = "mobilePhone", parameters = {"value=authenticatedUser?.mobilePhone", "validate=maxlength=64,required"})
+    private TextField mobfNameField;
 
     public Object onActivate(String pid) {
         catalog = getCatalogService().findCatalog(pid);
@@ -88,6 +91,9 @@ public class Wizard extends AbstractCatalogPage {
         getUserService().saveUser(getAuthenticatedUser());
     }
 
+    public void onPrepareFromWizardForm2() {
+    }
+
     public void onSubmitFromWizardForm2() {
         if (wizardForm2.getHasErrors()) return;
         onSubmitFromWizardForm1();
@@ -110,7 +116,7 @@ public class Wizard extends AbstractCatalogPage {
     }
 
     public java.util.List<ProductEntity> getProducts() {
-        return getProductService().findProductsForFrontend(null, catalog, null, null, null, 0, Integer.MAX_VALUE);
+        return getProductService().findProductsForFrontend(null, catalog, null, null, null, null, 0, Integer.MAX_VALUE);
     }
 
 }

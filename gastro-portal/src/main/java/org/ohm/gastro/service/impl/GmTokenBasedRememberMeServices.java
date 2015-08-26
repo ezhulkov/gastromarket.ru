@@ -20,6 +20,7 @@ public class GmTokenBasedRememberMeServices extends TokenBasedRememberMeServices
     @Autowired
     public GmTokenBasedRememberMeServices(UserService userService) {
         super("b6cNMFz1W8BFNDQPmPg2cuXJamNgCmOc", userService);
+        super.setTokenValiditySeconds(3600 * 24 * 365);
         this.userService = userService;
     }
 
