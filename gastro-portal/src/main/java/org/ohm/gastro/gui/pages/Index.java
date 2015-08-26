@@ -55,7 +55,7 @@ public class Index extends BaseComponent {
     @Cached
     public List<CatalogEntity> getCooks() {
         return getCatalogService().findAllActiveCatalogs().stream()
-                .sorted(((o1, o2) -> o1.getRating().compareTo(o2.getRating())))
+                .sorted(((o1, o2) -> o2.getRating().compareTo(o1.getRating())))
                 .limit(5).collect(Collectors.toList());
     }
 
