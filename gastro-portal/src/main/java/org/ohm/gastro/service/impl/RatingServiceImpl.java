@@ -263,12 +263,15 @@ public class RatingServiceImpl implements RatingService, Logging {
 
                 final Map<String, Object> params = new HashMap<String, Object>() {
                     {
-                        put("username", order.getCustomer().getFullName());
+
                         put("address", order.getOrderUrl());
                         put("text", replyText);
                     }
                 };
+                params.put("username", order.getCustomer().getFullName());
                 mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.ORDER_COMMENT, params);
+                params.put("username", comment.getUser().getFullName());
+                mailService.sendMailMessage(comment.getUser().getEmail(), MailService.ORDER_COMMENT, params);
             } catch (MailException e) {
                 logger.error("", e);
             }

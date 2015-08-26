@@ -67,13 +67,13 @@ public class Edit extends BaseComponent {
     @Component(id = "comment", parameters = {"value=order.comment", "validate=required"})
     private TextArea comment;
 
-    @Component(id = "dueDate", parameters = {"value=order.dueDate"})
+    @Component(id = "dueDate", parameters = {"value=order.dueDate", "validate=required"})
     private TextField dueDate;
 
     @Component(id = "budget", parameters = {"value=order.totalPrice", "validate=required"})
     private TextField budget;
 
-    @Component(id = "personCount", parameters = {"value=order.personCount"})
+    @Component(id = "personCount", parameters = {"value=order.personCount", "validate=required"})
     private TextField personCount;
 
     @Parameter(name = "ordersBlock", required = false, allowNull = false)

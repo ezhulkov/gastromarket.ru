@@ -2470,6 +2470,8 @@ ul.comments .comment:hover .reply-block a {
 ul.comments .children-comments {
   margin-top: 10px;
   list-style: none;
+  border-left: 1px solid lightgray;
+  padding-left: 20px;
 }
 
 /*# sourceMappingURL=style.css.map */
