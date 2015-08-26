@@ -15,26 +15,32 @@
                 <t:order.price items="items" catalog="catalog" order="order"/>
                 <t:order.basketSubmit items="items" order="order" catalog="catalog" type="prop:type"/>
                 <t:if test="full">
-                    <t:order.info order="order" catalog="catalog"/>
+                    <t:order.info order="order" catalog="catalog" mainPage="mainPage"/>
                     <t:delegate to="orderAdditionalBlock"/>
                     <t:block t:id="clientEditBlock">
-                        <t:if test="canEditOrder">
-                            <t:actionlink class="edit-link" t:id="editTender" t:context="order.id" t:zone="${editZoneId}">Редактировать</t:actionlink>
-                        </t:if>
-                        <script>
-                            jQuery("body").removeClass("modal-open");
-                        </script>
+                        <t:unless test="mainPage">
+                            <t:if test="canEditOrder">
+                                <t:actionlink class="edit-link" t:id="editTender" t:context="order.id" t:zone="${editZoneId}">Редактировать</t:actionlink>
+                            </t:if>
+                            <script>
+                                jQuery("body").removeClass("modal-open");
+                            </script>
+                        </t:unless>
                     </t:block>
                     <t:block t:id="clientRateCook">
-                        <t:unless test="frontend">
-                            <a href="#cook_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#cook_rate_${order.id}">Оценить кулинара</a>
-                            <t:ratecookuser type="CATALOG" catalog="catalog" commentAllowed="true" modalId="cook_rate_${order.id}"/>
+                        <t:unless test="mainPage">
+                            <t:unless test="frontend">
+                                <a href="#cook_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#cook_rate_${order.id}">Оценить кулинара</a>
+                                <t:ratecookuser type="CATALOG" catalog="catalog" commentAllowed="true" modalId="cook_rate_${order.id}"/>
+                            </t:unless>
                         </t:unless>
                     </t:block>
                     <t:block t:id="cookRateClient">
-                        <t:unless test="frontend">
-                            <a href="#client_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#client_rate_${order.id}">Оценить заказчика</a>
-                            <t:ratecookuser type="CUSTOMER" user="order.customer" commentAllowed="true" modalId="client_rate_${order.id}"/>
+                        <t:unless test="mainPage">
+                            <t:unless test="frontend">
+                                <a href="#client_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#client_rate_${order.id}">Оценить заказчика</a>
+                                <t:ratecookuser type="CUSTOMER" user="order.customer" commentAllowed="true" modalId="client_rate_${order.id}"/>
+                            </t:unless>
                         </t:unless>
                     </t:block>
                     <t:block t:id="tenderReplyBlock">
@@ -57,7 +63,7 @@
         </t:block>
         <t:zone t:id="editZone" id="${editZoneId}"/>
         <t:block t:id="editOrderBlock">
-            <t:order.edit modalId="order-${order.id}" order="order" orderBlock="orderMainBlock" orderZoneId="${orderShowCatalogZoneId}" reloadPage="mainPage" tender="tender"/>
+            <t:order.edit modalId="order-${order.id}" order="order" orderBlock="orderMainBlock" orderZoneId="${orderShowCatalogZoneId}" reloadPage="reloadPage" tender="tender"/>
             <script>
                 var pe = jQuery("#order-${order.id}");
                 pe.modal('show');

@@ -33,6 +33,10 @@ public abstract class AbstractOrder extends BaseComponent {
 
     @Property
     @Parameter
+    protected boolean mainPage;
+
+    @Property
+    @Parameter
     protected boolean privateOrders;
 
     @Property

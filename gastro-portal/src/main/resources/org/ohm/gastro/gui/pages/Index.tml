@@ -76,6 +76,16 @@
             </li>
         </ul>
 
+        <t:if test="tenders">
+            <div id="tender_start" class="title">
+                <h1><span>Последние заявки</span></h1>
+                <t:pagelink page="tender/list" context="literal:NEW">Все заявки<span/></t:pagelink>
+            </div>
+            <t:loop source="tenders" value="oneTender" forState="NONE">
+                <t:order.order order="oneTender" type="MAIN_PAGE" privateOrders="false" frontend="true"/>
+            </t:loop>
+        </t:if>
+
         <div class="title">
             <h1><span>Лучшие кулинары</span></h1>
             <t:pagelink page="catalog/list">Все кулинары<span/></t:pagelink>

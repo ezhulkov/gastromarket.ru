@@ -166,6 +166,7 @@ public class Edit extends BaseComponent {
             getUserService().saveUser(order.getCustomer());
         } else {
             getAjaxResponseRenderer().addRender(getOrderEditZone(), editContactsBlock);
+            return null;
         }
         if (closeImmediately && !editOrder) order = null;
         if (closeImmediately) getAjaxResponseRenderer().addRender(getOrderEditZone(), editDescBlock);

@@ -14,12 +14,12 @@ import org.ohm.gastro.domain.OrderProductEntity;
 public class Order extends AbstractOrder {
 
     public enum Type {
-        SHORT, BASKET, FULL
+        SHORT, BASKET, FULL, MAIN_PAGE
     }
 
     @Parameter(value = "false")
     @Property
-    private boolean mainPage;
+    private boolean reloadPage;
 
     @Property
     @Parameter(value = "false")
@@ -66,7 +66,11 @@ public class Order extends AbstractOrder {
     }
 
     public boolean isFull() {
-        return type == Type.FULL;
+        return type == Type.FULL || type == Type.MAIN_PAGE;
+    }
+
+    public boolean isMainPage() {
+        return type == Type.MAIN_PAGE;
     }
 
     public String getOrderShowCatalogZoneId() {
@@ -93,7 +97,7 @@ public class Order extends AbstractOrder {
 
     public Block getCurrentOrderBlock() {
         if (order != null && order.getType() == OrderEntity.Type.PUBLIC) return orderMainBlock;
-        if (type == Type.BASKET || type == Type.SHORT) return orderMainBlock;
+        if (type == Type.BASKET || type == Type.SHORT || type == Type.MAIN_PAGE) return orderMainBlock;
         if (isAuthenticated()) {
             return order == null || order.isAllowed(getAuthenticatedUser()) ? orderMainBlock : deniedOrderBlock;
         } else {
