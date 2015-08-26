@@ -2188,24 +2188,22 @@ label.t-error {
 }
 .tender-howto li {
   width: 100%;
-  margin-bottom: 20px;
+  height: 200px;
 }
-.tender-howto li > div {
-  display: inline-block;
-  height: 180px;
-}
-.tender-howto li > div:first-child {
+.tender-howto li div {
+  float: left;
   width: 200px;
   text-align: center;
 }
-.tender-howto li > div:last-child {
-  width: 550px;
-  text-align: left;
-  padding: 27px 0 0 70px;
-  font-size: 20px;
+.tender-howto li div img {
+  height: 180px;
 }
-.tender-howto li > div img {
-  height: 100%;
+.tender-howto li p {
+  padding-top: 30px;
+  margin-left: 250px;
+  width: 500px;
+  text-align: left;
+  font-size: 20px;
 }
 
 .grid-block {

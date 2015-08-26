@@ -63,19 +63,19 @@
                 <div>
                     <img src="http://gastromarket.ru/img/howto1.jpg"/>
                 </div>
-                <div>Donec rutrum congue leo eget malesuada. Pellentesque in ipsum id orci porta dapibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+                <p>Вы описываете детали заявки - бюджет, желаемую дату изготовления, комментарии и количество персон.<br/>Заявку увидят все зарегистрированные кулинары.</p>
             </li>
             <li>
                 <div>
                     <img src="http://gastromarket.ru/img/howto2.jpg"/>
                 </div>
-                <div>Donec rutrum congue leo eget malesuada. Pellentesque in ipsum id orci porta dapibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+                <p>Кулинары оставляют отклики к заявке, описывают условия выполнения и показывают своё портфолио блюд и услуг</p>
             </li>
             <li>
                 <div>
                     <img src="http://gastromarket.ru/img/howto3.jpg"/>
                 </div>
-                <div>Donec rutrum congue leo eget malesuada. Pellentesque in ipsum id orci porta dapibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+                <p>Вам остается только выбрать лучшего кулинара и ждать исполнения заявки в компании друзей и близких.<br/><br/><b>ГастроМаркет - Всё готово!</b></p>
             </li>
         </ul>
 
