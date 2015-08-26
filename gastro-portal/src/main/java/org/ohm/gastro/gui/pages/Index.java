@@ -9,6 +9,7 @@ import org.apache.tapestry5.services.HttpError;
 import org.apache.tapestry5.services.URLEncoder;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
+import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
@@ -53,9 +54,9 @@ public class Index extends BaseComponent {
 
     @Cached
     public List<CatalogEntity> getCooks() {
-        return getCatalogService().findAllActiveCatalogs().stream().
-                sorted(((o1, o2) -> o1.getRating().compareTo(o2.getRating()))).
-                limit(5).collect(Collectors.toList());
+        return getCatalogService().findAllActiveCatalogs().stream()
+                .sorted(((o1, o2) -> o1.getRating().compareTo(o2.getRating())))
+                .limit(5).collect(Collectors.toList());
     }
 
     @Cached
@@ -69,9 +70,10 @@ public class Index extends BaseComponent {
 
     @Cached
     public List<OrderEntity> getTenders() {
-        return getOrderService().findAllTenders().stream().
-                sorted(((o1, o2) -> o1.getDate().compareTo(o2.getDate()))).
-                limit(3).collect(Collectors.toList());
+        return getOrderService().findAllTenders().stream()
+                .filter(t -> t.getStatus() == Status.NEW)
+                .sorted(((o1, o2) -> o1.getDate().compareTo(o2.getDate())))
+                .limit(3).collect(Collectors.toList());
     }
 
 }
