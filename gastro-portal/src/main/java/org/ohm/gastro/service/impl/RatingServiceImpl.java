@@ -258,23 +258,22 @@ public class RatingServiceImpl implements RatingService, Logging {
         reply.setText(replyText);
         reply.setDate(new Date());
         commentRepository.save(reply);
-        if (!order.getCustomer().equals(author)) {
-            try {
-
-                final Map<String, Object> params = new HashMap<String, Object>() {
-                    {
-
-                        put("address", order.getOrderUrl());
-                        put("text", replyText);
-                    }
-                };
+        try {
+            final Map<String, Object> params = new HashMap<String, Object>() {
+                {
+                    put("address", order.getOrderUrl());
+                    put("text", replyText);
+                }
+            };
+            if (!order.getCustomer().equals(author)) {
                 params.put("username", order.getCustomer().getFullName());
                 mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.ORDER_COMMENT, params);
-                params.put("username", comment.getUser().getFullName());
-                mailService.sendMailMessage(comment.getUser().getEmail(), MailService.ORDER_COMMENT, params);
-            } catch (MailException e) {
-                logger.error("", e);
+            } else {
+                params.put("username", comment.getAuthor().getFullName());
+                mailService.sendMailMessage(comment.getAuthor().getEmail(), MailService.ORDER_COMMENT, params);
             }
+        } catch (MailException e) {
+            logger.error("", e);
         }
     }
 
