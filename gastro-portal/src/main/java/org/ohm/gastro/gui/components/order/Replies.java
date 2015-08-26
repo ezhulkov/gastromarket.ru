@@ -2,6 +2,7 @@ package org.ohm.gastro.gui.components.order;
 
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
+import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CommentEntity;
@@ -20,6 +21,10 @@ public class Replies extends AbstractOrder {
 
     @Property
     private CommentEntity oneComment;
+
+    @Property
+    @Parameter
+    protected boolean reply;
 
     @Cached
     public java.util.List<CommentEntity> getComments() {

@@ -71,6 +71,6 @@
         </t:block>
     </div>
     <t:if test="replies">
-        <t:order.replies order="order"/>
+        <t:order.replies order="order" reply="replies"/>
     </t:if>
 </div>

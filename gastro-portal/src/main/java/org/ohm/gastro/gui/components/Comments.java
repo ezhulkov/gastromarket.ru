@@ -82,7 +82,7 @@ public class Comments extends BaseComponent {
     }
 
     public boolean isOrderUser() {
-        return order != null && order.getCustomer().equals(getAuthenticatedUserOpt().orElse(null));
+        return order != null && order.getCustomer().equals(getAuthenticatedUserOpt().orElse(null)) && order.getCatalog() == null;
     }
 
     public Link onActionFromAttachCook(Long cid) {
@@ -94,7 +94,7 @@ public class Comments extends BaseComponent {
     }
 
     public boolean isReplyAllowed() {
-        return isOrderUser() || comment.getAuthor().equals(getAuthenticatedUserOpt().orElse(null));
+        return order != null && order.getCustomer().equals(getAuthenticatedUserOpt().orElse(null)) || comment.getAuthor().equals(getAuthenticatedUserOpt().orElse(null));
     }
 
     public Block onSubmitFromReplyForm(Long oId, Long cId) {

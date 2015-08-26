@@ -155,6 +155,7 @@ public class OrderServiceImpl implements OrderService, Logging {
 
     @Override
     public OrderEntity attachTender(CatalogEntity catalog, OrderEntity order, UserEntity caller) {
+        if (order.getCatalog() != null) return order;
         order.setCatalog(catalog);
         order.setStatus(Status.CONFIRMED);
         saveOrder(order, caller);
