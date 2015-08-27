@@ -20,6 +20,8 @@
     <meta name="msapplication-TileColor" content="#ffffff"/>
     <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png"/>
     <meta name="theme-color" content="#ffffff"/>
+    <meta name="yandex-verification" content="50a717e1a78e228f" />
+    <meta name="google-site-verification" content="cK3sgyNYr3pWcjTHws6p3nP-mlcF0XGy0T0I4qtFWRw" />
 
     <meta name="mrc__share_description" content="ГастроМаркет - мы помогаем сделать лучший выбор в ассортименте выпечки, домашней еды и кейтеринга для Вашего праздника, предоставляя самую качественную базу независимых кулинаров и их продукции."/>
     <t:if test="socialImage">

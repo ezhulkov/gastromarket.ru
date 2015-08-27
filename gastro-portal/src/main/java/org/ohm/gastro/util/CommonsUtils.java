@@ -107,7 +107,7 @@ public class CommonsUtils {
     public static final ThreadLocal<DateFormat> SITEMAP_DATE = new ThreadLocal<DateFormat>() {
         @Override
         protected DateFormat initialValue() {
-            return new SimpleDateFormat("yyyy-dd-MM");
+            return new SimpleDateFormat("yyyy-MM-dd");
         }
     };
 
