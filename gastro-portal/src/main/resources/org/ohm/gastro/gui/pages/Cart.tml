@@ -1,4 +1,4 @@
-<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
     <div class="page">
         <div class="container">
@@ -19,4 +19,4 @@
         </t:parameter>
     </t:loginUserModal>
 
-</t:htmlLayout>
+</t:layout>

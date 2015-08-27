@@ -1,4 +1,4 @@
-<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" floatingHeader="literal:false">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" floatingHeader="literal:false">
 
     <div class="container office">
         <div class="title">
@@ -18,4 +18,4 @@
         <t:body/>
     </div>
 
-</t:htmllayout>
+</t:layout>

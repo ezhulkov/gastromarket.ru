@@ -1,4 +1,4 @@
-<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" keywords="keywords">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" keywords="keywords">
 
     <div class="container">
         <div class="title">
@@ -21,4 +21,4 @@
         </t:if>
     </div>
 
-</t:htmlLayout>
+</t:layout>

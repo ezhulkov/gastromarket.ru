@@ -14,7 +14,7 @@ import org.ohm.gastro.gui.pages.office.Import;
 /**
  * Created by ezhulkov on 23.08.14.
  */
-public class HtmlLayout extends BaseComponent {
+public class Layout extends BaseComponent {
 
     @Parameter(name = "title", required = false)
     private String title;

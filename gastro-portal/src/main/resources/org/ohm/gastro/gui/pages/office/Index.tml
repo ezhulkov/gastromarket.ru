@@ -1,4 +1,4 @@
-<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
     <div class="container office">
         <div class="title">
@@ -51,4 +51,4 @@
         </t:editObject>
     </div>
 
-</t:htmllayout>
+</t:layout>

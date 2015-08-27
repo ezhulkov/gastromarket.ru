@@ -1,4 +1,4 @@
-<t:htmllayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
     <div class="container-flex main-header">
         <div class="main-img-after main1"/>
@@ -119,4 +119,4 @@
         jQuery(initMainPage);
     </script>
 
-</t:htmllayout>
+</t:layout>

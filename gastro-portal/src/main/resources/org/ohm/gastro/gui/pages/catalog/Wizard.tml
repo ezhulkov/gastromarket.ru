@@ -1,4 +1,4 @@
-<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="${catalog.name}">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="${catalog.name}">
 
     <div class="container">
         <t:unless test="lastStep">
@@ -291,4 +291,4 @@
         initWizardPage();
     </script>
 
-</t:htmlLayout>
+</t:layout>

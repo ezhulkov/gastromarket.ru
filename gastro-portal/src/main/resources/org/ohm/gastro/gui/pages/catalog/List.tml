@@ -1,4 +1,4 @@
-<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
     <div class="container">
         <div class="title">
@@ -39,4 +39,4 @@
 
     <t:productmodaltemplate/>
 
-</t:htmlLayout>
+</t:layout>

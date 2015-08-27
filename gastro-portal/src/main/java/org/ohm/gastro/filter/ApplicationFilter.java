@@ -1,6 +1,7 @@
 package org.ohm.gastro.filter;
 
 import org.ohm.gastro.trait.Logging;
+import org.ohm.gastro.util.CommonsUtils;
 import org.perf4j.slf4j.Slf4JStopWatch;
 import org.slf4j.MDC;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,10 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 23.08.14.
@@ -51,14 +49,7 @@ public class ApplicationFilter extends BaseApplicationFilter {
 
         //Do filter
         if (Logging.logger.isTraceEnabled()) {
-            Enumeration e = httpServletRequest.getParameterNames();
-            if (e != null) {
-                while (e.hasMoreElements()) {
-                    Object key = e.nextElement();
-                    String[] values = httpServletRequest.getParameterValues((String) key);
-                    Logging.logger.trace("Parameter: " + key + " Value: " + Arrays.stream(values).collect(Collectors.joining(",")));
-                }
-            }
+            CommonsUtils.dumpHttpServletRequest(httpServletRequest);
         }
 
         //Do filter

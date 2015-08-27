@@ -1,10 +1,16 @@
 package org.ohm.gastro.util;
 
+import org.ohm.gastro.trait.Logging;
+
+import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 05.02.15.
@@ -147,6 +153,22 @@ public class CommonsUtils {
         } else {
             return text;
         }
+    }
+
+    public static void dumpHttpServletRequest(final HttpServletRequest request) {
+        Logging.logger.info("Method: {}", request.getMethod());
+        Logging.logger.info("Url: {}", request.getRequestURI());
+        Collections.list(request.getHeaderNames()).forEach(t -> Logging.logger.info("Header: {} Value: {}", t, request.getHeader(t)));
+        request.getParameterMap().entrySet().stream().forEach(t -> Logging.logger.info("Parameter: {} Value: {}", t.getKey(), Arrays.stream(t.getValue()).collect(Collectors.joining(","))));
+    }
+
+    public static boolean checkAjaxBotRequest(final HttpServletRequest request) {
+        if (request.getParameter("t:zoneid") == null || request.getParameter("t:submit") == null) {
+            Logging.logger.error("Bot detected");
+            CommonsUtils.dumpHttpServletRequest(request);
+            return true;
+        }
+        return false;
     }
 
 }

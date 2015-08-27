@@ -1,4 +1,4 @@
-<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="prop:title">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="prop:title">
 
     <div class="container">
         <div class="title">
@@ -38,4 +38,4 @@
         jQuery(initProductCatalog(jQuery("#productsZone")));
     </script>
 
-</t:htmlLayout>
+</t:layout>

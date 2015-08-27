@@ -1,4 +1,4 @@
-<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
     <div class="container">
         <div class="col-sm-2"/>
@@ -62,4 +62,4 @@
         <div class="col-sm-2"/>
     </div>
 
-</t:htmlLayout>
+</t:layout>
