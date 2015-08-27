@@ -132,6 +132,7 @@
   ga('send', 'pageview');
 
 </script>
+<script src='https://www.google.com/recaptcha/api.js?onload=initRecaptcha&amp;render=explicit&amp;hl=ru' defer="defer" async="async"></script>
 <!--/noindex-->
 </body>
 </html>

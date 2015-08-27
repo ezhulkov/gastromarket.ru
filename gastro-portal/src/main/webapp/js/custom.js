@@ -50,6 +50,16 @@ jQuery(document).ready(function () {
     initControls();
     initSmoothScroll();
 });
+function initRecaptcha() {
+    jQuery(".recaptcha").each(function (i, e) {
+        grecaptcha.render(jQuery(e).attr('id'), {
+            'sitekey': '6LcD6gsTAAAAAMXZn2eyEEDHLWnmjw_yZ_1X3J6R',
+            'callback': function () {
+                jQuery(e).closest('form').append("<input type='hidden' name='recaptcha_verified' value='true'/>");
+            }
+        });
+    });
+}
 function initSmoothScroll() {
     jQuery('a.smooth-scroll').click(function () {
         if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {

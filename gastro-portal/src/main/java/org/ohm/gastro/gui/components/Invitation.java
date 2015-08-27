@@ -32,7 +32,7 @@ public class Invitation extends BaseComponent {
     }
 
     public Object onSubmitFromApplicationForm() {
-        if (error) return applicationFormBlock;
+        if (error || getRequest().getParameter("recaptcha_verified") == null) return applicationFormBlock;
         getUserService().processApplicationRequest(eMail, fullName, about);
         return getPageLinkSource().createPageRenderLinkWithContext(AppResults.class, eMail);
     }

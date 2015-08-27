@@ -28,6 +28,7 @@ public class FooterLayout extends BaseComponent {
     private Block feedbackResultBlock;
 
     public Block onSubmitFromFeedbackForm() {
+        if (getRequest().getParameter("recaptcha_verified") == null) return feedbackResultBlock;
         getUserService().processFeedbackRequest(eMail, fullName, comment);
         return feedbackResultBlock;
     }
