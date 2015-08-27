@@ -1,4 +1,4 @@
-<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="${product.name}" keywords="keywords" socialImage="${product.avatarUrlSmall}">
+<t:htmlLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="${product.name}" keywords="keywords" socialImage="${product.avatarUrl}">
 
     <div class="container">
         <div class="title">
