@@ -25,7 +25,7 @@ import java.util.List;
 @Entity
 @Table(name = "offer")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class OfferEntity extends AltIdBaseEntity implements PurchaseEntity {
+public class OfferEntity extends SitemapBaseEntity implements PurchaseEntity {
 
     @Column
     private String description;
@@ -153,4 +153,10 @@ public class OfferEntity extends AltIdBaseEntity implements PurchaseEntity {
                 "id='" + getId() + '\'' +
                 '}';
     }
+
+    @Override
+    public String getLocationUrl() {
+        return "http://gastromarket.ru/catalog/offer/" + getAltId();
+    }
+
 }

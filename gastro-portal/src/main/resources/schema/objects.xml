@@ -811,4 +811,26 @@
         </createIndex>
     </changeSet>
 
+    <changeSet id="66" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="alt_id" type="text"/>
+            <column name="last_modified" type="java.sql.Types.TIMESTAMP"/>
+        </addColumn>
+        <addColumn tableName="offer">
+            <column name="last_modified" type="java.sql.Types.TIMESTAMP"/>
+        </addColumn>
+        <addColumn tableName="catalog">
+            <column name="last_modified" type="java.sql.Types.TIMESTAMP"/>
+        </addColumn>
+        <addColumn tableName="product">
+            <column name="last_modified" type="java.sql.Types.TIMESTAMP"/>
+        </addColumn>
+        <sql>
+            update catalog set last_modified=now();
+            update product set last_modified=now();
+            update orders set last_modified=now();
+            update offer set last_modified=now();
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

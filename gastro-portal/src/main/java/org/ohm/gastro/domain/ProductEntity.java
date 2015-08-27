@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 @Entity
 @Table(name = "product")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ProductEntity extends AltIdBaseEntity implements PurchaseEntity {
+public class ProductEntity extends SitemapBaseEntity implements PurchaseEntity {
 
     public enum Unit {
         PIECE, LITRE, GRAM
@@ -238,6 +238,11 @@ public class ProductEntity extends AltIdBaseEntity implements PurchaseEntity {
         String desc = (String) ObjectUtils.defaultIfNull(description, "");
         desc = desc.replaceAll("\\n", "<br/>");
         return desc;
+    }
+
+    @Override
+    public String getLocationUrl() {
+        return "http://gastromarket.ru/product/" + getAltId();
     }
 
 }

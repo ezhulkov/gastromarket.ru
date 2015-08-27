@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @Entity
 @Table(name = "catalog")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class CatalogEntity extends AltIdBaseEntity {
+public class CatalogEntity extends SitemapBaseEntity {
 
     public enum Type {
         PRIVATE, COMPANY
@@ -293,6 +293,11 @@ public class CatalogEntity extends AltIdBaseEntity {
                 ", level=" + level +
                 ", name='" + getName() + '\'' +
                 '}';
+    }
+
+    @Override
+    public String getLocationUrl() {
+        return "http://gastromarket.ru/catalog/" + getAltId();
     }
 
 }

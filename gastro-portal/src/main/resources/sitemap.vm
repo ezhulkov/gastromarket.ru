@@ -42,13 +42,37 @@
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
     </url>
-    #foreach($location in $locations)
-        <url>
-            <loc>http://gastromarket.ru/${location.path}</loc>
-            <lastmod>$location.lastMod</lastmod>
-            <changefreq>weekly</changefreq>
-            <priority>1.0</priority>
-        </url>
-    #end
+#foreach($location in $catalogs)
+    <url>
+        <loc>${location.locationUrl}</loc>
+        <lastmod>$location.lastModifiedPrintable</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+#end
+#foreach($location in $products)
+    <url>
+        <loc>${location.locationUrl}</loc>
+        <lastmod>$location.lastModifiedPrintable</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+#end
+#foreach($location in $tenders)
+    <url>
+        <loc>${location.locationUrl}</loc>
+        <lastmod>$location.lastModifiedPrintable</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+#end
+#foreach($location in $offers)
+    <url>
+        <loc>${location.locationUrl}</loc>
+        <lastmod>$location.lastModifiedPrintable</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+#end
 </urlset>
 

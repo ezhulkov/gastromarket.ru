@@ -4,6 +4,7 @@
     with_items:
       - "/var/log/gastro"
       - "/var/lib/gastro/media"
+      - "/var/lib/gastro/sitemap"
 
   - name: cleanup tomcat7 work files
     shell: rm -fr /var/lib/tomcat7/work/*

@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -64,6 +65,7 @@ public class CatalogServiceImpl implements CatalogService, Logging {
 
     @Override
     public void saveCatalog(CatalogEntity catalog) {
+        catalog.setLastModified(new Date());
         saveWithAltId(catalog, catalogRepository);
         final UserEntity user = catalog.getUser();
         mailService.syncChimpList(user, ImmutableMap.of(

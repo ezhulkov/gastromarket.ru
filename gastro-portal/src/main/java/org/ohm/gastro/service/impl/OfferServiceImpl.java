@@ -9,6 +9,7 @@ import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,6 +49,7 @@ public class OfferServiceImpl implements OfferService, Logging {
 
     @Override
     public OfferEntity saveOffer(final OfferEntity offer) {
+        offer.setLastModified(new Date());
         return saveWithAltId(offer, offerRepository);
     }
 

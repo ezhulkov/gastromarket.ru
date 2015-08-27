@@ -28,6 +28,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -190,6 +191,7 @@ public class OrderServiceImpl implements OrderService, Logging {
     @Override
     public OrderEntity saveTender(final OrderEntity tender, final UserEntity caller) {
         if (tender == null || !tender.isAllowed(caller)) return tender;
+        tender.setLastModified(new Date());
         return orderRepository.save(tender);
     }
 

@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "orders")
-public class OrderEntity extends AbstractBaseEntity {
+public class OrderEntity extends SitemapBaseEntity {
 
     public enum Status {
         CANCELLED(
@@ -98,9 +98,6 @@ public class OrderEntity extends AbstractBaseEntity {
     private String orderNumber;
 
     @Column
-    private String name;
-
-    @Column
     private String comment;
 
     @Column(name = "promo_code")
@@ -136,14 +133,6 @@ public class OrderEntity extends AbstractBaseEntity {
 
     public void setCatalog(final CatalogEntity catalog) {
         this.catalog = catalog;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
     }
 
     public String getComment() {
@@ -290,6 +279,11 @@ public class OrderEntity extends AbstractBaseEntity {
         return getCatalog() == null ?
                 String.format("http://gastromarket.ru/tender/%s", getId()) :
                 String.format("http://gastromarket.ru/office/order/true/%s", getId());
+    }
+
+    @Override
+    public String getLocationUrl() {
+        return "http://gastromarket.ru/tender/" + getId();
     }
 
 }

@@ -45,6 +45,7 @@ import javax.annotation.Nonnull;
 import java.io.File;
 import java.net.URL;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -117,6 +118,7 @@ public class ProductServiceImpl implements ProductService, Logging {
             product.setDescription(description);
         }
         product.setWasSetup(true);
+        product.setLastModified(new Date());
         return saveWithAltId(product, productRepository);
     }
 
