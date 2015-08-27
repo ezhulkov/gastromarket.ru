@@ -8,6 +8,7 @@ import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -61,7 +62,11 @@ public class Index extends BaseComponent {
     }
 
     public String getKeywords() {
-        return getMessages().format("page.keywords.product", product.getName(), getProductTags().stream().map(t -> t.getValue().getName()).collect(Collectors.joining(", ")));
+        return getMessages().format("page.keywords.product",
+                                    product.getName(),
+                                    getProductTags().stream().map(TagEntity::getData)
+                                            .filter(Objects::nonNull)
+                                            .collect(Collectors.joining(", ")));
     }
 
 }

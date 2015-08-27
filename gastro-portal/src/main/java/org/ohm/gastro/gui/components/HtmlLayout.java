@@ -48,7 +48,7 @@ public class HtmlLayout extends BaseComponent {
     }
 
     public String getSocialImage() {
-        return (String) ObjectUtils.defaultIfNull(socialImage, getMessages().get("http://gastromarket.ru/img/logotype1-small.png"));
+        return (String) ObjectUtils.defaultIfNull("http://gastromarket.ru" + socialImage, "http://gastromarket.ru/img/logotype1-small.png");
     }
 
     public String getKeywords() {

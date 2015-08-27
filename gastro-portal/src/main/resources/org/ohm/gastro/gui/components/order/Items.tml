@@ -3,7 +3,7 @@
         <t:loop source="items" index="index" value="item" formState="NONE">
             <div class="col-sm-12 order-item ${rowClass}">
                 <t:if test="canEdit">
-                    <t:actionlink rel="nofollow" t:id="deleteItem" class="delete" t:zone="${orderShowCatalogZoneId}" t:context="deleteContext">удалить</t:actionLink>
+                    <t:actionlink rel="nofollow" t:id="deleteItem" class="delete" t:zone="${orderShowCatalogZoneId}" t:context="deleteContext">удалить</t:actionlink>
                 </t:if>
                 <div class="price">
                     <t:if test="item.modifier">
