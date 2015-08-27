@@ -13,7 +13,7 @@ public interface ImageService {
 
     enum ImageSize {SIZE1, SIZE2, SIZE3}
 
-    enum FileType {AVATAR, PRODUCT, CATALOG}
+    enum FileType {AVATAR, PRODUCT, CATALOG, ORDER, COMMENT}
 
     Map<ImageSize, String> resizeImagePack(@Nonnull File file, @Nonnull FileType fileType, @Nullable String objectId) throws IOException;
 

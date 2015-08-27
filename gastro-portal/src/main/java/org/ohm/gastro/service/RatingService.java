@@ -5,6 +5,7 @@ import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.LogEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
+import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.UserEntity;
 
 import java.util.Date;
@@ -13,7 +14,7 @@ import java.util.List;
 /**
  * Created by ezhulkov on 13.03.15.
  */
-public interface RatingService {
+public interface RatingService extends ImageUploaderService<CommentEntity> {
 
     void registerEvent(LogEntity.Type type, UserEntity user);
 
@@ -42,5 +43,7 @@ public interface RatingService {
     void placeReply(OrderEntity order, UserEntity author, String replyText);
 
     void placeReply(CommentEntity comment, UserEntity author, String replyText);
+
+    List<PhotoEntity> findAllPhotos(CommentEntity comment);
 
 }

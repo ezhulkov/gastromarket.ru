@@ -788,4 +788,27 @@
         <modifyDataType tableName="product" columnName="position" newDataType="text"/>
     </changeSet>
 
+    <changeSet id="65" author="ezhulkov">
+        <createTable tableName="photo">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="type" type="text"/>
+            <column name="url" type="text"/>
+            <column name="url_small" type="text"/>
+            <column name="order_id" type="java.sql.Types.BIGINT"/>
+            <column name="comment_id" type="java.sql.Types.BIGINT"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="photo" baseColumnNames="order_id"
+                constraintName="photo_order_fk" referencedTableName="orders" referencedColumnNames="id" onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="photo" baseColumnNames="comment_id"
+                constraintName="photo_comment_fk" referencedTableName="comment" referencedColumnNames="id" onDelete="CASCADE"/>
+        <createIndex tableName="photo" indexName="photo_order_idx">
+            <column name="order_id"/>
+        </createIndex>
+        <createIndex tableName="photo" indexName="photo_comment_idx">
+            <column name="comment_id"/>
+        </createIndex>
+    </changeSet>
+
 </databaseChangeLog>

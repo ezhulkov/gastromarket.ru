@@ -49,6 +49,14 @@ public class ImageServiceImpl implements ImageService {
                     .put(ImageSize.SIZE2, new Integer[]{100, 100})
                     .put(ImageSize.SIZE3, new Integer[]{270, 270})
                     .build())
+            .put(FileType.ORDER, new ImmutableMap.Builder<ImageSize, Integer[]>()
+                    .put(ImageSize.SIZE2, new Integer[]{100, 100})
+                    .put(ImageSize.SIZE3, new Integer[]{270, 270})
+                    .build())
+            .put(FileType.COMMENT, new ImmutableMap.Builder<ImageSize, Integer[]>()
+                    .put(ImageSize.SIZE2, new Integer[]{100, 100})
+                    .put(ImageSize.SIZE3, new Integer[]{270, 270})
+                    .build())
             .build();
 
     private final String imageDestinationPath;

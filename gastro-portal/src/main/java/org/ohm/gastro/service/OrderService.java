@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by ezhulkov on 21.08.14.
  */
-public interface OrderService {
+public interface OrderService extends ImageUploaderService<OrderEntity> {
 
     OrderEntity placeOrder(OrderEntity preOrder);
 

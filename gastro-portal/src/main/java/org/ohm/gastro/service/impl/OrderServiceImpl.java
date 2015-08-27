@@ -1,15 +1,21 @@
 package org.ohm.gastro.service.impl;
 
+import com.google.common.base.Objects;
 import org.apache.commons.lang.ObjectUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.OrderProductEntity;
+import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.reps.CatalogRepository;
+import org.ohm.gastro.reps.ImageRepository;
 import org.ohm.gastro.reps.OrderProductRepository;
 import org.ohm.gastro.reps.OrderRepository;
+import org.ohm.gastro.service.ImageService.FileType;
+import org.ohm.gastro.service.ImageService.ImageSize;
+import org.ohm.gastro.service.ImageUploader;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.OrderService;
 import org.ohm.gastro.service.RatingModifier;
@@ -27,16 +33,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
 
+import static org.scribe.utils.Preconditions.checkNotNull;
+
 /**
  * Created by ezhulkov on 12.10.14.
  */
 @Component("orderService")
 @Transactional
+@ImageUploader(FileType.ORDER)
 public class OrderServiceImpl implements OrderService, Logging {
 
     private final OrderRepository orderRepository;
     private final OrderProductRepository orderProductRepository;
     private final CatalogRepository catalogRepository;
+    private final ImageRepository photoRepository;
     private final MailService mailService;
     private final RatingService ratingService;
 
@@ -44,11 +54,13 @@ public class OrderServiceImpl implements OrderService, Logging {
     public OrderServiceImpl(final OrderRepository orderRepository,
                             final OrderProductRepository orderProductRepository,
                             final CatalogRepository catalogRepository,
+                            final ImageRepository photoRepository,
                             final MailService mailService,
                             final RatingService ratingService) {
         this.orderRepository = orderRepository;
         this.orderProductRepository = orderProductRepository;
         this.catalogRepository = catalogRepository;
+        this.photoRepository = photoRepository;
         this.mailService = mailService;
         this.ratingService = ratingService;
     }
@@ -234,6 +246,23 @@ public class OrderServiceImpl implements OrderService, Logging {
     @Override
     public List<OrderProductEntity> findAllItems(final OrderEntity order) {
         return orderProductRepository.findAllByOrder(order);
+    }
+
+    @Override
+    public OrderEntity processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
+
+        checkNotNull(objectId, "ObjectId should not be null");
+        final OrderEntity order = orderRepository.findOne(Long.parseLong(objectId));
+        checkNotNull(order, "Order should not be null");
+
+        final PhotoEntity photo = new PhotoEntity();
+        photo.setType(PhotoEntity.Type.ORDER);
+        photo.setOrder(order);
+        photo.setUrlSmall(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE1), photo.getUrlSmall()));
+        photo.setUrl(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE1), photo.getUrl()));
+        photoRepository.save(photo);
+
+        return order;
     }
 
 }

@@ -61,6 +61,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <a href="#" class="dotted-link">загрузить фото</a>
+                            <!--<t:uploadfile type="COMMENT" inputType="link"/>-->
+                            &nbsp;&nbsp;
                         </t:if>
                         <t:if test="orderUser">
                             <a href="#choose_cook" data-toggle="modal" class="dotted-link" data-target="#choose_cook_${comment.id}">выбрать исполнителя</a>

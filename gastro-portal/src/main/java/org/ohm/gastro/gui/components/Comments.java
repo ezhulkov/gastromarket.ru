@@ -8,6 +8,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.OrderEntity;
+import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.office.Order;
@@ -42,6 +43,9 @@ public class Comments extends BaseComponent {
 
     @Property
     private CommentEntity childComment;
+
+    @Property
+    private PhotoEntity photo;
 
     @Property
     private String replyText;
@@ -102,6 +106,11 @@ public class Comments extends BaseComponent {
         order = getOrderService().findOrder(oId);
         getRatingService().placeReply(comment, getAuthenticatedUser(), replyText);
         return replyBlock;
+    }
+
+    @Cached(watch = "comment")
+    public List<PhotoEntity> getPhotos() {
+        return getRatingService().findAllPhotos(comment);
     }
 
 }

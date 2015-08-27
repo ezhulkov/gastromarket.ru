@@ -1,5 +1,6 @@
 package org.ohm.gastro.service.impl;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableRangeSet;
 import com.google.common.collect.ImmutableRangeSet.Builder;
 import com.google.common.collect.Range;
@@ -13,12 +14,17 @@ import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.LogEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
+import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.CommentRepository;
+import org.ohm.gastro.reps.ImageRepository;
 import org.ohm.gastro.reps.LogRepository;
 import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.reps.ProductRepository;
+import org.ohm.gastro.service.ImageService.FileType;
+import org.ohm.gastro.service.ImageService.ImageSize;
+import org.ohm.gastro.service.ImageUploader;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingService;
@@ -37,17 +43,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static org.scribe.utils.Preconditions.checkNotNull;
+
 /**
  * Created by ezhulkov on 29.04.15.
  */
 @Component("ratingService")
 @Transactional
+@ImageUploader(FileType.COMMENT)
 public class RatingServiceImpl implements RatingService, Logging {
 
     private final LogRepository logRepository;
     private final OrderRepository orderRepository;
     private final CommentRepository commentRepository;
     private final CatalogRepository catalogRepository;
+    private final ImageRepository photoRepository;
     private final ProductRepository productRepository;
     private final MailService mailService;
 
@@ -65,29 +75,31 @@ public class RatingServiceImpl implements RatingService, Logging {
     private final RangeSet<Integer> productBadgeSet;
 
     @Autowired
-    public RatingServiceImpl(LogRepository logRepository,
-                             OrderRepository orderRepository,
-                             CommentRepository commentRepository,
-                             CatalogRepository catalogRepository,
-                             ProductRepository productRepository,
-                             MailService mailService,
-                             @Value("${rating.series}") String ratingSeries,
-                             @Value("${rank.badge.series}") String badgeRankSeries,
-                             @Value("${product.badge.series}") String badgeProductSeries,
-                             @Value("${order.badge.series}") String badgeOrderSeries,
-                             @Value("${rating.history.days}") int historyDays,
-                             @Value("${rating.retention.coeff}") float retentionCoeff,
-                             @Value("${rating.pos.rating.coeff}") float posRatingCoeff,
-                             @Value("${rating.neg.rating.coeff}") float negRatingCoeff,
-                             @Value("${rating.transaction.coeff}") float transactionCoeff,
-                             @Value("${rating.production.coeff}") float productionCoeff,
-                             @Value("${rating.products.coeff}") float productsCoeff) {
+    public RatingServiceImpl(final LogRepository logRepository,
+                             final OrderRepository orderRepository,
+                             final CommentRepository commentRepository,
+                             final CatalogRepository catalogRepository,
+                             final ProductRepository productRepository,
+                             final ImageRepository photoRepository,
+                             final MailService mailService,
+                             final @Value("${rating.series}") String ratingSeries,
+                             final @Value("${rank.badge.series}") String badgeRankSeries,
+                             final @Value("${product.badge.series}") String badgeProductSeries,
+                             final @Value("${order.badge.series}") String badgeOrderSeries,
+                             final @Value("${rating.history.days}") int historyDays,
+                             final @Value("${rating.retention.coeff}") float retentionCoeff,
+                             final @Value("${rating.pos.rating.coeff}") float posRatingCoeff,
+                             final @Value("${rating.neg.rating.coeff}") float negRatingCoeff,
+                             final @Value("${rating.transaction.coeff}") float transactionCoeff,
+                             final @Value("${rating.production.coeff}") float productionCoeff,
+                             final @Value("${rating.products.coeff}") float productsCoeff) {
         this.logRepository = logRepository;
         this.orderRepository = orderRepository;
         this.commentRepository = commentRepository;
         this.catalogRepository = catalogRepository;
         this.productRepository = productRepository;
         this.mailService = mailService;
+        this.photoRepository = photoRepository;
         this.historyDays = historyDays;
         this.retentionCoeff = retentionCoeff;
         this.posRatingCoeff = posRatingCoeff;
@@ -278,6 +290,11 @@ public class RatingServiceImpl implements RatingService, Logging {
     }
 
     @Override
+    public List<PhotoEntity> findAllPhotos(CommentEntity comment) {
+        return photoRepository.findAllByComment(comment);
+    }
+
+    @Override
     public CommentEntity findComment(final Long cId) {
         return commentRepository.findOne(cId);
     }
@@ -302,6 +319,23 @@ public class RatingServiceImpl implements RatingService, Logging {
         }
         if (!top) builder.add(Range.closed(prevRange, Integer.MAX_VALUE));
         return builder.build();
+    }
+
+    @Override
+    public CommentEntity processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
+
+        checkNotNull(objectId, "ObjectId should not be null");
+        final CommentEntity comment = commentRepository.findOne(Long.parseLong(objectId));
+        checkNotNull(comment, "Comment should not be null");
+
+        final PhotoEntity photo = new PhotoEntity();
+        photo.setType(PhotoEntity.Type.COMMENT);
+        photo.setComment(comment);
+        photo.setUrlSmall(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE1), photo.getUrlSmall()));
+        photo.setUrl(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE1), photo.getUrl()));
+        photoRepository.save(photo);
+
+        return comment;
     }
 
 }

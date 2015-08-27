@@ -368,8 +368,10 @@ function initFineUploader(el) {
                 itemLimit: 1
             }
         }).on("complete", function (id, name, responseJSON, xhr) {
-            var d = new Date();
-            jQuery(e).find("img").attr("src", xhr[respSize] + "?" + d.getTime());
+            if (respSize != undefined && respSize.length > 0) {
+                var d = new Date();
+                jQuery(e).find("img").attr("src", xhr[respSize] + "?" + d.getTime());
+            }
         });
     })
 }

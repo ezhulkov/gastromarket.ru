@@ -21,11 +21,11 @@ public class UploadFile extends BaseComponent {
     private FileType type;
 
     @Property
-    @Parameter(required = true, allowNull = false, defaultPrefix = BindingConstants.LITERAL)
+    @Parameter(allowNull = false, defaultPrefix = BindingConstants.LITERAL)
     private ImageSize responseSize;
 
     @Property
-    @Parameter(required = true, allowNull = false, defaultPrefix = BindingConstants.LITERAL)
+    @Parameter(allowNull = false, defaultPrefix = BindingConstants.LITERAL)
     private String imageUrl;
 
     @Property
@@ -33,7 +33,11 @@ public class UploadFile extends BaseComponent {
     private String additionalClass;
 
     @Property
-    @Parameter(name = "hide", defaultPrefix = BindingConstants.LITERAL, value = "false")
-    private boolean hide;
+    @Parameter(name = "inputType", defaultPrefix = BindingConstants.LITERAL, value = "button")
+    private String inputType;
+
+    public boolean isButton() {
+        return "button".equals(inputType);
+    }
 
 }
