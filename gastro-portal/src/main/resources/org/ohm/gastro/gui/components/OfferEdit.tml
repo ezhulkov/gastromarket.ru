@@ -91,7 +91,7 @@
                                                     <img src="${product.avatarUrlSmall}" class="popover-holder" data-content="${product.name}"/>
                                                 </t:pagelink>
                                                 <div class="delete">
-                                                    <t:actionlink t:id="deleteProduct" t:context="[product.id,offer.id]" t:zone="${offerEditZone}"/>
+                                                    <t:actionlink rel="nofollow" t:id="deleteProduct" t:context="[product.id,offer.id]" t:zone="${offerEditZone}"/>
                                                 </div>
                                             </li>
                                         </t:loop>

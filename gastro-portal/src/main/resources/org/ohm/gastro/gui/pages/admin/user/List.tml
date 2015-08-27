@@ -31,7 +31,7 @@
             </t:pagelink>
         </t:parameter>
         <t:parameter name="toggleCell">
-            <t:actionlink t:id="toggleState" context="oneUser.id">
+            <t:actionlink rel="nofollow" t:id="toggleState" context="oneUser.id">
                 <t:if test="oneUser.enabled">
                     <span class="glyphicon glyphicon-minus-sign tip" title="Заблокировать"/>
                     <t:parameter name="else">

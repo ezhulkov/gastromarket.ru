@@ -1,2 +1,12 @@
 User-agent: *
-Disallow: /
+Disallow:/login
+Disallow:/admin
+Disallow:/office
+Disallow:/user
+Disallow:/social
+Disallow:/*list
+Disallow:/*ajax
+Disallow: *jsessionid=*
+Clean-param: jsessionid /*
+Host: http://gastromarket.ru
+Sitemap: http://gastromarket.ru/sitemap.xml

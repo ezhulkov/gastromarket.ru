@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
 <head>
-    <title>ГастроМаркет - всё готово!</title>
+    <title>${title}</title>
 
     <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png"/>
     <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png"/>
@@ -21,10 +21,20 @@
     <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png"/>
     <meta name="theme-color" content="#ffffff"/>
 
+    <meta name="mrc__share_description" content="ГастроМаркет - мы помогаем сделать лучший выбор в ассортименте выпечки, домашней еды и кейтеринга для Вашего праздника, предоставляя самую качественную базу независимых кулинаров и их продукции."/>
+    <t:if test="socialImage">
+       <link rel="image_src" href="${socialImage}"/>
+       <meta property="og:image" content="${socialImage}"/>
+    </t:if>
+    <meta property="og:app_id" content="325659080959378"/>
+    <meta property="og:title" content="${title}"/>
+    <meta property="og:site_name" content="ГастроМаркет"/>
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=1200"/>
-    <meta name="description" content="Заказывайте вкусную еду у первоклассных кулинаров"/>
+    <meta name="keywords" content="торт на заказ, кейтеринг"/>
+    <meta name="description" content="ГастроМаркет - мы помогаем сделать лучший выбор в ассортименте выпечки, домашней еды и кейтеринга для Вашего праздника, предоставляя самую качественную базу независимых кулинаров и их продукции."/>
     <meta name="author" content="gastromarket.ru"/>
     <meta name="rating" content="General" />
     <meta name="robots" content="all" />
@@ -67,11 +77,14 @@
 
 </head>
 <body>
+<!--noindex-->
 <div id="fb-root"></div>
 <t:headerlayout header="header"/>
+<!--/noindex-->
 <div class="page">
-<t:body/>
+    <t:body/>
 </div>
+<!--noindex-->
 <t:invitation/>
 <t:if test="newCatalog">
     <div class="modal fade" id="setup" tabindex="-1" role="dialog" aria-hidden="true">
@@ -117,5 +130,6 @@
   ga('send', 'pageview');
 
 </script>
+<!--/noindex-->
 </body>
 </html>

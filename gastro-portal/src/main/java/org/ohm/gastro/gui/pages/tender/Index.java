@@ -35,4 +35,8 @@ public class Index extends BaseComponent {
         return newOrder ? new Object[]{order.getId(), newOrder} : new Object[]{order.getId()};
     }
 
+    public String getKeywords() {
+        return getMessages().format("page.keywords.tender", order.getName());
+    }
+
 }

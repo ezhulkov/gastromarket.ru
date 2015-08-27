@@ -18,7 +18,6 @@ public class Offer extends AbstractOfferPage {
     private Block offerBlock;
 
 
-
     public void onActivate(String oid) {
         this.offer = getOfferService().findOffer(oid);
     }
@@ -35,6 +34,10 @@ public class Offer extends AbstractOfferPage {
     @Cached
     public java.util.List<OfferEntity> getOffers() {
         return getOfferService().findAllOffers(offer.getCatalog()).stream().filter(t -> !t.equals(offer)).collect(Collectors.toList());
+    }
+
+    public String getKeywords() {
+        return getMessages().format("page.keywords.offer", offer.getName());
     }
 
 }

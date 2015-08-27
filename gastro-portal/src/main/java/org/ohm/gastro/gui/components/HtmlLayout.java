@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.components;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
@@ -15,9 +16,14 @@ import org.ohm.gastro.gui.pages.office.Import;
  */
 public class HtmlLayout extends BaseComponent {
 
-    @Property
-    @Parameter(name = "title", required = false, value = "page.title", defaultPrefix = BindingConstants.MESSAGE)
+    @Parameter(name = "title", required = false)
     private String title;
+
+    @Parameter(name = "keywords", required = false)
+    private String keywords;
+
+    @Parameter(name = "socialImage", required = false)
+    private String socialImage;
 
     @Property
     @Parameter(name = "header", required = false, value = "true", defaultPrefix = BindingConstants.PROP)
@@ -35,6 +41,18 @@ public class HtmlLayout extends BaseComponent {
         return getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream()
                 .filter(t -> !t.isWasSetup())
                 .findAny().orElse(null);
+    }
+
+    public String getTitle() {
+        return (String) ObjectUtils.defaultIfNull(title, getMessages().get("page.title"));
+    }
+
+    public String getSocialImage() {
+        return (String) ObjectUtils.defaultIfNull(socialImage, getMessages().get("http://gastromarket.ru/img/logotype1-small.png"));
+    }
+
+    public String getKeywords() {
+        return (String) ObjectUtils.defaultIfNull(keywords, getMessages().get("page.keywords"));
     }
 
 }

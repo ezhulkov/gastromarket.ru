@@ -47,7 +47,7 @@
                 <t:pagelink page="admin/property/value" context="['UPDATE',onePropertyValue.id]">${onePropertyValue.name}</t:pagelink>
             </t:parameter>
             <t:parameter name="delCell">
-                <t:actionlink t:id="delete2" context="onePropertyValue.id" class="glyphicon glyphicon-remove"/>
+                <t:actionlink rel="nofollow" t:id="delete2" context="onePropertyValue.id" class="glyphicon glyphicon-remove"/>
             </t:parameter>
             <t:parameter name="empty">
                 <div class="empty">Нет данных</div>
@@ -72,7 +72,7 @@
                 ${children}
             </t:parameter>
             <t:parameter name="delCell">
-                <t:actionlink t:id="delete" context="onePropertyValue.id" class="glyphicon glyphicon-remove"/>
+                <t:actionlink rel="nofollow" t:id="delete" context="onePropertyValue.id" class="glyphicon glyphicon-remove"/>
             </t:parameter>
             <t:parameter name="empty">
                 <div class="empty">Нет данных</div>

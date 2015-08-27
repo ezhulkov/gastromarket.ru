@@ -15,7 +15,7 @@
             <t:pagelink page="admin/property/index" context="['UPDATE',oneProperty.id]">${oneProperty.name}</t:pagelink>
         </t:parameter>
         <t:parameter name="delCell">
-            <t:actionlink t:id="delete" context="oneProperty.id" class="glyphicon glyphicon-remove"/>
+            <t:actionlink rel="nofollow" t:id="delete" context="oneProperty.id" class="glyphicon glyphicon-remove"/>
         </t:parameter>
         <t:parameter name="empty">
             <div class="empty">Нет данных</div>

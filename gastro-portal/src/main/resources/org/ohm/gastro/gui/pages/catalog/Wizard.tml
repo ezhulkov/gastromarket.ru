@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-sm-2"/>
                 <div class="col-sm-4 center">
-                    <t:actionlink t:id="privateCook" class="red-text f20px" t:zone="step1Zone">
+                    <t:actionlink rel="nofollow" t:id="privateCook" class="red-text f20px" t:zone="step1Zone">
                         <img src="/img/private-cook.jpg" class="img-circle"/>
                         <br/>
                         <br/>
@@ -31,7 +31,7 @@
                     </t:actionlink>
                 </div>
                 <div class="col-sm-4 center">
-                    <t:actionlink t:id="companyCook" class="red-text f20px" t:zone="step1Zone">
+                    <t:actionlink rel="nofollow" t:id="companyCook" class="red-text f20px" t:zone="step1Zone">
                         <img src="/img/company-cook.jpg" class="img-circle"/>
                         <br/>
                         <br/>
@@ -179,7 +179,7 @@
                 <div class="form-group">
                     <div class="col-sm-1"/>
                     <div class="col-sm-10">
-                        <t:actionlink t:id="goPrev" class="btn btn-red pull-left">&lt; Назад</t:actionlink>
+                        <t:actionlink rel="nofollow" t:id="goPrev" class="btn btn-red pull-left">&lt; Назад</t:actionlink>
                         <input class="btn btn-red pull-right" type="submit" value="Далее &gt;"/>
                     </div>
                     <div class="col-sm-1"/>
@@ -208,8 +208,8 @@
                 <div class="form-group">
                     <div class="col-sm-1"/>
                     <div class="col-sm-10">
-                        <t:actionlink t:id="goPrev2" class="btn btn-red pull-left">&lt; Назад</t:actionlink>
-                        <t:actionlink t:id="goNext" class="btn btn-red pull-right">Завершить настройку &gt;</t:actionlink>
+                        <t:actionlink rel="nofollow" t:id="goPrev2" class="btn btn-red pull-left">&lt; Назад</t:actionlink>
+                        <t:actionlink rel="nofollow" t:id="goNext" class="btn btn-red pull-right">Завершить настройку &gt;</t:actionlink>
                     </div>
                     <div class="col-sm-1"/>
                 </div>

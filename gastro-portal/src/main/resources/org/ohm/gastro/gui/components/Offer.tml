@@ -42,7 +42,7 @@
                                 </t:pagelink>
                                 <t:if test="editMode">
                                     <div class="delete">
-                                        <t:actionlink t:id="deleteProduct" t:context="[product.id,offer.id]" t:zone="${offerZoneId}"/>
+                                        <t:actionlink rel="nofollow" t:id="deleteProduct" t:context="[product.id,offer.id]" t:zone="${offerZoneId}"/>
                                     </div>
                                 </t:if>
                             </li>
@@ -51,7 +51,7 @@
                 </t:if>
                 <t:if test="editMode">
                     <div class="edit">
-                        <t:actionlink t:id="edit" t:context="offer.id" t:zone="${editZoneId}">Редактировать</t:actionlink>
+                        <t:actionlink rel="nofollow" t:id="edit" t:context="offer.id" t:zone="${editZoneId}">Редактировать</t:actionlink>
                         <t:unless test="mainPage">
                             <a href="#delete" data-toggle="modal" class="delete" data-target="#deleteOffer${offer.id}">Удалить</a>
                         </t:unless>
@@ -68,7 +68,7 @@
                                 <div class="modal-body" style="text-align: center;">
                                     <br/>
                                     <t:unless test="mainPage">
-                                        <t:actionlink t:id="delete" t:zone="offersZone" t:context="offer.id" class="btn btn-red deleteConfirm" style="display: inline;">Удалить</t:actionlink>
+                                        <t:actionlink rel="nofollow" t:id="delete" t:zone="offersZone" t:context="offer.id" class="btn btn-red deleteConfirm" style="display: inline;">Удалить</t:actionlink>
                                     </t:unless>
                                     <a href="#" class="btn btn-white" style="display: inline;" data-dismiss="modal">Отмена</a>
                                     <br/>

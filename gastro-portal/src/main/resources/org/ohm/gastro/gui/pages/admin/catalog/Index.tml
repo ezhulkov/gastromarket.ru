@@ -50,7 +50,7 @@
             </t:if>
         </t:parameter>
         <t:parameter name="promoteCell">
-            <t:actionlink t:id="promoteProduct" context="oneProduct.id">
+            <t:actionlink rel="nofollow" t:id="promoteProduct" context="oneProduct.id">
                 <t:if test="oneProduct.promoted">
                     Убрать с главной
                     <t:parameter name="else">

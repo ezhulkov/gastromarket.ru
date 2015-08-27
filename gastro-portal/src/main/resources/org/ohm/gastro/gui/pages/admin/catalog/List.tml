@@ -26,7 +26,7 @@
             ${oneCatalog.products.size()}
         </t:parameter>
         <t:parameter name="delCell">
-            <t:actionlink t:id="delete" context="oneCatalog.id" class="glyphicon glyphicon-remove"/>
+            <t:actionlink rel="nofollow" t:id="delete" context="oneCatalog.id" class="glyphicon glyphicon-remove"/>
         </t:parameter>
         <t:parameter name="empty">
             <div class="empty">Нет данных</div>

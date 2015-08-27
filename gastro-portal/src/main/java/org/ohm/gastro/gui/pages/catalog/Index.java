@@ -123,4 +123,9 @@ public class Index extends AbstractCatalogPage {
         getProductService().productPosition(Arrays.stream(reorder.split(",")).map(Long::parseLong).collect(Collectors.toList()), "main");
         return productsBlock;
     }
+
+    public String getKeywords() {
+        return getMessages().format("page.keywords.catalog", catalog.getName());
+    }
+
 }

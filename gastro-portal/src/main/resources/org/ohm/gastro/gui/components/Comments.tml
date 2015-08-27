@@ -83,7 +83,7 @@
                                             </p>
 
                                             <div class="form-buttons">
-                                                <t:actionlink t:id="attachCook" t:context="comment.author.id" class="btn btn-red">Выбрать</t:actionlink>
+                                                <t:actionlink rel="nofollow" t:id="attachCook" t:context="comment.author.id" class="btn btn-red">Выбрать</t:actionlink>
                                             </div>
                                         </div>
                                     </div>

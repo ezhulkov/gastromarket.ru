@@ -20,7 +20,7 @@
                 <div class="edit-block upload-file" data-objectid="${product.id}" data-type="PRODUCT" data-size="SIZE2">
                     <span class="glyphicon glyphicon-move handle" aria-hidden="true"></span>
                     <a class="uploader-button"/>
-                    <t:actionlink t:id="edit" t:context="product.id" t:zone="${editZoneId}" class="edit"/>
+                    <t:actionlink rel="nofollow" t:id="edit" t:context="product.id" t:zone="${editZoneId}" class="edit"/>
                     <a href="#delete" data-toggle="modal" class="delete" data-target="#deleteProduct${product.id}"/>
                 </div>
                 <div class="modal fade delete-product" id="deleteProduct${product.id}" tabindex="-1" role="dialog" aria-hidden="true">
@@ -33,7 +33,7 @@
                                 <a class="modal-close" data-dismiss="modal"></a>
                             </div>
                             <div class="modal-body form-buttons" style="text-align: center;">
-                                <t:actionlink t:id="delete" t:context="product.id" class="btn btn-red deleteConfirm" style="display: inline;">Удалить</t:actionlink>
+                                <t:actionlink rel="nofollow" t:id="delete" t:context="product.id" class="btn btn-red deleteConfirm" style="display: inline;">Удалить</t:actionlink>
                                 <a href="#" class="btn btn-white" style="display: inline;" data-dismiss="modal">Отмена</a>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
             </div>
         </div>
         <div class="modal-data hidden">
-            <t:actionlink class="recommended-link" t:id="recommended" t:context="[product.id,5]" t:zone="recommendedProductsZone"/>
+            <t:actionlink rel="nofollow" class="recommended-link" t:id="recommended" t:context="[product.id,5]" t:zone="recommendedProductsZone"/>
             <div class="pname"><a href="/product/${product.altId}">${product.name}</a></div>
             <div class="image">${product.avatarUrl}</div>
             <div class="price-modifier">

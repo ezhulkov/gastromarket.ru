@@ -60,4 +60,8 @@ public class Index extends BaseComponent {
         return getProductService().findAllModifiers(product);
     }
 
+    public String getKeywords() {
+        return getMessages().format("page.keywords.product", product.getName(), getProductTags().stream().map(t -> t.getValue().getName()).collect(Collectors.joining(", ")));
+    }
+
 }

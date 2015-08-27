@@ -20,7 +20,7 @@
                     <t:block t:id="clientEditBlock">
                         <t:unless test="mainPage">
                             <t:if test="canEditOrder">
-                                <t:actionlink class="edit-link" t:id="editTender" t:context="order.id" t:zone="${editZoneId}">Редактировать</t:actionlink>
+                                <t:actionlink rel="nofollow" class="edit-link" t:id="editTender" t:context="order.id" t:zone="${editZoneId}">Редактировать</t:actionlink>
                             </t:if>
                             <script>
                                 jQuery("body").removeClass("modal-open");

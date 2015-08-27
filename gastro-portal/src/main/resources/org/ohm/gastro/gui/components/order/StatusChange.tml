@@ -21,7 +21,7 @@
                         <t:loop source="statuses" value="status" t:formState="NONE">
                             <t:if test="statusAction">
                                 <div class="status-change">
-                                    <t:actionlink t:id="statusChange" t:context="[order.id,status]" t:zone="${orderShowCatalogZoneId}" class="dotted-link">${statusAction}</t:actionlink>
+                                    <t:actionlink rel="nofollow" t:id="statusChange" t:context="[order.id,status]" t:zone="${orderShowCatalogZoneId}" class="dotted-link">${statusAction}</t:actionlink>
                                     <span> &mdash; ${statusTitle}</span>
                                 </div>
                             </t:if>

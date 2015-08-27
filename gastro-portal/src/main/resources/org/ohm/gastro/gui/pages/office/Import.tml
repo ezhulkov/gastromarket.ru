@@ -31,7 +31,7 @@
                                 <t:if test="albums">
                                     <div class="grid-block albums">
                                         <t:loop source="albums" value="album">
-                                            <t:actionlink t:id="selectAlbum" t:context="[album.id,socialCode]" t:zone="${elementsZone}" class="album item">${album.name}</t:actionlink>
+                                            <t:actionlink rel="nofollow" t:id="selectAlbum" t:context="[album.id,socialCode]" t:zone="${elementsZone}" class="album item">${album.name}</t:actionlink>
                                         </t:loop>
                                     </div>
                                     <t:parameter name="else">
@@ -45,7 +45,7 @@
                         </t:if>
                         <div class="grid-block import"/>
                         <t:zone id="${elementsZone}" class="elements-zone">
-                            <t:actionlink t:id="initialFetchElements" t:context="socialCode" t:zone="${elementsZone}" class="hidden initial-fetch"/>
+                            <t:actionlink rel="nofollow" t:id="initialFetchElements" t:context="socialCode" t:zone="${elementsZone}" class="hidden initial-fetch"/>
                         </t:zone>
                         <t:block t:id="elementsBlock">
                             <t:loop source="elements.mediaElements" value="oneElement">
@@ -53,7 +53,7 @@
                                     <t:delegate to="elementBlock"/>
                                 </t:zone>
                                 <t:block t:id="elementBlock">
-                                    <t:actionlink t:id="checkElement" t:context="[socialCode,oneElement.id]" t:zone="${elementZone}">
+                                    <t:actionlink rel="nofollow" t:id="checkElement" t:context="[socialCode,oneElement.id]" t:zone="${elementZone}">
                                         <t:if test="checked">
                                             <span class="checked"/>
                                         </t:if>
@@ -70,14 +70,14 @@
                                         <a>Загрузить еще...</a>
                                     </div>
                                     <div class="spinner fetch hidden"/>
-                                    <t:actionlink t:id="fetchElements" t:context="[socialCode,elements.context]" t:zone="${elementsZone}" class="hidden fetch"/>
+                                    <t:actionlink rel="nofollow" t:id="fetchElements" t:context="[socialCode,elements.context]" t:zone="${elementsZone}" class="hidden fetch"/>
                                 </t:if>
                             </div>
                         </t:block>
                     </div>
                 </t:loop>
                 <p class="modal-text">
-                    <t:actionlink t:id="import" class="btn btn-red btn-lg">Импортировать</t:actionlink>
+                    <t:actionlink rel="nofollow" t:id="import" class="btn btn-red btn-lg">Импортировать</t:actionlink>
                 </p>
             </t:if>
         </div>
