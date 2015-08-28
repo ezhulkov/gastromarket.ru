@@ -33,7 +33,7 @@
                     <t:outputraw value="offer.descriptionRaw"/>
                 </div>
                 <t:if test="products">
-                    <h3>Блюда в готово меню:</h3>
+                    <h3>Блюда в предложении:</h3>
                     <ul class="offer-products">
                         <t:loop source="products" value="product">
                             <li>
@@ -61,7 +61,7 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <div class="title">
-                                        <h1><span>Удалить готовое меню?</span></h1>
+                                        <h1><span>Удалить предложение?</span></h1>
                                     </div>
                                     <a class="modal-close" data-dismiss="modal"></a>
                                 </div>

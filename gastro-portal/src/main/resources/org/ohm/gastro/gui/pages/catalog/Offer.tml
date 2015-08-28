@@ -12,8 +12,8 @@
         </t:block>
         <t:if test="offers">
             <div class="title">
-                <h1><span>Другие готовые меню</span></h1>
-                <t:pagelink page="catalog/offers" t:context="offer.catalog.altId">Показать все готовые меню<span/></t:pagelink>
+                <h1><span>Другие готовые предложения</span></h1>
+                <t:pagelink page="catalog/offers" t:context="offer.catalog.altId">Показать все предложения<span/></t:pagelink>
             </div>
             <t:loop source="offers" value="offer">
                 <t:offer offer="offer" type="SHORT"/>

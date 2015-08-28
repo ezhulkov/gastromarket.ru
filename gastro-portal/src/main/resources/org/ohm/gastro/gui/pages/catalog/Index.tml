@@ -8,7 +8,7 @@
             <div class="links-set">
                 <a data-toggle="modal" data-target="#catalog-edit" href="#catalog-edit">Редактировать страницу</a>
                 <a data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>
-                <a data-toggle="modal" data-target="#of-new" href="#of-new">Добавить готовое меню</a>
+                <a data-toggle="modal" data-target="#of-new" href="#of-new">Добавить готовое предложение</a>
                 <t:pagelink page="office/import" context="catalog.altId">Импортировать меню <span/></t:pagelink>
             </div>
             <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>
@@ -128,12 +128,12 @@
         <t:productModalTemplate/>
 
         <div class="title">
-            <h1><span>Готовые меню</span></h1>
+            <h1><span>Готовые предложения</span></h1>
             <t:if test="offers">
-                <t:pagelink page="catalog/offers" t:context="catalog.altId">Показать все меню<span/></t:pagelink>
+                <t:pagelink page="catalog/offers" t:context="catalog.altId">Показать все предложения<span/></t:pagelink>
                 <t:parameter name="else">
                     <t:if test="catalogOwner">
-                        <a class="offer-edit-link" data-toggle="modal" data-target="#of-new" href="#of-new">Добавить готовое меню</a>
+                        <a class="offer-edit-link" data-toggle="modal" data-target="#of-new" href="#of-new">Добавить предложения</a>
                     </t:if>
                 </t:parameter>
             </t:if>
@@ -145,7 +145,7 @@
             <t:loop source="offers" value="offer">
                 <t:offer offer="offer" type="SHORT" editMode="catalogOwner" offersBlock="offersBlock"/>
                 <t:parameter name="empty">
-                    <div class="empty">Нет готовых меню</div>
+                    <div class="empty">Нет готовых предложений</div>
                 </t:parameter>
             </t:loop>
         </t:block>

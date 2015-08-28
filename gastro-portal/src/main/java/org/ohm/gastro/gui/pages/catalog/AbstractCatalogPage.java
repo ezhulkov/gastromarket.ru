@@ -48,7 +48,7 @@ public abstract class AbstractCatalogPage extends BaseComponent {
     @Component(id = "basketMin", parameters = {"value=catalog.basketMin"})
     private TextField basketField;
 
-    @Component(id = "prepayment", parameters = {"value=catalog.prepayment", "validate=required,min=10"})
+    @Component(id = "prepayment", parameters = {"value=catalog.prepayment"})
     private TextField prepaymentField;
 
     @Cached

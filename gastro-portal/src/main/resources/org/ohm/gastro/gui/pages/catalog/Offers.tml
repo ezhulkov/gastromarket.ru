@@ -2,12 +2,12 @@
 
     <div class="container">
         <div class="title">
-            <h1><span>Готовые меню от ${catalog.name}</span></h1>
+            <h1><span>Готовые предложения от ${catalog.name}</span></h1>
             <t:pagelink page="catalog/index" t:context="catalog.altId">На страницу кулинара<span/></t:pagelink>
         </div>
         <t:if test="catalogOwner">
             <div class="links-set">
-                <a data-toggle="modal" data-target="#of-new" href="#of-new">Добавить готовое меню</a>
+                <a data-toggle="modal" data-target="#of-new" href="#of-new">Добавить готовое предложение</a>
             </div>
             <t:offerEdit catalog="catalog" edit="false" offersBlock="offersBlock"/>
         </t:if>
