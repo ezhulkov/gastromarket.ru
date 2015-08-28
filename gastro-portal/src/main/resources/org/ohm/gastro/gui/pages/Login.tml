@@ -49,7 +49,7 @@
 
                         <div class="label-checkbox-set pull-right">
                             <label for="rememberme2" class="red-text">Запомнить меня</label>
-                            <input type="checkbox" name="_spring_security_remember_me" id="rememberme2"/>
+                            <input type="checkbox" name="_spring_security_remember_me" id="rememberme2" checked="checked"/>
                         </div>
                     </div>
                 </div>

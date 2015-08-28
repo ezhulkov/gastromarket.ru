@@ -49,9 +49,11 @@
                                 <t:outputraw value="catalog.paymentRaw"/>
                             </div>
                         </t:if>
-                        <div class="description">
-                            ${prepaymentText}
-                        </div>
+                        <t:if test="catalog.prepayment">
+                            <div class="description">
+                                ${prepaymentText}
+                            </div>
+                        </t:if>
                         <t:if test="catalog.basketMin">
                             <div class="description">
                                 ${basketMinText}

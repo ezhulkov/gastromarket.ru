@@ -621,37 +621,6 @@
         </sql>
     </changeSet>
 
-    <changeSet id="46" author="ezhulkov">
-        <sql>
-            update property set mandatory=false where id not in (10,11);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Кокос','kokos',true);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Сметана','smetana',true);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Сгущенка','sguschenka',true);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Вафли','vafli',true);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Нуга','nuga',true);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Карамель','karamel',true);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Кофе','cofe',true);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Алкоголь','alkogol',true);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Желе','zhele',true);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Ягоды','yagody',true);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Мастика' ,'mastika',true);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Изюм','izum',true);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Сухофрукты','suhofrukty',true);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Кекс','keks',true);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Крем масляный' ,'krem_maslyany',true);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Крем сливочный' ,'krem_slivochny',true);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Крем заварной' ,'krem_zavarnoy',true);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Крем сметанный' ,'krem_smetanny',true);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Крем белковый','krem_belkovy',true);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Крем шоколадный' ,'krem_shokoladny',true);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Крем творожный','krem_tvorozhny',true);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Глазурь шоколадная' ,'',true);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Глазурь белковая' ,'',true);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Глазурь сахарная' ,'',true);
-            insert into property_value (id,property_id,name,alt_id,root_value) values (nextval('hibernate_sequence'),11,'Глазурь помадка','',true);
-        </sql>
-    </changeSet>
-
     <changeSet id="47" author="ezhulkov">
         <addColumn tableName="product">
             <column name="position" type="java.sql.Types.INTEGER" defaultValue="1"/>

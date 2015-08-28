@@ -48,7 +48,7 @@ public class ApplicationFilter extends BaseApplicationFilter {
         }
 
         //Do filter
-        if (Logging.logger.isTraceEnabled()) {
+        if (Logging.logger.isDebugEnabled()) {
             CommonsUtils.dumpHttpServletRequest(httpServletRequest);
         }
 
