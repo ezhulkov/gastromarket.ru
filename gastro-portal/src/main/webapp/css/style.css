@@ -331,6 +331,17 @@ body.mobile .rub:after {
   display: block;
 }
 
+.legal {
+  padding: 50px 150px;
+  font-size: 16px;
+}
+.legal h2 {
+  margin: 50px 0 20px 0;
+}
+.legal p {
+  margin: 3px 0;
+}
+
 .catalog-item {
   padding: 30px 0 20px 0;
 }
