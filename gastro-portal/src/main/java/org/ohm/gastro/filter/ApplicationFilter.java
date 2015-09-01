@@ -31,9 +31,14 @@ public class ApplicationFilter extends BaseApplicationFilter {
 
         if (needToLog) {
             String servletPath = httpServletRequest.getServletPath();
+            String userAgent = httpServletRequest.getHeader("User-Agent");
+            userAgent = userAgent == null ? "" : userAgent.toLowerCase();
             Long opNumber = opCounter.incrementAndGet();
             String sid = httpServletRequest.getSession(false) == null ? "-" : httpServletRequest.getSession(false).getId();
-            String uid = SecurityContextHolder.getContext().getAuthentication() == null ? "-" : SecurityContextHolder.getContext().getAuthentication().getName();
+            String uid = userAgent.contains("bot") ? "BOT" :
+                    SecurityContextHolder.getContext().getAuthentication() == null ?
+                            "-" :
+                            SecurityContextHolder.getContext().getAuthentication().getName();
             stopWatch = new Slf4JStopWatch("op" + opNumber, servletPath);
             MDC.put("sid", sid);
             MDC.put("ip", httpServletRequest.getHeader("X-Real-IP"));
