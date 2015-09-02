@@ -3,6 +3,7 @@ package org.ohm.gastro.service.impl;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.ohm.gastro.domain.OrderEntity.Type;
+import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.OfferRepository;
 import org.ohm.gastro.reps.OrderRepository;
@@ -23,6 +24,7 @@ import java.util.Properties;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 21.08.14.
@@ -75,7 +77,7 @@ public class SitemapService implements Runnable, Logging {
 
     @Override
     public void run() {
-//        if (!production) return;
+        if (!production) return;
         try (
                 final Writer stringWriter = new FileWriter(sitemapPath + File.separator + "sitemap.xml")
         ) {
@@ -83,7 +85,7 @@ public class SitemapService implements Runnable, Logging {
             final Map<String, Object> params = new HashMap<>();
             params.put("catalogs", catalogRepository.findAllActive());
             params.put("tenders", orderRepository.findAllByType(Type.PUBLIC));
-            params.put("products", productRepository.findAll());
+            params.put("products", productRepository.findAll().stream().filter(ProductEntity::isWasSetup).collect(Collectors.toList()));
             params.put("offers", offerRepository.findAll());
             velocityEngine.mergeTemplate("sitemap.vm", "UTF-8", new VelocityContext(params), stringWriter);
             logger.info("Sitemap done");

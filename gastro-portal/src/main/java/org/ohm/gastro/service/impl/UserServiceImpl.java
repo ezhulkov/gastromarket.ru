@@ -247,7 +247,7 @@ public class UserServiceImpl implements UserService, Logging {
         final HeaderColumnNameMappingStrategy<UserImportDto> strat = new HeaderColumnNameMappingStrategy<>();
         strat.setType(UserImportDto.class);
         List<UserImportDto> result = csv.parse(strat, new StringReader(csvUsers));
-        result.forEach(user -> {
+        final int created = result.stream().mapToInt(user -> {
             logger.info("Importing user {}", user);
             if (userRepository.findByEmail(user.getEmail()) == null) {
                 final UserEntity userEntity = new UserEntity();
@@ -261,8 +261,11 @@ public class UserServiceImpl implements UserService, Logging {
                 } catch (Exception e) {
                     logger.error("", e);
                 }
+                return 1;
             }
-        });
+            return 0;
+        }).sum();
+        logger.info("Users imported {}", created);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package org.ohm.gastro.service.impl;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang.ObjectUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
@@ -50,6 +51,7 @@ public class OrderServiceImpl implements OrderService, Logging {
     private final ImageRepository photoRepository;
     private final MailService mailService;
     private final RatingService ratingService;
+    private final List<String> filterEmails = Lists.newArrayList("jazzcook@yandex.ru", "cook@cook.com", "cook@cook.ru");
 
     @Autowired
     public OrderServiceImpl(final OrderRepository orderRepository,
@@ -153,12 +155,12 @@ public class OrderServiceImpl implements OrderService, Logging {
                 };
                 mailService.sendAdminMessage(MailService.NEW_TENDER_ADMIN, params);
                 mailService.sendMailMessage(tender.getCustomer().getEmail(), MailService.NEW_TENDER_CUSTOMER, params);
-//                todo uncomment
-//                catalogRepository.findAll().stream().map(CatalogEntity::getUser).distinct().
-//                        forEach(cook -> {
-//                            params.put("username", cook.getFullName());
-//                            mailService.sendMailMessage(cook.getEmail(), MailService.NEW_TENDER_COOK, params);
-//                        });
+                catalogRepository.findAll().stream().map(CatalogEntity::getUser).distinct()
+                        .filter(t -> !filterEmails.contains(t.getEmail()))
+                        .forEach(cook -> {
+                            params.put("username", cook.getFullName());
+                            mailService.sendMailMessage(cook.getEmail(), MailService.NEW_TENDER_COOK, params);
+                        });
             } catch (MailException e) {
                 logger.error("", e);
             }
