@@ -1,4 +1,4 @@
-User-agent: *
+User-agent: Yandex
 Disallow:/login
 Disallow:/admin
 Disallow:/office
@@ -8,5 +8,16 @@ Disallow:/*list
 Disallow:/*ajax
 Disallow: *jsessionid=*
 Clean-param: jsessionid /*
-Host: http://gastromarket.ru
+
+User-agent: *
+Disallow:/login
+Disallow:/admin
+Disallow:/office
+Disallow:/user
+Disallow:/social
+Disallow:/*list
+Disallow:/*ajax
+Disallow: *jsessionid=*
+
 Sitemap: http://gastromarket.ru/sitemap.xml
+Host: http://gastromarket.ru
