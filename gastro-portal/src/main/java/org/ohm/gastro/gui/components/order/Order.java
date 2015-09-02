@@ -82,10 +82,7 @@ public class Order extends AbstractOrder {
     }
 
     public Block getOrderAdditionalBlock() {
-        if (order != null &&
-                order.getType() == OrderEntity.Type.PUBLIC &&
-                order.getStatus() == Status.NEW &&
-                !order.getCustomer().equals(getAuthenticatedUserOpt().orElse(null))) return tenderReplyBlock;
+        if (isCanReplyTender()) return tenderReplyBlock;
         if (!isCook()) {
             if (order != null && (order.getStatus() == Status.CANCELLED || order.getStatus() == Status.CLOSED)) return clientRateCook;
             if (isCanEdit()) return clientEditBlock;
@@ -93,6 +90,13 @@ public class Order extends AbstractOrder {
             if (order != null && (order.getStatus() == Status.CANCELLED || order.getStatus() == Status.CLOSED)) return cookRateClient;
         }
         return null;
+    }
+
+    public boolean isCanReplyTender() {
+        return order != null &&
+                order.getType() == OrderEntity.Type.PUBLIC &&
+                order.getStatus() == Status.NEW &&
+                !order.getCustomer().equals(getAuthenticatedUserOpt().orElse(null));
     }
 
     public Block getCurrentOrderBlock() {

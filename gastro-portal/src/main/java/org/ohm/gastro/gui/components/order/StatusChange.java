@@ -16,7 +16,12 @@ public class StatusChange extends AbstractOrder {
     private Status status;
 
     public boolean isCanChangeState() {
-        return order != null && getStatuses().length > 0;
+        return isAuthenticated() &&
+                order != null &&
+                order.getCatalog() != null &&
+                getStatuses().length > 0 &&
+                (order.getCustomer().equals(getAuthenticatedUser()) ||
+                        order.getCatalog().getUser().equals(getAuthenticatedUser()));
     }
 
     public Status[] getStatuses() {
