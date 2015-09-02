@@ -21,13 +21,13 @@
         <li id="new-orders">
             <t:pagelink page="tender/list" t:context="'NEW'">Активные</t:pagelink>
         </li>
-        <li id="closed-orders">
-            <t:pagelink page="tender/list" t:context="'CLOSED'">Закрытые</t:pagelink>
+        <li id="all-orders">
+            <t:pagelink page="tender/list" t:context="null">Показать все</t:pagelink>
         </li>
     </t:if>
     <script>
         if (${privateOrders} || ${frontend}) {
-            activate_menu('#${status.name().toLowerCase()}-orders');
+            activate_menu('#${statusName}-orders');
         } else {
             activate_menu('#public-orders');
         }

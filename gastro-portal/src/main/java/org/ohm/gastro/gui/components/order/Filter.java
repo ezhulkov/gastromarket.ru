@@ -11,7 +11,7 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 public class Filter extends BaseComponent {
 
     @Property
-    @Parameter(allowNull = false, required = true)
+    @Parameter(allowNull = true, required = true)
     private OrderEntity.Status status;
 
     @Property
@@ -21,5 +21,9 @@ public class Filter extends BaseComponent {
     @Property
     @Parameter(value = "false")
     private boolean frontend;
+
+    public String getStatusName() {
+        return status == null ? "all" : status.name().toLowerCase();
+    }
 
 }

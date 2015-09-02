@@ -1,7 +1,7 @@
 #set($subject = "Регистрация на ГастроМаркет")
 #parse("email/header.vm")
 <p>
-    Мы создали для Вас <a href="http://gastromarket.ru/catalog/$catalog.altId">новую страницу</a><br/>
+    Мы создали для Вас <a href="http://gastromarket.ru/catalog/$catalog.altId?utm_source=internal&utm_medium=mail&utm_campaign=gm">новую страницу</a><br/>
     Для того чтобы войти в личный кабинет и начать её редактировать, нажмите на ссылку "Войти или зарегистрироваться" в шапке сайта и
     укажите:
 </p>
@@ -22,7 +22,7 @@
                 <tr>
                     <td class="mcnImageCardBottomImageContent" align="left" valign="top" style="padding-top: 18px;padding-right: 18px;padding-bottom: 0;padding-left: 18px;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                         <a href="https://www.youtube.com/embed/7yjbl9YKDnA?vq=hd1080" title="" class="" target="" style="word-wrap: break-word;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                            <img alt="" src="https://gallery.mailchimp.com/video_thumbnails/01075fd57ab12383a0fcb33bdb166522.png" width="490px" style="max-width: 490px;border: 0;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;vertical-align: bottom;" class="mcnImage">
+                            <img alt="" src="http://gastromarket.ru/img/youtube.png" width="490px" style="max-width: 490px;border: 0;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;vertical-align: bottom;" class="mcnImage">
                         </a>
                     </td>
                 </tr>

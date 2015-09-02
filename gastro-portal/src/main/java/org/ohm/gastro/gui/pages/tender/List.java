@@ -16,13 +16,13 @@ public class List extends BaseComponent {
     private Block ordersBlock;
 
     @Property
-    private Status status = Status.NEW;
+    private Status status;
 
     @Property
     private boolean forceModal;
 
     public boolean onActivate() {
-        return onActivate(Status.NEW);
+        return onActivate(null);
     }
 
     public boolean onActivate(Status status) {
@@ -36,8 +36,8 @@ public class List extends BaseComponent {
     }
 
 
-    public Object[] onPassivate() {
-        return forceModal ? new Object[]{status, true} : new Object[]{status};
+    public Object onPassivate() {
+        return forceModal ? new Object[]{status, true} : status != null ? status : null;
     }
 
 }
