@@ -5,20 +5,14 @@ import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.ohm.gastro.domain.UserEntity;
-import org.ohm.gastro.domain.UserEntity.Type;
 import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.pages.Signup;
 import org.ohm.gastro.service.EmptyPasswordException;
 import org.ohm.gastro.service.UserExistsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
-
-import java.util.Optional;
 
 /**
  * Created by ezhulkov on 24.08.14.
@@ -79,16 +73,7 @@ public class LoginUserModal extends BaseComponent {
     public Block onSubmitFromSignupForm() {
         if (!error) {
             try {
-                UserEntity user = new UserEntity();
-                user.setEmail(eMail);
-                user.setFullName(fullName);
-                user.setType(Type.USER);
-                user.setReferrer(Optional.ofNullable(getRequest().getParameter("referrer")).map(t -> getUserService().findUser(Long.parseLong(t))).orElse(null));
-                user = getUserService().createUser(user, password, null, true);
-                final UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), password);
-                token.setDetails(new WebAuthenticationDetails(getHttpServletRequest()));
-                Authentication authentication = authenticationProvider.authenticate(token);
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                Signup.signupUser(eMail, fullName, password, getHttpServletRequest(), getUserService(), authenticationProvider);
                 return signupResultBlock;
             } catch (UserExistsException e) {
                 error = busyError = true;

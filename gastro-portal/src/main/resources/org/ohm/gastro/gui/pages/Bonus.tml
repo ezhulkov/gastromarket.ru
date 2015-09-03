@@ -1,0 +1,103 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <div class="page">
+        <div class="container">
+            <div class="title">
+                <h1><span>Бонусные баллы</span></h1>
+            </div>
+            <div class="row">
+                <h2>Как заработать бонусные баллы</h2>
+                <div class="pic-text">
+                    <div>
+                        <img src="/img/pig-128x128.png" alt="бонусы"/>
+                    </div>
+                    <p>
+                        Каждый раз, когда вы расплачиваетесь за завершенный заказ с кулинаром, вы получаете бонусные баллы в размере <b>3 процентов</b> от общей стоимости заказа.
+                    </p>
+                    <p>
+                        Например, если стоимость заказа была <b>10000<span class="rub"/></b>, то на свой счет вы получите <b>300</b> бонусных баллов.
+                    </p>
+                </div>
+                <div class="pic-text">
+                    <div>
+                        <img src="/img/friends-128x128.png" alt="бонусы от друзей"/>
+                    </div>
+                    <p>
+                        Приглашайте друзей в ГастроМаркет, они также будут увеличивать ваш бонусный счёт.
+                    </p>
+                    <p>
+                        Как? Для этого надо войти или зарегистрироваться самому, сформировать специальную ссылку и послать её другу.
+                    </p>
+                    <p>
+                        После того как друг пройдёт регистрацию по этой ссылке, все его завершенные заказы будут приносить вам <b>3 процента</b> от стоимости этих заказов.
+                    </p>
+                </div>
+                <div class="gap3 text-center">
+                    <t:if test="authenticated">
+
+                        <a href="#referrer-link" data-toggle="modal" data-target="#referrer-link" class="btn btn-lg btn-red">Сформировать ссылку</a>
+                        <div class="modal fade" id="referrer-link" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div class="title">
+                                            <h1><span>Реферальная ссылка</span></h1>
+                                        </div>
+                                        <a class="modal-close" data-dismiss="modal"></a>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row form form-horizontal">
+                                            <p class="modal-text">
+                                                Скопируйте ссылку ниже и перешлите её другу
+                                            </p>
+                                            <div class="form-group">
+                                                <div class="col-sm-2"></div>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" value="http://gastromarket.ru/signup/${authenticatedUser.id}"/>
+                                                </div>
+                                                <div class="col-sm-2"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <t:parameter name="else">
+                            <a href="#login" data-toggle="modal" data-target="#login" class="btn btn-red btn-lg login-link">Сформировать ссылку</a>
+                        </t:parameter>
+                    </t:if>
+                </div>
+                <br/>
+
+                <h2>Как потратить бонусные баллы</h2>
+                <div class="pic-text">
+                    <div>
+                        <img src="/img/present-128x128.png" alt="бонусы"/>
+                    </div>
+                    <p>
+                        Накопленные бонусные баллы вы можете обменять на приятный подарой -
+                        <a href="http://www.boomcard.ru/karty/podarochnye-multikarty/multi/" rel="nofollow">Подарочную мультикарту Бумкарта «Мульти»</a>,
+                        номиналом: <br/>
+                        <b>500<span class="rub"/></b>,
+                        <b>1000<span class="rub"/></b>,
+                        <b>1500<span class="rub"/></b>,
+                        <b>2000<span class="rub"/></b>,
+                        <b>2500<span class="rub"/></b>,
+                        <b>3000<span class="rub"/></b>,
+                        <b>5000<span class="rub"/></b> или
+                        <b>10000<span class="rub"/></b>
+
+                    </p>
+                    <p>
+                        Для этого необходимо написать письмо, указать свой логин, номинал карты, адрес и время доставки.
+                        Мы пришлем карту курьером.
+                    </p>
+                </div>
+                <div class="gap3 text-center">
+                    <a href="mailto:contacts@gastromarket.ru" class="btn btn-red btn-lg">Получить подарок</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</t:layout>

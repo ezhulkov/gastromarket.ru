@@ -7,6 +7,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
+import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.Cart;
 import org.ohm.gastro.gui.pages.office.Orders;
@@ -61,6 +62,15 @@ public class HeaderLayout extends BaseComponent {
         return isAuthenticated() ?
                 getPageLinkSource().createPageRenderLinkWithContext(Orders.class, true, Status.NEW) :
                 getPageLinkSource().createPageRenderLink(Cart.class);
+    }
+
+    public int getBonuses() {
+        return getAuthenticatedUserOpt().map(UserEntity::getBonus).orElse(0);
+    }
+
+    public String getBonusesMessage() {
+        final int bonuses = getBonuses();
+        return getDeclInfo("bonus", bonuses);
     }
 
 }

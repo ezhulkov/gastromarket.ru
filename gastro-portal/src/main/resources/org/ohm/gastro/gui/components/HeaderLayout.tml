@@ -13,6 +13,34 @@
                         </t:pagelink>
                     </t:if>
                     <t:if test="authenticated">
+                        <t:if test="user">
+                            <a href="#bonus" data-toggle="modal" data-target="#bonus">${bonusesMessage}</a>
+                            <div class="modal fade" id="bonus" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="title">
+                                                <h1><span>Бонусные баллы</span></h1>
+                                            </div>
+                                            <a class="modal-close" data-dismiss="modal"></a>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <p class="modal-text">
+                                                    Каждый раз, когда вы или ваш друг совершает заказ через ГастроМаркет,
+                                                    вы зарабатываете бонусные баллы, которые можно потратить на приятные подарки.
+                                                </p>
+                                            </div>
+                                            <div class="form-buttons">
+                                                <a class="btn btn-red f16px" href="/bonus">Узнайте подробности</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t:if>
+                    </t:if>
+                    <t:if test="authenticated">
                         <span class="header-block pic-holder dropdown username">
                             <a data-target="#" href="#userMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                                 <img class="avatar-small" src="${avatarUrl}"/>

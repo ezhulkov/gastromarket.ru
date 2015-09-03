@@ -12,7 +12,9 @@ import java.util.List;
  */
 public interface UserService extends UserDetailsService, ImageUploaderService<UserEntity> {
 
-    public List<UserEntity> findAllUser();
+    List<UserEntity> findAllUser();
+
+    List<UserEntity> findAllChildren(UserEntity referrer);
 
     void toggleUser(Long id);
 

@@ -342,6 +342,22 @@ body.mobile .rub:after {
   margin: 3px 0;
 }
 
+.pic-text {
+  margin: 30px auto 0 auto;
+  display: block;
+  width: 900px;
+  overflow: auto;
+}
+.pic-text > div {
+  float: left;
+  width: 200px;
+  text-align: center;
+}
+.pic-text > p {
+  margin: 5px 0 5px 230px;
+  font-size: 16px;
+}
+
 .catalog-item {
   padding: 30px 0 20px 0;
 }

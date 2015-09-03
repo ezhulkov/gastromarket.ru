@@ -92,6 +92,11 @@ public class UserServiceImpl implements UserService, Logging {
     }
 
     @Override
+    public List<UserEntity> findAllChildren(UserEntity referrer) {
+        return userRepository.findAllByReferrer(referrer);
+    }
+
+    @Override
     public void toggleUser(Long id) {
         UserEntity user = userRepository.findOne(id);
         user.setStatus(user.getStatus() == Status.ENABLED ? Status.DISABLED : Status.ENABLED);
@@ -229,7 +234,7 @@ public class UserServiceImpl implements UserService, Logging {
             logger.info("User {} successful logged in", user);
             user.setLoginDate(new Date());
             saveUser(user);
-            ratingService.registerEvent(LogEntity.Type.LOGIN, user);
+            ratingService.registerEvent(LogEntity.Type.LOGIN, user, null, null);
         }
 
     }
