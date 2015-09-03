@@ -6,6 +6,7 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CommentEntity;
+import org.ohm.gastro.domain.OrderEntity.Status;
 
 /**
  * Created by ezhulkov on 31.07.15.
@@ -35,9 +36,12 @@ public class Replies extends AbstractOrder {
     public boolean isCommentAllowed() {
         if (order == null || !isAuthenticated()) return false;
         if (isCook()) {
-            if (getRatingService().findAllComments(order).stream().filter(t -> t.getAuthor().equals(getAuthenticatedUser())).findAny().isPresent()) return false;
+            if (getRatingService().findAllComments(order).stream().filter(t -> t.getAuthor().equals(getAuthenticatedUser())).count() > 0) return false;
             if (getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream().mapToInt(t -> getProductService().findProductsForFrontendCount(t)).sum() == 0) return false;
-            return true;
+            return getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream().
+                    flatMap(t -> getOrderService().findAllOrders(t).stream()).
+                    filter(t -> t.getMetaStatus() == Status.ACTIVE).
+                    count() <= 3;
         }
         return false;
     }
