@@ -160,23 +160,23 @@ body.mobile .rub:after {
 }
 
 .gap {
-  margin-top: 10px;
+  margin-top: 10px !important;
 }
 
 .gap2 {
-  margin-top: 20px;
+  margin-top: 20px !important;
 }
 
 .gap3 {
-  margin-top: 30px;
+  margin-top: 30px !important;
 }
 
 .gap5 {
-  margin-top: 50px;
+  margin-top: 50px !important;
 }
 
 .gap10 {
-  margin-top: 100px;
+  margin-top: 100px !important;
 }
 
 .center {
@@ -227,25 +227,6 @@ body.mobile .rub:after {
   font-family: "PT Serif", serif;
 }
 .empty a {
-  font-size: 20px;
-}
-
-.simple-text {
-  width: 750px;
-  margin: 30px auto 0 auto;
-}
-.simple-text p {
-  font-size: 16px;
-  padding: 5px 0 5px 150px;
-}
-.simple-text h2 {
-  font-size: 20px;
-  padding: 0;
-  margin: 0 0 20px 0;
-  line-height: normal;
-  text-align: left;
-}
-.simple-text h2 * {
   font-size: 20px;
 }
 
@@ -331,15 +312,15 @@ body.mobile .rub:after {
   display: block;
 }
 
-.legal {
-  padding: 50px 150px;
+.no-bullets {
+  list-style: none !important;
+  padding-left: 0px !important;
+}
+
+.simple-text p {
+  margin: 5px auto;
+  width: 900px;
   font-size: 16px;
-}
-.legal h2 {
-  margin: 50px 0 20px 0;
-}
-.legal p {
-  margin: 3px 0;
 }
 
 .pic-text {
@@ -353,9 +334,12 @@ body.mobile .rub:after {
   width: 200px;
   text-align: center;
 }
-.pic-text > p {
+.pic-text > p, .pic-text > ul, .pic-text > ol {
   margin: 5px 0 5px 230px;
   font-size: 16px;
+}
+.pic-text > ul {
+  padding-left: 15px;
 }
 
 .catalog-item {

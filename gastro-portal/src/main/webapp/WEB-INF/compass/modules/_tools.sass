@@ -58,19 +58,19 @@ body.mobile .rub:after
   border: 1px solid $blackTextColor !important
 
 .gap
-  margin-top: $gap
+  margin-top: $gap !important
 
 .gap2
-  margin-top: 2*$gap
+  margin-top: 2*$gap !important
 
 .gap3
-  margin-top: 3*$gap
+  margin-top: 3*$gap !important
 
 .gap5
-  margin-top: 5*$gap
+  margin-top: 5*$gap !important
 
 .gap10
-  margin-top: 10*$gap
+  margin-top: 10*$gap !important
 
 .center
   text-align: center !important
@@ -112,23 +112,6 @@ body.mobile .rub:after
   font-size: $f20px
   font-family: "PT Serif", serif
   a
-    font-size: $f20px
-
-.simple-text
-  width: 750px
-  margin: 30px auto 0 auto
-  p
-    font-size: $f16px
-    padding: 5px 0 5px 150px
-
-  h2
-    font-size: $f20px
-    padding: 0
-    margin: 0 0 20px 0
-    line-height: normal
-    text-align: left
-
-  h2 *
     font-size: $f20px
 
 .modal-text
@@ -200,13 +183,15 @@ body.mobile .rub:after
 .intl-tel-input
   display: block
 
-.legal
-  padding: 50px 150px
-  font-size: 16px
-  h2
-    margin: 50px 0 20px 0
+.no-bullets
+  list-style: none !important
+  padding-left: 0px !important
+
+.simple-text
   p
-    margin: 3px 0
+    margin: 5px auto
+    width: 900px
+    font-size: 16px
 
 .pic-text
   margin: 30px auto 0 auto
@@ -217,6 +202,10 @@ body.mobile .rub:after
     float: left
     width: 200px
     text-align: center
-  & > p
+  & > p,
+  & > ul,
+  & > ol
     margin: 5px 0 5px 230px
     font-size: 16px
+  & > ul
+    padding-left: 15px

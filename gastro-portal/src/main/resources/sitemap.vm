@@ -13,6 +13,18 @@
         <priority>0.1</priority>
     </url>
     <url>
+        <loc>http://gastromarket.ru/bonus</loc>
+        <lastmod>2015-08-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.1</priority>
+    </url>
+    <url>
+        <loc>http://gastromarket.ru/rating</loc>
+        <lastmod>2015-08-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.1</priority>
+    </url>
+    <url>
         <loc>http://gastromarket.ru/about</loc>
         <lastmod>2015-08-26</lastmod>
         <changefreq>monthly</changefreq>
@@ -42,37 +54,37 @@
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
     </url>
-#foreach($location in $catalogs)
-    <url>
-        <loc>${location.locationUrl}</loc>
-        <lastmod>$location.lastModifiedPrintable</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>1.0</priority>
-    </url>
-#end
-#foreach($location in $products)
-    <url>
-        <loc>${location.locationUrl}</loc>
-        <lastmod>$location.lastModifiedPrintable</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-#end
-#foreach($location in $tenders)
-    <url>
-        <loc>${location.locationUrl}</loc>
-        <lastmod>$location.lastModifiedPrintable</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>1.0</priority>
-    </url>
-#end
-#foreach($location in $offers)
-    <url>
-        <loc>${location.locationUrl}</loc>
-        <lastmod>$location.lastModifiedPrintable</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-#end
+    #foreach($location in $catalogs)
+        <url>
+            <loc>${location.locationUrl}</loc>
+            <lastmod>$location.lastModifiedPrintable</lastmod>
+            <changefreq>weekly</changefreq>
+            <priority>1.0</priority>
+        </url>
+    #end
+    #foreach($location in $products)
+        <url>
+            <loc>${location.locationUrl}</loc>
+            <lastmod>$location.lastModifiedPrintable</lastmod>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+        </url>
+    #end
+    #foreach($location in $tenders)
+        <url>
+            <loc>${location.locationUrl}</loc>
+            <lastmod>$location.lastModifiedPrintable</lastmod>
+            <changefreq>weekly</changefreq>
+            <priority>1.0</priority>
+        </url>
+    #end
+    #foreach($location in $offers)
+        <url>
+            <loc>${location.locationUrl}</loc>
+            <lastmod>$location.lastModifiedPrintable</lastmod>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+        </url>
+    #end
 </urlset>
 
