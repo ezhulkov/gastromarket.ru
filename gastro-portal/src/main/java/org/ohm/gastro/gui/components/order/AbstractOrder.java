@@ -76,7 +76,7 @@ public abstract class AbstractOrder extends BaseComponent {
     }
 
     public boolean isOrderCustomer() {
-        return order != null && order.getCustomer().equals(getAuthenticatedUser());
+        return order != null && order.getCustomer().equals(getAuthenticatedUserOpt().orElse(null));
     }
 
     public int getTotal() {
