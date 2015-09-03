@@ -802,4 +802,10 @@
         </sql>
     </changeSet>
 
+    <changeSet id="67" author="ezhulkov">
+        <sql>
+            update users set bonus=0;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

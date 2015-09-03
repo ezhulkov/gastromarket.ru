@@ -135,6 +135,7 @@ public class UserServiceImpl implements UserService, Logging {
                                                                        "catalog", catalog,
                                                                        "password", password));
         } else if (Type.USER.equals(user.getType())) {
+            user.setBonus(100);
             if (sendEmail) mailService.sendMailMessage(user.getEmail(),
                                                        MailService.NEW_USER,
                                                        ImmutableMap.of("username", user.getFullName(),

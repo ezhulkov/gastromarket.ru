@@ -18,6 +18,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
+import java.util.Optional;
+
 /**
  * Created by ezhulkov on 24.08.14.
  */
@@ -81,9 +83,9 @@ public class LoginUserModal extends BaseComponent {
                 user.setEmail(eMail);
                 user.setFullName(fullName);
                 user.setType(Type.USER);
-                //user.setReferrer(referrer.map(t -> getUserService().findUser(t)).orElse(null));
+                user.setReferrer(Optional.ofNullable(getRequest().getParameter("referrer")).map(t -> getUserService().findUser(Long.parseLong(t))).orElse(null));
                 user = getUserService().createUser(user, password, null, true);
-                UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), password);
+                final UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), password);
                 token.setDetails(new WebAuthenticationDetails(getHttpServletRequest()));
                 Authentication authentication = authenticationProvider.authenticate(token);
                 SecurityContextHolder.getContext().setAuthentication(authentication);

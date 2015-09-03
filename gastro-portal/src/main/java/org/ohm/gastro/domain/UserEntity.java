@@ -1,6 +1,7 @@
 package org.ohm.gastro.domain;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -55,6 +56,9 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
     @Column
     private String password;
+
+    @Column
+    private Integer bonus = 0;
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -271,6 +275,19 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
     public void setSourceUrl(String sourceUrl) {
         this.sourceUrl = sourceUrl;
+    }
+
+    public Integer getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(Integer bonus) {
+        this.bonus = bonus;
+    }
+
+    public int giveBonus(int bonus) {
+        this.bonus = (Integer) ObjectUtils.defaultIfNull(bonus, 0) + bonus;
+        return this.bonus;
     }
 
     @Override

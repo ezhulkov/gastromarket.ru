@@ -8,6 +8,8 @@ import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.UserEntity;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Date;
 import java.util.List;
 
@@ -16,9 +18,7 @@ import java.util.List;
  */
 public interface RatingService extends ImageUploaderService<CommentEntity> {
 
-    void registerEvent(LogEntity.Type type, UserEntity user);
-
-    void registerEvent(Type type, CatalogEntity catalog, long orderTotalPrice);
+    void registerEvent(@Nonnull LogEntity.Type type, @Nonnull UserEntity user, @Nullable CatalogEntity catalog, @Nullable Integer data);
 
     List<LogEntity> findEvents(UserEntity user, CatalogEntity catalog, Date dateFrom);
 

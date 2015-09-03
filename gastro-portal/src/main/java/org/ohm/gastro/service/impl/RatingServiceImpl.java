@@ -36,6 +36,8 @@ import org.springframework.mail.MailException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -120,21 +122,12 @@ public class RatingServiceImpl implements RatingService, Logging {
     }
 
     @Override
-    public void registerEvent(Type type, UserEntity user) {
+    public void registerEvent(@Nonnull Type type, @Nonnull UserEntity user, @Nullable CatalogEntity catalog, @Nullable Integer data) {
         final LogEntity log = new LogEntity();
         log.setDate(new Date());
         log.setType(type);
+        log.setCount(data);
         log.setUser(user);
-        logRepository.save(log);
-    }
-
-    @Override
-    public void registerEvent(Type type, CatalogEntity catalog, long count) {
-        final LogEntity log = new LogEntity();
-        log.setDate(new Date());
-        log.setType(type);
-        log.setCount(count);
-        log.setUser(catalog.getUser());
         log.setCatalog(catalog);
         logRepository.save(log);
     }
@@ -198,7 +191,7 @@ public class RatingServiceImpl implements RatingService, Logging {
         catalog.setLevel(levelMap.get(catalog.getRating()));
         logger.info("Rating for catalog {} changed", catalog);
 
-        if (!catalog.getLevel().equals(prevLevel)) registerEvent(Type.RATING_CHANGE, catalog, catalog.getLevel());
+        if (!catalog.getLevel().equals(prevLevel)) registerEvent(Type.RATING_CHANGE, catalog.getUser(), catalog, catalog.getLevel());
 
         catalog.setOrderBadge(orderBadgeSet.rangeContaining(doneOrdersCount).lowerEndpoint());
         catalog.setProductBadge(productBadgeSet.rangeContaining(productsCount).lowerEndpoint());

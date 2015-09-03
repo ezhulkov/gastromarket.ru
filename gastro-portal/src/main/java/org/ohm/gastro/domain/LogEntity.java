@@ -20,7 +20,8 @@ public class LogEntity extends AbstractBaseEntity {
         LOGIN,
         ORDER_DONE,
         ORDER_CANCELLED,
-        RATING_CHANGE
+        RATING_CHANGE,
+        BONUS
     }
 
     @Column
@@ -36,7 +37,7 @@ public class LogEntity extends AbstractBaseEntity {
     private Type type;
 
     @Column
-    private Long count;
+    private Integer count;
 
     public UserEntity getUser() {
         return user;
@@ -54,11 +55,11 @@ public class LogEntity extends AbstractBaseEntity {
         this.type = type;
     }
 
-    public Long getCount() {
+    public Integer getCount() {
         return count;
     }
 
-    public void setCount(final Long count) {
+    public void setCount(final Integer count) {
         this.count = count;
     }
 

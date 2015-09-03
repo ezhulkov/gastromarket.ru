@@ -14,6 +14,7 @@ import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.ImageRepository;
 import org.ohm.gastro.reps.OrderProductRepository;
 import org.ohm.gastro.reps.OrderRepository;
+import org.ohm.gastro.reps.UserRepository;
 import org.ohm.gastro.service.ImageService.FileType;
 import org.ohm.gastro.service.ImageService.ImageSize;
 import org.ohm.gastro.service.ImageUploader;
@@ -50,6 +51,7 @@ public class OrderServiceImpl implements OrderService, Logging {
     private final CatalogRepository catalogRepository;
     private final ImageRepository photoRepository;
     private final MailService mailService;
+    private final UserRepository userRepository;
     private final RatingService ratingService;
     private final List<String> filterEmails = Lists.newArrayList("jazzcook@yandex.ru", "cook@cook.com", "cook@cook.ru");
 
@@ -59,12 +61,14 @@ public class OrderServiceImpl implements OrderService, Logging {
                             final CatalogRepository catalogRepository,
                             final ImageRepository photoRepository,
                             final MailService mailService,
+                            final UserRepository userRepository,
                             final RatingService ratingService) {
         this.orderRepository = orderRepository;
         this.orderProductRepository = orderProductRepository;
         this.catalogRepository = catalogRepository;
         this.photoRepository = photoRepository;
         this.mailService = mailService;
+        this.userRepository = userRepository;
         this.ratingService = ratingService;
     }
 
@@ -229,8 +233,20 @@ public class OrderServiceImpl implements OrderService, Logging {
     @RatingModifier
     public void changeStatus(final OrderEntity order, final Status status, @RatingTarget final CatalogEntity catalog, final UserEntity caller) {
         if (order == null || !order.isAllowed(caller)) return;
+        final UserEntity customer = order.getCustomer();
+        final UserEntity referrer = customer.getReferrer();
         if (status == Status.CLOSED) {
-            ratingService.registerEvent(Type.ORDER_DONE, catalog, order.getTotalPrice());
+            ratingService.registerEvent(Type.ORDER_DONE, catalog.getUser(), catalog, order.getTotalPrice());
+            final int bonus = order.calculateBonus();
+            customer.giveBonus(bonus);
+            userRepository.save(customer);
+            ratingService.registerEvent(Type.BONUS, customer, null, bonus);
+            if (referrer != null) {
+                final int referralBonus = order.calculateReferralBonus();
+                referrer.giveBonus(referralBonus);
+                userRepository.save(referrer);
+                ratingService.registerEvent(Type.BONUS, referrer, null, referralBonus);
+            }
         }
         order.setStatus(status);
         orderRepository.save(order);
@@ -241,8 +257,8 @@ public class OrderServiceImpl implements OrderService, Logging {
                 put("address", order.getOrderUrl());
             }
         };
-        params.put("username", order.getCustomer().getFullName());
-        mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.EDIT_ORDER, params);
+        params.put("username", customer.getFullName());
+        mailService.sendMailMessage(customer.getEmail(), MailService.EDIT_ORDER, params);
         params.put("username", order.getCatalog().getUser().getFullName());
         mailService.sendMailMessage(order.getCatalog().getUser().getEmail(), MailService.EDIT_ORDER, params);
     }

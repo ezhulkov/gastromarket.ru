@@ -286,4 +286,12 @@ public class OrderEntity extends SitemapBaseEntity {
         return "http://gastromarket.ru/tender/" + getId();
     }
 
+    public int calculateBonus() {
+        return (int) Math.ceil(getTotalPrice() * 3 / 100);
+    }
+
+    public int calculateReferralBonus() {
+        return (int) Math.ceil(calculateBonus() / 2);
+    }
+
 }
