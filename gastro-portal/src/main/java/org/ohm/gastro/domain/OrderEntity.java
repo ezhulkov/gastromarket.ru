@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.Date;
@@ -286,12 +287,14 @@ public class OrderEntity extends SitemapBaseEntity {
         return "http://gastromarket.ru/tender/" + getId();
     }
 
-    public int calculateBonus() {
+    @Transient
+    public int getBonus() {
         return (int) Math.ceil(getTotalPrice() * 3 / 100);
     }
 
-    public int calculateReferralBonus() {
-        return (int) Math.ceil(calculateBonus() / 2);
+    @Transient
+    public int getReferrerBonus() {
+        return (int) Math.ceil(getBonus() / 2);
     }
 
 }

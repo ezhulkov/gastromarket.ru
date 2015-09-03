@@ -4,6 +4,9 @@
             <div class="form-group total">
                 <div class="col-sm-12">
                     <span class="f20px">Бюджет заявки:</span><br/>
+                    <t:if test="orderCustomer">
+                        После выполнения заявки вы получите бонусных баллов: ${order.bonus}
+                    </t:if>
                     <t:if test="catalog?.prepayment">
                         ${prepaymentText}<br/>
                     </t:if>
@@ -17,6 +20,9 @@
             <div class="form-group total">
                 <div class="col-sm-12">
                     <span class="f20px">Стоимость заказа:</span><br/>
+                    <t:if test="orderCustomer">
+                        После выполнения заказа вы получите бонусных баллов: ${order.bonus}
+                    </t:if>
                     <t:if test="catalog.basketMin">
                         ${basketMinText}<br/>
                     </t:if>

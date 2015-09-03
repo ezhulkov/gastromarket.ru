@@ -237,12 +237,12 @@ public class OrderServiceImpl implements OrderService, Logging {
         final UserEntity referrer = customer.getReferrer();
         if (status == Status.CLOSED) {
             ratingService.registerEvent(Type.ORDER_DONE, catalog.getUser(), catalog, order.getTotalPrice());
-            final int bonus = order.calculateBonus();
+            final int bonus = order.getBonus();
             customer.giveBonus(bonus);
             userRepository.save(customer);
             ratingService.registerEvent(Type.BONUS, customer, null, bonus);
             if (referrer != null) {
-                final int referralBonus = order.calculateReferralBonus();
+                final int referralBonus = order.getReferrerBonus();
                 referrer.giveBonus(referralBonus);
                 userRepository.save(referrer);
                 ratingService.registerEvent(Type.BONUS, referrer, null, referralBonus);

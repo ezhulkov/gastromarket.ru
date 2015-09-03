@@ -75,6 +75,10 @@ public abstract class AbstractOrder extends BaseComponent {
         return !isCook() && (order == null || order.getStatus() == Status.ACTIVE || order.getStatus() == Status.NEW);
     }
 
+    public boolean isOrderCustomer() {
+        return order != null && order.getCustomer().equals(getAuthenticatedUser());
+    }
+
     public int getTotal() {
         return order == null ? getShoppingCart().getCatalogPrice(catalog) : order.getTotalPrice();
     }
