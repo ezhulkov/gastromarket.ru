@@ -158,8 +158,8 @@ public class OrderServiceImpl implements OrderService, Logging {
                 catalogRepository.findAll().stream().map(CatalogEntity::getUser).distinct()
                         .filter(t -> !filterEmails.contains(t.getEmail()))
                         .forEach(cook -> {
-                            params.put("username", cook.getFullName());
-                            mailService.sendMailMessage(cook.getEmail(), MailService.NEW_TENDER_COOK, params);
+//                            params.put("username", cook.getFullName());
+//                            mailService.sendMailMessage(cook.getEmail(), MailService.NEW_TENDER_COOK, params);
                         });
             } catch (MailException e) {
                 logger.error("", e);
