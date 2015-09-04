@@ -95,12 +95,9 @@
                         <b>10000<span class="rub"/></b>
                     </p>
                     <p>
-                        Для этого необходимо написать письмо, указать свой логин, номинал карты, адрес и время доставки.
+                        Для этого необходимо <a href="mailto:contacts@gastromarket.ru" class="red-text f16px">написать нам письмо</a>, указать свой логин, номинал карты, адрес и время доставки.
                         Мы пришлем карту курьером.
                     </p>
-                </div>
-                <div class="gap3 text-center">
-                    <a href="mailto:contacts@gastromarket.ru" class="btn btn-red btn-lg">Получить подарок</a>
                 </div>
             </div>
         </div>
