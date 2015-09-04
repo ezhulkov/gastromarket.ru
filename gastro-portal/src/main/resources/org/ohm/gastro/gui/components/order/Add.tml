@@ -27,7 +27,8 @@
                                     </div>
                                 </div>
                                 <div class="right">
-                                    <t:actionlink rel="nofollow" class="pic-holder basket-add" t:zone="basketZone" t:context="[entity.type,entity.id]" t:id="purchase2"><span/>Заказать</t:actionlink>
+                                    <t:actionlink rel="nofollow" class="pic-holder basket-add" t:zone="basketZone" t:context="[entity.type,entity.id]" t:id="ajaxLinkPurchase2"><span/>Заказать
+                                    </t:actionlink>
                                 </div>
                             </div>
                             <t:loop source="priceModifiers" value="priceModifier" formState="NONE">
@@ -42,7 +43,9 @@
                                         </div>
                                     </div>
                                     <div class="right">
-                                        <t:actionlink rel="nofollow" class="pic-holder basket-add" t:zone="basketZone" t:context="[entity.type,entity.id,priceModifier.id]" t:id="purchase"><span/>Заказать</t:actionlink>
+                                        <t:actionlink rel="nofollow" class="pic-holder basket-add" t:zone="basketZone" t:context="[entity.type,entity.id,priceModifier.id]" t:id="ajaxLinkPurchase">
+                                            <span/>Заказать
+                                        </t:actionlink>
                                     </div>
                                 </div>
                             </t:loop>
@@ -53,6 +56,6 @@
         </div>
     </t:if>
     <t:unless test="priceModifiers">
-        <t:actionlink rel="nofollow" class="pic-holder basket-add" t:zone="basketZone" t:context="[entity.type,entity.id]" t:id="purchase3"><span/>Заказать</t:actionlink>
+        <t:actionlink rel="nofollow" class="pic-holder basket-add" t:zone="basketZone" t:context="[entity.type,entity.id]" t:id="ajaxLinkPurchase3"><span/>Заказать</t:actionlink>
     </t:unless>
 </div>

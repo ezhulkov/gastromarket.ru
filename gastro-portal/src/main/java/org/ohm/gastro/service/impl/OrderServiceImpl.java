@@ -143,7 +143,11 @@ public class OrderServiceImpl implements OrderService, Logging {
         tender.setStatus(Status.NEW);
         orderRepository.save(tender);
         tender.setOrderNumber(Long.toString(tender.getId()));
-        orderRepository.save(tender);
+        return orderRepository.save(tender);
+    }
+
+    @Override
+    public OrderEntity commitTender(OrderEntity tender, UserEntity caller) {
         Executors.newSingleThreadExecutor().execute(() -> {
             try {
                 final Map<String, Object> params = new HashMap<String, Object>() {
@@ -162,8 +166,8 @@ public class OrderServiceImpl implements OrderService, Logging {
                 catalogRepository.findAll().stream().map(CatalogEntity::getUser).distinct()
                         .filter(t -> !filterEmails.contains(t.getEmail()))
                         .forEach(cook -> {
-//                            params.put("username", cook.getFullName());
-//                            mailService.sendMailMessage(cook.getEmail(), MailService.NEW_TENDER_COOK, params);
+                            //                            params.put("username", cook.getFullName());
+                            //                            mailService.sendMailMessage(cook.getEmail(), MailService.NEW_TENDER_COOK, params);
                         });
             } catch (MailException e) {
                 logger.error("", e);

@@ -24,19 +24,19 @@ public class Add extends BaseComponent {
     @Property
     private PriceModifierEntity priceModifier;
 
-    public void onActionFromPurchase(PurchaseEntity.Type eType, Long eId, Long mId) {
+    public void onActionFromAjaxLinkPurchase(PurchaseEntity.Type eType, Long eId, Long mId) {
         getShoppingCart().addItem(createPurchaseItem(eType, eId, mId));
         getAjaxResponseRenderer()
                 .addRender("basketZone", getShoppingCart().getBasketBlock())
                 .addRender("orderShowZone", getShoppingCart().getOrderShowBlock());
     }
 
-    public void onActionFromPurchase2(PurchaseEntity.Type eType, Long eId) {
-        onActionFromPurchase(eType, eId, null);
+    public void onActionFromAjaxLinkPurchase2(PurchaseEntity.Type eType, Long eId) {
+        onActionFromAjaxLinkPurchase(eType, eId, null);
     }
 
-    public void onActionFromPurchase3(PurchaseEntity.Type eType, Long eId) {
-        onActionFromPurchase(eType, eId, null);
+    public void onActionFromAjaxLinkPurchase3(PurchaseEntity.Type eType, Long eId) {
+        onActionFromAjaxLinkPurchase(eType, eId, null);
     }
 
     @Cached(watch = "entity")

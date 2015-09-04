@@ -178,6 +178,7 @@ public class Edit extends BaseComponent {
         }
         if (!error) {
             getUserService().saveUser(order.getCustomer());
+            if (tender) getOrderService().commitTender(order, getAuthenticatedUser());
         } else {
             getAjaxResponseRenderer().addRender(getOrderEditZone(), editContactsBlock);
             return null;
