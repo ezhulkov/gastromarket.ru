@@ -29,12 +29,15 @@ import org.springframework.mail.MailException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PreDestroy;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 import static org.scribe.utils.Preconditions.checkNotNull;
 
@@ -54,6 +57,7 @@ public class OrderServiceImpl implements OrderService, Logging {
     private final UserRepository userRepository;
     private final RatingService ratingService;
     private final List<String> filterEmails = Lists.newArrayList("jazzcook@yandex.ru", "cook@cook.com", "cook@cook.ru");
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     @Autowired
     public OrderServiceImpl(final OrderRepository orderRepository,
@@ -70,6 +74,11 @@ public class OrderServiceImpl implements OrderService, Logging {
         this.mailService = mailService;
         this.userRepository = userRepository;
         this.ratingService = ratingService;
+    }
+
+    @PreDestroy
+    public void shutdown() {
+        executorService.shutdown();
     }
 
     @Override
@@ -148,27 +157,28 @@ public class OrderServiceImpl implements OrderService, Logging {
 
     @Override
     public OrderEntity commitTender(OrderEntity tender, UserEntity caller) {
-        Executors.newSingleThreadExecutor().execute(() -> {
+        final Map<String, Object> params = new HashMap<String, Object>() {
+            {
+                put("username", tender.getCustomer().getFullName());
+                put("customer", tender.getCustomer());
+                put("name", ObjectUtils.defaultIfNull(tender.getName(), ""));
+                put("comment", ObjectUtils.defaultIfNull(tender.getComment(), ""));
+                put("total", ObjectUtils.defaultIfNull(tender.getTotalPrice(), ""));
+                put("date", ObjectUtils.defaultIfNull(tender.getDatePrintable(), "-"));
+                put("address", tender.getOrderUrl());
+            }
+        };
+        final List<UserEntity> rcpts = catalogRepository.findAll().stream().
+                map(CatalogEntity::getUser).distinct().
+                filter(t -> !filterEmails.contains(t.getEmail())).collect(Collectors.toList());
+        executorService.execute(() -> {
             try {
-                final Map<String, Object> params = new HashMap<String, Object>() {
-                    {
-                        put("username", tender.getCustomer().getFullName());
-                        put("customer", tender.getCustomer());
-                        put("name", ObjectUtils.defaultIfNull(tender.getName(), ""));
-                        put("comment", ObjectUtils.defaultIfNull(tender.getComment(), ""));
-                        put("total", ObjectUtils.defaultIfNull(tender.getTotalPrice(), ""));
-                        put("date", ObjectUtils.defaultIfNull(tender.getDatePrintable(), "-"));
-                        put("address", tender.getOrderUrl());
-                    }
-                };
                 mailService.sendAdminMessage(MailService.NEW_TENDER_ADMIN, params);
                 mailService.sendMailMessage(tender.getCustomer().getEmail(), MailService.NEW_TENDER_CUSTOMER, params);
-                catalogRepository.findAll().stream().map(CatalogEntity::getUser).distinct()
-                        .filter(t -> !filterEmails.contains(t.getEmail()))
-                        .forEach(cook -> {
-                            params.put("username", cook.getFullName());
-                            mailService.sendMailMessage(cook.getEmail(), MailService.NEW_TENDER_COOK, params);
-                        });
+                rcpts.forEach(cook -> {
+                    params.put("username", cook.getFullName());
+                    mailService.sendMailMessage(cook.getEmail(), MailService.NEW_TENDER_COOK, params);
+                });
             } catch (MailException e) {
                 logger.error("", e);
             }

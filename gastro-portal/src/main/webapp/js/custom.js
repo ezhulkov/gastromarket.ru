@@ -346,6 +346,8 @@ function initLoginModal() {
         hideAll();
         jQuery(".modal-dialog.application").show();
     });
+    hideAll();
+    jQuery(".modal-dialog.login").show();
 }
 
 function showModalResult(block) {
