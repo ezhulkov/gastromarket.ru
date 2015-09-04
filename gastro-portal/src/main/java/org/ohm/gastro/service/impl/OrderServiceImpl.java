@@ -166,8 +166,8 @@ public class OrderServiceImpl implements OrderService, Logging {
                 catalogRepository.findAll().stream().map(CatalogEntity::getUser).distinct()
                         .filter(t -> !filterEmails.contains(t.getEmail()))
                         .forEach(cook -> {
-                            //                            params.put("username", cook.getFullName());
-                            //                            mailService.sendMailMessage(cook.getEmail(), MailService.NEW_TENDER_COOK, params);
+                            params.put("username", cook.getFullName());
+                            mailService.sendMailMessage(cook.getEmail(), MailService.NEW_TENDER_COOK, params);
                         });
             } catch (MailException e) {
                 logger.error("", e);
@@ -243,11 +243,13 @@ public class OrderServiceImpl implements OrderService, Logging {
             ratingService.registerEvent(Type.ORDER_DONE, catalog.getUser(), catalog, order.getTotalPrice());
             final int bonus = order.getBonus();
             customer.giveBonus(bonus);
+            logger.info("Crediting {} with {} bonuses, total {}", customer, bonus, customer.getBonus());
             userRepository.save(customer);
             ratingService.registerEvent(Type.BONUS, customer, null, bonus);
             if (referrer != null) {
                 final int referralBonus = order.getReferrerBonus();
                 referrer.giveBonus(referralBonus);
+                logger.info("Crediting {} with {} bonuses, total {}", referrer, referralBonus, referrer.getBonus());
                 userRepository.save(referrer);
                 ratingService.registerEvent(Type.BONUS, referrer, null, referralBonus);
             }

@@ -286,7 +286,7 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
     }
 
     public int giveBonus(int bonus) {
-        this.bonus = (Integer) ObjectUtils.defaultIfNull(bonus, 0) + bonus;
+        this.bonus = (Integer) ObjectUtils.defaultIfNull(this.bonus, 0) + bonus;
         return this.bonus;
     }
 

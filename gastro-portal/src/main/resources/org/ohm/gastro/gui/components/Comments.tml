@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="#" class="dotted-link">загрузить фото</a>
+                            <!--<a href="#" class="dotted-link">загрузить фото</a>-->
                             <!--<t:uploadfile type="COMMENT" inputType="link"/>-->
                             &nbsp;&nbsp;
                         </t:if>
