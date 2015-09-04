@@ -32,6 +32,9 @@ public class List extends EditObjectPage<UserEntity> {
     private String csvUsers;
 
     @Property
+    private String searchEmail;
+
+    @Property
     private boolean sendEmail = false;
 
     @Property
@@ -87,6 +90,10 @@ public class List extends EditObjectPage<UserEntity> {
 
     public void onActionFromToggleState(Long id) {
         getUserService().toggleUser(id);
+    }
+
+    public void onActionFromDeleteUser(Long id) {
+        getUserService().deleteUser(id);
     }
 
     public void onSubmitFromImportCsvForm() {

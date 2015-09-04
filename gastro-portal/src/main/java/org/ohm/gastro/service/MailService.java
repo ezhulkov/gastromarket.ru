@@ -39,4 +39,6 @@ public interface MailService {
 
     void syncChimpList(@Nonnull final UserEntity user, @Nonnull final Map<String, String> mergeVars);
 
+    void deleteChimpList(@Nonnull final UserEntity user);
+
 }

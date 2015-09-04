@@ -294,4 +294,10 @@ public class UserServiceImpl implements UserService, Logging {
 
     }
 
+    @Override
+    public void deleteUser(Long id) {
+        final UserEntity user = userRepository.findOne(id);
+        userRepository.delete(user);
+        mailService.deleteChimpList(user);
+    }
 }

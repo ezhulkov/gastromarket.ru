@@ -38,4 +38,6 @@ public interface UserService extends UserDetailsService, ImageUploaderService<Us
 
     void importUsers(String csvUsers);
 
+    void deleteUser(Long id);
+
 }

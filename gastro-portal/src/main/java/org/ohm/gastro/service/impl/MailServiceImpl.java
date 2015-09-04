@@ -40,7 +40,8 @@ public class MailServiceImpl implements MailService, Logging {
     private final static Pattern TITLE_CUTTER = Pattern.compile("\\<title\\>(.*)\\<\\/title\\>");
     private final static String TEMPLATE_PATH = "email/%s.vm";
     private final static String MERGE_PAIR = "\"%s\":\"%s\"";
-    private final static String MC_ENDPOINT = "https://us11.api.mailchimp.com/2.0/lists/batch-subscribe";
+    private final static String MC_SYNC_ENDPOINT = "https://us11.api.mailchimp.com/2.0/lists/batch-subscribe";
+    private final static String MC_DEL_ENDPOINT = "https://us11.api.mailchimp.com/2.0/lists/unsubscribe";
     private final static String MC_SUBSCRIBE_BLOCK =
             "{" +
                     "  \"apikey\": \"c1a3fcb063adeab16e8d2be9e09b8e97-us11\"," +
@@ -57,6 +58,16 @@ public class MailServiceImpl implements MailService, Logging {
                     "  \"double_optin\": false," +
                     "  \"update_existing\": true," +
                     "  \"replace_interests\": true" +
+                    "}";
+    private final static String MC_UNSUBSCRIBE_BLOCK =
+            "{" +
+                    "  \"apikey\": \"c1a3fcb063adeab16e8d2be9e09b8e97-us11\"," +
+                    "  \"id\": \"122757a479\"," +
+                    "  \"email\": {" +
+                    "    \"email\": \"%s\"," +
+                    "    \"euid\": \"%s\"," +
+                    "    \"luid\": \"%s\"" +
+                    "   }" +
                     "}";
 
     private final VelocityEngine velocityEngine;
@@ -151,7 +162,26 @@ public class MailServiceImpl implements MailService, Logging {
         try (
                 final CloseableHttpClient httpClient = HttpClients.createDefault();
         ) {
-            final HttpPost httpPost = new HttpPost(MC_ENDPOINT);
+            final HttpPost httpPost = new HttpPost(MC_SYNC_ENDPOINT);
+            httpPost.setEntity(new StringEntity(mailChimpJson, Charsets.UTF_8));
+            httpClient.execute(httpPost);
+        } catch (Exception ex) {
+            logger.error("", ex);
+        }
+    }
+
+    @Override
+    public void deleteChimpList(@Nonnull UserEntity user) {
+        if (!production) return;
+        final String mailChimpJson = String.format(MC_UNSUBSCRIBE_BLOCK,
+                                                   user.getEmail(),
+                                                   user.getEmail(),
+                                                   user.getEmail());
+        logger.info("MailChimp request {}", mailChimpJson);
+        try (
+                final CloseableHttpClient httpClient = HttpClients.createDefault();
+        ) {
+            final HttpPost httpPost = new HttpPost(MC_DEL_ENDPOINT);
             httpPost.setEntity(new StringEntity(mailChimpJson, Charsets.UTF_8));
             httpClient.execute(httpPost);
         } catch (Exception ex) {

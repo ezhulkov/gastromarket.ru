@@ -7,11 +7,12 @@
     <div class="links-set">
         <a data-toggle="modal" data-target="#create" href="#create">Создать</a>
         <a data-toggle="modal" data-target="#import" href="#create">Импорт</a>
+        <a data-toggle="modal" data-target="#search" href="#create">Искать</a>
     </div>
 
     <t:grid source="users" row="oneUser"
             exclude="sourceUrl,loginDate,id,username,password,accountNonExpired,accountNonLocked,avatarUrl,avatarUrlMedium,avatarUrlSmall,credentialsNonExpired,enabled,status,anonymous,deliveryAddress,mobilePhone,bonus,loginDatePrintable,datePrintable,printableName,user,admin,cook"
-            reorder="email,fullName,type,date,referrer,toggle" add="referrer,toggle"
+            reorder="email,fullName,type,date,referrer,toggle,delete" add="referrer,toggle,delete"
             t:mixins="GridSortingDisabled"
             class="table table-hover">
         <t:parameter name="referrerCell">
@@ -38,6 +39,12 @@
                         <span class="glyphicon glyphicon-plus-sign tip" title="Разблокировать"/>
                     </t:parameter>
                 </t:if>
+            </t:actionlink>
+        </t:parameter>
+        <t:parameter name="deleteHeader"/>
+        <t:parameter name="deleteCell">
+            <t:actionlink rel="nofollow" t:id="deleteUser" context="oneUser.id">
+                <span class="glyphicon glyphicon-remove tip" title="Удалить"/>&nbsp;
             </t:actionlink>
         </t:parameter>
         <t:parameter name="empty">
@@ -133,6 +140,30 @@
             </div>
         </div>
     </div>
+
+    <!--<div class="modal fade" id="import" tabindex="-1" role="dialog" aria-hidden="true">-->
+    <!--<div class="modal-dialog" style="width:1200px;">-->
+    <!--<div class="modal-content">-->
+    <!--<div class="modal-header">-->
+    <!--<div class="title">-->
+    <!--<h1><span>Искать</span></h1>-->
+    <!--</div>-->
+    <!--<a class="modal-close" data-dismiss="modal"></a>-->
+    <!--</div>-->
+    <!--<div class="modal-body">-->
+    <!--<t:form t:id="searchForm" class="form form-horizontal edit" t:clientValidation="none" role="form">-->
+    <!--<t:errors/>-->
+    <!--<div class="form-group">-->
+    <!--<div class="col-sm-12">-->
+    <!--<t:textfield t:id="searchEmail" t:value="searchEMail" class="form-control"/>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<input class="btn btn-red" type="submit" value="Искать"/>-->
+    <!--</t:form>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
 
     <script>
         activate_menu('#user');
