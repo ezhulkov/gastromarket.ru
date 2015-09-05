@@ -71,7 +71,7 @@ public class SocialFilter extends BaseApplicationFilter {
                         httpServletResponse.sendRedirect("/");
                         return;
                     }
-                    userService.signupSocial(userProfile);
+                    userService.signupSocial(userProfile, httpServletRequest.getAttribute("referrerUser"));
                 }
                 if (session != null) {
                     Map<String, Token> tokens = (Map<String, Token>) session.getAttribute(TOKENS);

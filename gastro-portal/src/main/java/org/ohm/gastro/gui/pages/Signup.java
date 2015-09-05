@@ -1,6 +1,7 @@
 package org.ohm.gastro.gui.pages;
 
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.domain.UserEntity.Type;
 import org.ohm.gastro.gui.mixins.BaseComponent;
@@ -9,6 +10,7 @@ import org.ohm.gastro.service.UserExistsException;
 import org.ohm.gastro.service.UserService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,30 +18,74 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
+import java.io.IOException;
 
 /**
  * Created by ezhulkov on 24.08.14.
  */
 public class Signup extends BaseComponent {
 
+    @Inject
+    private DaoAuthenticationProvider authenticationProvider;
+
     @Property
     private boolean error;
 
-    public Class onActivate() {
-        if (isAuthenticated()) return Index.class;
+    @Property
+    private UserEntity referrer;
+
+    @Property
+    private String eMail;
+
+    @Property
+    private String password;
+
+    @Property
+    private String fullName;
+
+    public boolean onActivate(Long referrerId) throws IOException {
+        return onActivate(false, referrerId);
+    }
+
+    public boolean onActivate(boolean error, Long referrerId) throws IOException {
+        if (isAuthenticated()) {
+            getResponse().sendRedirect(getPageLinkSource().createPageRenderLink(Index.class));
+            return true;
+        }
+        this.error = error;
+        if (referrerId != null) {
+            referrer = getUserService().findUser(referrerId);
+            getHttpServletRequest().setAttribute("referrerUser", referrer);
+        }
+        return true;
+    }
+
+    public Object[] onPassivate() {
+        return new Object[]{error, referrer == null ? null : referrer.getId()};
+    }
+
+    public Class onSubmitFromSignupForm() {
+        if (!error) {
+            try {
+                Signup.signupUser(eMail, fullName, password, referrer, getHttpServletRequest(), getUserService(), authenticationProvider);
+                return Index.class;
+            } catch (UserExistsException | EmptyPasswordException e) {
+                error = true;
+            } catch (AuthenticationException e) {
+                SecurityContextHolder.getContext().setAuthentication(null);
+            }
+        }
         return null;
     }
 
-    public Class onActivate(boolean error) {
-        if (isAuthenticated()) return Index.class;
-        this.error = error;
-        return null;
+    public void onFailureFromSignupForm() {
+        error = true;
     }
 
     public static void signupUser(@Nonnull String eMail,
                                   @Nonnull String fullName,
                                   @Nonnull String password,
+                                  @Nonnull UserEntity referrer,
                                   @Nonnull HttpServletRequest httpServletRequest,
                                   @Nonnull UserService userService,
                                   @Nonnull AuthenticationProvider authenticationProvider)
@@ -48,7 +94,7 @@ public class Signup extends BaseComponent {
         user.setEmail(eMail);
         user.setFullName(fullName);
         user.setType(Type.USER);
-        user.setReferrer(Optional.ofNullable(httpServletRequest.getParameter("referrer")).map(t -> userService.findUser(Long.parseLong(t))).orElse(null));
+        user.setReferrer(referrer);
         user = userService.createUser(user, password, null, true);
         final UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), password);
         token.setDetails(new WebAuthenticationDetails(httpServletRequest));

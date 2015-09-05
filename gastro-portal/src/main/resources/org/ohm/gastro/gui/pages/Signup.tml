@@ -20,44 +20,45 @@
             <div class="row">
                 <p class="modal-text text-center">или через почтовый адрес и пароль</p>
             </div>
-            <!--<t:if test="error">-->
-            <!--<div class="row">-->
-            <!--<div class="col-sm-12 text-center">-->
-            <!--<div class="error">Неправильно указан адрес почты или пароль</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</t:if>-->
-            <!--<form method="post" action="j_security_check" class="form form-horizontal edit" role="form">-->
-            <!--<div class="form-group">-->
-            <!--<label class="col-sm-2 control-label" for="j_username">Адрес почты:</label>-->
+            <t:form t:id="signupForm" t:clientValidation="none" class="form form-horizontal edit" role="form">
+                <t:if test="error">
+                    <div class="t-error">
+                        <ul>
+                            <li>Такой пользователь уже существует, укажите другой адрес</li>
+                        </ul>
+                    </div>
+                    <t:errors/>
+                </t:if>
+                <br/>
 
-            <!--<div class="col-sm-9">-->
-            <!--<input id="j_username" name="j_username" type="text" class="form-control"/>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="form-group">-->
-            <!--<label class="col-sm-2 control-label" for="j_password">Пароль:</label>-->
-
-            <!--<div class="col-sm-9">-->
-            <!--<input id="j_password" name="j_password" type="password" class="form-control"/>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="form-group">-->
-            <!--<div class="col-sm-2"/>-->
-            <!--<div class="col-sm-9">-->
-            <!--<a href="#" class="pull-left red-text forget-link" data-toggle="modal" data-target="#login">Забыли пароль?</a>-->
-
-            <!--<div class="label-checkbox-set pull-right">-->
-            <!--<label for="rememberme2" class="red-text">Запомнить меня</label>-->
-            <!--<input type="checkbox" name="_spring_security_remember_me" id="rememberme2" checked="checked"/>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="form-buttons">-->
-            <!--<input class="btn btn-red" type="submit" value="Войти"/>-->
-            <!--<a href="#" class="btn btn-white signup-link" data-toggle="modal" data-target="#login">Регистрация</a>-->
-            <!--</div>-->
-            <!--</form>-->
+                <div class="form-group">
+                    <div class="col-sm-1"/>
+                    <div class="col-sm-10">
+                        <t:label for="eMail">Адрес почты:</t:label>
+                        <input t:type="TextField" t:id="eMail" t:value="eMail" t:validate="required,email,maxlength=64" class="form-control"/>
+                    </div>
+                    <div class="col-sm-1"/>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-1"/>
+                    <div class="col-sm-10">
+                        <t:label for="fullName">Полное имя:</t:label>
+                        <input t:type="TextField" t:id="fullName" t:value="fullName" t:validate="maxlength=64" class="form-control"/>
+                    </div>
+                    <div class="col-sm-1"/>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-1"/>
+                    <div class="col-sm-10">
+                        <t:label for="password">Пароль:</t:label>
+                        <input t:type="PasswordField" t:id="password" t:value="password" t:validate="required,maxlength=64" class="form-control"/>
+                    </div>
+                    <div class="col-sm-1"/>
+                </div>
+                <div class="form-buttons">
+                    <input class="btn btn-red" type="submit" value="Зарегистрироваться"/>
+                </div>
+            </t:form>
         </div>
         <div class="col-sm-2"/>
     </div>

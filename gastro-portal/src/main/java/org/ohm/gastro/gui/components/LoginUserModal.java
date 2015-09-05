@@ -73,7 +73,7 @@ public class LoginUserModal extends BaseComponent {
     public Block onSubmitFromSignupForm() {
         if (!error) {
             try {
-                Signup.signupUser(eMail, fullName, password, getHttpServletRequest(), getUserService(), authenticationProvider);
+                Signup.signupUser(eMail, fullName, password, null, getHttpServletRequest(), getUserService(), authenticationProvider);
                 return signupResultBlock;
             } catch (UserExistsException e) {
                 error = busyError = true;

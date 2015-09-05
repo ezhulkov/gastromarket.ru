@@ -32,7 +32,7 @@ public interface UserService extends UserDetailsService, ImageUploaderService<Us
 
     void processFeedbackRequest(String eMail, String fullName, String comment);
 
-    void signupSocial(UserEntity userProfile);
+    void signupSocial(UserEntity userProfile, Object referrerUser);
 
     void afterSuccessfulLogin(@Nonnull UserDetails user);
 

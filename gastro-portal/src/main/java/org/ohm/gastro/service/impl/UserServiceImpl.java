@@ -205,9 +205,10 @@ public class UserServiceImpl implements UserService, Logging {
     }
 
     @Override
-    public void signupSocial(UserEntity userProfile) {
+    public void signupSocial(UserEntity userProfile, final Object referrerUser) {
 
         UserEntity existingUser = userRepository.findByEmail(userProfile.getEmail());
+        if (referrerUser != null) userProfile.setReferrer(userRepository.findOne(((UserEntity) referrerUser).getId()));
         if (existingUser == null) {
             existingUser = userRepository.save(userProfile);
         } else {
