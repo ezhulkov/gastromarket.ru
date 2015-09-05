@@ -20,6 +20,54 @@ $mainpics: main1 main2 main3 main4 main5 main6 main7 main8
         background: url(../img/category/category-#{$category}-small.jpg) no-repeat 0 0
 
 .main-header
+  width: 100%
+  height: 90vh
+  -webkit-background-size: cover
+  -moz-background-size: cover
+  -o-background-size: cover
+  background-size: cover
+  background: url("../img/landing-main.jpg") center top no-repeat
+  .data
+    height: 100%
+    position: relative
+  .tender
+    +border-class(rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.9), rgba(0, 0, 0, 0.4))
+    text-align: center
+    position: absolute
+    color: $blackTextColor
+    width: 480px
+    height: 550px
+    right: 0
+    bottom: 50px
+    form
+      margin-top: 30px
+    .name, .price
+      font-size: 20px
+      height: 45px
+    .caption
+      font-size: 24px
+      margin: 35px 0 0 0
+    .caption2
+      font-size: 16px
+      padding: 0 30px
+      margin: 5px 0 15px 0
+    .btn
+      display: block
+      margin: 25px auto 5px auto
+  h1
+    font-size: 70px
+    margin-top: 90px
+    color: white
+  h2
+    width: 550px
+    color: white
+    font-size: 24px
+    line-height: 30px
+    position: absolute
+    bottom: 400px
+    left: 50px
+
+.main-header2
   padding-top: 50px
   height: 500px
   display: block
