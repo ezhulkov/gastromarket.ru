@@ -202,7 +202,7 @@
 
                                             <span style="font-size:12px">ГастроМаркет - мы помогаем сделать лучший выбор в ассортименте выпечки, домашней еды и кейтеринга для Вашего праздника, предоставляя самую качественную базу независимых кулинаров и их продукции.&nbsp;</span><br>
                                             <br>
-                                            <span style="font-size:12px"><a href="${unsubscribe}" style="color:#606060;font-size:12px;">Больше не получать оповещений ГастроМаркет</a></span>
+                                            <span style="font-size:12px"><a href="http://gastromarket.ru/unsubscribe/${unsubscribe}" style="color:#606060;font-size:12px;">Больше не получать оповещений ГастроМаркет</a></span>
                                             <br>
                                             <br>
                                             <span style="font-size:12px"><em>Copyright © 2015 ГастроМаркет, Все права защищены.</em></span>

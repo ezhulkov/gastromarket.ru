@@ -40,6 +40,8 @@ public interface RatingService extends ImageUploaderService<CommentEntity> {
 
     CommentEntity findComment(Long cId);
 
+    void createOrderComment(OrderEntity order, UserEntity author, String replyText);
+
     void placeReply(OrderEntity order, UserEntity author, String replyText);
 
     void placeReply(CommentEntity comment, UserEntity author, String replyText);

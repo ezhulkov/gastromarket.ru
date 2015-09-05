@@ -53,7 +53,6 @@ public class List extends BaseComponent {
             orders = getOrderService().findAllTenders();
             return orders.stream()
                     .filter(t -> t.getStatus() == status || status == null)
-                    .filter(OrderEntity::isWasSetup)
                     .sorted((o1, o2) -> o2.getDate().compareTo(o1.getDate())).collect(Collectors.toList());
         }
 

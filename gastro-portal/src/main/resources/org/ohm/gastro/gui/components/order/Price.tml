@@ -21,7 +21,7 @@
                 <div class="col-sm-12">
                     <span class="f20px">Стоимость заказа:</span><br/>
                     <t:if test="orderCustomer">
-                        После выполнения заказа вы получите бонусных баллов: ${order.bonus}
+                        После выполнения заказа вы получите бонусных баллов: ${order.bonus}<br/>
                     </t:if>
                     <t:if test="catalog.basketMin">
                         ${basketMinText}<br/>

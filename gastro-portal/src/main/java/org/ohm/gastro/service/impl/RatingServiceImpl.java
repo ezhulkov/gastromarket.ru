@@ -229,16 +229,21 @@ public class RatingServiceImpl implements RatingService, Logging {
     }
 
     @Override
+    public void createOrderComment(final OrderEntity order, final UserEntity author, final String replyText) {
+        final CommentEntity reply = new CommentEntity();
+        reply.setType(CommentEntity.Type.ORDER);
+        reply.setOrder(order);
+        reply.setAuthor(author);
+        reply.setText(replyText);
+        reply.setDate(new Date());
+        commentRepository.save(reply);
+    }
+
+    @Override
     public void placeReply(final OrderEntity order, final UserEntity author, final String replyText) {
         if (author.isCook() && StringUtils.isNotEmpty(replyText)) {
-            final CommentEntity reply = new CommentEntity();
-            reply.setType(CommentEntity.Type.ORDER);
-            reply.setOrder(order);
-            reply.setAuthor(author);
-            reply.setText(replyText);
-            reply.setDate(new Date());
-            commentRepository.save(reply);
             try {
+                createOrderComment(order, author, replyText);
                 final Map<String, Object> params = new HashMap<String, Object>() {
                     {
                         put("username", order.getCustomer().getFullName());

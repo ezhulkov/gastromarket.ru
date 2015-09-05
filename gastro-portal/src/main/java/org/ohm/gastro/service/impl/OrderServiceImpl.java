@@ -99,6 +99,7 @@ public class OrderServiceImpl implements OrderService, Logging {
             order.getProducts().stream().forEach(p -> p.setOrder(order));
             orderProductRepository.save(order.getProducts());
             order.setOrderNumber(Long.toString(order.getId()));
+            ratingService.createOrderComment(order, order.getCustomer(), "Обсуждение заказа");
             try {
                 final Map<String, Object> params = new HashMap<String, Object>() {
                     {
