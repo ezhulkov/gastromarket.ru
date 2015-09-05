@@ -24,6 +24,7 @@ import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.filter.SocialFilter;
 import org.ohm.gastro.gui.dto.ShoppingCart;
 import org.ohm.gastro.service.CatalogService;
+import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.MessageService;
 import org.ohm.gastro.service.OfferService;
 import org.ohm.gastro.service.OrderService;
@@ -85,6 +86,9 @@ public abstract class BaseComponent {
 
     @Inject
     private CatalogService catalogService;
+
+    @Inject
+    private MailService mailService;
 
     @Inject
     private PropertyService propertyService;
@@ -270,6 +274,10 @@ public abstract class BaseComponent {
 
     public OfferService getOfferService() {
         return offerService;
+    }
+
+    public MailService getMailService() {
+        return mailService;
     }
 
     public OrderProductEntity createPurchaseItem(PurchaseEntity.Type eType, Long eId, Long mid) {

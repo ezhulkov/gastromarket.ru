@@ -4,6 +4,7 @@ import org.ohm.gastro.domain.UserEntity;
 import org.springframework.mail.MailException;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Map;
 
 /**
@@ -24,7 +25,9 @@ public interface MailService {
     String TENDER_ATTACHED_CUSTOMER = "tender_attached_customer";
     String NEW_ORDER_ADMIN = "new_order_admin";
     String NEW_ORDER_COOK = "new_order_cook";
+    String CLOSE_ORDER_COOK = "close_order_cook";
     String NEW_ORDER_CUSTOMER = "new_order_customer";
+    String CLOSE_ORDER_CUSTOMER = "close_order_customer";
     String ORDER_COMMENT = "order_comment";
     String EDIT_ORDER = "edit_order";
 
@@ -35,10 +38,17 @@ public interface MailService {
 
     void sendMailMessage(final String recipient, final String templateKey, Map<String, Object> params) throws MailException;
 
+    void sendMailMessage(final UserEntity recipient, final String templateKey, Map<String, Object> params) throws MailException;
+
     void sendAdminMessage(final String templateKey, final Map<String, Object> params) throws MailException;
 
     void syncChimpList(@Nonnull final UserEntity user, @Nonnull final Map<String, String> mergeVars);
 
     void deleteChimpList(@Nonnull final UserEntity user);
+
+    @Nullable
+    UserEntity parseUnsubscribeLink(String link);
+
+    String generateUnsubscribeLink(UserEntity user);
 
 }

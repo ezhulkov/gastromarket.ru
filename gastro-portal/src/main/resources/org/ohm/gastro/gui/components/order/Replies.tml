@@ -4,19 +4,19 @@
             <div class="col-sm-1"/>
             <div class="col-sm-10 attention">
                 Все зарегистрированные кулинары, у которых заполнен каталог, могут оставить отклик к заявке.<br/>
-                Автору заявки достаточно просто выбрать лучшего кулинара и нажать ссылку "выбрать исполнителя". После этого заявка перейдет в статус заказа и будет скрыта для публичного просмотра.
+                Автору заявки достаточно просто выбрать лучшего кулинара и нажать ссылку "выбрать исполнителя". После этого заявка перейдет в статус заказа и будет недоступна для откликов.
             </div>
             <div class="col-sm-1"/>
         </div>
     </t:if>
 
     <div class="title">
-        <h1><span>Отклики</span></h1>
         <t:unless test="orderClosed">
             <t:if test="authenticated">
                 <t:if test="commentAllowed">
-                    <a href="#tender_reply" data-toggle="modal" class="round-link" data-target="#tender_reply">Откликнуться</a>
-
+                    <div class="gap3 text-center">
+                        <a href="#tender_reply" data-toggle="modal" data-target="#tender_reply" class="btn btn-red btn-lg">Откликнуться на заявку</a>
+                    </div>
                     <div class="modal fade" id="tender_reply" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -47,7 +47,9 @@
                         </div>
                     </div>
                     <t:parameter name="else">
-                        <a href="#tender_reply_denied" data-toggle="modal" class="round-link" data-target="#tender_reply_denied">Откликнуться</a>
+                        <div class="gap3 text-center">
+                            <a href="#tender_reply_denied" data-toggle="modal" data-target="#tender_reply_denied" class="btn btn-red btn-lg">Откликнуться на заявку</a>
+                        </div>
 
                         <div class="modal fade" id="tender_reply_denied" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog">
@@ -60,8 +62,11 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
+                                            <p class="modal-text">
+                                                К сожалению, вы не можете оставлять отклики к этой заявке.
+                                            </p>
                                             <p>
-                                                К сожалению, вы не можете оставлять отклики к этой заявке. Возможные причины:<br/><br/>
+                                                Возможные причины:<br/>
                                                 1. Вы уже откликнулись - тогда просто следите за существующим откликом.<br/>
                                                 2. Ваш каталог не заполнен - необходимо заполнить каталог и добавить блюда.<br/>
                                                 3. Есть больше 3 незавершенных заказа - доведите до конца существующие заказы.
@@ -74,7 +79,9 @@
                     </t:parameter>
                 </t:if>
                 <t:parameter name="else">
-                    <a href="#tender_login" data-toggle="modal" class="login-link round-link" data-target="#tender_login">Откликнуться</a>
+                    <div class="gap3 text-center">
+                        <a href="#tender_login" data-toggle="modal" data-target="#tender_login" class="btn btn-red btn-lg">Откликнуться на заявку</a>
+                    </div>
                 </t:parameter>
             </t:if>
         </t:unless>

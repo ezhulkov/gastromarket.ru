@@ -55,7 +55,7 @@ public class OrderServiceImpl implements OrderService, Logging {
     private final MailService mailService;
     private final UserRepository userRepository;
     private final RatingService ratingService;
-    private final List<String> filterEmails = Lists.newArrayList("jazzcook@yandex.ru", "cook@cook.com", "cook@cook.ru");
+    private final List<String> filterEmails = Lists.newArrayList();
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     @Autowired
@@ -91,6 +91,7 @@ public class OrderServiceImpl implements OrderService, Logging {
             order.setComment(preOrder.getComment());
             order.setProducts(preOrder.getProducts());
             order.setStatus(Status.ACTIVE);
+            order.setWasSetup(true);
             order.setType(OrderEntity.Type.PRIVATE);
             order.setCatalog(preOrder.getCatalog());
             order.setTotalPrice(order.getProducts().stream().mapToInt(t -> t.getCount() * t.getPrice()).sum());
@@ -112,9 +113,9 @@ public class OrderServiceImpl implements OrderService, Logging {
                 };
                 mailService.sendAdminMessage(MailService.NEW_ORDER_ADMIN, params);
                 params.put("username", order.getCatalog().getUser().getFullName());
-                mailService.sendMailMessage(order.getCatalog().getUser().getEmail(), MailService.NEW_ORDER_COOK, params);
+                mailService.sendMailMessage(order.getCatalog().getUser(), MailService.NEW_ORDER_COOK, params);
                 params.put("username", order.getCustomer().getFullName());
-                mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.NEW_ORDER_CUSTOMER, params);
+                mailService.sendMailMessage(order.getCustomer(), MailService.NEW_ORDER_CUSTOMER, params);
             } catch (MailException e) {
                 logger.error("", e);
             }
@@ -149,6 +150,7 @@ public class OrderServiceImpl implements OrderService, Logging {
         tender.setDate(new Timestamp(System.currentTimeMillis()));
         tender.setType(OrderEntity.Type.PUBLIC);
         tender.setStatus(Status.NEW);
+        tender.setWasSetup(false);
         orderRepository.save(tender);
         tender.setOrderNumber(Long.toString(tender.getId()));
         return orderRepository.save(tender);
@@ -156,6 +158,8 @@ public class OrderServiceImpl implements OrderService, Logging {
 
     @Override
     public OrderEntity commitTender(OrderEntity tender, UserEntity caller) {
+        tender.setWasSetup(true);
+        orderRepository.save(tender);
         final Map<String, Object> params = new HashMap<String, Object>() {
             {
                 put("username", tender.getCustomer().getFullName());
@@ -174,11 +178,11 @@ public class OrderServiceImpl implements OrderService, Logging {
         executorService.execute(() -> {
             try {
                 mailService.sendAdminMessage(MailService.NEW_TENDER_ADMIN, params);
-                mailService.sendMailMessage(tender.getCustomer().getEmail(), MailService.NEW_TENDER_CUSTOMER, params);
+                mailService.sendMailMessage(tender.getCustomer(), MailService.NEW_TENDER_CUSTOMER, params);
                 rcpts.forEach(cook -> {
                     params.put("username", cook.getFullName());
                     params.put("email", cook.getEmail());
-                    mailService.sendMailMessage(cook.getEmail(), MailService.NEW_TENDER_COOK, params);
+                    mailService.sendMailMessage(cook, MailService.NEW_TENDER_COOK, params);
                 });
             } catch (MailException e) {
                 logger.error("", e);
@@ -200,9 +204,9 @@ public class OrderServiceImpl implements OrderService, Logging {
                 }
             };
             params.put("username", catalog.getUser().getFullName());
-            mailService.sendMailMessage(catalog.getUser().getEmail(), MailService.TENDER_ATTACHED_COOK, params);
+            mailService.sendMailMessage(catalog.getUser(), MailService.TENDER_ATTACHED_COOK, params);
             params.put("username", order.getCustomer().getFullName());
-            mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.TENDER_ATTACHED_CUSTOMER, params);
+            mailService.sendMailMessage(order.getCustomer(), MailService.TENDER_ATTACHED_CUSTOMER, params);
         } catch (MailException e) {
             logger.error("", e);
         }
@@ -250,6 +254,15 @@ public class OrderServiceImpl implements OrderService, Logging {
         if (order == null || !order.isAllowed(caller)) return;
         final UserEntity customer = order.getCustomer();
         final UserEntity referrer = customer.getReferrer();
+        order.setStatus(status);
+        orderRepository.save(order);
+        final Map<String, Object> params = new HashMap<String, Object>() {
+            {
+                put("ordernumber", order.getOrderNumber());
+                put("status", status);
+                put("address", order.getOrderUrl());
+            }
+        };
         if (status == Status.CLOSED) {
             ratingService.registerEvent(Type.ORDER_DONE, catalog.getUser(), catalog, order.getTotalPrice());
             final int bonus = order.getBonus();
@@ -264,20 +277,16 @@ public class OrderServiceImpl implements OrderService, Logging {
                 userRepository.save(referrer);
                 ratingService.registerEvent(Type.BONUS, referrer, null, referralBonus);
             }
+            params.put("username", customer.getFullName());
+            mailService.sendMailMessage(customer, MailService.CLOSE_ORDER_CUSTOMER, params);
+            params.put("username", order.getCatalog().getUser().getFullName());
+            mailService.sendMailMessage(order.getCatalog().getUser(), MailService.CLOSE_ORDER_COOK, params);
+        } else {
+            params.put("username", customer.getFullName());
+            mailService.sendMailMessage(customer, MailService.EDIT_ORDER, params);
+            params.put("username", order.getCatalog().getUser().getFullName());
+            mailService.sendMailMessage(order.getCatalog().getUser(), MailService.EDIT_ORDER, params);
         }
-        order.setStatus(status);
-        orderRepository.save(order);
-        final Map<String, Object> params = new HashMap<String, Object>() {
-            {
-                put("ordernumber", order.getOrderNumber());
-                put("status", status);
-                put("address", order.getOrderUrl());
-            }
-        };
-        params.put("username", customer.getFullName());
-        mailService.sendMailMessage(customer.getEmail(), MailService.EDIT_ORDER, params);
-        params.put("username", order.getCatalog().getUser().getFullName());
-        mailService.sendMailMessage(order.getCatalog().getUser().getEmail(), MailService.EDIT_ORDER, params);
     }
 
     @Override

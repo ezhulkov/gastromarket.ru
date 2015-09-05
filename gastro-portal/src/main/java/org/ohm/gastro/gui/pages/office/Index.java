@@ -3,6 +3,7 @@ package org.ohm.gastro.gui.pages.office;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.corelib.components.Checkbox;
 import org.apache.tapestry5.corelib.components.PasswordField;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.ohm.gastro.domain.UserEntity;
@@ -12,6 +13,8 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.EditObjectPage;
 import org.ohm.gastro.service.EmptyPasswordException;
 
+import java.util.List;
+
 /**
  * Created by ezhulkov on 24.08.14.
  */
@@ -19,6 +22,9 @@ public class Index extends EditObjectPage<UserEntity> {
 
     @Component(id = "fullName", parameters = {"value=object?.fullName", "validate=maxlength=64"})
     private TextField fNameField;
+
+    @Component(id = "subscribe", parameters = {"value=object?.subscribeEmail"})
+    private Checkbox subscribeField;
 
     @Component(id = "password1", parameters = {"value=newPassword1", "validate=maxlength=64"})
     private PasswordField p1Field;
@@ -31,6 +37,9 @@ public class Index extends EditObjectPage<UserEntity> {
 
     @Property
     private String newPassword2;
+
+    @Property
+    private UserEntity child;
 
     @Override
     public ServiceCallback<UserEntity> getServiceCallback() {
@@ -60,6 +69,10 @@ public class Index extends EditObjectPage<UserEntity> {
 
     public String getAvatarUrl() {
         return getAuthenticatedUser().getAvatarUrl();
+    }
+
+    public List<UserEntity> getChildrenUsers() {
+        return getUserService().findAllChildren(getAuthenticatedUser());
     }
 
 }

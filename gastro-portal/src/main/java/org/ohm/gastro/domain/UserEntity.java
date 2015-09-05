@@ -54,6 +54,9 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
     @Column
     private String email;
 
+    @Column(name = "subscribe")
+    private boolean subscribeEmail = true;
+
     @Column
     private String password;
 
@@ -288,6 +291,14 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
     public int giveBonus(int bonus) {
         this.bonus = (Integer) ObjectUtils.defaultIfNull(this.bonus, 0) + bonus;
         return this.bonus;
+    }
+
+    public boolean isSubscribeEmail() {
+        return subscribeEmail;
+    }
+
+    public void setSubscribeEmail(final boolean subscribeEmail) {
+        this.subscribeEmail = subscribeEmail;
     }
 
     @Override

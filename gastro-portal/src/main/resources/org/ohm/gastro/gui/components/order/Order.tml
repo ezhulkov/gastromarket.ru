@@ -11,7 +11,7 @@
                                       orderShowCatalogZoneId="orderShowCatalogZoneId"
                                       privateOrders="privateOrders"/>
                 <t:order.tenderInfo order="order"/>
-                <t:order.items order="order" catalog="catalog" items="items" orderShowCatalogZoneId="orderShowCatalogZoneId"/>
+                <t:order.items order="order" catalog="catalog" items="items" orderShowCatalogZoneId="orderShowCatalogZoneId" orderBlock="orderMainBlock"/>
                 <t:order.price items="items" catalog="catalog" order="order"/>
                 <t:order.basketSubmit items="items" order="order" catalog="catalog" type="prop:type"/>
                 <t:if test="full">

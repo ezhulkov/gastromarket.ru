@@ -246,7 +246,7 @@ public class RatingServiceImpl implements RatingService, Logging {
                         put("text", replyText);
                     }
                 };
-                mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.ORDER_COMMENT, params);
+                mailService.sendMailMessage(order.getCustomer(), MailService.ORDER_COMMENT, params);
             } catch (MailException e) {
                 logger.error("", e);
             }
@@ -272,10 +272,10 @@ public class RatingServiceImpl implements RatingService, Logging {
             };
             if (!order.getCustomer().equals(author)) {
                 params.put("username", order.getCustomer().getFullName());
-                mailService.sendMailMessage(order.getCustomer().getEmail(), MailService.ORDER_COMMENT, params);
+                mailService.sendMailMessage(order.getCustomer(), MailService.ORDER_COMMENT, params);
             } else {
                 params.put("username", comment.getAuthor().getFullName());
-                mailService.sendMailMessage(comment.getAuthor().getEmail(), MailService.ORDER_COMMENT, params);
+                mailService.sendMailMessage(comment.getAuthor(), MailService.ORDER_COMMENT, params);
             }
         } catch (MailException e) {
             logger.error("", e);

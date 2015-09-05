@@ -9,6 +9,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.ohm.gastro.domain.UserEntity;
+import org.ohm.gastro.reps.UserRepository;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,16 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.security.crypto.codec.Hex;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.PreDestroy;
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
@@ -70,15 +77,20 @@ public class MailServiceImpl implements MailService, Logging {
                     "   }" +
                     "}";
 
+    private final UserRepository userRepository;
     private final VelocityEngine velocityEngine;
     private final String defaultFrom;
     private final ExecutorService executorService;
     private final JavaMailSenderImpl mailSender;
     private final boolean production;
+    final SecretKey desKey;
+    final Cipher desCipher;
 
     @Autowired
-    public MailServiceImpl(@Value("${mail.from:ГастроМаркет <contacts@gastromarket.ru>}") String defaultFrom,
-                           @Value("${production}") boolean production) {
+    public MailServiceImpl(final UserRepository userRepository,
+                           @Value("${mail.from:ГастроМаркет <contacts@gastromarket.ru>}") String defaultFrom,
+                           @Value("${production}") boolean production) throws Exception {
+        this.userRepository = userRepository;
         final Properties properties = new Properties();
         properties.setProperty("input.encoding", "UTF-8");
         properties.setProperty("resource.loader", "class");
@@ -95,11 +107,21 @@ public class MailServiceImpl implements MailService, Logging {
         mailSender.setDefaultEncoding("UTF-8");
         this.mailSender = mailSender;
         this.production = production;
+        final DESKeySpec dks = new DESKeySpec("1xp7zta.".getBytes());
+        final SecretKeyFactory skf = SecretKeyFactory.getInstance("DES");
+        desKey = skf.generateSecret(dks);
+        desCipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
     }
 
     @PreDestroy
     public void shutdown() {
         executorService.shutdownNow();
+    }
+
+    @Override
+    public void sendMailMessage(final UserEntity recipient, final String templateKey, final Map<String, Object> params) throws MailException {
+        params.put("unsubscribe", generateUnsubscribeLink(recipient));
+        if (recipient.isSubscribeEmail()) sendMailMessage(recipient.getEmail(), templateKey, params);
     }
 
     @Override
@@ -192,6 +214,34 @@ public class MailServiceImpl implements MailService, Logging {
     private String getTitle(String messageBody) {
         Matcher matcher = TITLE_CUTTER.matcher(messageBody);
         if (matcher.find()) return matcher.group(1);
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public UserEntity parseUnsubscribeLink(final String link) {
+        try {
+            synchronized (desCipher) {
+                desCipher.init(Cipher.DECRYPT_MODE, desKey);
+                byte[] bytes = desCipher.doFinal(Hex.decode(link.toUpperCase()));
+                return userRepository.findOne(Long.parseLong(new String(bytes)));
+            }
+        } catch (Exception e) {
+            logger.error("", e);
+        }
+        return null;
+    }
+
+    @Override
+    public String generateUnsubscribeLink(final UserEntity user) {
+        try {
+            synchronized (desCipher) {
+                desCipher.init(Cipher.ENCRYPT_MODE, desKey);
+                return new String(Hex.encode(desCipher.doFinal(user.getId().toString().getBytes()))).toLowerCase();
+            }
+        } catch (Exception e) {
+            logger.error("", e);
+        }
         return null;
     }
 

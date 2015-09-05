@@ -19,7 +19,7 @@
             </div>
             <t:if test="totalEnough">
                 <div class="modal fade" id="cart_address_${catalog.id}" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog application">
+                    <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <div class="title">
@@ -69,7 +69,7 @@
                 <a href="#cart_address_${catalog.id}" data-toggle="modal" class="round-link" data-target="#cart_address_${catalog.id}">Оформить заказ <span/></a>
                 <t:parameter name="else">
                     <div class="modal fade" id="cart_more_${catalog.id}" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog application">
+                        <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <div class="title">

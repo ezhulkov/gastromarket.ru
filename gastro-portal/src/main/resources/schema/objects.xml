@@ -808,4 +808,22 @@
         </sql>
     </changeSet>
 
+    <changeSet id="68" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="was_setup" type="java.sql.Types.BOOLEAN"/>
+        </addColumn>
+        <sql>
+            update orders set was_setup=true;
+        </sql>
+    </changeSet>
+
+    <changeSet id="69" author="ezhulkov">
+        <addColumn tableName="users">
+            <column name="subscribe" type="java.sql.Types.BOOLEAN" defaultValueBoolean="true"/>
+        </addColumn>
+        <sql>
+            update users set subscribe=true;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

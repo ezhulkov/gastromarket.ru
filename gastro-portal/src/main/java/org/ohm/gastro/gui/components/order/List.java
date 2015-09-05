@@ -51,7 +51,10 @@ public class List extends BaseComponent {
             return orders.stream().filter(t -> t.getMetaStatus() == status).sorted((o1, o2) -> o2.getDate().compareTo(o1.getDate())).collect(Collectors.toList());
         } else {
             orders = getOrderService().findAllTenders();
-            return orders.stream().filter(t -> t.getStatus() == status || status == null).sorted((o1, o2) -> o2.getDate().compareTo(o1.getDate())).collect(Collectors.toList());
+            return orders.stream()
+                    .filter(t -> t.getStatus() == status || status == null)
+                    .filter(OrderEntity::isWasSetup)
+                    .sorted((o1, o2) -> o2.getDate().compareTo(o1.getDate())).collect(Collectors.toList());
         }
 
     }

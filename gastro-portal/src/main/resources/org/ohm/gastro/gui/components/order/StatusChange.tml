@@ -9,7 +9,7 @@
         <a href="#order_status_${order.id}" class="dotted-link f20px" data-toggle="modal" data-target="#order_status_${order.id}">${orderStatusText}</a>
 
         <div class="modal fade" id="order_status_${order.id}" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog application">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <div class="title">

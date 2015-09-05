@@ -132,6 +132,9 @@ public class OrderEntity extends SitemapBaseEntity {
     @Column(name = "person_count")
     private Integer personCount;
 
+    @Column(name = "was_setup")
+    private boolean wasSetup = false;
+
     public void setCatalog(final CatalogEntity catalog) {
         this.catalog = catalog;
     }
@@ -297,4 +300,11 @@ public class OrderEntity extends SitemapBaseEntity {
         return (int) Math.ceil(getBonus() / 2);
     }
 
+    public boolean isWasSetup() {
+        return wasSetup;
+    }
+
+    public void setWasSetup(final boolean wasSetup) {
+        this.wasSetup = wasSetup;
+    }
 }
