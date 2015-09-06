@@ -6,10 +6,10 @@
                 <div class="col-md-12">
                     <h1>Надоели магазинные торты?</h1>
                 </div>
-                <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                <div class="col-lg-7 col-md-6 col-sm-12 col-xs-12">
                     <h2>ГастроМаркет - мы помогаем сделать лучший выбор в ассортименте выпечки, домашней еды и кейтеринга для Вашего праздника, предоставляя самую качественную базу независимых кулинаров и их продукции.</h2>
                 </div>
-                <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">
                     <t:form t:id="descForm" t:autofocus="true" t:clientValidation="none" class="form form-horizontal tender" role="form">
                         <div class="caption">Закажите кулинарный шедевр</div>
                         <div class="caption2">Более 400 кулинаров Москвы готовы откликнуться на Вашу заявку</div>
@@ -29,10 +29,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <input id="dueDate" type="text" class="form-control date-picker" placeholder="дд/мм/гггг"/>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <input id="personCount" type="number" class="form-control" placeholder="Количество персон"/>
                             </div>
                         </div>
