@@ -78,14 +78,8 @@ h3 {
   margin-bottom: 100px;
 }
 
-.container {
-  width: 1170px !important;
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.container-flex {
-  width: 100%;
+.form {
+  padding: 10px 30px;
 }
 
 .rub {
@@ -286,13 +280,6 @@ body.mobile .rub:after {
 }
 .chosen-container .search-choice-close {
   margin-top: 3px;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-.form-group div {
-  text-align: left;
 }
 
 .form-control {
@@ -1180,7 +1167,6 @@ body.modal-open {
 .btn {
   padding: 8px 25px;
   font-size: 16px;
-  margin: 0 5px;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
@@ -2303,62 +2289,8 @@ label.t-error {
   float: left;
 }
 
-.grid-block.categories .item {
-  margin: 15px;
-  width: 200px;
-  height: 186px;
-}
-.grid-block.categories .item .name {
-  line-height: 40px;
-}
-.grid-block.categories .item img {
-  height: 145px;
-  width: 100%;
-  display: block;
-}
-.grid-block.categories .item .category-supy {
-  background: url(../img/category/category-supy-small.jpg) no-repeat 0 0;
-}
-.grid-block.categories .item .category-napitki {
-  background: url(../img/category/category-napitki-small.jpg) no-repeat 0 0;
-}
-.grid-block.categories .item .category-vypechka-i-deserty {
-  background: url(../img/category/category-vypechka-i-deserty-small.jpg) no-repeat 0 0;
-}
-.grid-block.categories .item .category-fermerskaya-eda {
-  background: url(../img/category/category-fermerskaya-eda-small.jpg) no-repeat 0 0;
-}
-.grid-block.categories .item .category-keitering {
-  background: url(../img/category/category-keitering-small.jpg) no-repeat 0 0;
-}
-.grid-block.categories .item .category-garniry {
-  background: url(../img/category/category-garniry-small.jpg) no-repeat 0 0;
-}
-.grid-block.categories .item .category-zakuski-i-burgery {
-  background: url(../img/category/category-zakuski-i-burgery-small.jpg) no-repeat 0 0;
-}
-.grid-block.categories .item .category-salaty {
-  background: url(../img/category/category-salaty-small.jpg) no-repeat 0 0;
-}
-.grid-block.categories .item .category-torty {
-  background: url(../img/category/category-torty-small.jpg) no-repeat 0 0;
-}
-.grid-block.categories .item .category-osnovnye-blyuda {
-  background: url(../img/category/category-osnovnye-blyuda-small.jpg) no-repeat 0 0;
-}
-
 .main-header {
-  width: 100%;
-  height: 90vh;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  background: url("../img/landing-main.jpg") center top no-repeat;
-}
-.main-header .data {
-  height: 100%;
-  position: relative;
+  background: url(../img/landing-main.jpg) fixed center top no-repeat;
 }
 .main-header .tender {
   -webkit-box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.4);
@@ -2367,15 +2299,9 @@ label.t-error {
   background-color: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(0, 0, 0, 0.4);
   text-align: center;
-  position: absolute;
   color: #333;
-  width: 480px;
-  height: 550px;
-  right: 0;
-  bottom: 50px;
-}
-.main-header .tender form {
-  margin-top: 30px;
+  margin: 30px;
+  padding: 10px 30px 0 30px;
 }
 .main-header .tender .name, .main-header .tender .price {
   font-size: 20px;
@@ -2383,7 +2309,7 @@ label.t-error {
 }
 .main-header .tender .caption {
   font-size: 24px;
-  margin: 35px 0 0 0;
+  margin: 10px 0 0 0;
 }
 .main-header .tender .caption2 {
   font-size: 16px;
@@ -2391,114 +2317,18 @@ label.t-error {
   margin: 5px 0 15px 0;
 }
 .main-header .tender .btn {
-  display: block;
-  margin: 25px auto 5px auto;
+  width: 100%;
 }
 .main-header h1 {
   font-size: 70px;
-  margin-top: 90px;
+  margin: 40px 0 10px 0;
   color: white;
 }
 .main-header h2 {
-  width: 550px;
+  margin-top: 150px;
   color: white;
   font-size: 24px;
   line-height: 30px;
-  position: absolute;
-  bottom: 400px;
-  left: 50px;
-}
-
-.main-header2 {
-  padding-top: 50px;
-  height: 500px;
-  display: block;
-  position: relative;
-}
-.main-header2 .main-img-after {
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  content: "";
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  z-index: -1;
-  display: none;
-}
-.main-header2 .main-img-after.main1 {
-  background: url("../img/main/main1.jpg") center top no-repeat;
-}
-.main-header2 .main-img-after.main2 {
-  background: url("../img/main/main2.jpg") center top no-repeat;
-}
-.main-header2 .main-img-after.main3 {
-  background: url("../img/main/main3.jpg") center top no-repeat;
-}
-.main-header2 .main-img-after.main4 {
-  background: url("../img/main/main4.jpg") center top no-repeat;
-}
-.main-header2 .main-img-after.main5 {
-  background: url("../img/main/main5.jpg") center top no-repeat;
-}
-.main-header2 .main-img-after.main6 {
-  background: url("../img/main/main6.jpg") center top no-repeat;
-}
-.main-header2 .main-img-after.main7 {
-  background: url("../img/main/main7.jpg") center top no-repeat;
-}
-.main-header2 .main-img-after.main8 {
-  background: url("../img/main/main8.jpg") center top no-repeat;
-}
-.main-header2 .data {
-  -webkit-box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.4);
-  -moz-box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.4);
-  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.4);
-  background-color: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(0, 0, 0, 0.4);
-  color: white;
-  width: 1150px;
-  margin: 0 auto;
-  padding: 20px 60px 30px 60px;
-  height: 380px;
-}
-.main-header2 .data .blocks {
-  width: 100%;
-  height: 200px;
-}
-.main-header2 .data .blocks > div {
-  font-size: 16px;
-  display: inline-block;
-  width: 50%;
-  height: 100%;
-  text-align: center;
-  padding: 45px 30px;
-}
-.main-header2 .data .blocks > div:first-child {
-  padding-left: 70px;
-}
-.main-header2 .data .blocks > div:last-child {
-  padding-right: 70px;
-}
-.main-header2 .data .blocks > div a {
-  margin-top: 15px;
-  font-size: 20px;
-  width: 220px;
-}
-.main-header2 .data h1 {
-  font-size: 60px;
-}
-.main-header2 .data h2 {
-  font-size: 20px;
-  color: #eee;
-  font-family: "PT Sans", sans-serif;
-}
-
-.search-bar {
-  margin: 40px 0 20px 0;
 }
 
 ul.comments {

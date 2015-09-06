@@ -1,50 +1,56 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="main-header">
-        <div class="container data">
-            <h1>Надоели магазинные торты?</h1>
-            <h2>ГастроМаркет - мы помогаем сделать лучший выбор в ассортименте выпечки, домашней еды и кейтеринга для Вашего праздника, предоставляя самую качественную базу независимых кулинаров и их продукции.</h2>
-            <div class="tender">
-                <t:form t:id="descForm" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
-                    <div class="caption">Закажите кулинарный шедевр</div>
-                    <div class="caption2">Более 400 независимых кулинаров Москвы и Подмосковья готовы откликнуться на Вашу заявку</div>
-                    <div class="form-group">
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-10">
-                            <input id="name" type="text" class="form-control name" placeholder="Что вы хотите заказать?"/>
+    <header class="main-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Надоели магазинные торты?</h1>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                    <h2>ГастроМаркет - мы помогаем сделать лучший выбор в ассортименте выпечки, домашней еды и кейтеринга для Вашего праздника, предоставляя самую качественную базу независимых кулинаров и их продукции.</h2>
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                    <t:form t:id="descForm" t:autofocus="true" t:clientValidation="none" class="form form-horizontal tender" role="form">
+                        <div class="caption">Закажите кулинарный шедевр</div>
+                        <div class="caption2">Более 400 кулинаров Москвы готовы откликнуться на Вашу заявку</div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input id="name" type="text" class="form-control name" placeholder="Что вы хотите заказать?"/>
+                            </div>
                         </div>
-                        <div class="col-sm-1"></div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-10">
-                            <textarea id="comment" rows="5" class="form-control" placeholder="Добавьте описание своей заявки"/>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <textarea id="comment" rows="5" class="form-control" placeholder="Добавьте описание своей заявки"/>
+                            </div>
                         </div>
-                        <div class="col-sm-1"></div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-10">
-                            <input id="budget" type="number" class="form-control price" placeholder="Сколько вы готовы потратить?"/>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input id="budget" type="number" class="form-control price" placeholder="Сколько вы готовы потратить?"/>
+                            </div>
                         </div>
-                        <div class="col-sm-1"></div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-5">
-                            <input id="dueDate" type="text" class="form-control date-picker" placeholder="дд/мм/гггг"/>
+                        <div class="form-group">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <input id="dueDate" type="text" class="form-control date-picker" placeholder="дд/мм/гггг"/>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <input id="personCount" type="number" class="form-control" placeholder="Количество персон"/>
+                            </div>
                         </div>
-                        <div class="col-sm-5">
-                            <input id="personCount" type="number" class="form-control" placeholder="Количество персон"/>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input class="btn btn-red btn-lg" type="submit" value="Разместите заявку"/>
+                            </div>
                         </div>
-                        <div class="col-sm-1"></div>
-                    </div>
-                    <input class="btn btn-red btn-lg" type="submit" value="Разместите заявку сейчас"/>
-                    <div class="red-text">получите на счёт 100 <a href="#" class="dotted-link">бонусных баллов</a> в подарок!</div>
-                </t:form>
+                        <div class="form-group">
+                            <div class="col-xs-12 red-text f16px">
+                                получите 100 <a href="#bonus" data-toggle="modal" data-target="#bonus" class="dotted-link">бонусных баллов</a> в подарок!
+                            </div>
+                        </div>
+                    </t:form>
+                </div>
             </div>
         </div>
-    </div>
+    </header>
 
     <div class="hidden">
         <div class="container-flex main-header">
