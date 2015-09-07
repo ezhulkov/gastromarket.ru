@@ -7,42 +7,44 @@
                     <h1>Надоели магазинные торты?</h1>
                 </div>
                 <div class="col-lg-7 col-md-6 col-sm-12 col-xs-12">
-                    <h2>ГастроМаркет - мы помогаем сделать лучший выбор в ассортименте выпечки, домашней еды и кейтеринга для Вашего праздника, предоставляя самую качественную базу независимых кулинаров и их продукции.</h2>
+                    <h2>Мы помогаем сделать лучший выбор в ассортименте выпечки, домашней еды и кейтеринга для Вашего праздника, предоставляя самую качественную базу независимых кулинаров и их продукции.</h2>
                 </div>
                 <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">
-                    <t:form t:id="descForm" t:autofocus="true" t:clientValidation="none" class="form form-horizontal tender" role="form">
+                    <t:form t:id="descForm" t:autofocus="true" t:clientValidation="none" class="form tender" role="form">
                         <div class="caption">Разместите заявку сейчас</div>
-                        <div class="caption2">и получите вкусные предложения более чем от 200 независимых кулинаров Москвы</div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
+                        <div class="caption2">более 200 независимых кулинаров Москвы готовы сделать для вас кулинарный шедевр</div>
+                        <div class="col-xs-12">
+                            <div class="form-group">
                                 <input id="name" type="text" class="form-control name" placeholder="Что вы хотите заказать?"/>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
+                        <div class="col-xs-12">
+                            <div class="form-group">
                                 <textarea id="comment" rows="5" class="form-control" placeholder="Добавьте описание своей заявки"/>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
+                        <div class="col-xs-12">
+                            <div class="form-group">
                                 <input id="budget" type="number" class="form-control price" placeholder="Сколько вы готовы потратить?"/>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="form-group">
                                 <input id="dueDate" type="text" class="form-control date-picker" placeholder="дд/мм/гггг"/>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="form-group">
                                 <input id="personCount" type="number" class="form-control" placeholder="Количество персон"/>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
+                        <div class="col-xs-12">
+                            <div class="form-group">
                                 <input class="btn btn-red btn-lg btn-block" type="submit" value="Разместите заявку"/>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-xs-12 red-text f16px">
+                        <div class="col-xs-12 red-text f16px">
+                            <div class="form-group">
                                 получите 100 <a href="#bonus" data-toggle="modal" data-target="#bonus" class="dotted-link">бонусных баллов</a> в подарок!
                             </div>
                         </div>
@@ -57,14 +59,32 @@
             <div class="title">
                 <h1><span>Как это работает</span></h1>
             </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 text-center f16px">
+                    <img src="/img/cake-256x256.png" alt="заявка" title="заявка"/>
+                    <p>Вы описываете детали заявки - бюджет, желаемую дату изготовления, комментарии и количество персон.</p>
+                    <p><strong>Заявку увидят более 200 кулинаров.</strong></p>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 text-center f16px">
+                    <img src="/img/chef-256x256.png" alt="тендер" title="тендер"/>
+                    <p>Кулинары оставляют отклики к заявке, описывают условия выполнения и показывают своё портфолио блюд и услуг.</p>
+                    <p><strong>Вам нужно только выбрать лучшего.</strong></p>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 text-center f16px">
+                    <img src="/img/baloons-256x256.png" alt="выполнение" title="выполнение"/>
+                    <p>Вам остается только выбрать лучшего кулинара и ждать исполнения заявки в компании друзей и близких.</p>
+                    <p><strong>ГастроМаркет - всё готово!</strong></p>
+                </div>
+            </div>
         </div>
     </section>
 
     <section class="main-testimonial">
         <div class="container">
-            <div class="title">
+            <div class="title gray">
                 <h1><span>Отзывы о ГастроМаркет</span></h1>
             </div>
+
         </div>
     </section>
 
@@ -74,13 +94,16 @@
                 <h1><span>Последние заявки</span></h1>
                 <t:pagelink page="tender/list" context="literal:NEW">Все заявки<span/></t:pagelink>
             </div>
+            <t:loop source="tenders" value="oneTender" forState="NONE">
+                <t:order.order order="oneTender" type="MAIN_PAGE" privateOrders="false" frontend="true"/>
+            </t:loop>
         </div>
     </section>
 
     <section class="main-cooks">
         <div class="container">
             <div class="title">
-                <h1><span>Кулинары</span></h1>
+                <h1><span>Лучшие кулинары</span></h1>
                 <t:pagelink page="catalog/list">Все кулинары<span/></t:pagelink>
             </div>
             <div class="grid-block cooks">
@@ -98,83 +121,11 @@
         </div>
     </section>
 
-    <div class="hidden">
-        <div class="container">
-
-            <div id="order_start" class="title">
-                <h1><span>Заказ еды для любого события</span></h1>
+    <div class="container">
+        <div class="row">
+            <div class="text-center">
+                <t:pagelink page="tender/list" context="['NEW','true']" class="btn btn-red btn-lg">Разместить заявку</t:pagelink>
             </div>
-
-            <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="search-bar">
-                <div class="col-sm-1"></div>
-                <div class="col-sm-10">
-                    <input t:id="search" t:value="searchString" t:type="TextField" placeholder="Поиск"/>
-                    <input type="submit" value=""/>
-                </div>
-                <div class="col-sm-1"></div>
-            </t:form>
-            <div class="grid-block categories">
-                <t:loop source="propertyValues" value="onePropertyValue">
-                    <div class="item">
-                        <t:pagelink page="product/list" context="onePropertyValue.altId" class="category">
-                            <img class="category-${onePropertyValue.altId}"/>
-                        </t:pagelink>
-                        <t:pagelink page="product/list" context="onePropertyValue.altId" class="name f18px">
-                            ${onePropertyValue.name}
-                        </t:pagelink>
-                    </div>
-                </t:loop>
-            </div>
-
-            <div id="tender_start" class="title">
-                <h1><span>Как работают заявки?</span></h1>
-                <t:pagelink page="tender/list" context="literal:NEW">Все заявки<span/></t:pagelink>
-            </div>
-
-            <ul class="tender-howto">
-                <li>
-                    <div>
-                        <img src="/img/howto1.jpg"/>
-                    </div>
-                    <p>Вы описываете детали заявки - бюджет, желаемую дату изготовления, комментарии и количество персон.<br/>Заявку увидят все зарегистрированные кулинары.</p>
-                </li>
-                <li>
-                    <div>
-                        <img src="http://gastromarket.ru/img/howto2.jpg"/>
-                    </div>
-                    <p>Кулинары оставляют отклики к заявке, описывают условия выполнения и показывают своё портфолио блюд и услуг</p>
-                </li>
-                <li>
-                    <div>
-                        <img src="http://gastromarket.ru/img/howto3.jpg"/>
-                    </div>
-                    <p>Вам остается только выбрать лучшего кулинара и ждать исполнения заявки в компании друзей и близких.<br/><br/><b>ГастроМаркет - Всё готово!</b></p>
-                </li>
-            </ul>
-
-            <div class="gap3 text-center">
-                <t:pagelink page="tender/list" context="['NEW','true']" class="btn btn-lg btn-red">Разместить заявку</t:pagelink>
-            </div>
-
-            <t:if test="tenders">
-                <div id="tender_start" class="title">
-                    <h1><span>Последние заявки</span></h1>
-                    <t:pagelink page="tender/list" context="literal:NEW">Все заявки<span/></t:pagelink>
-                </div>
-                <t:loop source="tenders" value="oneTender" forState="NONE">
-                    <t:order.order order="oneTender" type="MAIN_PAGE" privateOrders="false" frontend="true"/>
-                </t:loop>
-                <div class="gap3 text-center">
-                    <t:pagelink page="tender/list" context="['NEW','true']" class="btn btn-lg btn-red">Разместить заявку</t:pagelink>
-                </div>
-            </t:if>
-
-            <div class="title">
-                <h1><span>Лучшие кулинары</span></h1>
-                <t:pagelink page="catalog/list">Все кулинары<span/></t:pagelink>
-            </div>
-
-
         </div>
     </div>
 

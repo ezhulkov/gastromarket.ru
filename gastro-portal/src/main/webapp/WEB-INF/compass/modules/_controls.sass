@@ -22,24 +22,19 @@
       background-image: -o-linear-gradient(top, #a00000, #900000)
       background-image: linear-gradient(to bottom, #a00000, #900000)
       color: #FFF
-
     &:focus
       color: #fff !important
-
   &.btn-white
     border: 2px solid $redTextColor
     color: $redTextColor
     &:hover
       color: $deepRedTextColor
       border: 2px solid $deepRedTextColor
-
     &:focus
       color: $deepRedTextColor !important
-
   &.btn-lg
     padding: 10px 45px
     font-size: 20px
-
   &.btn-howto
     border-radius: 25px
     padding: 5px 35px
@@ -69,7 +64,7 @@
   position: relative
   h1, h2
     position: relative
-    margin: 20px auto
+    margin: 20px auto 30px auto
     text-align: center
     padding-top: 23px
   & > a
@@ -92,6 +87,9 @@
     position: relative
     z-index: 1
     padding: 0 20px
+  &.gray
+    h1 span, h2 span
+      background: #f5f5f5
 
 .links-set
   width: 100%
@@ -138,3 +136,103 @@ label.t-error
 
 .t-banner, .t-error-icon
   display: none !important
+
+.pic-holder
+  position: relative
+
+.pic-holder > span:first-child
+  display: inline-block
+  vertical-align: middle
+  margin-right: $gap
+
+.pic-holder.basket-add > span
+  width: 30px
+  height: 30px
+  background: url("../img/basket-add.png") no-repeat 0 0
+  display: inline-block
+
+.spinner
+  text-align: center
+  height: 50px
+  width: 50px
+  margin: 2px auto
+  background: url("../img/spinner.gif") no-repeat
+  background-size: 50px
+
+.popover-content
+  font-size: $f16px
+  padding: 5px 10px 10px 10px
+  color: $blackTextColor
+
+.empty
+  padding: 20px 0 40px 0
+  width: 100%
+  text-align: center
+  font-size: $f20px
+  font-family: "PT Serif", serif
+  a
+    font-size: $f20px
+
+.modal-text
+  font-size: 16px
+  padding: 0 20px 0 20px
+  text-align: center
+  line-height: 22px
+
+.attention
+  @extend .modal-text
+  display: block
+  margin: 10px auto 30px auto
+  border: 1px solid $deepRedTextColor
+  padding: 20px
+  &.new-order
+    width: 1000px
+
+.error
+  font-size: 16px
+  margin: 5px 0 5px 0
+  color: $deepRedTextColor
+  font-weight: bold
+
+.chosen-container
+  display: inline-block
+  .search-choice-close
+    margin-top: 3px
+
+.form
+  padding: 10px 30px
+  overflow: auto
+
+.form-control
+  height: 38px
+  border-radius: 5px
+
+.form label
+  font-size: 16px
+  font-weight: normal
+
+.intl-tel-input
+  display: block
+
+.simple-text
+  p
+    margin: 5px auto
+    width: 900px
+    font-size: 16px
+
+.pic-text
+  margin: 30px auto 0 auto
+  display: block
+  width: 900px
+  overflow: auto
+  & > div
+    float: left
+    width: 200px
+    text-align: center
+  & > p,
+  & > ul,
+  & > ol
+    margin: 5px 0 5px 230px
+    font-size: 16px
+  & > ul
+    padding-left: 15px
