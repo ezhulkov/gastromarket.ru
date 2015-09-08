@@ -2065,7 +2065,7 @@ label.t-error {
   bottom: 20px;
   right: 30px;
 }
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .order-show-catalog .action-link {
     position: relative;
     bottom: 0;
@@ -2085,7 +2085,7 @@ label.t-error {
   text-align: right;
   font-weight: bold;
 }
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .order-show-catalog .tender-info .price {
     font-size: 30px;
     color: #333;
@@ -2112,31 +2112,33 @@ label.t-error {
   text-align: right;
   font-size: 20px;
 }
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .order-show-catalog .catalog .order-info .number, .order-show-catalog .catalog .order-info .status {
     text-align: left;
   }
 }
-.order-show-catalog .items--- {
+.order-show-catalog .items {
   border-bottom: 1px solid #aaaaaa;
   margin-bottom: 20px;
-  padding-bottom: 15px;
+  padding: 0 15px 15px 15px;
 }
-.order-show-catalog .items--- .order-item {
+.order-show-catalog .items .order-item {
   padding-top: 5px;
   padding-bottom: 5px;
 }
-.order-show-catalog .items--- .order-item > div {
+.order-show-catalog .items .order-item.odd {
+  background-color: #f3f3f3;
+}
+.order-show-catalog .items .order-item .name, .order-show-catalog .items .order-item .index {
   display: inline-block;
   vertical-align: top;
 }
-.order-show-catalog .items--- .order-item * {
-  color: #333;
+.order-show-catalog .items .order-item .index {
+  width: 30px;
+  font-size: 20px;
+  padding-top: 1px;
 }
-.order-show-catalog .items--- .order-item.odd {
-  background-color: #f3f3f3;
-}
-.order-show-catalog .items--- .order-item .name a {
+.order-show-catalog .items .order-item .name a {
   text-align: left;
   font-size: 16px;
   line-height: 30px;
@@ -2145,50 +2147,49 @@ label.t-error {
   overflow: hidden;
   font-size: 20px;
 }
-.order-show-catalog .items--- .order-item .modifier-name {
+.order-show-catalog .items .order-item .modifier-name {
   font-size: 16px;
 }
-.order-show-catalog .items--- .order-item .price {
+.order-show-catalog .items .order-item .count {
+  width: 40px;
+  display: inline-block;
+  margin-left: 5px;
+}
+.order-show-catalog .items .order-item .price {
   font-size: 20px;
   color: #333;
   text-align: left;
   font-weight: normal;
   text-align: right;
 }
-.order-show-catalog .items--- .order-item .delete {
-  color: #e70500;
-  float: right;
-  width: 80px;
-  text-align: right;
-  padding-top: 4px;
-}
-.order-show-catalog .items--- .order-item .count {
-  width: 40px;
-  display: inline-block;
-  margin-left: 5px;
-}
-.order-show-catalog .items--- .order-item .unit {
+.order-show-catalog .items .order-item .unit {
   font-weight: normal;
   font-size: 14px;
   line-height: 14px;
   color: #333;
 }
-.order-show-catalog .items--- .order-item .index {
-  width: 30px;
-  font-size: 20px;
-  padding-top: 1px;
+@media (max-width: 992px) {
+  .order-show-catalog .items .order-item .price {
+    text-align: left;
+    margin-left: 30px;
+  }
 }
-.order-show-catalog .total--- {
-  position: relative;
-  font-size: 16px;
-  vertical-align: top;
+.order-show-catalog .total {
+  margin-bottom: 10px;
 }
-.order-show-catalog .total--- .price {
-  position: absolute;
-  top: 0;
-  right: 15px;
-  font-weight: bold;
+.order-show-catalog .total .price {
   font-size: 30px;
+  color: #333;
+  text-align: right;
+  font-weight: bold;
+}
+@media (max-width: 992px) {
+  .order-show-catalog .total .price {
+    font-size: 30px;
+    color: #333;
+    text-align: left;
+    font-weight: bold;
+  }
 }
 .order-show-catalog .submit-row--- {
   min-height: 50px;

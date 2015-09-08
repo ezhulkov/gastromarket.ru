@@ -19,7 +19,7 @@
     position: absolute
     bottom: 20px
     right: 30px
-    @media (max-width: 768px)
+    @media (max-width: 992px)
       &
         position: relative
         bottom: 0
@@ -32,7 +32,7 @@
     margin-bottom: 15px
     .price
       +price-class(30px, right, bold)
-    @media (max-width: 768px)
+    @media (max-width: 992px)
       .price
         +price-class(30px, left, bold)
   .catalog
@@ -50,57 +50,50 @@
       .status
         text-align: right
         font-size: $f20px
-      @media (max-width: 768px)
+      @media (max-width: 992px)
         .number, .status
           text-align: left
-  .items---
+  .items
     border-bottom: 1px solid #aaaaaa
     margin-bottom: 20px
-    padding-bottom: 15px
+    padding: 0 15px 15px 15px
     .order-item
       padding-top: 5px
       padding-bottom: 5px
-      & > div
-        display: inline-block
-        vertical-align: top
-      & *
-        color: $blackTextColor
       &.odd
         background-color: #f3f3f3
+      .name, .index
+        display: inline-block
+        vertical-align: top
+      .index
+        width: 30px
+        font-size: 20px
+        padding-top: 1px
       .name a
         +name-class
         font-size: 20px
       .modifier-name
         font-size: 16px
-      .price
-        +price-class
-        text-align: right
-      .delete
-        color: $redTextColor
-        float: right
-        width: 80px
-        text-align: right
-        padding-top: 4px
       .count
         width: 40px
         display: inline-block
         margin-left: 5px
+      .price
+        +price-class
+        text-align: right
       .unit
         +unit-class
-      .index
-        width: 30px
-        font-size: 20px
-        padding-top: 1px
-  .total---
-    position: relative
-    font-size: 16px
-    vertical-align: top
+      @media (max-width: 992px)
+        .price
+          text-align: left
+          margin-left: 30px
+  .total
+    margin-bottom: 10px
     .price
-      position: absolute
-      top: 0
-      right: 15px
-      font-weight: bold
-      font-size: 30px
+      +price-class(30px, right, bold)
+    @media (max-width: 992px)
+      .price
+        +price-class(30px, left, bold)
   .submit-row---
     min-height: 50px
     position: relative
