@@ -83,7 +83,7 @@
 <div id="fb-root"></div>
 <t:headerlayout header="header"/>
 <!--/noindex-->
-<div class="page ${space}">
+<div class="page">
     <t:body/>
 </div>
 <!--noindex-->

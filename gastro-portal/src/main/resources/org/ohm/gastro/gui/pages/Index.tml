@@ -1,4 +1,4 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" space="tight">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
     <header class="main-header">
         <div class="container">
@@ -22,17 +22,17 @@
                 <h1><span>Как это работает</span></h1>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 text-center f16px">
+                <div class="col-lg-4 col-lg-offset-0 col-md-4 col-md-offset-0 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 text-center f16px">
                     <img src="/img/cake-256x256.png" alt="заявка" title="заявка"/>
                     <p>Вы описываете детали заявки - бюджет, желаемую дату изготовления, комментарии и количество персон.</p>
                     <p><strong>Заявку увидят более 200 кулинаров.</strong></p>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 text-center f16px">
+                <div class="col-lg-4 col-lg-offset-0 col-md-4 col-md-offset-0 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 text-center f16px">
                     <img src="/img/chef-256x256.png" alt="тендер" title="тендер"/>
                     <p>Кулинары оставляют отклики к заявке, описывают условия выполнения и показывают своё портфолио блюд и услуг.</p>
                     <p><strong>Вам нужно только выбрать лучшего.</strong></p>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 text-center f16px">
+                <div class="col-lg-4 col-lg-offset-0 col-md-4 col-md-offset-0 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 text-center f16px">
                     <img src="/img/baloons-256x256.png" alt="выполнение" title="выполнение"/>
                     <p>Вам остается только выбрать лучшего кулинара и ждать исполнения заявки в компании друзей и близких.</p>
                     <p><strong>ГастроМаркет - всё готово!</strong></p>
@@ -46,7 +46,36 @@
             <div class="title gray">
                 <h1><span>Отзывы о ГастроМаркет</span></h1>
             </div>
-
+            <div class="row">
+                <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-2 col-xs-12 text-center">
+                    <img src="/img/testimonial2.jpg" alt="аватар"/>
+                    <br/>
+                    <br/>
+                </div>
+                <div class="col-lg-7 col-lg-offset-0 col-md-7 col-md-offset-0 col-sm-8 col-sm-offset-0 col-xs-10 col-xs-offset-1 f16px">
+                    <p>
+                        Pellentesque in ipsum id orci porta dapibus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Cras ultricies ligula sed magna dictum porta.
+                    </p>
+                    <p>
+                        <i>&mdash; Олеся, заказчик</i>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-2 col-xs-12 text-center">
+                    <a href="http://gastromarket.ru/catalog/11762-ula-cake"><img src="/img/testimonial2.jpg" alt="лого"/></a>
+                    <br/>
+                    <br/>
+                </div>
+                <div class="col-lg-7 col-lg-offset-0 col-md-7 col-md-offset-0 col-sm-8 col-sm-offset-0 col-xs-10 col-xs-offset-1 f16px">
+                    <p>
+                        Pellentesque in ipsum id orci porta dapibus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Cras ultricies ligula sed magna dictum porta.
+                    </p>
+                    <p>
+                        <i>&mdash; <a href="http://gastromarket.ru/catalog/11762-ula-cake">Ula Cake, кулинар</a></i>
+                    </p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -64,7 +93,7 @@
 
     <section class="main-cooks">
         <div class="container">
-            <div class="title">
+            <div class="title gray">
                 <h1><span>Лучшие кулинары</span></h1>
                 <t:pagelink page="catalog/list">Все кулинары<span/></t:pagelink>
             </div>
@@ -83,17 +112,28 @@
         </div>
     </section>
 
-    <section class="main-footer">
+    <section class="main-products">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-7 col-md-6 col-sm-12 col-xs-12">
-                    <h2>Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Pellentesque in ipsum id orci porta dapibus. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</h2>
-                </div>
-                <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">
-                    <t:order.landingForm/>
-                </div>
+            <div class="title">
+                <h1><span>Примеры заказов</span></h1>
+                <t:pagelink page="product/list">Каталог блюд<span/></t:pagelink>
             </div>
         </div>
     </section>
+
+    <t:parameter name="bottomBlock">
+        <section class="main-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7 col-md-6 col-sm-12 col-xs-12">
+                        <h2>Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Pellentesque in ipsum id orci porta dapibus. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</h2>
+                    </div>
+                    <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">
+                        <t:order.landingForm/>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </t:parameter>
 
 </t:layout>

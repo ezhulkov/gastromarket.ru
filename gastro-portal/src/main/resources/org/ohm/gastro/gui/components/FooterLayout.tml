@@ -7,6 +7,9 @@
                     <a href="/product/list">Каталог</a>
                 </li>
                 <li>
+                    <a href="/tender/list">Заявки</a>
+                </li>
+                <li>
                     <a href="/catalog/list">Кулинары</a>
                 </li>
                 <li>
@@ -29,10 +32,13 @@
             </ul>
             <ul>
                 <li>
-                    <a href="/license">Пользовательское соглашение</a>
+                    <a href="/license">Условия использования</a>
                 </li>
                 <li>
                     <a href="/confident">Политика конфиденциальности</a>
+                </li>
+                <li>
+                    <a href="/confident">Публичная оферта</a>
                 </li>
             </ul>
         </div>
