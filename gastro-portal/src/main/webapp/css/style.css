@@ -2039,6 +2039,7 @@ label.t-error {
 }
 
 .order-show-catalog {
+  position: relative;
   padding: 20px 30px;
 }
 .order-show-catalog.short .register-order {
@@ -2053,9 +2054,20 @@ label.t-error {
   width: 100%;
   margin: 0 auto 30px auto;
 }
-.order-show-catalog .round-link, .order-show-catalog .title-simple > a, .order-show-catalog .title > a, .order-show-catalog .links-set a, .links-set .order-show-catalog a {
-  float: right;
-  margin: 0;
+.order-show-catalog .action-link {
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+}
+@media (max-width: 768px) {
+  .order-show-catalog .action-link {
+    position: relative;
+    bottom: 0;
+    right: 0;
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+  }
 }
 .order-show-catalog .tender-info {
   border-bottom: 1px solid #aaaaaa;
@@ -2075,18 +2087,18 @@ label.t-error {
     font-weight: bold;
   }
 }
-.order-show-catalog .catalog {
+.order-show-catalog .catalog--- {
   margin-top: -1px;
   padding-bottom: 20px;
   border-bottom: 1px solid #aaaaaa;
   margin-bottom: 15px;
 }
-.order-show-catalog .catalog img {
+.order-show-catalog .catalog--- img {
   width: 100px;
   height: 100px;
   margin-right: 1px;
 }
-.order-show-catalog .catalog .name {
+.order-show-catalog .catalog--- .name {
   text-align: left;
   font-size: 16px;
   line-height: 30px;
@@ -2096,30 +2108,30 @@ label.t-error {
   font-size: 30px;
   line-height: 42px;
 }
-.order-show-catalog .catalog .badges {
+.order-show-catalog .catalog--- .badges {
   margin-top: 3px;
   margin-left: -1px;
 }
-.order-show-catalog .items {
+.order-show-catalog .items--- {
   border-bottom: 1px solid #aaaaaa;
   margin-bottom: 20px;
   padding-bottom: 15px;
 }
-.order-show-catalog .items .order-item {
+.order-show-catalog .items--- .order-item {
   padding-top: 5px;
   padding-bottom: 5px;
 }
-.order-show-catalog .items .order-item > div {
+.order-show-catalog .items--- .order-item > div {
   display: inline-block;
   vertical-align: top;
 }
-.order-show-catalog .items .order-item * {
+.order-show-catalog .items--- .order-item * {
   color: #333;
 }
-.order-show-catalog .items .order-item.odd {
+.order-show-catalog .items--- .order-item.odd {
   background-color: #f3f3f3;
 }
-.order-show-catalog .items .order-item .name a {
+.order-show-catalog .items--- .order-item .name a {
   text-align: left;
   font-size: 16px;
   line-height: 30px;
@@ -2128,88 +2140,88 @@ label.t-error {
   overflow: hidden;
   font-size: 20px;
 }
-.order-show-catalog .items .order-item .modifier-name {
+.order-show-catalog .items--- .order-item .modifier-name {
   font-size: 16px;
 }
-.order-show-catalog .items .order-item .price {
+.order-show-catalog .items--- .order-item .price {
   font-size: 20px;
   color: #333;
   text-align: left;
   font-weight: normal;
   text-align: right;
 }
-.order-show-catalog .items .order-item .delete {
+.order-show-catalog .items--- .order-item .delete {
   color: #e70500;
   float: right;
   width: 80px;
   text-align: right;
   padding-top: 4px;
 }
-.order-show-catalog .items .order-item .count {
+.order-show-catalog .items--- .order-item .count {
   width: 40px;
   display: inline-block;
   margin-left: 5px;
 }
-.order-show-catalog .items .order-item .unit {
+.order-show-catalog .items--- .order-item .unit {
   font-weight: normal;
   font-size: 14px;
   line-height: 14px;
   color: #333;
 }
-.order-show-catalog .items .order-item .index {
+.order-show-catalog .items--- .order-item .index {
   width: 30px;
   font-size: 20px;
   padding-top: 1px;
 }
-.order-show-catalog .total {
+.order-show-catalog .total--- {
   position: relative;
   font-size: 16px;
   vertical-align: top;
 }
-.order-show-catalog .total .price {
+.order-show-catalog .total--- .price {
   position: absolute;
   top: 0;
   right: 15px;
   font-weight: bold;
   font-size: 30px;
 }
-.order-show-catalog .submit-row {
+.order-show-catalog .submit-row--- {
   min-height: 50px;
   position: relative;
 }
-.order-show-catalog .submit-row .round-link, .order-show-catalog .submit-row .title-simple > a, .order-show-catalog .submit-row .title > a, .order-show-catalog .submit-row .links-set a, .links-set .order-show-catalog .submit-row a {
+.order-show-catalog .submit-row--- .round-link, .order-show-catalog .submit-row--- .title-simple > a, .order-show-catalog .submit-row--- .title > a, .order-show-catalog .submit-row--- .links-set a, .links-set .order-show-catalog .submit-row--- a {
   position: absolute;
   right: 0;
   bottom: 0;
 }
-.order-show-catalog .submit-row .edit-link {
+.order-show-catalog .submit-row--- .edit-link {
   display: none;
   position: absolute;
   right: 0;
   bottom: 0;
 }
-.order-show-catalog .submit-row:hover .edit-link {
+.order-show-catalog .submit-row---:hover .edit-link {
   display: block;
 }
-.order-show-catalog .order-info .number {
+.order-show-catalog .order-info--- .number {
   text-align: right;
 }
-.order-show-catalog .order-info .number a {
+.order-show-catalog .order-info--- .number a {
   font-size: 30px;
   color: #333;
 }
-.order-show-catalog .order-info .status {
+.order-show-catalog .order-info--- .status {
   text-align: right;
   font-size: 20px;
 }
-.order-show-catalog .status-change {
+.order-show-catalog .status-change--- {
   padding: 10px 0;
   font-size: 20px;
 }
-.order-show-catalog .status-change a {
+.order-show-catalog .status-change--- a {
   font-size: 20px;
 }
-.order-show-catalog .status-change span {
+.order-show-catalog .status-change--- span {
   float: right;
   width: 400px;
   font-size: 16px;

@@ -1,58 +1,44 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
-    <div class="form-group f16px">
-        <div class="col-sm-8">
-            <t:unless test="tender">
-                <t:if test="tenderType">
-                    <span class="f20px">Комментарии к заявке:</span><br/>
-                    <t:parameter name="else">
-                        <span class="f20px">Комментарии к заказу:</span><br/>
-                    </t:parameter>
-                </t:if>
-            </t:unless>
-            <t:if test="order.comment">
-                <t:outputraw value="order.commentRaw"/>
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="row">
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        <t:unless test="tender">
+            <t:if test="tenderType">
+                <span class="f20px">Комментарии к заявке:</span><br/>
+                <t:parameter name="else">
+                    <span class="f20px">Комментарии к заказу:</span><br/>
+                </t:parameter>
             </t:if>
-        </div>
+        </t:unless>
+        <t:if test="order.comment">
+            <t:outputraw value="order.commentRaw"/>
+        </t:if>
     </div>
     <t:unless test="mainPage">
         <t:if test="order.dueDate">
-            <div class="form-group f16px">
-                <div class="col-sm-8">
-                    <span class="f20px">Дата исполнения:</span><br/>
-
-                    <div>${order.dueDate}</div>
-                </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                <span class="f20px">Дата исполнения:</span><br/>
+                <div>${order.dueDate}</div>
             </div>
         </t:if>
         <t:if test="order.personCount">
-            <div class="form-group f16px">
-                <div class="col-sm-8">
-                    <span class="f20px">Количество персон:</span><br/>
-
-                    <div>${order.personCount}</div>
-                </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                <span class="f20px">Количество персон:</span><br/>
+                <div>${order.personCount}</div>
             </div>
         </t:if>
         <t:if test="order.promoCode">
-            <div class="form-group f16px">
-                <div class="col-sm-8">
-                    <span class="f20px">Промо-код:</span><br/>
-
-                    <div>${order.promoCode}</div>
-                </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                <span class="f20px">Промо-код:</span><br/>
+                <div>${order.promoCode}</div>
             </div>
         </t:if>
         <t:if test="contactsAllowed">
-            <div class="form-group f16px">
-                <div class="col-sm-8">
-                    <span class="f20px">Контакты:</span><br/>
-
-                    <div>
-                        ${order.customer.fullName}<br/>
-                        Отзывы +${clientPosRating}/-${clientNegRating}<br/>
-                        ${order.customer.mobilePhone}<br/>
-                        ${order.customer.deliveryAddress}<br/>
-                    </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                <span class="f20px">Контакты:</span><br/>
+                <div>
+                    ${order.customer.fullName}<br/>
+                    Отзывы +${clientPosRating}/-${clientNegRating}<br/>
+                    ${order.customer.mobilePhone}<br/>
+                    ${order.customer.deliveryAddress}<br/>
                 </div>
             </div>
         </t:if>

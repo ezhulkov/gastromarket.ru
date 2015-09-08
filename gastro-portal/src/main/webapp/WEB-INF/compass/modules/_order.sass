@@ -6,6 +6,7 @@
   margin-top: 0
 
 .order-show-catalog
+  position: relative
   padding: 20px 30px
   &.short
     .register-order
@@ -14,9 +15,18 @@
     +border-class
     width: 100%
     margin: 0 auto 30px auto
-  .round-link
-    float: right
-    margin: 0
+  .action-link
+    position: absolute
+    bottom: 20px
+    right: 30px
+    @media (max-width: 768px)
+      &
+        position: relative
+        bottom: 0
+        right: 0
+        margin-top: 10px
+        width: 100%
+        text-align: center
   .tender-info
     border-bottom: 1px solid #aaaaaa
     margin-bottom: 15px
@@ -25,7 +35,7 @@
     @media (max-width: 768px)
       .price
         +price-class(30px, left, bold)
-  .catalog
+  .catalog---
     margin-top: -1px
     padding-bottom: 20px
     border-bottom: 1px solid #aaaaaa
@@ -41,7 +51,7 @@
     .badges
       margin-top: 3px
       margin-left: -1px
-  .items
+  .items---
     border-bottom: 1px solid #aaaaaa
     margin-bottom: 20px
     padding-bottom: 15px
@@ -79,7 +89,7 @@
         width: 30px
         font-size: 20px
         padding-top: 1px
-  .total
+  .total---
     position: relative
     font-size: 16px
     vertical-align: top
@@ -89,7 +99,7 @@
       right: 15px
       font-weight: bold
       font-size: 30px
-  .submit-row
+  .submit-row---
     min-height: 50px
     position: relative
     .round-link
@@ -104,7 +114,7 @@
     &:hover
       .edit-link
         display: block
-  .order-info
+  .order-info---
     .number
       text-align: right
       a
@@ -113,7 +123,7 @@
     .status
       text-align: right
       font-size: $f20px
-  .status-change
+  .status-change---
     padding: 10px 0
     font-size: 20px
     a
