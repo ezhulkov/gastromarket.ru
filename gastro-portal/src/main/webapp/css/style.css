@@ -2292,10 +2292,7 @@ label.t-error {
   float: left;
 }
 
-.main-header {
-  background: url(../img/landing-main.jpg) fixed center top no-repeat;
-}
-.main-header .tender {
+.main-header .tender, .main-footer .tender {
   -webkit-box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.4);
   box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.4);
@@ -2306,28 +2303,36 @@ label.t-error {
   margin: 30px;
   padding: 10px 10px 0 10px;
 }
-.main-header .tender .name, .main-header .tender .price {
+.main-header .tender .name, .main-header .tender .price, .main-footer .tender .name, .main-footer .tender .price {
   font-size: 20px;
   height: 45px;
 }
-.main-header .tender .caption {
+.main-header .tender .caption, .main-footer .tender .caption {
   font-size: 24px;
   margin: 10px 0 0 0;
 }
-.main-header .tender .caption2 {
+.main-header .tender .caption2, .main-footer .tender .caption2 {
   font-size: 16px;
   margin: 5px 0 15px 0;
 }
-.main-header h1 {
+.main-header h1, .main-footer h1 {
   font-size: 70px;
   margin: 40px 0 10px 0;
   color: white;
 }
-.main-header h2 {
+.main-header h2, .main-footer h2 {
   margin-top: 150px;
   color: white;
   font-size: 24px;
   line-height: 30px;
+}
+
+.main-header {
+  background: url(../img/landing-main.jpg) fixed center top no-repeat;
+}
+
+.main-footer {
+  background: url(../img/landing-main5.jpg) center top no-repeat;
 }
 
 .main-howto, .main-testimonial, .main-cooks {

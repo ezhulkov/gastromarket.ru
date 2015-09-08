@@ -19,8 +19,7 @@
       .category-#{$category}
         background: url(../img/category/category-#{$category}-small.jpg) no-repeat 0 0
 
-.main-header
-  background: url(../img/landing-main.jpg) fixed center top no-repeat
+.main-header, .main-footer
   .tender
     +border-class(rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.9), rgba(0, 0, 0, 0.4))
     text-align: center
@@ -46,7 +45,15 @@
     font-size: 24px
     line-height: 30px
 
-.main-howto,.main-testimonial,.main-cooks
+.main-header
+  background: url(../img/landing-main.jpg) fixed center top no-repeat
+
+.main-footer
+  background: url(../img/landing-main5.jpg) center top no-repeat
+  //h2
+    color: #000
+
+.main-howto, .main-testimonial, .main-cooks
   padding-bottom: 20px
 
 .main-howto

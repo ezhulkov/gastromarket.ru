@@ -10,45 +10,7 @@
                     <h2>Мы помогаем сделать лучший выбор в ассортименте выпечки, домашней еды и кейтеринга для Вашего праздника, предоставляя самую качественную базу независимых кулинаров и их продукции.</h2>
                 </div>
                 <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">
-                    <t:form t:id="descForm" t:autofocus="true" t:clientValidation="none" class="form tender" role="form">
-                        <div class="caption">Разместите заявку сейчас</div>
-                        <div class="caption2">более 200 независимых кулинаров Москвы готовы сделать для вас кулинарный шедевр</div>
-                        <div class="col-xs-12">
-                            <div class="form-group">
-                                <input id="name" type="text" class="form-control name" placeholder="Что вы хотите заказать?"/>
-                            </div>
-                        </div>
-                        <div class="col-xs-12">
-                            <div class="form-group">
-                                <textarea id="comment" rows="5" class="form-control" placeholder="Добавьте описание своей заявки"/>
-                            </div>
-                        </div>
-                        <div class="col-xs-12">
-                            <div class="form-group">
-                                <input id="budget" type="number" class="form-control price" placeholder="Сколько вы готовы потратить?"/>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="form-group">
-                                <input id="dueDate" type="text" class="form-control date-picker" placeholder="дд/мм/гггг"/>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="form-group">
-                                <input id="personCount" type="number" class="form-control" placeholder="Количество персон"/>
-                            </div>
-                        </div>
-                        <div class="col-xs-12">
-                            <div class="form-group">
-                                <input class="btn btn-red btn-lg btn-block" type="submit" value="Разместите заявку"/>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 red-text f16px">
-                            <div class="form-group">
-                                получите 100 <a href="#bonus" data-toggle="modal" data-target="#bonus" class="dotted-link">бонусных баллов</a> в подарок!
-                            </div>
-                        </div>
-                    </t:form>
+                    <t:order.landingForm/>
                 </div>
             </div>
         </div>
@@ -121,12 +83,17 @@
         </div>
     </section>
 
-    <div class="container">
-        <div class="row">
-            <div class="text-center">
-                <t:pagelink page="tender/list" context="['NEW','true']" class="btn btn-red btn-lg">Разместить заявку</t:pagelink>
+    <section class="main-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 col-md-6 col-sm-12 col-xs-12">
+                    <h2>Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Pellentesque in ipsum id orci porta dapibus. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</h2>
+                </div>
+                <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">
+                    <t:order.landingForm/>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
 </t:layout>
