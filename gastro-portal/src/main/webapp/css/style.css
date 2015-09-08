@@ -1433,6 +1433,12 @@ label.t-error {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+.grid-block .item img {
+  opacity: 0.95;
+}
+.grid-block .item:hover img {
+  opacity: 1;
+}
 .grid-block.albums .item {
   padding: 5px 15px;
   margin: 3px 10px;
@@ -1459,17 +1465,13 @@ label.t-error {
 }
 .grid-block.promo .item {
   width: 270px;
-  height: 334px;
-  margin: 8px;
+  margin: 7px;
 }
 .grid-block.promo .item .name {
   line-height: 60px;
 }
-.grid-block .item img {
-  opacity: 0.95;
-}
-.grid-block .item div:hover img {
-  opacity: 1;
+.grid-block.promo .item .btn-more {
+  padding: 5px;
 }
 .grid-block .name {
   text-align: center;
@@ -1969,6 +1971,12 @@ label.t-error {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+.grid-block .item img {
+  opacity: 0.95;
+}
+.grid-block .item:hover img {
+  opacity: 1;
+}
 .grid-block.albums .item {
   padding: 5px 15px;
   margin: 3px 10px;
@@ -1995,17 +2003,13 @@ label.t-error {
 }
 .grid-block.promo .item {
   width: 270px;
-  height: 334px;
-  margin: 8px;
+  margin: 7px;
 }
 .grid-block.promo .item .name {
   line-height: 60px;
 }
-.grid-block .item img {
-  opacity: 0.95;
-}
-.grid-block .item div:hover img {
-  opacity: 1;
+.grid-block.promo .item .btn-more {
+  padding: 5px;
 }
 .grid-block .name {
   text-align: center;
@@ -2243,6 +2247,12 @@ label.t-error {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+.grid-block .item img {
+  opacity: 0.95;
+}
+.grid-block .item:hover img {
+  opacity: 1;
+}
 .grid-block.albums .item {
   padding: 5px 15px;
   margin: 3px 10px;
@@ -2269,17 +2279,13 @@ label.t-error {
 }
 .grid-block.promo .item {
   width: 270px;
-  height: 334px;
-  margin: 8px;
+  margin: 7px;
 }
 .grid-block.promo .item .name {
   line-height: 60px;
 }
-.grid-block .item img {
-  opacity: 0.95;
-}
-.grid-block .item div:hover img {
-  opacity: 1;
+.grid-block.promo .item .btn-more {
+  padding: 5px;
 }
 .grid-block .name {
   text-align: center;

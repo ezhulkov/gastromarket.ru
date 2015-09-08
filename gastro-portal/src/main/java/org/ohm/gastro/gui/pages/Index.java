@@ -7,6 +7,7 @@ import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
+import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.List;
@@ -22,6 +23,9 @@ public class Index extends BaseComponent {
 
     @Property
     private OrderEntity oneTender;
+
+    @Property
+    private ProductEntity oneProduct;
 
     public Object onActivate(EventContext context) {
         if (context.getCount() == 0) return null;
@@ -41,6 +45,11 @@ public class Index extends BaseComponent {
                 .filter(t -> t.getStatus() == Status.NEW)
                 .sorted(((o1, o2) -> o1.getDate().compareTo(o2.getDate())))
                 .limit(3).collect(Collectors.toList());
+    }
+
+    @Cached
+    public List<ProductEntity> getProducts() {
+        return getProductService().findPromotedProducts().stream().limit(4).collect(Collectors.toList());
     }
 
 }
