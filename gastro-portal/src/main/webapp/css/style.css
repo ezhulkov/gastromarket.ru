@@ -75,6 +75,8 @@ h3 {
 
 .page {
   min-height: 300px;
+}
+.page.space {
   margin-bottom: 100px;
 }
 

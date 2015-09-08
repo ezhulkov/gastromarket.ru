@@ -26,6 +26,10 @@ public class Layout extends BaseComponent {
     private String socialImage;
 
     @Property
+    @Parameter(name = "space", required = false, value = "space", defaultPrefix = BindingConstants.LITERAL)
+    private String space;
+
+    @Property
     @Parameter(name = "header", required = false, value = "true", defaultPrefix = BindingConstants.PROP)
     private boolean header;
 
