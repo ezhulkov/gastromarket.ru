@@ -6,21 +6,25 @@
   margin-top: 0
 
 .order-show-catalog
+  padding: 20px 30px
   &.short
     .register-order
       display: none
   &.basket, &.full, &.main_page
     +border-class
-    width: 1000px
-    padding: 30px 65px
+    width: 100%
     margin: 0 auto 30px auto
   .round-link
     float: right
     margin: 0
   .tender-info
-    padding-bottom: 20px
     border-bottom: 1px solid #aaaaaa
     margin-bottom: 15px
+    .price
+      +price-class(30px, right, bold)
+    @media (max-width: 768px)
+      .price
+        +price-class(30px, left, bold)
   .catalog
     margin-top: -1px
     padding-bottom: 20px
@@ -58,8 +62,7 @@
         font-size: 16px
       .price
         +price-class
-        float: right
-        margin-left: $gap
+        text-align: right
       .delete
         color: $redTextColor
         float: right

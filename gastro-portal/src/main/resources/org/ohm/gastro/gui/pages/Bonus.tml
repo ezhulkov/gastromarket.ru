@@ -1,40 +1,44 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="page">
+    <section class="page">
         <div class="container">
             <div class="title">
                 <h1><span>Бонусные баллы</span></h1>
             </div>
             <div class="row">
                 <h2>Как заработать бонусные баллы</h2>
-
-                <div class="pic-text">
-                    <div>
+                <div class="row gap3">
+                    <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-3 col-xs-12 text-center">
                         <img src="/img/pig-128x128.png" alt="бонусы"/>
+                        <br/>
+                        <br/>
                     </div>
-                    <p>
-                        Каждый раз, когда вы расплачиваетесь за завершенный заказ с кулинаром, вы получаете бонусные баллы в размере <b>3 процентов</b> от общей стоимости заказа.
-                    </p>
-
-                    <p>
-                        Например, если стоимость заказа была <b>10000<span class="rub"/></b>, то на свой счет вы получите <b>300</b> бонусных баллов.
-                    </p>
+                    <div class="col-lg-7 col-lg-offset-0 col-md-8 col-md-offset-0 col-sm-7 col-sm-offset-0 col-xs-10 col-xs-offset-1 f16px">
+                        <p>
+                            Каждый раз, когда вы расплачиваетесь за завершенный заказ с кулинаром, вы получаете бонусные баллы в размере <b>3 процентов</b> от общей стоимости заказа.
+                        </p>
+                        <p>
+                            Например, если стоимость заказа была <b>10000<span class="rub"/></b>, то на свой счет вы получите <b>300</b> бонусных баллов.
+                        </p>
+                    </div>
                 </div>
-                <div class="pic-text">
-                    <div>
+                <div class="row">
+                    <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-3 col-xs-12 text-center">
                         <img src="/img/friends-128x128.png" alt="бонусы от друзей"/>
+                        <br/>
+                        <br/>
                     </div>
-                    <p>
-                        Приглашайте друзей в ГастроМаркет, они также будут увеличивать ваш бонусный счёт.
-                    </p>
-
-                    <p>
-                        Как? Для этого надо войти или зарегистрироваться самому, сформировать специальную ссылку и послать её другу.
-                    </p>
-
-                    <p>
-                        После того как друг пройдёт регистрацию по этой ссылке, вы будете получать <b>1.5 процента</b> от стоимости его заверешнных заказов.
-                    </p>
+                    <div class="col-lg-7 col-lg-offset-0 col-md-8 col-md-offset-0 col-sm-7 col-sm-offset-0 col-xs-10 col-xs-offset-1 f16px">
+                        <p>
+                            Приглашайте друзей в ГастроМаркет, они также будут увеличивать ваш бонусный счёт.
+                        </p>
+                        <p>
+                            Как? Для этого надо войти или зарегистрироваться самому, сформировать специальную ссылку и послать её другу.
+                        </p>
+                        <p>
+                            После того как друг пройдёт регистрацию по этой ссылке, вы будете получать <b>1.5 процента</b> от стоимости его заверешнных заказов.
+                        </p>
+                    </div>
                 </div>
                 <div class="gap3 text-center">
                     <t:if test="authenticated">
@@ -75,32 +79,37 @@
                 </div>
 
                 <div class="gap5"></div>
-                <h2>Как потратить бонусные баллы</h2>
 
-                <div class="pic-text">
-                    <div>
+                <h2>Как потратить бонусные баллы</h2>
+                <div class="row gap3">
+                    <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-3 col-xs-12 text-center">
                         <img src="/img/present-128x128.png" alt="бонусы"/>
+                        <br/>
                     </div>
-                    <p>
-                        Накопленные бонусные баллы вы можете обменять на приятный подарой -
-                        <a href="http://www.boomcard.ru/karty/podarochnye-multikarty/multi/" target="_blank" rel="nofollow">Подарочную мультикарту Бумкарта «Мульти»</a>,
-                        номиналом: <br/>
-                        <b>500<span class="rub"/></b>,
-                        <b>1000<span class="rub"/></b>,
-                        <b>1500<span class="rub"/></b>,
-                        <b>2000<span class="rub"/></b>,
-                        <b>2500<span class="rub"/></b>,
-                        <b>3000<span class="rub"/></b>,
-                        <b>5000<span class="rub"/></b> или
-                        <b>10000<span class="rub"/></b>
-                    </p>
-                    <p>
-                        Для этого необходимо <a href="mailto:contacts@gastromarket.ru" class="red-text f16px">написать нам письмо</a>, указать свой логин, номинал карты, адрес и время доставки.
-                        Мы пришлем карту курьером.
-                    </p>
+                    <div class="col-lg-7 col-lg-offset-0 col-md-8 col-md-offset-0 col-sm-7 col-sm-offset-0 col-xs-10 col-xs-offset-1 f16px">
+                        <p>
+                            Накопленные бонусные баллы вы можете обменять на приятный подарой -
+                            <a href="http://www.boomcard.ru/karty/podarochnye-multikarty/multi/" target="_blank" rel="nofollow">Подарочную мультикарту Бумкарта «Мульти»</a>,
+                            номиналом: <br/>
+                            <b>500<span class="rub"/></b>,
+                            <b>1000<span class="rub"/></b>,
+                            <b>1500<span class="rub"/></b>,
+                            <b>2000<span class="rub"/></b>,
+                            <b>2500<span class="rub"/></b>,
+                            <b>3000<span class="rub"/></b>,
+                            <b>5000<span class="rub"/></b> или
+                            <b>10000<span class="rub"/></b>
+                        </p>
+                        <p>
+                            Для этого необходимо
+                            <a href="mailto:contacts@gastromarket.ru" class="red-text f16px">написать нам письмо</a>, указать свой логин, номинал карты, адрес и время доставки.
+                            Мы пришлем карту курьером.
+                        </p>
+                    </div>
                 </div>
+
             </div>
         </div>
-    </div>
+    </section>
 
 </t:layout>

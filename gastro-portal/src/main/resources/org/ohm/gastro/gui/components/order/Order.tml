@@ -4,16 +4,17 @@
             <t:delegate to="currentOrderBlock"/>
         </t:zone>
         <t:block t:id="orderMainBlock">
-            <div class="form form-horizontal submit-row">
-                <t:order.catalogBlock order="order"
-                                      orderBlock="orderMainBlock"
-                                      catalog="catalog"
-                                      orderShowCatalogZoneId="orderShowCatalogZoneId"
-                                      privateOrders="privateOrders"/>
-                <t:order.tenderInfo order="order"/>
-                <t:order.items order="order" catalog="catalog" items="items" orderShowCatalogZoneId="orderShowCatalogZoneId" orderBlock="orderMainBlock"/>
-                <t:order.price items="items" catalog="catalog" order="order"/>
-                <t:order.basketSubmit items="items" order="order" catalog="catalog" type="prop:type"/>
+            <!--<div class="form form-horizontal submit-row">-->
+            <!--<t:order.catalogBlock order="order"-->
+            <!--orderBlock="orderMainBlock"-->
+            <!--catalog="catalog"-->
+            <!--orderShowCatalogZoneId="orderShowCatalogZoneId"-->
+            <!--privateOrders="privateOrders"/>-->
+            <t:order.tenderInfo order="order"/>
+            <!--<t:order.items order="order" catalog="catalog" items="items" orderShowCatalogZoneId="orderShowCatalogZoneId" orderBlock="orderMainBlock"/>-->
+            <!--<t:order.price items="items" catalog="catalog" order="order"/>-->
+            <!--<t:order.basketSubmit items="items" order="order" catalog="catalog" type="prop:type"/>-->
+            <div class="hidden">
                 <t:if test="full">
                     <t:order.info order="order" catalog="catalog" mainPage="mainPage"/>
                     <t:delegate to="orderAdditionalBlock"/>
@@ -53,6 +54,7 @@
                     jQuery("body").removeClass("modal-open");
                 </script>
             </div>
+            <!--</div>-->
         </t:block>
         <t:block t:id="deniedOrderBlock">
             <div class="row">

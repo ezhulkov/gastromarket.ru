@@ -35,6 +35,7 @@ html {
 
 body {
   font-family: "PT Sans", sans-serif;
+  font-size: 16px;
   margin-top: 55px;
   padding: 0 !important;
   height: 100%;
@@ -86,7 +87,7 @@ body.mobile .rub:after {
 }
 
 .bold {
-  font-weight: bold;
+  font-weight: bold !important;
 }
 
 .relative {
@@ -1316,25 +1317,6 @@ label.t-error {
   font-size: 16px;
 }
 
-.pic-text {
-  margin: 30px auto 0 auto;
-  display: block;
-  width: 900px;
-  overflow: auto;
-}
-.pic-text > div {
-  float: left;
-  width: 200px;
-  text-align: center;
-}
-.pic-text > p, .pic-text > ul, .pic-text > ol {
-  margin: 5px 0 5px 230px;
-  font-size: 16px;
-}
-.pic-text > ul {
-  padding-left: 15px;
-}
-
 .qq-upload-button-selector {
   width: 49px;
   height: 49px;
@@ -1410,6 +1392,14 @@ label.t-error {
   background: url("../img/landing-bg-3.jpg") left 0 repeat-x;
   display: table-cell;
   width: auto;
+}
+
+.border-shadow {
+  -webkit-box-shadow: 0 0 6px 2px #ddd;
+  -moz-box-shadow: 0 0 6px 2px #ddd;
+  box-shadow: 0 0 6px 2px #ddd;
+  background-color: #fff;
+  border: 1px solid #aaa;
 }
 
 .grid-block {
@@ -1773,8 +1763,9 @@ label.t-error {
 }
 .price-modifier .modifier-price {
   font-size: 20px;
-  line-height: 30px;
   color: #333;
+  text-align: left;
+  font-weight: normal;
 }
 .price-modifier .modifier-name {
   text-align: left;
@@ -1809,8 +1800,9 @@ label.t-error {
 }
 .order-add .price-modifier .modifier-price {
   font-size: 20px;
-  line-height: 30px;
   color: #333;
+  text-align: left;
+  font-weight: normal;
   float: right;
   margin-left: 10px;
 }
@@ -1864,8 +1856,9 @@ label.t-error {
 }
 .price-modifier .modifier-price {
   font-size: 20px;
-  line-height: 30px;
   color: #333;
+  text-align: left;
+  font-weight: normal;
 }
 .price-modifier .modifier-name {
   text-align: left;
@@ -1900,8 +1893,9 @@ label.t-error {
 }
 .order-add .price-modifier .modifier-price {
   font-size: 20px;
-  line-height: 30px;
   color: #333;
+  text-align: left;
+  font-weight: normal;
   float: right;
   margin-left: 10px;
 }
@@ -1948,6 +1942,14 @@ label.t-error {
   line-height: 30px;
   color: #e70500;
   font-size: 16px;
+}
+
+.border-shadow {
+  -webkit-box-shadow: 0 0 6px 2px #ddd;
+  -moz-box-shadow: 0 0 6px 2px #ddd;
+  box-shadow: 0 0 6px 2px #ddd;
+  background-color: #fff;
+  border: 1px solid #aaa;
 }
 
 .grid-block {
@@ -2036,6 +2038,9 @@ label.t-error {
   margin-top: 0;
 }
 
+.order-show-catalog {
+  padding: 20px 30px;
+}
 .order-show-catalog.short .register-order {
   display: none;
 }
@@ -2045,8 +2050,7 @@ label.t-error {
   box-shadow: 0 0 6px 2px #ddd;
   background-color: #fff;
   border: 1px solid #aaa;
-  width: 1000px;
-  padding: 30px 65px;
+  width: 100%;
   margin: 0 auto 30px auto;
 }
 .order-show-catalog .round-link, .order-show-catalog .title-simple > a, .order-show-catalog .title > a, .order-show-catalog .links-set a, .links-set .order-show-catalog a {
@@ -2054,9 +2058,22 @@ label.t-error {
   margin: 0;
 }
 .order-show-catalog .tender-info {
-  padding-bottom: 20px;
   border-bottom: 1px solid #aaaaaa;
   margin-bottom: 15px;
+}
+.order-show-catalog .tender-info .price {
+  font-size: 30px;
+  color: #333;
+  text-align: right;
+  font-weight: bold;
+}
+@media (max-width: 768px) {
+  .order-show-catalog .tender-info .price {
+    font-size: 30px;
+    color: #333;
+    text-align: left;
+    font-weight: bold;
+  }
 }
 .order-show-catalog .catalog {
   margin-top: -1px;
@@ -2116,10 +2133,10 @@ label.t-error {
 }
 .order-show-catalog .items .order-item .price {
   font-size: 20px;
-  line-height: 30px;
   color: #333;
-  float: right;
-  margin-left: 10px;
+  text-align: left;
+  font-weight: normal;
+  text-align: right;
 }
 .order-show-catalog .items .order-item .delete {
   color: #e70500;
@@ -2224,6 +2241,14 @@ label.t-error {
   width: 500px;
   text-align: left;
   font-size: 20px;
+}
+
+.border-shadow {
+  -webkit-box-shadow: 0 0 6px 2px #ddd;
+  -moz-box-shadow: 0 0 6px 2px #ddd;
+  box-shadow: 0 0 6px 2px #ddd;
+  background-color: #fff;
+  border: 1px solid #aaa;
 }
 
 .grid-block {
