@@ -29,11 +29,6 @@
   font-weight: 700;
   src: local("PT Sans Bold Italic"), local("PTSans-BoldItalic"), url(../fonts/pt-sans-bold-italic.ttf) format("truetype");
 }
-@media (max-width: 1200px) {
-  .container-flex {
-    width: 1200px;
-  }
-}
 html {
   position: relative;
 }
@@ -1124,11 +1119,15 @@ body.modal-open {
 }
 
 .title-simple, .title {
+  text-align: center;
   position: relative;
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
 .title-simple h1, .title h1, .title-simple h2, .title h2 {
+  margin-left: auto;
+  margin-right: auto;
   position: relative;
-  margin: 20px auto 30px auto;
   text-align: center;
   padding-top: 23px;
 }
@@ -1138,6 +1137,13 @@ body.modal-open {
   right: 0;
 }
 
+@media (max-width: 992px) {
+  .title-simple a, .title a, .title a {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 30px;
+  }
+}
 .title h1.line:after, .title h2.line:after {
   content: "";
   border-top: 1px solid #8a8a8a;
@@ -1152,7 +1158,7 @@ body.modal-open {
   z-index: 1;
   padding: 0 20px;
 }
-.title.gray h1 span, .title.gray h2 span {
+.title.gray h1 span, .title.gray h2 span, .title.gray a {
   background: #f5f5f5;
 }
 
@@ -1407,11 +1413,12 @@ label.t-error {
 }
 
 .grid-block {
-  width: 1150px;
+  width: 100%;
   margin: 0 auto 10px auto;
   font-size: 20px;
   font-family: "PT Sans", sans-serif;
   overflow: hidden;
+  text-align: center;
 }
 .grid-block .item {
   -webkit-box-shadow: 0 0 6px 2px #ddd;
@@ -1419,9 +1426,8 @@ label.t-error {
   box-shadow: 0 0 6px 2px #ddd;
   background-color: #fff;
   border: 1px solid #aaa;
-  float: left;
-  margin: 10px;
-  display: list-item;
+  margin: 9px;
+  display: inline-block;
   white-space: nowrap;
   text-align: center;
   text-overflow: ellipsis;
@@ -1943,11 +1949,12 @@ label.t-error {
 }
 
 .grid-block {
-  width: 1150px;
+  width: 100%;
   margin: 0 auto 10px auto;
   font-size: 20px;
   font-family: "PT Sans", sans-serif;
   overflow: hidden;
+  text-align: center;
 }
 .grid-block .item {
   -webkit-box-shadow: 0 0 6px 2px #ddd;
@@ -1955,9 +1962,8 @@ label.t-error {
   box-shadow: 0 0 6px 2px #ddd;
   background-color: #fff;
   border: 1px solid #aaa;
-  float: left;
-  margin: 10px;
-  display: list-item;
+  margin: 9px;
+  display: inline-block;
   white-space: nowrap;
   text-align: center;
   text-overflow: ellipsis;
@@ -2217,11 +2223,12 @@ label.t-error {
 }
 
 .grid-block {
-  width: 1150px;
+  width: 100%;
   margin: 0 auto 10px auto;
   font-size: 20px;
   font-family: "PT Sans", sans-serif;
   overflow: hidden;
+  text-align: center;
 }
 .grid-block .item {
   -webkit-box-shadow: 0 0 6px 2px #ddd;
@@ -2229,9 +2236,8 @@ label.t-error {
   box-shadow: 0 0 6px 2px #ddd;
   background-color: #fff;
   border: 1px solid #aaa;
-  float: left;
-  margin: 10px;
-  display: list-item;
+  margin: 9px;
+  display: inline-block;
   white-space: nowrap;
   text-align: center;
   text-overflow: ellipsis;
@@ -2340,7 +2346,7 @@ label.t-error {
 }
 
 .main-howto, .main-testimonial, .main-cooks, .main-products {
-  padding-bottom: 30px;
+  padding-bottom: 20px;
 }
 
 .main-testimonial, .main-cooks {

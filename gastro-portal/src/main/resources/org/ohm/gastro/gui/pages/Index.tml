@@ -97,7 +97,7 @@
                 <h1><span>Лучшие кулинары</span></h1>
                 <t:pagelink page="catalog/list">Все кулинары<span/></t:pagelink>
             </div>
-            <div class="grid-block cooks">
+            <div class="row grid-block cooks">
                 <t:loop source="cooks" value="oneCook">
                     <div class="item">
                         <t:pagelink page="catalog/index" context="oneCook.altId">

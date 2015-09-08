@@ -282,7 +282,7 @@
     </div>
 
     <t:parameter name="bottomBlock">
-        <div class="container-flex bottom-image">
+        <div class="bottom-image">
             <div/>
         </div>
     </t:parameter>

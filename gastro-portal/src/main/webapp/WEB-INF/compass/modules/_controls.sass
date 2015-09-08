@@ -61,10 +61,14 @@
     background: url("../img/title-forward.png") center top no-repeat
 
 .title-simple
+  text-align: center
   position: relative
+  margin-top: 20px
+  margin-bottom: 30px
   h1, h2
+    margin-left: auto
+    margin-right: auto
     position: relative
-    margin: 20px auto 30px auto
     text-align: center
     padding-top: 23px
   & > a
@@ -72,6 +76,12 @@
     position: absolute
     top: 25px
     right: 0
+
+@media (max-width: 992px)
+  .title-simple a, .title a
+    display: inline-block
+    position: relative
+    margin-bottom: 30px
 
 .title
   @extend .title-simple
@@ -88,7 +98,7 @@
     z-index: 1
     padding: 0 20px
   &.gray
-    h1 span, h2 span
+    h1 span, h2 span, a
       background: #f5f5f5
 
 .links-set
