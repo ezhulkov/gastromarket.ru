@@ -74,6 +74,13 @@ h3 {
   margin-bottom: 100px;
 }
 
+header,
+footer,
+section,
+.container {
+  min-width: 590px;
+}
+
 .rub {
   display: inline !important;
 }
@@ -1270,12 +1277,11 @@ label.t-error {
 
 .attention {
   display: block;
-  margin: 10px auto 30px auto;
+  margin-top: 10px;
+  margin-bottom: 30px;
   border: 1px solid #bd0400;
   padding: 20px;
-}
-.attention.new-order {
-  width: 1000px;
+  width: 100%;
 }
 
 .error {
@@ -2087,30 +2093,29 @@ label.t-error {
     font-weight: bold;
   }
 }
-.order-show-catalog .catalog--- {
-  margin-top: -1px;
+.order-show-catalog .catalog {
   padding-bottom: 20px;
   border-bottom: 1px solid #aaaaaa;
   margin-bottom: 15px;
 }
-.order-show-catalog .catalog--- img {
-  width: 100px;
-  height: 100px;
-  margin-right: 1px;
-}
-.order-show-catalog .catalog--- .name {
-  text-align: left;
-  font-size: 16px;
-  line-height: 30px;
-  color: #333;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  font-size: 30px;
-  line-height: 42px;
-}
-.order-show-catalog .catalog--- .badges {
+.order-show-catalog .catalog .badges {
   margin-top: 3px;
-  margin-left: -1px;
+}
+.order-show-catalog .catalog .order-info .number {
+  text-align: right;
+}
+.order-show-catalog .catalog .order-info .number a {
+  font-size: 30px;
+  color: #333;
+}
+.order-show-catalog .catalog .order-info .status {
+  text-align: right;
+  font-size: 20px;
+}
+@media (max-width: 768px) {
+  .order-show-catalog .catalog .order-info .number, .order-show-catalog .catalog .order-info .status {
+    text-align: left;
+  }
 }
 .order-show-catalog .items--- {
   border-bottom: 1px solid #aaaaaa;
@@ -2202,17 +2207,6 @@ label.t-error {
 }
 .order-show-catalog .submit-row---:hover .edit-link {
   display: block;
-}
-.order-show-catalog .order-info--- .number {
-  text-align: right;
-}
-.order-show-catalog .order-info--- .number a {
-  font-size: 30px;
-  color: #333;
-}
-.order-show-catalog .order-info--- .status {
-  text-align: right;
-  font-size: 20px;
 }
 .order-show-catalog .status-change--- {
   padding: 10px 0;

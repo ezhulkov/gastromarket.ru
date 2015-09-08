@@ -4,11 +4,11 @@
             <t:delegate to="currentOrderBlock"/>
         </t:zone>
         <t:block t:id="orderMainBlock">
-            <!--<t:order.catalogBlock order="order"-->
-            <!--orderBlock="orderMainBlock"-->
-            <!--catalog="catalog"-->
-            <!--orderShowCatalogZoneId="orderShowCatalogZoneId"-->
-            <!--privateOrders="privateOrders"/>-->
+            <t:order.catalogBlock order="order"
+                                  orderBlock="orderMainBlock"
+                                  catalog="catalog"
+                                  orderShowCatalogZoneId="orderShowCatalogZoneId"
+                                  privateOrders="privateOrders"/>
             <t:order.tenderInfo order="order"/>
             <!--<t:order.items order="order" catalog="catalog" items="items" orderShowCatalogZoneId="orderShowCatalogZoneId" orderBlock="orderMainBlock"/>-->
             <!--<t:order.price items="items" catalog="catalog" order="order"/>-->
