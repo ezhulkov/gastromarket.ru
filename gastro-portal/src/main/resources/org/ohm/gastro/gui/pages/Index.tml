@@ -44,7 +44,7 @@
     <section class="main-testimonial">
         <div class="container">
             <div class="title gray">
-                <h1><span>Отзывы о ГастроМаркет</span></h1>
+                <h1><span>Отзывы покупателей</span></h1>
             </div>
             <div class="row">
                 <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-2 col-xs-12 text-center">
@@ -54,10 +54,11 @@
                 </div>
                 <div class="col-lg-8 col-lg-offset-0 col-md-8 col-md-offset-0 col-sm-9 col-sm-offset-0 col-xs-10 col-xs-offset-1 f16px">
                     <p>
-                        Pellentesque in ipsum id orci porta dapibus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Cras ultricies ligula sed magna dictum porta.
+                        "Мы заказывали детский торт на день рождения и пироги. Это было так вкусно, что мы не могли остановиться. Пироги смели тут же, а дети по три раза просили добавки торта!
+                        Взрослым торт тоже понравился, вкус очень яркий, как в детстве, не сравнится с покупными. Огромное вам спасибо!"
                     </p>
                     <p>
-                        <i>&mdash; Олеся, заказчик</i>
+                        <i>&mdash; отзыв о <a href="http://gastromarket.ru/catalog/10802-jazzcook">Jazz Cook</a></i>
                     </p>
                 </div>
             </div>

@@ -1072,6 +1072,8 @@ body.modal-open {
   color: #fff !important;
 }
 .btn.btn-white {
+  padding-top: 7px;
+  padding-bottom: 7px;
   border: 2px solid #e70500;
   color: #e70500;
 }
@@ -1186,6 +1188,9 @@ body.modal-open {
 .form-buttons {
   text-align: center;
   margin: 20px 0 30px 0;
+}
+.form-buttons .btn {
+  display: inline-block;
 }
 
 .t-error {

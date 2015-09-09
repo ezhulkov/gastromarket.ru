@@ -22,8 +22,8 @@
                         <t:pagelink class="red-text" page="cart">странице управления заказами</t:pagelink>
                     </div>
                 </t:if>
-                <t:order.order  catalog="catalog" privateOrders="true"/>
-                <div class="form-buttons">
+                <t:order.order catalog="catalog" privateOrders="true"/>
+                <div class="form-buttons" xml:space="preserve">
                     <a href="#" class="btn btn-white" data-dismiss="modal">Выбрать еще</a>
                     <t:pagelink class="btn btn-red" page="cart">Оформить заказ</t:pagelink>
                 </div>
