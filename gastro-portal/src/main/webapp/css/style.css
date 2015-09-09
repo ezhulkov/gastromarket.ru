@@ -571,39 +571,29 @@ body.modal-open {
 }
 
 .modal-dialog {
-  margin: 40px auto;
-  color: black;
-  width: 700px;
   position: relative;
+  color: #333;
+  width: auto;
+  margin: 40px 10px 40px 10px;
 }
 
-.modal.catalog-edit .modal-dialog {
-  width: 950px;
-}
+@media (min-width: 992px) {
+  .modal-dialog {
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-.modal.order-show-modal .modal-dialog {
-  width: 989px;
-}
+  .modal.catalog-edit .modal-dialog {
+    width: 950px;
+  }
 
-.modal.order-show-modal .modal-body {
-  padding: 5px 60px 20px 60px;
+  .modal.order-show-modal .modal-dialog {
+    width: 989px;
+  }
 }
-
-.modal.howto .modal-dialog {
-  width: 1100px;
-}
-
-.order-add .modal-dialog {
-  top: 100px;
-}
-
 .modal-backdrop.in {
   opacity: 0.8;
-}
-
-.modal-body {
-  padding: 5px 40px 20px 40px;
-  font-size: 16px;
 }
 
 .wizard {
