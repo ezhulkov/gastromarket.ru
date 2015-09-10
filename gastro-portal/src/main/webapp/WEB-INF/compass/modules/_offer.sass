@@ -1,42 +1,36 @@
 @import ../include/var
+@import price
 
 .offer-item
   position: relative
   padding: 30px 0 20px 0
+  .pic-block
+    text-align: right
+    img
+      width: initial
+      height: initial
+    @media (max-width: 768px)
+      text-align: left
   .data-header
     margin: 5px 0 0 0
     height: auto
     a
       margin: 0
-
   .name
     color: $blackTextColor
     font-size: $f30px
     line-height: $f30px
-
   .price
-    font-size: $priceFontSize
-    color: $blackTextColor
-    font-weight: bold
-
+    +price-class($priceFontSize, left, bold)
   .persons
     font-size: $f16px
     margin-top: 5px
     font-weight: bold
-
   .description
     font-size: $f16px
     margin-top: 5px
-
   .edit
     display: none
-    position: absolute
-    top: 0
-    right: 10px
-    a
-      color: $redTextColor
-      margin-left: $gap
-
   &:hover
     .edit
       display: block

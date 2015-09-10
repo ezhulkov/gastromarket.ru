@@ -69,14 +69,6 @@ public class Offer extends BaseComponent {
         return type == Type.SHORT ? offer.getAvatarUrlSmall() : offer.getAvatarUrlMedium();
     }
 
-    public String getLeftBlock() {
-        return type == Type.SHORT ? "col-sm-3" : "col-sm-3";
-    }
-
-    public String getRightBlock() {
-        return type == Type.SHORT ? "col-sm-8" : "col-sm-8";
-    }
-
     public Block onActionFromDelete(Long oid) {
         getOfferService().deleteOffer(oid);
         return offersBlock;

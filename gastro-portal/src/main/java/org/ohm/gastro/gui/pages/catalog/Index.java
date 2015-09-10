@@ -125,7 +125,7 @@ public class Index extends AbstractCatalogPage {
     }
 
     public String getKeywords() {
-        return getMessages().format("page.keywords.catalog", catalog.getName());
+        return catalog == null ? null : getMessages().format("page.keywords.catalog", catalog.getName());
     }
 
 }

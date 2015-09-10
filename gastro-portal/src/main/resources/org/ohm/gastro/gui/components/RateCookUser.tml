@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="title">
-                    <h1><span>${title}</span></h1>
+                    <h1><span>Отзыв</span></h1>
                 </div>
                 <a class="modal-close" data-dismiss="modal"></a>
             </div>

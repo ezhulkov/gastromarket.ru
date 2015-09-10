@@ -228,12 +228,52 @@ body.mobile .rub:after {
   padding-left: 0 !important;
 }
 
-.catalog-item {
-  padding: 30px 0 20px 0;
+.ib {
+  display: inline-block !important;
+}
+
+.nopad {
+  padding: 0 !important;
+}
+
+.fluid-xs-block {
+  text-align: right;
+}
+@media (max-width: 768px) {
+  .fluid-xs-block {
+    text-align: left;
+  }
+}
+
+.fluid-sm-block {
+  text-align: right;
+}
+@media (max-width: 992px) {
+  .fluid-sm-block {
+    text-align: left;
+  }
+}
+
+.catalog-item .pic-block {
+  text-align: right;
+}
+.catalog-item .pic-block div {
+  float: right;
+}
+@media (max-width: 768px) {
+  .catalog-item .pic-block {
+    text-align: left;
+  }
+  .catalog-item .pic-block div {
+    float: none;
+  }
 }
 .catalog-item .pic {
   width: 270px;
   height: 270px;
+}
+.catalog-item .upload-file {
+  width: 270px;
 }
 .catalog-item .data-header {
   margin: 5px 0 0 0;
@@ -300,11 +340,10 @@ body.mobile .rub:after {
   border: 1px solid #e70500;
   background-color: #e70500;
 }
-.catalog-item ul.social {
-  list-style: none;
-  margin: -20px 0 0 20px;
+.catalog-item .soc {
+  height: 50px;
 }
-.catalog-item ul.social li {
+.catalog-item .soc > div {
   display: inline-block;
   float: left;
   margin: 0;
@@ -429,9 +468,114 @@ body.mobile .rub:after {
   color: #333;
 }
 
+.price-modifier {
+  margin: 10px 0;
+}
+.price-modifier .modifier-price {
+  font-size: 20px;
+  color: #333;
+  text-align: left;
+  font-weight: normal;
+}
+.price-modifier .modifier-name {
+  text-align: left;
+  font-size: 16px;
+  line-height: 30px;
+  color: #333;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.price-modifier .modifier-row {
+  margin: 3px 0;
+}
+.price-modifier .del-modifier {
+  margin-top: 12px;
+  display: inline-block;
+}
+.price-modifier .add-modifier {
+  margin-left: 10px;
+  display: inline-block;
+}
+.price-modifier .left {
+  padding: 0 10px;
+  display: inline-block;
+  vertical-align: top;
+  width: 530px;
+}
+.price-modifier .right {
+  padding: 0 10px;
+  display: inline-block;
+  vertical-align: top;
+  width: 140px;
+}
+.order-add .price-modifier .modifier-price {
+  font-size: 20px;
+  color: #333;
+  text-align: left;
+  font-weight: normal;
+  float: right;
+  margin-left: 10px;
+}
+.order-add .price-modifier .modifier-name {
+  text-align: left;
+  font-size: 16px;
+  line-height: 30px;
+  color: #333;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.order-add .price-modifier .unit {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 14px;
+  color: #333;
+}
+.order-add .price-modifier .basket-add {
+  float: right;
+}
+
+.basket-block {
+  line-height: 30px;
+}
+.basket-block .price {
+  text-align: left;
+  line-height: 30px;
+  color: #333;
+  font-size: 30px;
+  font-weight: bold;
+}
+.basket-block .price .unit {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 14px;
+  color: #333;
+}
+.basket-block .price .sign {
+  width: 10px;
+  display: inline-block;
+}
+.basket-block .basket-add {
+  text-align: left;
+  line-height: 30px;
+  color: #e70500;
+  font-size: 16px;
+}
+
 .offer-item {
   position: relative;
   padding: 30px 0 20px 0;
+}
+.offer-item .pic-block {
+  text-align: right;
+}
+.offer-item .pic-block img {
+  width: initial;
+  height: initial;
+}
+@media (max-width: 768px) {
+  .offer-item .pic-block {
+    text-align: left;
+  }
 }
 .offer-item .data-header {
   margin: 5px 0 0 0;
@@ -448,6 +592,7 @@ body.mobile .rub:after {
 .offer-item .price {
   font-size: 30px;
   color: #333;
+  text-align: left;
   font-weight: bold;
 }
 .offer-item .persons {
@@ -461,13 +606,6 @@ body.mobile .rub:after {
 }
 .offer-item .edit {
   display: none;
-  position: absolute;
-  top: 0;
-  right: 10px;
-}
-.offer-item .edit a {
-  color: #e70500;
-  margin-left: 10px;
 }
 .offer-item:hover .edit {
   display: block;
@@ -978,26 +1116,23 @@ body.modal-open {
   text-align: center;
 }
 
-.social ul,
-.social-big ul,
 .footer ul {
   list-style-type: none;
   padding: 0;
 }
-
-.social ul li,
-.social-big ul li,
 .footer ul li {
   display: inline;
 }
 
-.social,
-.social-big {
+ul.social {
   padding: 10px 0 7px 0;
   text-align: center;
+  list-style: none;
 }
-
-.social a {
+ul.social li {
+  display: inline;
+}
+ul.social a {
   width: 36px;
   height: 36px;
   display: inline-block;
@@ -1005,41 +1140,30 @@ body.modal-open {
   text-indent: -999em;
   margin: 0 10px;
 }
-
-.social a.vk {
+ul.social a.vk {
   background-position: 0 0;
 }
-
-.social a.ok {
+ul.social a.ok {
   background-position: -36px 0;
 }
-
-.social a.fb {
+ul.social a.fb {
   background-position: -72px 0;
 }
-
-.social-big a {
+ul.social.big a {
   width: 62px;
   height: 62px;
-  display: inline-block;
   background: url(../img/social-big.png) no-repeat 0 0;
-  text-indent: -999em;
-  margin: 0 10px;
 }
-
-.social-big a.vk {
+ul.social.big a.vk {
   background-position: 0 0;
 }
-
-.social-big a.fb {
+ul.social.big a.fb {
   background-position: -62px 0;
 }
-
-.social-big a.ok {
+ul.social.big a.ok {
   background-position: -124px 0;
 }
-
-.social-big a.in {
+ul.social.big a.in {
   background-position: -186px 0;
 }
 
@@ -1166,6 +1290,9 @@ body.modal-open {
   width: 100%;
   text-align: center;
   margin: 40px 0;
+}
+.links-set a {
+  margin-bottom: 5px;
 }
 
 .dotted-link, .dotted-link:hover, .dotted-link:active, .dotted-link:focus {
@@ -1478,11 +1605,10 @@ label.t-error {
 
 .ui-state-highlight {
   margin: 6px 8px;
-  border: 1px dashed lightgray;
+  border: 1px dashed gray;
   width: 268px;
   height: 498px;
-  display: list-item;
-  float: left;
+  display: inline-block;
 }
 
 .filter {
@@ -2028,11 +2154,10 @@ label.t-error {
 
 .ui-state-highlight {
   margin: 6px 8px;
-  border: 1px dashed lightgray;
+  border: 1px dashed gray;
   width: 268px;
   height: 498px;
-  display: list-item;
-  float: left;
+  display: inline-block;
 }
 
 .order-show-modal .attention {
@@ -2314,11 +2439,10 @@ label.t-error {
 
 .ui-state-highlight {
   margin: 6px 8px;
-  border: 1px dashed lightgray;
+  border: 1px dashed gray;
   width: 268px;
   height: 498px;
-  display: list-item;
-  float: left;
+  display: inline-block;
 }
 
 .main-header .tender, .main-footer .tender {

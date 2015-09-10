@@ -42,8 +42,8 @@
                 </li>
             </ul>
         </div>
-        <div class="col-sm-12 social">
-            <ul>
+        <div class="col-sm-12">
+            <ul class="social">
                 <li><a href="http://vk.com/gastromarket" title="vk.com" class="vk">vk.com</a></li>
                 <li><a href="https://www.facebook.com/gastromarket.ru" title="facebook.com" class="fb">facebook.com</a></li>
             </ul>

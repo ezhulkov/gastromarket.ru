@@ -1,66 +1,44 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
     <div class="container">
-        <div class="col-sm-2"/>
-        <div class="col-sm-8">
+        <div class="row">
             <div class="title">
                 <h1><span>Регистрация</span></h1>
             </div>
-            <div class="row">
+            <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10">
                 <p class="modal-text">Регистрация через аккаунт одной из социальных сетей</p>
-            </div>
-            <div class="row">
-                <div class="col-sm-12 social-big">
-                    <ul>
-                        <li><a href="/social?social=vk" title="vk.com" class="vk">vk.com</a></li>
-                        <li><a href="/social?social=fb" title="facebook.com" class="fb">facebook.com</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
+                <ul class="social big">
+                    <li><a href="/social?social=vk" title="vk.com" class="vk">vk.com</a></li>
+                    <li><a href="/social?social=fb" title="facebook.com" class="fb">facebook.com</a></li>
+                </ul>
                 <p class="modal-text text-center">или через почтовый адрес и пароль</p>
-            </div>
-            <t:form t:id="signupForm" t:clientValidation="none" class="form form-horizontal edit" role="form">
-                <t:if test="error">
-                    <div class="t-error">
-                        <ul>
-                            <li>Такой пользователь уже существует, укажите другой адрес</li>
-                        </ul>
-                    </div>
-                    <t:errors/>
-                </t:if>
-                <br/>
-
-                <div class="form-group">
-                    <div class="col-sm-1"/>
-                    <div class="col-sm-10">
+                <t:form t:id="signupForm" t:clientValidation="none" class="form form-horizontal edit" role="form">
+                    <t:if test="error">
+                        <div class="t-error">
+                            <ul>
+                                <li>Такой пользователь уже существует, укажите другой адрес</li>
+                            </ul>
+                        </div>
+                        <t:errors/>
+                    </t:if>
+                    <div class="form-group">
                         <t:label for="eMail">Адрес почты:</t:label>
                         <input t:type="TextField" t:id="eMail" t:value="eMail" t:validate="required,email,maxlength=64" class="form-control"/>
                     </div>
-                    <div class="col-sm-1"/>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-1"/>
-                    <div class="col-sm-10">
+                    <div class="form-group">
                         <t:label for="fullName">Полное имя:</t:label>
                         <input t:type="TextField" t:id="fullName" t:value="fullName" t:validate="maxlength=64" class="form-control"/>
                     </div>
-                    <div class="col-sm-1"/>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-1"/>
-                    <div class="col-sm-10">
+                    <div class="form-group">
                         <t:label for="password">Пароль:</t:label>
                         <input t:type="PasswordField" t:id="password" t:value="password" t:validate="required,maxlength=64" class="form-control"/>
                     </div>
-                    <div class="col-sm-1"/>
-                </div>
-                <div class="form-buttons" xml:space="preserve">
-                    <input class="btn btn-red" type="submit" value="Зарегистрироваться"/>
-                </div>
-            </t:form>
+                    <div class="form-buttons" xml:space="preserve">
+                        <input class="btn btn-red" type="submit" value="Зарегистрироваться"/>
+                    </div>
+                </t:form>
+            </div>
         </div>
-        <div class="col-sm-2"/>
     </div>
 
 </t:layout>

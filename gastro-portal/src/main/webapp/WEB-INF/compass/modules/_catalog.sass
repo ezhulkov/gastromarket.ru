@@ -18,10 +18,19 @@ $badges: badge-product badge-order badge-rank
   background-color: white
 
 .catalog-item
-  padding: 30px 0 20px 0
+  .pic-block
+    text-align: right
+    div
+      float: right
+    @media (max-width: 768px)
+      text-align: left
+      div
+        float: none
   .pic
     width: 270px
     height: 270px
+  .upload-file
+    width: 270px
   .data-header
     margin: 5px 0 0 0
     height: auto
@@ -73,10 +82,9 @@ $badges: badge-product badge-order badge-rank
         span
           border: 1px solid $redTextColor
           background-color: $redTextColor
-  ul.social
-    list-style: none
-    margin: -20px 0 0 20px
-    li
+  .soc
+    height: 50px
+    & > div
       display: inline-block
       float: left
       margin: 0

@@ -16,12 +16,10 @@
                     <p class="modal-text">Вход через аккаунт одной из социальных сетей</p>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12 social-big">
-                        <ul>
-                            <li><a href="/social?social=vk" title="vk.com" class="vk">vk.com</a></li>
-                            <li><a href="/social?social=fb" title="facebook.com" class="fb">facebook.com</a></li>
-                        </ul>
-                    </div>
+                    <ul class="social big">
+                        <li><a href="/social?social=vk" title="vk.com" class="vk">vk.com</a></li>
+                        <li><a href="/social?social=fb" title="facebook.com" class="fb">facebook.com</a></li>
+                    </ul>
                 </div>
                 <div class="row">
                     <p class="modal-text text-center">или через почтовый адрес и пароль</p>
@@ -30,25 +28,18 @@
 
                 <form method="post" action="j_security_check" class="form form-horizontal edit" role="form">
                     <div class="form-group">
-                        <div class="col-sm-12">
-                            <label for="username1">Адрес почты:</label>
-                            <input id="username1" name="j_username" type="text" class="form-control"/>
-                        </div>
+                        <label for="username1">Адрес почты:</label>
+                        <input id="username1" name="j_username" type="text" class="form-control"/>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-12">
-                            <label for="password1">Пароль:</label>
-                            <input id="password1" name="j_password" type="password" class="form-control"/>
-                        </div>
+                        <label for="password1">Пароль:</label>
+                        <input id="password1" name="j_password" type="password" class="form-control"/>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-12">
-                            <a href="#" class="pull-left red-text forget-link">Забыли пароль?</a>
-
-                            <div class="label-checkbox-set pull-right">
-                                <label for="rememberme" class="red-text">Запомнить меня</label>
-                                <input type="checkbox" name="_spring_security_remember_me" id="rememberme" checked="checked"/>
-                            </div>
+                        <a href="#" class="pull-left red-text forget-link">Забыли пароль?</a>
+                        <div class="label-checkbox-set pull-right">
+                            <label for="rememberme" class="red-text">Запомнить меня</label>
+                            <input type="checkbox" name="_spring_security_remember_me" id="rememberme" checked="checked"/>
                         </div>
                     </div>
                     <div class="form-buttons" xml:space="preserve">
@@ -79,10 +70,8 @@
                 <br/>
                 <t:form t:zone="rememberZone" t:id="rememberForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
                     <div class="form-group">
-                        <div class="col-sm-12">
-                            <t:label for="eMail">Адрес почты:</t:label>
-                            <input t:type="TextField" t:id="eMail" t:value="eMail" type="text" class="form-control"/>
-                        </div>
+                        <t:label for="eMail">Адрес почты:</t:label>
+                        <input t:type="TextField" t:id="eMail" t:value="eMail" type="text" class="form-control"/>
                     </div>
                     <div class="form-buttons" xml:space="preserve">
                         <input class="btn btn-red" type="submit" value="Восстановить"/>
@@ -93,7 +82,6 @@
                 <div class="modal-body result">
                     <div class="row">
                         <p class="modal-text"><b>Новый пароль был выслан на почтовый адрес ${eMail}</b></p>
-
                         <p class="modal-text"><a data-dismiss="modal" href="#" class="red-text">Продолжить работу</a></p>
                     </div>
                 </div>
@@ -118,12 +106,10 @@
                     <p class="modal-text">Регистрация через аккаунт одной из социальных сетей</p>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12 social-big">
-                        <ul>
-                            <li><a href="/social?social=vk" title="vk.com" class="vk">vk.com</a></li>
-                            <li><a href="/social?social=fb" title="facebook.com" class="fb">facebook.com</a></li>
-                        </ul>
-                    </div>
+                    <ul class="social big">
+                        <li><a href="/social?social=vk" title="vk.com" class="vk">vk.com</a></li>
+                        <li><a href="/social?social=fb" title="facebook.com" class="fb">facebook.com</a></li>
+                    </ul>
                 </div>
                 <div class="row">
                     <p class="modal-text">или через почтовый адрес</p>
@@ -152,22 +138,16 @@
                         <br/>
 
                         <div class="form-group">
-                            <div class="col-sm-12">
-                                <t:label for="eMail2">Адрес почты:</t:label>
-                                <input t:type="TextField" t:id="eMail2" t:value="eMail" t:validate="required,email,maxlength=64" class="form-control"/>
-                            </div>
+                            <t:label for="eMail2">Адрес почты:</t:label>
+                            <input t:type="TextField" t:id="eMail2" t:value="eMail" t:validate="required,email,maxlength=64" class="form-control"/>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-12">
-                                <t:label for="fullName">Полное имя:</t:label>
-                                <input t:type="TextField" t:id="fullName" t:value="fullName" t:validate="maxlength=64" class="form-control"/>
-                            </div>
+                            <t:label for="fullName">Полное имя:</t:label>
+                            <input t:type="TextField" t:id="fullName" t:value="fullName" t:validate="maxlength=64" class="form-control"/>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-12">
-                                <t:label for="password">Пароль:</t:label>
-                                <input t:type="PasswordField" t:id="password" t:value="password" t:validate="required,maxlength=64" class="form-control"/>
-                            </div>
+                            <t:label for="password">Пароль:</t:label>
+                            <input t:type="PasswordField" t:id="password" t:value="password" t:validate="required,maxlength=64" class="form-control"/>
                         </div>
                         <div class="form-buttons" xml:space="preserve">
                             <input class="btn btn-red" type="submit" value="Зарегистрироваться"/>
