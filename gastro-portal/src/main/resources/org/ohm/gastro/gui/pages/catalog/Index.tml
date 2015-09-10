@@ -86,7 +86,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
 
+    <section>
+        <div class="container">
             <div class="title">
                 <h1><span>Блюда</span></h1>
                 <t:if test="products">
@@ -116,7 +120,11 @@
                 </div>
             </t:block>
             <t:productModalTemplate/>
+        </div>
+    </section>
 
+    <section>
+        <div class="container">
             <div class="title">
                 <h1><span>Готовые предложения</span></h1>
                 <t:if test="offers">
@@ -139,7 +147,11 @@
                     </t:parameter>
                 </t:loop>
             </t:block>
+        </div>
+    </section>
 
+    <section>
+        <div class="container">
             <div class="title">
                 <h1><span>Отзывы о кулинаре</span></h1>
                 <a href="#rate" data-toggle="modal" data-target="#rate">Оставить отзыв</a>
@@ -152,7 +164,6 @@
             </t:if>
             <t:ratecookuser type="CATALOG" catalog="catalog" commentAllowed="commentAllowed" modalId="rate"/>
         </div>
-
         <div class="modal fade catalog-edit" id="catalog-edit" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">

@@ -6,10 +6,14 @@
   .pic
     cursor: pointer
     position: relative
+    &:hover
+      .edit-block
+        display: block
     img
       width: 270px
       height: 270px
     .edit-block
+      width: 560px
       cursor: default
       display: none
       position: absolute
@@ -46,10 +50,6 @@
 
         &.delete
           background: url("../img/product-edit.png") no-repeat -98px 0
-
-  &:hover
-    .edit-block
-      display: block
 
   .basket-block
     width: 240px

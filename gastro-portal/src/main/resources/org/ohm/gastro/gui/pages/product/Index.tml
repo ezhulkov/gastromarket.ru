@@ -1,13 +1,13 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="${product.name}" keywords="keywords" socialImage="${product.avatarUrl}">
 
-    <div class="container">
-        <div class="title">
-            <h1><span>${product.name}</span></h1>
-        </div>
-        <div class="product-item full">
+    <section class="product-item full">
+        <div class="container">
+            <div class="title">
+                <h1><span>${product.name}</span></h1>
+            </div>
             <div class="row info">
-                <div class="col-sm-6">
-                    <div class="pic pull-right">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 fluid-md-block">
+                    <div class="pic">
                         <t:if test="catalogOwner">
                             <div class="edit-block upload-file" data-objectid="${product.id}" data-type="PRODUCT" data-size="SIZE2">
                                 <a class="uploader-button"/>
@@ -17,7 +17,7 @@
                         <img src="${product.avatarUrl}"/>
                     </div>
                 </div>
-                <div class="col-sm-5">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                     <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="product.catalog.altId">
                         <span><img src="${product.catalog.avatarUrlSmall}"/></span>${product.catalog.name}
                     </t:pageLink>
@@ -56,6 +56,12 @@
                 </div>
             </div>
         </div>
+        <t:if test="catalogOwner">
+            <t:productEdit modalId="pr-edit" product="product" catalog="product.catalog" reloadPage="true"/>
+        </t:if>
+    </section>
+
+    <section>
         <div class="title">
             <h1><span>Похожие блюда</span></h1>
         </div>
@@ -65,11 +71,7 @@
             </t:loop>
         </div>
         <t:productModalTemplate/>
-    </div>
-
-    <t:if test="catalogOwner">
-        <t:productEdit modalId="pr-edit" product="product" catalog="product.catalog" reloadPage="true"/>
-    </t:if>
+    </section>
 
     <script>
         jQuery(document).ready(function () {

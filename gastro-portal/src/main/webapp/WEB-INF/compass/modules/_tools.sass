@@ -121,12 +121,20 @@ body.mobile .rub:after
 .nopad
   padding: 0 !important
 
-.fluid-xs-block
+=fluid-block($width)
   text-align: right
-  @media (max-width: 768px)
+  & > div
+    float: right
+  @media (max-width: $width)
     text-align: left
+    & > div
+      float: none
+
+.fluid-xs-block
+  +fluid-block(768px)
 
 .fluid-sm-block
-  text-align: right
-  @media (max-width: 992px)
-    text-align: left
+  +fluid-block(992px)
+
+.fluid-md-block
+  +fluid-block(1200px)

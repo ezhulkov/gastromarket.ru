@@ -16,12 +16,12 @@
 
     <t:block t:id="offerBlock">
         <div class="row">
-            <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12 pic-block">
+            <div class="${leftBlock} fluid-xs-block">
                 <t:pagelink page="catalog/offer" t:context="offer.altId">
                     <img class="pic" src="${avatarUrl}"/>
                 </t:pagelink>
             </div>
-            <div class="col-lg-9 col-md-9 col-sm-10 col-xs-12 nopad">
+            <div class="${rightBlock} nopad">
                 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                     <t:pagelink page="catalog/offer" t:context="offer.altId" class="name">${offer.name}</t:pagelink>
                     <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="offer.catalog.altId">
@@ -91,10 +91,10 @@
                 <div class="price-modifier gap">
                     <t:loop source="priceModifiers" value="priceModifier">
                         <div class="row">
-                            <div class="text-right">
+                            <div class="${leftBlock} basket-block fluid-xs-block">
                                 <span class="modifier-price"><span class="sign">${priceModifier.signPrintable}</span>${priceModifier.price} <span class="rub"/></span>
                             </div>
-                            <div class="text-left">
+                            <div class="${rightBlock} basket-block text-left">
                                 <span class="modifier-name">${priceModifier.description}</span>
                             </div>
                         </div>
@@ -103,10 +103,10 @@
             </t:if>
         </t:unless>
         <div class="row gap">
-            <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12 basket-block fluid-xs-block">
+            <div class="${leftBlock} basket-block fluid-xs-block">
                 <span class="price">${offer.price} <span class="rub"/></span>
             </div>
-            <div class="col-lg-9 col-md-9 col-sm-10 col-xs-12 basket-block text-left">
+            <div class="${rightBlock} basket-block text-left">
                 <t:order.add entity="offer"/>
             </div>
         </div>
