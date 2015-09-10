@@ -772,6 +772,9 @@ body.modal-open {
 .wizard .container {
   min-height: 769px;
 }
+.wizard .pic {
+  width: 270px;
+}
 
 .bottom-image {
   display: block;
