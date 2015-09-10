@@ -10,10 +10,10 @@
             <div class="catalog-item short">
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-3 text-right">
+                        <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 fluid-xs-block">
                             <t:pagelink page="catalog/index" t:context="oneCatalog.altId"><img class="pic" src="${oneCatalog.avatarUrl}"/></t:pagelink>
                         </div>
-                        <div class="col-sm-9 text-left">
+                        <div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">
                             <t:pagelink page="catalog/index" t:context="oneCatalog.altId" class="name">${oneCatalog.name}</t:pagelink>
                             <div class="root-categories">${rootProperties}</div>
                             <t:badges catalog="oneCatalog"/>
@@ -24,11 +24,11 @@
                         </div>
                     </div>
                     <div class="row gap">
-                        <div class="col-sm-3 text-right">
+                        <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 fluid-xs-block">
                             <div class="grey-text f16px">Последний вход на сайт:</div>
                             <div class="grey-text f16px">${oneCatalog.user.loginDatePrintable}</div>
                         </div>
-                        <div class="col-sm-9 text-left">
+                        <div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">
                             <t:pagelink page="catalog/products" t:context="oneCatalog.altId" class="round-link">Показать все блюда<span/></t:pagelink>
                         </div>
                     </div>

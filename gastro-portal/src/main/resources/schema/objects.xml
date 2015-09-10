@@ -826,4 +826,10 @@
         </sql>
     </changeSet>
 
+    <changeSet id="70" author="ezhulkov">
+        <modifyDataType tableName="catalog" columnName="description" newDataType="text"/>
+        <modifyDataType tableName="catalog" columnName="delivery" newDataType="text"/>
+        <modifyDataType tableName="catalog" columnName="payment" newDataType="text"/>
+    </changeSet>
+
 </databaseChangeLog>
