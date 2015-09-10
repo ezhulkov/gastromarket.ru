@@ -1,12 +1,12 @@
-<ul xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="comments">
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="row comments">
     <t:loop source="comments" value="comment">
-        <li class="row comment">
-            <div class="col-sm-2 pic text-right">
+        <div class="comment">
+            <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-0 col-sm-3 col-xs-3 text-right pic">
                 <a href="${linkUrl}">
                     <img src="${avatarUrl}"/>
                 </a>
             </div>
-            <div class="col-sm-6">
+            <div class="col-lg-7 col-lg-offset-0 col-md-7 col-md-offset-0 col-sm-8 col-sm-offset-0 col-xs-8">
                 <div class="date">
                     ${comment.datePrintable}
                 </div>
@@ -47,11 +47,7 @@
                                         <div class="modal-body">
                                             <t:form t:id="replyForm" class="form form-horizontal" context="[order.id,comment.id]" t:clientValidation="none" autofocus="false" role="form" t:zone="replyZone">
                                                 <div class="form-group">
-                                                    <div class="col-sm-1"/>
-                                                    <div class="col-sm-10">
-                                                        <textarea t:type="TextArea" t:id="replyText" t:value="replyText" rows="5" class="form-control"/>
-                                                    </div>
-                                                    <div class="col-sm-1"/>
+                                                    <textarea t:type="TextArea" t:id="replyText" t:value="replyText" rows="5" class="form-control"/>
                                                 </div>
                                                 <div class="form-buttons" xml:space="preserve">
                                                     <input class="btn btn-red" type="submit" value="Ответить"/>
@@ -91,6 +87,6 @@
                     </div>
                 </t:if>
             </div>
-        </li>
+        </div>
     </t:loop>
-</ul>
+</div>

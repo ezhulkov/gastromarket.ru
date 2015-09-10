@@ -83,28 +83,16 @@
                         <t:form t:zone="feedbackZone" t:id="feedbackForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
                             <t:errors/>
                             <div class="form-group">
-                                <div class="col-sm-1"/>
-                                <div class="col-sm-10">
-                                    <t:label for="eMail">Адрес почты:</t:label>
-                                    <input t:type="TextField" id="eMail" t:id="eMail" t:value="eMail" t:validate="email,maxlength=64" class="form-control"/>
-                                </div>
-                                <div class="col-sm-1"/>
+                                <t:label for="eMail">Адрес почты:</t:label>
+                                <input t:type="TextField" id="eMail" t:id="eMail" t:value="eMail" t:validate="email,maxlength=64" class="form-control"/>
                             </div>
                             <div class="form-group">
-                                <div class="col-sm-1"/>
-                                <div class="col-sm-10">
-                                    <t:label for="fullName">Полное имя:</t:label>
-                                    <input t:type="TextField" id="fullName" t:id="fullName" t:value="fullName" t:validate="maxlength=64" class="form-control"/>
-                                </div>
-                                <div class="col-sm-1"/>
+                                <t:label for="fullName">Полное имя:</t:label>
+                                <input t:type="TextField" id="fullName" t:id="fullName" t:value="fullName" t:validate="maxlength=64" class="form-control"/>
                             </div>
                             <div class="form-group">
-                                <div class="col-sm-1"/>
-                                <div class="col-sm-10">
-                                    <t:label for="comment">Комментарий:</t:label>
-                                    <textarea t:type="TextArea" t:id="comment" t:value="comment" rows="5" class="form-control"/>
-                                </div>
-                                <div class="col-sm-1"/>
+                                <t:label for="comment">Комментарий:</t:label>
+                                <textarea t:type="TextArea" t:id="comment" t:value="comment" rows="5" class="form-control"/>
                             </div>
                             <div class="form-buttons" xml:space="preserve">
                                 <input class="btn btn-red" type="submit" value="Послать отзыв"/>

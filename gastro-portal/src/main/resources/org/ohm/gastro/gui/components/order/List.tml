@@ -22,7 +22,11 @@
     </t:if>
     <t:unless test="fromCart">
         <t:loop source="orders" value="order" forState="NONE">
-            <t:order.order order="order" type="FULL" privateOrders="privateOrders" frontend="frontend"/>
+            <div class="row">
+                <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
+                    <t:order.order order="order" type="FULL" privateOrders="privateOrders" frontend="frontend"/>
+                </div>
+            </div>
         </t:loop>
     </t:unless>
 </div>

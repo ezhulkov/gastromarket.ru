@@ -30,24 +30,19 @@
 
                 <form method="post" action="j_security_check" class="form form-horizontal edit" role="form">
                     <div class="form-group">
-                        <div class="col-sm-1"/>
-                        <div class="col-sm-10">
+                        <div class="col-sm-12">
                             <label for="username1">Адрес почты:</label>
                             <input id="username1" name="j_username" type="text" class="form-control"/>
                         </div>
-                        <div class="col-sm-1"/>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-1"/>
-                        <div class="col-sm-10">
+                        <div class="col-sm-12">
                             <label for="password1">Пароль:</label>
                             <input id="password1" name="j_password" type="password" class="form-control"/>
                         </div>
-                        <div class="col-sm-1"/>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-1"/>
-                        <div class="col-sm-10">
+                        <div class="col-sm-12">
                             <a href="#" class="pull-left red-text forget-link">Забыли пароль?</a>
 
                             <div class="label-checkbox-set pull-right">
@@ -55,7 +50,6 @@
                                 <input type="checkbox" name="_spring_security_remember_me" id="rememberme" checked="checked"/>
                             </div>
                         </div>
-                        <div class="col-sm-1"/>
                     </div>
                     <div class="form-buttons" xml:space="preserve">
                         <input class="btn btn-red" type="submit" value="Войти"/>
@@ -85,12 +79,10 @@
                 <br/>
                 <t:form t:zone="rememberZone" t:id="rememberForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
                     <div class="form-group">
-                        <div class="col-sm-1"/>
-                        <div class="col-sm-10">
+                        <div class="col-sm-12">
                             <t:label for="eMail">Адрес почты:</t:label>
                             <input t:type="TextField" t:id="eMail" t:value="eMail" type="text" class="form-control"/>
                         </div>
-                        <div class="col-sm-1"/>
                     </div>
                     <div class="form-buttons" xml:space="preserve">
                         <input class="btn btn-red" type="submit" value="Восстановить"/>
@@ -160,28 +152,22 @@
                         <br/>
 
                         <div class="form-group">
-                            <div class="col-sm-1"/>
-                            <div class="col-sm-10">
+                            <div class="col-sm-12">
                                 <t:label for="eMail2">Адрес почты:</t:label>
                                 <input t:type="TextField" t:id="eMail2" t:value="eMail" t:validate="required,email,maxlength=64" class="form-control"/>
                             </div>
-                            <div class="col-sm-1"/>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-1"/>
-                            <div class="col-sm-10">
+                            <div class="col-sm-12">
                                 <t:label for="fullName">Полное имя:</t:label>
                                 <input t:type="TextField" t:id="fullName" t:value="fullName" t:validate="maxlength=64" class="form-control"/>
                             </div>
-                            <div class="col-sm-1"/>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-1"/>
-                            <div class="col-sm-10">
+                            <div class="col-sm-12">
                                 <t:label for="password">Пароль:</t:label>
                                 <input t:type="PasswordField" t:id="password" t:value="password" t:validate="required,maxlength=64" class="form-control"/>
                             </div>
-                            <div class="col-sm-1"/>
                         </div>
                         <div class="form-buttons" xml:space="preserve">
                             <input class="btn btn-red" type="submit" value="Зарегистрироваться"/>
