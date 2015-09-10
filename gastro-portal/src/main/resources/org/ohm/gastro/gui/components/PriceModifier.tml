@@ -1,8 +1,7 @@
 <div class="form-group price-modifier" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
     <t:ajaxformloop t:id="modifiers" value="modifier" source="modifiers" encoder="formInjectorEncoder" show="none">
         <div class="clearfix modifier-row">
-            <div class="col-sm-1"></div>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <t:select t:id="sign" t:value="modifier.sign" t:validate="required" class="form-control chosen"/>
             </div>
             <div class="col-sm-2">
@@ -15,7 +14,6 @@
         </div>
         <t:parameter name="addRow">
             <div class="clearfix">
-                <div class="col-sm-1"></div>
                 <t:addrowlink class="add-modifier">+ Добавить модификатор цены</t:addrowlink>
             </div>
         </t:parameter>

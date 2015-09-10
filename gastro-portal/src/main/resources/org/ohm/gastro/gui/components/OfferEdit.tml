@@ -14,9 +14,13 @@
             </div>
             <div class="modal-body offer-create">
 
-                <t:zone t:id="offerEditZone" id="${offerEditZone}">
-                    <t:delegate to="editDescBlock"/>
-                </t:zone>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <t:zone t:id="offerEditZone" id="${offerEditZone}">
+                            <t:delegate to="editDescBlock"/>
+                        </t:zone>
+                    </div>
+                </div>
 
                 <t:block t:id="editDescBlock">
                     <p class="modal-text">
@@ -27,35 +31,31 @@
                             jQuery("#${modalId}").modal('hide');
                         </script>
                     </t:if>
-                    <t:form id="descForm" t:id="descForm" t:context="[offerId]" t:zone="${offerEditZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
+                    <t:form id="descForm" t:id="descForm" t:context="[offerId]" t:zone="${offerEditZone}" t:autofocus="true" t:clientValidation="none" class="form edit nopad" role="form">
                         <t:errors/>
-                        <div class="form-group">
-                            <div class="col-sm-1"/>
-                            <div class="col-sm-10">
+                        <div class="col-xs-12">
+                            <div class="form-group">
                                 <t:label t:for="offerName">Название:</t:label>
                                 <input t:id="offerName" class="form-control"/>
                             </div>
-                            <div class="col-sm-1"/>
                         </div>
-                        <div class="form-group">
-                            <div class="col-sm-1"/>
-                            <div class="col-sm-10">
+                        <div class="col-xs-12">
+                            <div class="form-group">
                                 <t:label t:for="offerDescription">Описание:</t:label>
                                 <input t:id="offerDescription" rows="4" class="form-control"/>
                             </div>
-                            <div class="col-sm-1"/>
                         </div>
-                        <div class="form-group">
-                            <div class="col-sm-1"></div>
-                            <div class="col-sm-3">
+                        <div class="col-sm-3 col-xs-12">
+                            <div class="form-group">
                                 <t:label t:for="offerPrice">Цена, руб:</t:label>
                                 <input t:id="offerPrice" class="form-control price"/>
                             </div>
-                            <div class="col-sm-7">
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <div class="form-group">
                                 <t:label t:for="offerPersons">Рассчитано на количество человек:</t:label>
                                 <input t:id="offerPersons" class="form-control price"/>
                             </div>
-                            <div class="col-sm-1"></div>
                         </div>
                         <t:pricemodifier object="offer"/>
                         <div class="form-buttons" xml:space="preserve">
@@ -67,21 +67,20 @@
                     <p class="modal-text">
                         Шаг 2 из 2 - состав предложения
                     </p>
-                    <t:form t:id="productsForm" t:context="[offerId]" t:zone="${offerEditZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
-                        <div class="form-group">
-                            <div class="col-sm-1"/>
-                            <div class="col-sm-8">
-                                <t:label t:for="products">Выберите блюдо:</t:label>
+                    <t:form t:id="productsForm" t:context="[offerId]" t:zone="${offerEditZone}" t:autofocus="true" t:clientValidation="none" class="form nopad edit" role="form">
+                        <div class="col-sm-8 col-xs-12">
+                            <div class="form-group">
                                 <t:select t:id="products" data-placeholder=" " class="form-control chosen-select"/>
                             </div>
-                            <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-4 col-xs-12">
+                            <div class="form-group">
                                 <label>&nbsp;</label>
                                 <input class="btn btn-red" t:type="submit" t:id="addProduct" value="Добавить"/>
                             </div>
-                            <div class="col-sm-1"/>
                         </div>
-                        <div class="form-group gap3">
-                            <div class="col-sm-12">
+                        <div class="col-xs-12">
+                            <div class="form-group">
                                 <t:if test="products">
                                     <h2>Блюда в предложении</h2>
                                     <ul class="offer-products">

@@ -693,9 +693,6 @@ ul.offer-products li .delete a {
 ul.offer-products li:hover .delete {
   display: block;
 }
-.offer-edit ul.offer-products {
-  margin-left: 40px;
-}
 
 .offer-edit .price {
   font-weight: bold;
