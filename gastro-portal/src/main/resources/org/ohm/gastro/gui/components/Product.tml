@@ -32,7 +32,7 @@
                                 </div>
                                 <a class="modal-close" data-dismiss="modal"></a>
                             </div>
-                            <div class="modal-body form-buttons" style="text-align: center;">
+                            <div class="modal-body form-buttons" xml:space="preserve">
                                 <t:actionlink rel="nofollow" t:id="delete" t:context="product.id" class="btn btn-red deleteConfirm" style="display: inline;">Удалить</t:actionlink>
                                 <a href="#" class="btn btn-white" style="display: inline;" data-dismiss="modal">Отмена</a>
                             </div>

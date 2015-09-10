@@ -79,7 +79,7 @@
                                 </div>
                                 <div class="col-sm-1"/>
                             </div>
-                            <div class="form-buttons">
+                            <div class="form-buttons" xml:space="preserve">
                                 <input class="btn btn-red" t:type="submit" t:id="saveAndContacts" value="Контактные данные >"/>
                             </div>
                         </t:form>
@@ -121,7 +121,7 @@
                                 </div>
                                 <div class="col-sm-1"/>
                             </div>
-                            <div class="form-buttons">
+                            <div class="form-buttons" xml:space="preserve">
                                 <input class="btn btn-red" t:type="submit" t:id="saveAndBack" value="&lt; Назад"/>
                                 <input class="btn btn-red" t:type="submit" t:id="saveAndClose" value="${closeLabel}"/>
                             </div>

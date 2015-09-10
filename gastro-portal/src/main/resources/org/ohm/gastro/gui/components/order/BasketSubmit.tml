@@ -1,18 +1,18 @@
 <t:if xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" test="basket">
-    <t:form t:id="orderForm" t:context="formContext" t:autofocus="false" t:clientValidation="none" class="form form-horizontal" role="form">
-        <t:if test="authenticated">
+    <t:if test="authenticated">
+        <t:form t:id="orderForm" t:context="formContext" t:autofocus="false" t:clientValidation="none" class="form form-horizontal basket-submit" role="form">
             <div class="form-group">
-                <div class="col-sm-8">
+                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                     <t:label t:for="comment">Комментарии к заказу:</t:label>
                     <input t:id="comment" rows="5" class="form-control"/>
                 </div>
             </div>
-            <div class="form-group ">
-                <div class="col-sm-4">
+            <div class="form-group last">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <t:label t:for="dueDate">Дата исполнения:</t:label>
                     <input t:id="dueDate" class="form-control date-picker" placeholder="дд/мм/гггг"/>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <t:label t:for="personCount">Количество персон:</t:label>
                     <input t:id="personCount" class="form-control"/>
                 </div>
@@ -59,14 +59,16 @@
                                     </div>
                                     <div class="col-sm-1"/>
                                 </div>
-                                <div class="form-buttons">
+                                <div class="form-buttons" xml:space="preserve">
                                     <input class="btn btn-red" type="submit" value="Завершить оформление заказа"/>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <a href="#cart_address_${catalog.id}" data-toggle="modal" class="round-link" data-target="#cart_address_${catalog.id}">Оформить заказ <span/></a>
+                <div class="action-link">
+                    <a href="#cart_address_${catalog.id}" data-toggle="modal" class="round-link" data-target="#cart_address_${catalog.id}">Оформить заказ <span/></a>
+                </div>
                 <t:parameter name="else">
                     <div class="modal fade" id="cart_more_${catalog.id}" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
@@ -84,19 +86,23 @@
                                             Вам необходимо дополнить заказ.
                                         </p>
                                     </div>
-                                    <div class="form-buttons">
+                                    <div class="form-buttons" xml:space="preserve">
                                         <t:pagelink page="catalog/index" context="catalog.altId" class="btn btn-red">Выбрать еще</t:pagelink>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <a href="#cart_more_${catalog.id}" data-toggle="modal" class="round-link" data-target="#cart_more_${catalog.id}">Оформить заказ <span/></a>
+                    <div class="action-link">
+                        <a href="#cart_more_${catalog.id}" data-toggle="modal" class="round-link" data-target="#cart_more_${catalog.id}">Оформить заказ <span/></a>
+                    </div>
                 </t:parameter>
             </t:if>
-            <t:parameter name="else">
+        </t:form>
+        <t:parameter name="else">
+            <div class="action-link">
                 <a href="#cart_login" data-toggle="modal" class="login-link round-link" data-target="#cart_login">Оформить заказ <span/></a>
-            </t:parameter>
-        </t:if>
-    </t:form>
+            </div>
+        </t:parameter>
+    </t:if>
 </t:if>

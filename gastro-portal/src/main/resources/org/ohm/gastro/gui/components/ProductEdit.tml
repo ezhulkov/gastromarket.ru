@@ -68,7 +68,7 @@
                             <div class="col-sm-1"/>
                         </div>
                         <t:pricemodifier object="product"/>
-                        <div class="form-buttons">
+                        <div class="form-buttons" xml:space="preserve">
                             <input class="btn btn-red" t:type="submit" t:id="saveAndProps" value="${editPropertiesLabel}"/>
                         </div>
                     </t:form>
@@ -105,7 +105,7 @@
                                 </t:loop>
                             </div>
                         </t:if>
-                        <div class="form-buttons">
+                        <div class="form-buttons" xml:space="preserve">
                             <input class="btn btn-red" t:type="submit" t:id="saveAndBack2" value="&lt; Назад"/>
                             <input class="btn btn-red" t:type="submit" t:id="saveAndClose2" value="Сохранить и закрыть"/>
                             <input class="btn btn-red" t:type="submit" t:id="saveAndPhoto" value="Добавить фотографию >"/>
@@ -127,7 +127,7 @@
                             <t:uploadfile type="PRODUCT" responseSize="SIZE3" imageUrl="${product?.avatarUrl}" objectId="${product?.id}"/>
                             <br/>
                         </div>
-                        <div class="form-buttons">
+                        <div class="form-buttons" xml:space="preserve">
                             <input class="btn btn-red" t:type="submit" t:id="saveAndBack3" value="&lt; Назад"/>
                             <input class="btn btn-red" t:type="submit" t:id="saveAndClose3" value="Закрыть"/>
                         </div>

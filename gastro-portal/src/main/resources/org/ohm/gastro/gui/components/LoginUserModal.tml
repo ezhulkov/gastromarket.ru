@@ -57,7 +57,7 @@
                         </div>
                         <div class="col-sm-1"/>
                     </div>
-                    <div class="form-buttons">
+                    <div class="form-buttons" xml:space="preserve">
                         <input class="btn btn-red" type="submit" value="Войти"/>
                         <a href="#" class="btn btn-white signup-link">Регистрация</a>
                     </div>
@@ -92,7 +92,7 @@
                         </div>
                         <div class="col-sm-1"/>
                     </div>
-                    <div class="form-buttons">
+                    <div class="form-buttons" xml:space="preserve">
                         <input class="btn btn-red" type="submit" value="Восстановить"/>
                     </div>
                 </t:form>
@@ -183,7 +183,7 @@
                             </div>
                             <div class="col-sm-1"/>
                         </div>
-                        <div class="form-buttons">
+                        <div class="form-buttons" xml:space="preserve">
                             <input class="btn btn-red" type="submit" value="Зарегистрироваться"/>
                         </div>
                     </t:form>

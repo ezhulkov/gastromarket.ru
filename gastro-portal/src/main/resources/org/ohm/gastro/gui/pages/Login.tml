@@ -53,7 +53,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-buttons">
+                <div class="form-buttons" xml:space="preserve">
                     <input class="btn btn-red" type="submit" value="Войти"/>
                     <a href="#" class="btn btn-white signup-link" data-toggle="modal" data-target="#login">Регистрация</a>
                 </div>

@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="col-sm-1"/>
                             </div>
-                            <div class="form-buttons">
+                            <div class="form-buttons" xml:space="preserve">
                                 <input class="btn btn-red" type="submit" value="Послать отзыв"/>
                             </div>
                         </t:form>

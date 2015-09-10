@@ -577,7 +577,7 @@ body.modal-open {
   margin: 40px 10px 40px 10px;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 768px) {
   .modal-dialog {
     width: 700px;
     margin-left: auto;
@@ -589,7 +589,7 @@ body.modal-open {
   }
 
   .modal.order-show-modal .modal-dialog {
-    width: 989px;
+    width: 950px;
   }
 }
 .modal-backdrop.in {
@@ -2060,6 +2060,9 @@ label.t-error {
   bottom: 20px;
   right: 30px;
 }
+.order-show-catalog .action-link a {
+  margin-right: 0;
+}
 @media (max-width: 992px) {
   .order-show-catalog .action-link {
     position: relative;
@@ -2080,7 +2083,7 @@ label.t-error {
   text-align: right;
   font-weight: bold;
 }
-@media (max-width: 992px) {
+@media (max-width: 768px) {
   .order-show-catalog .tender-info .price {
     font-size: 30px;
     color: #333;
@@ -2145,12 +2148,7 @@ label.t-error {
 .order-show-catalog .items .order-item .modifier-name {
   font-size: 16px;
 }
-.order-show-catalog .items .order-item .count {
-  width: 40px;
-  display: inline-block;
-  margin-left: 5px;
-}
-.order-show-catalog .items .order-item .price {
+.order-show-catalog .items .order-item .item-price {
   font-size: 20px;
   color: #333;
   text-align: left;
@@ -2164,7 +2162,7 @@ label.t-error {
   color: #333;
 }
 @media (max-width: 992px) {
-  .order-show-catalog .items .order-item .price {
+  .order-show-catalog .items .order-item .item-price {
     text-align: left;
     margin-left: 30px;
   }
@@ -2178,7 +2176,7 @@ label.t-error {
   text-align: right;
   font-weight: bold;
 }
-@media (max-width: 992px) {
+@media (max-width: 768px) {
   .order-show-catalog .total .price {
     font-size: 30px;
     color: #333;
@@ -2186,23 +2184,11 @@ label.t-error {
     font-weight: bold;
   }
 }
-.order-show-catalog .submit-row--- {
-  min-height: 50px;
-  position: relative;
+.order-show-catalog .basket-submit {
+  padding: 0;
 }
-.order-show-catalog .submit-row--- .round-link, .order-show-catalog .submit-row--- .title-simple > a, .order-show-catalog .submit-row--- .title > a, .order-show-catalog .submit-row--- .links-set a, .links-set .order-show-catalog .submit-row--- a {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-}
-.order-show-catalog .submit-row--- .edit-link {
-  display: none;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-}
-.order-show-catalog .submit-row---:hover .edit-link {
-  display: block;
+.order-show-catalog .basket-submit .last {
+  margin-bottom: 0;
 }
 .order-show-catalog .status-change--- {
   padding: 10px 0;

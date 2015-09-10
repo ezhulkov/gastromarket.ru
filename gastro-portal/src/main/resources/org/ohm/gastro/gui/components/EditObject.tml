@@ -11,7 +11,7 @@
         <t:body/>
 
         <t:if test="showControls">
-            <div class="form-buttons">
+            <div class="form-buttons" xml:space="preserve">
                 <t:if test="addControls">
                     <t:delegate to="addControls"/>
                 </t:if>

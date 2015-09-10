@@ -12,7 +12,7 @@
                     </div>
                 </div>
                 <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-                    <div class="price">
+                    <div class="item-price">
                         <t:if test="item.modifier">
                             <span class="sign">${item.modifier.signPrintable}</span>${item.modifier.price}&nbsp;<span class="rub"/> = ${item.price}&nbsp;<span class="rub"/>
                             <t:parameter name="else">

@@ -85,7 +85,7 @@
                                 вы зарабатываете бонусные баллы, которые можно потратить на приятные подарки.
                             </p>
                         </div>
-                        <div class="form-buttons">
+                        <div class="form-buttons" xml:space="preserve">
                             <a class="btn btn-red btn-lg" href="/bonus">Узнайте подробности</a>
                         </div>
                     </div>

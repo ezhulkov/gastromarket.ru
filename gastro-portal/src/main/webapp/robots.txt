@@ -4,7 +4,6 @@ Disallow:/signup
 Disallow:/admin
 Disallow:/office
 Disallow:/subscribe
-Disallow:/user
 Disallow:/social
 Disallow:/*list
 Disallow:/*ajax
@@ -18,7 +17,6 @@ Disallow:/signup
 Disallow:/admin
 Disallow:/office
 Disallow:/subscribe
-Disallow:/user
 Disallow:/social
 Disallow:/*list
 Disallow:/*ajax
