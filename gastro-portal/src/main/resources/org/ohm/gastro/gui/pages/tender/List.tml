@@ -17,8 +17,7 @@
     </div>
 
     <t:if test="tender">
-        !!!
-        <t:order.edit ordersBlock="ordersBlock" edit="false" order="tender" tender="true"/>
+        <t:order.edit ordersBlock="ordersBlock" edit="false" extOrder="tender" tender="true"/>
         <t:parameter name="else">
             <t:order.edit ordersBlock="ordersBlock" edit="false" tender="true"/>
         </t:parameter>

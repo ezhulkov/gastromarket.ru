@@ -25,6 +25,10 @@ public class Edit extends BaseComponent {
     @Parameter(defaultPrefix = BindingConstants.PROP, allowNull = true, required = false)
     private OrderEntity order;
 
+    @Property
+    @Parameter(defaultPrefix = BindingConstants.PROP, allowNull = true, required = false)
+    private OrderEntity extOrder;
+
     @Persist
     private OrderEntity newOrder;
 
@@ -111,7 +115,11 @@ public class Edit extends BaseComponent {
     //Desc section
     public void onPrepareFromDescForm() {
         if (order == null || order.getId() == null) {
-            if (newOrder == null) newOrder = new OrderEntity();
+            if (extOrder != null) {
+                newOrder = extOrder;
+            } else if (newOrder == null) {
+                newOrder = new OrderEntity();
+            }
             order = newOrder;
             order.setCustomer(getAuthenticatedUserOpt().orElse(null));
         }
