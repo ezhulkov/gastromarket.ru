@@ -12,13 +12,14 @@
                 </div>
                 <a class="modal-close" data-dismiss="modal"></a>
             </div>
-
             <div class="modal-body product-create">
-
-                <t:zone t:id="productEditZone" id="${productEditZone}">
-                    <t:delegate to="editDescBlock"/>
-                </t:zone>
-
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <t:zone t:id="productEditZone" id="${productEditZone}">
+                            <t:delegate to="editDescBlock"/>
+                        </t:zone>
+                    </div>
+                </div>
                 <t:block t:id="editDescBlock">
                     <p class="modal-text">
                         Шаг 1 из 3 - описание и цена
@@ -28,44 +29,43 @@
                             jQuery("#${modalId}").modal('hide');
                         </script>
                     </t:if>
-                    <t:form id="descForm" t:id="descForm" t:context="[productId]" t:zone="${productEditZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
+                    <t:form id="descForm" t:id="descForm" t:context="[productId]" t:zone="${productEditZone}" t:autofocus="true" t:clientValidation="none" class="form nopad edit" role="form">
                         <t:errors/>
-                        <div class="form-group">
-                            <div class="col-sm-1"/>
-                            <div class="col-sm-10">
+                        <div class="col-xs-12">
+                            <div class="form-group">
                                 <t:label t:for="productName">Название:</t:label>
                                 <input t:id="productName" class="form-control"/>
                             </div>
-                            <div class="col-sm-1"/>
                         </div>
-                        <div class="form-group">
-                            <div class="col-sm-1"/>
-                            <div class="col-sm-10">
+                        <div class="col-xs-12">
+                            <div class="form-group">
                                 <t:label t:for="productDescription">Описание:</t:label>
                                 <input t:id="productDescription" rows="4" class="form-control"/>
                             </div>
-                            <div class="col-sm-1"/>
                         </div>
-                        <div class="form-group">
-                            <div class="col-sm-1"/>
-                            <div class="col-sm-4">
+                        <div class="col-sm-5 col-xs-12">
+                            <div class="form-group">
                                 <t:label t:for="productPrice">Цена, руб:</t:label>
                                 <input t:id="productPrice" class="form-control price"/>
                             </div>
-                            <div class="col-sm-1">
+                        </div>
+                        <div class="col-sm-1 col-xs-6">
+                            <div class="form-group">
                                 <label>&nbsp;</label>
-
                                 <div class="f20px za">за</div>
                             </div>
-                            <div class="col-sm-3">
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group">
                                 <t:label t:for="productUnitValue">Количество:</t:label>
                                 <input t:id="productUnitValue" class="form-control unit"/>
                             </div>
-                            <div class="col-sm-2">
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group">
                                 <t:label t:for="productUnit">Единицы:</t:label>
                                 <t:select t:id="productUnit" class="form-control unit"/>
                             </div>
-                            <div class="col-sm-1"/>
                         </div>
                         <t:pricemodifier object="product"/>
                         <div class="form-buttons" xml:space="preserve">
@@ -77,7 +77,7 @@
                     <p class="modal-text">
                         Шаг 2 из 3 - свойства и ингредиенты
                     </p>
-                    <t:form t:id="propsForm" t:context="[productId]" t:zone="${productEditZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
+                    <t:form t:id="propsForm" t:context="[productId]" t:zone="${productEditZone}" t:autofocus="true" t:clientValidation="none" class="form nopad edit" role="form">
                         <t:if test="propError">
                             <div class="t-error">
                                 <ul>
@@ -85,30 +85,31 @@
                                 </ul>
                             </div>
                         </t:if>
-                        <t:loop source="mandatoryProperties" value="oneProperty" formState="NONE">
-                            <t:propertyEdit property="oneProperty" product="product" modalId="modalId"/>
-                        </t:loop>
-                        <t:if test="optionalProperties">
-                            <div class="form-group">
-                                <div class="col-sm-1"/>
-                                <div class="col-sm-10">
+                        <div class="col-xs-12">
+                            <t:loop source="mandatoryProperties" value="oneProperty" formState="NONE">
+                                <t:propertyEdit property="oneProperty" product="product" modalId="modalId"/>
+                            </t:loop>
+                        </div>
+                        <div class="col-xs-12">
+                            <t:if test="optionalProperties">
+                                <div class="form-group">
                                     <a class="red-text text-left" data-toggle="collapse" href="#optional" aria-expanded="false" aria-controls="optional">
                                         Дополнительные свойства
                                     </a>
                                 </div>
-                                <div class="col-sm-1"/>
+                                <div class="collapse" id="optional">
+                                    <t:loop source="optionalProperties" value="oneProperty" formState="NONE">
+                                        <t:propertyEdit property="oneProperty" product="product" modalId="modalId"/>
+                                    </t:loop>
+                                </div>
+                            </t:if>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="form-buttons" xml:space="preserve">
+                                <input class="btn btn-red" t:type="submit" t:id="saveAndBack2" value="&lt; Назад"/>
+                                <input class="btn btn-red" t:type="submit" t:id="saveAndClose2" value="Сохранить и закрыть"/>
+                                <input class="btn btn-red" t:type="submit" t:id="saveAndPhoto" value="Добавить фотографию >"/>
                             </div>
-
-                            <div class="collapse" id="optional">
-                                <t:loop source="optionalProperties" value="oneProperty" formState="NONE">
-                                    <t:propertyEdit property="oneProperty" product="product" modalId="modalId"/>
-                                </t:loop>
-                            </div>
-                        </t:if>
-                        <div class="form-buttons" xml:space="preserve">
-                            <input class="btn btn-red" t:type="submit" t:id="saveAndBack2" value="&lt; Назад"/>
-                            <input class="btn btn-red" t:type="submit" t:id="saveAndClose2" value="Сохранить и закрыть"/>
-                            <input class="btn btn-red" t:type="submit" t:id="saveAndPhoto" value="Добавить фотографию >"/>
                         </div>
                     </t:form>
                     <script>
@@ -119,7 +120,7 @@
                     <p class="modal-text">
                         Шаг 3 из 3 - загрузка фотографии
                     </p>
-                    <t:form t:id="photoForm" t:context="[productId]" t:zone="${productEditZone}" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
+                    <t:form t:id="photoForm" t:context="[productId]" t:zone="${productEditZone}" t:autofocus="true" t:clientValidation="none" class="form nopad edit" role="form">
                         <div class="row">
                             <p class="modal-text">Загрузите фотографию в формате JPEG или PNG,<br/> размер которой должен быть меньше 10 мегабайт.</p>
                         </div>

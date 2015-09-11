@@ -748,6 +748,10 @@ body.modal-open {
   margin: 40px 10px 40px 10px;
 }
 
+.modal-body {
+  padding-top: 0;
+}
+
 @media (min-width: 768px) {
   .modal-dialog {
     width: 600px;
@@ -809,7 +813,7 @@ body.modal-open {
   height: 270px;
 }
 .product-item .pic .edit-block {
-  width: 560px;
+  width: 270px;
   cursor: default;
   display: none;
   position: absolute;
@@ -888,6 +892,9 @@ body.modal-open {
 .product-item.full .pic img {
   width: 560px;
   height: 404px;
+}
+.product-item.full .edit-block {
+  width: 560px;
 }
 .product-item.full .basket-block {
   margin: 20px 0 10px 0;
@@ -1027,6 +1034,9 @@ body.modal-open {
   opacity: 0.9;
 }
 
+.product-edit-modal {
+  text-align: left;
+}
 .product-edit-modal .t-error {
   margin: 0 0 0 0;
 }

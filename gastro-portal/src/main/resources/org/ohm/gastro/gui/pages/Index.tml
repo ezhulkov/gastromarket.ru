@@ -120,7 +120,7 @@
     <section class="main-products">
         <div class="container">
             <div class="title">
-                <h1><span>Примеры заказов</span></h1>
+                <h1><span>Примеры блюд</span></h1>
                 <t:pagelink page="product/list">Каталог блюд<span/></t:pagelink>
             </div>
             <div class="row grid-block promo">

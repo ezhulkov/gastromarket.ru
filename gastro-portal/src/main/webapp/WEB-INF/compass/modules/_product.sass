@@ -13,7 +13,7 @@
       width: 270px
       height: 270px
     .edit-block
-      width: 560px
+      width: 270px
       cursor: default
       display: none
       position: absolute
@@ -44,18 +44,14 @@
             position: relative
             bottom: auto
             right: auto
-
         &.edit
           background: url("../img/product-edit.png") no-repeat 0 0
-
         &.delete
           background: url("../img/product-edit.png") no-repeat -98px 0
-
   .basket-block
     width: 240px
     height: 44px
     margin: 5px 15px 10px 15px
-
   .data
     overflow: hidden
     padding: 15px
@@ -66,12 +62,10 @@
       font-size: $f20px
       color: $blackTextColor
       line-height: 25px
-
     .desc
       @extend .wrapword
       font-size: $f14px
       line-height: 17px
-
   &.fixed
     height: 500px
     overflow: hidden
@@ -81,7 +75,6 @@
         overflow: hidden
         text-overflow: ellipsis
         max-height: 70px
-
   &.full
     padding: 30px 0 20px 0
     display: block
@@ -89,6 +82,8 @@
       img
         width: 560px
         height: 404px
+    .edit-block
+      width: 560px
 
     .basket-block
       margin: 2*$gap 0 $gap 0
@@ -213,6 +208,7 @@
           opacity: 0.9
 
 .product-edit-modal
+  text-align: left
   .t-error
     margin: 0 0 0 0
   .unit
