@@ -4,27 +4,27 @@
     <div class="caption2">более 200 независимых кулинаров Москвы готовы сделать для вас кулинарный шедевр</div>
     <div class="col-xs-12">
         <div class="form-group">
-            <input id="name" type="text" class="form-control name" placeholder="Что вы хотите заказать?"/>
+            <input t:id="name" type="text" class="form-control name" placeholder="Что вы хотите заказать?"/>
         </div>
     </div>
     <div class="col-xs-12">
         <div class="form-group">
-            <textarea id="comment" rows="5" class="form-control" placeholder="Добавьте описание своей заявки"/>
+            <textarea t:id="comment" rows="5" class="form-control" placeholder="Добавьте описание своей заявки"/>
         </div>
     </div>
     <div class="col-xs-12">
         <div class="form-group">
-            <input id="budget" type="number" class="form-control price" placeholder="Сколько вы готовы потратить?"/>
+            <input t:id="budget" type="number" class="form-control price" placeholder="Сколько вы готовы потратить?"/>
         </div>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="form-group">
-            <input id="dueDate" type="text" class="form-control date-picker" placeholder="дд/мм/гггг"/>
+            <input t:id="dueDate" type="text" class="form-control date-picker" placeholder="дд/мм/гггг"/>
         </div>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="form-group">
-            <input id="personCount" type="number" class="form-control" placeholder="Количество персон"/>
+            <input t:id="personCount" type="number" class="form-control" placeholder="Количество персон"/>
         </div>
     </div>
     <div class="col-xs-12">
@@ -34,7 +34,7 @@
     </div>
     <div class="col-xs-12 red-text f16px">
         <div class="form-group">
-            получите 100 <a href="#bonus" data-toggle="modal" data-target="#bonus" class="dotted-link">бонусных баллов</a> в подарок!
+            при первой регистрации получите <br/> 100 <a href="#bonus" data-toggle="modal" data-target="#bonus" class="dotted-link">бонусных баллов</a> в подарок!
         </div>
     </div>
 </t:form>

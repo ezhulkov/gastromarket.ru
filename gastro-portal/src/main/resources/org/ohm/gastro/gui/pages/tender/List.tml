@@ -16,7 +16,13 @@
         </t:block>
     </div>
 
-    <t:order.edit ordersBlock="ordersBlock" edit="false" tender="true"/>
+    <t:if test="tender">
+        !!!
+        <t:order.edit ordersBlock="ordersBlock" edit="false" order="tender" tender="true"/>
+        <t:parameter name="else">
+            <t:order.edit ordersBlock="ordersBlock" edit="false" tender="true"/>
+        </t:parameter>
+    </t:if>
     <t:unless test="authenticated">
         <t:loginUserModal modalId="order-login">
             <t:parameter name="addText">
