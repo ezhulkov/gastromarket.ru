@@ -503,6 +503,10 @@ body.mobile .rub:after {
   color: #333;
 }
 
+.price-modifier.row:nth-child(2) {
+  background-color: #f3f3f3;
+}
+
 .basket-block {
   line-height: 30px;
 }
@@ -1857,6 +1861,10 @@ label.t-error {
   border: 1px solid #8a8a8a;
 }
 
+.price-modifier.row:nth-child(2) {
+  background-color: #f3f3f3;
+}
+
 .basket-block {
   line-height: 30px;
 }
@@ -1882,6 +1890,10 @@ label.t-error {
   line-height: 30px;
   color: #e70500;
   font-size: 16px;
+}
+
+.price-modifier.row:nth-child(2) {
+  background-color: #f3f3f3;
 }
 
 .basket-block {
