@@ -19,7 +19,7 @@
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="form-group">
-            <input t:id="dueDate" type="text" class="form-control date-picker" placeholder="дд/мм/гггг"/>
+            <input t:id="dueDate" type="text" class="form-control date-picker" placeholder="Дата исполнения"/>
         </div>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">

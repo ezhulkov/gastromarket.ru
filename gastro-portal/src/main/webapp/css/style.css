@@ -503,72 +503,6 @@ body.mobile .rub:after {
   color: #333;
 }
 
-.price-modifier {
-  margin: 10px 0;
-}
-.price-modifier .modifier-price {
-  font-size: 20px;
-  color: #333;
-  text-align: left;
-  font-weight: normal;
-}
-.price-modifier .modifier-name {
-  text-align: left;
-  font-size: 16px;
-  line-height: 30px;
-  color: #333;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-.price-modifier .modifier-row {
-  margin: 3px 0;
-}
-.price-modifier .del-modifier {
-  margin-top: 12px;
-  display: inline-block;
-}
-.price-modifier .add-modifier {
-  margin-left: 10px;
-  display: inline-block;
-}
-.price-modifier .left {
-  padding: 0 10px;
-  display: inline-block;
-  vertical-align: top;
-  width: 530px;
-}
-.price-modifier .right {
-  padding: 0 10px;
-  display: inline-block;
-  vertical-align: top;
-  width: 140px;
-}
-.order-add .price-modifier .modifier-price {
-  font-size: 20px;
-  color: #333;
-  text-align: left;
-  font-weight: normal;
-  float: right;
-  margin-left: 10px;
-}
-.order-add .price-modifier .modifier-name {
-  text-align: left;
-  font-size: 16px;
-  line-height: 30px;
-  color: #333;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-.order-add .price-modifier .unit {
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 14px;
-  color: #333;
-}
-.order-add .price-modifier .basket-add {
-  float: right;
-}
-
 .basket-block {
   line-height: 30px;
 }
@@ -761,6 +695,10 @@ body.modal-open {
 
   .modal-dialog.modal-lg {
     width: 950px;
+  }
+
+  .modal-dialog.modal-md {
+    width: 800px;
   }
 }
 .modal-backdrop.in {
@@ -1919,72 +1857,6 @@ label.t-error {
   border: 1px solid #8a8a8a;
 }
 
-.price-modifier {
-  margin: 10px 0;
-}
-.price-modifier .modifier-price {
-  font-size: 20px;
-  color: #333;
-  text-align: left;
-  font-weight: normal;
-}
-.price-modifier .modifier-name {
-  text-align: left;
-  font-size: 16px;
-  line-height: 30px;
-  color: #333;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-.price-modifier .modifier-row {
-  margin: 3px 0;
-}
-.price-modifier .del-modifier {
-  margin-top: 12px;
-  display: inline-block;
-}
-.price-modifier .add-modifier {
-  margin-left: 10px;
-  display: inline-block;
-}
-.price-modifier .left {
-  padding: 0 10px;
-  display: inline-block;
-  vertical-align: top;
-  width: 530px;
-}
-.price-modifier .right {
-  padding: 0 10px;
-  display: inline-block;
-  vertical-align: top;
-  width: 140px;
-}
-.order-add .price-modifier .modifier-price {
-  font-size: 20px;
-  color: #333;
-  text-align: left;
-  font-weight: normal;
-  float: right;
-  margin-left: 10px;
-}
-.order-add .price-modifier .modifier-name {
-  text-align: left;
-  font-size: 16px;
-  line-height: 30px;
-  color: #333;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-.order-add .price-modifier .unit {
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 14px;
-  color: #333;
-}
-.order-add .price-modifier .basket-add {
-  float: right;
-}
-
 .basket-block {
   line-height: 30px;
 }
@@ -2010,72 +1882,6 @@ label.t-error {
   line-height: 30px;
   color: #e70500;
   font-size: 16px;
-}
-
-.price-modifier {
-  margin: 10px 0;
-}
-.price-modifier .modifier-price {
-  font-size: 20px;
-  color: #333;
-  text-align: left;
-  font-weight: normal;
-}
-.price-modifier .modifier-name {
-  text-align: left;
-  font-size: 16px;
-  line-height: 30px;
-  color: #333;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-.price-modifier .modifier-row {
-  margin: 3px 0;
-}
-.price-modifier .del-modifier {
-  margin-top: 12px;
-  display: inline-block;
-}
-.price-modifier .add-modifier {
-  margin-left: 10px;
-  display: inline-block;
-}
-.price-modifier .left {
-  padding: 0 10px;
-  display: inline-block;
-  vertical-align: top;
-  width: 530px;
-}
-.price-modifier .right {
-  padding: 0 10px;
-  display: inline-block;
-  vertical-align: top;
-  width: 140px;
-}
-.order-add .price-modifier .modifier-price {
-  font-size: 20px;
-  color: #333;
-  text-align: left;
-  font-weight: normal;
-  float: right;
-  margin-left: 10px;
-}
-.order-add .price-modifier .modifier-name {
-  text-align: left;
-  font-size: 16px;
-  line-height: 30px;
-  color: #333;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-.order-add .price-modifier .unit {
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 14px;
-  color: #333;
-}
-.order-add .price-modifier .basket-add {
-  float: right;
 }
 
 .basket-block {
