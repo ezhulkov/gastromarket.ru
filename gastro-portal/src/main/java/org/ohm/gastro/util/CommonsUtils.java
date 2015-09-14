@@ -144,7 +144,6 @@ public class CommonsUtils {
             text = text.replaceAll("(\r\n|\r|\n|\n\r|\t| )", " ");
             StringBuilder strResult = new StringBuilder();
             char[] textChars = text.toCharArray();
-            int len = textChars.length;
             for (char textChar : textChars) {
                 String translateChar = REPLACEMENTS.get(textChar);
                 if (translateChar != null) strResult.append(translateChar);
