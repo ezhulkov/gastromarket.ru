@@ -64,7 +64,7 @@
             </div>
         </div>
         <div class="modal-data hidden">
-            <t:actionlink rel="nofollow" class="recommended-link" t:id="recommended" t:context="[product.id,5]" t:zone="recommendedProductsZone"/>
+            <t:actionlink rel="nofollow" class="recommended-link" t:id="ajaxLinkRecommended" t:context="[product.id,5]" t:zone="recommendedProductsZone"/>
             <div class="pname"><a href="/product/${product.altId}">${product.name}</a></div>
             <div class="image">${product.avatarUrl}</div>
             <div class="price-modifier">

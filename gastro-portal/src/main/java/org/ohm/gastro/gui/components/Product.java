@@ -74,7 +74,7 @@ public class Product extends BaseComponent {
         return StringUtils.isNotEmpty(product.getDescription()) || getProductTags().size() > 0;
     }
 
-    public Block onActionFromRecommended(Long pid, int count) {
+    public Block onActionFromAjaxLinkRecommended(Long pid, int count) {
         recommendedProducts = getProductService().findRecommendedProducts(pid, count).stream().limit(4).collect(Collectors.toList());
         return recommendedBlock;
     }

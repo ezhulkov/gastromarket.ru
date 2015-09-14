@@ -13,16 +13,18 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <div class="title">
-                            <h1><span>Изменение статуса заказа</span></h1>
+                            <h1><span>Изменение статуса</span></h1>
                         </div>
                         <a class="modal-close" data-dismiss="modal"></a>
                     </div>
                     <div class="modal-body">
                         <t:loop source="statuses" value="status" t:formState="NONE">
                             <t:if test="statusAction">
-                                <div class="status-change">
-                                    <t:actionlink rel="nofollow" t:id="statusChange" t:context="[order.id,status]" t:zone="${orderShowCatalogZoneId}" class="dotted-link">${statusAction}</t:actionlink>
-                                    <span> &mdash; ${statusTitle}</span>
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <t:actionlink rel="nofollow" t:id="statusChange" t:context="[order.id,status]" t:zone="${orderShowCatalogZoneId}" class="dotted-link f18px">${statusAction}</t:actionlink>
+                                    </div>
+                                    <div class="col-xs-8"><i class="f16px text-left">&mdash; ${statusTitle}</i></div>
                                 </div>
                             </t:if>
                         </t:loop>

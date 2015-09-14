@@ -31,6 +31,7 @@ public interface MailService {
     String ORDER_COMMENT = "order_comment";
     String EDIT_ORDER = "edit_order";
 
+    String MC_FILLED = "FILLED";
     String MC_CATALOG = "CATALOG";
     String MC_FNAME = "FNAME";
     String MC_SOURCE = "SOURCE";

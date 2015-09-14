@@ -20,16 +20,16 @@ public class Index extends EditObjectPage<CatalogEntity> {
     @Property
     private ProductEntity oneProduct;
 
-    @Component(id = "name", parameters = {"value=object?.name", "validate=maxlength=64,required"})
+    @Component(id = "name", parameters = {"value=object?.name"})
     private TextField nameField;
 
-    @Component(id = "desc", parameters = {"value=object?.description", "validate=maxlength=512"})
+    @Component(id = "desc", parameters = {"value=object?.description"})
     private TextArea descField;
 
-    @Component(id = "delivery", parameters = {"value=object?.delivery", "validate=maxlength=512"})
+    @Component(id = "delivery", parameters = {"value=object?.delivery"})
     private TextArea dlvrField;
 
-    @Component(id = "payment", parameters = {"value=object?.payment", "validate=maxlength=256"})
+    @Component(id = "payment", parameters = {"value=object?.payment"})
     private TextArea pmtField;
 
     @Cached

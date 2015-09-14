@@ -2167,20 +2167,6 @@ label.t-error {
 .order-show-catalog .basket-submit .last {
   margin-bottom: 0;
 }
-.order-show-catalog .status-change--- {
-  padding: 10px 0;
-  font-size: 20px;
-}
-.order-show-catalog .status-change--- a {
-  font-size: 20px;
-}
-.order-show-catalog .status-change--- span {
-  float: right;
-  width: 400px;
-  font-size: 16px;
-  line-height: 30px;
-  font-style: italic;
-}
 
 .tender-howto {
   list-style: none;

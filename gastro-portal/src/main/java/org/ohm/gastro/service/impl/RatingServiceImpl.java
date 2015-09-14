@@ -187,9 +187,15 @@ public class RatingServiceImpl implements RatingService, Logging {
         final int totalOrdersCount = orderRepository.findAllByCatalog(catalog).size();
 
         final Integer prevLevel = catalog.getLevel();
-        catalog.setRating(calcRating(productsCount, retentionCount, posCount, negCount, doneOrdersCount, totalOrdersCount, totalSum));
-        catalog.setLevel(levelMap.get(catalog.getRating()));
+        final int rating = calcRating(productsCount, retentionCount, posCount, negCount, doneOrdersCount, totalOrdersCount, totalSum);
         logger.info("Rating for catalog {} changed", catalog);
+        logger.info("productsCount:{}, retentionCount:{}, posCount:{}, negCount:{}, doneOrdersCount:{}, totalOrdersCount:{}, totalSum:{}",
+                    productsCount, retentionCount, posCount, negCount, doneOrdersCount, totalOrdersCount, totalSum);
+
+        if (catalog.getUser().getEmail().equals("cook@cook.com")) return;
+
+        catalog.setRating(rating);
+        catalog.setLevel(levelMap.get(rating));
 
         if (!catalog.getLevel().equals(prevLevel)) registerEvent(Type.RATING_CHANGE, catalog.getUser(), catalog, catalog.getLevel());
 

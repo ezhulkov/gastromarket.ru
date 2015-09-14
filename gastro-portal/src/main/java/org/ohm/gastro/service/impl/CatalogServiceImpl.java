@@ -69,6 +69,7 @@ public class CatalogServiceImpl implements CatalogService, Logging {
         saveWithAltId(catalog, catalogRepository);
         final UserEntity user = catalog.getUser();
         mailService.syncChimpList(user, ImmutableMap.of(
+                MailService.MC_FILLED, Boolean.valueOf(catalog.isWasSetup()).toString(),
                 MailService.MC_CATALOG, catalog.getFullUrl()
         ));
     }

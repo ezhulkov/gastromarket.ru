@@ -9,16 +9,21 @@
             <t:delegate to="orderBlock"/>
         </t:zone>
         <t:block t:id="orderBlock">
-            <t:if test="newOrder">
-                <h2 class="gap">Спасибо за заказ!</h2>
-
-                <div class="attention new-order">
-                    <p class="modal-text">Мы отправили информацию на указанный адрес и в ближайшее время с Вами свяжется кулинар для уточнения деталей.</p>
-
-                    <p class="modal-text">В случае возникновения вопросов, пишите на <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет заказы" class="red-text">contacts@gastromarket.ru</a> или звоните по телефону +7 926 6712145.</p>
+            <div class="row">
+                <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
+                    <t:if test="newOrder">
+                        <h2 class="gap">Спасибо за заказ!</h2>
+                        <div class="attention new-order">
+                            <p class="modal-text">Мы отправили информацию на указанный адрес и в ближайшее время с Вами свяжется кулинар для уточнения деталей.</p>
+                            <p class="modal-text">В случае возникновения вопросов, пишите на
+                                <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет заказы" class="red-text">contacts@gastromarket.ru</a> или звоните по телефону +7 926 6712145.
+                            </p>
+                        </div>
+                    </t:if>
+                    <t:order.order order="order" type="FULL" privateOrders="privateOrders" replies="true"/>
                 </div>
-            </t:if>
-            <t:order.order  order="order" type="FULL" privateOrders="privateOrders" replies="true"/>
+            </div>
+            <t:order.replies order="order" reply="true"/>
         </t:block>
     </div>
 

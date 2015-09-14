@@ -269,7 +269,8 @@ public class OrderEntity extends SitemapBaseEntity {
 
     public boolean isAllowed(final UserEntity user) {
         return user != null &&
-                (getCustomer() != null && getCustomer().equals(user) ||
+                (user.isAdmin() ||
+                        getCustomer() != null && getCustomer().equals(user) ||
                         getCatalog() != null && getCatalog().getUser().equals(user));
     }
 
