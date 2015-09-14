@@ -170,25 +170,11 @@ public class OrderServiceImpl implements OrderService, Logging {
                 put("total", ObjectUtils.defaultIfNull(tender.getTotalPrice(), ""));
                 put("date", ObjectUtils.defaultIfNull(tender.getDatePrintable(), "-"));
                 put("address", tender.getOrderUrl());
+                put("tender", tender);
             }
         };
-//        final List<UserEntity> rcpts = catalogRepository.findAll().stream().
-//                map(CatalogEntity::getUser).distinct().
-//                filter(t -> !filterEmails.contains(t.getEmail())).collect(Collectors.toList());
-        final List<UserEntity> rcpts = Lists.newArrayList(userRepository.findOne(1l));
-        executorService.execute(() -> {
-            try {
-                mailService.sendAdminMessage(MailService.NEW_TENDER_ADMIN, params);
-                mailService.sendMailMessage(tender.getCustomer(), MailService.NEW_TENDER_CUSTOMER, params);
-                rcpts.forEach(cook -> {
-                    params.put("username", cook.getFullName());
-                    params.put("email", cook.getEmail());
-                    mailService.sendMailMessage(cook, MailService.NEW_TENDER_COOK, params);
-                });
-            } catch (MailException e) {
-                logger.error("", e);
-            }
-        });
+        mailService.sendAdminMessage(MailService.NEW_TENDER_ADMIN, params);
+        mailService.sendMailMessage(tender.getCustomer(), MailService.NEW_TENDER_CUSTOMER, params);
         return tender;
     }
 
@@ -212,6 +198,39 @@ public class OrderServiceImpl implements OrderService, Logging {
             logger.error("", e);
         }
         return order;
+    }
+
+    @Override
+    public void sendTenderAnnonce(OrderEntity tender) {
+        if (tender.isAnnonceSent()) return;
+        tender.setAnnonceSent(true);
+        orderRepository.save(tender);
+        final Map<String, Object> params = new HashMap<String, Object>() {
+            {
+                put("username", tender.getCustomer().getFullName());
+                put("customer", tender.getCustomer());
+                put("name", ObjectUtils.defaultIfNull(tender.getName(), ""));
+                put("comment", ObjectUtils.defaultIfNull(tender.getComment(), "-"));
+                put("total", ObjectUtils.defaultIfNull(tender.getTotalPrice(), "-"));
+                put("date", ObjectUtils.defaultIfNull(tender.getDatePrintable(), "-"));
+                put("address", tender.getOrderUrl());
+            }
+        };
+        //        final List<UserEntity> rcpts = catalogRepository.findAll().stream().
+        //                map(CatalogEntity::getUser).distinct().
+        //                filter(t -> !filterEmails.contains(t.getEmail())).collect(Collectors.toList());
+        final List<UserEntity> rcpts = Lists.newArrayList(userRepository.findOne(1l));
+        executorService.execute(() -> {
+            try {
+                rcpts.forEach(cook -> {
+                    params.put("username", cook.getFullName());
+                    params.put("email", cook.getEmail());
+                    mailService.sendMailMessage(cook, MailService.NEW_TENDER_COOK, params);
+                });
+            } catch (MailException e) {
+                logger.error("", e);
+            }
+        });
     }
 
     @Override

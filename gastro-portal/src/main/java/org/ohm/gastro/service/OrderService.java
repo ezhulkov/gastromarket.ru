@@ -41,4 +41,6 @@ public interface OrderService extends ImageUploaderService<OrderEntity> {
 
     OrderEntity attachTender(CatalogEntity catalog, OrderEntity order, UserEntity caller);
 
+    void sendTenderAnnonce(OrderEntity order);
+
 }

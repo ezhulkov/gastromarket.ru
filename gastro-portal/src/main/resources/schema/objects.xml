@@ -832,4 +832,13 @@
         <modifyDataType tableName="catalog" columnName="payment" newDataType="text"/>
     </changeSet>
 
+    <changeSet id="71" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="annonce_sent" type="java.sql.Types.BOOLEAN" defaultValueBoolean="false"/>
+        </addColumn>
+        <sql>
+            update orders set annonce_sent=true;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

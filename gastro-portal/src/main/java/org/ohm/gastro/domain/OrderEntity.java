@@ -135,6 +135,17 @@ public class OrderEntity extends SitemapBaseEntity {
     @Column(name = "was_setup")
     private boolean wasSetup = false;
 
+    @Column(name = "annonce_sent")
+    private boolean annonceSent = false;
+
+    public boolean isAnnonceSent() {
+        return annonceSent;
+    }
+
+    public void setAnnonceSent(boolean annonceSent) {
+        this.annonceSent = annonceSent;
+    }
+
     public void setCatalog(final CatalogEntity catalog) {
         this.catalog = catalog;
     }
