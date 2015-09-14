@@ -207,7 +207,7 @@ public class OrderEntity extends SitemapBaseEntity {
     }
 
     public String getDatePrintable() {
-        return CommonsUtils.GUI_DATE_LONG.get().format(new Date(date.getTime()));
+        return CommonsUtils.GUI_DATE.get().format(new Date(date.getTime()));
     }
 
     public Integer getTotalPrice() {
