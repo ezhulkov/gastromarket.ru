@@ -44,6 +44,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Nonnull;
 import java.io.File;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -170,9 +171,10 @@ public class ProductServiceImpl implements ProductService, Logging {
 
     private Long getPropertyValueId(final String valueId, final String propId) {
         final String[] split = valueId.split("-");
-        if (split.length == 2) {
+        if (split.length > 2 && split[0].equals("new")) {
             final PropertyValueEntity newPropValue = new PropertyValueEntity();
-            newPropValue.setName(StringUtils.capitalize(split[1].toLowerCase()));
+            final String value = Arrays.stream(Arrays.copyOfRange(split, 1, split.length)).collect(Collectors.joining("-"));
+            newPropValue.setName(StringUtils.capitalize(value));
             newPropValue.setClientGenerated(true);
             newPropValue.setRootValue(true);
             newPropValue.setProperty(propertyRepository.findOne(Long.parseLong(propId)));
