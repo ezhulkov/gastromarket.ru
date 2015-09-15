@@ -25,8 +25,12 @@
 
     <meta name="mrc__share_description" content="ГастроМаркет - мы помогаем сделать лучший выбор в ассортименте выпечки, домашней еды и кейтеринга для Вашего праздника, предоставляя самую качественную базу независимых кулинаров и их продукции."/>
     <t:if test="socialImage">
-       <link rel="image_src" href="${socialImage}"/>
-       <meta property="og:image" content="${socialImage}"/>
+        <link rel="image_src" href="${socialImage}"/>
+        <meta property="og:image" content="${socialImage}"/>
+        <t:paremeter name="else">
+            <link rel="image_src" href="/img/logo.png"/>
+            <meta property="og:image" content="/img/logo.png"/>
+        </t:paremeter>
     </t:if>
     <meta property="og:app_id" content="325659080959378"/>
     <meta property="og:title" content="${title}"/>

@@ -93,4 +93,10 @@
         </div>
     </section>
 
+    <t:parameter name="bottomBlock">
+        <div class="bottom-image">
+            <div></div>
+        </div>
+    </t:parameter>
+
 </t:layout>
