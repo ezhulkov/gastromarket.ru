@@ -167,7 +167,7 @@ public class UserServiceImpl implements UserService, Logging {
             String encPassword = passwordEncoder.encode(password);
             user.setPassword(encPassword);
             userRepository.save(user);
-            logger.info("Setting new password for user {}", user);
+            logger.info("Setting new password for user {}, {}", user, password);
             mailService.sendMailMessage(eMail, MailService.CHANGE_PASSWD, ImmutableMap.of("username", user.getFullName(),
                                                                                           "password", password));
         }

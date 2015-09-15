@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 import static org.scribe.utils.Preconditions.checkNotNull;
 
@@ -216,10 +217,10 @@ public class OrderServiceImpl implements OrderService, Logging {
                 put("address", tender.getOrderUrl());
             }
         };
-        //        final List<UserEntity> rcpts = catalogRepository.findAll().stream().
-        //                map(CatalogEntity::getUser).distinct().
-        //                filter(t -> !filterEmails.contains(t.getEmail())).collect(Collectors.toList());
-        final List<UserEntity> rcpts = Lists.newArrayList(userRepository.findOne(1l));
+        final List<UserEntity> rcpts = catalogRepository.findAll().stream().
+                map(CatalogEntity::getUser).distinct().
+                filter(t -> !filterEmails.contains(t.getEmail())).collect(Collectors.toList());
+//        final List<UserEntity> rcpts = Lists.newArrayList(userRepository.findOne(1l));
         executorService.execute(() -> {
             try {
                 rcpts.forEach(cook -> {
