@@ -7,7 +7,7 @@
             </div>
             <div class="row">
 
-                <h2>Для кого предназначен сервис?</h2>
+                <h2>Для кого предназначен ГастроМаркет?</h2>
                 <div class="row gap3">
                     <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-3 col-xs-12 text-center">
                         <img src="/img/cook-128x128.png" alt="кулинар"/>
@@ -32,7 +32,7 @@
                     </div>
                 </div>
 
-                <h2>Какие услуги предлагает ГастроМаркет кулинарам?</h2>
+                <h2>Какие услуги ГастроМаркет предлагает кулинарам?</h2>
                 <div class="row gap3">
                     <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-3 col-xs-12 text-center">
                         <img src="/img/service-128x128.png" alt="сервисы"/>
@@ -52,7 +52,23 @@
                     </div>
                 </div>
 
-                <h2>На каких условиях работает ГастроМаркет?</h2>
+                <h2>Как работает ГастроМаркет?</h2>
+                <div class="row gap3">
+                    <div class="col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10">
+                        <ol>
+                            <li>Вы оставляете заявку на <a href="#cooksignup">подключение и регистрируетесь</a>.</li>
+                            <li>После завершения регистрации вы заполняете описание своего каталога и добавляете блюда вручную или импортируете их из социальных сетей.</li>
+                            <li>Блюда сразу попадают в <a href="/product/list">общий каталог</a>, их могут заказать посетители сайта.
+                                Также вы можете оставлять отклики к <a href="/tender/list">заявкам</a> и участвовать в тендерах.
+                            </li>
+                            <li>После получения заказа необходимо будет связаться с покупателем для уточнения деталей и приступить к его выполнению.</li>
+                            <li>Оплата заказа и его доставка осуществляется вами.</li>
+                            <li>В конце месяца ГастроМаркет выставит счет - <a href="#bill">комиссию</a> за совершенные заказы. Счёт можно будет оплатить в личном кабинете.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <h2 id="bill">На каких условиях работает ГастроМаркет?</h2>
                 <div class="row gap3">
                     <div class="col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10">
                         <p>
@@ -77,7 +93,7 @@
                     </div>
                 </div>
 
-                <h2>Как начать работать с ГастроМаркет?</h2>
+                <h2 id="cooksignup">Как начать работать с ГастроМаркет?</h2>
                 <div class="row gap3">
                     <div class="col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10">
                         <p>
