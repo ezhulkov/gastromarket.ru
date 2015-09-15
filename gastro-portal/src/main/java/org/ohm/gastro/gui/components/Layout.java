@@ -43,12 +43,16 @@ public class Layout extends BaseComponent {
                 .findAny().orElse(null);
     }
 
+    public String getDescription() {
+        return getMessages().get("page.description");
+    }
+
     public String getTitle() {
         return (String) ObjectUtils.defaultIfNull(title, getMessages().get("page.title"));
     }
 
     public String getSocialImage() {
-        return "http://gastromarket.ru" + ObjectUtils.defaultIfNull(socialImage, "/img/logotype1-small.png");
+        return "http://gastromarket.ru" + ObjectUtils.defaultIfNull(socialImage, "/img/logo.jpg");
     }
 
     public String getKeywords() {

@@ -23,24 +23,18 @@
     <meta name="yandex-verification" content="50a717e1a78e228f" />
     <meta name="google-site-verification" content="cK3sgyNYr3pWcjTHws6p3nP-mlcF0XGy0T0I4qtFWRw" />
 
-    <meta name="mrc__share_description" content="ГастроМаркет - мы помогаем сделать лучший выбор в ассортименте выпечки, домашней еды и кейтеринга для Вашего праздника, предоставляя самую качественную базу независимых кулинаров и их продукции."/>
-    <t:if test="socialImage">
-        <link rel="image_src" href="${socialImage}"/>
-        <meta property="og:image" content="${socialImage}"/>
-        <t:parameter name="else">
-            <link rel="image_src" href="/img/logo.png"/>
-            <meta property="og:image" content="/img/logo.png"/>
-        </t:parameter>
-    </t:if>
-    <meta property="og:app_id" content="325659080959378"/>
+    <meta name="mrc__share_description" content="${description}"/>
+    <link rel="image_src" href="${socialImage}"/>
+    <meta property="og:image" content="${socialImage}"/>
     <meta property="og:title" content="${title}"/>
+    <meta property="og:description" content="${description}"/>
     <meta property="og:site_name" content="ГастроМаркет"/>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=1200"/>
     <meta name="keywords" content="${keywords}"/>
-    <meta name="description" content="ГастроМаркет - мы помогаем сделать лучший выбор в ассортименте выпечки, домашней еды и кейтеринга для Вашего праздника, предоставляя самую качественную базу независимых кулинаров и их продукции."/>
+    <meta name="description" content="${description}"/>
     <meta name="author" content="gastromarket.ru"/>
     <meta name="rating" content="General" />
     <meta name="robots" content="all" />
