@@ -25,6 +25,18 @@
         <priority>0.1</priority>
     </url>
     <url>
+        <loc>http://gastromarket.ru/contract</loc>
+        <lastmod>2015-08-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.1</priority>
+    </url>
+    <url>
+        <loc>http://gastromarket.ru/oferta</loc>
+        <lastmod>2015-08-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.1</priority>
+    </url>
+    <url>
         <loc>http://gastromarket.ru/about</loc>
         <lastmod>2015-08-26</lastmod>
         <changefreq>monthly</changefreq>

@@ -1,0 +1,15 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <div class="container">
+        <div class="title">
+            <h1><span>Договор публичной оферты</span></h1>
+        </div>
+        <div class="row">
+            <p class="modal-text">
+                Раздел находится в разработке
+            </p>
+        </div>
+
+    </div>
+
+</t:layout>
