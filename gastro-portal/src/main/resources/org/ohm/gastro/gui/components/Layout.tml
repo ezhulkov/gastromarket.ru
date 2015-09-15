@@ -27,10 +27,10 @@
     <t:if test="socialImage">
         <link rel="image_src" href="${socialImage}"/>
         <meta property="og:image" content="${socialImage}"/>
-        <t:paremeter name="else">
+        <t:parameter name="else">
             <link rel="image_src" href="/img/logo.png"/>
             <meta property="og:image" content="/img/logo.png"/>
-        </t:paremeter>
+        </t:parameter>
     </t:if>
     <meta property="og:app_id" content="325659080959378"/>
     <meta property="og:title" content="${title}"/>
