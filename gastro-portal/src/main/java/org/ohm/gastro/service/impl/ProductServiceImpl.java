@@ -171,7 +171,7 @@ public class ProductServiceImpl implements ProductService, Logging {
 
     private Long getPropertyValueId(final String valueId, final String propId) {
         final String[] split = valueId.split("-");
-        if (split.length > 2 && split[0].equals("new")) {
+        if (split.length > 1 && split[0].equals("new")) {
             final PropertyValueEntity newPropValue = new PropertyValueEntity();
             final String value = Arrays.stream(Arrays.copyOfRange(split, 1, split.length)).collect(Collectors.joining("-"));
             newPropValue.setName(StringUtils.capitalize(value));

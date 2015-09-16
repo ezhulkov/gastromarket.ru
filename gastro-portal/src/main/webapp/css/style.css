@@ -503,7 +503,16 @@ body.mobile .rub:after {
   color: #333;
 }
 
-.price-modifier.row:nth-child(2) {
+.price-modifier {
+  white-space: initial;
+}
+.price-modifier .del-modifier {
+  line-height: 35px;
+}
+.price-modifier .modifier-row {
+  margin-bottom: 3px;
+}
+.price-modifier .row:nth-child(2) {
   background-color: #f3f3f3;
 }
 
@@ -1004,6 +1013,9 @@ body.modal-open {
 .product-edit-modal .show-true,
 .product-edit-modal .show-false {
   display: none;
+}
+.product-edit-modal .props-edit {
+  overflow: initial;
 }
 
 .property-select .no-results {
@@ -1861,7 +1873,16 @@ label.t-error {
   border: 1px solid #8a8a8a;
 }
 
-.price-modifier.row:nth-child(2) {
+.price-modifier {
+  white-space: initial;
+}
+.price-modifier .del-modifier {
+  line-height: 35px;
+}
+.price-modifier .modifier-row {
+  margin-bottom: 3px;
+}
+.price-modifier .row:nth-child(2) {
   background-color: #f3f3f3;
 }
 
@@ -1892,7 +1913,16 @@ label.t-error {
   font-size: 16px;
 }
 
-.price-modifier.row:nth-child(2) {
+.price-modifier {
+  white-space: initial;
+}
+.price-modifier .del-modifier {
+  line-height: 35px;
+}
+.price-modifier .modifier-row {
+  margin-bottom: 3px;
+}
+.price-modifier .row:nth-child(2) {
   background-color: #f3f3f3;
 }
 

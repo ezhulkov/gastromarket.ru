@@ -22,7 +22,7 @@
                             </p>
                         </div>
                     </t:if>
-                    <t:order.order order="order" replies="true" type="FULL" privateOrders="false" mainPage="true" reloadPage="true"/>
+                    <t:order.order order="order" replies="true" type="FULL" privateOrders="false" mainPage="true" reloadPage="true" frontend="true"/>
                 </div>
             </div>
             <t:order.replies order="order" reply="true"/>

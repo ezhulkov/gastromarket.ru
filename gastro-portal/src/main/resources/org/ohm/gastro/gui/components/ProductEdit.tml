@@ -77,7 +77,7 @@
                     <p class="modal-text">
                         Шаг 2 из 3 - свойства и ингредиенты
                     </p>
-                    <t:form t:id="propsForm" t:context="[productId]" t:zone="${productEditZone}" t:autofocus="true" t:clientValidation="none" class="form nopad edit" role="form">
+                    <t:form t:id="propsForm" t:context="[productId]" t:zone="${productEditZone}" t:autofocus="true" t:clientValidation="none" class="form nopad edit props-edit" role="form">
                         <t:if test="propError">
                             <div class="t-error">
                                 <ul>
