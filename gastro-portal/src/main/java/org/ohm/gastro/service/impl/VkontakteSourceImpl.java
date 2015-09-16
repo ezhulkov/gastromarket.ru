@@ -55,6 +55,7 @@ public final class VkontakteSourceImpl extends OAuthSocialSourceImpl<VkontakteAp
     @Override
     public UserEntity getUserProfile(Token token) {
         final Map map = Throwables.propagate(() -> mapper.readValue(token.getRawResponse(), Map.class));
+        if (map.get("email") == null) return null;
         return callEndpoint(String.format(REST_AUTH_URL, map.get("user_id").toString()),
                             token,
                             body -> {

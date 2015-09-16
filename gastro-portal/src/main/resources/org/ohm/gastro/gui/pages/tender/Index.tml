@@ -18,7 +18,7 @@
                             <p class="modal-text">Заявка размещена на ГастроМаркет и доступна кулинарам для просмотра и комментирования.</p>
 
                             <p class="modal-text">В случае возникновения вопросов, пишите на
-                                <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет заказы" class="red-text">contacts@gastromarket.ru</a> или звоните по телефону +7 926 6712145.
+                                <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет заказы" class="red-text">contacts@gastromarket.ru</a>.
                             </p>
                         </div>
                     </t:if>

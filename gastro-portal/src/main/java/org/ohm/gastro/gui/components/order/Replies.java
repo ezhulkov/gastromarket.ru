@@ -41,7 +41,7 @@ public class Replies extends AbstractOrder {
             return getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream().
                     flatMap(t -> getOrderService().findAllOrders(t).stream()).
                     filter(t -> t.getMetaStatus() == Status.ACTIVE).
-                    count() == 1;
+                    count() == 0;
         }
         return false;
     }
