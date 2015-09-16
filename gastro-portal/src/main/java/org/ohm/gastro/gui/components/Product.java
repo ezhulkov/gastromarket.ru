@@ -14,7 +14,6 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 31.08.14.
@@ -75,7 +74,7 @@ public class Product extends BaseComponent {
     }
 
     public Block onActionFromAjaxLinkRecommended(Long pid, int count) {
-        recommendedProducts = getProductService().findRecommendedProducts(pid, count).stream().limit(4).collect(Collectors.toList());
+        recommendedProducts = getProductService().findRecommendedProducts(pid, count);
         return recommendedBlock;
     }
 

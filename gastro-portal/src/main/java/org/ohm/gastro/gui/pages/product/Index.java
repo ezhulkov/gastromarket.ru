@@ -40,7 +40,7 @@ public class Index extends BaseComponent {
 
     @Cached
     public java.util.List<ProductEntity> getRecommendedProducts() {
-        return getProductService().findRecommendedProducts(product.getId(), 4).stream().limit(4).collect(Collectors.toList());
+        return getProductService().findRecommendedProducts(product.getId(), 4);
     }
 
     public java.util.List<TagEntity> getProductTags() {

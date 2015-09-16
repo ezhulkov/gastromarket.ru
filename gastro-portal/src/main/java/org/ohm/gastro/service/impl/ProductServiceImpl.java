@@ -273,12 +273,14 @@ public class ProductServiceImpl implements ProductService, Logging {
     @Override
     public List<ProductEntity> findRecommendedProducts(final Long pid, final int count) {
         final ProductEntity product = productRepository.findOne(pid);
-        return product.getValues().stream()
+        final List<ProductEntity> products = product.getValues().stream()
                 .filter(t -> t.getValue() != null)
                 .flatMap(t -> t.getValue().isRootValue() ? Stream.of(t.getValue()) : t.getValue().getParents().stream()).distinct()
-                .flatMap(t -> productRepository.findAllByRootValueAndCatalog(t, null, true, new PageRequest(0, count)).getContent().stream()).distinct()
+                .flatMap(t -> productRepository.findAllByRootValueAndCatalog(t, null, true, new PageRequest(0, 50)).getContent().stream()).distinct()
                 .filter(t -> !t.equals(product))
                 .collect(Collectors.toList());
+        Collections.shuffle(products);
+        return products.stream().limit(count).collect(Collectors.toList());
     }
 
     @Override
