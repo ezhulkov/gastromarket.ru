@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.NoRepositoryBean;
 
 import javax.persistence.QueryHint;
+import java.util.List;
 
 /**
  * Created by ezhulkov on 21.08.14.
@@ -15,5 +16,8 @@ public interface AltIdRepository<T extends AltIdEntity> extends JpaRepository<T,
 
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     T findByAltId(String altId);
+
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    List<T> findAllByAltId(String altId);
 
 }

@@ -84,8 +84,7 @@ public class PropertyServiceImpl implements PropertyService, Logging {
 
     @Override
     public PropertyValueEntity savePropertyValue(PropertyValueEntity value) {
-        value.setAltId(value.transliterate());
-        return propertyValueRepository.save(value);
+        return saveWithAltId(value, propertyValueRepository);
     }
 
     @Override

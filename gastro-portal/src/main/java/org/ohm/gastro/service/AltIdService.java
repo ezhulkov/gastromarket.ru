@@ -14,12 +14,14 @@ public interface AltIdService<T extends AltIdEntity, R extends AltIdRepository<T
     @Transactional(propagation = Propagation.MANDATORY)
     default T saveWithAltId(T object, R repository) {
         if (object.getId() == null) repository.save(object);
-        object.setAltId(String.format("%s-%s", object.getId(), object.transliterate()));
+        final StringBuilder altId = new StringBuilder(object.transliterate());
+        if (repository.findAllByAltId(altId.toString()).stream().filter(t -> !t.equals(object)).count() > 0) altId.append("-").append(object.getId());
+        object.setAltId(altId.toString());
         return repository.save(object);
     }
 
     default T findByAltId(String altId, R repository) {
-        T object = repository.findByAltId(altId);
+        T object = repository.findAllByAltId(altId).stream().findFirst().orElse(null);
         if (object == null) {
             try {
                 long cid = Long.parseLong(altId);
