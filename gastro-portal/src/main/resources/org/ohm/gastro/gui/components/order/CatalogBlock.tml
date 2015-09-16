@@ -1,23 +1,25 @@
 <t:if xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" test="catalog">
-    <div class="row catalog">
-        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 text-right">
-            <t:pagelink target="_blank" page="catalog/index" context="catalog.altId">
-                <img src="${catalog.avatarUrlMedium}"/>
-            </t:pagelink>
+    <t:unless test="frontend">
+        <div class="row catalog">
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 text-right">
+                <t:pagelink target="_blank" page="catalog/index" context="catalog.altId">
+                    <img src="${catalog.avatarUrlMedium}"/>
+                </t:pagelink>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-9 col-xs-9">
+                <t:pagelink target="_blank" class="name black-text f30px" page="catalog/index" context="catalog.altId">
+                    ${catalog.name}
+                </t:pagelink>
+                <t:badges catalog="catalog"/>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 order-info">
+                <t:if test="order">
+                    <div class="number">
+                        <t:pagelink page="office/order" t:context="[privateOrders,order.id]">№ ${order.orderNumber}</t:pagelink>
+                    </div>
+                    <t:order.statuschange order="order" catalog="catalog" orderShowCatalogZoneId="orderShowCatalogZoneId" orderBlock="orderBlock"/>
+                </t:if>
+            </div>
         </div>
-        <div class="col-lg-5 col-md-5 col-sm-9 col-xs-9">
-            <t:pagelink target="_blank" class="name black-text f30px" page="catalog/index" context="catalog.altId">
-                ${catalog.name}
-            </t:pagelink>
-            <t:badges catalog="catalog"/>
-        </div>
-        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 order-info">
-            <t:if test="order">
-                <div class="number">
-                    <t:pagelink page="office/order" t:context="[privateOrders,order.id]">№ ${order.orderNumber}</t:pagelink>
-                </div>
-                <t:order.statuschange order="order" catalog="catalog" orderShowCatalogZoneId="orderShowCatalogZoneId" orderBlock="orderBlock"/>
-            </t:if>
-        </div>
-    </div>
+    </t:unless>
 </t:if>

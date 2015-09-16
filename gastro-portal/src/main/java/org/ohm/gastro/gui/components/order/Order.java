@@ -21,10 +21,6 @@ public class Order extends AbstractOrder {
     @Property
     private boolean reloadPage;
 
-    @Property
-    @Parameter(value = "false")
-    private boolean frontend;
-
     @Parameter(value = "false")
     @Property
     private boolean replies;
@@ -43,6 +39,9 @@ public class Order extends AbstractOrder {
 
     @Inject
     private Block cookRateClient;
+
+    @Inject
+    private Block catalogAttachedBlock;
 
     @Inject
     @Property
@@ -89,7 +88,7 @@ public class Order extends AbstractOrder {
         } else {
             if (order != null && (order.getStatus() == Status.CANCELLED || order.getStatus() == Status.CLOSED)) return cookRateClient;
         }
-        return null;
+        return order.getCatalog() != null ? catalogAttachedBlock : null;
     }
 
     public boolean isCanReplyTender() {
