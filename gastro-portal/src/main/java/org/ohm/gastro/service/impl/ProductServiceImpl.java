@@ -291,7 +291,8 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
-    public void importProducts(@Nonnull final Map<String, Set<MediaElement>> cachedElements, @Nonnull final CatalogEntity catalog) {
+    @RatingModifier
+    public void importProducts(@Nonnull final Map<String, Set<MediaElement>> cachedElements, @Nonnull @RatingTarget final CatalogEntity catalog) {
         cachedElements.entrySet().stream().flatMap(t -> t.getValue().stream()).filter(MediaElement::isChecked).forEach(element -> {
             Throwables.propagate(() -> {
                 logger.info("Importing {} product", element);
