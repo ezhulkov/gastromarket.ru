@@ -119,7 +119,7 @@ public class Index extends AbstractCatalogPage {
         return getMessages().format("prepayment.text2", catalog.getPrepayment());
     }
 
-    public Block onActionFromReorderForm() {
+    public Block onActionFromReorderAjaxForm() {
         getProductService().productPosition(Arrays.stream(reorder.split(",")).map(Long::parseLong).collect(Collectors.toList()), "main");
         return productsBlock;
     }

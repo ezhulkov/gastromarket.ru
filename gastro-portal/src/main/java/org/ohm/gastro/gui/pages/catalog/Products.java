@@ -115,7 +115,7 @@ public class Products extends BaseComponent {
         return isCatalogOwner() ? "sortable-container" : "";
     }
 
-    public Block onActionFromReorderForm(Long vid) {
+    public Block onActionFromReorderAjaxForm(Long vid) {
         getProductService().productPosition(Arrays.stream(reorder.split(",")).map(Long::parseLong).collect(Collectors.toList()), vid.toString());
         return productsBlock;
     }

@@ -29,7 +29,7 @@ public class FooterLayout extends BaseComponent {
     @Property
     private Block feedbackResultBlock;
 
-    public Object onSubmitFromFeedbackForm() {
+    public Object onSubmitFromFeedbackAjaxForm() {
         if (CommonsUtils.checkAjaxBotRequest(getHttpServletRequest())) return new HttpError(403, "Not bots allowed. Bender go home!");
         getUserService().processFeedbackRequest(eMail, fullName, comment);
         return feedbackResultBlock;

@@ -12,7 +12,7 @@
                     <li><a href="/social?social=fb" title="facebook.com" class="fb">facebook.com</a></li>
                 </ul>
                 <p class="modal-text text-center">или через почтовый адрес и пароль</p>
-                <t:form t:id="signupForm" t:clientValidation="none" class="form form-horizontal edit" role="form">
+                <t:form t:id="signupAjaxForm" t:clientValidation="none" class="form form-horizontal edit" role="form">
                     <t:if test="error">
                         <div class="t-error">
                             <ul>

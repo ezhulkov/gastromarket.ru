@@ -61,16 +61,16 @@ public class LoginUserModal extends BaseComponent {
     @Parameter(name = "modalId", defaultPrefix = BindingConstants.LITERAL, value = "login")
     private String modalId;
 
-    public Block onSubmitFromRememberForm() {
+    public Block onSubmitFromRememberAjaxForm() {
         getUserService().resetPassword(eMail);
         return rememberResultBlock;
     }
 
-    public void onFailureFromSignupForm() {
+    public void onFailureFromSignupAjaxForm() {
         error = true;
     }
 
-    public Block onSubmitFromSignupForm() {
+    public Block onSubmitFromSignupAjaxForm() {
         if (!error) {
             try {
                 Signup.signupUser(eMail, fullName, password, null, getHttpServletRequest(), getUserService(), authenticationProvider);

@@ -29,11 +29,11 @@ public class Invitation extends BaseComponent {
     @Property
     private boolean error = false;
 
-    public void onFailureFromApplicationForm() {
+    public void onFailureFromApplicationAjaxForm() {
         error = true;
     }
 
-    public Object onSubmitFromApplicationForm() {
+    public Object onSubmitFromApplicationAjaxForm() {
         if (CommonsUtils.checkAjaxBotRequest(getHttpServletRequest())) return new HttpError(403, "Not bots allowed. Bender go home!");
         if (error) return applicationFormBlock;
         getUserService().processApplicationRequest(eMail, fullName, about);

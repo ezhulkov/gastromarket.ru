@@ -4,6 +4,7 @@ import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OfferEntity;
 
@@ -19,17 +20,14 @@ public class Offers extends AbstractOfferPage {
     @Property
     private Block offersBlock;
 
-    public void onActivate(String catId) {
+    public Object onActivate(String catId) {
         this.catalog = getCatalogService().findCatalog(catId);
+        if (catalog == null) return new HttpError(404, "Page not found.");
+        return null;
     }
 
     public Object[] onPassivate() {
-        return new Object[]{catalog.getAltId()};
-    }
-
-    @Override
-    public String getTitle() {
-        return catalog.getName();
+        return catalog == null ? null : new Object[]{catalog.getAltId()};
     }
 
     @Cached

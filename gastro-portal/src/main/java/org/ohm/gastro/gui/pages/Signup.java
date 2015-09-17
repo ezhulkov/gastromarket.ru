@@ -64,7 +64,7 @@ public class Signup extends BaseComponent {
         return new Object[]{error, referrer == null ? null : referrer.getId()};
     }
 
-    public Class onSubmitFromSignupForm() {
+    public Class onSubmitFromSignupAjaxForm() {
         if (!error) {
             try {
                 Signup.signupUser(eMail, fullName, password, referrer, getHttpServletRequest(), getUserService(), authenticationProvider);
@@ -78,7 +78,7 @@ public class Signup extends BaseComponent {
         return null;
     }
 
-    public void onFailureFromSignupForm() {
+    public void onFailureFromSignupAjaxForm() {
         error = true;
     }
 

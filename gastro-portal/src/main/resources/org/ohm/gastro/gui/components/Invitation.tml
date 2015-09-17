@@ -48,7 +48,7 @@
                             <div class="row">
                                 <p class="modal-text">Если Вы кулинар и хотите подключиться к ГастроМаркет, полноценно использовать все возможности сайта и продавать приготовленную Вами еду, то оставьте заявку на подключение и мы обязательно с Вами свяжемся.</p>
                             </div>
-                            <t:form t:zone="applicationZone" t:id="applicationForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
+                            <t:form t:zone="applicationZone" t:id="applicationAjaxForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
                                 <t:errors/>
                                 <div class="form-group">
                                     <t:label for="eMail">Адрес почты:</t:label>

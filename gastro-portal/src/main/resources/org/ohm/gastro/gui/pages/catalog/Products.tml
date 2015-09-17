@@ -30,7 +30,7 @@
                     <t:loop source="products" value="oneProduct">
                         <t:product product="oneProduct" class="fixed" edit="${catalogOwner}"/>
                     </t:loop>
-                    <t:form t:id="reorderForm" t:context="propertyValue.id" t:clientValidation="none" t:zone="productsZone" class="hidden reorder">
+                    <t:form t:id="reorderAjaxForm" t:context="propertyValue.id" t:clientValidation="none" t:zone="productsZone" class="hidden reorder">
                         <input t:type="textfield" t:id="reorder" t:value="reorder"/>
                         <input t:type="submit" t:id="ordersubmit"/>
                     </t:form>

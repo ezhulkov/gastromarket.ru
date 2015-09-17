@@ -68,7 +68,7 @@
                     <p class="modal-text">Укажите свой почтовый адрес для восстановления пароля.<br/> Новый пароль будет выслан на указанный адрес.</p>
                 </div>
                 <br/>
-                <t:form t:zone="rememberZone" t:id="rememberForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
+                <t:form t:zone="rememberZone" t:id="rememberAjaxForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
                     <div class="form-group">
                         <t:label for="eMail">Адрес почты:</t:label>
                         <input t:type="TextField" t:id="eMail" t:value="eMail" type="text" class="form-control"/>
@@ -121,7 +121,7 @@
                     <script>location.reload();</script>
                 </t:block>
                 <t:block t:id="signupFormBlock">
-                    <t:form t:zone="signupZone" t:id="signupForm" t:clientValidation="none" class="form form-horizontal edit" role="form">
+                    <t:form t:zone="signupZone" t:id="signupAjaxForm" t:clientValidation="none" class="form form-horizontal edit" role="form">
                         <t:if test="error">
                             <div class="t-error">
                                 <ul>
