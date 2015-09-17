@@ -83,7 +83,7 @@ public class Order extends AbstractOrder {
     public Block getOrderAdditionalBlock() {
         if (isCanReplyTender()) return tenderReplyBlock;
         if (!isCook()) {
-            if (order != null && (order.getStatus() == Status.CANCELLED || order.getStatus() == Status.CLOSED)) return clientRateCook;
+            if (!frontend && order != null && (order.getStatus() == Status.CANCELLED || order.getStatus() == Status.CLOSED)) return clientRateCook;
             if (isCanEdit()) return clientEditBlock;
         } else {
             if (order != null && (order.getStatus() == Status.CANCELLED || order.getStatus() == Status.CLOSED)) return cookRateClient;

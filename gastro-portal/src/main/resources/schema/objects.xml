@@ -841,4 +841,15 @@
         </sql>
     </changeSet>
 
+    <changeSet id="72" author="ezhulkov">
+        <addColumn tableName="catalog">
+            <column name="cert_1" type="java.sql.Types.BOOLEAN" defaultValueBoolean="false"/>
+            <column name="cert_2" type="java.sql.Types.BOOLEAN" defaultValueBoolean="false"/>
+            <column name="cert_3" type="java.sql.Types.BOOLEAN" defaultValueBoolean="false"/>
+        </addColumn>
+        <sql>
+            update catalog set cert_1=false,cert_2=false,cert_3=false;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

@@ -3,6 +3,7 @@ package org.ohm.gastro.gui.pages.admin.catalog;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.corelib.components.Checkbox;
 import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.ohm.gastro.domain.CatalogEntity;
@@ -31,6 +32,15 @@ public class Index extends EditObjectPage<CatalogEntity> {
 
     @Component(id = "payment", parameters = {"value=object?.payment"})
     private TextArea pmtField;
+
+    @Component(id = "cert1", parameters = {"value=object?.cert1"})
+    private Checkbox cert1;
+
+    @Component(id = "cert2", parameters = {"value=object?.cert2"})
+    private Checkbox cert2;
+
+    @Component(id = "cert3", parameters = {"value=object?.cert3"})
+    private Checkbox cert3;
 
     @Cached
     public java.util.List<ProductEntity> getProducts() {

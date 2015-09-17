@@ -71,6 +71,15 @@ public class CatalogEntity extends SitemapBaseEntity {
     @Column(name = "prepayment")
     private Integer prepayment;
 
+    @Column(name = "cert_1")
+    private Boolean cert1 = false;
+
+    @Column(name = "cert_2")
+    private Boolean cert2 = false;
+
+    @Column(name = "cert_3")
+    private Boolean cert3 = false;
+
     @Column
     private Date date = new Date(System.currentTimeMillis());
 
@@ -300,4 +309,27 @@ public class CatalogEntity extends SitemapBaseEntity {
         return "http://gastromarket.ru/catalog/" + getAltId();
     }
 
+    public Boolean getCert1() {
+        return cert1;
+    }
+
+    public void setCert1(final Boolean cert1) {
+        this.cert1 = cert1;
+    }
+
+    public Boolean getCert2() {
+        return cert2;
+    }
+
+    public void setCert2(final Boolean cert2) {
+        this.cert2 = cert2;
+    }
+
+    public Boolean getCert3() {
+        return cert3;
+    }
+
+    public void setCert3(final Boolean cert3) {
+        this.cert3 = cert3;
+    }
 }

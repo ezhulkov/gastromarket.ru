@@ -85,15 +85,15 @@ public class Index extends AbstractCatalogPage {
     }
 
     public String getMedActiveClass() {
-        return "inactive";
-    }
-
-    public String getAddActiveClass() {
-        return "inactive";
+        return catalog.getCert1() ? "active" : "inactive";
     }
 
     public String getZakActiveClass() {
-        return "inactive";
+        return catalog.getCert2() ? "active" : "inactive";
+    }
+
+    public String getAddActiveClass() {
+        return catalog.getCert3() ? "active" : "inactive";
     }
 
     public Class onSuccessFromCatalogForm() {

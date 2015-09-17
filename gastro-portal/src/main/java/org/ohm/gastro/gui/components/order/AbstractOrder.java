@@ -33,7 +33,7 @@ public abstract class AbstractOrder extends BaseComponent {
 
     @Property
     @Parameter(value = "false")
-    private boolean frontend;
+    protected boolean frontend;
 
     @Property
     @Parameter
