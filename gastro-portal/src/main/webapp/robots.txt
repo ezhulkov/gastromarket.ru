@@ -5,10 +5,10 @@ Disallow:/admin
 Disallow:/office
 Disallow:/subscribe
 Disallow:/social
-Disallow:/*list
 Disallow:/*ajax
+Disallow:/*ajaxlink
+Disallow:/*ajaxform
 Disallow:/*wizard
-Disallow: *jsessionid=*
 Clean-param: jsessionid /*
 
 User-agent: *
@@ -18,10 +18,10 @@ Disallow:/admin
 Disallow:/office
 Disallow:/subscribe
 Disallow:/social
-Disallow:/*list
 Disallow:/*ajax
+Disallow:/*ajaxlink
+Disallow:/*ajaxform
 Disallow:/*wizard
-Disallow: *jsessionid=*
 
 Sitemap: http://gastromarket.ru/sitemap.xml
 Host: http://gastromarket.ru
