@@ -37,9 +37,16 @@
                     </div>
                     <div class="form-buttons" xml:space="preserve">
                         <input class="btn btn-red" type="submit" value="Войти"/>
-                        <a href="#" class="btn btn-white signup-link" data-toggle="modal" data-target="#login">Регистрация</a>
+                        <t:pagelink class="btn btn-white signup-link" page="signup">Регистрация</t:pagelink>
                     </div>
                 </form>
+                <div class="row">
+                    <p class="modal-text f14px">
+                        Входя через социальную сеть, вы соглашаетесь c условиями<br/>
+                        <a href="/agreement" target="_tab" class="red-text f14px">пользовательского соглашения</a> и
+                        <a href="/confident" target="_tab" class="red-text f14px">политики конфиденциальности</a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>

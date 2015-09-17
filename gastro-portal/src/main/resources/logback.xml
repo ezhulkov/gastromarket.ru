@@ -60,6 +60,12 @@
         </filter>
         <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
             <evaluator>
+                <expression>throwable.getMessage().contains("does not contain embedded component")</expression>
+            </evaluator>
+            <onMatch>DENY</onMatch>
+        </filter>
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator>
                 <expression>java.lang.Throwable.class.isInstance(throwable)</expression>
             </evaluator>
             <onMatch>ACCEPT</onMatch>

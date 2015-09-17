@@ -47,6 +47,13 @@
                         <a href="#" class="btn btn-white signup-link">Регистрация</a>
                     </div>
                 </form>
+                <div class="row">
+                    <p class="modal-text f14px">
+                        Входя через социальную сеть, вы соглашаетесь c условиями<br/>
+                        <a href="/agreement" target="_tab" class="red-text f14px">пользовательского соглашения</a> и
+                        <a href="/confident" target="_tab" class="red-text f14px">политики конфиденциальности</a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -155,7 +162,11 @@
                     </t:form>
                 </t:block>
                 <div class="row">
-                    <p class="modal-text">Регистрируясь, вы соглашаетесь c <a href="/license" target="_tab" class="red-text">условиями пользовательского соглашения</a></p>
+                    <p class="modal-text f14px">
+                        Регистрируясь, вы соглашаетесь c условиями<br/>
+                        <a href="/agreement" target="_tab" class="red-text f14px">пользовательского соглашения</a> и
+                        <a href="/confident" target="_tab" class="red-text f14px">политики конфиденциальности</a>
+                    </p>
                 </div>
             </div>
         </div>

@@ -23,7 +23,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <div class="title">
-                                    <h1><span>Контактная информация</span></h1>
+                                    <h1><span>Контактные данные</span></h1>
                                 </div>
                                 <a class="modal-close" data-dismiss="modal"></a>
                             </div>
@@ -61,6 +61,13 @@
                                 </div>
                                 <div class="form-buttons" xml:space="preserve">
                                     <input class="btn btn-red" type="submit" value="Завершить оформление заказа"/>
+                                </div>
+                                <div class="row gap">
+                                    <p class="modal-text f14px">
+                                        Размещая заказ, вы соглашаетесь c условиями<br/>
+                                        <a href="/agreement" target="_tab" class="red-text f14px">пользовательского соглашения</a> и
+                                        <a href="/confident" target="_tab" class="red-text f14px">политики конфиденциальности</a>
+                                    </p>
                                 </div>
                             </div>
                         </div>

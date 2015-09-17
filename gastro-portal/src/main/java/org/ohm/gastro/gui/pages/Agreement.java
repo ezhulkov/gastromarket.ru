@@ -5,5 +5,5 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 /**
  * Created by ezhulkov on 23.08.14.
  */
-public class Oferta extends BaseComponent {
+public class Agreement extends BaseComponent {
 }
