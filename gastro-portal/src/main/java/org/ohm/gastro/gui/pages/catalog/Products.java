@@ -71,12 +71,13 @@ public class Products extends BaseComponent {
     }
 
     public Object[] onPassivate() {
-        return new Object[]{
-                catalog.getId(),
-                propertyValue == null ? null : propertyValue.getAltId(),
-                parentPropertyValue == null ? null : parentPropertyValue.getAltId(),
-                orderType == null ? null : orderType.name().toLowerCase(),
-                direction == null ? null : direction.name().toLowerCase()};
+        return catalog == null ? null :
+                new Object[]{
+                        catalog.getId(),
+                        propertyValue == null ? null : propertyValue.getAltId(),
+                        parentPropertyValue == null ? null : parentPropertyValue.getAltId(),
+                        orderType == null ? null : orderType.name().toLowerCase(),
+                        direction == null ? null : direction.name().toLowerCase()};
     }
 
     public String getTitle() {
