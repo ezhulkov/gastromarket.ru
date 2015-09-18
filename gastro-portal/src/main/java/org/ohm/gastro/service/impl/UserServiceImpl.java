@@ -175,15 +175,17 @@ public class UserServiceImpl implements UserService, Logging {
     }
 
     @Override
-    public void processApplicationRequest(String eMail, String fullName, String about) {
+    public void processApplicationRequest(String eMail, String fullName, String about, String sourceInfo) {
 
         logger.info("Application received");
         logger.info("email: {}", eMail);
         logger.info("fullName: {}", fullName);
         logger.info("about: {}", about);
+        logger.info("sourceInfo: {}", sourceInfo);
 
         mailService.sendAdminMessage(MailService.NEW_APPLICATION, ImmutableMap.of("cookname", defaultIfNull(fullName, ""),
                                                                                   "email", defaultIfNull(eMail, ""),
+                                                                                  "sourceInfo", defaultIfNull(sourceInfo, ""),
                                                                                   "about", defaultIfNull(about, "")));
         mailService.sendMailMessage(eMail, MailService.NEW_APPLICATION_COOK, ImmutableMap.of("username", defaultIfNull(fullName, ""),
                                                                                              "email", defaultIfNull(eMail, ""),

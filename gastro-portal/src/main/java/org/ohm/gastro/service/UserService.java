@@ -28,7 +28,7 @@ public interface UserService extends UserDetailsService, ImageUploaderService<Us
 
     void resetPassword(String eMail);
 
-    void processApplicationRequest(String eMail, String fullName, String about);
+    void processApplicationRequest(String eMail, String fullName, String about, String sourceInfo);
 
     void processFeedbackRequest(String eMail, String fullName, String comment);
 
