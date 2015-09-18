@@ -4,6 +4,7 @@ import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
@@ -49,20 +50,21 @@ public class Products extends BaseComponent {
     @Property
     protected Direction direction = null;
 
-    public boolean onActivate(String catId) {
+    public Object onActivate(String catId) {
         return onActivate(catId, null);
     }
 
-    public boolean onActivate(String catId, String ppid) {
+    public Object onActivate(String catId, String ppid) {
         return onActivate(catId, null, ppid, OrderType.POSITION, null);
     }
 
-    public boolean onActivate(String catId, String ppid, String pid) {
+    public Object onActivate(String catId, String ppid, String pid) {
         return onActivate(catId, ppid, pid, OrderType.POSITION, null);
     }
 
-    public boolean onActivate(String catId, String ppid, String pid, ProductService.OrderType orderType, Direction direction) {
+    public Object onActivate(String catId, String ppid, String pid, ProductService.OrderType orderType, Direction direction) {
         this.catalog = getCatalogService().findCatalog(catId);
+        if (catalog == null) return new HttpError(404, "Page not found.");
         this.parentPropertyValue = ppid == null ? null : getPropertyService().findPropertyValue(ppid);
         this.propertyValue = pid == null ? null : getPropertyService().findPropertyValue(pid);
         this.direction = direction;
