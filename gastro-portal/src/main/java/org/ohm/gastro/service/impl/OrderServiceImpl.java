@@ -116,8 +116,6 @@ public class OrderServiceImpl implements OrderService, Logging {
                 mailService.sendAdminMessage(MailService.NEW_ORDER_ADMIN, params);
                 params.put("username", order.getCatalog().getUser().getFullName());
                 mailService.sendMailMessage(order.getCatalog().getUser(), MailService.NEW_ORDER_COOK, params);
-                params.put("username", order.getCustomer().getFullName());
-                mailService.sendMailMessage(order.getCustomer(), MailService.NEW_ORDER_CUSTOMER, params);
             } catch (MailException e) {
                 logger.error("", e);
             }
@@ -221,6 +219,8 @@ public class OrderServiceImpl implements OrderService, Logging {
                 map(CatalogEntity::getUser).distinct().
                 filter(t -> !filterEmails.contains(t.getEmail())).collect(Collectors.toList());
 //        final List<UserEntity> rcpts = Lists.newArrayList(userRepository.findOne(1l));
+        params.put("username", tender.getCustomer().getFullName());
+        mailService.sendMailMessage(tender.getCustomer(), MailService.NEW_ORDER_CUSTOMER, params);
         executorService.execute(() -> {
             try {
                 rcpts.forEach(cook -> {
