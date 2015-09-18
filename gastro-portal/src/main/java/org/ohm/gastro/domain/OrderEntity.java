@@ -98,6 +98,9 @@ public class OrderEntity extends SitemapBaseEntity {
     @Column(name = "order_number")
     private String orderNumber;
 
+    @Column(name = "attach_reason")
+    private String attachReason;
+
     @Column
     private String comment;
 
@@ -318,5 +321,13 @@ public class OrderEntity extends SitemapBaseEntity {
 
     public void setWasSetup(final boolean wasSetup) {
         this.wasSetup = wasSetup;
+    }
+
+    public String getAttachReason() {
+        return attachReason;
+    }
+
+    public void setAttachReason(String attachReason) {
+        this.attachReason = attachReason;
     }
 }

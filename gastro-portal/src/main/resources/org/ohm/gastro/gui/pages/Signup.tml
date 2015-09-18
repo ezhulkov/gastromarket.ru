@@ -8,8 +8,8 @@
             <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 col-xs-offset-0 col-xs-12">
                 <p class="modal-text">Регистрация через аккаунт одной из социальных сетей</p>
                 <ul class="social big">
-                    <li><a href="/social?social=vk" title="vk.com" class="vk">vk.com</a></li>
-                    <li><a href="/social?social=fb" title="facebook.com" class="fb">facebook.com</a></li>
+                    <li><a href="/social?social=vk" onclick="yaCounter29411415.reachGoal('SOCIAL_LOGIN'); return true;" title="vk.com" class="vk">vk.com</a></li>
+                    <li><a href="/social?social=fb" onclick="yaCounter29411415.reachGoal('SOCIAL_LOGIN'); return true;" title="facebook.com" class="fb">facebook.com</a></li>
                 </ul>
                 <p class="modal-text text-center">или через почтовый адрес и пароль</p>
                 <t:form t:id="signupAjaxForm" t:clientValidation="none" class="form form-horizontal edit" role="form">
@@ -34,7 +34,7 @@
                         <input t:type="PasswordField" t:id="password" t:value="password" t:validate="required,maxlength=64" class="form-control"/>
                     </div>
                     <div class="form-buttons" xml:space="preserve">
-                        <input class="btn btn-red" type="submit" value="Зарегистрироваться"/>
+                        <input class="btn btn-red" type="submit" onclick="yaCounter29411415.reachGoal('SIGNUP'); return true;" value="Зарегистрироваться"/>
                     </div>
                 </t:form>
                 <div class="row">

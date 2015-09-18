@@ -16,7 +16,13 @@
                 <t:if test="authenticated">
                     <t:if test="commentAllowed">
                         <div class="gap3 text-center">
-                            <a href="#tender_reply" data-toggle="modal" data-target="#tender_reply" class="btn btn-red btn-lg">Откликнуться на заявку</a>
+                            <a href="#tender_reply"
+                               data-toggle="modal"
+                               data-target="#tender_reply"
+                               onclick="yaCounter29411415.reachGoal('REPLY_CLICK'); return true;"
+                               class="btn btn-red btn-lg">
+                                Откликнуться на заявку
+                            </a>
                         </div>
                         <div class="modal fade" id="tender_reply" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog">
@@ -31,12 +37,14 @@
                                         <p class="modal-text">
                                             Оставьте отклик к заявке и заинтересуйте заказчика. Ваша заполненная страница кулинара и меню помогут вам в этом!
                                         </p>
-                                        <t:form t:id="replyForm" class="form form-horizontal gap2" context="order.id" t:clientValidation="none" autofocus="false" role="form" t:zone="replyZone">
+                                        <t:form t:id="replyForm" class="form form-horizontal gap2"
+                                                context="order.id" t:clientValidation="none"
+                                                autofocus="false" role="form" t:zone="replyZone">
                                             <div class="form-group">
                                                 <textarea t:type="TextArea" t:id="replyText" t:value="replyText" rows="5" class="form-control"/>
                                             </div>
                                             <div class="form-buttons" xml:space="preserve">
-                                                <input class="btn btn-red" type="submit" value="Оставить отклик"/>
+                                                <input onclick="yaCounter29411415.reachGoal('REPLY_DONE'); return true;" class="btn btn-red" type="submit" value="Оставить отклик"/>
                                             </div>
                                         </t:form>
                                     </div>
@@ -45,7 +53,11 @@
                         </div>
                         <t:parameter name="else">
                             <div class="gap3 text-center">
-                                <a href="#tender_reply_denied" data-toggle="modal" data-target="#tender_reply_denied" class="btn btn-red btn-lg">Откликнуться на заявку</a>
+                                <a href="#tender_reply_denied" data-toggle="modal" data-target="#tender_reply_denied"
+                                   onclick="yaCounter29411415.reachGoal('REPLY_CLICK'); return true;"
+                                   class="btn btn-red btn-lg">
+                                    Откликнуться на заявку
+                                </a>
                             </div>
 
                             <div class="modal fade" id="tender_reply_denied" tabindex="-1" role="dialog" aria-hidden="true">
@@ -66,7 +78,7 @@
                                                     Возможные причины:<br/>
                                                     1. Вы уже откликнулись - тогда просто следите за существующим откликом.<br/>
                                                     2. Ваш каталог не заполнен - необходимо заполнить каталог и добавить блюда.<br/>
-                                                    3. Есть больше незавершенный заказ - доведите до конца существующие заказы.
+                                                    3. Есть 3 незавершенных заказа - доведите до конца существующие заказы.
                                                 </p>
                                             </div>
                                         </div>
@@ -77,7 +89,12 @@
                     </t:if>
                     <t:parameter name="else">
                         <div class="gap3 text-center">
-                            <a href="#tender_login" data-toggle="modal" data-target="#tender_login" class="btn btn-red btn-lg">Откликнуться на заявку</a>
+                            <a href="#tender_login" data-toggle="modal"
+                               data-target="#tender_login"
+                               class="btn btn-red btn-lg"
+                               onclick="yaCounter29411415.reachGoal('REPLY_CLICK'); return true;">
+                                Откликнуться на заявку
+                            </a>
                         </div>
                     </t:parameter>
                 </t:if>

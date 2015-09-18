@@ -19,4 +19,6 @@
         </t:parameter>
     </t:loginUserModal>
 
+    <t:yagoal goal="CART"/>
+
 </t:layout>

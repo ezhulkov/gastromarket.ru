@@ -1,6 +1,6 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="row comments">
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="comments">
     <t:loop source="comments" value="comment">
-        <div class="comment">
+        <div class="row comment">
             <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-0 col-sm-3 col-xs-3 text-right pic">
                 <a href="${linkUrl}">
                     <img src="${avatarUrl}"/>
@@ -72,13 +72,24 @@
                                             <a class="modal-close" data-dismiss="modal"></a>
                                         </div>
                                         <div class="modal-body">
-                                            <p class="modal-text">
-                                                Вы уверены, что хотите выбрать исполнителем ${linkName}?
-                                            </p>
-
-                                            <div class="form-buttons" xml:space="preserve">
-                                                <t:actionlink rel="nofollow" t:id="attachCook" t:context="comment.author.id" class="btn btn-red">Выбрать</t:actionlink>
-                                            </div>
+                                            <t:form t:id="attachTenderAjaxForm" t:context="[comment.author.id,order.id]" class="form form-horizontal" t:clientValidation="none" autofocus="false" role="form">
+                                                <p class="modal-text">
+                                                    Вы выбираете исполнителем кулинара<br/>
+                                                    <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="order.catalog?.altId">
+                                                        <span><img src="${avatarUrl}" class="avatar-small"/></span>${linkName}
+                                                    </t:pageLink>
+                                                </p>
+                                                <p class="modal-text">
+                                                    Пожалуйста, расскажите нам, почему вы выбрали именно его?<br/>
+                                                    Эта информация позволит нам улучшить сервис.
+                                                </p>
+                                                <div class="form-group">
+                                                    <textarea t:type="TextArea" t:id="attachReason" t:value="attachReason" rows="5" class="form-control"/>
+                                                </div>
+                                                <div class="form-buttons" xml:space="preserve">
+                                                   <input class="btn btn-red" type="submit" value="Выбрать"/>
+                                               </div>
+                                            </t:form>
                                         </div>
                                     </div>
                                 </div>

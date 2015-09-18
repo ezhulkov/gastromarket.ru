@@ -852,4 +852,10 @@
         </sql>
     </changeSet>
 
+    <changeSet id="73" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="attach_reason" type="text"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

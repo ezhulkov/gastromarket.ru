@@ -50,6 +50,9 @@ public class Comments extends BaseComponent {
     @Property
     private String replyText;
 
+    @Property
+    private String attachReason;
+
     public String getAvatarUrl() {
         return isCookeReply() ?
                 getFirstCatalog().map(CatalogEntity::getAvatarUrlMedium).orElse(comment.getAuthor().getAvatarUrlMedium()) :
@@ -89,10 +92,12 @@ public class Comments extends BaseComponent {
         return order != null && order.getCustomer().equals(getAuthenticatedUserOpt().orElse(null)) && order.getCatalog() == null;
     }
 
-    public Link onActionFromAttachCook(Long cid) {
+    public Link onSuccessFromAttachTenderAjaxForm(Long cid, Long oid) {
         final Link link = getFirstCatalog(getUserService().findUser(cid)).map(catalog -> {
-            getOrderService().attachTender(catalog, order, getAuthenticatedUser());
-            return getPageLinkSource().createPageRenderLinkWithContext(Order.class, true, order.getId(), false);
+            final OrderEntity tender = getOrderService().findOrder(oid);
+            tender.setAttachReason(attachReason);
+            getOrderService().attachTender(catalog, tender, getAuthenticatedUser());
+            return getPageLinkSource().createPageRenderLinkWithContext(Order.class, true, this.order.getId(), false);
         }).orElse(null);
         return link;
     }
