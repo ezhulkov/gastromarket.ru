@@ -69,4 +69,8 @@
         </t:if>
     </div>
 
+    <t:parameter name="bottomBlock">
+        <t:invitation forceShow="true"/>
+    </t:parameter>
+
 </t:layout>

@@ -1,5 +1,5 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
-    <t:unless test="authenticated">
+    <t:if test="show">
         <div class="invitation">
             <div></div>
             <div>
@@ -12,7 +12,9 @@
                         <a href="/userinfo" class="red-text">узнать подробности</a>
                     </div>
 
-                    <a class="btn btn-red btn-lg signup-link" data-toggle="modal" data-target="#login">Зарегистрироваться</a>
+                    <t:unless test="authenticated">
+                        <a class="btn btn-red btn-lg signup-link" data-toggle="modal" data-target="#login">Зарегистрироваться</a>
+                    </t:unless>
 
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 info">
@@ -75,5 +77,5 @@
                 </div>
             </div>
         </div>
-    </t:unless>
+    </t:if>
 </div>
