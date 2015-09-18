@@ -247,6 +247,11 @@ public class OrderServiceImpl implements OrderService, Logging {
     }
 
     @Override
+    public OrderEntity saveOrder(OrderEntity order) {
+        return orderRepository.save(order);
+    }
+
+    @Override
     public OrderEntity saveOrder(final OrderEntity order, final UserEntity caller) {
         if (order == null || !order.isAllowed(caller)) return order;
         if (order.getType() == OrderEntity.Type.PRIVATE) order.setTotalPrice(order.getProducts().stream().mapToInt(t -> t.getCount() * t.getPrice()).sum());

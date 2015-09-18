@@ -110,6 +110,9 @@ public class OrderEntity extends SitemapBaseEntity {
     @Column(name = "due_date")
     private Date dueDate;
 
+    @Column(name = "views_count")
+    private Integer viewsCount = 0;
+
     @Column
     @Enumerated(EnumType.STRING)
     private Status status = Status.NEW;
@@ -329,5 +332,13 @@ public class OrderEntity extends SitemapBaseEntity {
 
     public void setAttachReason(String attachReason) {
         this.attachReason = attachReason;
+    }
+
+    public Integer getViewsCount() {
+        return viewsCount;
+    }
+
+    public void setViewsCount(Integer viewsCount) {
+        this.viewsCount = viewsCount;
     }
 }

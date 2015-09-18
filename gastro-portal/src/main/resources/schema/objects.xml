@@ -858,4 +858,10 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="74" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="views_count" type="java.sql.Types.INTEGER" defaultValue="0"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

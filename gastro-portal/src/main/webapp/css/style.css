@@ -105,6 +105,10 @@ body.mobile .rub:after {
   position: absolute !important;
 }
 
+.f12px {
+  font-size: 12px !important;
+}
+
 .f14px {
   font-size: 14px !important;
 }
@@ -2080,6 +2084,11 @@ label.t-error {
     text-align: center;
   }
 }
+.order-show-catalog .tender-views {
+  color: #8a8a8a;
+  font-size: 12px;
+  line-height: 35px;
+}
 .order-show-catalog .tender-info {
   border-bottom: 1px solid #aaaaaa;
   margin-bottom: 15px;
@@ -2089,14 +2098,6 @@ label.t-error {
   color: #333;
   text-align: right;
   font-weight: bold;
-}
-@media (max-width: 768px) {
-  .order-show-catalog .tender-info .price {
-    font-size: 30px;
-    color: #333;
-    text-align: left;
-    font-weight: bold;
-  }
 }
 .order-show-catalog .catalog {
   padding-bottom: 20px;

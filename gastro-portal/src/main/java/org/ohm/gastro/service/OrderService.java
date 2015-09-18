@@ -25,6 +25,8 @@ public interface OrderService extends ImageUploaderService<OrderEntity> {
 
     OrderEntity findOrder(Long id);
 
+    OrderEntity saveOrder(OrderEntity order);
+
     OrderEntity saveOrder(OrderEntity order, final UserEntity caller);
 
     void deleteProduct(Long oid, Long pid, final UserEntity caller);
