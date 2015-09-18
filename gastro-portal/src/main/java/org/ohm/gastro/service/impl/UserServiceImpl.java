@@ -128,6 +128,7 @@ public class UserServiceImpl implements UserService, Logging {
         if (StringUtils.isEmpty(password)) throw new EmptyPasswordException();
         if (userRepository.findByEmail(user.getEmail()) != null) throw new UserExistsException();
         if (Type.COOK.equals(user.getType())) {
+            userRepository.save(user);
             CatalogEntity catalog = new CatalogEntity();
             catalog.setUser(user);
             catalog.setName(StringUtils.isEmpty(catalogName) ? user.getFullName() + " - страница кулинара" : catalogName);

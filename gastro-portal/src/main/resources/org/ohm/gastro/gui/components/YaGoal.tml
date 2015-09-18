@@ -1,3 +1,5 @@
 <script>
-    yaCounter29411415.reachGoal('${goal}');
+    window.onload = function () {
+        yaCounter29411415.reachGoal('${goal}');
+    }
 </script>

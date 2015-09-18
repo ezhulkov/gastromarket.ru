@@ -6,9 +6,75 @@
                 <h1><span>О проекте</span></h1>
             </div>
             <div class="row">
-                <p class="modal-text">
-                    Раздел находится в разработке
-                </p>
+                <div class="row gap3">
+                    <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-3 col-xs-12 text-center">
+                        <img src="/img/baloons-128x128.png" alt="праздник"/>
+                        <br/>
+                        <br/>
+                    </div>
+                    <div class="col-lg-7 col-lg-offset-0 col-md-8 col-md-offset-0 col-sm-7 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+                        <p>
+                            ГастроМаркет это интернет площадка, которая объединяет всех увлечённых приготовлением еды людей с одной стороны, а с другой помогает найти интересные кулинарные решения тем, кому наскучила еда, приготовленная на промышленных кухнях.
+                        </p>
+                        <p>
+                            Будь то детский день рождения или свадьба, пикник на природе или праздник в офисе – на ГастроМаркет вы всегда сможете найти соответствующие угощения на любой вкус: торты, капкейки, бургеры и многое другое.
+                        </p>
+                    </div>
+                </div>
+                <h2>Покупателям</h2>
+                <div class="row gap3">
+                    <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-3 col-xs-12 text-center">
+                        <img src="/img/friends-128x128.png" alt="сервисы"/>
+                        <br/>
+                        <br/>
+                    </div>
+                    <div class="col-lg-7 col-lg-offset-0 col-md-8 col-md-offset-0 col-sm-7 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+                        <p>
+                            Если Вы не любите готовить, ГастроМаркет – это, прежде всего, помощник, который освободит Вас от утомительной работы на кухне.
+                        </p>
+                        <p>
+                            Доверьте этот процесс людям, которые нашли свою страсть в приготовлении пищи и вместо этого посвятите освободившееся время своим близким или тому, что вы действительно любите.
+                        </p>
+                        <p>
+                            Вы можете купить уже готовую еду или сделать заказ любому нашему кулинару, просто выбрав наиболее понравившийся профиль или последовав рекомендациям других.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="gap3 text-center">
+                    <t:pagelink page="userinfo" class="btn btn-red btn-lg">Подробнее для покупателей</t:pagelink>
+                </div>
+                <div class="gap5"></div>
+
+                <h2>Кулинарам</h2>
+                <div class="row gap3">
+                    <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-3 col-xs-12 text-center">
+                        <img src="/img/cook-128x128.png" alt="сервисы"/>
+                        <br/>
+                        <br/>
+                    </div>
+                    <div class="col-lg-7 col-lg-offset-0 col-md-8 col-md-offset-0 col-sm-7 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+                        <p>
+                            Если же приготовление еды или выпечка – Ваша страсть и все вокруг восхищаются Вашим талантом, ГастроМаркет – это отличная площадка, чтобы познакомить большее количество людей с тем, что Вы готовите (или печёте), а также прекрасная возможность наладить свой собственный независимый бизнес.
+                        </p>
+                        <p>
+                            Увеличивайте свой рейтинг, поднимайте свой профиль в списке кулинаров, и Вы увидите как просто и быстро увеличится количество заказов.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="gap3 text-center">
+                    <t:pagelink page="cookinfo" class="btn btn-red btn-lg">Подробнее для кулинаров</t:pagelink>
+                </div>
+                <div class="gap5"></div>
+
+                <div class="row">
+                    <div class="col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10">
+                        <p>
+                            Мы помогаем независимым кулинарам находить постоянных покупателей, а покупателям – находить доступную альтернативу промышленно приготовленной еде.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

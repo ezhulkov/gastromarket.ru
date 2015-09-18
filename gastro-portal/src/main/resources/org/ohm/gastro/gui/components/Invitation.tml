@@ -63,7 +63,7 @@
                                     <textarea t:type="TextArea" t:id="about" t:value="about" t:validate="required" rows="5" class="form-control"/>
                                 </div>
                                 <div class="form-buttons" xml:space="preserve">
-                                    <input class="btn btn-red" type="submit" value="Оставить заявку"/>
+                                    <input class="btn btn-red" onclick="yaCounter29411415.reachGoal('COOK_REQUEST'); return true;"  type="submit" value="Оставить заявку"/>
                                 </div>
                             </t:form>
                         </t:block>
