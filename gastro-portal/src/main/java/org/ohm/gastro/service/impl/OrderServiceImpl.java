@@ -170,10 +170,10 @@ public class OrderServiceImpl implements OrderService, Logging {
                 put("date", ObjectUtils.defaultIfNull(tender.getDatePrintable(), "-"));
                 put("address", tender.getOrderUrl());
                 put("tender", tender);
+                put("recipients", getRecipients());
             }
         };
         mailService.sendAdminMessage(MailService.NEW_TENDER_ADMIN, params);
-        mailService.sendMailMessage(tender.getCustomer(), MailService.NEW_TENDER_CUSTOMER, params);
         return tender;
     }
 
@@ -215,15 +215,11 @@ public class OrderServiceImpl implements OrderService, Logging {
                 put("address", tender.getOrderUrl());
             }
         };
-        final List<UserEntity> rcpts = catalogRepository.findAll().stream().
-                map(CatalogEntity::getUser).distinct().
-                filter(t -> !filterEmails.contains(t.getEmail())).collect(Collectors.toList());
-//        final List<UserEntity> rcpts = Lists.newArrayList(userRepository.findOne(1l));
         params.put("username", tender.getCustomer().getFullName());
-        mailService.sendMailMessage(tender.getCustomer(), MailService.NEW_ORDER_CUSTOMER, params);
+        mailService.sendMailMessage(tender.getCustomer(), MailService.NEW_TENDER_CUSTOMER, params);
         executorService.execute(() -> {
             try {
-                rcpts.forEach(cook -> {
+                getRecipients().forEach(cook -> {
                     params.put("username", cook.getFullName());
                     params.put("email", cook.getEmail());
                     mailService.sendMailMessage(cook, MailService.NEW_TENDER_COOK, params);
@@ -232,6 +228,11 @@ public class OrderServiceImpl implements OrderService, Logging {
                 logger.error("", e);
             }
         });
+    }
+
+    private List<UserEntity> getRecipients() {
+        return catalogRepository.findAll().stream().map(CatalogEntity::getUser).distinct().filter(t -> !filterEmails.contains(t.getEmail())).collect(Collectors.toList());
+//        return Lists.newArrayList(userRepository.findOne(1l));
     }
 
     @Override

@@ -40,7 +40,7 @@
                             initLoginModal();
                         </script>
                     </t:if>
-                    <t:form t:id="descForm" t:context="[orderId]" t:zone="${orderEditZone}" t:autofocus="true" t:clientValidation="none" class="form nopad edit" role="form">
+                    <t:form t:id="descAjaxForm" t:context="[orderId]" t:zone="${orderEditZone}" t:autofocus="true" t:clientValidation="none" class="form nopad edit" role="form">
                         <t:errors/>
                         <t:if test="tender">
                             <div class="col-xs-12">

@@ -113,7 +113,7 @@ public class Edit extends BaseComponent {
     }
 
     //Desc section
-    public void onPrepareFromDescForm() {
+    public void onPrepareFromDescAjaxForm() {
         if (order == null || order.getId() == null) {
             if (extOrder != null) {
                 newOrder = extOrder;
@@ -125,11 +125,11 @@ public class Edit extends BaseComponent {
         }
     }
 
-    public void onFailureFromDescForm() {
+    public void onFailureFromDescAjaxForm() {
         this.error = true;
     }
 
-    public void onSubmitFromDescForm(Long tId) {
+    public void onSubmitFromDescAjaxForm(Long tId) {
         if (!error) {
             final OrderEntity origOrder = tId != null ? getOrderService().findOrder(tId) : order;
             origOrder.setName(order.getName());

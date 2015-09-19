@@ -198,7 +198,7 @@ public class RatingServiceImpl implements RatingService, Logging {
 
         logger.info("Rating for catalog {} changed", catalog);
 
-        if (prevLevel == null || !catalog.getLevel().equals(prevLevel)) {
+        if (catalog.getLevel() != null && (prevLevel == null || !catalog.getLevel().equals(prevLevel))) {
             registerEvent(Type.RATING_CHANGE, catalog.getUser(), catalog, catalog.getLevel());
         }
 

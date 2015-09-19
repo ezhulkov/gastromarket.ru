@@ -39,6 +39,10 @@ public class Index extends AbstractCatalogPage {
     @Property
     private Block catalogFormBlock;
 
+    public Object onActivate() {
+        return onActivate(null);
+    }
+
     public Object onActivate(String pid) {
         catalog = getCatalogService().findCatalog(pid);
         if (catalog == null) return new HttpError(404, "Page not found.");
@@ -47,7 +51,7 @@ public class Index extends AbstractCatalogPage {
     }
 
     public Object[] onPassivate() {
-        return new Object[]{catalog.getAltId()};
+        return catalog == null ? null : new Object[]{catalog.getAltId()};
     }
 
     @Cached
