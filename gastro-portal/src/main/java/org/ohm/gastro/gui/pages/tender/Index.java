@@ -4,6 +4,7 @@ import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Cookies;
+import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
@@ -25,8 +26,13 @@ public class Index extends BaseComponent {
     @Inject
     private Cookies cookies;
 
-    public boolean onActivate(Long orderId, boolean newOrder) {
+    public Object onActivate() {
+        return onActivate(null);
+    }
+
+    public Object onActivate(Long orderId, boolean newOrder) {
         order = getOrderService().findOrder(orderId);
+        if (order == null) return new HttpError(404, "Page not found.");
         this.newOrder = !isCook() && newOrder;
         final String cookieName = "tender_seen_" + order.getId();
         if (cookies.readCookieValue(cookieName) == null) {
@@ -37,7 +43,7 @@ public class Index extends BaseComponent {
         return true;
     }
 
-    public boolean onActivate(Long orderId) {
+    public Object onActivate(Long orderId) {
         return onActivate(orderId, false);
     }
 

@@ -231,7 +231,7 @@ public class OrderServiceImpl implements OrderService, Logging {
     }
 
     private List<UserEntity> getRecipients() {
-        return catalogRepository.findAll().stream().map(CatalogEntity::getUser).distinct().filter(t -> !filterEmails.contains(t.getEmail())).collect(Collectors.toList());
+        return catalogRepository.findAll().stream().map(CatalogEntity::getUser).distinct().filter(UserEntity::isSubscribeEmail).collect(Collectors.toList());
 //        return Lists.newArrayList(userRepository.findOne(1l));
     }
 

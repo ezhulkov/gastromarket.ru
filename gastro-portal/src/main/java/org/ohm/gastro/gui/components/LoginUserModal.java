@@ -62,7 +62,7 @@ public class LoginUserModal extends BaseComponent {
     private String modalId;
 
     public Block onSubmitFromRememberAjaxForm() {
-        getUserService().resetPassword(eMail);
+        if (eMail != null) getUserService().resetPassword(eMail);
         return rememberResultBlock;
     }
 

@@ -5,6 +5,7 @@ import au.com.bytecode.opencsv.bean.HeaderColumnNameMappingStrategy;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.BaseEncoding;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.LogEntity;
@@ -169,7 +170,7 @@ public class UserServiceImpl implements UserService, Logging {
             user.setPassword(encPassword);
             userRepository.save(user);
             logger.info("Setting new password for user {}, {}", user, password);
-            mailService.sendMailMessage(eMail, MailService.CHANGE_PASSWD, ImmutableMap.of("username", user.getFullName(),
+            mailService.sendMailMessage(eMail, MailService.CHANGE_PASSWD, ImmutableMap.of("username", ObjectUtils.defaultIfNull(user.getFullName(), ""),
                                                                                           "password", password));
         }
     }

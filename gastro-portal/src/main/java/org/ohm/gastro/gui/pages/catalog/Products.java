@@ -50,6 +50,10 @@ public class Products extends BaseComponent {
     @Property
     protected Direction direction = null;
 
+    public Object onActivate() {
+        return onActivate(null);
+    }
+
     public Object onActivate(String catId) {
         return onActivate(catId, null);
     }

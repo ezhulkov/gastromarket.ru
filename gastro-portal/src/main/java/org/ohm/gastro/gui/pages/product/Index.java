@@ -28,6 +28,10 @@ public class Index extends BaseComponent {
     @Property
     private PriceModifierEntity priceModifier;
 
+    public Object onActivate() {
+        return onActivate(null);
+    }
+
     public Object onActivate(String pid) {
         product = getProductService().findProduct(pid);
         if (product == null) return new HttpError(404, "Page not found.");
