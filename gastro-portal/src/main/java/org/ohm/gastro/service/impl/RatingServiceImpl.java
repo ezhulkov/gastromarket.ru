@@ -260,7 +260,7 @@ public class RatingServiceImpl implements RatingService, Logging {
 
     @Override
     public void placeReply(final OrderEntity order, final UserEntity author, final String replyText) {
-        if (author.isCook() && StringUtils.isNotEmpty(replyText)) {
+        if (author.isCook() && StringUtils.isNotEmpty(replyText) && findAllComments(order).stream().filter(t -> t.getAuthor().equals(author)).count() == 0) {
             try {
                 createOrderComment(order, author, replyText);
                 final Map<String, Object> params = new HashMap<String, Object>() {
