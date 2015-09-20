@@ -864,4 +864,14 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="75" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="cook_rate" type="java.sql.Types.BOOLEAN" defaultValueBoolean="false"/>
+            <column name="client_rate" type="java.sql.Types.BOOLEAN" defaultValueBoolean="false"/>
+        </addColumn>
+        <sql>
+            update orders set cook_rate=true,client_rate=true;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

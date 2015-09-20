@@ -35,7 +35,8 @@
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                 <span class="f20px">Контакты:</span><br/>
                 <div>
-                    ${order.customer.fullName}<br/>
+                    <t:pagelink page="user/index" t:context="order.customer.id">${order.customer.fullName}</t:pagelink>
+                    <br/>
                     Отзывы +${clientPosRating}/-${clientNegRating}<br/>
                     ${order.customer.mobilePhone}<br/>
                     ${order.customer.deliveryAddress}<br/>

@@ -1,5 +1,5 @@
 <t:if xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" test="tenderType">
-    <t:if test="frontend">
+    <t:if test="show">
         <div class="row tender-info">
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                 <t:pagelink page="tender/index" t:context="order.id" class="f30px black-text">${order.name}</t:pagelink>

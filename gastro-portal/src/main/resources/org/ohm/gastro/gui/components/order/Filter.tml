@@ -1,35 +1,29 @@
 <ul xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="office-menu">
     <t:unless test="frontend">
-        <t:if test="cook">
-            <li id="public-orders">
-                <t:pagelink page="office/orders" t:context="['false','NEW']">Все заявки</t:pagelink>
-            </li>
-        </t:if>
         <t:unless test="cook">
+            <li id="new-tenders">
+                <t:pagelink page="office/orders" t:context="['false','NEW']">Мои заявки</t:pagelink>
+            </li>
             <li id="new-orders">
-                <t:pagelink page="office/orders" t:context="['true','NEW']">Новые</t:pagelink>
+                <t:pagelink page="office/orders" t:context="['true','NEW']">Корзина</t:pagelink>
             </li>
         </t:unless>
         <li id="active-orders">
-            <t:pagelink page="office/orders" t:context="['true','ACTIVE']">В работе</t:pagelink>
+            <t:pagelink page="office/orders" t:context="['true','ACTIVE']">Выполняются</t:pagelink>
         </li>
         <li id="closed-orders">
             <t:pagelink page="office/orders" t:context="['true','CLOSED']">Закрытые</t:pagelink>
         </li>
     </t:unless>
     <t:if test="frontend">
-        <li id="all-orders">
+        <li id="all-tenders">
             <t:pagelink page="tender/list" t:context="null">Все заявки</t:pagelink>
         </li>
-        <li id="new-orders">
+        <li id="new-tenders">
             <t:pagelink page="tender/list" t:context="'NEW'">Только активные</t:pagelink>
         </li>
     </t:if>
     <script>
-        if (${privateOrders} || ${frontend}) {
-            activate_menu('#${statusName}-orders');
-        } else {
-            activate_menu('#public-orders');
-        }
+        activate_menu('#${statusName}-${typeName}');
     </script>
 </ul>

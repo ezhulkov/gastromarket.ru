@@ -5,6 +5,7 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity.Type;
+import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
@@ -26,6 +27,10 @@ public class RateCookUser extends BaseComponent {
     private UserEntity user;
 
     @Property
+    @Parameter
+    private OrderEntity order;
+
+    @Property
     @Parameter(defaultPrefix = BindingConstants.LITERAL)
     private String modalId;
 
@@ -43,11 +48,17 @@ public class RateCookUser extends BaseComponent {
         return getMessages().format("rate.title." + type.name().toLowerCase(), type == Type.CATALOG ? catalog.getName() : user.getFullName());
     }
 
-    public void onSuccessFromRateForm(Long cId, Long uId) {
+    public void onSuccessFromRateForm(Long cId, Long uId, Long oId) {
         if (type == Type.CATALOG) {
-            getRatingService().rateCatalog(getCatalogService().findCatalog(cId), rateComment, opinion ? 1 : -1, getAuthenticatedUserOpt().orElse(null));
+            getRatingService().rateCatalog(getCatalogService().findCatalog(cId),
+                                           rateComment, opinion ? 1 : -1,
+                                           getOrderService().findOrder(oId),
+                                           getAuthenticatedUserOpt().orElse(null));
         } else {
-            getRatingService().rateClient(getUserService().findUser(uId), rateComment, opinion ? 1 : -1, getAuthenticatedUserOpt().orElse(null));
+            getRatingService().rateClient(getUserService().findUser(uId),
+                                          rateComment, opinion ? 1 : -1,
+                                          getOrderService().findOrder(oId),
+                                          getAuthenticatedUserOpt().orElse(null));
         }
     }
 
@@ -66,7 +77,8 @@ public class RateCookUser extends BaseComponent {
     public Object[] getRateContext() {
         return new Object[]{
                 catalog == null ? null : catalog.getId(),
-                user == null ? null : user.getId()
+                user == null ? null : user.getId(),
+                order == null ? null : order.getId(),
         };
     }
 

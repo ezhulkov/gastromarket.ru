@@ -61,43 +61,44 @@
                         </t:if>
                         <t:if test="orderUser">
                             <a href="#choose_cook" data-toggle="modal" class="dotted-link" data-target="#choose_cook_${comment.id}">выбрать исполнителя</a>
-
-                            <div class="modal fade" id="choose_cook_${comment.id}" tabindex="-1" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <div class="title">
-                                                <h1><span>Выбрать исполнителя</span></h1>
-                                            </div>
-                                            <a class="modal-close" data-dismiss="modal"></a>
-                                        </div>
-                                        <div class="modal-body">
-                                            <t:form t:id="attachTenderAjaxForm" t:context="[comment.author.id,order.id]" class="form form-horizontal" t:clientValidation="none" autofocus="false" role="form">
-                                                <p class="modal-text">
-                                                    Вы выбираете исполнителем кулинара<br/>
-                                                    <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="order.catalog?.altId">
-                                                        <span><img src="${avatarUrl}" class="avatar-small"/></span>${linkName}
-                                                    </t:pageLink>
-                                                </p>
-                                                <p class="modal-text">
-                                                    Пожалуйста, расскажите нам, почему вы выбрали именно его?<br/>
-                                                    Эта информация позволит нам улучшить сервис.
-                                                </p>
-                                                <div class="form-group">
-                                                    <textarea t:type="TextArea" t:id="attachReason" t:value="attachReason" rows="5" class="form-control"/>
-                                                </div>
-                                                <div class="form-buttons" xml:space="preserve">
-                                                   <input class="btn btn-red" type="submit" value="Выбрать"/>
-                                               </div>
-                                            </t:form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </t:if>
                     </div>
                 </t:if>
             </div>
         </div>
+        <t:if test="reply">
+            <div class="modal fade" id="choose_cook_${comment.id}" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="title">
+                                <h1><span>Выбрать исполнителя</span></h1>
+                            </div>
+                            <a class="modal-close" data-dismiss="modal"></a>
+                        </div>
+                        <div class="modal-body">
+                            <t:form t:id="attachTenderAjaxForm" t:context="[comment.author.id,order.id]" class="form form-horizontal" style="padding-top:0;" t:clientValidation="none" autofocus="false" role="form">
+                                <p class="modal-text">
+                                    Вы выбираете исполнителем кулинара<br/>
+                                    <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="order.catalog?.altId">
+                                        <span><img src="${avatarUrl}" class="avatar-small"/></span>${linkName}
+                                    </t:pageLink>
+                                </p>
+                                <p class="modal-text">
+                                    Пожалуйста, расскажите нам, почему вы выбрали именно его?<br/>
+                                    Эта информация позволит нам улучшить сервис.
+                                </p>
+                                <div class="form-group">
+                                    <textarea t:type="TextArea" t:id="attachReason" t:value="attachReason" rows="5" class="form-control"/>
+                                </div>
+                                <div class="form-buttons" xml:space="preserve">
+                               <input class="btn btn-red" type="submit" value="Выбрать"/>
+                           </div>
+                            </t:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t:if>
     </t:loop>
 </div>

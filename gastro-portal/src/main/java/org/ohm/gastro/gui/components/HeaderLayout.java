@@ -60,7 +60,7 @@ public class HeaderLayout extends BaseComponent {
 
     public Link getCartLink() {
         return isAuthenticated() ?
-                getPageLinkSource().createPageRenderLinkWithContext(Orders.class, true, Status.NEW) :
+                getPageLinkSource().createPageRenderLinkWithContext(Orders.class, false, Status.NEW) :
                 getPageLinkSource().createPageRenderLink(Cart.class);
     }
 

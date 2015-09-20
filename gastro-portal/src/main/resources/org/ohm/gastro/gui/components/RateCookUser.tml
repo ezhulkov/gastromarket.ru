@@ -11,27 +11,21 @@
                 <t:if test="commentAllowed">
                     <t:form t:id="rateForm" context="rateContext" class="form form-horizontal edit" t:clientValidation="none" role="form">
                         <div class="form-group">
-                            <div class="col-sm-1"/>
                             <t:radiogroup t:id="opinion" value="opinion">
-                                <div class="col-sm-5 text-right">
+                                <div class="col-sm-6 text-right">
                                     <t:label for="like">Мне всё понравилась</t:label>
                                     &nbsp;
                                     <t:radio t:id="like"/>
                                 </div>
-                                <div class="col-sm-5 text-left">
+                                <div class="col-sm-6 text-left">
                                     <t:label for="dislike">Нет, было плохо</t:label>
                                     &nbsp;
                                     <t:radio t:id="dislike"/>
                                 </div>
                             </t:radiogroup>
-                            <div class="col-sm-1"/>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-1"/>
-                            <div class="col-sm-10">
-                                <textarea t:type="TextArea" t:id="rateComment" t:value="rateComment" rows="5" class="form-control"/>
-                            </div>
-                            <div class="col-sm-1"/>
+                            <textarea t:type="TextArea" t:id="rateComment" t:value="rateComment" rows="5" class="form-control"/>
                         </div>
                         <div class="form-buttons" xml:space="preserve">
                             <input class="btn btn-red" type="submit" value="Оставить отзыв"/>

@@ -11,4 +11,8 @@ public class TenderInfo extends AbstractOrder {
         return getRatingService().findAllComments(order);
     }
 
+    public boolean isShow() {
+        return frontend || order.getCatalog() == null;
+    }
+
 }

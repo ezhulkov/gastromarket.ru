@@ -9,7 +9,7 @@
             <t:delegate to="ordersBlock"/>
         </t:zone>
         <t:block t:id="ordersBlock">
-            <t:order.list status="prop:status" privateOrders="privateOrders"/>
+            <t:order.list status="prop:status" privateOrders="privateOrders" onlyMine="true"/>
         </t:block>
     </div>
 

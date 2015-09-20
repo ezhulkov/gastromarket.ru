@@ -26,4 +26,8 @@ public class Filter extends BaseComponent {
         return status == null ? "all" : status.name().toLowerCase();
     }
 
+    public String getTypeName() {
+        return privateOrders ? "orders" : "tenders";
+    }
+
 }

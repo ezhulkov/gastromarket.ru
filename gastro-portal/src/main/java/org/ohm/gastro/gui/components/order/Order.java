@@ -81,21 +81,25 @@ public class Order extends AbstractOrder {
     }
 
     public Block getOrderAdditionalBlock() {
-        if (isCanReplyTender()) return tenderReplyBlock;
+        if (order == null) return null;
+        if (frontend) {
+            if (isCanEdit()) return clientEditBlock;
+            return isCanReplyTender() ? tenderReplyBlock : catalogAttachedBlock;
+        }
         if (!isCook()) {
-            if (!frontend && order != null && (order.getStatus() == Status.CANCELLED || order.getStatus() == Status.CLOSED)) return clientRateCook;
+            if (order.getMetaStatus() == Status.CLOSED) return order.isClientRate() ? null : clientRateCook;
             if (isCanEdit()) return clientEditBlock;
         } else {
-            if (order != null && (order.getStatus() == Status.CANCELLED || order.getStatus() == Status.CLOSED)) return cookRateClient;
+            if (order.getMetaStatus() == Status.CLOSED) return order.isCookRate() ? null : cookRateClient;
         }
-        return order.getCatalog() != null ? catalogAttachedBlock : null;
+        return null;
     }
 
     public boolean isCanReplyTender() {
         return order != null &&
                 order.getType() == OrderEntity.Type.PUBLIC &&
                 order.getStatus() == Status.NEW &&
-                !order.getCustomer().equals(getAuthenticatedUserOpt().orElse(null));
+                order.getCatalog() == null;
     }
 
     public Block getCurrentOrderBlock() {

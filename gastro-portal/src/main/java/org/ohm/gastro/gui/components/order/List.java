@@ -29,6 +29,10 @@ public class List extends BaseComponent {
     private boolean frontend;
 
     @Property
+    @Parameter(value = "false")
+    private boolean onlyMine;
+
+    @Property
     private CatalogEntity catalog;
 
     @Property
@@ -52,6 +56,7 @@ public class List extends BaseComponent {
         } else {
             orders = getOrderService().findAllTenders();
             return orders.stream()
+                    .filter(t -> !(onlyMine && isAuthenticated()) || t.getCustomer().equals(getAuthenticatedUser()))
                     .filter(t -> t.getStatus() == status || status == null)
                     .sorted((o1, o2) -> o2.getDate().compareTo(o1.getDate())).collect(Collectors.toList());
         }

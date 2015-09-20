@@ -14,6 +14,77 @@
                 </div>
                 <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>
                 <t:offerEdit catalog="catalog" edit="false" offersBlock="offersBlock"/>
+                <div class="modal fade catalog-edit" id="catalog-edit" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="title">
+                                    <h1><span>Редактировать страницу</span></h1>
+                                </div>
+                                <a class="modal-close" data-dismiss="modal"/>
+                            </div>
+                            <div class="modal-body">
+                                <t:zone t:id="catalogEditZone">
+                                    <t:delegate to="catalogFormBlock"/>
+                                </t:zone>
+                                <t:block t:id="catalogFormBlock">
+                                    <t:if test="catalogOwner">
+                                        <t:form t:zone="catalogEditZone" t:id="catalogForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
+                                            <t:errors/>
+                                            <div class="form-group">
+                                                <t:label for="desc">${nameLabel}:</t:label>
+                                                <input t:id="name" class="form-control"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <t:label for="desc">${descLabel}:</t:label>
+                                                <div class="label-tip">
+                                                    ${descText}<br/>
+                                                    Помните, что доверие покупателей повышается, если они узнают о Вашей работе.
+                                                </div>
+                                                <input t:id="desc" rows="3" class="form-control"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <t:label for="delivery">Условия доставки:</t:label>
+                                                <div class="label-tip">
+                                                    Доставка готовых блюд осуществляется Вами, опишите здесь условия доставки.
+                                                </div>
+                                                <input t:id="delivery" rows="3" class="form-control"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <t:label for="payment">Условия оплаты:</t:label>
+                                                <div class="label-tip">
+                                                    Опишите в этом поле как происходит оплата стоимости заказа - предоплата, способы оплаты и тд.
+                                                </div>
+                                                <input t:id="payment" rows="2" class="form-control"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <t:label for="cancellation">Условия отмены:</t:label>
+                                                <div class="label-tip">
+                                                    Возможно ли отменить заказ и какую часть предоплаты Вы возвращаете?
+                                                </div>
+                                                <input t:id="cancellation" rows="2" class="form-control"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <t:label for="basketMin">Минимальная стоимость заказа, руб:</t:label>
+                                                <div class="label-tip">
+                                                    Мы попросим покупателя дополнить заказ, если стоимость заказа меньше указанной.
+                                                </div>
+                                                <input t:id="basketMin" class="form-control"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <t:label for="prepayment">Предоплата, %:</t:label>
+                                                <input t:id="prepayment" class="form-control" tabindex="4"/>
+                                            </div>
+                                            <div class="form-buttons" xml:space="preserve">
+                                                        <input class="btn btn-red" type="submit" value="Сохранить"/>
+                                                    </div>
+                                        </t:form>
+                                    </t:if>
+                                </t:block>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </t:if>
 
             <div class="row">
@@ -113,10 +184,12 @@
                             <div class="empty">Меню кулинара пусто</div>
                         </t:parameter>
                     </t:loop>
-                    <t:form t:id="reorderAjaxForm" t:clientValidation="none" t:zone="productsZone" class="hidden reorder">
-                        <input t:type="textfield" t:id="reorder" t:value="reorder"/>
-                        <input t:type="submit" t:id="ordersubmit"/>
-                    </t:form>
+                    <t:if test="catalogOwner">
+                        <t:form t:id="reorderAjaxForm" t:clientValidation="none" t:zone="productsZone" class="hidden reorder">
+                            <input t:type="textfield" t:id="reorder" t:value="reorder"/>
+                            <input t:type="submit" t:id="ordersubmit"/>
+                        </t:form>
+                    </t:if>
                 </div>
             </t:block>
             <t:productModalTemplate/>
@@ -154,7 +227,6 @@
         <div class="container">
             <div class="title">
                 <h1><span>Отзывы о кулинаре</span></h1>
-                <a href="#rate" data-toggle="modal" data-target="#rate">Оставить отзыв</a>
             </div>
             <t:if test="comments">
                 <t:comments comments="comments"/>
@@ -162,78 +234,6 @@
                     <div class="empty">Нет отзывов</div>
                 </t:parameter>
             </t:if>
-            <t:ratecookuser type="CATALOG" catalog="catalog" commentAllowed="commentAllowed" modalId="rate"/>
-        </div>
-        <div class="modal fade catalog-edit" id="catalog-edit" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <div class="title">
-                            <h1><span>Редактировать страницу</span></h1>
-                        </div>
-                        <a class="modal-close" data-dismiss="modal"/>
-                    </div>
-                    <div class="modal-body">
-                        <t:zone t:id="catalogEditZone">
-                            <t:delegate to="catalogFormBlock"/>
-                        </t:zone>
-                        <t:block t:id="catalogFormBlock">
-                            <t:if test="catalogOwner">
-                                <t:form t:zone="catalogEditZone" t:id="catalogForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
-                                    <t:errors/>
-                                    <div class="form-group">
-                                        <t:label for="desc">${nameLabel}:</t:label>
-                                        <input t:id="name" class="form-control"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <t:label for="desc">${descLabel}:</t:label>
-                                        <div class="label-tip">
-                                            ${descText}<br/>
-                                            Помните, что доверие покупателей повышается, если они узнают о Вашей работе.
-                                        </div>
-                                        <input t:id="desc" rows="3" class="form-control"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <t:label for="delivery">Условия доставки:</t:label>
-                                        <div class="label-tip">
-                                            Доставка готовых блюд осуществляется Вами, опишите здесь условия доставки.
-                                        </div>
-                                        <input t:id="delivery" rows="3" class="form-control"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <t:label for="payment">Условия оплаты:</t:label>
-                                        <div class="label-tip">
-                                            Опишите в этом поле как происходит оплата стоимости заказа - предоплата, способы оплаты и тд.
-                                        </div>
-                                        <input t:id="payment" rows="2" class="form-control"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <t:label for="cancellation">Условия отмены:</t:label>
-                                        <div class="label-tip">
-                                            Возможно ли отменить заказ и какую часть предоплаты Вы возвращаете?
-                                        </div>
-                                        <input t:id="cancellation" rows="2" class="form-control"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <t:label for="basketMin">Минимальная стоимость заказа, руб:</t:label>
-                                        <div class="label-tip">
-                                            Мы попросим покупателя дополнить заказ, если стоимость заказа меньше указанной.
-                                        </div>
-                                        <input t:id="basketMin" class="form-control"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <t:label for="prepayment">Предоплата, %:</t:label>
-                                        <input t:id="prepayment" class="form-control" tabindex="4"/>
-                                    </div>
-                                    <div class="form-buttons" xml:space="preserve">
-                                        <input class="btn btn-red" type="submit" value="Сохранить"/>
-                                    </div>
-                                </t:form>
-                            </t:if>
-                        </t:block>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 

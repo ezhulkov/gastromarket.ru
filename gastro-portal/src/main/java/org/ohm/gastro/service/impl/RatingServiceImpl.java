@@ -14,6 +14,7 @@ import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.LogEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
+import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.reps.CatalogRepository;
@@ -144,7 +145,7 @@ public class RatingServiceImpl implements RatingService, Logging {
 
     @Override
     @RatingModifier
-    public void rateCatalog(@RatingTarget final CatalogEntity catalog, final String comment, final int rating, final UserEntity author) {
+    public void rateCatalog(@RatingTarget final CatalogEntity catalog, final String comment, final int rating, final OrderEntity order, final UserEntity author) {
         if (StringUtils.isEmpty(comment) || author == null) return;
         final CommentEntity commentEntity = new CommentEntity();
         commentEntity.setType(CommentEntity.Type.CATALOG);
@@ -154,10 +155,14 @@ public class RatingServiceImpl implements RatingService, Logging {
         commentEntity.setDate(new Date());
         commentEntity.setRating(rating);
         commentRepository.save(commentEntity);
+        if (order != null) {
+            order.setClientRate(true);
+            orderRepository.save(order);
+        }
     }
 
     @Override
-    public void rateClient(final UserEntity user, final String comment, final int rating, final UserEntity author) {
+    public void rateClient(final UserEntity user, final String comment, final int rating, final OrderEntity order, final UserEntity author) {
         if (StringUtils.isEmpty(comment) || user == null) return;
         final CommentEntity commentEntity = new CommentEntity();
         commentEntity.setType(CommentEntity.Type.CUSTOMER);
@@ -167,6 +172,10 @@ public class RatingServiceImpl implements RatingService, Logging {
         commentEntity.setDate(new Date());
         commentEntity.setRating(rating);
         commentRepository.save(commentEntity);
+        if (order != null) {
+            order.setCookRate(true);
+            orderRepository.save(order);
+        }
     }
 
     @Override
@@ -177,14 +186,15 @@ public class RatingServiceImpl implements RatingService, Logging {
         final Date fromDate = DateUtils.addDays(new Date(), -historyDays);
         final List<CommentEntity> ratings = commentRepository.findAllRatings(catalog);
         final List<LogEntity> catalogOps = findEvents(catalog.getUser(), catalog, fromDate);
+        final List<OrderEntity> orders = orderRepository.findAllByCatalog(catalog);
 
         final int productsCount = productRepository.findAllByWasSetupAndCatalog(true, catalog).size();
         final int retentionCount = findEvents(catalog.getUser(), fromDate, Type.LOGIN).size();
         final int posCount = (int) ratings.stream().filter(t -> t.getRating() > 0).count();
         final int negCount = (int) ratings.stream().filter(t -> t.getRating() < 0).count();
         final int totalSum = (int) catalogOps.stream().filter(t -> t.getType() == Type.ORDER_DONE).mapToLong(LogEntity::getCount).sum();
-        final int doneOrdersCount = (int) catalogOps.stream().filter(t -> t.getType() == Type.ORDER_DONE).count();
-        final int totalOrdersCount = orderRepository.findAllByCatalog(catalog).size();
+        final int doneOrdersCount = (int) orders.stream().filter(t -> t.getStatus() == Status.CLOSED).count();
+        final int totalOrdersCount = orders.size();
 
         final Integer prevLevel = catalog.getLevel();
         final int rating = calcRating(productsCount, retentionCount, posCount, negCount, doneOrdersCount, totalOrdersCount, totalSum);

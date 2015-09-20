@@ -10,7 +10,7 @@
                 <div class="row">
                     <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
                         <div class="empty">
-                            У вас нет неоформленных заказов<br/>
+                            У вас нет неоформленных заказов в корзине<br/>
                             Перейдите в
                             <t:pagelink page="catalog/list">каталог</t:pagelink>
                             и начните поиск.

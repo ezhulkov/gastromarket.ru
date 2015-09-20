@@ -21,16 +21,16 @@
                         <t:loop source="statuses" value="status" t:formState="NONE">
                             <t:if test="statusAction">
                                 <div class="row">
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-4 text-right">
                                         <t:actionlink rel="nofollow" t:id="statusChange" t:context="[order.id,status]" t:zone="${orderShowCatalogZoneId}" class="dotted-link f18px">${statusAction}</t:actionlink>
                                     </div>
-                                    <div class="col-xs-8"><i class="f16px text-left">&mdash; ${statusTitle}</i></div>
+                                    <div class="col-xs-8 text-left"><i class="f16px">&mdash; ${statusTitle}</i></div>
                                 </div>
                             </t:if>
                         </t:loop>
                         <t:if test="hasCancel">
                             <t:if test="catalog?.cancellationRaw">
-                                <div class="description gap">
+                                <div class="description gap text-left f14px">
                                     <div class="f18px">Условия отмены:</div>
                                     <t:outputraw value="catalog.cancellationRaw"/>
                                 </div>

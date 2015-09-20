@@ -56,7 +56,7 @@
                     <t:unless test="mainPage">
                         <t:unless test="frontend">
                             <a href="#cook_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#cook_rate_${order.id}">Оценить кулинара</a>
-                            <t:ratecookuser type="CATALOG" catalog="catalog" commentAllowed="true" modalId="cook_rate_${order.id}"/>
+                            <t:ratecookuser type="CATALOG" order="order" catalog="catalog" commentAllowed="true" modalId="cook_rate_${order.id}"/>
                         </t:unless>
                     </t:unless>
                 </t:block>
@@ -64,7 +64,7 @@
                     <t:unless test="mainPage">
                         <t:unless test="frontend">
                             <a href="#client_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#client_rate_${order.id}">Оценить заказчика</a>
-                            <t:ratecookuser type="CUSTOMER" user="order.customer" commentAllowed="true" modalId="client_rate_${order.id}"/>
+                            <t:ratecookuser type="CUSTOMER" order="order" user="order.customer" commentAllowed="true" modalId="client_rate_${order.id}"/>
                         </t:unless>
                     </t:unless>
                 </t:block>

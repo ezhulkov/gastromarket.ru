@@ -45,12 +45,12 @@ public class OrderEntity extends SitemapBaseEntity {
         PROGRESS(
                 4,
                 new Status[]{},
-                new Status[]{Status.DONE, Status.CANCELLED}
+                new Status[]{Status.CLOSED, Status.CANCELLED}
         ),
         CONFIRMED(
                 2,
                 new Status[]{Status.CANCELLED},
-                new Status[]{Status.CANCELLED, Status.PROGRESS}
+                new Status[]{Status.PROGRESS, Status.CANCELLED}
         ),
         ACTIVE(
                 1,
@@ -143,6 +143,28 @@ public class OrderEntity extends SitemapBaseEntity {
 
     @Column(name = "annonce_sent")
     private boolean annonceSent = false;
+
+    @Column(name = "cook_rate")
+    private boolean cookRate = false;
+
+    @Column(name = "client_rate")
+    private boolean clientRate = false;
+
+    public boolean isCookRate() {
+        return cookRate;
+    }
+
+    public void setCookRate(final boolean cookRate) {
+        this.cookRate = cookRate;
+    }
+
+    public boolean isClientRate() {
+        return clientRate;
+    }
+
+    public void setClientRate(final boolean clientRate) {
+        this.clientRate = clientRate;
+    }
 
     public boolean isAnnonceSent() {
         return annonceSent;

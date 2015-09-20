@@ -24,9 +24,9 @@ public interface RatingService extends ImageUploaderService<CommentEntity> {
 
     List<LogEntity> findEvents(UserEntity user, Date dateFrom, Type type);
 
-    void rateCatalog(CatalogEntity catalog, String comment, int rating, UserEntity author);
+    void rateCatalog(CatalogEntity catalog, String comment, int rating, final OrderEntity order, UserEntity author);
 
-    void rateClient(UserEntity user, String comment, int rating, UserEntity author);
+    void rateClient(UserEntity user, String comment, int rating, final OrderEntity order, UserEntity author);
 
     void updateRating(CatalogEntity catalog);
 

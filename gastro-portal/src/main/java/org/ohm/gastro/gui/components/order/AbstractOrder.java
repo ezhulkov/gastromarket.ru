@@ -76,7 +76,9 @@ public abstract class AbstractOrder extends BaseComponent {
     }
 
     public boolean isCanEdit() {
-        return !isCook() && (order == null || order.getStatus() == Status.ACTIVE || order.getStatus() == Status.NEW);
+        return getAuthenticatedUserOpt().
+                map(t -> order == null || (order.getCustomer().equals(t) && (order.getStatus() == Status.ACTIVE || order.getStatus() == Status.NEW)))
+                .orElse(false);
     }
 
     public boolean isOrderCustomer() {
