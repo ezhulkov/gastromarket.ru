@@ -7,6 +7,7 @@ import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.ProductEntity;
+import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.List;
@@ -22,6 +23,9 @@ public class Index extends BaseComponent {
 
     @Property
     private OrderEntity oneTender;
+
+    @Property
+    private PropertyValueEntity onePropertyValue;
 
     @Property
     private ProductEntity oneProduct;
@@ -48,6 +52,11 @@ public class Index extends BaseComponent {
     @Cached
     public List<ProductEntity> getProducts() {
         return getProductService().findPromotedProducts().stream().limit(4).collect(Collectors.toList());
+    }
+
+    @Cached
+    public List<PropertyValueEntity> getPropertyValues() {
+        return getPropertyService().findAllValues(PropertyValueEntity.Tag.ROOT);
     }
 
 }

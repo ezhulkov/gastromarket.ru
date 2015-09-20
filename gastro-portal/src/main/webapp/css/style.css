@@ -2314,6 +2314,50 @@ label.t-error {
   display: inline-block;
 }
 
+.grid-block.categories .item {
+  margin: 7px;
+  width: 200px;
+  height: 186px;
+}
+.grid-block.categories .item .name {
+  line-height: 40px;
+}
+.grid-block.categories .item img {
+  height: 145px;
+  width: 100%;
+  display: block;
+}
+.grid-block.categories .item .category-supy {
+  background: url(../img/category/category-supy-small.jpg) no-repeat 0 0;
+}
+.grid-block.categories .item .category-napitki {
+  background: url(../img/category/category-napitki-small.jpg) no-repeat 0 0;
+}
+.grid-block.categories .item .category-vypechka-i-deserty {
+  background: url(../img/category/category-vypechka-i-deserty-small.jpg) no-repeat 0 0;
+}
+.grid-block.categories .item .category-fermerskaya-eda {
+  background: url(../img/category/category-fermerskaya-eda-small.jpg) no-repeat 0 0;
+}
+.grid-block.categories .item .category-keitering {
+  background: url(../img/category/category-keitering-small.jpg) no-repeat 0 0;
+}
+.grid-block.categories .item .category-garniry {
+  background: url(../img/category/category-garniry-small.jpg) no-repeat 0 0;
+}
+.grid-block.categories .item .category-zakuski-i-burgery {
+  background: url(../img/category/category-zakuski-i-burgery-small.jpg) no-repeat 0 0;
+}
+.grid-block.categories .item .category-salaty {
+  background: url(../img/category/category-salaty-small.jpg) no-repeat 0 0;
+}
+.grid-block.categories .item .category-torty {
+  background: url(../img/category/category-torty-small.jpg) no-repeat 0 0;
+}
+.grid-block.categories .item .category-osnovnye-blyuda {
+  background: url(../img/category/category-osnovnye-blyuda-small.jpg) no-repeat 0 0;
+}
+
 .main-header .tender, .main-footer .tender {
   -webkit-box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.4);
