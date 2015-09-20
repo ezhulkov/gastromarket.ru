@@ -1,35 +1,37 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="${customer.fullName}">
 
-    <div class="container">
-        <div class="title">
-            <h1><span>${customer.fullName}</span></h1>
-        </div>
-        <div class="catalog-item">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-3 text-right">
-                        <img class="pic" src="${customer.avatarUrl}"/>
-
-                        <div class="bottom">
-                            <div class="grey-text f16px">Последний вход на сайт:</div>
-                            <div class="grey-text f16px">${customer.loginDatePrintable}</div>
-                        </div>
+    <section class="catalog-item">
+        <div class="container">
+            <div class="title">
+                <h1><span>${customer.fullName}</span></h1>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pic-block">
+                    <img class="pic" src="${customer.avatarUrl}"/>
+                    <div class="bottom">
+                        <div class="grey-text f16px">Последний вход на сайт:</div>
+                        <div class="grey-text f16px">${customer.loginDatePrintable}</div>
                     </div>
-                    <div class="col-sm-9 text-left">
-                        <t:ratings customer="customer"/>
-                    </div>
+                </div>
+                <div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">
+                    <t:ratings customer="customer"/>
                 </div>
             </div>
         </div>
-        <div class="title">
-            <h1><span>Отзывы о пользователе</span></h1>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="title">
+                <h1><span>Отзывы о пользователе</span></h1>
+            </div>
+            <t:if test="comments">
+                <t:comments comments="comments"/>
+                <t:parameter name="else">
+                    <div class="empty">Нет отзывов</div>
+                </t:parameter>
+            </t:if>
         </div>
-        <t:if test="comments">
-            <t:comments comments="comments"/>
-            <t:parameter name="else">
-                <div class="empty">Нет отзывов</div>
-            </t:parameter>
-        </t:if>
-    </div>
+    </section>
 
 </t:layout>
