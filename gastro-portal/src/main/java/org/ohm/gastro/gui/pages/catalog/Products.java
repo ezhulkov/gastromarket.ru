@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.pages.catalog;
 
+import com.google.common.collect.Lists;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
@@ -80,8 +81,8 @@ public class Products extends BaseComponent {
         return catalog == null ? null :
                 new Object[]{
                         catalog.getId(),
-                        propertyValue == null ? null : propertyValue.getAltId(),
                         parentPropertyValue == null ? null : parentPropertyValue.getAltId(),
+                        propertyValue == null ? null : propertyValue.getAltId(),
                         orderType == null ? null : orderType.name().toLowerCase(),
                         direction == null ? null : direction.name().toLowerCase()};
     }
@@ -111,6 +112,7 @@ public class Products extends BaseComponent {
     }
 
     public java.util.List<PropertyValueEntity> getRootProperties() {
+        if (propertyValue != null) return Lists.newArrayList(propertyValue);
         return getProductService().findAllRootValues(catalog, isCatalogOwner() ? null : true).stream()
                 .flatMap(t -> t.getParents().isEmpty() ? Stream.of(t) : t.getParents().stream())
                 .distinct()
