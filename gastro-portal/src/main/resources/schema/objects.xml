@@ -874,4 +874,9 @@
         </sql>
     </changeSet>
 
+    <changeSet id="76" author="ezhulkov">
+        <dropColumn tableName="orders" columnName="cook_rate"/>
+        <dropColumn tableName="orders" columnName="client_rate"/>
+    </changeSet>
+
 </databaseChangeLog>

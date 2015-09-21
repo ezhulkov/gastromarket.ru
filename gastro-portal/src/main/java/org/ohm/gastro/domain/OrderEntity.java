@@ -144,28 +144,6 @@ public class OrderEntity extends SitemapBaseEntity {
     @Column(name = "annonce_sent")
     private boolean annonceSent = false;
 
-    @Column(name = "cook_rate")
-    private boolean cookRate = false;
-
-    @Column(name = "client_rate")
-    private boolean clientRate = false;
-
-    public boolean isCookRate() {
-        return cookRate;
-    }
-
-    public void setCookRate(final boolean cookRate) {
-        this.cookRate = cookRate;
-    }
-
-    public boolean isClientRate() {
-        return clientRate;
-    }
-
-    public void setClientRate(final boolean clientRate) {
-        this.clientRate = clientRate;
-    }
-
     public boolean isAnnonceSent() {
         return annonceSent;
     }

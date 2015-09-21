@@ -87,10 +87,10 @@ public class Order extends AbstractOrder {
             return isCanReplyTender() ? tenderReplyBlock : catalogAttachedBlock;
         }
         if (!isCook()) {
-            if (order.getMetaStatus() == Status.CLOSED) return order.isClientRate() ? null : clientRateCook;
+            if (order.getMetaStatus() == Status.CLOSED) return clientRateCook;
             if (isCanEdit()) return clientEditBlock;
         } else {
-            if (order.getMetaStatus() == Status.CLOSED) return order.isCookRate() ? null : cookRateClient;
+            if (order.getMetaStatus() == Status.CLOSED) return cookRateClient;
         }
         return null;
     }

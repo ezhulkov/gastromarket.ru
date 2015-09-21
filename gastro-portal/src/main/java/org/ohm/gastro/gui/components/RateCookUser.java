@@ -52,12 +52,10 @@ public class RateCookUser extends BaseComponent {
         if (type == Type.CATALOG) {
             getRatingService().rateCatalog(getCatalogService().findCatalog(cId),
                                            rateComment, opinion ? 1 : -1,
-                                           getOrderService().findOrder(oId),
                                            getAuthenticatedUserOpt().orElse(null));
         } else {
             getRatingService().rateClient(getUserService().findUser(uId),
                                           rateComment, opinion ? 1 : -1,
-                                          getOrderService().findOrder(oId),
                                           getAuthenticatedUserOpt().orElse(null));
         }
     }

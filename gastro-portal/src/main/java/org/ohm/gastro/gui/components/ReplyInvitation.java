@@ -21,11 +21,13 @@ public class ReplyInvitation extends BaseComponent {
                 getComponentResources().getPage() instanceof Orders) return null;
         final Stream<OrderEntity> closedOrders =
                 isCook() ?
-                        getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream().
-                                flatMap(t -> getOrderService().findAllOrders(t, Status.CLOSED).stream()) :
-                        getOrderService().findAllOrders(getAuthenticatedUser(), null).stream()
-                                .filter(t -> t.getStatus() == Status.CLOSED);
-        return closedOrders.filter(t -> isCook() ? !t.isCookRate() : !t.isClientRate()).findFirst().orElse(null);
+                        getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream().flatMap(t -> getOrderService().findAllOrders(t, Status.CLOSED).stream()) :
+                        getOrderService().findAllOrders(getAuthenticatedUser(), null).stream().filter(t -> t.getStatus() == Status.CLOSED);
+        return closedOrders.filter(t ->
+                                           isCook() ?
+                                                   getRatingService().findAllComments(t.getCustomer()).isEmpty() :
+                                                   getRatingService().findAllComments(t.getCatalog()).isEmpty())
+                .findFirst().orElse(null);
     }
 
 }
