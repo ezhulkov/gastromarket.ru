@@ -185,6 +185,7 @@ public class OrderServiceImpl implements OrderService, Logging {
         if (order.getCatalog() != null) return order;
         order.setCatalog(catalog);
         order.setStatus(Status.CONFIRMED);
+        order.setAttachTime(new Date());
         saveOrder(order, caller);
         try {
             final Map<String, Object> params = new HashMap<String, Object>() {

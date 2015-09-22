@@ -85,7 +85,17 @@ public class Comments extends BaseComponent {
 
     @Cached(watch = "comment")
     public java.util.List<CommentEntity> getChildren() {
-        return getRatingService().findAllComments(comment).stream().sorted((o1, o2) -> o1.getDate().compareTo(o2.getDate())).collect(Collectors.toList());
+        final OrderEntity order = comment.getOrder();
+        return getRatingService().findAllComments(comment).stream()
+                .sorted((o1, o2) -> o1.getDate().compareTo(o2.getDate()))
+                .filter(t -> order == null ||
+                                order.getCatalog() == null ||
+                                order.getAttachTime() == null ||
+                                getAuthenticatedUserOpt().map(u -> u.equals(comment.getAuthor())).orElse(false) ||
+                                getAuthenticatedUserOpt().map(u -> u.equals(order.getCustomer())).orElse(false) ||
+                                order.getCatalog() != null && t.getDate().before(order.getAttachTime())
+                )
+                .collect(Collectors.toList());
     }
 
     public boolean isOrderUser() {

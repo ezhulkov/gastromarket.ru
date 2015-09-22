@@ -888,4 +888,13 @@
         </sql>
     </changeSet>
 
+    <changeSet id="78" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="attach_time" type="java.sql.Types.TIMESTAMP"/>
+        </addColumn>
+        <sql>
+            update orders set attach_time=now() where status='CLOSED';
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

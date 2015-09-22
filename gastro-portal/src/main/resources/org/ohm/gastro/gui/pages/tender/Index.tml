@@ -25,7 +25,7 @@
                     <t:order.order order="order" replies="true" type="FULL" privateOrders="false" mainPage="true" reloadPage="true" frontend="true"/>
                 </div>
             </div>
-            <t:order.replies order="order" reply="true"/>
+            <t:order.replies order="order" frontend="true" reply="true"/>
         </t:block>
     </div>
 

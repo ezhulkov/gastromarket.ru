@@ -110,6 +110,9 @@ public class OrderEntity extends SitemapBaseEntity {
     @Column(name = "due_date")
     private Date dueDate;
 
+    @Column(name = "attach_time")
+    private Date attachTime;
+
     @Column(name = "views_count")
     private Integer viewsCount = 0;
 
@@ -340,5 +343,13 @@ public class OrderEntity extends SitemapBaseEntity {
 
     public void setViewsCount(Integer viewsCount) {
         this.viewsCount = viewsCount;
+    }
+
+    public Date getAttachTime() {
+        return attachTime;
+    }
+
+    public void setAttachTime(Date attachTime) {
+        this.attachTime = attachTime;
     }
 }
