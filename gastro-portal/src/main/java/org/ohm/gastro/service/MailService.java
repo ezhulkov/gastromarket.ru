@@ -12,6 +12,8 @@ import java.util.Map;
  */
 public interface MailService {
 
+    String CATALOG_RATE = "catalog_rate";
+    String USER_RATE = "user_rate";
     String CHANGE_PASSWD = "change_passwd";
     String NEW_CATALOG = "new_catalog";
     String NEW_USER = "new_user";

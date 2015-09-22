@@ -155,6 +155,14 @@ public class RatingServiceImpl implements RatingService, Logging {
         commentEntity.setDate(new Date());
         commentEntity.setRating(rating);
         commentRepository.save(commentEntity);
+        final Map<String, Object> params = new HashMap<String, Object>() {
+            {
+                put("address", catalog.getFullUrl());
+                put("text", comment);
+                put("username", catalog.getUser().getFullName());
+            }
+        };
+        mailService.sendMailMessage(catalog.getUser().getEmail(), MailService.CATALOG_RATE, params);
     }
 
     @Override
@@ -168,6 +176,14 @@ public class RatingServiceImpl implements RatingService, Logging {
         commentEntity.setDate(new Date());
         commentEntity.setRating(rating);
         commentRepository.save(commentEntity);
+        final Map<String, Object> params = new HashMap<String, Object>() {
+            {
+                put("address", user.getFullUrl());
+                put("text", comment);
+                put("username", user.getFullName());
+            }
+        };
+        mailService.sendMailMessage(user.getEmail(), MailService.USER_RATE, params);
     }
 
     @Override

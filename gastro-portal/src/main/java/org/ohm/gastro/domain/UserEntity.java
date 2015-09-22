@@ -293,6 +293,10 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
         return this.bonus;
     }
 
+    public String getFullUrl() {
+        return "http://gastromarket.ru/user/" + getId();
+    }
+
     public boolean isSubscribeEmail() {
         return subscribeEmail;
     }

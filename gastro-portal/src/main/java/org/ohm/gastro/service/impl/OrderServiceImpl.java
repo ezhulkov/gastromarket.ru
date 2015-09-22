@@ -111,11 +111,14 @@ public class OrderServiceImpl implements OrderService, Logging {
                         put("cook", order.getCatalog());
                         put("total", order.getTotalPrice());
                         put("address", order.getOrderUrl());
+                        put("order", order);
                     }
                 };
                 mailService.sendAdminMessage(MailService.NEW_ORDER_ADMIN, params);
                 params.put("username", order.getCatalog().getUser().getFullName());
                 mailService.sendMailMessage(order.getCatalog().getUser(), MailService.NEW_ORDER_COOK, params);
+                params.put("username", order.getCustomer().getFullName());
+                mailService.sendMailMessage(order.getCustomer(), MailService.NEW_ORDER_CUSTOMER, params);
             } catch (MailException e) {
                 logger.error("", e);
             }
@@ -213,6 +216,7 @@ public class OrderServiceImpl implements OrderService, Logging {
                 put("total", ObjectUtils.defaultIfNull(tender.getTotalPrice(), "-"));
                 put("date", ObjectUtils.defaultIfNull(tender.getDatePrintable(), "-"));
                 put("address", tender.getOrderUrl());
+                put("tender", tender);
             }
         };
         params.put("username", tender.getCustomer().getFullName());
@@ -288,6 +292,7 @@ public class OrderServiceImpl implements OrderService, Logging {
                 put("ordernumber", order.getOrderNumber());
                 put("status", status);
                 put("address", order.getOrderUrl());
+                put("order", order);
             }
         };
         if (status == Status.CLOSED) {
