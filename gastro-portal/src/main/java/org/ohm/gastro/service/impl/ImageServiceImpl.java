@@ -43,6 +43,7 @@ public class ImageServiceImpl implements ImageService {
                     .put(ImageSize.SIZE1, new Integer[]{100, 100})
                     .put(ImageSize.SIZE2, new Integer[]{270, 270})
                     .put(ImageSize.SIZE3, new Integer[]{560, 404})
+                    .put(ImageSize.SIZE4, new Integer[]{1000, 720})
                     .build())
             .put(FileType.CATALOG, new ImmutableMap.Builder<ImageSize, Integer[]>()
                     .put(ImageSize.SIZE1, new Integer[]{23, 23})

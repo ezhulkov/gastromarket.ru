@@ -14,7 +14,9 @@
                                 <a class="edit" data-toggle="modal" data-target="#pr-edit" href="#pr-edit"/>
                             </div>
                         </t:if>
-                        <img src="${product.avatarUrl}"/>
+                        <a data-toggle="modal" data-target="#img-big" href="#img-big">
+                            <img alt="${product.name}" title="${product.name}" src="${product.avatarUrl}"/>
+                        </a>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
@@ -59,6 +61,21 @@
         <t:if test="catalogOwner">
             <t:productEdit modalId="pr-edit" product="product" catalog="product.catalog" reloadPage="true"/>
         </t:if>
+        <div class="modal fade" id="img-big" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog image-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="title">
+                            <h1><span>${product.name}</span></h1>
+                        </div>
+                        <a class="modal-close" data-dismiss="modal"></a>
+                    </div>
+                    <div class="modal-body">
+                        <img alt="${product.name}" title="${product.name}" src="${product.avatarUrlBig}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section>

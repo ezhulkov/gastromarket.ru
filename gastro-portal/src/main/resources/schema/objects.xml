@@ -879,4 +879,13 @@
         <dropColumn tableName="orders" columnName="client_rate"/>
     </changeSet>
 
+    <changeSet id="77" author="ezhulkov">
+        <addColumn tableName="product">
+            <column name="avatar_url_big" type="text"/>
+        </addColumn>
+        <sql>
+            update product set avatar_url_big=avatar_url;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

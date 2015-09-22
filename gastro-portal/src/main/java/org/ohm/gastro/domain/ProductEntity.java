@@ -73,6 +73,9 @@ public class ProductEntity extends SitemapBaseEntity implements PurchaseEntity {
     @Column(name = "avatar_url")
     private String avatarUrl = "/img/product-stub-560x404.png";
 
+    @Column(name = "avatar_url_big")
+    private String avatarUrlBig = "/img/product-stub-1000x720.png";
+
     @Column(name = "avatar_url_medium")
     private String avatarUrlMedium = "/img/product-stub-270x270.png";
 
@@ -245,4 +248,11 @@ public class ProductEntity extends SitemapBaseEntity implements PurchaseEntity {
         return "http://gastromarket.ru/product/" + getAltId();
     }
 
+    public String getAvatarUrlBig() {
+        return avatarUrlBig;
+    }
+
+    public void setAvatarUrlBig(String avatarUrlBig) {
+        this.avatarUrlBig = avatarUrlBig;
+    }
 }

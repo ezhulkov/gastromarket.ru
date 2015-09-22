@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public interface ImageService {
 
-    enum ImageSize {SIZE1, SIZE2, SIZE3}
+    enum ImageSize {SIZE1, SIZE2, SIZE3, SIZE4}
 
     enum FileType {AVATAR, PRODUCT, CATALOG, ORDER, COMMENT}
 

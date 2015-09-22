@@ -64,7 +64,9 @@
                                                                         <tbody>
                                                                         <tr>
                                                                             <td valign="top" style="color:#000000;font-family:Verdana,Geneva,sans-serif;line-height:200%;text-align:right;font-size:15px">
-                                                                                <div dir="ltr" style="margin-top:15px"><span style="font-size:22px;color: #444;"><span style="font-family:tahoma,verdana,segoe,sans-serif">ГастроМаркет -&nbsp;Всё готово!</span></span></div>
+                                                                                <div dir="ltr" style="margin-top:15px">
+                                                                                    <span style="font-size:22px;color: #444;"><span style="font-family:tahoma,verdana,segoe,sans-serif">ГастроМаркет -&nbsp;Всё готово!</span></span>
+                                                                                </div>
 
                                                                             </td>
                                                                         </tr>
@@ -105,10 +107,19 @@
 
                                                                 <td valign="top" style="padding-top:9px;padding-right:18px;padding-bottom:9px;padding-left:18px;color:#606060;font-family:Helvetica;font-size:15px;line-height:150%;text-align:left">
 
-                                                                    #if( $toadmin )
-                                                                        <h1 style="margin:20px 0 0 0;padding:0;display:block;font-family:Helvetica;font-size:40px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:-1px;text-align:left;color:#555!important"><span style="font-size:24px"><span style="line-height:1.6em">Привет!</span></span></h1>
+                                                                    #if( ${toadmin} )
+                                                                        <h1 style="margin:20px 0 0 0;padding:0;display:block;font-family:Helvetica;font-size:40px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:-1px;text-align:left;color:#555!important">
+                                                                            <span style="font-size:24px"><span style="line-height:1.6em">Привет!</span></span></h1>
                                                                     #else
-                                                                        <h1 style="margin:20px 0 0 0;padding:0;display:block;font-family:Helvetica;font-size:40px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:-1px;text-align:left;color:#555!important"><span style="font-size:24px"><span style="line-height:1.6em">Здравствуйте, $username</span></span></h1>
+                                                                        <h1 style="margin:20px 0 0 0;padding:0;display:block;font-family:Helvetica;font-size:40px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:-1px;text-align:left;color:#555!important">
+                                                                            <span style="font-size:24px">
+                                                                                #if( !${username} )
+                                                                                    <span style="line-height:1.6em">Здравствуйте, ${username}</span>
+                                                                                #else
+                                                                                    <span style="line-height:1.6em">Здравствуйте,</span>
+                                                                                #end
+                                                                            </span>
+                                                                        </h1>
                                                                     #end
 
                                                                     <div style="margin:0.5em 0;padding:0;color:#606060;font-family:Helvetica;font-size:15px;line-height:125%;text-align:left">

@@ -99,6 +99,7 @@ public class ProductServiceImpl implements ProductService, Logging {
         product.setAvatarUrlSmall(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE1), product.getAvatarUrlSmall()));
         product.setAvatarUrlMedium(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE2), product.getAvatarUrlMedium()));
         product.setAvatarUrl(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE3), product.getAvatarUrl()));
+        product.setAvatarUrlBig(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE4), product.getAvatarUrlBig()));
 
         return productRepository.saveAndFlush(product);
 
