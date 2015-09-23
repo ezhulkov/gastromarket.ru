@@ -15,6 +15,9 @@ public class Layout extends BaseComponent {
     @Parameter(name = "title", required = false)
     private String title;
 
+    @Parameter(name = "description", required = false)
+    private String description;
+
     @Parameter(name = "keywords", required = false)
     private String keywords;
 
@@ -30,7 +33,7 @@ public class Layout extends BaseComponent {
     private Block bottomBlock;
 
     public String getDescription() {
-        return getMessages().get("page.description");
+        return (String) ObjectUtils.defaultIfNull(description, getMessages().get("page.description"));
     }
 
     public String getTitle() {

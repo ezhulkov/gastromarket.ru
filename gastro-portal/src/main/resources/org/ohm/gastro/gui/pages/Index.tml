@@ -28,7 +28,7 @@
                     <p><strong>Заявку увидят более 200 кулинаров.</strong></p>
                 </div>
                 <div class="col-lg-4 col-lg-offset-0 col-md-4 col-md-offset-0 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 text-center f16px">
-                    <img src="/img/chef-256x256.png" alt="тендер" title="тендер"/>
+                    <img src="/img/chef-256x256.png" alt="тендер" title="конкурс"/>
                     <p>Кулинары оставляют отклики к заявке, описывают условия выполнения и показывают своё портфолио блюд и услуг.</p>
                     <p><strong>Вам нужно только выбрать лучшего.</strong></p>
                 </div>
@@ -48,7 +48,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-2 col-xs-12 text-center">
-                    <a href="http://gastromarket.ru/catalog/jazzcook"><img src="/img/comment2.jpg" alt="аватар"/></a>
+                    <a href="http://gastromarket.ru/catalog/jazzcook"><img src="/img/comment2.jpg" alt="JazzCook"/></a>
                     <br/>
                     <br/>
                 </div>
@@ -64,7 +64,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-2 col-xs-12 text-center">
-                    <a href="gastromarket.ru/catalog/vilki-v-storonu"><img src="/img/comment1.jpg" alt="лого"/></a>
+                    <a href="gastromarket.ru/catalog/vilki-v-storonu"><img src="/img/comment1.jpg" alt="Вилки в сторону"/></a>
                     <br/>
                     <br/>
                 </div>
@@ -106,7 +106,7 @@
                 <t:loop source="cooks" value="oneCook">
                     <div class="item">
                         <t:pagelink page="catalog/index" context="oneCook.altId">
-                            <img src="${oneCook.avatarUrl}"/>
+                            <img alt="${oneCook.name}" title="${oneCook.name}" src="${oneCook.avatarUrl}"/>
                         </t:pagelink>
                         <t:pagelink page="catalog/index" context="oneCook.altId" class="name f18px">
                             ${oneCook.name}
@@ -127,7 +127,7 @@
                 <t:loop source="products" value="oneProduct">
                     <div class="item">
                         <t:pagelink page="product/index" context="oneProduct.altId">
-                            <img src="${oneProduct.avatarUrlMedium}"/>
+                            <img alt="${oneProduct.name}" title="${oneProduct.name}" src="${oneProduct.avatarUrlMedium}"/>
                         </t:pagelink>
                         <t:pagelink page="product/index" context="oneProduct.altId" class="name f20px">
                             ${oneProduct.name}
@@ -151,7 +151,7 @@
                 <t:loop source="propertyValues" value="onePropertyValue">
                     <div class="item">
                         <t:pagelink page="product/list" context="onePropertyValue.altId" class="category">
-                            <img class="category-${onePropertyValue.altId}"/>
+                            <img alt="${onePropertyValue.name}" title="${onePropertyValue.name}" class="category-${onePropertyValue.altId}"/>
                         </t:pagelink>
                         <t:pagelink page="product/list" context="onePropertyValue.altId" class="name f18px">
                             ${onePropertyValue.name}

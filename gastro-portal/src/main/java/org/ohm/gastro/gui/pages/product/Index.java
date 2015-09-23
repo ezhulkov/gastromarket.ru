@@ -70,6 +70,7 @@ public class Index extends BaseComponent {
                                     product.getName(),
                                     getProductTags().stream().map(TagEntity::getData)
                                             .filter(Objects::nonNull)
+                                            .map(String::toLowerCase)
                                             .collect(Collectors.joining(", ")));
     }
 

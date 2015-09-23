@@ -1,4 +1,4 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="${catalog?.name}" keywords="${keywords}" socialImage="${catalog?.avatarUrl}">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="${catalog.name}" description="${catalog.description}" keywords="${keywords}" socialImage="${catalog?.avatarUrl}">
 
     <section class="catalog-item">
         <div class="container">
@@ -92,7 +92,7 @@
                     <t:if test="catalogOwner">
                         <t:uploadfile type="CATALOG" responseSize="SIZE3" imageUrl="${catalog.avatarUrl}" objectId="${catalog.id}"/>
                         <t:parameter name="else">
-                            <img class="pic" src="${catalog.avatarUrl}"/>
+                            <img title="${catalog.name}" alt="${catalog.name}" class="pic" src="${catalog.avatarUrl}"/>
                         </t:parameter>
                     </t:if>
                     <div class="bottom">
