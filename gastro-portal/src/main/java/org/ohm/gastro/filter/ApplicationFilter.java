@@ -1,5 +1,6 @@
 package org.ohm.gastro.filter;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.ohm.gastro.trait.Logging;
 import org.ohm.gastro.util.CommonsUtils;
 import org.perf4j.slf4j.Slf4JStopWatch;
@@ -30,12 +31,11 @@ public class ApplicationFilter extends BaseApplicationFilter {
         Slf4JStopWatch stopWatch = null;
 
         if (needToLog) {
-            String servletPath = httpServletRequest.getServletPath();
-            String userAgent = httpServletRequest.getHeader("User-Agent");
-            userAgent = userAgent == null ? "" : userAgent.toLowerCase();
-            Long opNumber = opCounter.incrementAndGet();
-            String sid = httpServletRequest.getSession(false) == null ? "-" : httpServletRequest.getSession(false).getId();
-            String uid = userAgent.contains("bot") ? "BOT" :
+            final String servletPath = httpServletRequest.getServletPath();
+            final String userAgent = ((String) ObjectUtils.defaultIfNull(httpServletRequest.getHeader("User-Agent"), "-")).toLowerCase();
+            final Long opNumber = opCounter.incrementAndGet();
+            final String sid = httpServletRequest.getSession(false) == null ? "-" : httpServletRequest.getSession(false).getId();
+            final String uid = userAgent.contains("bot") ? "BOT" :
                     SecurityContextHolder.getContext().getAuthentication() == null ?
                             "-" :
                             SecurityContextHolder.getContext().getAuthentication().getName();
