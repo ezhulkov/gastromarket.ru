@@ -18,6 +18,9 @@
                   orderType="orderType"
                   direction="direction"
                   pageContext="/catalog/products/${catalog.altId}"/>
+    </div>
+
+    <div class="container flexible">
         <t:zone t:id="productsZone">
             <t:delegate to="productsBlock"/>
         </t:zone>

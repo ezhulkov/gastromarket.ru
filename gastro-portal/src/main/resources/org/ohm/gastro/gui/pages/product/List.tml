@@ -6,7 +6,8 @@
         </div>
 
         <t:filter parentValue="parentPropertyValue" value="propertyValue" orderType="orderType" direction="direction" pageContext="literal:/product/list"/>
-
+    </div>
+    <div class="container flexible">
         <div id="product-items" class="grid-block products"/>
         <t:zone t:id="productsZone">
             <t:delegate to="productsBlock"/>

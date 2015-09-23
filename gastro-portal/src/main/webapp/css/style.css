@@ -81,6 +81,20 @@ section,
   min-width: 590px;
 }
 
+.container.flexible {
+  width: 1140px;
+}
+@media (min-width: 1920px) {
+  .container.flexible {
+    width: 1450px;
+  }
+}
+@media (min-width: 2560px) {
+  .container.flexible {
+    width: 1770px;
+  }
+}
+
 .rub {
   display: inline !important;
 }
@@ -2407,11 +2421,13 @@ label.t-error {
 }
 
 .main-header {
-  background: url(../img/landing-main.jpg) fixed center top no-repeat;
+  background: url(../img/landing-main.jpg) fixed left bottom no-repeat;
+  background-size: cover;
 }
 
 .main-footer {
   background: url(../img/landing-main5.jpg) center top no-repeat;
+  background-size: cover;
 }
 .main-footer h2 {
   -webkit-box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.4);
