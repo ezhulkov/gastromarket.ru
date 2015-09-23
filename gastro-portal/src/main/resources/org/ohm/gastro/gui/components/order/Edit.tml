@@ -119,7 +119,7 @@
                     <div class="row gap">
                         <p class="modal-text f14px">
                             Размещая заявку, вы соглашаетесь c условиями<br/>
-                            <a href="/agreement" target="_tab" class="red-text f14px">пользовательского соглашения</a> и
+                            <a href="/agreement" target="_tab" class="red-text f14px">публичной оферты</a> и
                             <a href="/confident" target="_tab" class="red-text f14px">политики конфиденциальности</a>
                         </p>
                     </div>
