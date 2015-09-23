@@ -897,4 +897,23 @@
         </sql>
     </changeSet>
 
+    <changeSet id="79" author="ezhulkov">
+        <modifyDataType tableName="product" columnName="name" newDataType="text"/>
+        <modifyDataType tableName="product" columnName="description" newDataType="text"/>
+        <modifyDataType tableName="product" columnName="avatar_url" newDataType="text"/>
+        <modifyDataType tableName="product" columnName="avatar_url_small" newDataType="text"/>
+        <modifyDataType tableName="product" columnName="avatar_url_medium" newDataType="text"/>
+        <modifyDataType tableName="product" columnName="avatar_url_big" newDataType="text"/>
+        <modifyDataType tableName="product" columnName="alt_id" newDataType="text"/>
+    </changeSet>
+
+    <changeSet id="80" author="ezhulkov">
+        <modifyDataType tableName="catalog" columnName="name" newDataType="text"/>
+        <modifyDataType tableName="product" columnName="description" newDataType="text"/>
+        <modifyDataType tableName="product" columnName="avatar_url" newDataType="text"/>
+        <modifyDataType tableName="product" columnName="avatar_url_small" newDataType="text"/>
+        <modifyDataType tableName="product" columnName="avatar_url_medium" newDataType="text"/>
+        <modifyDataType tableName="product" columnName="alt_id" newDataType="text"/>
+    </changeSet>
+
 </databaseChangeLog>

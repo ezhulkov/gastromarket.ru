@@ -151,7 +151,7 @@
                 <t:loop source="propertyValues" value="onePropertyValue">
                     <div class="item">
                         <t:pagelink page="product/list" context="onePropertyValue.altId" class="category">
-                            <img alt="${onePropertyValue.name}" title="${onePropertyValue.name}" class="category-${onePropertyValue.altId}"/>
+                            <img alt="${onePropertyValue.name}" title="${onePropertyValue.name}" src="/img/category/category-${onePropertyValue.altId}-small.jpg"/>
                         </t:pagelink>
                         <t:pagelink page="product/list" context="onePropertyValue.altId" class="name f18px">
                             ${onePropertyValue.name}

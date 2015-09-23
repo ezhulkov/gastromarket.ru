@@ -1,7 +1,6 @@
 @import ../include/var
 @import ../modules/grid
 
-$categories: supy napitki vypechka-i-deserty fermerskaya-eda keitering garniry zakuski-i-burgery salaty torty osnovnye-blyuda
 $mainpics: main1 main2 main3 main4 main5 main6 main7 main8
 
 .grid-block.categories
@@ -15,9 +14,6 @@ $mainpics: main1 main2 main3 main4 main5 main6 main7 main8
       height: 145px
       width: 100%
       display: block
-    @each $category in $categories
-      .category-#{$category}
-        background: url(../img/category/category-#{$category}-small.jpg) no-repeat 0 0
 
 .main-header, .main-footer
   .tender
@@ -46,8 +42,10 @@ $mainpics: main1 main2 main3 main4 main5 main6 main7 main8
     line-height: 30px
 
 .main-header
-  background: url(../img/landing-main.jpg) fixed left bottom no-repeat
-  background-size: cover
+  background: url(../img/landing-main.jpg) center center no-repeat
+  body.desktop &
+    background: url(../img/landing-main.jpg) fixed center center no-repeat
+    background-size: cover
 
 .main-footer
   background: url(../img/landing-main5.jpg) center top no-repeat

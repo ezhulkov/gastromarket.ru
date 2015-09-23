@@ -78,11 +78,11 @@ header,
 footer,
 section,
 .container {
-  min-width: 590px;
+  min-width: 640px;
 }
 
 .container.flexible {
-  width: 1140px;
+  width: 1170px;
 }
 @media (min-width: 1920px) {
   .container.flexible {
@@ -297,6 +297,17 @@ body.mobile .rub:after {
   .fluid-md-block > div {
     float: none;
   }
+}
+
+.avatar-small {
+  width: 23px;
+  height: 23px;
+  border-radius: 11px;
+  margin-right: 7px;
+}
+
+.label-checkbox-set input {
+  margin-left: 10px;
 }
 
 .catalog-item .pic-block {
@@ -1060,21 +1071,16 @@ body.modal-open {
   background: white;
   border-bottom: 1px solid #eee;
 }
-
-.navbar,
-.navbar a,
-.navbar a:hover {
+.navbar a, .navbar a:hover {
   color: #269398;
   font-family: "PT Sans", sans-serif;
 }
-
 .navbar:after {
   margin-bottom: -55px;
   min-height: 55px;
   width: 100%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(30, 30, 30, 0.1)), to(rgba(255, 255, 255, 0)));
 }
-
 .navbar .container {
   padding: 0 12px;
   height: 55px;
@@ -1098,22 +1104,10 @@ body.modal-open {
 .navbar .pic-holder.basket span:first-child {
   background-position-x: -110px;
 }
-
-.header-block {
+.navbar .header-block {
   position: relative;
   line-height: 55px;
   margin-left: 20px;
-}
-
-.avatar-small {
-  width: 23px;
-  height: 23px;
-  border-radius: 11px;
-  margin-right: 7px;
-}
-
-.label-checkbox-set input {
-  margin-left: 10px;
 }
 
 .footer {
@@ -2354,36 +2348,6 @@ label.t-error {
   width: 100%;
   display: block;
 }
-.grid-block.categories .item .category-supy {
-  background: url(../img/category/category-supy-small.jpg) no-repeat 0 0;
-}
-.grid-block.categories .item .category-napitki {
-  background: url(../img/category/category-napitki-small.jpg) no-repeat 0 0;
-}
-.grid-block.categories .item .category-vypechka-i-deserty {
-  background: url(../img/category/category-vypechka-i-deserty-small.jpg) no-repeat 0 0;
-}
-.grid-block.categories .item .category-fermerskaya-eda {
-  background: url(../img/category/category-fermerskaya-eda-small.jpg) no-repeat 0 0;
-}
-.grid-block.categories .item .category-keitering {
-  background: url(../img/category/category-keitering-small.jpg) no-repeat 0 0;
-}
-.grid-block.categories .item .category-garniry {
-  background: url(../img/category/category-garniry-small.jpg) no-repeat 0 0;
-}
-.grid-block.categories .item .category-zakuski-i-burgery {
-  background: url(../img/category/category-zakuski-i-burgery-small.jpg) no-repeat 0 0;
-}
-.grid-block.categories .item .category-salaty {
-  background: url(../img/category/category-salaty-small.jpg) no-repeat 0 0;
-}
-.grid-block.categories .item .category-torty {
-  background: url(../img/category/category-torty-small.jpg) no-repeat 0 0;
-}
-.grid-block.categories .item .category-osnovnye-blyuda {
-  background: url(../img/category/category-osnovnye-blyuda-small.jpg) no-repeat 0 0;
-}
 
 .main-header .tender, .main-footer .tender {
   -webkit-box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.4);
@@ -2421,7 +2385,10 @@ label.t-error {
 }
 
 .main-header {
-  background: url(../img/landing-main.jpg) fixed left bottom no-repeat;
+  background: url(../img/landing-main.jpg) center center no-repeat;
+}
+body.desktop .main-header {
+  background: url(../img/landing-main.jpg) fixed center center no-repeat;
   background-size: cover;
 }
 
