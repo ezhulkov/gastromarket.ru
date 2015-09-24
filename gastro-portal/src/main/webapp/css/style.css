@@ -792,6 +792,7 @@ body.modal-open {
 
 .product-item {
   display: none;
+  vertical-align: top;
   position: relative;
 }
 .product-item .pic {

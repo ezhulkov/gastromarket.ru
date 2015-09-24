@@ -14,6 +14,7 @@ jQuery.noConflict();
             });
         });
     }
+    Effect.DefaultOptions.duration = 0.1;
     var originalHide = Element.hide;
     Element.addMethods({
         hide: function (element) {
