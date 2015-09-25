@@ -1,6 +1,6 @@
 <configuration>
 
-    <property name="PATTERN" value="[%d{HH:mm:ss.SSS}][%-5level][%X{ip}][%X{sid}][%X{uid}][%X{op}] - %msg%n"/>
+    <property name="PATTERN" value="[%d{HH:mm:ss.SSS}][%-5level][%X{ip}][%X{referer}][%X{sid}][%X{uid}] - %msg%n"/>
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
