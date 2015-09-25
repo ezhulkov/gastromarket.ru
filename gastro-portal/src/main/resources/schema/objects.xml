@@ -916,4 +916,16 @@
         <modifyDataType tableName="product" columnName="alt_id" newDataType="text"/>
     </changeSet>
 
+    <changeSet id="81" author="ezhulkov">
+        <modifyDataType tableName="property_value" columnName="name" newDataType="text"/>
+        <modifyDataType tableName="property_value" columnName="alt_id" newDataType="text"/>
+        <modifyDataType tableName="comment" columnName="text" newDataType="text"/>
+        <modifyDataType tableName="catalog" columnName="alt_id" newDataType="text"/>
+        <modifyDataType tableName="offer" columnName="alt_id" newDataType="text"/>
+        <modifyDataType tableName="offer" columnName="name" newDataType="text"/>
+        <modifyDataType tableName="offer" columnName="description" newDataType="text"/>
+        <modifyDataType tableName="price_modifier" columnName="description" newDataType="text"/>
+        <modifyDataType tableName="tags" columnName="data" newDataType="text"/>
+    </changeSet>
+
 </databaseChangeLog>
