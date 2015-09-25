@@ -42,7 +42,7 @@ public class ApplicationFilter extends BaseApplicationFilter {
             stopWatch = new Slf4JStopWatch("op" + opNumber, servletPath);
             MDC.put("sid", sid);
             MDC.put("ip", httpServletRequest.getHeader("X-Real-IP"));
-            MDC.put("referrer", httpServletRequest.getHeader("Referer"));
+            MDC.put("referer", httpServletRequest.getHeader("Referer"));
             MDC.put("uid", uid);
             MDC.put("op", "op" + Long.toString(opNumber));
             StringBuilder logStr = new StringBuilder(httpServletRequest.getMethod());
