@@ -1,6 +1,7 @@
 package org.ohm.gastro.service.impl;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang.ObjectUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
@@ -87,7 +88,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
 
     @PostConstruct
     public void start() {
-        scheduler.scheduleAtFixedRate(this, 0, 5, TimeUnit.MINUTES);
+        scheduler.scheduleAtFixedRate(this, 0, 1000, TimeUnit.SECONDS);
     }
 
     @Override
@@ -358,33 +359,34 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     @Override
     public void run() {
         try {
-            logger.debug("Trigger email send");
+            logger.debug("Check for trigger send");
+            final DateTime now = DateTime.now();
             findAllTenders().stream()
                     .filter(t -> t.getStatus() == Status.NEW)
                     .filter(t -> ratingService.findAllComments(t).size() > 0)
                     .forEach(tender -> {
-                        final DateTime now = DateTime.now();
                         final DateTime tenderTime = new DateTime(tender.getDate());
-                        final DateTime trigger1 = tenderTime.plus(Period.minutes(45));
-                        final DateTime trigger2 = tenderTime.plus(Period.days(1));
-                        final DateTime trigger3 = tenderTime.plus(Period.days(3));
                         final DateTime lastTrigger = new DateTime(tender.getTriggerTime());
-                        if (now.isAfter(trigger3)) {
-                            if (lastTrigger.isBefore(trigger3)) {
-                                tender.setTriggerTime(now.toDate());
-                            }
-                        } else if (now.isAfter(trigger2)) {
-                            if (lastTrigger.isBefore(trigger2)) {
-                                tender.setTriggerTime(now.toDate());
-                            }
-                        } else if (now.isAfter(trigger1)) {
-                            if (lastTrigger.isBefore(trigger2)) {
-                                tender.setTriggerTime(now.toDate());
-                            }
-                        }
+                        Lists.newArrayList(tenderTime.plus(Period.seconds(10)),
+                                           tenderTime.plus(Period.seconds(20)),
+                                           tenderTime.plus(Period.seconds(30)))
+                                .stream()
+                                .filter(period -> now.isAfter(period))
+                                .filter(period -> lastTrigger.isBefore(period))
+                                .findFirst()
+                                .ifPresent(period -> {
+                                    triggerTenderEmail(tender, period);
+                                    tender.setTriggerTime(now.toDate());
+                                    orderRepository.save(tender);
+                                });
                     });
         } catch (Exception e) {
             logger.error("", e);
         }
     }
+
+    private void triggerTenderEmail(OrderEntity tender, DateTime period) {
+        logger.info("Fire trigger {} for tender {} ", period, tender);
+    }
+
 }
