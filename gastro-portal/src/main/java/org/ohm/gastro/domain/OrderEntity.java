@@ -14,7 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -113,6 +112,9 @@ public class OrderEntity extends SitemapBaseEntity {
     @Column(name = "attach_time")
     private Date attachTime;
 
+    @Column(name = "trigger_time")
+    private Date triggerTime = new Date();
+
     @Column(name = "views_count")
     private Integer viewsCount = 0;
 
@@ -121,7 +123,7 @@ public class OrderEntity extends SitemapBaseEntity {
     private Status status = Status.NEW;
 
     @Column
-    private Timestamp date = new Timestamp(System.currentTimeMillis());
+    private Date date = new Date();
 
     @Column(name = "user_bonuses")
     private int usedBonuses = 0;
@@ -175,11 +177,11 @@ public class OrderEntity extends SitemapBaseEntity {
         this.status = status;
     }
 
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -352,4 +354,13 @@ public class OrderEntity extends SitemapBaseEntity {
     public void setAttachTime(Date attachTime) {
         this.attachTime = attachTime;
     }
+
+    public Date getTriggerTime() {
+        return triggerTime;
+    }
+
+    public void setTriggerTime(Date triggerTime) {
+        this.triggerTime = triggerTime;
+    }
+
 }

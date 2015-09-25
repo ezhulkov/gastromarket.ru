@@ -928,4 +928,13 @@
         <modifyDataType tableName="tags" columnName="data" newDataType="text"/>
     </changeSet>
 
+    <changeSet id="82" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="trigger_time" type="java.sql.Types.TIMESTAMP"/>
+        </addColumn>
+        <sql>
+            update orders set trigger_time=now();
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

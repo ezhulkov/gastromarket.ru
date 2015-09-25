@@ -1,8 +1,9 @@
 package org.ohm.gastro.service.impl;
 
 import com.google.common.base.Objects;
-import com.google.common.collect.Lists;
 import org.apache.commons.lang.ObjectUtils;
+import org.joda.time.DateTime;
+import org.joda.time.Period;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
@@ -29,14 +30,16 @@ import org.springframework.mail.MailException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import static org.scribe.utils.Preconditions.checkNotNull;
@@ -47,7 +50,7 @@ import static org.scribe.utils.Preconditions.checkNotNull;
 @Component("orderService")
 @Transactional
 @ImageUploader(FileType.ORDER)
-public class OrderServiceImpl implements OrderService, Logging {
+public class OrderServiceImpl implements Runnable, OrderService, Logging {
 
     private final OrderRepository orderRepository;
     private final OrderProductRepository orderProductRepository;
@@ -56,8 +59,8 @@ public class OrderServiceImpl implements OrderService, Logging {
     private final MailService mailService;
     private final UserRepository userRepository;
     private final RatingService ratingService;
-    private final List<String> filterEmails = Lists.newArrayList();
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
+    private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
     @Autowired
     public OrderServiceImpl(final OrderRepository orderRepository,
@@ -78,14 +81,21 @@ public class OrderServiceImpl implements OrderService, Logging {
 
     @PreDestroy
     public void shutdown() {
+        scheduler.shutdown();
         executorService.shutdown();
+    }
+
+    @PostConstruct
+    public void start() {
+        scheduler.scheduleAtFixedRate(this, 0, 5, TimeUnit.MINUTES);
     }
 
     @Override
     public OrderEntity placeOrder(final OrderEntity preOrder) {
         if (!preOrder.getProducts().isEmpty()) {
             final OrderEntity order = new OrderEntity();
-            order.setDate(new Timestamp(System.currentTimeMillis()));
+            order.setDate(new Date());
+            order.setTriggerTime(new Date());
             order.setCustomer(preOrder.getCustomer());
             order.setDueDate(preOrder.getDueDate());
             order.setPromoCode(preOrder.getPromoCode());
@@ -150,7 +160,8 @@ public class OrderServiceImpl implements OrderService, Logging {
     @Override
     public OrderEntity placeTender(final OrderEntity tender, final UserEntity caller) {
         if (tender == null || !tender.isAllowed(caller)) return tender;
-        tender.setDate(new Timestamp(System.currentTimeMillis()));
+        tender.setDate(new Date());
+        tender.setTriggerTime(new Date());
         tender.setType(OrderEntity.Type.PUBLIC);
         tender.setStatus(Status.NEW);
         tender.setWasSetup(false);
@@ -344,4 +355,36 @@ public class OrderServiceImpl implements OrderService, Logging {
         return order;
     }
 
+    @Override
+    public void run() {
+        try {
+            logger.debug("Trigger email send");
+            findAllTenders().stream()
+                    .filter(t -> t.getStatus() == Status.NEW)
+                    .filter(t -> ratingService.findAllComments(t).size() > 0)
+                    .forEach(tender -> {
+                        final DateTime now = DateTime.now();
+                        final DateTime tenderTime = new DateTime(tender.getDate());
+                        final DateTime trigger1 = tenderTime.plus(Period.minutes(45));
+                        final DateTime trigger2 = tenderTime.plus(Period.days(1));
+                        final DateTime trigger3 = tenderTime.plus(Period.days(3));
+                        final DateTime lastTrigger = new DateTime(tender.getTriggerTime());
+                        if (now.isAfter(trigger3)) {
+                            if (lastTrigger.isBefore(trigger3)) {
+                                tender.setTriggerTime(now.toDate());
+                            }
+                        } else if (now.isAfter(trigger2)) {
+                            if (lastTrigger.isBefore(trigger2)) {
+                                tender.setTriggerTime(now.toDate());
+                            }
+                        } else if (now.isAfter(trigger1)) {
+                            if (lastTrigger.isBefore(trigger2)) {
+                                tender.setTriggerTime(now.toDate());
+                            }
+                        }
+                    });
+        } catch (Exception e) {
+            logger.error("", e);
+        }
+    }
 }

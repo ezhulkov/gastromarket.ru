@@ -34,6 +34,7 @@ public class ApplicationFilter extends BaseApplicationFilter {
             final String servletPath = httpServletRequest.getServletPath();
             final String userAgent = ((String) ObjectUtils.defaultIfNull(httpServletRequest.getHeader("User-Agent"), "-")).toLowerCase();
             final Long opNumber = opCounter.incrementAndGet();
+            final String referer = httpServletRequest.getHeader("Referer");
             final String sid = httpServletRequest.getSession(false) == null ? "-" : httpServletRequest.getSession(false).getId();
             final String uid = userAgent.contains("bot") ? "BOT" :
                     SecurityContextHolder.getContext().getAuthentication() == null ?
@@ -42,7 +43,7 @@ public class ApplicationFilter extends BaseApplicationFilter {
             stopWatch = new Slf4JStopWatch("op" + opNumber, servletPath);
             MDC.put("sid", sid);
             MDC.put("ip", httpServletRequest.getHeader("X-Real-IP"));
-            MDC.put("referer", httpServletRequest.getHeader("Referer"));
+            MDC.put("referer", referer == null || referer.startsWith("http://gastromarket.ru") ? "" : referer);
             MDC.put("uid", uid);
             MDC.put("op", "op" + Long.toString(opNumber));
             StringBuilder logStr = new StringBuilder(httpServletRequest.getMethod());
