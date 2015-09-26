@@ -71,7 +71,7 @@ public class Edit extends BaseComponent {
     @Component(id = "comment", parameters = {"value=order.comment", "validate=required"})
     private TextArea comment;
 
-    @Component(id = "dueDate", parameters = {"value=order.dueDate", "validate=required"})
+    @Component(id = "dueDate", parameters = {"value=order.dueDateAsString", "validate=required"})
     private TextField dueDate;
 
     @Component(id = "budget", parameters = {"value=order.totalPrice", "validate=required"})
@@ -136,7 +136,7 @@ public class Edit extends BaseComponent {
             origOrder.setComment(order.getComment());
             origOrder.setPersonCount(order.getPersonCount());
             origOrder.setTotalPrice(order.getTotalPrice());
-            origOrder.setDueDate(order.getDueDate());
+            origOrder.setDueDateAsString(order.getDueDateAsString());
             if (isAuthenticated()) {
                 if (origOrder.getId() == null) {
                     order = tender ?

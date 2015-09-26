@@ -13,10 +13,10 @@
         </t:if>
     </div>
     <t:unless test="mainPage">
-        <t:if test="order.dueDate">
+        <t:if test="order.dueDateAsString">
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                 <span class="f20px">Дата исполнения:</span><br/>
-                <div>${order.dueDate}</div>
+                <div>${order.dueDateAsString}</div>
             </div>
         </t:if>
         <t:if test="order.personCount">

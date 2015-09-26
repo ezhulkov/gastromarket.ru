@@ -249,11 +249,19 @@ public class OrderEntity extends SitemapBaseEntity {
         this.promoCode = promoCode;
     }
 
-    public String getDueDate() {
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(final Date dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public String getDueDateAsString() {
         return dueDate == null ? "" : CommonsUtils.GUI_DATE.get().format(dueDate);
     }
 
-    public void setDueDate(final String dueDate) {
+    public void setDueDateAsString(final String dueDate) {
         try {
             this.dueDate = StringUtils.isEmpty(dueDate) ? null : CommonsUtils.GUI_DATE.get().parse(dueDate);
         } catch (ParseException e) {

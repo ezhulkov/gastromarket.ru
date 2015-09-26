@@ -16,15 +16,13 @@
             Шаг ${catalog.wizardStep} из ${catalog.maxWizardStep} - ${stepDescription}
         </p>
 
-        <div class="gap3"></div>
+    </div>
 
-        <div class="row">
-            <div class="col-lg-offset-2 col-lg-8 col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10 col-xs-offset-0 col-xs-12">
-                <t:delegate to="currentStepBlock"/>
-            </div>
-        </div>
 
-        <t:block id="step1">
+    <t:delegate to="currentStepBlock"/>
+
+    <t:block id="step1">
+        <div class="container">
             <div class="row">
                 <div class="col-lg-offset-2 col-lg-4 col-md-offset-1 col-md-5 col-sm-offset-1 col-sm-5 col-xs-offset-0 col-xs-12 text-center gap">
                     <t:actionlink rel="nofollow" t:id="privateCook" class="red-text f20px" t:zone="step1Zone">
@@ -77,8 +75,10 @@
                     </t:if>
                 </t:block>
             </t:form>
-        </t:block>
-        <t:block id="step2">
+        </div>
+    </t:block>
+    <t:block id="step2">
+        <div class="container">
             <t:form t:id="wizardForm2" t:clientValidation="none" class="form form-horizontal edit wizard" t:autofocus="false" role="form">
                 <t:errors/>
                 <div class="form-group">
@@ -138,22 +138,29 @@
                     <input class="btn btn-red pull-right" type="submit" value="Далее &gt;"/>
                 </div>
             </t:form>
-        </t:block>
-        <t:block id="step3">
+        </div>
+    </t:block>
+    <t:block id="step3">
+        <div class="container flexible">
             <div class="links-set">
                 <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>
                 <t:pagelink page="office/import" class="product-edit-link" context="catalog.altId">Импортировать<span/></t:pagelink>
             </div>
             <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>
 
-            <div id="product-items" class="grid-block products"></div>
             <t:zone t:id="productsZone">
                 <t:delegate to="productsBlock"/>
             </t:zone>
             <t:block t:id="productsBlock">
-                <t:loop source="products" value="oneProduct">
-                    <t:product product="oneProduct" edit="true"/>
-                </t:loop>
+                <div id="product-items" class="grid-block products fixed sortable">
+                    <t:loop source="products" value="oneProduct">
+                        <t:product product="oneProduct" class="fixed" edit="true"/>
+                    </t:loop>
+                    <t:form t:id="reorderAjaxForm" t:clientValidation="none" t:zone="productsZone" class="hidden reorder">
+                        <input t:type="textfield" t:id="reorder" t:value="reorder"/>
+                        <input t:type="submit" t:id="ordersubmit"/>
+                    </t:form>
+                </div>
             </t:block>
             <t:productModalTemplate/>
 
@@ -164,13 +171,22 @@
                 </div>
             </form>
 
-            <script type="text/javascript">
-                var productsZone = jQuery("#productsZone");
-                initProductCatalog(productsZone);
+            <script>
+                jQuery(document).ready(function () {
+                    var init = function () {
+                        initProductCatalogFixed();
+                    };
+                    init();
+                    Event.observe(jQuery("#productsZone").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
+                        init();
+                    });
+                });
             </script>
+        </div>
 
-        </t:block>
-        <t:block id="step4">
+    </t:block>
+    <t:block id="step4">
+        <div class="container">
             <h2>Каким образом я получу новых покупателей?</h2>
 
             <p>
@@ -223,10 +239,8 @@
 
             <div class="gap5"></div>
             <h2>Команда ГастроМаркет желает Вам успехов и всегда готова помочь!</h2>
-
-        </t:block>
-
-    </div>
+        </div>
+    </t:block>
 
     <t:parameter name="bottomBlock">
         <div class="bottom-image">

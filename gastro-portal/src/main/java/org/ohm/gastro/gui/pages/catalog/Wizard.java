@@ -10,7 +10,9 @@ import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.CatalogEntity.Type;
 import org.ohm.gastro.domain.ProductEntity;
 
+import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 31.08.14.
@@ -48,6 +50,9 @@ public class Wizard extends AbstractCatalogPage {
 
     @Component(id = "mobilePhone", parameters = {"value=authenticatedUser?.mobilePhone", "validate=maxlength=64,required"})
     private TextField mobfNameField;
+
+    @Property
+    private String reorder;
 
     public Object onActivate(String pid) {
         catalog = getCatalogService().findCatalog(pid);
@@ -116,7 +121,12 @@ public class Wizard extends AbstractCatalogPage {
     }
 
     public java.util.List<ProductEntity> getProducts() {
-        return getProductService().findProductsForFrontend(null, catalog, null, null, null, null, 0, Integer.MAX_VALUE);
+        return getProductService().findProductsForFrontend(null, catalog, null, null, null, null, 0, 100);
+    }
+
+    public Block onActionFromReorderAjaxForm() {
+        getProductService().productPosition(Arrays.stream(reorder.split(",")).map(Long::parseLong).collect(Collectors.toList()), "wizard");
+        return productsBlock;
     }
 
 }

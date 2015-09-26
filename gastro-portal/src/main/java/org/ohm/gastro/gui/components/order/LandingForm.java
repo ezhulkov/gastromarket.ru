@@ -28,7 +28,7 @@ public class LandingForm extends BaseComponent {
     @Component(id = "comment", parameters = {"value=tender.comment"})
     private TextArea comment;
 
-    @Component(id = "dueDate", parameters = {"value=tender.dueDate"})
+    @Component(id = "dueDate", parameters = {"value=tender.dueDateAsString"})
     private TextField dueDate;
 
     @Component(id = "budget", parameters = {"value=tender.totalPrice"})

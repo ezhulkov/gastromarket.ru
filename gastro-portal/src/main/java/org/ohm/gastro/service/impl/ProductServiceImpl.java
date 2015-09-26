@@ -17,7 +17,6 @@ import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.PropertyValueEntity.Tag;
 import org.ohm.gastro.domain.PurchaseEntity;
 import org.ohm.gastro.domain.TagEntity;
-import org.ohm.gastro.misc.Throwables;
 import org.ohm.gastro.reps.PriceModifierRepository;
 import org.ohm.gastro.reps.ProductRepository;
 import org.ohm.gastro.reps.PropertyRepository;
@@ -43,6 +42,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Nonnull;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collections;
@@ -295,7 +295,7 @@ public class ProductServiceImpl implements ProductService, Logging {
     @RatingModifier
     public void importProducts(@Nonnull final Map<String, Set<MediaElement>> cachedElements, @Nonnull @RatingTarget final CatalogEntity catalog) {
         cachedElements.entrySet().stream().flatMap(t -> t.getValue().stream()).filter(MediaElement::isChecked).forEach(element -> {
-            Throwables.propagate(() -> {
+            try {
                 logger.info("Importing {} product", element);
                 final ProductEntity product = new ProductEntity();
                 product.setCatalog(catalog);
@@ -310,7 +310,9 @@ public class ProductServiceImpl implements ProductService, Logging {
                 imageService.resizeImagePack(file,
                                              FileType.PRODUCT,
                                              product.getId().toString());
-            });
+            } catch (IOException e) {
+                logger.error("", e);
+            }
         });
     }
 

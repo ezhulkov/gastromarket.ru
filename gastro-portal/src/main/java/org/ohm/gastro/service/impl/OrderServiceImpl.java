@@ -1,10 +1,8 @@
 package org.ohm.gastro.service.impl;
 
 import com.google.common.base.Objects;
-import com.google.common.collect.Lists;
 import org.apache.commons.lang.ObjectUtils;
 import org.joda.time.DateTime;
-import org.joda.time.Period;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
@@ -98,7 +96,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
             order.setDate(new Date());
             order.setTriggerTime(new Date());
             order.setCustomer(preOrder.getCustomer());
-            order.setDueDate(preOrder.getDueDate());
+            order.setDueDateAsString(preOrder.getDueDateAsString());
             order.setPromoCode(preOrder.getPromoCode());
             order.setComment(preOrder.getComment());
             order.setProducts(preOrder.getProducts());
@@ -220,6 +218,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
         if (tender.isAnnonceSent()) return;
         tender.setAnnonceSent(true);
         orderRepository.save(tender);
+        final List<UserEntity> rcpt = getRecipients();
         final Map<String, Object> params = new HashMap<String, Object>() {
             {
                 put("username", tender.getCustomer().getFullName());
@@ -230,13 +229,15 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                 put("date", ObjectUtils.defaultIfNull(tender.getDatePrintable(), "-"));
                 put("address", tender.getOrderUrl());
                 put("tender", tender);
+                put("cooks", rcpt);
             }
         };
         params.put("username", tender.getCustomer().getFullName());
         mailService.sendMailMessage(tender.getCustomer(), MailService.NEW_TENDER_CUSTOMER, params);
         executorService.execute(() -> {
             try {
-                getRecipients().forEach(cook -> {
+                logger.info("Sending to {} cooks", rcpt.size());
+                rcpt.forEach(cook -> {
                     params.put("username", cook.getFullName());
                     params.put("email", cook.getEmail());
                     mailService.sendMailMessage(cook, MailService.NEW_TENDER_COOK, params);
@@ -361,25 +362,26 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
         try {
             logger.debug("Check for trigger send");
             final DateTime now = DateTime.now();
-            findAllTenders().stream()
-                    .filter(t -> t.getStatus() == Status.NEW)
-                    .filter(t -> ratingService.findAllComments(t).size() > 0)
-                    .forEach(tender -> {
-                        final DateTime tenderTime = new DateTime(tender.getDate());
-                        final DateTime lastTrigger = new DateTime(tender.getTriggerTime());
-                        Lists.newArrayList(tenderTime.plus(Period.seconds(10)),
-                                           tenderTime.plus(Period.seconds(20)),
-                                           tenderTime.plus(Period.seconds(30)))
-                                .stream()
-                                .filter(period -> now.isAfter(period))
-                                .filter(period -> lastTrigger.isBefore(period))
-                                .findFirst()
-                                .ifPresent(period -> {
-                                    triggerTenderEmail(tender, period);
-                                    tender.setTriggerTime(now.toDate());
-                                    orderRepository.save(tender);
-                                });
-                    });
+//            findAllTenders().stream()
+//                    .filter(t -> t.getStatus() == Status.NEW)
+//                    .filter(t -> t.getDueDate().before(now.toDate()))
+//                    .forEach(tender -> {
+//                        final DateTime tenderTime = new DateTime(tender.getDate());
+//                        final DateTime lastTrigger = new DateTime(tender.getTriggerTime());
+//                        Lists.newArrayList(tenderTime.plus(Period.seconds(10)),
+//                                           tenderTime.plus(Period.seconds(20)),
+//                                           tenderTime.plus(Period.seconds(30)))
+//                                .stream()
+//                                .filter(period -> now.isAfter(period))
+//                                .filter(period -> lastTrigger.isBefore(period))
+//                                .findFirst()
+//                                .ifPresent(period -> {
+//                                    ratingService.findAllComments(t).size() > 0
+//                                    triggerTenderEmail(tender, period);
+//                                    tender.setTriggerTime(now.toDate());
+//                                    orderRepository.save(tender);
+//                                });
+//                    });
         } catch (Exception e) {
             logger.error("", e);
         }
