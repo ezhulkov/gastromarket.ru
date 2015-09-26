@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService, Logging {
 
     @Override
     public List<UserEntity> findAllUser() {
-        return userRepository.findAll(new Sort("email"));
+        return userRepository.findAll(new Sort("fullName"));
     }
 
     @Override

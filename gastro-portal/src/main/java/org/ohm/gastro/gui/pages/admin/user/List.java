@@ -15,7 +15,10 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.EditObjectPage;
 import org.ohm.gastro.service.EmptyPasswordException;
 import org.ohm.gastro.service.UserExistsException;
+import org.ohm.gastro.util.CommonsUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.stream.Collectors;
 
 public class List extends EditObjectPage<UserEntity> {
 
@@ -60,7 +63,7 @@ public class List extends EditObjectPage<UserEntity> {
 
     @Cached
     public java.util.List getUsers() {
-        return getUserService().findAllUser();
+        return getUserService().findAllUser().stream().map(CommonsUtils::initializeAndUnproxy).collect(Collectors.toList());
     }
 
     @Override

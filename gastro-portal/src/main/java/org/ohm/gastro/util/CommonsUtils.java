@@ -1,5 +1,7 @@
 package org.ohm.gastro.util;
 
+import org.hibernate.Hibernate;
+import org.hibernate.proxy.HibernateProxy;
 import org.ohm.gastro.trait.Logging;
 
 import javax.servlet.http.HttpServletRequest;
@@ -168,6 +170,19 @@ public class CommonsUtils {
             return true;
         }
         return false;
+    }
+
+    public static <T> T initializeAndUnproxy(T entity) {
+        if (entity == null) {
+            throw new
+                    NullPointerException("Entity passed for initialization is null");
+        }
+
+        Hibernate.initialize(entity);
+        if (entity instanceof HibernateProxy) {
+            entity = (T) ((HibernateProxy) entity).getHibernateLazyInitializer().getImplementation();
+        }
+        return entity;
     }
 
 }
