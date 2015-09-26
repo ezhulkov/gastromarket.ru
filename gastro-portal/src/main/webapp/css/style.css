@@ -78,7 +78,7 @@ header,
 footer,
 section,
 .container {
-  min-width: 640px;
+  min-width: 320px;
 }
 
 .container.flexible {

@@ -32,7 +32,7 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=1200"/>
+    <!--<meta name="viewport" content="width=1200"/>-->
     <meta name="keywords" content="${keywords}"/>
     <meta name="description" content="${description}"/>
     <meta name="author" content="gastromarket.ru"/>
