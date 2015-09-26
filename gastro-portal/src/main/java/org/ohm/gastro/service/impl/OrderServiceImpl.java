@@ -86,7 +86,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
 
     @PostConstruct
     public void start() {
-        scheduler.scheduleAtFixedRate(this, 0, 1000, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(this, 0, 1000, TimeUnit.DAYS);
     }
 
     @Override
@@ -201,6 +201,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
             final Map<String, Object> params = new HashMap<String, Object>() {
                 {
                     put("address", order.getOrderUrl());
+                    put("tender", order);
                 }
             };
             params.put("username", catalog.getUser().getFullName());

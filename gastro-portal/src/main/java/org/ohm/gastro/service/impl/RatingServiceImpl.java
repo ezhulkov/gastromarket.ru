@@ -300,6 +300,7 @@ public class RatingServiceImpl implements RatingService, Logging {
                 {
                     put("address", order.getOrderUrl());
                     put("text", replyText);
+                    put("order", order);
                 }
             };
             if (!order.getCustomer().equals(author)) {

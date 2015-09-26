@@ -1,9 +1,10 @@
 #set($subject = "Отклик на заявку одобрен")
+#set($link = "${address}?utm_source=internal&utm_medium=mail&utm_campaign=${tender.id}")
 #parse("email/header.vm")
 <p>
     Поздравляем, заказчик выбрал вас исполнителем заявки.
 </p>
 <p>
-    Вы можете обсудить детали заказа и управляеть его статусом по адресу: <a href="$address?utm_source=internal&utm_medium=mail&utm_campaign=gm">$address</a>
+    Вы можете обсудить детали заказа и управляеть его статусом по адресу: <a href="${address}?utm_source=internal&utm_medium=mail&utm_campaign=${tender.id}">${address}</a>
 </p>
 #parse("email/footer.vm")
