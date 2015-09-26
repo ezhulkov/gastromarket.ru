@@ -51,7 +51,7 @@ public abstract class ScrollableProducts extends BaseComponent {
     @Persist
     protected String prevContext;
 
-    @OnEvent(value = EventConstants.ACTION, component = "fetchProducts")
+    @OnEvent(value = EventConstants.ACTION, component = "fetchProductsAjaxLink")
     public Block fetchNextProducts(int from, Long pid, OrderType orderType, Direction direction) {
         this.orderType = orderType;
         this.direction = direction;

@@ -19,7 +19,7 @@
             <div class="more-products">
                 <t:if test="hasProducts">
                     <div class="links-set">
-                        <t:actionlink rel="nofollow" t:id="fetchProducts" t:context="fetchContext" t:zone="productsZone">Показать еще...</t:actionlink>
+                        <t:actionlink rel="nofollow" t:id="fetchProductsAjaxLink" t:context="fetchContext" t:zone="productsZone">Показать еще...</t:actionlink>
                     </div>
                 </t:if>
             </div>

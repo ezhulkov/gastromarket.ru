@@ -48,4 +48,6 @@ public interface RatingService extends ImageUploaderService<CommentEntity> {
 
     List<PhotoEntity> findAllPhotos(CommentEntity comment);
 
+    List<CommentEntity> findAllComments(OrderEntity order, UserEntity author);
+
 }

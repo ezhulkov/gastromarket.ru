@@ -305,7 +305,7 @@ function initProductCatalog(ajaxContainer) {
     jQuery(window).scroll(function () {
         if (scrollMutex && jQuery(window).scrollTop() + jQuery(window).height() > jQuery(document).height() - 50) {
             scrollMutex = false;
-            triggerEvent(jQuery('a[id^=fetchProducts]').get(0), 'click');
+            triggerEvent(jQuery('a[id^=fetchProductsAjaxLink]').get(0), 'click');
         }
     });
 }

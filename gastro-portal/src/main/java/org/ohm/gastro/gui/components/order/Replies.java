@@ -5,8 +5,12 @@ import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
+import org.ohm.gastro.domain.UserEntity;
+
+import java.util.stream.Stream;
 
 /**
  * Created by ezhulkov on 31.07.15.
@@ -34,16 +38,38 @@ public class Replies extends AbstractOrder {
 
     @Cached
     public boolean isCommentAllowed() {
-        if (order == null || !isAuthenticated()) return false;
-        if (isCook()) {
-            if (getRatingService().findAllComments(order).stream().filter(t -> t.getAuthor().equals(getAuthenticatedUser())).count() > 0) return false;
-            if (getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream().mapToInt(t -> getProductService().findProductsForFrontendCount(t)).sum() == 0) return false;
-            return getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream().
-                    flatMap(t -> getOrderService().findAllOrders(t).stream()).
-                    filter(t -> t.getMetaStatus() == Status.ACTIVE).
-                    count() <= 2;
-        }
-        return false;
+        return isDoesNotHaveReply() && isCatalogReady() && isHasOrderSlots();
+    }
+
+    @Cached
+    public boolean isDoesNotHaveReply() {
+        return getAuthenticatedUserOpt()
+                .filter(UserEntity::isCook)
+                .map(user -> getRatingService().findAllComments(order, user).size() == 0)
+                .orElse(false);
+    }
+
+    @Cached
+    public boolean isCatalogReady() {
+        return getAuthenticatedUserOpt()
+                .filter(UserEntity::isCook)
+                .map(t -> getCatalogService().findAllCatalogs(t).stream())
+                .orElse(Stream.empty())
+                .filter(CatalogEntity::isWasSetup)
+                .filter(t -> getProductService().findProductsForFrontendCount(t) > 0)
+                .findFirst()
+                .isPresent();
+    }
+
+    @Cached
+    public boolean isHasOrderSlots() {
+        return getAuthenticatedUserOpt()
+                .filter(UserEntity::isCook)
+                .map(t -> getCatalogService().findAllCatalogs(t).stream())
+                .orElse(Stream.empty())
+                .filter(t -> t.getLevel() > getOrderService().findAllOrdersWithMetaStatus(t, Status.ACTIVE).size())
+                .findAny()
+                .isPresent();
     }
 
     public Block onSubmitFromReplyForm(Long oId) {

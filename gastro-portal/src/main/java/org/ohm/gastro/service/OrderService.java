@@ -48,4 +48,6 @@ public interface OrderService extends ImageUploaderService<OrderEntity> {
 
     void triggerTenderEmail(OrderEntity tender, DateTime period);
 
+    List<OrderEntity> findAllOrdersWithMetaStatus(final CatalogEntity catalog, final Status status);
+
 }

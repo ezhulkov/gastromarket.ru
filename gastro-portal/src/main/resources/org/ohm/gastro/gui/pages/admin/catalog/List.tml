@@ -7,7 +7,7 @@
     <t:grid source="catalogs" row="oneCatalog"
             reorder="name,type,date,user,rating,level,products,del"
             exclude="id,description,delivery,avatarUrl,avatarUrlSmall,avatarUrlMedium,payment,wasSetup,altId,basketMin,wizardStep,maxWizardStep,productBadge,orderBadge,
-            descriptionRaw,deliveryRaw,rankBadge,paymentRaw,fullUrl,cancellationRaw,lastModified,lastModifiedPrintable,cancellation,prepayment,locationUrl"
+            descriptionRaw,deliveryRaw,rankBadge,paymentRaw,fullUrl,cancellationRaw,lastModified,lastModifiedPrintable,cancellation,prepayment,locationUrl,cert1,cert2,cert3"
             add="user,del,products"
             t:mixins="GridSortingDisabled" class="table table-hover">
         <t:parameter name="nameHeader">

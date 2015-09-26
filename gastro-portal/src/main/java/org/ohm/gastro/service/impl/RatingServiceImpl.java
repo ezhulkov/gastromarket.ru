@@ -321,6 +321,11 @@ public class RatingServiceImpl implements RatingService, Logging {
     }
 
     @Override
+    public List<CommentEntity> findAllComments(final OrderEntity order, final UserEntity author) {
+        return commentRepository.findAllByOrderAndAuthorOrderByIdDesc(order, author);
+    }
+
+    @Override
     public CommentEntity findComment(final Long cId) {
         return commentRepository.findOne(cId);
     }

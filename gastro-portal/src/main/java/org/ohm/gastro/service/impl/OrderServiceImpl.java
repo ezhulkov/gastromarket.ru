@@ -158,6 +158,11 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     }
 
     @Override
+    public List<OrderEntity> findAllOrdersWithMetaStatus(final CatalogEntity catalog, final Status status) {
+        return orderRepository.findAllByCatalog(catalog).stream().filter(t -> t.getMetaStatus() == status).collect(Collectors.toList());
+    }
+
+    @Override
     public List<OrderEntity> findAllTenders() {
         return orderRepository.findAllByType(OrderEntity.Type.PUBLIC);
     }

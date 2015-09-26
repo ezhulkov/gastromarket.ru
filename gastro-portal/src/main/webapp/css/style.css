@@ -2482,4 +2482,28 @@ body.desktop .main-header {
   padding-left: 20px;
 }
 
+.reply-denied {
+  list-style: none;
+  padding-left: 20px;
+}
+.reply-denied li {
+  margin-bottom: 10px;
+  text-align: left;
+  padding-right: 20px;
+}
+.reply-denied li span {
+  margin-right: 20px;
+}
+.reply-denied li span.true:before {
+  content: "";
+  color: green;
+}
+.reply-denied li span.false:before {
+  content: "";
+  color: red;
+}
+.reply-denied li div {
+  margin-left: 40px;
+}
+
 /*# sourceMappingURL=style.css.map */
