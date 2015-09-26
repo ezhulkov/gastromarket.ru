@@ -3,6 +3,8 @@ package org.ohm.gastro.domain;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.ohm.gastro.util.CommonsUtils;
 
 import javax.persistence.Column;
@@ -253,6 +255,10 @@ public class OrderEntity extends SitemapBaseEntity {
         return dueDate;
     }
 
+    public DateTime getDueDateAsJoda() {
+        return new DateTime(dueDate);
+    }
+
     public void setDueDate(final Date dueDate) {
         this.dueDate = dueDate;
     }
@@ -369,6 +375,10 @@ public class OrderEntity extends SitemapBaseEntity {
 
     public void setTriggerTime(Date triggerTime) {
         this.triggerTime = triggerTime;
+    }
+
+    public boolean isTenderExpired() {
+        return LocalDateTime.fromDateFields(dueDate).toDateTime().withTimeAtStartOfDay().plusDays(1).isBeforeNow();
     }
 
 }

@@ -1,9 +1,12 @@
 package org.ohm.gastro.service.impl;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang.ObjectUtils;
 import org.joda.time.DateTime;
+import org.joda.time.Period;
 import org.ohm.gastro.domain.CatalogEntity;
+import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
@@ -28,6 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -60,6 +64,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     private final RatingService ratingService;
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+    private final TransactionTemplate transactionTemplate;
 
     @Autowired
     public OrderServiceImpl(final OrderRepository orderRepository,
@@ -68,7 +73,8 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                             final ImageRepository photoRepository,
                             final MailService mailService,
                             final UserRepository userRepository,
-                            final RatingService ratingService) {
+                            final RatingService ratingService,
+                            final TransactionTemplate transactionTemplate) {
         this.orderRepository = orderRepository;
         this.orderProductRepository = orderProductRepository;
         this.catalogRepository = catalogRepository;
@@ -76,6 +82,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
         this.mailService = mailService;
         this.userRepository = userRepository;
         this.ratingService = ratingService;
+        this.transactionTemplate = transactionTemplate;
     }
 
     @PreDestroy
@@ -86,7 +93,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
 
     @PostConstruct
     public void start() {
-        scheduler.scheduleAtFixedRate(this, 0, 1000, TimeUnit.DAYS);
+        scheduler.scheduleAtFixedRate(this, 1, 10, TimeUnit.MINUTES);
     }
 
     @Override
@@ -94,7 +101,6 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
         if (!preOrder.getProducts().isEmpty()) {
             final OrderEntity order = new OrderEntity();
             order.setDate(new Date());
-            order.setTriggerTime(new Date());
             order.setCustomer(preOrder.getCustomer());
             order.setDueDateAsString(preOrder.getDueDateAsString());
             order.setPromoCode(preOrder.getPromoCode());
@@ -160,7 +166,6 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     public OrderEntity placeTender(final OrderEntity tender, final UserEntity caller) {
         if (tender == null || !tender.isAllowed(caller)) return tender;
         tender.setDate(new Date());
-        tender.setTriggerTime(new Date());
         tender.setType(OrderEntity.Type.PUBLIC);
         tender.setStatus(Status.NEW);
         tender.setWasSetup(false);
@@ -363,33 +368,48 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
         try {
             logger.debug("Check for trigger send");
             final DateTime now = DateTime.now();
-//            findAllTenders().stream()
-//                    .filter(t -> t.getStatus() == Status.NEW)
-//                    .filter(t -> t.getDueDate().before(now.toDate()))
-//                    .forEach(tender -> {
-//                        final DateTime tenderTime = new DateTime(tender.getDate());
-//                        final DateTime lastTrigger = new DateTime(tender.getTriggerTime());
-//                        Lists.newArrayList(tenderTime.plus(Period.seconds(10)),
-//                                           tenderTime.plus(Period.seconds(20)),
-//                                           tenderTime.plus(Period.seconds(30)))
-//                                .stream()
-//                                .filter(period -> now.isAfter(period))
-//                                .filter(period -> lastTrigger.isBefore(period))
-//                                .findFirst()
-//                                .ifPresent(period -> {
-//                                    ratingService.findAllComments(t).size() > 0
-//                                    triggerTenderEmail(tender, period);
-//                                    tender.setTriggerTime(now.toDate());
-//                                    orderRepository.save(tender);
-//                                });
-//                    });
+            findAllTenders().stream()
+                    .filter(t -> t.getStatus() == Status.NEW)
+                    .filter(t -> t.getCatalog() == null)
+                    .filter(t -> !t.isTenderExpired())
+                    .forEach(tender -> {
+                        final DateTime tenderTime = new DateTime(tender.getDate());
+                        final DateTime lastTrigger = new DateTime(tender.getTriggerTime() == null ? tender.getDate() : tender.getTriggerTime());
+                        Lists.newArrayList(tenderTime.plus(Period.days(3)),
+                                           tenderTime.plus(Period.days(1)),
+                                           tenderTime.plus(Period.minutes(45)))
+                                .stream()
+                                .filter(now::isAfter)
+                                .filter(lastTrigger::isBefore)
+                                .findFirst()
+                                .ifPresent(period -> triggerTenderEmail(tender, period));
+                    });
         } catch (Exception e) {
             logger.error("", e);
         }
     }
 
-    private void triggerTenderEmail(OrderEntity tender, DateTime period) {
-        logger.info("Fire trigger {} for tender {} ", period, tender);
+    @Override
+    public void triggerTenderEmail(OrderEntity tender, DateTime period) {
+        transactionTemplate.execute(status -> {
+            final OrderEntity localTender = orderRepository.findOne(tender.getId());
+            final List<CommentEntity> replies = ratingService.findAllComments(localTender);
+            if (!replies.isEmpty()) {
+                logger.info("Fire trigger {} for tender {}", period, localTender);
+                localTender.setTriggerTime(new Date());
+                orderRepository.save(localTender);
+                final Map<String, Object> params = new HashMap<String, Object>() {
+                    {
+                        put("username", localTender.getCustomer().getFullName());
+                        put("address", localTender.getOrderUrl());
+                        put("tender", localTender);
+                        put("replies", replies);
+                    }
+                };
+                mailService.sendMailMessage(localTender.getCustomer(), MailService.TENDER_REMINDER, params);
+            }
+            return null;
+        });
     }
 
 }

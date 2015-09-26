@@ -32,6 +32,7 @@ public interface MailService {
     String CLOSE_ORDER_CUSTOMER = "close_order_customer";
     String ORDER_COMMENT = "order_comment";
     String EDIT_ORDER = "edit_order";
+    String TENDER_REMINDER = "tender_reminder";
 
     String MC_FILLED = "FILLED";
     String MC_CATALOG = "CATALOG";
