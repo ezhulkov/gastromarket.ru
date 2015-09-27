@@ -27,6 +27,13 @@
                                     <a href="#bonus" data-toggle="modal" data-target="#bonus">${bonusesMessage}</a>
                                 </li>
                             </t:if>
+                        </t:if>
+                        <t:unless test="cook">
+                            <t:zone elementName="li" t:id="basketZone">
+                                <t:delegate to="basketBlock"/>
+                            </t:zone>
+                        </t:unless>
+                        <t:if test="authenticated">
                             <li>
                                 <span class="dropdown">
                                     <a data-target="#" href="#userMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
@@ -70,11 +77,6 @@
                             <li>
                                 <a href="#login" data-toggle="modal" class="login-link" data-target="#login">Войти или зарегистрироваться</a>
                             </li>
-                        </t:unless>
-                        <t:unless test="cook">
-                            <t:zone elementName="li" t:id="basketZone">
-                                <t:delegate to="basketBlock"/>
-                            </t:zone>
                         </t:unless>
                     </ul>
                 </div>

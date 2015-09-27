@@ -24,7 +24,6 @@
                 <div class="row">
                     <p class="modal-text text-center">или через почтовый адрес и пароль</p>
                 </div>
-                <br/>
 
                 <form method="post" action="j_security_check" class="form form-horizontal edit" role="form">
                     <div class="form-group">
@@ -74,7 +73,6 @@
                 <div class="row">
                     <p class="modal-text">Укажите свой почтовый адрес для восстановления пароля.<br/> Новый пароль будет выслан на указанный адрес.</p>
                 </div>
-                <br/>
                 <t:form t:zone="rememberZone" t:id="rememberAjaxForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
                     <div class="form-group">
                         <t:label for="eMail">Адрес почты:</t:label>
@@ -142,8 +140,6 @@
                             </div>
                             <t:errors/>
                         </t:if>
-                        <br/>
-
                         <div class="form-group">
                             <t:label for="eMail2">Адрес почты:</t:label>
                             <input t:type="TextField" t:id="eMail2" t:value="eMail" t:validate="required,email,maxlength=64" class="form-control"/>
