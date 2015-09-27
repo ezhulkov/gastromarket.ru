@@ -38,13 +38,6 @@ Event.observe(document, Tapestry.ZONE_UPDATED_EVENT, function (event) {
     initControls();
 });
 jQuery(document).ready(function () {
-    jQuery("ul.dropdown-menu").each(function (e) {
-        var parentWidth = jQuery(this).parent().innerWidth();
-        var menuWidth = jQuery(this).innerWidth();
-        var margin = (parentWidth / 2 ) - (menuWidth / 2);
-        margin = margin + "px";
-        jQuery(this).css("margin-left", margin);
-    });
     jQuery("body").addClass(isMobile() ? "mobile" : "desktop");
     initLoginModal();
     initModalStack();

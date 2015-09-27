@@ -50,10 +50,6 @@ public class HeaderLayout extends BaseComponent {
         return getCatalogService().findAllCatalogs(getAuthenticatedUserOpt().orElse(null));
     }
 
-    public String getHidden() {
-        return isCook() ? "hidden" : "";
-    }
-
     public String getAvatarUrl() {
         return getAuthenticatedUser().getAvatarUrlSmall();
     }

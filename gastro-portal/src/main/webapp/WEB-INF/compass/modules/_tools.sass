@@ -1,5 +1,22 @@
 @import ../include/var
 
+=fluid-block($width)
+  text-align: right
+  & > div
+    float: right
+  @media (max-width: $width)
+    text-align: left
+    & > div
+      float: none
+
+=desktop-media
+  @media (min-width: 750px)
+    @content
+
+=tablet-media
+  @media (max-width: 750px)
+    @content
+
 .rub
   display: inline !important
 
@@ -124,14 +141,8 @@ body.mobile .rub:after
 .nopad
   padding: 0 !important
 
-=fluid-block($width)
-  text-align: right
-  & > div
-    float: right
-  @media (max-width: $width)
-    text-align: left
-    & > div
-      float: none
+.nomargin
+  margin: 0 !important
 
 .fluid-xs-block
   +fluid-block(768px)
@@ -150,3 +161,10 @@ body.mobile .rub:after
 
 .label-checkbox-set input
   margin-left: $gap
+
+.no-transition
+  -webkit-transition: height 0.01s
+  -moz-transition: height 0.01s
+  -ms-transition: height 0.01s
+  -o-transition: height 0.01s
+  transition: height 0.01s
