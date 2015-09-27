@@ -1,6 +1,7 @@
 @import ../include/var
 @import price
 @import grid
+@import tools
 
 .order-show-modal .attention
   margin-top: 0
@@ -8,6 +9,8 @@
 .order-show-catalog
   position: relative
   padding: 20px 30px
+  +tablet-media
+    padding: 10px 20px
   &.short
     .register-order
       display: none
