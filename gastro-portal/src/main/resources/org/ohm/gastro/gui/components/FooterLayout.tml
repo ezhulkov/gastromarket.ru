@@ -35,6 +35,19 @@
                 </ul>
                 <ul>
                     <li>
+                        <a href="/userinfo">Информация для покупателей</a>
+                    </li>
+                    <li>
+                        <a href="/cookinfo">Информация для кулинаров</a>
+                    </li>
+                    <t:unless test="authenticated">
+                        <li>
+                            <a data-toggle="modal" data-target="#application">Заявка на подключение</a>
+                        </li>
+                    </t:unless>
+                </ul>
+                <ul>
+                    <li>
                         <a href="/confident">Политика конфиденциальности</a>
                     </li>
                     <li>

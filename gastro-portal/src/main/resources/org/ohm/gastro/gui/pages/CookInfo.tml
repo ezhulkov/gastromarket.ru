@@ -111,7 +111,7 @@
     </section>
 
     <t:parameter name="bottomBlock">
-        <div class="bottom-image">
+        <div class="bottom-image hidden-xs">
             <div></div>
         </div>
     </t:parameter>
