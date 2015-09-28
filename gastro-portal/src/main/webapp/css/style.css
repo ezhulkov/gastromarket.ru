@@ -2469,12 +2469,6 @@ body.desktop .main-header {
 .comments .reply-block {
   min-height: 27px;
 }
-.comments .comment .reply-block a {
-  display: none;
-}
-.comments .comment:hover .reply-block a {
-  display: inline;
-}
 .comments .children-comments {
   margin-top: 10px;
   list-style: none;
