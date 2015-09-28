@@ -3386,6 +3386,7 @@ label.t-error {
   padding: 0 20px 0 20px;
   text-align: center;
   line-height: 22px;
+  white-space: initial;
 }
 
 .attention {

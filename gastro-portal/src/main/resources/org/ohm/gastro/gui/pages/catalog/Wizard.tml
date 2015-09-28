@@ -41,7 +41,7 @@
                     </t:actionlink>
                 </div>
             </div>
-            <t:form t:id="wizardForm1" t:clientValidation="none" class="form form-horizontal edit wizard" t:autofocus="false" role="form">
+            <t:form t:id="wizardForm1" t:clientValidation="none" class="form wizard" t:autofocus="false" role="form">
                 <t:errors/>
                 <t:zone t:id="step1Zone" class="step1-zone gap3">
                     <t:delegate to="step1Block"/>
@@ -51,26 +51,34 @@
                         <p class="modal-text">
                             Контактная информация будет доступна только для администрации ГастроМаркет и не будет передана покупателям.
                         </p>
-                        <div class="form-group gap3">
-                            <label for="email">Адрес почты:</label>
-                            <input class="form-control" type="text" value="${authenticatedUser.email}" disabled="disabled"/>
-                        </div>
-                        <div class="form-group">
-                            <t:label for="fullName">Полное имя:</t:label>
-                            <div class="label-tip">
-                                Представьтесь, пожалуйста, как Вас зовут?
+                        <div class="col-xs-12">
+                            <div class="form-group gap3">
+                                <label for="email">Адрес почты:</label>
+                                <input class="form-control" type="text" value="${authenticatedUser.email}" disabled="disabled"/>
                             </div>
-                            <input t:id="fullName" class="form-control"/>
                         </div>
-                        <div class="form-group">
-                            <t:label for="mobilePhone">Телефон для связи:</t:label>
-                            <div class="label-tip">
-                                Как мы сможем с Вами связаться?
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <t:label for="fullName">Полное имя:</t:label>
+                                <div class="label-tip">
+                                    Представьтесь, пожалуйста, как Вас зовут?
+                                </div>
+                                <input t:id="fullName" class="form-control"/>
                             </div>
-                            <input t:id="mobilePhone" class="form-control mobile-phone" placeholder="+7 xxx xxx-xx-xx"/>
                         </div>
-                        <div class="form-buttons" xml:space="preserve">
-                            <input class="btn btn-red pull-right" type="submit" value="Далее &gt;"/>
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <t:label for="mobilePhone">Телефон для связи:</t:label>
+                                <div class="label-tip">
+                                    Как мы сможем с Вами связаться?
+                                </div>
+                                <input t:id="mobilePhone" class="form-control mobile-phone" placeholder="+7 xxx xxx-xx-xx"/>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="form-buttons" xml:space="preserve">
+                                <input class="btn btn-red pull-right" type="submit" value="Далее &gt;"/>
+                            </div>
                         </div>
                     </t:if>
                 </t:block>
@@ -79,69 +87,85 @@
     </t:block>
     <t:block id="step2">
         <div class="container">
-            <t:form t:id="wizardForm2" t:clientValidation="none" class="form form-horizontal edit wizard" t:autofocus="false" role="form">
+            <t:form t:id="wizardForm2" t:clientValidation="none" class="form wizard" t:autofocus="false" role="form">
                 <t:errors/>
-                <div class="form-group">
-                    <t:label for="desc">${nameLabel}:</t:label>
-                    <div class="label-tip">
-                        Как бы Вы хотели, чтобы называлась Ваша страница? Примеры - 'Кулинар Сергей Петров' или 'Кондитерская SmartCakes'
-                    </div>
-                    <input t:id="name" rows="6" class="form-control"/>
-                </div>
-                <div class="form-group">
-                    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 nopad" style="margin-right: 10px;">
-                        <t:label for="desc">${descLabel}:</t:label>
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <t:label for="desc">${nameLabel}:</t:label>
                         <div class="label-tip">
-                            ${descText}<br/>
-                            Помните, что доверие покупателей повышается, если они узнают о Вашей работе.
+                            Как бы Вы хотели, чтобы называлась Ваша страница? Примеры - 'Кулинар Сергей Петров' или 'Кондитерская SmartCakes'
                         </div>
-                        <input t:id="desc" rows="9" class="form-control" tabindex="1"/>
-                    </div>
-                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 nopad fluid-sm-block2 gap2 pic">
-                        <t:uploadfile type="CATALOG" responseSize="SIZE3" imageUrl="${catalog.avatarUrl}" objectId="${catalog.id}" class="wizard-upload"/>
+                        <input t:id="name" rows="6" class="form-control"/>
                     </div>
                 </div>
-                <div class="form-group">
-                    <t:label for="delivery">Условия доставки:</t:label>
-                    <div class="label-tip">
-                        Доставка готовых блюд осуществляется Вами, опишите здесь условия доставки.
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 nopad" style="margin-right: 10px;">
+                            <t:label for="desc">${descLabel}:</t:label>
+                            <div class="label-tip">
+                                ${descText}<br/>
+                                Помните, что доверие покупателей повышается, если они узнают о Вашей работе.
+                            </div>
+                            <input t:id="desc" rows="9" class="form-control" tabindex="1"/>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 nopad fluid-sm-block2 gap2 pic">
+                            <t:uploadfile type="CATALOG" responseSize="SIZE3" imageUrl="${catalog.avatarUrl}" objectId="${catalog.id}" class="wizard-upload"/>
+                        </div>
                     </div>
-                    <input t:id="delivery" rows="3" class="form-control" tabindex="2"/>
                 </div>
-                <div class="form-group">
-                    <t:label for="payment">Условия оплаты:</t:label>
-                    <div class="label-tip">
-                        Опишите в этом поле как происходит оплата стоимости заказа - предоплата, способы оплаты и тд.
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <t:label for="delivery">Условия доставки:</t:label>
+                        <div class="label-tip">
+                            Доставка готовых блюд осуществляется Вами, опишите здесь условия доставки.
+                        </div>
+                        <input t:id="delivery" rows="3" class="form-control" tabindex="2"/>
                     </div>
-                    <input t:id="payment" rows="3" class="form-control" tabindex="3"/>
                 </div>
-                <div class="form-group">
-                    <t:label for="cancellation">Условия отмены:</t:label>
-                    <div class="label-tip">
-                        Возможно ли отменить заказ и какую часть предоплаты Вы возвращаете?
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <t:label for="payment">Условия оплаты:</t:label>
+                        <div class="label-tip">
+                            Опишите в этом поле как происходит оплата стоимости заказа - предоплата, способы оплаты и тд.
+                        </div>
+                        <input t:id="payment" rows="3" class="form-control" tabindex="3"/>
                     </div>
-                    <input t:id="cancellation" rows="3" class="form-control" tabindex="3"/>
                 </div>
-                <div class="form-group">
-                    <t:label for="basketMin">Минимальная стоимость заказа, руб:</t:label>
-                    <div class="label-tip">
-                        Мы попросим покупателя дополнить заказ, если стоимость заказа меньше указанной.
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <t:label for="cancellation">Условия отмены:</t:label>
+                        <div class="label-tip">
+                            Возможно ли отменить заказ и какую часть предоплаты Вы возвращаете?
+                        </div>
+                        <input t:id="cancellation" rows="3" class="form-control" tabindex="3"/>
                     </div>
-                    <input t:id="basketMin" class="form-control" tabindex="4"/>
                 </div>
-                <div class="form-group">
-                    <t:label for="prepayment">Предоплата, %:</t:label>
-                    <input t:id="prepayment" class="form-control" tabindex="4"/>
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <t:label for="basketMin">Минимальная стоимость заказа, руб:</t:label>
+                        <div class="label-tip">
+                            Мы попросим покупателя дополнить заказ, если стоимость заказа меньше указанной.
+                        </div>
+                        <input t:id="basketMin" class="form-control" tabindex="4"/>
+                    </div>
                 </div>
-                <div class="form-buttons" xml:space="preserve">
-                    <t:actionlink rel="nofollow" t:id="goPrev" class="btn btn-red pull-left">&lt; Назад</t:actionlink>
-                    <input class="btn btn-red pull-right" type="submit" value="Далее &gt;"/>
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <t:label for="prepayment">Предоплата, %:</t:label>
+                        <input t:id="prepayment" class="form-control" tabindex="4"/>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="form-buttons" xml:space="preserve">
+                        <t:actionlink rel="nofollow" t:id="goPrev" class="btn btn-red pull-left">&lt; Назад</t:actionlink>
+                        <input class="btn btn-red pull-right" type="submit" value="Далее &gt;"/>
+                    </div>
                 </div>
             </t:form>
         </div>
     </t:block>
     <t:block id="step3">
-        <div class="container flexible">
+        <div class="container flexible hidden-xs">
             <div class="links-set">
                 <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>
                 <t:pagelink page="office/import" class="product-edit-link" context="catalog.altId">Импортировать<span/></t:pagelink>
@@ -163,14 +187,14 @@
                 </div>
             </t:block>
             <t:productModalTemplate/>
-
+        </div>
+        <div class="container">
             <form class="form form-horizontal edit wizard" role="form">
                 <div class="form-buttons" xml:space="preserve">
-                    <t:actionlink rel="nofollow" t:id="goPrev2" class="btn btn-red pull-left">&lt; Назад</t:actionlink>
-                    <t:actionlink rel="nofollow" t:id="goNext" class="btn btn-red pull-right">Завершить настройку &gt;</t:actionlink>
-                </div>
+                            <t:actionlink rel="nofollow" t:id="goPrev2" class="btn btn-red pull-left">&lt; Назад</t:actionlink>
+                            <t:actionlink rel="nofollow" t:id="goNext" class="btn btn-red pull-right">Завершить настройку &gt;</t:actionlink>
+                        </div>
             </form>
-
             <script>
                 jQuery(document).ready(function () {
                     var init = function () {
@@ -183,7 +207,11 @@
                 });
             </script>
         </div>
-
+        <div class="hidden-lg hidden-md hidden-sm">
+            <p class="modal-text">
+                Создание блюд невозможно на планшетах и мобильниках
+            </p>
+        </div>
     </t:block>
     <t:block id="step4">
         <div class="container">

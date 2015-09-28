@@ -28,11 +28,11 @@
                                 </li>
                             </t:if>
                         </t:if>
-                        <t:unless test="cook">
-                            <t:zone elementName="li" t:id="basketZone">
+                        <t:zone elementName="li" t:id="basketZone">
+                            <t:unless test="cook">
                                 <t:delegate to="basketBlock"/>
-                            </t:zone>
-                        </t:unless>
+                            </t:unless>
+                        </t:zone>
                         <t:if test="authenticated">
                             <li>
                                 <span class="dropdown">

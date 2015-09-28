@@ -6,7 +6,7 @@
             <t:pagelink page="catalog/index" t:context="catalog.altId">На страницу кулинара<span/></t:pagelink>
         </div>
         <t:if test="catalogOwner">
-            <div class="links-set">
+            <div class="links-set hidden-xs">
                 <a data-toggle="modal" data-target="#of-new" href="#of-new">Добавить готовое предложение</a>
             </div>
             <t:offerEdit catalog="catalog" edit="false" offersBlock="offersBlock"/>

@@ -14,10 +14,15 @@
             </div>
             <div class="modal-body offer-create">
                 <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs">
                         <t:zone t:id="offerEditZone" id="${offerEditZone}">
                             <t:delegate to="editDescBlock"/>
                         </t:zone>
+                    </div>
+                    <div class="hidden-lg hidden-md hidden-sm">
+                        <p class="modal-text">
+                            Редактирование предложений невозможно на планшетах и мобильниках
+                        </p>
                     </div>
                 </div>
                 <t:block t:id="editDescBlock">

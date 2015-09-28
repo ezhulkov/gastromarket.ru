@@ -14,10 +14,15 @@
             </div>
             <div class="modal-body product-create">
                 <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs">
                         <t:zone t:id="productEditZone" id="${productEditZone}">
                             <t:delegate to="editDescBlock"/>
                         </t:zone>
+                    </div>
+                    <div class="hidden-lg hidden-md hidden-sm">
+                        <p class="modal-text">
+                            Редактирование блюд невозможно на планшетах и мобильниках
+                        </p>
                     </div>
                 </div>
                 <t:block t:id="editDescBlock">
@@ -49,27 +54,31 @@
                                 <input t:id="productPrice" class="form-control price"/>
                             </div>
                         </div>
-                        <div class="col-sm-1 col-xs-6">
+                        <div class="col-sm-1 hidden-xs">
                             <div class="form-group">
                                 <label>&nbsp;</label>
                                 <div class="f20px za">за</div>
                             </div>
                         </div>
-                        <div class="col-xs-3">
+                        <div class="col-sm-3 col-xs-12">
                             <div class="form-group">
                                 <t:label t:for="productUnitValue">Количество:</t:label>
                                 <input t:id="productUnitValue" class="form-control unit"/>
                             </div>
                         </div>
-                        <div class="col-xs-3">
+                        <div class="col-sm-3 col-xs-12">
                             <div class="form-group">
                                 <t:label t:for="productUnit">Единицы:</t:label>
                                 <t:select t:id="productUnit" class="form-control unit"/>
                             </div>
                         </div>
-                        <t:pricemodifier object="product"/>
-                        <div class="form-buttons" xml:space="preserve">
-                            <input class="btn btn-red" t:type="submit" t:id="saveAndProps" value="${editPropertiesLabel}"/>
+                        <div class="col-xs-12">
+                            <t:pricemodifier object="product"/>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="form-buttons" xml:space="preserve">
+                                <input class="btn btn-red" t:type="submit" t:id="saveAndProps" value="${editPropertiesLabel}"/>
+                            </div>
                         </div>
                     </t:form>
                 </t:block>

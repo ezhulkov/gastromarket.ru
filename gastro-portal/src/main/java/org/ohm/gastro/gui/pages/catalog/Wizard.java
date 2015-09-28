@@ -80,7 +80,7 @@ public class Wizard extends AbstractCatalogPage {
     }
 
     public void onActionFromGoPrev() {
-        catalog.setWizardStep(Math.max(catalog.getWizardStep() - 1, 0));
+        catalog.setWizardStep(Math.max(catalog.getWizardStep() - 1, 1));
         getCatalogService().saveCatalog(catalog);
     }
 
