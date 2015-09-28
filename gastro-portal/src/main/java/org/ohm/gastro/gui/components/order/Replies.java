@@ -67,7 +67,7 @@ public class Replies extends AbstractOrder {
                 .filter(UserEntity::isCook)
                 .map(t -> getCatalogService().findAllCatalogs(t).stream())
                 .orElse(Stream.empty())
-                .filter(t -> t.getLevel() > getOrderService().findAllOrdersWithMetaStatus(t, Status.ACTIVE).size())
+                .filter(t -> t.getLevel() != null && t.getLevel() > getOrderService().findAllOrdersWithMetaStatus(t, Status.ACTIVE).size())
                 .findAny()
                 .isPresent();
     }
