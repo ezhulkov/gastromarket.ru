@@ -4,7 +4,6 @@
         <div class="title">
             <h1><span>${title}</span></h1>
         </div>
-
         <t:filter parentValue="parentPropertyValue" value="propertyValue" orderType="orderType" direction="direction" pageContext="literal:/product/list"/>
     </div>
     <div class="container flexible">

@@ -1,60 +1,13 @@
 @import ../include/var
+@import tools
 
 .filter
-
   margin-top: 20px
   text-align: center
-
-  ul
+  .filter-group
     list-style: none
-
-  ul.dropdown-menu
-    margin: 10px 0 0 60px
-    li
-      display: block
-      a
-        font-size: $f14px
-        color: $redTextColor
-        display: block
-        width: 180px
-        text-align: left
-
-      &.submenu:hover
-        .dropdown-menu
-          display: block
-
-  .submenu
-    .dropdown-menu
-      left: 265px
-      height: 298px
-      width: 182px
-      -webkit-border-radius: 0 8px 8px 8px
-      -moz-border-radius: 0 8px 8px
-      border-radius: 0 8px 8px 0
-      top: -1px
-      margin: 0
-      background-color: #eee
-
-    .dropdown-menu::after, & .dropdown-menu::before
-      display: none
-
-    & > a:after
-      display: block
-      content: " "
-      float: right
-      width: 0
-      height: 0
-      border: 5px solid transparent
-      border-right-width: 0
-      border-left-color: #ccc
-      margin-top: 5px
-      margin-right: -10px
-
-    &:hover > a:after
-      border-left-color: #bd0400
-
-  ul.filter-group
     position: relative
+    padding: 0
     & > li
       position: relative
       font-size: $f18px
@@ -64,6 +17,72 @@
       & > a
         font-size: $f18px
         color: $redTextColor
+        +tablet-media
+          display: block
+    .dropdown-menu
+      margin: 10px 0 0 60px
+      li
+        display: block
+        a
+          font-size: $f14px
+          color: $redTextColor
+          display: block
+          width: 180px
+          text-align: left
+        &.submenu:hover
+          .dropdown-menu
+            display: block
+    .submenu
+      .dropdown-menu
+        left: 175px
+        height: 298px
+        width: 182px
+        -webkit-border-radius: 0 8px 8px 8px
+        -moz-border-radius: 0 8px 8px
+        border-radius: 0 8px 8px 0
+        top: -1px
+        margin: 0
+        background-color: #eee
+      .dropdown-menu::after, & .dropdown-menu::before
+        display: none
+      & > a:after
+        display: block
+        content: " "
+        float: right
+        width: 0
+        height: 0
+        border: 5px solid transparent
+        border-right-width: 0
+        border-left-color: #ccc
+        margin-top: 5px
+        margin-right: -10px
+      &:hover > a:after
+        border-left-color: #bd0400
+  +tablet-media
+    .filter-group
+      & > li
+        width: 100%
+        margin: 0
+      .dropdown-menu
+        top: 0
+        position: relative
+        border: none
+        box-shadow: none
+        width: 100%
+        padding: 0
+        margin: 0
+        border-radius: 0
+        &:before
+          display: none
+        li > a
+          margin: 0 auto
+          text-align: center
+          &:after
+            display: none
+        li:nth-child(2n)
+          background-color: #f5f5f5
+        .submenu > .dropdown-menu
+          display: none
 
   .order
     background: url("../img/order.png") no-repeat

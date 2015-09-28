@@ -166,6 +166,7 @@ function initChosen(el, onReady) {
 }
 
 function showProductModal(pid) {
+    if (isMobile())return
     var modal = jQuery("#product-modal-template");
     var productMain = jQuery("div[data-productid='" + pid + "']:first");
     var product = jQuery(productMain).find(".modal-data");
@@ -296,9 +297,11 @@ function initProductCatalog(ajaxContainer) {
         }, 500);
     });
     jQuery(window).scroll(function () {
-        if (scrollMutex && jQuery(window).scrollTop() + jQuery(window).height() > jQuery(document).height() - 50) {
-            scrollMutex = false;
-            triggerEvent(jQuery('a[id^=fetchProductsAjaxLink]').get(0), 'click');
+        if (!isMobile()) {
+            if (scrollMutex && jQuery(window).scrollTop() + jQuery(window).height() > jQuery(document).height() - 50) {
+                scrollMutex = false;
+                triggerEvent(jQuery('a[id^=fetchProductsAjaxLink]').get(0), 'click');
+            }
         }
     });
 }
