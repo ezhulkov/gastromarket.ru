@@ -6055,7 +6055,7 @@ body.mobile .rub:after {
 }
 @media (max-width: 750px) {
   .main-header h1, .main-footer h1 {
-    font-size: 40px;
+    font-size: 50px;
     margin-bottom: 30px;
   }
 }
