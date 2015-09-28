@@ -5,11 +5,11 @@
         <div class="container">
             <div class="navbar-header qlean-header show_for_guest align_center">
                 <t:if test="header">
-                    <span class="navbar-toggle collapsed glyphicon" data-dialog="mobileMenu" data-target=".bs-navbar-collapse" data-toggle="collapse">
+                    <button type="button" class="navbar-toggle collapsed" data-target=".bs-navbar-collapse" data-toggle="collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                    </span>
+                    </button>
                 </t:if>
                 <div class="navbar-brand"><a class="logo" href="/"><img src="${contextPath}/img/logotype1-small.png" alt="logo"/></a></div>
             </div>
