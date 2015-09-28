@@ -37,14 +37,21 @@
                                         <p class="modal-text">
                                             Оставьте отклик к заявке и заинтересуйте заказчика. Ваша заполненная страница кулинара и меню помогут вам в этом!
                                         </p>
-                                        <t:form t:id="replyForm" class="form form-horizontal gap2"
+                                        <t:form t:id="replyForm" class="form gap2"
                                                 context="order.id" t:clientValidation="none"
                                                 autofocus="false" role="form" t:zone="replyZone">
-                                            <div class="form-group">
-                                                <textarea t:type="TextArea" t:id="replyText" t:value="replyText" rows="5" class="form-control"/>
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <textarea t:type="TextArea" t:id="replyText" t:value="replyText" rows="5" class="form-control"/>
+                                                    <div class="label-tip">
+                                                        Оставлять свои прямые контакты в отклике или обсуждениях запрещено правилами сайта. Комментарии с таким содержанием будут модерированы или удалены. Спасибо за понимание!
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="form-buttons" xml:space="preserve">
-                                                <input onclick="yaCounter29411415.reachGoal('REPLY_DONE'); return true;" class="btn btn-red" type="submit" value="Оставить отклик"/>
+                                            <div class="col-xs-12">
+                                                <div class="form-buttons" xml:space="preserve">
+                                                    <input onclick="yaCounter29411415.reachGoal('REPLY_DONE'); return true;" class="btn btn-red" type="submit" value="Оставить отклик"/>
+                                                </div>
                                             </div>
                                         </t:form>
                                     </div>

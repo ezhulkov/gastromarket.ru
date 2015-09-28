@@ -246,6 +246,10 @@ body.mobile .rub:after {
   padding-left: 0 !important;
 }
 
+.lhnormal {
+  line-height: normal !important;
+}
+
 .ib {
   display: inline-block !important;
 }
@@ -841,6 +845,10 @@ body.mobile .rub:after {
 .no-bullets {
   list-style: none !important;
   padding-left: 0 !important;
+}
+
+.lhnormal {
+  line-height: normal !important;
 }
 
 .ib {
@@ -1469,6 +1477,10 @@ body.mobile .rub:after {
   padding-left: 0 !important;
 }
 
+.lhnormal {
+  line-height: normal !important;
+}
+
 .ib {
   display: inline-block !important;
 }
@@ -1764,6 +1776,10 @@ body.mobile .rub:after {
 .no-bullets {
   list-style: none !important;
   padding-left: 0 !important;
+}
+
+.lhnormal {
+  line-height: normal !important;
 }
 
 .ib {
@@ -2066,6 +2082,10 @@ body.mobile .rub:after {
 .no-bullets {
   list-style: none !important;
   padding-left: 0 !important;
+}
+
+.lhnormal {
+  line-height: normal !important;
 }
 
 .ib {
@@ -2882,6 +2902,10 @@ body.mobile .rub:after {
   padding-left: 0 !important;
 }
 
+.lhnormal {
+  line-height: normal !important;
+}
+
 .ib {
   display: inline-block !important;
 }
@@ -3446,6 +3470,10 @@ body.mobile .rub:after {
   padding-left: 0 !important;
 }
 
+.lhnormal {
+  line-height: normal !important;
+}
+
 .ib {
   display: inline-block !important;
 }
@@ -3946,6 +3974,10 @@ body.mobile .rub:after {
   padding-left: 0 !important;
 }
 
+.lhnormal {
+  line-height: normal !important;
+}
+
 .ib {
   display: inline-block !important;
 }
@@ -4312,6 +4344,10 @@ body.mobile .rub:after {
   padding-left: 0 !important;
 }
 
+.lhnormal {
+  line-height: normal !important;
+}
+
 .ib {
   display: inline-block !important;
 }
@@ -4428,8 +4464,8 @@ body.mobile .rub:after {
 .comments .comment {
   margin-bottom: 20px;
 }
-.comments .comment .reply-block a {
-  margin-bottom: 10px;
+.comments .comment .reply-block > a {
+  margin: 0 5px 5px 0;
   padding: 3px 20px;
 }
 .comments .children-comments {
