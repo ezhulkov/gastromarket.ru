@@ -1,4 +1,5 @@
 @import ../include/var
+@import tools
 
 .comments
   .pic
@@ -44,9 +45,11 @@
   li
     margin-bottom: 10px
     text-align: left
-    padding-right: 20px
+    padding-right: 10px
     span
       margin-right: 20px
+      +tablet-media
+        margin-right: 5px
       &.true:before
         content: "\e013"
         color: green
@@ -55,3 +58,5 @@
         color: red
     div
       margin-left: 40px
+      +tablet-media
+        margin-left: 25px

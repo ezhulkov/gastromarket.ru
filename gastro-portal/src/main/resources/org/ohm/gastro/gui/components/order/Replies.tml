@@ -10,7 +10,7 @@
         </div>
     </t:if>
 
-    <div class="title">
+    <div>
         <t:if test="tenderType">
             <t:unless test="orderClosed">
                 <t:if test="authenticated">
@@ -92,9 +92,9 @@
                                                     </li>
                                                     <li>
                                                         <span class="glyphicon ${catalogReady}" aria-hidden="true"/>
-                                                        <t:if test="catalogReady">Ваш каталог заполнен и доступен
+                                                        <t:if test="catalogReady">Ваш каталог заполнен
                                                             <t:parameter name="else">
-                                                                Каталог не заполнен или нет загруженных блюд
+                                                                Каталог не заполнен
                                                                 <div class="label-tip">
                                                                     Необходимо завершить все шаги настройки каталога и добавить хотя бы одно блюдо.
                                                                 </div>
@@ -105,7 +105,7 @@
                                                         <span class="glyphicon ${hasOrderSlots}" aria-hidden="true"/>
                                                         <t:if test="hasOrderSlots">Рейтинг позволяет оставить отклик
                                                             <t:parameter name="else">
-                                                                Рейтинг не позволяет оставить отклик
+                                                                Рейтинг не позволяет откликнуться
                                                                 <div class="label-tip">
                                                                     Чем выше рейтинг, тем больше активных заказов вы можете иметь. Доведите до конца существующие заказы и сможете откликаться на заявки.
                                                                 </div>
@@ -121,7 +121,7 @@
                         </t:parameter>
                     </t:if>
                     <t:parameter name="else">
-                        <div class="gap3 text-center">
+                        <div class="gap2 text-center">
                             <a href="#tender_login" data-toggle="modal"
                                data-target="#tender_login"
                                class="btn btn-red btn-lg"
@@ -134,7 +134,7 @@
             </t:unless>
         </t:if>
     </div>
-    <t:zone t:id="replyZone">
+    <t:zone t:id="replyZone" class="gap3">
         <t:delegate to="replyBlock"/>
     </t:zone>
     <t:block t:id="replyBlock">

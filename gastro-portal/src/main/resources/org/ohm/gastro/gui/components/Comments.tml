@@ -1,12 +1,12 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="comments">
     <t:loop source="comments" value="comment">
         <div class="row comment">
-            <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-0 col-sm-3 col-xs-3 text-right pic">
+            <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-0 col-sm-3 col-xs-12 fluid-xs-block pic">
                 <a href="${linkUrl}">
                     <img src="${avatarUrl}"/>
                 </a>
             </div>
-            <div class="col-lg-7 col-lg-offset-0 col-md-7 col-md-offset-0 col-sm-8 col-sm-offset-0 col-xs-8">
+            <div class="col-lg-7 col-lg-offset-0 col-md-7 col-md-offset-0 col-sm-8 col-sm-offset-0 col-xs-12">
                 <div class="date">
                     ${comment.datePrintable}
                 </div>

@@ -76,9 +76,11 @@
                                 <input t:id="personCount" type="number" class="form-control"/>
                             </div>
                         </div>
-                        <div class="form-buttons" xml:space="preserve">
+                        <div class="col-xs-12">
+                            <div class="form-buttons" xml:space="preserve">
                                 <input class="btn btn-red" t:type="submit" t:id="saveAndContacts" value="Контактные данные >"/>
                             </div>
+                        </div>
                     </t:form>
                 </t:block>
                 <t:block t:id="editContactsBlock">
