@@ -10,7 +10,7 @@
                 <h2>Для кого предназначен ГастроМаркет?</h2>
                 <div class="row gap3">
                     <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-3 col-xs-12 text-center">
-                        <img src="/img/cook-128x128.png" alt="кулинар"/>
+                        <img src="/img/cook-128x128.png" srcset="/img/cook-256x256 2x" alt="кулинар"/>
                         <br/>
                         <br/>
                     </div>
@@ -35,7 +35,7 @@
                 <h2>Какие услуги ГастроМаркет предлагает кулинарам?</h2>
                 <div class="row gap3">
                     <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-3 col-xs-12 text-center">
-                        <img src="/img/service-128x128.png" alt="сервисы"/>
+                        <img src="/img/service-128x128.png" srcset="/img/service-256x256 2x" alt="сервисы"/>
                         <br/>
                         <br/>
                     </div>

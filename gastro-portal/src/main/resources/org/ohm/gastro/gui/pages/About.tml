@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="row gap3">
                     <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-3 col-xs-12 text-center">
-                        <img src="/img/baloons-128x128.png" alt="праздник"/>
+                        <img src="/img/baloons-128x128.png" srcset="/img/baloons-256x256 2x" alt="праздник"/>
                         <br/>
                         <br/>
                     </div>
@@ -24,7 +24,7 @@
                 <h2>Покупателям</h2>
                 <div class="row gap3">
                     <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-3 col-xs-12 text-center">
-                        <img src="/img/friends-128x128.png" alt="сервисы"/>
+                        <img src="/img/friends-128x128.png" srcset="/img/friends-256x256.png 2x" alt="сервисы"/>
                         <br/>
                         <br/>
                     </div>
@@ -51,7 +51,7 @@
                 <h2>Кулинарам</h2>
                 <div class="row gap3">
                     <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-3 col-xs-12 text-center">
-                        <img src="/img/cook-128x128.png" alt="сервисы"/>
+                        <img src="/img/cook-128x128.png" srcset="/img/cook-256x256 2x" alt="сервисы"/>
                         <br/>
                         <br/>
                     </div>

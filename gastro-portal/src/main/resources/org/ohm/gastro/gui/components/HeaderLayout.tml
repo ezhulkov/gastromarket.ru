@@ -11,7 +11,7 @@
                         <span class="icon-bar"></span>
                     </button>
                 </t:if>
-                <div class="navbar-brand"><a class="logo" href="/"><img src="${contextPath}/img/logotype1-small.png" alt="logo"/></a></div>
+                <div class="navbar-brand"><a class="logo" href="/"><img src="/img/logotype1-small.png" srcset="/img/logotype1.png 2x" alt="logo"/></a></div>
             </div>
             <t:if test="header">
                 <div class="collapse navbar-collapse no-transition bs-navbar-collapse">
