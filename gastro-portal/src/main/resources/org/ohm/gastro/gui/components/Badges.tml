@@ -2,19 +2,19 @@
     <t:if test="catalog.rankBadge">
         <div class="badge-rank popover-holder" data-content="Топ ${catalog.rankBadge} среди кулинаров">${catalog.rankBadge}</div>
         <t:parameter name="else">
-            <div class="badge-rank badge-stub popover-holder" data-content="Нет бейджа 'Топ кулинаров'"/>
+            <div class="badge-rank badge-stub popover-holder" data-content="Нет бейджа 'Топ кулинаров'"></div>
         </t:parameter>
     </t:if>
     <t:if test="catalog.productBadge">
         <div class="badge-product popover-holder" data-content="Товаров: больше ${catalog.productBadge}">${catalog.productBadge}</div>
         <t:parameter name="else">
-            <div class="badge-product badge-stub popover-holder" data-content="Нет бейджа 'Загружено товаров'"/>
+            <div class="badge-product badge-stub popover-holder" data-content="Нет бейджа 'Загружено товаров'"></div>
         </t:parameter>
     </t:if>
     <t:if test="catalog.orderBadge">
         <div class="badge-order popover-holder" data-content="Заказов: больше ${catalog.orderBadge}">${catalog.orderBadge}</div>
         <t:parameter name="else">
-            <div class="badge-order badge-stub popover-holder" data-content="Нет бейджа 'Выполнено заказов'"/>
+            <div class="badge-order badge-stub popover-holder" data-content="Нет бейджа 'Выполнено заказов'"></div>
         </t:parameter>
     </t:if>
 </div>

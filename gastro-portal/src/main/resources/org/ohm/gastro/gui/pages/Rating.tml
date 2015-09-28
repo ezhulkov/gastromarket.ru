@@ -9,7 +9,7 @@
                 <h2>Рейтинг кулинаров</h2>
                 <div class="row gap3">
                     <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-3 col-xs-12 text-center">
-                        <img src="/img/rating-128x128.png" srcset="/img/rating-256x256 2x" alt="рейтинг"/>
+                        <img src="/img/rating-128x128.png" srcset="/img/rating-256x256.png 2x" alt="рейтинг"/>
                         <br/>
                         <br/>
                     </div>
