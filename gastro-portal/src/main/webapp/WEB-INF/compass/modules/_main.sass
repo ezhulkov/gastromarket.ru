@@ -10,7 +10,6 @@ $mainpics: main1 main2 main3 main4 main5 main6 main7 main8
     text-align: center
     color: $blackTextColor
     margin: 30px
-    padding: 10px 10px 0 10px
     .name, .price
       font-size: 20px
       height: 45px
@@ -20,6 +19,11 @@ $mainpics: main1 main2 main3 main4 main5 main6 main7 main8
     .caption2
       font-size: 16px
       margin: 5px 0 15px 0
+    +desktop-media
+      padding: 10px 10px 0 10px
+  +tablet-media
+    .tender
+      margin: 0
   h1
     font-size: 70px
     margin: 40px 0 10px 0
@@ -41,6 +45,8 @@ $mainpics: main1 main2 main3 main4 main5 main6 main7 main8
 .main-footer
   background: url(../img/landing-main5.jpg) center top no-repeat
   background-size: cover
+  padding-top: 15px
+  padding-bottom: 15px
 
 .main-howto, .main-testimonial, .main-cooks, .main-products
   padding-bottom: 20px

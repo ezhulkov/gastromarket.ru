@@ -68,6 +68,11 @@
                         <goals>
                             <goal>update-stylesheets</goal>
                         </goals>
+                        <configuration>
+                            <sassOptions>
+                                <style>:compressed</style>
+                            </sassOptions>
+                        </configuration>
                     </execution>
                 </executions>
                 <configuration>

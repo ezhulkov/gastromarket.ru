@@ -14,7 +14,7 @@
     </div>
     <div class="col-xs-12">
         <div class="form-group">
-            <input t:id="budget" type="number" class="form-control price" placeholder="Сколько вы готовы потратить?"/>
+            <input t:id="budget" type="number" class="form-control price" placeholder="Бюджет заявки"/>
         </div>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">

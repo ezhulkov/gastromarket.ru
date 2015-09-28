@@ -1,25 +1,25 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <!--<header class="main-header hidden">-->
-    <!--<div class="container">-->
-    <!--<div class="row">-->
-    <!--<div class="col-md-12">-->
-    <!--<h1>Ищите торт на заказ?</h1>-->
-    <!--</div>-->
-    <!--<div class="col-lg-7 col-md-6 col-sm-12 col-xs-12">-->
-    <!--<h2>-->
-    <!--Разместите заявку и более 200 независимых кулинаров и домашних кондитеров Москвы и Подмосковья будут готовы сделать для вас торты, капкейки, пироги,-->
-    <!--готовые столы на свадьбу или день рождения и много много других кулинарных шедевров!-->
-    <!--<br/><br/>-->
-    <!--Всё это можно найти на ГастроМаркет.-->
-    <!--</h2>-->
-    <!--</div>-->
-    <!--<div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">-->
-    <!--<t:order.landingForm/>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</header>-->
+    <header class="main-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Ищите торт на заказ?</h1>
+                </div>
+                <div class="col-lg-7 col-md-6 col-sm-12 col-xs-12 hidden-xs">
+                    <h2>
+                        Разместите заявку и более 200 независимых кулинаров и домашних кондитеров Москвы и Подмосковья будут готовы сделать для вас торты, капкейки, пироги,
+                        готовые столы на свадьбу или день рождения и много много других кулинарных шедевров!
+                        <br/><br/>
+                        Всё это можно найти на ГастроМаркет.
+                    </h2>
+                </div>
+                <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">
+                    <t:order.landingForm/>
+                </div>
+            </div>
+        </div>
+    </header>
 
     <section class="main-howto">
         <div class="container">
@@ -122,7 +122,7 @@
         </div>
     </section>
 
-    <section class="main-products">
+    <section class="main-products hidden-xs">
         <div class="container">
             <div class="title">
                 <h1><span>Примеры блюд</span></h1>
@@ -169,19 +169,19 @@
         </div>
     </section>
 
-    <!--<t:parameter name="bottomBlock">-->
-    <!--<section class="main-footer">-->
-    <!--<div class="container">-->
-    <!--<div class="row">-->
-    <!--<div class="col-lg-7 col-md-6 col-sm-12 col-xs-12">-->
-    <!--<h2>Мы помогаем сделать лучший выбор в ассортименте выпечки, домашней еды и кейтеринга для вашего праздника, предоставляя самую качественную базу независимых кулинаров и их продукции.</h2>-->
-    <!--</div>-->
-    <!--<div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">-->
-    <!--<t:order.landingForm/>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</section>-->
-    <!--</t:parameter>-->
+    <t:parameter name="bottomBlock">
+        <section class="main-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7 col-md-6 col-sm-12 col-xs-12 hidden-xs">
+                        <h2>Мы помогаем сделать лучший выбор в ассортименте выпечки, домашней еды и кейтеринга для вашего праздника, предоставляя самую качественную базу независимых кулинаров и их продукции.</h2>
+                    </div>
+                    <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">
+                        <t:order.landingForm/>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </t:parameter>
 
 </t:layout>

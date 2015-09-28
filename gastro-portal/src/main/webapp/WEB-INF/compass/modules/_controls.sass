@@ -225,8 +225,13 @@ label.t-error
     margin-top: 3px
 
 .form
-  padding: 10px 30px
+  padding: 10px
   overflow: auto
+  +tablet-media
+    padding: 0
+    .form-group, .form-buttons
+      margin-left: 0
+      margin-right: 0
 
 .form-control
   height: 38px

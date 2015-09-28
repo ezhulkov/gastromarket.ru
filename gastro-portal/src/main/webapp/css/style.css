@@ -264,7 +264,7 @@ body.mobile .rub:after {
 .fluid-xs-block > div {
   float: right;
 }
-@media (max-width: 768px) {
+@media (max-width: 750px) {
   .fluid-xs-block {
     text-align: left;
   }
@@ -328,7 +328,7 @@ body.mobile .rub:after {
 .catalog-item .pic-block div {
   float: right;
 }
-@media (max-width: 768px) {
+@media (max-width: 750px) {
   .catalog-item .pic-block {
     text-align: left;
   }
@@ -595,7 +595,7 @@ body.mobile .rub:after {
   width: initial;
   height: initial;
 }
-@media (max-width: 768px) {
+@media (max-width: 750px) {
   .offer-item .pic-block {
     text-align: left;
   }
@@ -861,7 +861,7 @@ body.mobile .rub:after {
 .fluid-xs-block > div {
   float: right;
 }
-@media (max-width: 768px) {
+@media (max-width: 750px) {
   .fluid-xs-block {
     text-align: left;
   }
@@ -964,7 +964,7 @@ body.modal-open {
 }
 @media (max-width: 750px) {
   .modal-dialog {
-    margin: 5px;
+    margin: 15px;
   }
 }
 
@@ -973,11 +973,11 @@ body.modal-open {
 }
 @media (max-width: 750px) {
   .modal-body {
-    padding: 0 5px 5px 5px;
+    padding: 0;
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 750px) {
   .modal-dialog {
     width: 600px;
     margin-left: auto;
@@ -1483,7 +1483,7 @@ body.mobile .rub:after {
 .fluid-xs-block > div {
   float: right;
 }
-@media (max-width: 768px) {
+@media (max-width: 750px) {
   .fluid-xs-block {
     text-align: left;
   }
@@ -1776,7 +1776,7 @@ body.mobile .rub:after {
 .fluid-xs-block > div {
   float: right;
 }
-@media (max-width: 768px) {
+@media (max-width: 750px) {
   .fluid-xs-block {
     text-align: left;
   }
@@ -2078,7 +2078,7 @@ body.mobile .rub:after {
 .fluid-xs-block > div {
   float: right;
 }
-@media (max-width: 768px) {
+@media (max-width: 750px) {
   .fluid-xs-block {
     text-align: left;
   }
@@ -2408,8 +2408,17 @@ label.t-error {
 }
 
 .form {
-  padding: 10px 30px;
+  padding: 10px;
   overflow: auto;
+}
+@media (max-width: 750px) {
+  .form {
+    padding: 0;
+  }
+  .form .form-group, .form .form-buttons {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 
 .form-control {
@@ -3210,7 +3219,7 @@ body.mobile .rub:after {
 .fluid-xs-block > div {
   float: right;
 }
-@media (max-width: 768px) {
+@media (max-width: 750px) {
   .fluid-xs-block {
     text-align: left;
   }
@@ -3411,7 +3420,7 @@ body.mobile .rub:after {
   text-align: right;
   font-weight: bold;
 }
-@media (max-width: 768px) {
+@media (max-width: 750px) {
   .order-show-catalog .total .price {
     font-size: 30px;
     color: #333;
@@ -3710,7 +3719,7 @@ body.mobile .rub:after {
 .fluid-xs-block > div {
   float: right;
 }
-@media (max-width: 768px) {
+@media (max-width: 750px) {
   .fluid-xs-block {
     text-align: left;
   }
@@ -3777,7 +3786,6 @@ body.mobile .rub:after {
   text-align: center;
   color: #333;
   margin: 30px;
-  padding: 10px 10px 0 10px;
 }
 .main-header .tender .name, .main-header .tender .price, .main-footer .tender .name, .main-footer .tender .price {
   font-size: 20px;
@@ -3790,6 +3798,16 @@ body.mobile .rub:after {
 .main-header .tender .caption2, .main-footer .tender .caption2 {
   font-size: 16px;
   margin: 5px 0 15px 0;
+}
+@media (min-width: 750px) {
+  .main-header .tender, .main-footer .tender {
+    padding: 10px 10px 0 10px;
+  }
+}
+@media (max-width: 750px) {
+  .main-header .tender, .main-footer .tender {
+    margin: 0;
+  }
 }
 .main-header h1, .main-footer h1 {
   font-size: 70px;
@@ -3820,6 +3838,8 @@ body.desktop .main-header {
 .main-footer {
   background: url(../img/landing-main5.jpg) center top no-repeat;
   background-size: cover;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .main-howto, .main-testimonial, .main-cooks, .main-products {
