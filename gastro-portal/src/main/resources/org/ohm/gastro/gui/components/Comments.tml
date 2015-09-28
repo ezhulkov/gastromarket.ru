@@ -32,7 +32,7 @@
                     </t:if>
                     <div class="reply-block">
                         <t:if test="replyAllowed">
-                            <a href="#reply" data-toggle="modal" class="dotted-link" data-target="#reply_${comment.id}">ответить</a>
+                            <a href="#reply" data-toggle="modal" class="btn btn-red btn-xs" data-target="#reply_${comment.id}">ответить</a>
                             &nbsp;&nbsp;
 
                             <div class="modal fade" id="reply_${comment.id}" tabindex="-1" role="dialog" aria-hidden="true">
@@ -60,7 +60,7 @@
                             &nbsp;&nbsp;
                         </t:if>
                         <t:if test="orderUser">
-                            <a href="#choose_cook" data-toggle="modal" class="dotted-link" data-target="#choose_cook_${comment.id}">выбрать исполнителя</a>
+                            <a href="#choose_cook" data-toggle="modal" class="btn btn-red btn-xs" data-target="#choose_cook_${comment.id}">выбрать исполнителя</a>
                         </t:if>
                     </div>
                 </t:if>
