@@ -12,7 +12,7 @@
                     <li><a href="/social?social=fb" onclick="yaCounter29411415.reachGoal('SOCIAL_LOGIN'); return true;" title="facebook.com" class="fb">facebook.com</a></li>
                 </ul>
                 <p class="modal-text text-center">или через почтовый адрес и пароль</p>
-                <t:form t:id="signupAjaxForm" t:clientValidation="none" class="form form-horizontal edit" role="form">
+                <t:form t:id="signupAjaxForm" t:clientValidation="none" class="form" role="form">
                     <t:if test="error">
                         <div class="t-error">
                             <ul>
@@ -29,7 +29,7 @@
                         <t:label for="fullName">Полное имя:</t:label>
                         <input t:type="TextField" t:id="fullName" t:value="fullName" t:validate="maxlength=64" class="form-control"/>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group clearfix">
                         <t:label for="password">Пароль:</t:label>
                         <input t:type="PasswordField" t:id="password" t:value="password" t:validate="required,maxlength=64" class="form-control"/>
                     </div>

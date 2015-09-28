@@ -19,7 +19,7 @@
                         </div>
                     </div>
                 </t:if>
-                <form method="post" action="j_security_check" class="form form-horizontal edit" role="form">
+                <form method="post" action="j_security_check" class="form" role="form">
                     <div class="form-group">
                         <label for="j_username">Адрес почты:</label>
                         <input id="j_username" name="j_username" type="text" class="form-control"/>
@@ -28,7 +28,7 @@
                         <label for="j_password">Пароль:</label>
                         <input id="j_password" name="j_password" type="password" class="form-control"/>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group clearfix">
                         <a href="#" class="pull-left red-text forget-link" data-toggle="modal" data-target="#login">Забыли пароль?</a>
                         <div class="label-checkbox-set pull-right">
                             <label for="rememberme2" class="red-text">Запомнить меня</label>

@@ -13,8 +13,8 @@
 
     <t:loginUserModal modalId="cart_login">
         <t:parameter name="addText">
-            <div class="attention">
-                Для оформления заказа и связи с кулинаром необходимо войти или зарегистрироваться.
+            <div class="row">
+                <p class="modal-text red-text">Для оформления заказа и связи с кулинаром необходимо войти или зарегистрироваться.</p>
             </div>
         </t:parameter>
     </t:loginUserModal>

@@ -112,10 +112,11 @@
                                 * - персональные данные скрыты для посетителей и кулинаров. <br/>Выбранный для заявки кулинар получит к ним доступ только внесении предоплаты.
                             </div>
                         </div>
-                        <div class="col-xs-12 gap"></div>
-                        <div class="form-buttons" xml:space="preserve">
-                            <input class="btn btn-red" t:type="submit" t:id="saveAndBack" value="&lt; Назад"/>
-                            <input class="btn btn-red" t:type="submit" t:id="saveAndClose" onclick="yaCounter29411415.reachGoal('TENDER_PLACED'); return true;"  value="${closeLabel}"/>
+                        <div class="col-xs-12 gap">
+                            <div class="form-buttons" xml:space="preserve">
+                                <input class="btn btn-red" t:type="submit" t:id="saveAndBack" value="&lt; Назад"/>
+                                <input class="btn btn-red" t:type="submit" t:id="saveAndClose" onclick="yaCounter29411415.reachGoal('TENDER_PLACED'); return true;"  value="${closeLabel}"/>
+                            </div>
                         </div>
                     </t:form>
                     <div class="row gap">

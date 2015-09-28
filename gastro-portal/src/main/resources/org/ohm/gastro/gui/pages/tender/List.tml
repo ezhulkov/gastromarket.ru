@@ -25,8 +25,8 @@
     <t:unless test="authenticated">
         <t:loginUserModal modalId="order-login">
             <t:parameter name="addText">
-                <div class="attention">
-                    Для оформления заявки необходимо войти или зарегистрироваться.
+                <div class="row">
+                    <p class="modal-text red-text">Для оформления заявки необходимо войти или зарегистрироваться.</p>
                 </div>
             </t:parameter>
         </t:loginUserModal>
