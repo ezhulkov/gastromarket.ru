@@ -5,6 +5,8 @@
 $mainpics: main1 main2 main3 main4 main5 main6 main7 main8
 
 .main-header, .main-footer
+  padding-top: 15px
+  padding-bottom: 15px
   .tender
     +border-class(rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.9), rgba(0, 0, 0, 0.4))
     text-align: center
@@ -28,6 +30,9 @@ $mainpics: main1 main2 main3 main4 main5 main6 main7 main8
     font-size: 70px
     margin: 40px 0 10px 0
     color: white
+    +tablet-media
+      font-size: 40px
+      margin-bottom: 30px
   h2
     margin-top: 150px
     color: white
@@ -37,16 +42,14 @@ $mainpics: main1 main2 main3 main4 main5 main6 main7 main8
     padding: 30px
 
 .main-header
-  background: url(../img/landing-main.jpg) center center no-repeat
-  body.desktop &
-    background: url(../img/landing-main.jpg) fixed center center no-repeat
-    background-size: cover
+  background: url(../img/landing-main.jpg) fixed center center no-repeat
+  background-size: cover
+  //+tablet-media
+  //  background: black
 
 .main-footer
   background: url(../img/landing-main5.jpg) center top no-repeat
   background-size: cover
-  padding-top: 15px
-  padding-bottom: 15px
 
 .main-howto, .main-testimonial, .main-cooks, .main-products
   padding-bottom: 20px

@@ -25,7 +25,7 @@
                     <p class="modal-text text-center">или через почтовый адрес и пароль</p>
                 </div>
 
-                <form method="post" action="j_security_check" class="form form-horizontal edit" role="form">
+                <form method="post" action="j_security_check" class="form edit" role="form">
                     <div class="col-xs-12">
                         <div class="form-group">
                             <label for="username1">Адрес почты:</label>
@@ -81,13 +81,17 @@
                 <div class="row">
                     <p class="modal-text">Укажите свой почтовый адрес для восстановления пароля.<br/> Новый пароль будет выслан на указанный адрес.</p>
                 </div>
-                <t:form t:zone="rememberZone" t:id="rememberAjaxForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
-                    <div class="form-group">
-                        <t:label for="eMail">Адрес почты:</t:label>
-                        <input t:type="TextField" t:id="eMail" t:value="eMail" type="text" class="form-control"/>
+                <t:form t:zone="rememberZone" t:id="rememberAjaxForm" class="form edit" t:clientValidation="none" role="form">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <t:label for="eMail">Адрес почты:</t:label>
+                            <input t:type="TextField" t:id="eMail" t:value="eMail" type="text" class="form-control"/>
+                        </div>
                     </div>
-                    <div class="form-buttons" xml:space="preserve">
-                        <input class="btn btn-red" type="submit" value="Восстановить"/>
+                    <div class="col-xs-12">
+                        <div class="form-buttons" xml:space="preserve">
+                            <input class="btn btn-red" type="submit" value="Восстановить"/>
+                        </div>
                     </div>
                 </t:form>
             </div>
@@ -134,7 +138,7 @@
                     <script>location.reload();</script>
                 </t:block>
                 <t:block t:id="signupFormBlock">
-                    <t:form t:zone="signupZone" t:id="signupAjaxForm" t:clientValidation="none" class="form form-horizontal edit" role="form">
+                    <t:form t:zone="signupZone" t:id="signupAjaxForm" t:clientValidation="none" class="form edit" role="form">
                         <t:if test="error">
                             <div class="t-error">
                                 <ul>
@@ -148,20 +152,28 @@
                             </div>
                             <t:errors/>
                         </t:if>
-                        <div class="form-group">
-                            <t:label for="eMail2">Адрес почты:</t:label>
-                            <input t:type="TextField" t:id="eMail2" t:value="eMail" t:validate="required,email,maxlength=64" class="form-control"/>
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <t:label for="eMail2">Адрес почты:</t:label>
+                                <input t:type="TextField" t:id="eMail2" t:value="eMail" t:validate="required,email,maxlength=64" class="form-control"/>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <t:label for="fullName">Полное имя:</t:label>
-                            <input t:type="TextField" t:id="fullName" t:value="fullName" t:validate="maxlength=64" class="form-control"/>
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <t:label for="fullName">Полное имя:</t:label>
+                                <input t:type="TextField" t:id="fullName" t:value="fullName" t:validate="maxlength=64" class="form-control"/>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <t:label for="password">Пароль:</t:label>
-                            <input t:type="PasswordField" t:id="password" t:value="password" t:validate="required,maxlength=64" class="form-control"/>
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <t:label for="password">Пароль:</t:label>
+                                <input t:type="PasswordField" t:id="password" t:value="password" t:validate="required,maxlength=64" class="form-control"/>
+                            </div>
                         </div>
-                        <div class="form-buttons" xml:space="preserve">
-                            <input class="btn btn-red" type="submit" onclick="yaCounter29411415.reachGoal('SIGNUP'); return true;" value="Зарегистрироваться"/>
+                        <div class="col-xs-12">
+                            <div class="form-buttons" xml:space="preserve">
+                                <input class="btn btn-red" type="submit" onclick="yaCounter29411415.reachGoal('SIGNUP'); return true;" value="Зарегистрироваться"/>
+                            </div>
                         </div>
                     </t:form>
                 </t:block>

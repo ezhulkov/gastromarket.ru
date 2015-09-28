@@ -104,16 +104,16 @@
                         </div>
                         <a class="modal-close" data-dismiss="modal"></a>
                     </div>
-                    <div class="modal-body">
-                        <div class="row">
+                    <div class="modal-body form">
+                        <div class="col-xs-12">
                             <p class="modal-text">
                                 Каждый раз, когда вы или ваш друг совершает заказ через ГастроМаркет,
                                 вы зарабатываете бонусные баллы, которые можно потратить на приятные подарки.
                             </p>
-                        </div>
-                        <div class="form-buttons" xml:space="preserve">
+                            <div class="form-buttons" xml:space="preserve">
                                 <a class="btn btn-red btn-lg" href="/bonus">Узнайте подробности</a>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
