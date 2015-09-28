@@ -1,4 +1,5 @@
 @import ../include/var
+@import tools
 
 $badges: badge-product badge-order badge-rank
 
@@ -82,12 +83,22 @@ $badges: badge-product badge-order badge-rank
         span
           border: 1px solid $redTextColor
           background-color: $redTextColor
+    +tablet-media
+      height: auto
+      & > div, & > div > span
+        display: block
+        height: auto
+        margin: 0
+
   .soc
     height: 50px
     & > div
       display: inline-block
       float: left
       margin: 0
+  +tablet-media
+    .time-info
+      margin-bottom: 10px
 
 .catalog-link
   display: block

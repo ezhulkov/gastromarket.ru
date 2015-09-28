@@ -21,7 +21,7 @@
                     <img class="pic" src="${avatarUrl}"/>
                 </t:pagelink>
             </div>
-            <div class="${rightBlock} nopad">
+            <div class="${rightBlock} nopad info-block">
                 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                     <t:pagelink page="catalog/offer" t:context="offer.altId" class="name">${offer.name}</t:pagelink>
                     <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="offer.catalog.altId">

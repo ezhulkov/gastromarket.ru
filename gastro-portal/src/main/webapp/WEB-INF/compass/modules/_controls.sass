@@ -10,6 +10,7 @@
   +tablet-media
     width: 100%
     margin-bottom: 5px
+    padding: 8px 0
   &.btn-red
     background-image: -webkit-gradient(linear, left top, left bottom, from($redTextColor), to($deepRedTextColor))
     background-image: -webkit-linear-gradient(top, $redTextColor, $deepRedTextColor)
@@ -41,6 +42,8 @@
   &.btn-lg
     padding: 10px 45px
     font-size: 20px
+    +tablet-media
+      padding: 10px 0
 
 .round-link
   background-color: white

@@ -151,7 +151,7 @@
                         </div>
                         <div>
                             <span class="med pic-holder ${medActiveClass}"><span class="glyphicon glyphicon-plus"/>Есть медкнижка</span>
-                            <span class="zak pic-holder ${zakActiveClass}"><span class="glyphicon glyphicon-cutlery"/>Проведена контрольная закупка</span>
+                            <span class="zak pic-holder ${zakActiveClass}"><span class="glyphicon glyphicon-cutlery"/>Контрольная закупка</span>
                             <span class="add pic-holder ${addActiveClass}"><span class="glyphicon glyphicon-map-marker"/>Адрес проверен</span>
                         </div>
                     </div>

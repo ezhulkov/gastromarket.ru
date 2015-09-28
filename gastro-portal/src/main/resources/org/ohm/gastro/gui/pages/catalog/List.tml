@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     <div class="row gap">
-                        <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 fluid-xs-block">
+                        <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 fluid-xs-block time-info">
                             <div class="grey-text f16px">Последний вход на сайт:</div>
                             <div class="grey-text f16px">${oneCatalog.user.loginDatePrintable}</div>
                         </div>
