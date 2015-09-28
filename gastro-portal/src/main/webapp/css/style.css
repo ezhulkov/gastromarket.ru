@@ -5382,7 +5382,7 @@ body.mobile .rub:after {
   padding: 0 20px;
 }
 @media (max-width: 750px) {
-  .main-howto .row > div {
+  .main-howto > div {
     margin-bottom: 20px;
   }
 }

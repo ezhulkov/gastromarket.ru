@@ -9,10 +9,10 @@
             </div>
             <div class="modal-body">
                 <t:if test="commentAllowed">
-                    <t:form t:id="rateForm" context="rateContext" class="form form-horizontal edit" t:clientValidation="none" role="form">
+                    <t:form t:id="rateForm" context="rateContext" class="form edit" t:clientValidation="none" role="form">
                         <div class="form-group">
                             <t:radiogroup t:id="opinion" value="opinion">
-                                <div class="col-sm-6 text-right">
+                                <div class="col-sm-6 fluid-sm-block">
                                     <t:label for="like">Мне всё понравилась</t:label>
                                     &nbsp;
                                     <t:radio t:id="like"/>
@@ -24,11 +24,15 @@
                                 </div>
                             </t:radiogroup>
                         </div>
-                        <div class="form-group">
-                            <textarea t:type="TextArea" t:id="rateComment" t:value="rateComment" rows="5" class="form-control"/>
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <textarea t:type="TextArea" t:id="rateComment" t:value="rateComment" rows="5" class="form-control"/>
+                            </div>
                         </div>
-                        <div class="form-buttons" xml:space="preserve">
-                            <input class="btn btn-red" type="submit" value="Оставить отзыв"/>
+                        <div class="col-xs-12">
+                            <div class="form-buttons" xml:space="preserve">
+                                <input class="btn btn-red" type="submit" value="Оставить отзыв"/>
+                            </div>
                         </div>
                     </t:form>
                 </t:if>

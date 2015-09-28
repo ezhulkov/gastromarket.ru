@@ -5,7 +5,7 @@
             <div class="title">
                 <h1><span>Заказы</span></h1>
             </div>
-            <div class="row">
+            <div>
                 <t:order.list status="NEW" privateOrders="true"/>
             </div>
         </div>

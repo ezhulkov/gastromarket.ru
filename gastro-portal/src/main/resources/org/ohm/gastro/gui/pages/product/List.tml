@@ -24,8 +24,10 @@
             </div>
             <t:unless test="wasProducts">
                 <div class="row">
-                    <div class="text-center f20px">
-                        В выбранной категории пока ничего нет
+                    <div class="col-xs-12">
+                        <div class="text-center f20px">
+                            В выбранной категории пока ничего нет
+                        </div>
                     </div>
                 </div>
             </t:unless>

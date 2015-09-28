@@ -14,18 +14,20 @@
                 </div>
                 <a class="modal-close" data-dismiss="modal"></a>
             </div>
-            <div class="modal-body">
+            <div class="modal-body clearfix">
                 <t:if test="manyCatalogs">
-                    <div class="attention">
+                    <p class="modal-text">
                         У вас есть другие незавершенные заказы,<br/>
                         информацию о которых можно посмотреть на
                         <t:pagelink class="red-text" page="cart">странице управления заказами</t:pagelink>
-                    </div>
+                    </p>
                 </t:if>
                 <t:order.order catalog="catalog" privateOrders="true"/>
-                <div class="form-buttons" xml:space="preserve">
-                    <a href="#" class="btn btn-white" data-dismiss="modal">Выбрать еще</a>
-                    <t:pagelink class="btn btn-red" page="cart">Оформить заказ</t:pagelink>
+                <div class="col-xs-12">
+                    <div class="form-buttons" xml:space="preserve">
+                        <a href="#" class="btn btn-white" data-dismiss="modal">Выбрать еще</a>
+                        <t:pagelink class="btn btn-red" page="cart">Оформить заказ</t:pagelink>
+                    </div>
                 </div>
             </div>
         </div>

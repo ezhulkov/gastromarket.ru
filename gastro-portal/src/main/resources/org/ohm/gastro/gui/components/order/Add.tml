@@ -11,7 +11,9 @@
                         <a class="modal-close" data-dismiss="modal"></a>
                     </div>
                     <div class="modal-body">
-                        <p class="modal-text">Пожалуйста, выберите один из вариантов ${entityTypeText}</p>
+                        <p class="modal-text">
+                            Пожалуйста, выберите один из вариантов ${entityTypeText}
+                        </p>
                         <div class="gap2"></div>
                         <div class="price-modifier">
                             <div class="row">
