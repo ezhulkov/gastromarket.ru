@@ -37,6 +37,11 @@
                                             <span><img src="${order.catalog?.avatarUrlSmall}" class="avatar-small"/></span>${order.catalog?.name}
                                         </t:pageLink>
                                     </p>
+                                    <t:if test="order.attachReason">
+                                        <p class="modal-text">
+                                            <i>"${order.attachReason}"</i>
+                                        </p>
+                                    </t:if>
                                 </div>
                             </div>
                         </div>
