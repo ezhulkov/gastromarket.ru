@@ -97,14 +97,14 @@ public class Products extends BaseComponent {
     }
 
     public java.util.List<ProductEntity> getProducts() {
-        return getProductsInt(propertyValue, propertyValue.getId().toString());
+        return getProductsInt(propertyValue, propertyValue == null ? "main" : propertyValue.getId().toString());
     }
 
     private java.util.List<ProductEntity> getProductsInt(PropertyValueEntity propertyValue, String positionType) {
         return getProductService().findProductsForFrontend(propertyValue, catalog,
                                                            isCatalogOwner() ? null : true,
                                                            isCatalogOwner() ? null : false,
-                                                           orderType, direction, positionType, 0, Integer.MAX_VALUE);
+                                                           orderType, direction, positionType, 0, 100);
     }
 
     public java.util.List<PropertyValueEntity> getAllProperties() {
@@ -114,6 +114,7 @@ public class Products extends BaseComponent {
                 .collect(Collectors.toList());
     }
 
+    @Cached
     public java.util.List<PropertyValueEntity> getRootProperties() {
         if (propertyValue != null) return Lists.newArrayList(propertyValue);
         return getProductService().findAllRootValues(catalog, isCatalogOwner() ? null : true).stream()
