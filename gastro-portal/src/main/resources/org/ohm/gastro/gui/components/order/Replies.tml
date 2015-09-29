@@ -87,12 +87,12 @@
                                                 </p>
                                                 <ul class="reply-denied">
                                                     <li>
-                                                        <span class="glyphicon ${doesNotHaveReply}" aria-hidden="true"/>
-                                                        <t:if test="doesNotHaveReply">Один отклик на заявку
+                                                        <span class="glyphicon ${cook}" aria-hidden="true"/>
+                                                        <t:if test="cook">Вы кулинар на сайте
                                                             <t:parameter name="else">
-                                                                У вас уже есть отклик к этой заявке
+                                                                Вы не кулинар на сайте
                                                                 <div class="label-tip">
-                                                                    К заявке можно оставлять только один отклик. Если хотите обсуждать детали - это можно делать под откликом.
+                                                                    Возможно, надо зайти другим пользователем или оставить заявку на подключение.
                                                                 </div>
                                                             </t:parameter>
                                                         </t:if>
@@ -104,6 +104,17 @@
                                                                 Каталог не заполнен
                                                                 <div class="label-tip">
                                                                     Необходимо завершить все шаги настройки каталога и добавить хотя бы одно блюдо.
+                                                                </div>
+                                                            </t:parameter>
+                                                        </t:if>
+                                                    </li>
+                                                    <li>
+                                                        <span class="glyphicon ${doesNotHaveReply}" aria-hidden="true"/>
+                                                        <t:if test="doesNotHaveReply">Один отклик на заявку
+                                                            <t:parameter name="else">
+                                                                У вас уже есть отклик к этой заявке
+                                                                <div class="label-tip">
+                                                                    К заявке можно оставлять только один отклик. Если хотите обсуждать детали - это можно делать под откликом.
                                                                 </div>
                                                             </t:parameter>
                                                         </t:if>

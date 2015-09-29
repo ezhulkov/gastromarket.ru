@@ -970,7 +970,7 @@ body.mobile .rub:after {
   font-size: 20px;
   font-weight: bold;
   color: white;
-  background-color: white;
+  background-color: transparent;
 }
 .badges .gmbadge span {
   position: absolute;
@@ -1615,30 +1615,19 @@ body.modal-open {
   overflow: hidden;
 }
 
-.modal {
-  overflow-y: scroll;
-}
-
-.modal-backdrop {
-  height: auto !important;
-  width: auto;
-  display: block;
-  position: fixed;
-  bottom: 0;
-  right: 0;
-}
-
 .modal-backdrop.in {
-  opacity: 0.85;
+  opacity: 0.8;
 }
 
 .close {
   width: 20px;
   height: 20px;
   position: absolute;
-  right: 20px;
-  top: 20px;
   cursor: pointer;
+  font-size: 40px;
+  font-weight: normal;
+  right: 14px;
+  top: 10px;
 }
 
 .modal-header {
@@ -1709,10 +1698,6 @@ body.modal-open {
     height: auto;
   }
 }
-.modal-backdrop.in {
-  opacity: 0.8;
-}
-
 .wizard .step1-zone {
   display: none;
 }
@@ -2563,6 +2548,9 @@ body.mobile .rub:after {
   .navbar .navbar-right .dropdown-menu {
     right: 0;
   }
+  .navbar .navbar-nav .open .dropdown-menu > li > a {
+    padding: 5px 20px;
+  }
 }
 
 .rub {
@@ -3267,6 +3255,7 @@ body.mobile .rub:after {
   font-size: 12px;
   color: #8a8a8a;
   margin-bottom: 3px;
+  padding-right: 5px;
 }
 
 .form-buttons {
@@ -4130,7 +4119,7 @@ body.mobile .rub:after {
     position: relative;
     border: none;
     box-shadow: none;
-    box-shadow-width: 100%;
+    width: 100%;
     padding: 0;
     margin: 0;
     border-radius: 0;
@@ -6403,6 +6392,9 @@ body.mobile .rub:after {
   list-style: none;
   border-left: 1px solid lightgray;
   padding-left: 20px;
+}
+.comments .moderate {
+  font-size: 12px;
 }
 
 .reply-denied {

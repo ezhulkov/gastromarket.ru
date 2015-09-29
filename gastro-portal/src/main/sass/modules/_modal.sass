@@ -1,31 +1,24 @@
-@import ../include/var
-@import tools
+@import "../include/var"
+@import "tools"
 
 body.modal-open
   overflow: hidden
 
 .modal
-  //position: absolute
   overflow-y: scroll
 
-.modal-backdrop
-  height: auto !important
-  width: auto
-  display: block
-  position: fixed
-  bottom: 0
-  right: 0
-
 .modal-backdrop.in
-  opacity: 0.85
+  opacity: 0.8
 
 .close
   width: 20px
   height: 20px
   position: absolute
-  right: 20px
-  top: 20px
   cursor: pointer
+  font-size: 40px
+  font-weight: normal
+  right: 14px
+  top: 10px
 
 .modal-header
   border: none
@@ -72,6 +65,3 @@ body.modal-open
     img
       width: 100%
       height: auto
-
-.modal-backdrop.in
-  opacity: 0.8

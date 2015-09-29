@@ -1,23 +1,7 @@
-@import ../include/var
-@import tools
+@import "../include/var"
+@import "tools"
 
 $badges: badge-product badge-order badge-rank
-
-=badge-class
-  display: inline-block
-  float: left
-  margin: 0 16px 0 0
-  cursor: pointer
-  position: relative
-  width: 45px
-  height: 45px
-  border-radius: 100%
-  text-align: center
-  line-height: 50px
-  font-size: $f20px
-  font-weight: bold
-  color: white
-  background-color: white
 
 .catalog-item
   .pic-block
@@ -146,7 +130,20 @@ $badges: badge-product badge-order badge-rank
   height: 45px
   margin: 20px 0
   .gmbadge
-    +badge-class
+    display: inline-block
+    float: left
+    margin: 0 16px 0 0
+    cursor: pointer
+    position: relative
+    width: 45px
+    height: 45px
+    border-radius: 100%
+    text-align: center
+    line-height: 50px
+    font-size: $f20px
+    font-weight: bold
+    color: white
+    background-color: transparent
     span
       position: absolute
       width: 47px
