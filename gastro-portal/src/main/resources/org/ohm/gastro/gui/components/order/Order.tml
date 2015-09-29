@@ -38,7 +38,8 @@
                                         </t:pageLink>
                                     </p>
                                     <t:if test="order.attachReason">
-                                        <p class="modal-text">
+                                        <p class="modal-text gap3">
+                                            Причина выбора:<br/>
                                             <i>"${order.attachReason}"</i>
                                         </p>
                                     </t:if>
