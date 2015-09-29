@@ -52,9 +52,9 @@
                         Кроме числового рейтинга, каждый покупатель также может получить несколько бейджиков:
                     </p>
                     <ul class="no-bullets">
-                        <li class="gap"><img src="/img/badge-rank-small.png"/> &mdash; бейдж ТОП кулинаров</li>
-                        <li class="gap"><img src="/img/badge-product-small.png"/> &mdash; бейдж количества блюд в каталоге</li>
-                        <li class="gap"><img src="/img/badge-order-small.png"/> &mdash; бейдж выполненных заказов</li>
+                        <li class="gap"><img src="/img/badge-rank-small.png" srcset="/img/badge-rank-smallx2.png 2x"/> &mdash; бейдж ТОП кулинаров</li>
+                        <li class="gap"><img src="/img/badge-product-small.png" srcset="/img/badge-product-smallx2.png 2x"/> &mdash; бейдж количества блюд в каталоге</li>
+                        <li class="gap"><img src="/img/badge-order-small.png" srcset="/img/badge-order-smallx2.png 2x"/> &mdash; бейдж выполненных заказов</li>
                     </ul>
                 </div>
             </div>
