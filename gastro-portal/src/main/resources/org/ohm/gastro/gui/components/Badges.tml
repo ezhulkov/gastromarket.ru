@@ -1,20 +1,35 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="badges">
     <t:if test="catalog.rankBadge">
-        <div class="badge-rank popover-holder" data-content="Топ ${catalog.rankBadge} среди кулинаров">${catalog.rankBadge}</div>
+        <div class="gmbadge popover-holder" data-content="Топ ${catalog.rankBadge} среди кулинаров">
+            <img src="/img/badge-rank-small.png" srcset="/img/badge-rank-smallx2.png 2x"/>
+            <span>${catalog.rankBadge}</span>
+        </div>
         <t:parameter name="else">
-            <div class="badge-rank badge-stub popover-holder" data-content="Нет бейджа 'Топ кулинаров'"></div>
+            <div class="gmbadge popover-holder" data-content="Нет бейджа 'Топ кулинаров'">
+                <img src="/img/badge-rank-stub.png" srcset="/img/badge-rank-stubx2.png 2x"/>
+            </div>
         </t:parameter>
     </t:if>
     <t:if test="catalog.productBadge">
-        <div class="badge-product popover-holder" data-content="Товаров: больше ${catalog.productBadge}">${catalog.productBadge}</div>
+        <div class="gmbadge popover-holder" data-content="Товаров: больше ${catalog.productBadge}">
+            <img src="/img/badge-product-small.png" srcset="/img/badge-product-smallx2.png 2x"/>
+            <span>${catalog.productBadge}</span>
+        </div>
         <t:parameter name="else">
-            <div class="badge-product badge-stub popover-holder" data-content="Нет бейджа 'Загружено товаров'"></div>
+            <div class="gmbadge popover-holder" data-content="Нет бейджа 'Загружено товаров'">
+                <img src="/img/badge-product-stub.png" srcset="/img/badge-product-stubx2.png 2x"/>
+            </div>
         </t:parameter>
     </t:if>
     <t:if test="catalog.orderBadge">
-        <div class="badge-order popover-holder" data-content="Заказов: больше ${catalog.orderBadge}">${catalog.orderBadge}</div>
+        <div class="gmbadge popover-holder" data-content="Заказов: больше ${catalog.orderBadge}">
+            <img src="/img/badge-order-small.png" srcset="/img/badge-order-smallx2.png 2x"/>
+            <span>${catalog.orderBadge}</span>
+        </div>
         <t:parameter name="else">
-            <div class="badge-order badge-stub popover-holder" data-content="Нет бейджа 'Выполнено заказов'"></div>
+            <div class="gmbadge popover-holder" data-content="Нет бейджа 'Выполнено заказов'">
+                <img src="/img/badge-order-stub.png" srcset="/img/badge-order-stubx2.png 2x"/>
+            </div>
         </t:parameter>
     </t:if>
 </div>

@@ -8,6 +8,7 @@ $badges: badge-product badge-order badge-rank
   float: left
   margin: 0 16px 0 0
   cursor: pointer
+  position: relative
   width: 45px
   height: 45px
   border-radius: 100%
@@ -144,12 +145,14 @@ $badges: badge-product badge-order badge-rank
 .badges
   height: 45px
   margin: 20px 0
-  @each $badge in $badges
-    .#{$badge}
-      +badge-class
-      background: url(../img/#{$badge}-small.png) no-repeat 0 0
-    .#{$badge}.badge-stub
-      background: url(../img/#{$badge}-stub.png) no-repeat 0 0
+  .gmbadge
+    +badge-class
+    span
+      position: absolute
+      width: 47px
+      text-align: center
+      left: 0
+      top: 3px
 
 .ratings
   margin: 10px 0
