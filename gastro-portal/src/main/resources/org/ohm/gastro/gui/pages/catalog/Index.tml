@@ -21,7 +21,7 @@
                                 <div class="title">
                                     <h1><span>Редактировать страницу</span></h1>
                                 </div>
-                                <a class="modal-close" data-dismiss="modal"/>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
                             </div>
                             <div class="modal-body">
                                 <t:zone t:id="catalogEditZone">

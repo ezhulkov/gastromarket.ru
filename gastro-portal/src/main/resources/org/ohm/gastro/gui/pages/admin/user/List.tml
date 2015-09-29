@@ -59,7 +59,7 @@
                     <div class="title">
                         <h1><span>Новый пользователь</span></h1>
                     </div>
-                    <a class="modal-close" data-dismiss="modal"></a>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
                 </div>
                 <div class="modal-body">
                     <t:editObject t:id="editObject" showAdd="literal:true" autoFocus="literal:true">
@@ -124,7 +124,7 @@
                     <div class="title">
                         <h1><span>Импорт CSV</span></h1>
                     </div>
-                    <a class="modal-close" data-dismiss="modal"></a>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
                 </div>
                 <div class="modal-body">
                     <t:form t:id="importCsvForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
@@ -148,7 +148,7 @@
     <!--<div class="title">-->
     <!--<h1><span>Искать</span></h1>-->
     <!--</div>-->
-    <!--<a class="modal-close" data-dismiss="modal"></a>-->
+    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>-->
     <!--</div>-->
     <!--<div class="modal-body">-->
     <!--<t:form t:id="searchForm" class="form form-horizontal edit" t:clientValidation="none" role="form">-->

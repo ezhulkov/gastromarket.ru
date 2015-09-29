@@ -40,7 +40,7 @@
                                             <div class="title">
                                                 <h1><span>Обсуждение</span></h1>
                                             </div>
-                                            <a class="modal-close" data-dismiss="modal"></a>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
                                         </div>
                                         <div class="modal-body">
                                             <t:form t:id="replyForm" class="form" context="[order.id,comment.id]" t:clientValidation="none" autofocus="false" role="form" t:zone="replyZone">
@@ -78,7 +78,7 @@
                             <div class="title">
                                 <h1><span>Выбрать исполнителя</span></h1>
                             </div>
-                            <a class="modal-close" data-dismiss="modal"></a>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
                         </div>
                         <div class="modal-body">
                             <t:form t:id="attachTenderAjaxForm" t:context="[comment.author.id,order.id]" class="form" style="padding-top:0;" t:clientValidation="none" autofocus="false" role="form">

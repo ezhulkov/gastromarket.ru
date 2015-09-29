@@ -6,7 +6,7 @@
                 <div class="title">
                     <h1><span>Вход</span></h1>
                 </div>
-                <a class="modal-close" data-dismiss="modal"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
             </div>
             <div class="modal-body">
                 <t:if test="addText">
@@ -71,7 +71,7 @@
                 <div class="title">
                     <h1><span>Забыли пароль?</span></h1>
                 </div>
-                <a class="modal-close" data-dismiss="modal"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
             </div>
             <t:zone t:id="rememberZone"/>
             <div class="modal-body data">
@@ -113,7 +113,7 @@
                 <div class="title">
                     <h1><span>Регистрация</span></h1>
                 </div>
-                <a class="modal-close" data-dismiss="modal"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
             </div>
             <div class="modal-body">
                 <t:if test="addText">

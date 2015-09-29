@@ -101,7 +101,7 @@ public class Products extends BaseComponent {
     }
 
     private java.util.List<ProductEntity> getProductsInt(PropertyValueEntity propertyValue, String positionType) {
-        return getProductService().findProductsForFrontend(propertyValue, catalog, isCatalogOwner() ? null : true, orderType, direction, positionType, 0, Integer.MAX_VALUE);
+        return getProductService().findProductsForFrontend(propertyValue, catalog, isCatalogOwner() ? null : true, false, orderType, direction, positionType, 0, Integer.MAX_VALUE);
     }
 
     public java.util.List<PropertyValueEntity> getAllProperties() {

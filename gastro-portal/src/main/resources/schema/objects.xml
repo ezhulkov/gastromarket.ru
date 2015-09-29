@@ -937,4 +937,13 @@
         </sql>
     </changeSet>
 
+    <changeSet id="83" author="ezhulkov">
+        <addColumn tableName="product">
+            <column name="hidden" type="java.sql.Types.BOOLEAN" defaultValueBoolean="false"/>
+        </addColumn>
+        <sql>
+            update product set hidden=false;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

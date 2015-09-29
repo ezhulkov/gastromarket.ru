@@ -24,6 +24,10 @@ public interface ProductService extends ImageUploaderService<ProductEntity>, Alt
 
     int PRODUCTS_PER_PAGE = 8;
 
+    enum OrderType {
+        NAME, PRICE, NONE, POSITION
+    }
+
     List<ProductEntity> findAllRawProducts(@Nonnull CatalogEntity catalog);
 
     List<ProductEntity> findAllProducts(OfferEntity offer);
@@ -34,12 +38,10 @@ public interface ProductService extends ImageUploaderService<ProductEntity>, Alt
 
     void productPosition(List<Long> collect, String type);
 
-    enum OrderType {
-        NAME, PRICE, NONE, POSITION
-    }
+    void hideProduct(Long id);
 
     List<ProductEntity> findProductsForFrontend(final PropertyValueEntity property, final CatalogEntity catalog, final Boolean wasSetup,
-                                                final OrderType orderType, final Direction direction, String positionType, final int from, final int to);
+                                                final Boolean hidden, final OrderType orderType, final Direction direction, String positionType, final int from, final int to);
 
     int findProductsForFrontendCount(final CatalogEntity catalog);
 

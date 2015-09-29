@@ -34,7 +34,6 @@ import org.ohm.gastro.service.social.MediaElement;
 import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
@@ -248,15 +247,22 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
+    public void hideProduct(Long pid) {
+        final ProductEntity product = productRepository.findOne(pid);
+        product.setHidden(!product.getHidden());
+        productRepository.saveAndFlush(product);
+    }
+
+    @Override
     public List<ProductEntity> findProductsForFrontend(PropertyValueEntity propertyValue, CatalogEntity catalog, Boolean wasSetup,
-                                                       OrderType orderType, Direction direction, String positionType, int from, int to) {
+                                                       Boolean hidden, OrderType orderType, Direction direction, String positionType, int from, int to) {
         final int count = to - from;
         if (count == 0) return Lists.newArrayList();
         final int page = from / count;
         final Sort sort = orderType == OrderType.POSITION || orderType == OrderType.NONE || orderType == null ?
                 new Sort(Direction.DESC, "id") :
                 new Sort(direction, orderType.name().toLowerCase());
-        final List<ProductEntity> products = findProductsInternal(propertyValue, catalog, wasSetup, new PageRequest(page, count, sort));
+        final List<ProductEntity> products = productRepository.findAllByRootValueAndCatalog(propertyValue, catalog, wasSetup, hidden, new PageRequest(page, count, sort)).getContent();
         return orderType == OrderType.POSITION ?
                 products.stream().sorted(((o1, o2) -> ObjectUtils.compare(o1.getPositionOfType(positionType), o2.getPositionOfType(positionType)))).collect(Collectors.toList()) :
                 products;
@@ -267,17 +273,13 @@ public class ProductServiceImpl implements ProductService, Logging {
         return productRepository.findCountCatalog(catalog);
     }
 
-    private List<ProductEntity> findProductsInternal(PropertyValueEntity value, CatalogEntity catalog, Boolean wasSetup, Pageable page) {
-        return productRepository.findAllByRootValueAndCatalog(value, catalog, wasSetup, page).getContent();
-    }
-
     @Override
     public List<ProductEntity> findRecommendedProducts(final Long pid, final int count) {
         final ProductEntity product = productRepository.findOne(pid);
         final List<ProductEntity> products = product.getValues().stream()
                 .filter(t -> t.getValue() != null)
                 .flatMap(t -> t.getValue().isRootValue() ? Stream.of(t.getValue()) : t.getValue().getParents().stream()).distinct()
-                .flatMap(t -> productRepository.findAllByRootValueAndCatalog(t, null, true, new PageRequest(0, 50)).getContent().stream()).distinct()
+                .flatMap(t -> productRepository.findAllByRootValueAndCatalog(t, null, true, false, new PageRequest(0, 50)).getContent().stream()).distinct()
                 .filter(t -> !t.equals(product))
                 .collect(Collectors.toList());
         Collections.shuffle(products);
@@ -323,7 +325,7 @@ public class ProductServiceImpl implements ProductService, Logging {
 
     @Override
     public List<PropertyValueEntity> findAllRootValues(CatalogEntity catalog, Boolean wasSetup) {
-        return findProductsForFrontend(null, catalog, wasSetup, null, null, null, 0, Integer.MAX_VALUE).stream()
+        return findProductsForFrontend(null, catalog, wasSetup, false, null, null, null, 0, Integer.MAX_VALUE).stream()
                 .flatMap(t -> t.getValues().stream())
                 .map(TagEntity::getValue)
                 .filter(java.util.Objects::nonNull)

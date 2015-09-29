@@ -61,7 +61,7 @@ public class Index extends AbstractCatalogPage {
 
     @Cached
     public java.util.List<ProductEntity> getProducts() {
-        final java.util.List<ProductEntity> allProducts = getProductService().findProductsForFrontend(null, catalog, isCatalogOwner() ? null : true, null, null, null, 0, Integer.MAX_VALUE);
+        final java.util.List<ProductEntity> allProducts = getProductService().findProductsForFrontend(null, catalog, isCatalogOwner() ? null : true, false, null, null, null, 0, Integer.MAX_VALUE);
         return allProducts.stream().limit(4).sorted((o1, o2) -> ObjectUtils.compare(o1.getPositionOfType("main"), o2.getPositionOfType("main"))).collect(Collectors.toList());
     }
 

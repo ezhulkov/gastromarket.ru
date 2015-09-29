@@ -32,6 +32,9 @@ public class Order extends AbstractOrder {
     private Block clientEditBlock;
 
     @Inject
+    private Block expiredBlock;
+
+    @Inject
     private Block clientRateCook;
 
     @Inject
@@ -82,6 +85,7 @@ public class Order extends AbstractOrder {
 
     public Block getOrderAdditionalBlock() {
         if (order == null) return null;
+        if (order.isTenderExpired() && order.getCatalog() == null) return expiredBlock;
         if (frontend) {
             if (isCanEdit()) return clientEditBlock;
             return isCanReplyTender() ? tenderReplyBlock : catalogAttachedBlock;

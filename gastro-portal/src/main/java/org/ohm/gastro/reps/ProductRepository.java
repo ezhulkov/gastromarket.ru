@@ -22,9 +22,14 @@ public interface ProductRepository extends AltIdRepository<ProductEntity> {
             "   left join v1.parents v2 " +
             "where (v1=:value or v2=:value or :value is null) and " +
             "   (pr.catalog=:catalog or :catalog is null) and " +
+            "   (pr.hidden=:hidden or :hidden is null) and " +
             "   (pr.wasSetup=true or :wasSetup is null)")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    Page<ProductEntity> findAllByRootValueAndCatalog(@Param("value") PropertyValueEntity value, @Param("catalog") CatalogEntity catalog, @Param("wasSetup") Boolean wasSetup, Pageable page);
+    Page<ProductEntity> findAllByRootValueAndCatalog(@Param("value") PropertyValueEntity value,
+                                                     @Param("catalog") CatalogEntity catalog,
+                                                     @Param("wasSetup") Boolean wasSetup,
+                                                     @Param("hidden") Boolean hidden,
+                                                     Pageable page);
 
     @Query("select count(*) from ProductEntity where catalog=:catalog and wasSetup=true")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})

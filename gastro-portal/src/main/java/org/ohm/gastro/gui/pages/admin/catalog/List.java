@@ -15,7 +15,7 @@ public class List extends BaseComponent {
 
     @Cached
     public java.util.List<CatalogEntity> getCatalogs() {
-        return getCatalogService().findAllCatalogs();
+        return getCatalogService().findAllActiveCatalogs();
     }
 
     public void onActionFromDelete(Long id) {

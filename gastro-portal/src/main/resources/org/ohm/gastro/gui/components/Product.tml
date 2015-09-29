@@ -30,7 +30,7 @@
                                 <div class="title">
                                     <h1><span>Удалить блюдо?</span></h1>
                                 </div>
-                                <a class="modal-close" data-dismiss="modal"></a>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
                             </div>
                             <div class="modal-body form-buttons" xml:space="preserve">
                                 <t:actionlink rel="nofollow" t:id="delete" t:context="product.id" class="btn btn-red deleteConfirm" style="display: inline;">Удалить</t:actionlink>

@@ -57,9 +57,9 @@
     </t:editObject>
 
     <t:grid source="products" row="oneProduct"
-            exclude="id,properties,date,description,promoted,avatarUrl,avatarUrlMedium,avatarUrlSmall,unit,altId,unitValue,wasSetup,descriptionRaw,position,type,lastModified,lastModifiedPrintable,locationUrl"
-            reorder="img,name,price,promote"
-            add="img,properties,promote"
+            exclude="id,properties,date,description,promoted,avatarUrl,avatarUrlMedium,avatarUrlSmall,unit,altId,unitValue,wasSetup,descriptionRaw,position,type,lastModified,lastModifiedPrintable,locationUrl,avatarUrlBig"
+            reorder="img,name,price,promote,hideProduct"
+            add="img,properties,promote,hideProduct"
             t:mixins="GridSortingDisabled" class="table table-hover">
         <t:parameter name="imgCell">
             <img src="${oneProduct.avatarUrlSmall}"/>
@@ -76,6 +76,16 @@
                     Убрать с главной
                     <t:parameter name="else">
                         На главную
+                    </t:parameter>
+                </t:if>
+            </t:actionlink>
+        </t:parameter>
+        <t:parameter name="hideProductCell">
+            <t:actionlink rel="nofollow" t:id="hideProduct" context="oneProduct.id">
+                <t:if test="oneProduct.hidden">
+                    Вернуть
+                    <t:parameter name="else">
+                        Скрыть
                     </t:parameter>
                 </t:if>
             </t:actionlink>

@@ -10,7 +10,7 @@
                         <h1><span>Новое блюдо</span></h1>
                     </t:unless>
                 </div>
-                <a class="modal-close" data-dismiss="modal"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
             </div>
             <div class="modal-body product-create">
                 <div class="row">

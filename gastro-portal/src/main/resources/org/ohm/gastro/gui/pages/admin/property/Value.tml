@@ -52,7 +52,7 @@
                         <div class="title">
                             <h1><span>Новое значение</span></h1>
                         </div>
-                        <a class="modal-close" data-dismiss="modal"></a>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
                     </div>
                     <div class="modal-body">
                         <t:form t:id="createValueForm" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
@@ -79,7 +79,7 @@
                         <div class="title">
                             <h1><span>Существующее значение</span></h1>
                         </div>
-                        <a class="modal-close" data-dismiss="modal"></a>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
                     </div>
                     <div class="modal-body">
                         <t:form t:id="attachValueForm" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">

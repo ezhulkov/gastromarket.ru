@@ -70,6 +70,9 @@ public class ProductEntity extends SitemapBaseEntity implements PurchaseEntity {
     @Column(name = "was_setup")
     private boolean wasSetup = false;
 
+    @Column(name = "hidden")
+    private Boolean hidden = false;
+
     @Column(name = "avatar_url")
     private String avatarUrl = "/img/product-stub-560x404.png";
 
@@ -255,4 +258,13 @@ public class ProductEntity extends SitemapBaseEntity implements PurchaseEntity {
     public void setAvatarUrlBig(String avatarUrlBig) {
         this.avatarUrlBig = avatarUrlBig;
     }
+
+    public Boolean getHidden() {
+        return hidden;
+    }
+
+    public void setHidden(Boolean hidden) {
+        this.hidden = hidden;
+    }
+
 }

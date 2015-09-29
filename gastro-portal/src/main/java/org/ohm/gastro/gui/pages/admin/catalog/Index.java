@@ -44,7 +44,7 @@ public class Index extends EditObjectPage<CatalogEntity> {
 
     @Cached
     public java.util.List<ProductEntity> getProducts() {
-        return getProductService().findProductsForFrontend(null, getObject(), null, null, null, null, 0, Integer.MAX_VALUE);
+        return getProductService().findProductsForFrontend(null, getObject(), null, null, null, null, null, 0, Integer.MAX_VALUE);
     }
 
     @Override
@@ -72,6 +72,10 @@ public class Index extends EditObjectPage<CatalogEntity> {
 
     public void onActionFromPromoteProduct(Long id) {
         getProductService().promoteProduct(id);
+    }
+
+    public void onActionFromHideProduct(Long id) {
+        getProductService().hideProduct(id);
     }
 
 }
