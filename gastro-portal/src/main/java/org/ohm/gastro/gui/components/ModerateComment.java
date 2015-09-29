@@ -24,7 +24,7 @@ public class ModerateComment extends BaseComponent {
     public void onSubmitFromEditForm(Long cId) {
         final CommentEntity comment = getRatingService().findComment(cId);
         comment.setText(replyText);
-        if (isAdmin()) getRatingService().saveComment(comment);
+        getRatingService().saveComment(comment);
     }
 
 }

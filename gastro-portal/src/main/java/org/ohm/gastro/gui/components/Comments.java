@@ -135,4 +135,16 @@ public class Comments extends BaseComponent {
         return getRatingService().findAllPhotos(comment);
     }
 
+    public boolean isCanEditComment() {
+        return canEditComment(comment);
+    }
+
+    public boolean isCanEditChildComment() {
+        return canEditComment(childComment);
+    }
+
+    private boolean canEditComment(final CommentEntity comment) {
+        return comment != null && getAuthenticatedUserOpt().map(t -> t.isAdmin() || t.equals(comment.getAuthor())).orElse(false);
+    }
+
 }
