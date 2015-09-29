@@ -50,4 +50,6 @@ public interface RatingService extends ImageUploaderService<CommentEntity> {
 
     List<CommentEntity> findAllComments(OrderEntity order, UserEntity author);
 
+    void saveComment(CommentEntity comment);
+
 }

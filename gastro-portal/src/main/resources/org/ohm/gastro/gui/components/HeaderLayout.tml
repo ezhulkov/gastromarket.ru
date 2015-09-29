@@ -19,7 +19,7 @@
                         <t:if test="authenticated">
                             <t:if test="cook">
                                 <li>
-                                    <t:pagelink page="office/orders" context="['true','ACTIVE']"><span/>Заказы</t:pagelink>
+                                    <t:pagelink page="office/orders" context="['true','ACTIVE']"><span/>Мои заказы</t:pagelink>
                                 </li>
                             </t:if>
                             <t:if test="user">

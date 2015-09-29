@@ -18,6 +18,12 @@
                 <div class="text">
                     <span class="glyphicon glyphicon-thumbs-${comment.rating}" aria-hidden="true"/>
                     <t:outputraw value="comment.textRaw"/>
+                    <t:if test="admin">
+                        <p>
+                            <a href="#moderate-${comment.id}" data-toggle="modal" class="dotted-link" data-target="#moderate-${comment.id}">редактировать</a>
+                            <t:moderateComment comment="comment"/>
+                        </p>
+                    </t:if>
                 </div>
                 <t:if test="reply">
                     <t:if test="children">
@@ -26,6 +32,12 @@
                                 <li>
                                     &mdash;
                                     <t:outputraw value="childComment.textRaw"/>
+                                    <t:if test="admin">
+                                        <p>
+                                            <a href="#moderate-${childComment.id}" data-toggle="modal" class="dotted-link" data-target="#moderate-${childComment.id}">редактировать</a>
+                                            <t:moderateComment comment="childComment"/>
+                                        </p>
+                                    </t:if>
                                 </li>
                             </t:loop>
                         </ul>

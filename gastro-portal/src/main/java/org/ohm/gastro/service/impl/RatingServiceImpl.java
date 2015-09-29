@@ -326,17 +326,22 @@ public class RatingServiceImpl implements RatingService, Logging {
     }
 
     @Override
+    public void saveComment(CommentEntity comment) {
+        commentRepository.save(comment);
+    }
+
+    @Override
     public CommentEntity findComment(final Long cId) {
         return commentRepository.findOne(cId);
     }
 
     private int calcRating(final int productsCount, final int retentionCount, final int posCount, final int negCount, final int doneCount, final int allCount, final int totalSum) {
         return (int) Math.max(0, productsCount * productsCoeff +
-                                      retentionCount * retentionCoeff +
-                                      posCount * posRatingCoeff +
-                                      negCount * negRatingCoeff +
-                                      (allCount == 0 ? 0 : (doneCount / allCount * productionCoeff)) +
-                                      totalSum * transactionCoeff
+                retentionCount * retentionCoeff +
+                posCount * posRatingCoeff +
+                negCount * negRatingCoeff +
+                (allCount == 0 ? 0 : (doneCount / allCount * productionCoeff)) +
+                totalSum * transactionCoeff
         );
     }
 

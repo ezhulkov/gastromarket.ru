@@ -1,0 +1,28 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="modal fade" id="moderate-${comment.id}" tabindex="-1" role="dialog" aria-hidden="true">
+    <t:if test="admin">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="title">
+                        <h1><span>Модерирование</span></h1>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <t:form t:id="editForm" class="form" context="[comment.id]" t:clientValidation="none" autofocus="false" role="form">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <textarea t:type="TextArea" t:id="replyText" t:value="replyText" rows="5" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="form-buttons" xml:space="preserve">
+                                <input class="btn btn-red" type="submit" value="Сохранить"/>
+                            </div>
+                        </div>
+                    </t:form>
+                </div>
+            </div>
+        </div>
+    </t:if>
+</div>
