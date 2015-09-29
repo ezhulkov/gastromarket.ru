@@ -9,7 +9,7 @@
     <includeBaseDirectory>false</includeBaseDirectory>
     <fileSets>
         <fileSet>
-            <directory>../gastro-portal/src/main/webapp</directory>
+            <directory>../gastro-portal/target/gastro-portal-1.0-SNAPSHOT</directory>
             <outputDirectory>/usr/share/nginx/www</outputDirectory>
             <includes>
                 <include>css/*.*</include>

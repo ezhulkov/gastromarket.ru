@@ -89,17 +89,21 @@ public class Comments extends BaseComponent {
         return getRatingService().findAllComments(comment).stream()
                 .sorted((o1, o2) -> o1.getDate().compareTo(o2.getDate()))
                 .filter(t -> order == null ||
-                                order.getCatalog() == null ||
-                                order.getAttachTime() == null ||
-                                getAuthenticatedUserOpt().map(u -> u.equals(comment.getAuthor())).orElse(false) ||
-                                getAuthenticatedUserOpt().map(u -> u.equals(order.getCustomer())).orElse(false) ||
-                                order.getCatalog() != null && t.getDate().before(order.getAttachTime())
+                        order.getCatalog() == null ||
+                        order.getAttachTime() == null ||
+                        getAuthenticatedUserOpt().map(u -> u.equals(comment.getAuthor())).orElse(false) ||
+                        getAuthenticatedUserOpt().map(u -> u.equals(order.getCustomer())).orElse(false) ||
+                        order.getCatalog() != null && t.getDate().before(order.getAttachTime())
                 )
                 .collect(Collectors.toList());
     }
 
     public boolean isOrderUser() {
-        return order != null && order.getCustomer().equals(getAuthenticatedUserOpt().orElse(null)) && order.getCatalog() == null;
+        return order != null && order.getCustomer().equals(getAuthenticatedUserOpt().orElse(null)) && order.getCatalog() == null && !order.isTenderExpired();
+    }
+
+    public boolean isOrderOpened() {
+        return order != null && order.getCatalog() == null && !order.isTenderExpired();
     }
 
     public Link onSuccessFromAttachTenderAjaxForm(Long cid, Long oid) {
@@ -113,7 +117,10 @@ public class Comments extends BaseComponent {
     }
 
     public boolean isReplyAllowed() {
-        return order != null && order.getCustomer().equals(getAuthenticatedUserOpt().orElse(null)) || comment.getAuthor().equals(getAuthenticatedUserOpt().orElse(null));
+        return order != null &&
+                !order.isTenderExpired() &&
+                (order.getCustomer().equals(getAuthenticatedUserOpt().orElse(null)) ||
+                        comment.getAuthor().equals(getAuthenticatedUserOpt().orElse(null)));
     }
 
     public Block onSubmitFromReplyForm(Long oId, Long cId) {
