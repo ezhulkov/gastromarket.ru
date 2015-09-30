@@ -7,6 +7,7 @@ import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.RatingService;
 import org.ohm.gastro.service.RatingTarget;
 import org.ohm.gastro.trait.Logging;
+import org.slf4j.MDC;
 import org.springframework.aop.AfterReturningAdvice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -16,6 +17,7 @@ import javax.annotation.PreDestroy;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -70,8 +72,10 @@ public class RatingModifierAdvice implements AfterReturningAdvice, Logging {
         if (catalogs != null) {
             synchronized (this) {
                 if (scheduledFuture != null) scheduledFuture.cancel(false);
+                final Map<String, String> mdc = MDC.getCopyOfContextMap();
                 scheduledFuture = scheduledExecutorService.schedule((Runnable) () -> {
                                                                         try {
+                                                                            MDC.setContextMap(mdc);
                                                                             catalogs.forEach(ratingService::updateRating);
                                                                         } catch (Exception ex) {
                                                                             logger.error("", ex);

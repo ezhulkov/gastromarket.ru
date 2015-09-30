@@ -160,6 +160,7 @@ public class RatingServiceImpl implements RatingService, Logging {
                 put("address", catalog.getFullUrl());
                 put("text", comment);
                 put("username", catalog.getUser().getFullName());
+                put("catalog", catalog.getId());
             }
         };
         mailService.sendMailMessage(catalog.getUser().getEmail(), MailService.CATALOG_RATE, params);
@@ -181,6 +182,7 @@ public class RatingServiceImpl implements RatingService, Logging {
                 put("address", user.getFullUrl());
                 put("text", comment);
                 put("username", user.getFullName());
+                put("user", user);
             }
         };
         mailService.sendMailMessage(user.getEmail(), MailService.USER_RATE, params);
@@ -202,12 +204,12 @@ public class RatingServiceImpl implements RatingService, Logging {
         final int negCount = (int) ratings.stream().filter(t -> t.getRating() < 0).count();
         final int totalSum = (int) catalogOps.stream().filter(t -> t.getType() == Type.ORDER_DONE).mapToLong(LogEntity::getCount).sum();
         final int doneOrdersCount = (int) orders.stream().filter(t -> t.getStatus() == Status.CLOSED).count();
-        final int totalOrdersCount = orders.size();
+        final int cancelOrdersCount = (int) orders.stream().filter(t -> t.getStatus() == Status.CANCELLED).count();
 
         final Integer prevLevel = catalog.getLevel();
-        final int rating = calcRating(productsCount, retentionCount, posCount, negCount, doneOrdersCount, totalOrdersCount, totalSum);
-        logger.info("productsCount:{}, retentionCount:{}, posCount:{}, negCount:{}, doneOrdersCount:{}, totalOrdersCount:{}, totalSum:{}",
-                    productsCount, retentionCount, posCount, negCount, doneOrdersCount, totalOrdersCount, totalSum);
+        final int rating = calcRating(productsCount, retentionCount, posCount, negCount, doneOrdersCount, cancelOrdersCount, totalSum);
+        logger.info("productsCount:{}, retentionCount:{}, posCount:{}, negCount:{}, doneOrdersCount:{}, cancelOrdersCount:{}, totalSum:{}",
+                    productsCount, retentionCount, posCount, negCount, doneOrdersCount, cancelOrdersCount, totalSum);
 
         if (catalog.getUser().getEmail().equals("cook@cook.com")) return;
 
@@ -335,13 +337,13 @@ public class RatingServiceImpl implements RatingService, Logging {
         return commentRepository.findOne(cId);
     }
 
-    private int calcRating(final int productsCount, final int retentionCount, final int posCount, final int negCount, final int doneCount, final int allCount, final int totalSum) {
+    private int calcRating(final int productsCount, final int retentionCount, final int posCount, final int negCount, final int cancelOrdersCount, final int allCount, final int totalSum) {
         return (int) Math.max(0, productsCount * productsCoeff +
-                retentionCount * retentionCoeff +
-                posCount * posRatingCoeff +
-                negCount * negRatingCoeff +
-                (allCount == 0 ? 0 : (doneCount / allCount * productionCoeff)) +
-                totalSum * transactionCoeff
+                                      retentionCount * retentionCoeff +
+                                      posCount * posRatingCoeff +
+                                      negCount * negRatingCoeff +
+                                      allCount / (cancelOrdersCount == 0 ? 1 : allCount) * productionCoeff +
+                                      totalSum * transactionCoeff
         );
     }
 

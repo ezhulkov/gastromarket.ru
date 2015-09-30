@@ -1,7 +1,9 @@
 #set($subject = "Регистрация на ГастроМаркет")
+#set($link = "${address}")
+#set($utm = "utm_source=internal&utm_medium=mail&utm_campaign=user&utm_content=${user.id}")
 #parse("email/header.vm")
 <p>
-    Вы зарегистрировались на сайте <a href="http://gastromarket.ru?utm_source=internal&utm_medium=mail&utm_campaign=gm">ГастроМаркет</a><br/>
+    Вы зарегистрировались на сайте <a href="http://gastromarket.ru?${utm}">ГастроМаркет</a><br/>
     Для входа на сайт нажмите на ссылку "Войти или зарегистрироваться" в шапке сайта и укажите:
 </p>
 <p>

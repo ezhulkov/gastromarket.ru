@@ -378,7 +378,7 @@ public class OrderEntity extends SitemapBaseEntity {
     }
 
     public boolean isTenderExpired() {
-        return LocalDateTime.fromDateFields(dueDate).toDateTime().withTimeAtStartOfDay().plusDays(1).isBeforeNow();
+        return dueDate != null && LocalDateTime.fromDateFields(dueDate).toDateTime().withTimeAtStartOfDay().plusDays(1).isBeforeNow();
     }
 
 }
