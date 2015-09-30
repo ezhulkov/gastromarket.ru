@@ -25,27 +25,40 @@
             <t:delegate to="productsBlock"/>
         </t:zone>
         <t:block t:id="productsBlock">
-            <t:loop source="rootProperties" value="propertyValue">
-                <div class="title">
-                    <h2><span>${propertyValue.name}</span></h2>
-                </div>
-                <div id="product-items" class="grid-block products fixed ${sortable}">
-                    <t:loop source="products" value="oneProduct">
-                        <t:product product="oneProduct" class="fixed" edit="${catalogOwner}"/>
-                        <t:form t:id="reorderAjaxForm" t:context="propertyValue.id" t:clientValidation="none" t:zone="productsZone" class="hidden reorder">
-                            <input t:type="textfield" t:id="reorder" t:value="reorder"/>
-                            <input t:type="submit" t:id="ordersubmit"/>
-                        </t:form>
-                    </t:loop>
-                </div>
-                <t:parameter name="empty">
-                    <div id="product-items" class="grid-block products fixed ${sortable}">
-                        <t:loop source="products" value="oneProduct">
-                            <t:product product="oneProduct" class="fixed" edit="${catalogOwner}"/>
-                        </t:loop>
-                    </div>
-                </t:parameter>
-            </t:loop>
+            <div class="title">
+                <h2><span>Необработанные блюда</span></h2>
+            </div>
+            <div id="product-items" class="grid-block products fixed">
+                <t:delegate to="rawProductsBlock"/>
+            </div>
+            <t:zone t:id="rawProductsZone" class="grid-block products fixed border"/>
+            <t:zone t:id="rawProductsFetchZone">
+                <t:delegate to="rawProductsFetchBlock"/>
+            </t:zone>
+
+            <t:block t:id="rawProductsBlock">
+                <t:loop source="rawProducts" value="oneProduct">
+                    <t:product product="oneProduct" class="fixed" edit="${catalogOwner}"/>
+                </t:loop>
+            </t:block>
+            <t:block t:id="rawProductsFetchBlock">
+                <t:actionlink t:id="fetchRawProductsAjaxLink" t:context="[rawFrom,rawTo]" t:zone="rawProductsZone">еще</t:actionlink>
+            </t:block>
+
+            <!--<t:loop source="rootProperties" value="propertyValue">-->
+            <!--<div class="title">-->
+            <!--<h2><span>${propertyValue.name}</span></h2>-->
+            <!--</div>-->
+            <!--<div id="product-items" class="grid-block products fixed ${sortable}">-->
+            <!--<t:loop source="products" value="oneProduct">-->
+            <!--<t:product product="oneProduct" class="fixed" edit="${catalogOwner}"/>-->
+            <!--<t:form t:id="reorderAjaxForm" t:context="propertyValue.id" t:clientValidation="none" class="hidden reorder">-->
+            <!--<input t:type="textfield" t:id="reorder" t:value="reorder"/>-->
+            <!--<input t:type="submit" t:id="ordersubmit"/>-->
+            <!--</t:form>-->
+            <!--</t:loop>-->
+            <!--</div>-->
+            <!--</t:loop>-->
         </t:block>
         <t:productModalTemplate/>
 

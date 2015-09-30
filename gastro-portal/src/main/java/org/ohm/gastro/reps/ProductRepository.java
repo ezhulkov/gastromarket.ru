@@ -39,8 +39,11 @@ public interface ProductRepository extends AltIdRepository<ProductEntity> {
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     List<ProductEntity> findAllPromotedProducts();
 
+    @Query("from ProductEntity where wasSetup=:wasSetup and catalog=:catalog")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    List<ProductEntity> findAllByWasSetupAndCatalog(boolean wasSetup, CatalogEntity catalog);
+    List<ProductEntity> findAllByWasSetupAndCatalog(@Param("wasSetup") boolean wasSetup,
+                                                    @Param("catalog") CatalogEntity catalog,
+                                                    Pageable page);
 
     @Query(value = "SELECT  DISTINCT * \n" +
             "FROM (\n" +

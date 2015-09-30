@@ -28,7 +28,7 @@ public interface ProductService extends ImageUploaderService<ProductEntity>, Alt
         NAME, PRICE, NONE, POSITION
     }
 
-    List<ProductEntity> findAllRawProducts(@Nonnull CatalogEntity catalog);
+    List<ProductEntity> findAllRawProducts(@Nonnull CatalogEntity catalog, final int from, final int to);
 
     List<ProductEntity> findAllProducts(OfferEntity offer);
 

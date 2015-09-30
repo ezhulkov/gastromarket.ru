@@ -14,7 +14,6 @@ import org.ohm.gastro.service.ProductService;
 import org.ohm.gastro.service.ProductService.OrderType;
 import org.springframework.data.domain.Sort.Direction;
 
-import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -96,6 +95,32 @@ public class Products extends BaseComponent {
         return catalog.getUser().equals(getAuthenticatedUserOpt().orElse(null));
     }
 
+    //========
+    @Property
+    private int rawFrom = 0;
+
+    @Property
+    private int rawTo = 4;
+
+    @Inject
+    @Property
+    private Block rawProductsFetchBlock;
+
+    @Inject
+    @Property
+    private Block rawProductsBlock;
+
+    public java.util.List<ProductEntity> getRawProducts() {
+        return isCatalogOwner() ? getProductService().findAllRawProducts(catalog, rawFrom, rawTo) : null;
+    }
+
+    public void onActionFromFetchRawProductsAjaxLink(int from, int to) {
+        this.rawFrom = from + 4;
+        this.rawTo = to + 4;
+        getAjaxResponseRenderer().addRender("rawProductsZone", rawProductsBlock).addRender("rawProductsFetchZone", rawProductsFetchBlock);
+    }
+    //========
+
     public java.util.List<ProductEntity> getProducts() {
         return getProductsInt(propertyValue, propertyValue == null ? "main" : propertyValue.getId().toString());
     }
@@ -128,9 +153,8 @@ public class Products extends BaseComponent {
         return isCatalogOwner() ? "sortable-container" : "";
     }
 
-    public Block onActionFromReorderAjaxForm(Long vid) {
-        getProductService().productPosition(Arrays.stream(reorder.split(",")).map(Long::parseLong).collect(Collectors.toList()), vid.toString());
-        return productsBlock;
-    }
+//    public void onActionFromReorderAjaxForm(Long vid) {
+//        getProductService().productPosition(Arrays.stream(reorder.split(",")).map(Long::parseLong).collect(Collectors.toList()), vid.toString());
+//    }
 
 }

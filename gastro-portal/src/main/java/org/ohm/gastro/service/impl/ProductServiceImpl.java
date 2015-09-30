@@ -210,8 +210,11 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
-    public List<ProductEntity> findAllRawProducts(@Nonnull CatalogEntity catalog) {
-        return productRepository.findAllByWasSetupAndCatalog(false, catalog);
+    public List<ProductEntity> findAllRawProducts(@Nonnull CatalogEntity catalog, final int from, final int to) {
+        final int count = to - from;
+        if (count == 0) return Lists.newArrayList();
+        final int page = from / count;
+        return productRepository.findAllByWasSetupAndCatalog(false, catalog, new PageRequest(page, count));
     }
 
     @Override

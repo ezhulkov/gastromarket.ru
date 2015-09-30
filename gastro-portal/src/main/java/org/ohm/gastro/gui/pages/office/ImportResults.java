@@ -36,7 +36,7 @@ public class ImportResults extends BaseComponent {
     }
 
     public List<ProductEntity> getProducts() {
-        return getProductService().findAllRawProducts(catalog);
+        return getProductService().findAllRawProducts(catalog, 0, 100);
     }
 
 }
