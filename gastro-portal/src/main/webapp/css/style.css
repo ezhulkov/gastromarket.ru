@@ -1615,13 +1615,17 @@ body.modal-open {
   overflow: hidden;
 }
 
+.modal {
+  overflow-y: scroll;
+}
+
 .modal-backdrop.in {
   opacity: 0.8;
 }
 
 .close {
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
   position: absolute;
   cursor: pointer;
   font-size: 40px;
@@ -4138,10 +4142,7 @@ body.mobile .rub:after {
     background-color: #f5f5f5;
   }
   .filter .filter-group .dropdown-menu .submenu > .dropdown-menu,
-  .filter .filter-group .dropdown-menu .submenu > .dropdown-menu:hover,
-  .filter .filter-group .dropdown-menu .submenu > .dropdown-menu:focus,
-  .filter .filter-group .dropdown-menu .submenu > .dropdown-menu:visited,
-  .filter .filter-group .dropdown-menu .submenu > .dropdown-menu:active {
+  .filter .filter-group .dropdown-menu .submenu:hover > .dropdown-menu {
     display: none;
   }
 }
