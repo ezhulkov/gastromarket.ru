@@ -107,7 +107,7 @@
                 <span class="price">${offer.price} <span class="rub"/></span>
             </div>
             <div class="${rightBlock} basket-block text-left">
-                <t:order.add entity="offer"/>
+                <t:order.add entity="offer" priceModifiers="priceModifiers"/>
             </div>
         </div>
     </t:block>

@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 
@@ -54,6 +55,10 @@ public class PropertyValueEntity extends AltIdBaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private PropertyEntity property;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "value")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private List<TagEntity> tags = Lists.newArrayList();
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -105,6 +110,14 @@ public class PropertyValueEntity extends AltIdBaseEntity {
 
     public void setClientGenerated(Boolean clientGenerated) {
         this.clientGenerated = clientGenerated;
+    }
+
+    public List<TagEntity> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<TagEntity> tags) {
+        this.tags = tags;
     }
 
     @Override

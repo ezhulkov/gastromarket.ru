@@ -1,6 +1,5 @@
 package org.ohm.gastro.gui.components.order;
 
-import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.PriceModifierEntity;
@@ -10,8 +9,6 @@ import org.ohm.gastro.domain.PurchaseEntity;
 import org.ohm.gastro.domain.PurchaseEntity.Type;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
-import java.util.stream.Collectors;
-
 /**
  * Created by ezhulkov on 31.07.15.
  */
@@ -20,6 +17,10 @@ public class Add extends BaseComponent {
     @Parameter
     @Property
     private PurchaseEntity entity;
+
+    @Parameter
+    @Property
+    private java.util.List<PriceModifierEntity> priceModifiers;
 
     @Property
     private PriceModifierEntity priceModifier;
@@ -37,11 +38,6 @@ public class Add extends BaseComponent {
 
     public void onActionFromAjaxLinkPurchase3(PurchaseEntity.Type eType, Long eId) {
         onActionFromAjaxLinkPurchase(eType, eId, null);
-    }
-
-    @Cached(watch = "entity")
-    public java.util.List<PriceModifierEntity> getPriceModifiers() {
-        return getProductService().findAllModifiers(entity).stream().filter(t -> t.getPrice() != 0).collect(Collectors.toList());
     }
 
     public String getEntityTypeText() {

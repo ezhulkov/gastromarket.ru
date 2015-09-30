@@ -39,9 +39,11 @@
                     </t:loop>
                 </div>
                 <t:parameter name="empty">
-                    <t:loop source="products" value="oneProduct">
-                        <t:product product="oneProduct" class="fixed" edit="${catalogOwner}"/>
-                    </t:loop>
+                    <div id="product-items" class="grid-block products fixed ${sortable}">
+                        <t:loop source="products" value="oneProduct">
+                            <t:product product="oneProduct" class="fixed" edit="${catalogOwner}"/>
+                        </t:loop>
+                    </div>
                 </t:parameter>
             </t:loop>
         </t:block>

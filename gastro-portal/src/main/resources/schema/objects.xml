@@ -946,4 +946,10 @@
         </sql>
     </changeSet>
 
+    <changeSet id="84" author="ezhulkov">
+        <createIndex tableName="product" indexName="was_setup_idx">
+            <column name="was_setup"/>
+        </createIndex>
+    </changeSet>
+
 </databaseChangeLog>

@@ -2,6 +2,7 @@ package org.ohm.gastro.gui.pages.user;
 
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
@@ -17,8 +18,10 @@ public class Index extends BaseComponent {
     @Property
     private CommentEntity oneComment;
 
-    public void onActivate(Long uid) {
+    public Object onActivate(Long uid) {
         customer = getUserService().findUser(uid);
+        if (customer == null) return new HttpError(404, "Page not found.");
+        return true;
     }
 
     public Long onPassivate() {

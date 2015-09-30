@@ -60,15 +60,6 @@ public class Index extends AbstractCatalogPage {
     }
 
     @Cached
-    public java.util.List<ProductEntity> getProducts() {
-        final java.util.List<ProductEntity> allProducts = getProductService().findProductsForFrontend(null, catalog,
-                                                                                                      isCatalogOwner() ? null : true,
-                                                                                                      isCatalogOwner() ? null : false,
-                                                                                                      null, null, null, 0, Integer.MAX_VALUE);
-        return allProducts.stream().limit(4).sorted((o1, o2) -> ObjectUtils.compare(o1.getPositionOfType("main"), o2.getPositionOfType("main"))).collect(Collectors.toList());
-    }
-
-    @Cached
     public boolean isCommentAllowed() {
         return getAuthenticatedUserOpt()
                 .filter(t -> t.isUser() || t.isAdmin())
@@ -76,19 +67,27 @@ public class Index extends AbstractCatalogPage {
                 .orElse(0) > 0;
     }
 
+    public String getRootProperties() {
+        return getProductService().findAllRootValues(catalog, isCatalogOwner() ? null : true).stream()
+                .map(PropertyValueEntity::getName)
+                .collect(Collectors.joining(", "));
+    }
+
     public String getProductsCount() {
         return getDeclInfo("products", getProductService().findProductsForFrontendCount(catalog));
     }
 
-    public String getOrderCount() {
-        return getDeclInfo("orders", getOrderService().findAllOrders(catalog, Status.CLOSED).size());
+    @Cached
+    public java.util.List<ProductEntity> getProducts() {
+        final java.util.List<ProductEntity> allProducts = getProductService().findProductsForFrontend(null, catalog,
+                                                                                                      isCatalogOwner() ? null : true,
+                                                                                                      isCatalogOwner() ? null : false,
+                                                                                                      null, null, null, 0, 50);
+        return allProducts.stream().sorted((o1, o2) -> ObjectUtils.compare(o1.getPositionOfType("main"), o2.getPositionOfType("main"))).limit(4).collect(Collectors.toList());
     }
 
-    public String getRootProperties() {
-        return getProductService().findAllRootValues(catalog, isCatalogOwner() ? null : true).stream()
-                .map(PropertyValueEntity::getName)
-                .distinct()
-                .collect(Collectors.joining(", "));
+    public String getOrderCount() {
+        return getDeclInfo("orders", getOrderService().findAllOrders(catalog, Status.CLOSED).size());
     }
 
     public String getMedActiveClass() {

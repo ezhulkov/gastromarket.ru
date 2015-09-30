@@ -1,5 +1,6 @@
 package org.ohm.gastro.reps;
 
+import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.PropertyValueEntity.Tag;
@@ -28,5 +29,13 @@ public interface PropertyValueRepository extends AltIdRepository<PropertyValueEn
 
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     List<PropertyValueEntity> findAllByProperty(PropertyEntity property, Sort sort);
+
+    @Query("select distinct v from PropertyValueEntity v " +
+            "                 join v.tags t " +
+            "                 join t.product pr " +
+            "                 join pr.catalog c " +
+            "      where v.tag='ROOT' and c=:catalog and (pr.wasSetup=:wasSetup or :wasSetup is null)")
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    List<PropertyValueEntity> findAllRootValues(@Param("catalog") CatalogEntity catalog, @Param("wasSetup") Boolean wasSetup);
 
 }

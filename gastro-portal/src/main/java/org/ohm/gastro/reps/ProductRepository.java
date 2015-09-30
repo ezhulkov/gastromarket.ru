@@ -17,8 +17,8 @@ public interface ProductRepository extends AltIdRepository<ProductEntity> {
 
     @Query("select distinct pr from ProductEntity pr " +
             "   join pr.catalog c " +
-            "   left join pr.values pv " +
-            "   left join pv.value v1 " +
+            "   left join pr.values tags " +
+            "   left join tags.value v1 " +
             "   left join v1.parents v2 " +
             "where (v1=:value or v2=:value or :value is null) and " +
             "   (pr.catalog=:catalog or :catalog is null) and " +

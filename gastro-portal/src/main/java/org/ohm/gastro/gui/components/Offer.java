@@ -12,6 +12,8 @@ import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
+import java.util.stream.Collectors;
+
 /**
  * Created by ezhulkov on 30.05.15.
  */
@@ -53,7 +55,7 @@ public class Offer extends BaseComponent {
 
     @Cached
     public java.util.List<PriceModifierEntity> getPriceModifiers() {
-        return getProductService().findAllModifiers(offer);
+        return getProductService().findAllModifiers(offer).stream().filter(t -> t.getPrice() != 0).collect(Collectors.toList());
     }
 
     @Cached(watch = "offer")

@@ -14,6 +14,7 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 31.08.14.
@@ -93,7 +94,7 @@ public class Product extends BaseComponent {
     }
 
     public List<PriceModifierEntity> getPriceModifiers() {
-        return getProductService().findAllModifiers(product);
+        return getProductService().findAllModifiers(product).stream().filter(t -> t.getPrice() != 0).collect(Collectors.toList());
     }
 
 }

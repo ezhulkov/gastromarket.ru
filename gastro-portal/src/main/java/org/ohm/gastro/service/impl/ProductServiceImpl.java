@@ -14,7 +14,6 @@ import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.ProductEntity.Unit;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
-import org.ohm.gastro.domain.PropertyValueEntity.Tag;
 import org.ohm.gastro.domain.PurchaseEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.reps.PriceModifierRepository;
@@ -325,12 +324,7 @@ public class ProductServiceImpl implements ProductService, Logging {
 
     @Override
     public List<PropertyValueEntity> findAllRootValues(CatalogEntity catalog, Boolean wasSetup) {
-        return findProductsForFrontend(null, catalog, wasSetup, false, null, null, null, 0, Integer.MAX_VALUE).stream()
-                .flatMap(t -> t.getValues().stream())
-                .map(TagEntity::getValue)
-                .filter(java.util.Objects::nonNull)
-                .filter(t -> t.getTag() == Tag.ROOT)
-                .collect(Collectors.toList());
+        return propertyValueRepository.findAllRootValues(catalog, wasSetup);
     }
 
 }

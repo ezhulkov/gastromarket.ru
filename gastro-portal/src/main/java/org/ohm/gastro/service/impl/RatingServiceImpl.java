@@ -31,6 +31,7 @@ import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingService;
 import org.ohm.gastro.service.RatingTarget;
 import org.ohm.gastro.trait.Logging;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
@@ -192,47 +193,54 @@ public class RatingServiceImpl implements RatingService, Logging {
     public void updateRating(CatalogEntity catalog) {
 
         catalog = catalogRepository.findOne(catalog.getId());
+        MDC.put("uid", catalog.getUser().getEmail());
 
-        final Date fromDate = DateUtils.addDays(new Date(), -historyDays);
-        final List<CommentEntity> ratings = commentRepository.findAllRatings(catalog);
-        final List<LogEntity> catalogOps = findEvents(catalog.getUser(), catalog, fromDate);
-        final List<OrderEntity> orders = orderRepository.findAllByCatalog(catalog);
+        try {
 
-        final int productsCount = productRepository.findAllByWasSetupAndCatalog(true, catalog).size();
-        final int retentionCount = findEvents(catalog.getUser(), fromDate, Type.LOGIN).size();
-        final int posCount = (int) ratings.stream().filter(t -> t.getRating() > 0).count();
-        final int negCount = (int) ratings.stream().filter(t -> t.getRating() < 0).count();
-        final int totalSum = (int) catalogOps.stream().filter(t -> t.getType() == Type.ORDER_DONE).mapToLong(LogEntity::getCount).sum();
-        final int doneOrdersCount = (int) orders.stream().filter(t -> t.getStatus() == Status.CLOSED).count();
-        final int cancelOrdersCount = (int) orders.stream().filter(t -> t.getStatus() == Status.CANCELLED).count();
+            final Date fromDate = DateUtils.addDays(new Date(), -historyDays);
+            final List<CommentEntity> ratings = commentRepository.findAllRatings(catalog);
+            final List<LogEntity> catalogOps = findEvents(catalog.getUser(), catalog, fromDate);
+            final List<OrderEntity> orders = orderRepository.findAllByCatalog(catalog);
 
-        final Integer prevLevel = catalog.getLevel();
-        final int rating = calcRating(productsCount, retentionCount, posCount, negCount, doneOrdersCount, cancelOrdersCount, totalSum);
-        logger.info("productsCount:{}, retentionCount:{}, posCount:{}, negCount:{}, doneOrdersCount:{}, cancelOrdersCount:{}, totalSum:{}",
-                    productsCount, retentionCount, posCount, negCount, doneOrdersCount, cancelOrdersCount, totalSum);
+            final int productsCount = productRepository.findAllByWasSetupAndCatalog(true, catalog).size();
+            final int retentionCount = findEvents(catalog.getUser(), fromDate, Type.LOGIN).size();
+            final int posCount = (int) ratings.stream().filter(t -> t.getRating() > 0).count();
+            final int negCount = (int) ratings.stream().filter(t -> t.getRating() < 0).count();
+            final int totalSum = (int) catalogOps.stream().filter(t -> t.getType() == Type.ORDER_DONE).mapToLong(LogEntity::getCount).sum();
+            final int doneOrdersCount = (int) orders.stream().filter(t -> t.getStatus() == Status.CLOSED).count();
+            final int cancelOrdersCount = (int) orders.stream().filter(t -> t.getStatus() == Status.CANCELLED).count();
 
-        if (catalog.getUser().getEmail().equals("cook@cook.com")) return;
+            final Integer prevLevel = catalog.getLevel();
+            final int rating = calcRating(productsCount, retentionCount, posCount, negCount, doneOrdersCount, cancelOrdersCount, totalSum);
+            logger.info("productsCount:{}, retentionCount:{}, posCount:{}, negCount:{}, doneOrdersCount:{}, cancelOrdersCount:{}, totalSum:{}",
+                        productsCount, retentionCount, posCount, negCount, doneOrdersCount, cancelOrdersCount, totalSum);
 
-        catalog.setRating(rating);
-        catalog.setLevel(levelMap.get(rating));
+            if (catalog.getUser().getEmail().equals("cook@cook.com")) return;
 
-        logger.info("Rating for catalog {} changed", catalog);
+            catalog.setRating(rating);
+            catalog.setLevel(levelMap.get(rating));
 
-        if (catalog.getLevel() != null && (prevLevel == null || !catalog.getLevel().equals(prevLevel))) {
-            registerEvent(Type.RATING_CHANGE, catalog.getUser(), catalog, catalog.getLevel());
-        }
+            logger.info("Rating for catalog {} changed", catalog);
 
-        catalog.setOrderBadge(orderBadgeSet.rangeContaining(doneOrdersCount).lowerEndpoint());
-        catalog.setProductBadge(productBadgeSet.rangeContaining(productsCount).lowerEndpoint());
-        catalogRepository.save(catalog);
+            if (catalog.getLevel() != null && (prevLevel == null || !catalog.getLevel().equals(prevLevel))) {
+                registerEvent(Type.RATING_CHANGE, catalog.getUser(), catalog, catalog.getLevel());
+            }
 
-        final List<CatalogEntity> catalogs = catalogRepository.findAllActive();
-        int pos = 1;
-        for (CatalogEntity oneCatalog : catalogs) {
-            final Range<Integer> rankRange = rankBadgeSet.rangeContaining(pos++);
-            if (rankRange == null) break;
-            oneCatalog.setRankBadge(rankRange.upperEndpoint());
-            catalogRepository.save(oneCatalog);
+            catalog.setOrderBadge(orderBadgeSet.rangeContaining(doneOrdersCount).lowerEndpoint());
+            catalog.setProductBadge(productBadgeSet.rangeContaining(productsCount).lowerEndpoint());
+            catalogRepository.save(catalog);
+
+            final List<CatalogEntity> catalogs = catalogRepository.findAllActive();
+            int pos = 1;
+            for (CatalogEntity oneCatalog : catalogs) {
+                final Range<Integer> rankRange = rankBadgeSet.rangeContaining(pos++);
+                if (rankRange == null) break;
+                oneCatalog.setRankBadge(rankRange.upperEndpoint());
+                catalogRepository.save(oneCatalog);
+            }
+
+        } finally {
+            MDC.clear();
         }
 
     }
@@ -337,12 +345,12 @@ public class RatingServiceImpl implements RatingService, Logging {
         return commentRepository.findOne(cId);
     }
 
-    private int calcRating(final int productsCount, final int retentionCount, final int posCount, final int negCount, final int cancelOrdersCount, final int allCount, final int totalSum) {
+    private int calcRating(final int productsCount, final int retentionCount, final int posCount, final int negCount, final int doneOrdersCount, final int cancelOrdersCount, final int totalSum) {
         return (int) Math.max(0, productsCount * productsCoeff +
                                       retentionCount * retentionCoeff +
                                       posCount * posRatingCoeff +
                                       negCount * negRatingCoeff +
-                                      allCount / (cancelOrdersCount == 0 ? 1 : allCount) * productionCoeff +
+                                      doneOrdersCount / (cancelOrdersCount == 0 ? 1 : cancelOrdersCount) * productionCoeff +
                                       totalSum * transactionCoeff
         );
     }
