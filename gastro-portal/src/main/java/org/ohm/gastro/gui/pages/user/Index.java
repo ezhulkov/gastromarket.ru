@@ -18,7 +18,12 @@ public class Index extends BaseComponent {
     @Property
     private CommentEntity oneComment;
 
+    public Object onActivate() {
+        return onActivate(null);
+    }
+
     public Object onActivate(Long uid) {
+        if (uid == null) return new HttpError(404, "Page not found.");
         customer = getUserService().findUser(uid);
         if (customer == null) return new HttpError(404, "Page not found.");
         return true;

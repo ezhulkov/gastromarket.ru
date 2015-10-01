@@ -177,6 +177,7 @@ public class Products extends BaseComponent {
         final java.util.List<PropertyValueEntity> categories = getProductService().findAllRootValues(catalog, isCatalogOwner() ? null : true).stream()
                 .flatMap(t -> t.getParents().isEmpty() ? Stream.of(t) : t.getParents().stream())
                 .distinct()
+                .sorted((o1, o2) -> getProductService().findAllCategoryProductsCount(catalog, o2) - getProductService().findAllCategoryProductsCount(catalog, o1))
                 .collect(Collectors.toList());
         if (isCatalogOwner() && getProductService().findAllCategoryProductsCount(catalog, new PropertyValueEntity()) > 0) categories.add(0, new PropertyValueEntity());
         return categories;
