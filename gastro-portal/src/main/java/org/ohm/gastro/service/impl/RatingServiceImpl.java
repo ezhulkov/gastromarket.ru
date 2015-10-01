@@ -202,7 +202,7 @@ public class RatingServiceImpl implements RatingService, Logging {
             final List<LogEntity> catalogOps = findEvents(catalog.getUser(), catalog, fromDate);
             final List<OrderEntity> orders = orderRepository.findAllByCatalog(catalog);
 
-            final int productsCount = productRepository.findCountCatalog(catalog);
+            final int productsCount = productRepository.findCountInCatalog(catalog, true);
             final int retentionCount = findEvents(catalog.getUser(), fromDate, Type.LOGIN).size();
             final int posCount = (int) ratings.stream().filter(t -> t.getRating() > 0).count();
             final int negCount = (int) ratings.stream().filter(t -> t.getRating() < 0).count();

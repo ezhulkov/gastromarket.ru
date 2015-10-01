@@ -1,6 +1,5 @@
 package org.ohm.gastro.gui.pages.catalog;
 
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
@@ -82,8 +81,11 @@ public class Index extends AbstractCatalogPage {
         final java.util.List<ProductEntity> allProducts = getProductService().findProductsForFrontend(null, catalog,
                                                                                                       isCatalogOwner() ? null : true,
                                                                                                       isCatalogOwner() ? null : false,
-                                                                                                      null, null, null, 0, 50);
-        return allProducts.stream().sorted((o1, o2) -> ObjectUtils.compare(o1.getPositionOfType("main"), o2.getPositionOfType("main"))).limit(4).collect(Collectors.toList());
+                                                                                                      null, null, null, 0, Integer.MAX_VALUE);
+        return allProducts.stream()
+                .sorted((o1, o2) -> o1.getPositionOfType("main") - o2.getPositionOfType("main"))
+                .limit(4)
+                .collect(Collectors.toList());
     }
 
     public String getOrderCount() {

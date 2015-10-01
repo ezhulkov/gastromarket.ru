@@ -19,7 +19,7 @@ public abstract class AltIdBaseEntity extends AbstractBaseEntity implements AltI
 
     @Override
     public String getAltId() {
-        return altId == null ? getId().toString() : altId;
+        return altId == null ? (getId() == null ? null : getId().toString()) : altId;
     }
 
     public void setAltId(String altId) {

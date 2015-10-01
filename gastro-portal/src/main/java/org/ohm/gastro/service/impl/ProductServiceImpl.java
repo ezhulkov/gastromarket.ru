@@ -117,7 +117,6 @@ public class ProductServiceImpl implements ProductService, Logging {
             description = description.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
             product.setDescription(description);
         }
-        product.setWasSetup(true);
         product.setLastModified(new Date());
         return saveWithAltId(product, productRepository);
     }
@@ -130,6 +129,7 @@ public class ProductServiceImpl implements ProductService, Logging {
 
     @Override
     public ProductEntity saveProduct(ProductEntity product, Map<Long, String> propValues, List<Tuple> listValues) {
+        product.setWasSetup(true);
         saveProduct(product);
         tagRepository.deleteAllValues(product);
         propValues.entrySet().stream()
@@ -218,6 +218,13 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
+    public int findAllCategoryProductsCount(@Nonnull CatalogEntity catalog, @Nonnull PropertyValueEntity category) {
+        return category.getId() == null ?
+                productRepository.findCountInCatalog(catalog, false) :
+                productRepository.findCountByRootValueAndCatalog(category, catalog, null, false);
+    }
+
+    @Override
     public List<ProductEntity> findAllProducts(final OfferEntity offer) {
         return productRepository.findAllByOffer(offer);
     }
@@ -272,7 +279,7 @@ public class ProductServiceImpl implements ProductService, Logging {
 
     @Override
     public int findProductsForFrontendCount(final CatalogEntity catalog) {
-        return productRepository.findCountCatalog(catalog);
+        return productRepository.findCountInCatalog(catalog, true);
     }
 
     @Override

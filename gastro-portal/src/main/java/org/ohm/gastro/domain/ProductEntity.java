@@ -218,7 +218,7 @@ public class ProductEntity extends SitemapBaseEntity implements PurchaseEntity {
     }
 
     public Integer getPositionOfType(String type) {
-        return type == null ? 1 : getPositionAsTypes().get(type);
+        return type == null ? Integer.MAX_VALUE : getPositionAsTypes().getOrDefault(type, Integer.MAX_VALUE);
     }
 
     public void setPositionOfType(String type, Integer position) {

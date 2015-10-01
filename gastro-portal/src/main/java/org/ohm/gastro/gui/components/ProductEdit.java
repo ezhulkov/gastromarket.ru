@@ -9,6 +9,7 @@ import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.corelib.components.Select;
 import org.apache.tapestry5.corelib.components.TextArea;
@@ -20,6 +21,8 @@ import org.javatuples.Tuple;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
+import org.ohm.gastro.gui.dto.NewProducts;
+import org.ohm.gastro.gui.dto.ShoppingCart;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.product.Index;
 
@@ -33,6 +36,9 @@ import java.util.stream.Collectors;
  * Created by ezhulkov on 31.08.14.
  */
 public class ProductEdit extends BaseComponent {
+
+    @SessionState
+    private NewProducts newProducts;
 
     public enum Stage {
         DESC, PROP, PHOTO
@@ -99,6 +105,10 @@ public class ProductEdit extends BaseComponent {
     private String productZoneId;
 
     @Property
+    @Parameter(name = "productsZoneId", required = false, allowNull = false, value = "literal:productsZone")
+    private String productsZone;
+
+    @Property
     @Parameter(name = "modalId", defaultPrefix = BindingConstants.LITERAL, value = "pr-new")
     private String modalId;
 
@@ -159,14 +169,22 @@ public class ProductEdit extends BaseComponent {
             if (origProduct.getId() != null) product = getProductService().saveProduct(origProduct);
             else product = getProductService().createProduct(origProduct, catalog);
             getProductService().attachPriceModifiers(product, priceModifier.getSubmittedModifiers());
-            if (productsBlock != null) getAjaxResponseRenderer().addRender("productsZone", productsBlock);
+            if (productsBlock != null) getAjaxResponseRenderer().addRender(productsZone, productsBlock);
             if (productBlock != null) getAjaxResponseRenderer().addRender(productZoneId, productBlock);
             getAjaxResponseRenderer().addRender(getProductEditZone(), closeImmediately ? editDescBlock : editPropsBlock);
+            if (pid == null) {
+                newProducts.getItems().add(product);
+            }
         } else {
             closeImmediately = false;
             getAjaxResponseRenderer().addRender(getProductEditZone(), editDescBlock);
         }
         return null;
+    }
+
+    @Override
+    public ShoppingCart getShoppingCart() {
+        return super.getShoppingCart();
     }
 
     //Properties section
@@ -227,7 +245,7 @@ public class ProductEdit extends BaseComponent {
         if (goBack) getAjaxResponseRenderer().addRender(getProductEditZone(), editPropsBlock);
         if (closeImmediately && !editProduct) product = null;
         if (closeImmediately && getProductEditZone() != null) getAjaxResponseRenderer().addRender(getProductEditZone(), editDescBlock);
-        if (productsBlock != null) getAjaxResponseRenderer().addRender("productsZone", productsBlock);
+        if (productsBlock != null) getAjaxResponseRenderer().addRender(productsZone, productsBlock);
         if (productBlock != null) getAjaxResponseRenderer().addRender(productZoneId, productBlock);
         return closeImmediately && reloadPage ? Index.class : null;
     }

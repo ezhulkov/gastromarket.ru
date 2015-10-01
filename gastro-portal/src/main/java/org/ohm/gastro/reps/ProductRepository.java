@@ -23,7 +23,8 @@ public interface ProductRepository extends AltIdRepository<ProductEntity> {
             "where (v1=:value or v2=:value or :value is null) and " +
             "   (pr.catalog=:catalog or :catalog is null) and " +
             "   (pr.hidden=:hidden or :hidden is null) and " +
-            "   (pr.wasSetup=true or :wasSetup is null)")
+            "   (pr.wasSetup=true or :wasSetup is null) " +
+            "order by pr.id desc")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     Page<ProductEntity> findAllByRootValueAndCatalog(@Param("value") PropertyValueEntity value,
                                                      @Param("catalog") CatalogEntity catalog,
@@ -31,15 +32,30 @@ public interface ProductRepository extends AltIdRepository<ProductEntity> {
                                                      @Param("hidden") Boolean hidden,
                                                      Pageable page);
 
-    @Query("select count(*) from ProductEntity where catalog=:catalog and wasSetup=true")
+    @Query("select count(distinct pr) from ProductEntity pr " +
+            "   join pr.catalog c " +
+            "   left join pr.values tags " +
+            "   left join tags.value v1 " +
+            "   left join v1.parents v2 " +
+            "where (v1=:value or v2=:value or :value is null) and " +
+            "   (pr.catalog=:catalog or :catalog is null) and " +
+            "   (pr.hidden=:hidden or :hidden is null) and " +
+            "   (pr.wasSetup=true or :wasSetup is null)")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    int findCountCatalog(@Param("catalog") CatalogEntity catalog);
+    int findCountByRootValueAndCatalog(@Param("value") PropertyValueEntity value,
+                                       @Param("catalog") CatalogEntity catalog,
+                                       @Param("wasSetup") Boolean wasSetup,
+                                       @Param("hidden") Boolean hidden);
+
+    @Query("select count(*) from ProductEntity where catalog=:catalog and (wasSetup=:wasSetup or :wasSetup is null)")
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    int findCountInCatalog(@Param("catalog") CatalogEntity catalog, @Param("wasSetup") Boolean wasSetup);
 
     @Query("from ProductEntity where promoted=true")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     List<ProductEntity> findAllPromotedProducts();
 
-    @Query("from ProductEntity where wasSetup=:wasSetup and catalog=:catalog")
+    @Query("from ProductEntity where wasSetup=:wasSetup and catalog=:catalog order by id desc")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     List<ProductEntity> findAllByWasSetupAndCatalog(@Param("wasSetup") boolean wasSetup,
                                                     @Param("catalog") CatalogEntity catalog,

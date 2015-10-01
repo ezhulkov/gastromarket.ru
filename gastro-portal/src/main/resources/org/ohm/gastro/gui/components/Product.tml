@@ -1,4 +1,4 @@
-<div class="item product-item product-modal-trigger sortable ${additionalClass}" data-productid="${product?.id}" data-productaltid="${product?.altId}" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+<div class="item product-item product-modal-trigger ${additionalClass}" data-productid="${product?.id}" data-productaltid="${product?.altId}" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
     <t:zone t:id="productZone" id="${productZoneId}">
         <t:delegate to="productBlock"/>
@@ -15,73 +15,43 @@
         </t:if>
     </t:block>
     <t:block t:id="productBlock">
-        <div class="pic">
-            <t:if test="editMode">
-                <div class="edit-block upload-file" data-objectid="${product.id}" data-type="PRODUCT" data-size="SIZE2">
-                    <span class="glyphicon glyphicon-move handle" aria-hidden="true"></span>
-                    <a class="uploader-button"/>
-                    <t:actionlink rel="nofollow" t:id="edit" t:context="product.id" t:zone="${editZoneId}" class="edit"/>
-                    <a href="#delete" data-toggle="modal" class="delete" data-target="#deleteProduct${product.id}"/>
-                </div>
-                <div class="modal fade delete-product" id="deleteProduct${product.id}" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <div class="title">
-                                    <h1><span>Удалить блюдо?</span></h1>
+        <t:if test="product">
+            <div class="pic">
+                <t:if test="editMode">
+                    <div class="edit-block upload-file" data-objectid="${product.id}" data-type="PRODUCT" data-size="SIZE2">
+                        <span class="glyphicon glyphicon-move handle" aria-hidden="true" title="Сортировать" alt="Сортировать"></span>
+                        <a class="uploader-button" title="Загрузить фото" alt="Загрузить фото"/>
+                        <t:actionlink rel="nofollow" t:id="edit" t:context="product.id" t:zone="${editZoneId}" class="edit" title="Редактировать" alt="Редактировать"/>
+                        <a href="#delete" data-toggle="modal" class="delete" data-target="#deleteProduct${product.id}" title="Удалить" alt="Удалить"/>
+                    </div>
+                    <div class="modal fade delete-product" id="deleteProduct${product.id}" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <div class="title">
+                                        <h1><span>Удалить блюдо?</span></h1>
+                                    </div>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
                                 </div>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
-                            </div>
-                            <div class="modal-body form-buttons" xml:space="preserve">
-                                <t:actionlink rel="nofollow" t:id="delete" t:context="product.id" class="btn btn-red deleteConfirm" style="display: inline;">Удалить</t:actionlink>
+                                <div class="modal-body form-buttons" xml:space="preserve">
+                                <t:actionlink rel="nofollow" t:id="delete" t:context="product.id" class="btn btn-red deleteConfirm" t:zone="${productZoneId}" style="display: inline;">Удалить</t:actionlink>
                                 <a href="#" class="btn btn-white" style="display: inline;" data-dismiss="modal">Отмена</a>
+                            </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </t:if>
-            <img class="image" src="${product.avatarUrlMedium}"/>
-        </div>
-        <div class="data">
-            <t:pagelink page="product" t:context="product.altId" class="pname">${product.name}</t:pagelink>
-            <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="product.catalog.altId">
-                <span><img src="${product.catalog.avatarUrlSmall}"/></span>${product.catalog.name}
-            </t:pageLink>
-            <t:if test="product.descriptionRaw">
-                <div class="desc">
-                    <t:outputraw value="product.descriptionRaw"/>
-                </div>
-            </t:if>
-        </div>
-        <div class="basket-block">
-            <div class="price pull-left">
-                ${product.price} <span class="rub"/>
-
-                <div class="unit">${productUnit}</div>
-            </div>
-            <div class="basket-add pull-right">
-                <t:order.add entity="product" priceModifiers="priceModifiers"/>
-            </div>
-        </div>
-        <div class="modal-data hidden">
-            <t:actionlink rel="nofollow" class="recommended-link" t:id="ajaxLinkRecommended" t:context="[product.id,6]" t:zone="recommendedProductsZone"/>
-            <div class="pname"><a href="/product/${product.altId}">${product.name}</a></div>
-            <div class="image">${product.avatarUrl}</div>
-            <div class="price-modifier">
-                <t:if test="priceModifiers">
-                    <div class="price-modifier">
-                        <t:loop source="priceModifiers" value="priceModifier">
-                            <div>
-                                <span class="modifier-price"><span class="sign">${priceModifier.signPrintable}</span>${priceModifier.price} <span class="rub"/></span>&nbsp;
-                                <span class="modifier-name">${priceModifier.description}</span>
-                            </div>
-                        </t:loop>
-                    </div>
                 </t:if>
+                <img class="image" src="${product.avatarUrlMedium}"/>
             </div>
-            <div class="desc">
+            <div class="data">
+                <t:pagelink page="product" t:context="product.altId" class="pname">${product.name}</t:pagelink>
+                <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="product.catalog.altId">
+                    <span><img src="${product.catalog.avatarUrlSmall}"/></span>${product.catalog.name}
+                </t:pageLink>
                 <t:if test="product.descriptionRaw">
-                    <t:outputraw value="product.descriptionRaw"/>
+                    <div class="desc">
+                        <t:outputraw value="product.descriptionRaw"/>
+                    </div>
                 </t:if>
             </div>
             <div class="basket-block">
@@ -90,24 +60,61 @@
 
                     <div class="unit">${productUnit}</div>
                 </div>
-                <div class="pull-right">
-                    <t:order.add entity="product"/>
+                <div class="basket-add pull-right">
+                    <t:order.add entity="product" priceModifiers="priceModifiers"/>
                 </div>
             </div>
-            <div class="cook">
-                <img class="avatar-small" src="${product.catalog.avatarUrlSmall}"/>
-                <a href="/catalog/${product.catalog.altId}">${product.catalog.name}</a>
+            <div class="modal-data hidden">
+                <t:actionlink rel="nofollow" class="recommended-link" t:id="ajaxLinkRecommended" t:context="[product.id,6]" t:zone="recommendedProductsZone"/>
+                <div class="pname"><a href="/product/${product.altId}">${product.name}</a></div>
+                <div class="image">${product.avatarUrl}</div>
+                <div class="price-modifier">
+                    <t:if test="priceModifiers">
+                        <div class="price-modifier">
+                            <t:loop source="priceModifiers" value="priceModifier">
+                                <div>
+                                    <span class="modifier-price"><span class="sign">${priceModifier.signPrintable}</span>${priceModifier.price} <span class="rub"/></span>&nbsp;
+                                    <span class="modifier-name">${priceModifier.description}</span>
+                                </div>
+                            </t:loop>
+                        </div>
+                    </t:if>
+                </div>
+                <div class="desc">
+                    <t:if test="product.descriptionRaw">
+                        <t:outputraw value="product.descriptionRaw"/>
+                    </t:if>
+                </div>
+                <div class="basket-block">
+                    <div class="price pull-left">
+                        ${product.price} <span class="rub"/>
+
+                        <div class="unit">${productUnit}</div>
+                    </div>
+                    <div class="pull-right">
+                        <t:order.add entity="product"/>
+                    </div>
+                </div>
+                <div class="cook">
+                    <img class="avatar-small" src="${product.catalog.avatarUrlSmall}"/>
+                    <a href="/catalog/${product.catalog.altId}">${product.catalog.name}</a>
+                </div>
+                <div class="url">/product/${product.altId}</div>
+                <div class="tags">
+                    <ul>
+                        <t:loop source="productTags" value="oneTag">
+                            <li><span class="tag">${oneTag.property.name}:</span> ${oneTag.data}</li>
+                        </t:loop>
+                    </ul>
+                </div>
+                <div class="has-block2">${hasBlock2}</div>
             </div>
-            <div class="url">/product/${product.altId}</div>
-            <div class="tags">
-                <ul>
-                    <t:loop source="productTags" value="oneTag">
-                        <li><span class="tag">${oneTag.property.name}:</span> ${oneTag.data}</li>
-                    </t:loop>
-                </ul>
-            </div>
-            <div class="has-block2">${hasBlock2}</div>
-        </div>
+            <t:parameter name="else">
+                <script>
+                    jQuery("body").removeClass("modal-open");
+                </script>
+            </t:parameter>
+        </t:if>
     </t:block>
     <t:block t:id="recommendedBlock">
         <ul>

@@ -30,6 +30,8 @@ public interface ProductService extends ImageUploaderService<ProductEntity>, Alt
 
     List<ProductEntity> findAllRawProducts(@Nonnull CatalogEntity catalog, final int from, final int to);
 
+    int findAllCategoryProductsCount(@Nonnull CatalogEntity catalog, @Nonnull PropertyValueEntity category);
+
     List<ProductEntity> findAllProducts(OfferEntity offer);
 
     PriceModifierEntity findPriceModifier(Long id);

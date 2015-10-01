@@ -10,7 +10,7 @@
                 <a data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>
                 <t:pagelink page="office/import" context="catalog.altId">Импортировать меню <span/></t:pagelink>
             </div>
-            <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>
+            <t:productEdit catalog="catalog" edit="false" productsBlock="newProductsBlock" productsZoneId="literal:newProductsZone"/>
         </t:if>
         <t:filter parentValue="parentPropertyValue"
                   allValues="allProperties"
@@ -21,59 +21,60 @@
     </div>
 
     <div class="container flexible">
-        <t:zone t:id="productsZone">
-            <t:delegate to="productsBlock"/>
-        </t:zone>
-        <t:block t:id="productsBlock">
-            <div class="title">
-                <h2><span>Необработанные блюда</span></h2>
-            </div>
-            <div id="product-items" class="grid-block products fixed">
-                <t:delegate to="rawProductsBlock"/>
-            </div>
-            <t:zone t:id="rawProductsZone" class="grid-block products fixed border"/>
-            <t:zone t:id="rawProductsFetchZone">
-                <t:delegate to="rawProductsFetchBlock"/>
+        <t:if test="catalogOwner">
+            <t:zone t:id="newProductsZone">
+                <t:delegate to="newProductsBlock"/>
             </t:zone>
+        </t:if>
+        <t:block t:id="newProductsBlock">
+            <t:if test="newProducts">
+                <div class="title">
+                    <h2><span>Новые блюда</span></h2>
+                </div>
+                <div id="product-items-new" class="grid-block products fixed">
+                    <t:loop source="newProducts" value="oneProduct">
+                        <t:product product="oneProduct" class="fixed" edit="${catalogOwner}"/>
+                    </t:loop>
+                </div>
+            </t:if>
+        </t:block>
 
-            <t:block t:id="rawProductsBlock">
-                <t:loop source="rawProducts" value="oneProduct">
-                    <t:product product="oneProduct" class="fixed" edit="${catalogOwner}"/>
-                </t:loop>
-            </t:block>
-            <t:block t:id="rawProductsFetchBlock">
-                <t:actionlink t:id="fetchRawProductsAjaxLink" t:context="[rawFrom,rawTo]" t:zone="rawProductsZone">еще</t:actionlink>
-            </t:block>
+        <t:loop source="rootProperties" value="propertyValue">
+            <div class="title">
+                <h2><span>${categoryName}</span></h2>
+            </div>
+            <t:if test="categoryTip">
+                <p class="modal-text">${categoryTip}</p>
+            </t:if>
+            <div id="product-items-${propertyValue.id}" class="grid-block products fixed">
+                <t:delegate to="productsBlock"/>
+            </div>
+            <t:zone id="${productsFetchZoneId}" t:id="productsFetchZone">
+                <t:delegate to="productsFetchBlock"/>
+            </t:zone>
+        </t:loop>
 
-            <!--<t:loop source="rootProperties" value="propertyValue">-->
-            <!--<div class="title">-->
-            <!--<h2><span>${propertyValue.name}</span></h2>-->
-            <!--</div>-->
-            <!--<div id="product-items" class="grid-block products fixed ${sortable}">-->
-            <!--<t:loop source="products" value="oneProduct">-->
-            <!--<t:product product="oneProduct" class="fixed" edit="${catalogOwner}"/>-->
-            <!--<t:form t:id="reorderAjaxForm" t:context="propertyValue.id" t:clientValidation="none" class="hidden reorder">-->
-            <!--<input t:type="textfield" t:id="reorder" t:value="reorder"/>-->
-            <!--<input t:type="submit" t:id="ordersubmit"/>-->
-            <!--</t:form>-->
-            <!--</t:loop>-->
-            <!--</div>-->
-            <!--</t:loop>-->
+        <t:block t:id="productsBlock">
+            <t:loop source="products" value="oneProduct">
+                <t:product product="oneProduct" class="fixed" edit="${catalogOwner}"/>
+            </t:loop>
+            <t:zone t:id="productsZone" id="${productsZoneId}"/>
+        </t:block>
+        <t:block t:id="productsFetchBlock">
+            <t:if test="showFetch">
+                <div class="more-products">
+                    <div class="links-set">
+                        <t:actionlink rel="nofollow" t:id="fetchProductsAjaxLink" t:context="[propertyValue.id,fetchFrom,fetchTo]" t:zone="${productsZoneId}">Показать еще...</t:actionlink>
+                    </div>
+                </div>
+            </t:if>
         </t:block>
         <t:productModalTemplate/>
-
     </div>
 
     <script>
         jQuery(document).ready(function () {
-            var init = function () {
-                initProductCatalogFixed();
-            };
-            init();
-            Event.observe(jQuery("#productsZone").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
-                init();
-                initTitle(jQuery("div.title"));
-            });
+            initProductCatalogFixed();
         });
     </script>
 
