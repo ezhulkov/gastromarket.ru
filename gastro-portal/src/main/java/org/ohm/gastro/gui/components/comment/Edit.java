@@ -1,6 +1,10 @@
 package org.ohm.gastro.gui.components.comment;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.ValueEncoder;
@@ -10,7 +14,6 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Select;
 import org.apache.tapestry5.corelib.components.TextField;
-import org.apache.tapestry5.upload.services.UploadedFile;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.CommentableEntity;
 import org.ohm.gastro.domain.CommentableEntity.Type;
@@ -39,9 +42,6 @@ public class Edit extends BaseComponent {
     @Property
     @Parameter(defaultPrefix = BindingConstants.LITERAL)
     private String modalId;
-
-    @Property
-    private UploadedFile photoFile;
 
     @Property
     @Parameter(defaultPrefix = BindingConstants.LITERAL)
@@ -79,7 +79,8 @@ public class Edit extends BaseComponent {
         }
     }
 
-    public void onSuccessFromRateForm(Long cid) {
+    public void onSuccessFromRateForm(Long cid) throws FileUploadException {
+        final java.util.List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(getHttpServletRequest());
         getRatingService().rateCommentableEntity(comment.getEntity(), comment, getAuthenticatedUserOpt().orElse(null));
         getRatingService().attachPhotos(comment, submittedPhotos);
     }

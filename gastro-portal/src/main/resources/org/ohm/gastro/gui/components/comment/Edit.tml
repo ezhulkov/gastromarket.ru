@@ -1,4 +1,4 @@
-<t:form xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" t:id="rateForm" context="rateFormContext" class="form edit" t:clientValidation="none" role="form">
+<t:form xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" t:id="rateForm" enctype="multipart/form-data" context="rateFormContext" class="form edit" t:clientValidation="none" role="form">
     <t:if test="showRate">
         <div class="form-group">
             <t:radiogroup t:id="opinion" value="comment.opinion">
@@ -25,7 +25,7 @@
     </div>
     <t:ajaxformloop t:id="photos" value="photo" source="photos" encoder="formInjectorEncoder">
         <div class="col-xs-12 gap2">
-            <input t:type="upload" t:id="photoFile" t:value="photoFile" placeholder="123"/>
+            <input type="file" name="rateFile" accept="image/*"/>
         </div>
         <t:if test="cook">
             <div class="col-xs-12">
