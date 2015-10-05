@@ -20,35 +20,33 @@
             <textarea t:type="TextArea" t:id="text" t:value="comment.text" rows="5" class="form-control"/>
         </div>
     </div>
+    <div class="col-xs-12 gap2">
+        Чтобы прикрепить фото, нажмите "Добавить фотографию":
+    </div>
     <t:ajaxformloop t:id="photos" value="photo" source="photos" encoder="formInjectorEncoder">
-        <div class="clearfix photo-row">
+        <div class="col-xs-12 gap2">
+            <input t:type="upload" t:id="photoFile" t:value="photoFile" placeholder="123"/>
+        </div>
+        <t:if test="cook">
             <div class="col-xs-12">
-                Чтобы прикрепить фото к комментарию, выберите файл
+                или выберите блюдо из своего каталога
             </div>
             <div class="col-xs-12">
-                1
-            </div>
-            <t:if test="cook">
-                <div class="col-xs-12">
-                    или выберите из каталога
-                </div>
-                <div class="col-xs-12">
-                    <div class="form-group">
-                        <t:select t:id="photoProduct" data-placeholder=" " class="form-control chosen-select"/>
-                    </div>
-                </div>
-            </t:if>
-            <div class="col-xs-11">
                 <div class="form-group">
-                    <t:textfield t:id="photoText" class="form-control" placeholder="Тект к фотографии"/>
+                    <t:select t:id="photoProduct" class="form-control chosen-select"/>
                 </div>
             </div>
-            <div class="col-xs-1">
-                <t:removerowlink class="glyphicon glyphicon-remove del-photo"/>
+        </t:if>
+        <div class="col-xs-11">
+            <div class="form-group">
+                <t:textfield t:id="photoText" class="form-control" placeholder="Тект к фотографии"/>
             </div>
         </div>
+        <div class="col-xs-1">
+            <t:removerowlink class="glyphicon glyphicon-remove del-item"/>
+        </div>
         <t:parameter name="addRow">
-            <div class="clearfix">
+            <div class="col-xs-12">
                 <t:addrowlink class="add-photo">+ Добавить фотографию</t:addrowlink>
             </div>
         </t:parameter>

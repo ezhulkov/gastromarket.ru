@@ -10,6 +10,7 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Select;
 import org.apache.tapestry5.corelib.components.TextField;
+import org.apache.tapestry5.upload.services.UploadedFile;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.CommentableEntity;
 import org.ohm.gastro.domain.CommentableEntity.Type;
@@ -33,12 +34,14 @@ public class Edit extends BaseComponent {
     @Parameter
     private CommentableEntity entity;
 
-    @Property
     private PhotoEntity photo;
 
     @Property
     @Parameter(defaultPrefix = BindingConstants.LITERAL)
     private String modalId;
+
+    @Property
+    private UploadedFile photoFile;
 
     @Property
     @Parameter(defaultPrefix = BindingConstants.LITERAL)
@@ -54,6 +57,8 @@ public class Edit extends BaseComponent {
     @Parameter
     private boolean commentAllowed;
 
+    private java.util.List<PhotoEntity> submittedPhotos = Lists.newArrayList();
+
     @Cached
     public GenericSelectModel<ProductEntity> getProductsModel() {
         return new GenericSelectModel<>(getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream()
@@ -64,6 +69,7 @@ public class Edit extends BaseComponent {
     }
 
     public void onPrepareFromRateForm(Long cid) {
+        submittedPhotos.clear();
         if (comment == null && entity != null && isAuthenticated()) {
             comment = new CommentEntity();
             comment.setEntity(entity);
@@ -75,6 +81,7 @@ public class Edit extends BaseComponent {
 
     public void onSuccessFromRateForm(Long cid) {
         getRatingService().rateCommentableEntity(comment.getEntity(), comment, getAuthenticatedUserOpt().orElse(null));
+        getRatingService().attachPhotos(comment, submittedPhotos);
     }
 
     public boolean getLike() {
@@ -118,6 +125,15 @@ public class Edit extends BaseComponent {
 
     public PhotoEntity onAddRow() {
         return new PhotoEntity();
+    }
+
+    public PhotoEntity getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(final PhotoEntity photo) {
+        this.photo = photo;
+        if (photo.getId() == null || !submittedPhotos.contains(photo)) submittedPhotos.add(photo);
     }
 
 }

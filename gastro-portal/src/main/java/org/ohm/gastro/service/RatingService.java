@@ -39,4 +39,6 @@ public interface RatingService extends ImageUploaderService<CommentEntity, Photo
 
     void saveComment(CommentEntity comment);
 
+    void attachPhotos(CommentEntity comment, List<PhotoEntity> submittedPhotos);
+
 }
