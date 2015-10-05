@@ -4,6 +4,7 @@ import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import org.ohm.gastro.domain.CatalogEntity;
+import org.ohm.gastro.domain.ImageWithObject;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.OrderRepository;
@@ -85,7 +86,7 @@ public class CatalogServiceImpl implements CatalogService, Logging {
     }
 
     @Override
-    public CatalogEntity processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
+    public ImageWithObject<CatalogEntity, CatalogEntity> processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
 
         checkNotNull(objectId, "ObjectId should not be null");
         CatalogEntity catalog = catalogRepository.findOne(Long.parseLong(objectId));
@@ -95,7 +96,9 @@ public class CatalogServiceImpl implements CatalogService, Logging {
         catalog.setAvatarUrlMedium(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE2), catalog.getAvatarUrlMedium()));
         catalog.setAvatarUrl(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE3), catalog.getAvatarUrl()));
 
-        return catalogRepository.saveAndFlush(catalog);
+        catalog = catalogRepository.saveAndFlush(catalog);
+
+        return new ImageWithObject<>(catalog, catalog);
 
     }
 

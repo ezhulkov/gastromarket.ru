@@ -1,6 +1,5 @@
 package org.ohm.gastro.gui.pages.user;
 
-import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.CommentEntity;
@@ -31,11 +30,6 @@ public class Index extends BaseComponent {
 
     public Long onPassivate() {
         return customer == null ? null : customer.getId();
-    }
-
-    @Cached
-    public java.util.List<CommentEntity> getComments() {
-        return getRatingService().findAllComments(customer);
     }
 
 }

@@ -2,6 +2,7 @@ package org.ohm.gastro.service;
 
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
+import org.ohm.gastro.domain.CommentableEntity;
 import org.ohm.gastro.domain.LogEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * Created by ezhulkov on 13.03.15.
  */
-public interface RatingService extends ImageUploaderService<CommentEntity> {
+public interface RatingService extends ImageUploaderService<CommentEntity, PhotoEntity> {
 
     void registerEvent(@Nonnull LogEntity.Type type, @Nonnull UserEntity user, @Nullable CatalogEntity catalog, @Nullable Integer data);
 
@@ -24,29 +25,15 @@ public interface RatingService extends ImageUploaderService<CommentEntity> {
 
     List<LogEntity> findEvents(UserEntity user, Date dateFrom, Type type);
 
-    void rateCatalog(CatalogEntity catalog, String comment, int rating, UserEntity author);
-
-    void rateClient(UserEntity user, String comment, int rating, UserEntity author);
+    void rateCommentableEntity(CommentableEntity entity, CommentEntity comment, UserEntity author);
 
     void updateRating(CatalogEntity catalog);
 
-    List<CommentEntity> findAllComments(CatalogEntity catalog);
-
-    List<CommentEntity> findAllComments(UserEntity customer);
-
-    List<CommentEntity> findAllComments(OrderEntity order);
-
-    List<CommentEntity> findAllComments(CommentEntity comment);
+    List<CommentEntity> findAllComments(CommentableEntity entity);
 
     CommentEntity findComment(Long cId);
 
-    void createOrderComment(OrderEntity order, UserEntity author, String replyText);
-
-    void placeReply(OrderEntity order, UserEntity author, String replyText);
-
-    void placeReply(CommentEntity comment, UserEntity author, String replyText);
-
-    List<PhotoEntity> findAllPhotos(CommentEntity comment);
+    void placeTenderReply(OrderEntity order, UserEntity author, String replyText);
 
     List<CommentEntity> findAllComments(OrderEntity order, UserEntity author);
 

@@ -54,11 +54,6 @@ public class Index extends AbstractCatalogPage {
     }
 
     @Cached
-    public java.util.List<CommentEntity> getComments() {
-        return getRatingService().findAllComments(catalog);
-    }
-
-    @Cached
     public boolean isCommentAllowed() {
         return getAuthenticatedUserOpt()
                 .filter(t -> t.isUser() || t.isAdmin())

@@ -5,6 +5,7 @@ import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.OrderProductEntity;
+import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.UserEntity;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 /**
  * Created by ezhulkov on 21.08.14.
  */
-public interface OrderService extends ImageUploaderService<OrderEntity> {
+public interface OrderService extends ImageUploaderService<OrderEntity, PhotoEntity> {
 
     OrderEntity placeOrder(OrderEntity preOrder);
 

@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">
-                    <t:ratings customer="customer"/>
+                    <t:ratings entity="customer"/>
                 </div>
             </div>
         </div>
@@ -25,12 +25,7 @@
             <div class="title">
                 <h1><span>Отзывы о пользователе</span></h1>
             </div>
-            <t:if test="comments">
-                <t:comments comments="comments"/>
-                <t:parameter name="else">
-                    <div class="empty">Нет отзывов</div>
-                </t:parameter>
-            </t:if>
+            <t:comment.list entity="customer"/>
         </div>
     </section>
 

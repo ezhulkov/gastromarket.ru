@@ -1,0 +1,29 @@
+<t:if xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" test="photos">
+    <ul class="photos">
+        <t:loop source="photos" value="photo">
+            <li>
+                <a data-toggle="modal" data-target="#img-big-${photo.id}" href="#img-big-${photo.id}">
+                    <img alt="${photo.text}" title="фотография к комментарию" src="${photo.avatarUrlSmall}"/>
+                </a>
+                <div class="modal fade img-big" id="img-big-${photo.id}" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog image-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="title">
+                                    <h1><span>Фотография</span></h1>
+                                </div>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="modal-text">
+                                    ${photo.text}
+                                </p>
+                                <img alt="${photo.text}" title="фотография к комментарию" src="${photo.avatarUrlBig}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </t:loop>
+    </ul>
+</t:if>

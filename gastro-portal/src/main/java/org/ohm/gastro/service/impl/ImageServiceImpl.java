@@ -1,6 +1,10 @@
 package org.ohm.gastro.service.impl;
 
 import com.google.common.collect.ImmutableMap;
+import org.ohm.gastro.domain.CommentEntity;
+import org.ohm.gastro.domain.OrderEntity;
+import org.ohm.gastro.domain.PhotoEntity;
+import org.ohm.gastro.reps.PhotoRepository;
 import org.ohm.gastro.service.ImageService;
 import org.ohm.gastro.service.ImageUploader;
 import org.ohm.gastro.service.ImageUploaderService;
@@ -9,17 +13,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -29,7 +34,8 @@ import static org.springframework.aop.framework.AopProxyUtils.ultimateTargetClas
 /**
  * Created by ezhulkov on 09.04.15.
  */
-@Component
+@Component("imageService")
+@Transactional
 public class ImageServiceImpl implements ImageService {
 
     private final static String IMAGE_NAME_TEMPLATE = "%s_%s_%s.jpg";
@@ -51,27 +57,32 @@ public class ImageServiceImpl implements ImageService {
                     .put(ImageSize.SIZE3, new Integer[]{270, 270})
                     .build())
             .put(FileType.ORDER, new ImmutableMap.Builder<ImageSize, Integer[]>()
-                    .put(ImageSize.SIZE2, new Integer[]{100, 100})
-                    .put(ImageSize.SIZE3, new Integer[]{270, 270})
+                    .put(ImageSize.SIZE1, new Integer[]{100, 100})
+                    .put(ImageSize.SIZE2, new Integer[]{270, 270})
+                    .put(ImageSize.SIZE3, new Integer[]{1000, 720})
                     .build())
             .put(FileType.COMMENT, new ImmutableMap.Builder<ImageSize, Integer[]>()
-                    .put(ImageSize.SIZE2, new Integer[]{100, 100})
-                    .put(ImageSize.SIZE3, new Integer[]{270, 270})
+                    .put(ImageSize.SIZE1, new Integer[]{100, 100})
+                    .put(ImageSize.SIZE2, new Integer[]{270, 270})
+                    .put(ImageSize.SIZE3, new Integer[]{1000, 720})
                     .build())
             .build();
 
     private final String imageDestinationPath;
     private final String imageDestinationUrl;
     private final ApplicationContext applicationContext;
+    private final PhotoRepository photoRepository;
     private Map<FileType, ImageUploaderService> imageUploaderServiceMap;
 
     @Autowired
     public ImageServiceImpl(@Value("${image.dest.path}") String imageDestinationPath,
                             @Value("${image.dest.url}") String imageDestinationUrl,
-                            ApplicationContext applicationContext) {
+                            final ApplicationContext applicationContext,
+                            final PhotoRepository photoRepository) {
         this.imageDestinationPath = imageDestinationPath;
         this.imageDestinationUrl = imageDestinationUrl;
         this.applicationContext = applicationContext;
+        this.photoRepository = photoRepository;
     }
 
     @PostConstruct
@@ -82,6 +93,7 @@ public class ImageServiceImpl implements ImageService {
                                           bean -> bean));
     }
 
+    @Override
     public Map<ImageSize, String> resizeImagePack(@Nonnull File file, @Nonnull FileType fileType, @Nullable String objectId) throws IOException {
 
         final BufferedImage image = ImageIO.read(file);
@@ -106,6 +118,21 @@ public class ImageServiceImpl implements ImageService {
 
         return imageUrls;
 
+    }
+
+    @Override
+    public PhotoEntity findPhoto(final Long id) {
+        return photoRepository.findOne(id);
+    }
+
+    @Override
+    public List<PhotoEntity> getPhotos(final OrderEntity order) {
+        return photoRepository.findAllByOrder(order);
+    }
+
+    @Override
+    public List<PhotoEntity> findAllPhotos(final CommentEntity comment) {
+        return photoRepository.findAllByComment(comment);
     }
 
     private BufferedImage resizeImage(final BufferedImage originalImage, final int width, final int height) {

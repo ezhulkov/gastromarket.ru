@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @Entity
 @Table(name = "catalog")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class CatalogEntity extends SitemapBaseEntity {
+public class CatalogEntity extends SitemapBaseEntity implements CommentableEntity {
 
     public enum Type {
         PRIVATE, COMPANY
@@ -332,4 +332,10 @@ public class CatalogEntity extends SitemapBaseEntity {
     public void setCert3(final Boolean cert3) {
         this.cert3 = cert3;
     }
+
+    @Override
+    public CommentableEntity.Type getCommentableType() {
+        return CommentableEntity.Type.CATALOG;
+    }
+
 }

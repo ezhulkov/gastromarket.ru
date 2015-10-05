@@ -73,17 +73,17 @@ public class ProductEntity extends SitemapBaseEntity implements PurchaseEntity {
     @Column(name = "hidden")
     private Boolean hidden = false;
 
+    @Column(name = "avatar_url_small")
+    private String avatarUrlSmall = "/img/product-stub-100x100.png";
+
+    @Column(name = "avatar_url_medium")
+    private String avatarUrlMedium = "/img/product-stub-270x270.png";
+
     @Column(name = "avatar_url")
     private String avatarUrl = "/img/product-stub-560x404.png";
 
     @Column(name = "avatar_url_big")
     private String avatarUrlBig = "/img/product-stub-1000x720.png";
-
-    @Column(name = "avatar_url_medium")
-    private String avatarUrlMedium = "/img/product-stub-270x270.png";
-
-    @Column(name = "avatar_url_small")
-    private String avatarUrlSmall = "/img/product-stub-100x100.png";
 
     @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinTable(name = "offer_product",

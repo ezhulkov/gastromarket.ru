@@ -952,4 +952,41 @@
         </createIndex>
     </changeSet>
 
+    <changeSet id="85" author="ezhulkov">
+        <renameColumn tableName="photo" oldColumnName="url_small" newColumnName="avatar_url_small"/>
+        <renameColumn tableName="photo" oldColumnName="url" newColumnName="avatar_url"/>
+        <addColumn tableName="photo">
+            <column name="avatar_url_big" type="text"/>
+            <column name="text" type="text"/>
+            <column name="product_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="photo" baseColumnNames="product_id"
+                constraintName="photo_product_fk" referencedTableName="product" referencedColumnNames="id" onDelete="CASCADE"/>
+        <createIndex tableName="photo" indexName="photo_product_idx">
+            <column name="product_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="86" author="ezhulkov">
+        <addColumn tableName="comment">
+            <column name="entity_type" type="text"/>
+            <column name="entity_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <createIndex tableName="comment" indexName="comment_entity_idx">
+            <column name="entity_type"/>
+            <column name="entity_id"/>
+        </createIndex>
+        <sql>
+            update comment set entity_type='ORDER',entity_id=order_id where type='ORDER';
+            update comment set entity_type='USER',entity_id=user_id where type='CUSTOMER';
+            update comment set entity_type='CATALOG',entity_id=catalog_id where type='CATALOG';
+            delete from comment where parent_id!=null;
+        </sql>
+        <dropColumn tableName="comment" columnName="type"/>
+        <dropColumn tableName="comment" columnName="user_id"/>
+        <dropColumn tableName="comment" columnName="catalog_id"/>
+        <dropColumn tableName="comment" columnName="order_id"/>
+        <dropColumn tableName="comment" columnName="parent_id"/>
+    </changeSet>
+
 </databaseChangeLog>

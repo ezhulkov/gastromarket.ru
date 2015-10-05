@@ -8,6 +8,7 @@ import com.google.common.io.BaseEncoding;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
+import org.ohm.gastro.domain.ImageWithObject;
 import org.ohm.gastro.domain.LogEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.domain.UserEntity.Status;
@@ -287,7 +288,7 @@ public class UserServiceImpl implements UserService, Logging {
     }
 
     @Override
-    public UserEntity processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
+    public ImageWithObject<UserEntity, UserEntity> processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
 
         checkNotNull(objectId, "ObjectId should not be null");
         UserEntity user = userRepository.findOne(Long.parseLong(objectId));
@@ -297,7 +298,9 @@ public class UserServiceImpl implements UserService, Logging {
         user.setAvatarUrlMedium(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE2), user.getAvatarUrlMedium()));
         user.setAvatarUrl(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE3), user.getAvatarUrl()));
 
-        return userRepository.save(user);
+        user = userRepository.save(user);
+
+        return new ImageWithObject<>(user, user);
 
     }
 

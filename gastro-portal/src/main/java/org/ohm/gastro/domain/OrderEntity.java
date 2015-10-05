@@ -3,10 +3,13 @@ package org.ohm.gastro.domain;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 import org.ohm.gastro.util.CommonsUtils;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "orders")
-public class OrderEntity extends SitemapBaseEntity {
+public class OrderEntity extends SitemapBaseEntity implements CommentableEntity {
 
     public enum Status {
         CANCELLED(
@@ -150,6 +153,18 @@ public class OrderEntity extends SitemapBaseEntity {
 
     @Column(name = "annonce_sent")
     private boolean annonceSent = false;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "order")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private List<PhotoEntity> photos = Lists.newArrayList();
+
+    public List<PhotoEntity> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(final List<PhotoEntity> photos) {
+        this.photos = photos;
+    }
 
     public boolean isAnnonceSent() {
         return annonceSent;
@@ -379,6 +394,11 @@ public class OrderEntity extends SitemapBaseEntity {
 
     public boolean isTenderExpired() {
         return dueDate != null && LocalDateTime.fromDateFields(dueDate).toDateTime().withTimeAtStartOfDay().plusDays(1).isBeforeNow();
+    }
+
+    @Override
+    public CommentableEntity.Type getCommentableType() {
+        return CommentableEntity.Type.ORDER;
     }
 
 }

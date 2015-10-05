@@ -119,7 +119,7 @@
                 <div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">
                     <div class="root-categories">${rootProperties}</div>
                     <t:badges catalog="catalog"/>
-                    <t:ratings catalog="catalog"/>
+                    <t:ratings entity="catalog"/>
                     <div class="description">
                         <t:outputraw value="catalog.descriptionRaw"/>
                     </div>
@@ -249,12 +249,7 @@
             <div class="title">
                 <h1><span>Отзывы о кулинаре</span></h1>
             </div>
-            <t:if test="comments">
-                <t:comments comments="comments"/>
-                <t:parameter name="else">
-                    <div class="empty">Нет отзывов</div>
-                </t:parameter>
-            </t:if>
+            <t:comment.list entity="catalog"/>
         </div>
     </section>
 

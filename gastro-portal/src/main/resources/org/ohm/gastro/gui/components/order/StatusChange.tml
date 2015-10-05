@@ -20,10 +20,12 @@
                     <div class="modal-body form">
                         <t:loop source="statuses" value="status" t:formState="NONE">
                             <t:if test="statusAction">
-                                <div class="col-sm-4 col-xs-12 fluid-xs-block">
-                                    <t:actionlink rel="nofollow" t:id="statusChange" t:context="[order.id,status]" t:zone="${orderShowCatalogZoneId}" class="dotted-link f18px">${statusAction}</t:actionlink>
+                                <div class="row">
+                                    <div class="col-sm-4 col-xs-12 fluid-xs-block">
+                                        <t:actionlink rel="nofollow" t:id="statusChange" t:context="[order.id,status]" t:zone="${orderShowCatalogZoneId}" class="dotted-link f18px">${statusAction}</t:actionlink>
+                                    </div>
+                                    <div class="col-sm-8 col-xs-12 text-left lhnormal"><i class="f16px">&mdash; ${statusTitle}</i></div>
                                 </div>
-                                <div class="col-sm-8 col-xs-12 text-left lhnormal"><i class="f16px">&mdash; ${statusTitle}</i></div>
                             </t:if>
                         </t:loop>
                         <t:if test="hasCancel">

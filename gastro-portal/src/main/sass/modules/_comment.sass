@@ -1,7 +1,8 @@
 @import "../include/var"
 @import "tools"
 
-.comments
+.comment
+  margin-bottom: 20px
   .pic
     margin-top: 25px
     margin-bottom: 25px
@@ -26,20 +27,20 @@
     margin-right: 5px
     &:before
       content: "\e126"
-  .reply-block
-    min-height: 27px
-  .comment
-    margin-bottom: 20px
-  .comment .reply-block > a
+  .reply-block > a
     margin: 0 5px 5px 0
     padding: 3px 20px
-  .children-comments
-    margin-top: $gap
-    list-style: none
-    border-left: 1px solid lightgray
-    padding-left: 20px
   .moderate
     font-size: 12px
+  .photos
+    list-style: none
+    padding: 0
+    li
+      display: inline-block
+      width: 100px
+      height: 100px
+      margin-top: 10px
+      margin-right: 10px
 
 .reply-denied
   list-style: none

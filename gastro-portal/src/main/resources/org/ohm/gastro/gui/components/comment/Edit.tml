@@ -1,0 +1,61 @@
+<t:form xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" t:id="rateForm" context="rateFormContext" class="form edit" t:clientValidation="none" role="form">
+    <t:if test="showRate">
+        <div class="form-group">
+            <t:radiogroup t:id="opinion" value="comment.opinion">
+                <div class="col-sm-6 fluid-sm-block">
+                    <t:label for="like">Мне всё понравилась</t:label>
+                    &nbsp;
+                    <t:radio t:id="like"/>
+                </div>
+                <div class="col-sm-6 text-left">
+                    <t:label for="dislike">Нет, было плохо</t:label>
+                    &nbsp;
+                    <t:radio t:id="dislike"/>
+                </div>
+            </t:radiogroup>
+        </div>
+    </t:if>
+    <div class="col-xs-12">
+        <div class="form-group">
+            <textarea t:type="TextArea" t:id="text" t:value="comment.text" rows="5" class="form-control"/>
+        </div>
+    </div>
+    <t:ajaxformloop t:id="photos" value="photo" source="photos" encoder="formInjectorEncoder">
+        <div class="clearfix photo-row">
+            <div class="col-xs-12">
+                Чтобы прикрепить фото к комментарию, выберите файл
+            </div>
+            <div class="col-xs-12">
+                1
+            </div>
+            <t:if test="cook">
+                <div class="col-xs-12">
+                    или выберите из каталога
+                </div>
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <t:select t:id="photoProduct" data-placeholder=" " class="form-control chosen-select"/>
+                    </div>
+                </div>
+            </t:if>
+            <div class="col-xs-11">
+                <div class="form-group">
+                    <t:textfield t:id="photoText" class="form-control" placeholder="Тект к фотографии"/>
+                </div>
+            </div>
+            <div class="col-xs-1">
+                <t:removerowlink class="glyphicon glyphicon-remove del-photo"/>
+            </div>
+        </div>
+        <t:parameter name="addRow">
+            <div class="clearfix">
+                <t:addrowlink class="add-photo">+ Добавить фотографию</t:addrowlink>
+            </div>
+        </t:parameter>
+    </t:ajaxformloop>
+    <div class="col-xs-12 gap">
+        <div class="form-buttons" xml:space="preserve">
+            <input class="btn btn-red" type="submit" value="${btnTitle}"/>
+        </div>
+    </div>
+</t:form>

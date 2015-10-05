@@ -157,7 +157,7 @@
     </t:zone>
     <t:block t:id="replyBlock">
         <t:if test="comments">
-            <t:comments comments="comments" reply="reply" order="order" replyBlock="replyBlock"/>
+            <t:comment.list entity="tender" reply="reply" replyBlock="replyBlock"/>
         </t:if>
         <script>
             jQuery("#tender_reply").modal("hide");

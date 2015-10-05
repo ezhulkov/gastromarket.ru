@@ -1,8 +1,7 @@
 package org.ohm.gastro.reps;
 
-import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
-import org.ohm.gastro.domain.OrderEntity;
+import org.ohm.gastro.domain.CommentableEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,24 +16,12 @@ import java.util.List;
  */
 public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
 
+    @Query("from CommentEntity where entity=:entity order by id desc")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    List<CommentEntity> findAllByCatalogOrderByIdDesc(CatalogEntity catalog);
+    List<CommentEntity> findAllByEntity(@Param("entity") CommentableEntity entity);
 
+    @Query("from CommentEntity where entity=:entity and author=:author order by id desc")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    List<CommentEntity> findAllByUserOrderByIdDesc(UserEntity user);
-
-    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    List<CommentEntity> findAllByOrderOrderByIdDesc(OrderEntity order);
-
-    @Query("from CommentEntity where catalog=:catalog and rating!=0")
-    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    List<CommentEntity> findAllRatings(@Param("catalog") CatalogEntity catalog);
-
-    @Query("from CommentEntity where parent=:parent order by id desc")
-    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    List<CommentEntity> findAllChildren(@Param("parent") CommentEntity parent);
-
-    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    List<CommentEntity> findAllByOrderAndAuthorOrderByIdDesc(OrderEntity order, UserEntity author);
+    List<CommentEntity> findAllByEntityAndAuthor(@Param("entity") CommentableEntity entity, @Param("author") UserEntity author);
 
 }

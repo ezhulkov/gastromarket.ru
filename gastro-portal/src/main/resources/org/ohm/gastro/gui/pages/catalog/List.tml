@@ -17,7 +17,7 @@
                             <t:pagelink page="catalog/index" t:context="oneCatalog.altId" class="name">${oneCatalog.name}</t:pagelink>
                             <div class="root-categories">${rootProperties}</div>
                             <t:badges catalog="oneCatalog"/>
-                            <t:ratings catalog="oneCatalog"/>
+                            <t:ratings entity="oneCatalog"/>
                             <div class="description">
                                 <t:outputraw value="oneCatalog.descriptionRaw"/>
                             </div>

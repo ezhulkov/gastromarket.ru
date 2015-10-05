@@ -1,34 +1,31 @@
-package org.ohm.gastro.gui.components;
+package org.ohm.gastro.gui.components.comment;
 
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.Link;
-import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
+import org.ohm.gastro.domain.CommentableEntity;
 import org.ohm.gastro.domain.OrderEntity;
-import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.office.Order;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 14.02.15.
  */
-public class Comments extends BaseComponent {
+public class List extends BaseComponent {
 
     @Property
     @Parameter
     private Block replyBlock;
 
     @Property
-    @Parameter
-    private List<CommentEntity> comments;
+    @Parameter(allowNull = false, required = true)
+    private CommentableEntity entity;
 
     @Property
     @Parameter(value = "false")
@@ -40,12 +37,6 @@ public class Comments extends BaseComponent {
 
     @Property
     private CommentEntity comment;
-
-    @Property
-    private CommentEntity childComment;
-
-    @Property
-    private PhotoEntity photo;
 
     @Property
     private String replyText;
@@ -83,21 +74,6 @@ public class Comments extends BaseComponent {
         return comment.getAuthor().isCook();
     }
 
-    @Cached(watch = "comment")
-    public java.util.List<CommentEntity> getChildren() {
-        final OrderEntity order = comment.getOrder();
-        return getRatingService().findAllComments(comment).stream()
-                .sorted((o1, o2) -> o1.getDate().compareTo(o2.getDate()))
-                .filter(t -> order == null ||
-                        order.getCatalog() == null ||
-                        order.getAttachTime() == null ||
-                        getAuthenticatedUserOpt().map(u -> u.equals(comment.getAuthor())).orElse(false) ||
-                        getAuthenticatedUserOpt().map(u -> u.equals(order.getCustomer())).orElse(false) ||
-                        order.getCatalog() != null && t.getDate().before(order.getAttachTime())
-                )
-                .collect(Collectors.toList());
-    }
-
     public boolean isOrderUser() {
         return order != null && order.getCustomer().equals(getAuthenticatedUserOpt().orElse(null)) && order.getCatalog() == null && !order.isTenderExpired();
     }
@@ -107,13 +83,12 @@ public class Comments extends BaseComponent {
     }
 
     public Link onSuccessFromAttachTenderAjaxForm(Long cid, Long oid) {
-        final Link link = getFirstCatalog(getUserService().findUser(cid)).map(catalog -> {
+        return getFirstCatalog(getUserService().findUser(cid)).map(catalog -> {
             final OrderEntity tender = getOrderService().findOrder(oid);
             tender.setAttachReason(attachReason);
             getOrderService().attachTender(catalog, tender, getAuthenticatedUser());
             return getPageLinkSource().createPageRenderLinkWithContext(Order.class, true, this.order.getId(), false);
         }).orElse(null);
-        return link;
     }
 
     public boolean isReplyAllowed() {
@@ -123,28 +98,8 @@ public class Comments extends BaseComponent {
                         comment.getAuthor().equals(getAuthenticatedUserOpt().orElse(null)));
     }
 
-    public Block onSubmitFromReplyForm(Long oId, Long cId) {
-        final CommentEntity comment = getRatingService().findComment(cId);
-        order = getOrderService().findOrder(oId);
-        getRatingService().placeReply(comment, getAuthenticatedUser(), replyText);
-        return replyBlock;
-    }
-
-    @Cached(watch = "comment")
-    public List<PhotoEntity> getPhotos() {
-        return getRatingService().findAllPhotos(comment);
-    }
-
-    public boolean isCanEditComment() {
-        return canEditComment(comment);
-    }
-
-    public boolean isCanEditChildComment() {
-        return canEditComment(childComment);
-    }
-
-    private boolean canEditComment(final CommentEntity comment) {
-        return comment != null && getAuthenticatedUserOpt().map(t -> t.isAdmin() || t.equals(comment.getAuthor())).orElse(false);
+    public java.util.List<CommentEntity> getComments() {
+        return getRatingService().findAllComments(entity);
     }
 
 }

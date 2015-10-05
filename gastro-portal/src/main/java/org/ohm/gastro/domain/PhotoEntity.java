@@ -27,11 +27,17 @@ public class PhotoEntity extends AbstractBaseEntity {
     @Enumerated(EnumType.STRING)
     private Type type;
 
-    @Column(name = "url_small")
-    private String urlSmall = "/img/avatar-stub-100x100.png";
-
     @Column
-    private String url = "/img/avatar-stub-270x270.png";
+    private String text;
+
+    @Column(name = "avatar_url_small")
+    private String avatarUrlSmall = "/img/avatar-stub-100x100.png";
+
+    @Column(name = "avatar_url")
+    private String avatarUrl = "/img/avatar-stub-270x270.png";
+
+    @Column(name = "avatar_url_big")
+    private String avatarUrlBig = "/img/product-stub-1000x720.png";
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -41,12 +47,16 @@ public class PhotoEntity extends AbstractBaseEntity {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private CommentEntity comment;
 
-    public String getUrlSmall() {
-        return urlSmall;
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private ProductEntity product;
+
+    public ProductEntity getProduct() {
+        return product;
     }
 
-    public void setUrlSmall(String urlSmall) {
-        this.urlSmall = urlSmall;
+    public void setProduct(final ProductEntity product) {
+        this.product = product;
     }
 
     public Type getType() {
@@ -55,14 +65,6 @@ public class PhotoEntity extends AbstractBaseEntity {
 
     public void setType(Type type) {
         this.type = type;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public OrderEntity getOrder() {
@@ -79,6 +81,38 @@ public class PhotoEntity extends AbstractBaseEntity {
 
     public void setComment(CommentEntity comment) {
         this.comment = comment;
+    }
+
+    public String getAvatarUrlSmall() {
+        return avatarUrlSmall;
+    }
+
+    public void setAvatarUrlSmall(final String avatarUrlSmall) {
+        this.avatarUrlSmall = avatarUrlSmall;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(final String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public String getAvatarUrlBig() {
+        return avatarUrlBig;
+    }
+
+    public void setAvatarUrlBig(final String avatarUrlBig) {
+        this.avatarUrlBig = avatarUrlBig;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(final String text) {
+        this.text = text;
     }
 
 }

@@ -8,6 +8,7 @@ import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.javatuples.Tuple;
 import org.ohm.gastro.domain.CatalogEntity;
+import org.ohm.gastro.domain.ImageWithObject;
 import org.ohm.gastro.domain.OfferEntity;
 import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.domain.ProductEntity;
@@ -88,7 +89,7 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
-    public ProductEntity processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
+    public ImageWithObject<ProductEntity, ProductEntity> processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
 
         checkNotNull(objectId, "ObjectId should not be null");
         ProductEntity product = productRepository.findOne(Long.parseLong(objectId));
@@ -99,7 +100,9 @@ public class ProductServiceImpl implements ProductService, Logging {
         product.setAvatarUrl(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE3), product.getAvatarUrl()));
         product.setAvatarUrlBig(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE4), product.getAvatarUrlBig()));
 
-        return productRepository.saveAndFlush(product);
+        product = productRepository.saveAndFlush(product);
+
+        return new ImageWithObject<>(product, product);
 
     }
 

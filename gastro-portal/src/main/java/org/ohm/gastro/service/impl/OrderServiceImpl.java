@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
+import org.ohm.gastro.domain.ImageWithObject;
 import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
@@ -115,7 +116,6 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
             order.getProducts().stream().forEach(p -> p.setOrder(order));
             orderProductRepository.save(order.getProducts());
             order.setOrderNumber(Long.toString(order.getId()));
-            ratingService.createOrderComment(order, order.getCustomer(), "Обсуждение заказа");
             try {
                 final Map<String, Object> params = new HashMap<String, Object>() {
                     {
@@ -352,7 +352,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     }
 
     @Override
-    public OrderEntity processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
+    public ImageWithObject<OrderEntity, PhotoEntity> processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
 
         checkNotNull(objectId, "ObjectId should not be null");
         final OrderEntity order = orderRepository.findOne(Long.parseLong(objectId));
@@ -361,11 +361,12 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
         final PhotoEntity photo = new PhotoEntity();
         photo.setType(PhotoEntity.Type.ORDER);
         photo.setOrder(order);
-        photo.setUrlSmall(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE1), photo.getUrlSmall()));
-        photo.setUrl(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE1), photo.getUrl()));
+        photo.setAvatarUrlSmall(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE1), photo.getAvatarUrlSmall()));
+        photo.setAvatarUrl(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE2), photo.getAvatarUrl()));
+        photo.setAvatarUrlBig(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE3), photo.getAvatarUrlBig()));
         photoRepository.save(photo);
 
-        return order;
+        return new ImageWithObject<>(order, photo);
     }
 
     @Override

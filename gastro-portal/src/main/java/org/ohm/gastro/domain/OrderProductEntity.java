@@ -14,11 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.Objects;
 
-/**
- * Created by ezhulkov on 24.08.14.
- */
 @Entity
 @Table(name = "order_product")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class OrderProductEntity extends AbstractBaseEntity {
 
     @Column

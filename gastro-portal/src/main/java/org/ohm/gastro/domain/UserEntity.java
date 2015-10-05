@@ -29,7 +29,7 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class UserEntity extends AbstractBaseEntity implements UserDetails {
+public class UserEntity extends AbstractBaseEntity implements UserDetails, CommentableEntity {
 
     public enum Type {
         ADMIN, COOK, USER
@@ -303,6 +303,11 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails {
 
     public void setSubscribeEmail(final boolean subscribeEmail) {
         this.subscribeEmail = subscribeEmail;
+    }
+
+    @Override
+    public CommentableEntity.Type getCommentableType() {
+        return CommentableEntity.Type.USER;
     }
 
     @Override

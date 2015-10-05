@@ -11,6 +11,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
+import org.ohm.gastro.domain.CommentableEntity;
+import org.ohm.gastro.domain.ImageWithObject;
 import org.ohm.gastro.domain.LogEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
@@ -34,7 +36,6 @@ import org.ohm.gastro.trait.Logging;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.MailException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -146,47 +147,35 @@ public class RatingServiceImpl implements RatingService, Logging {
 
     @Override
     @RatingModifier
-    public void rateCatalog(@RatingTarget final CatalogEntity catalog, final String comment, final int rating, final UserEntity author) {
-        if (StringUtils.isEmpty(comment) || author == null) return;
-        final CommentEntity commentEntity = new CommentEntity();
-        commentEntity.setType(CommentEntity.Type.CATALOG);
-        commentEntity.setCatalog(catalog);
-        commentEntity.setAuthor(author);
-        commentEntity.setText(comment);
-        commentEntity.setDate(new Date());
-        commentEntity.setRating(rating);
-        commentRepository.save(commentEntity);
-        final Map<String, Object> params = new HashMap<String, Object>() {
-            {
-                put("address", catalog.getFullUrl());
-                put("text", comment);
-                put("username", catalog.getUser().getFullName());
-                put("catalog", catalog.getId());
-            }
-        };
-        mailService.sendMailMessage(catalog.getUser().getEmail(), MailService.CATALOG_RATE, params);
-    }
-
-    @Override
-    public void rateClient(final UserEntity user, final String comment, final int rating, final UserEntity author) {
-        if (StringUtils.isEmpty(comment) || user == null) return;
-        final CommentEntity commentEntity = new CommentEntity();
-        commentEntity.setType(CommentEntity.Type.CUSTOMER);
-        commentEntity.setUser(user);
-        commentEntity.setAuthor(author);
-        commentEntity.setText(comment);
-        commentEntity.setDate(new Date());
-        commentEntity.setRating(rating);
-        commentRepository.save(commentEntity);
-        final Map<String, Object> params = new HashMap<String, Object>() {
-            {
-                put("address", user.getFullUrl());
-                put("text", comment);
-                put("username", user.getFullName());
-                put("user", user);
-            }
-        };
-        mailService.sendMailMessage(user.getEmail(), MailService.USER_RATE, params);
+    public void rateCommentableEntity(@RatingTarget final CommentableEntity entity, final CommentEntity comment, final UserEntity author) {
+        if (StringUtils.isEmpty(comment.getText()) || author == null) return;
+        comment.setEntity(entity);
+        comment.setAuthor(author);
+        if (comment.getId() == null) comment.setDate(new Date());
+        commentRepository.save(comment);
+        if (entity.getCommentableType() == CommentableEntity.Type.CATALOG) {
+            CatalogEntity catalog = (CatalogEntity) entity;
+            final Map<String, Object> params = new HashMap<String, Object>() {
+                {
+                    put("address", catalog.getFullUrl());
+                    put("text", comment);
+                    put("username", catalog.getUser().getFullName());
+                    put("catalog", catalog.getId());
+                }
+            };
+            mailService.sendMailMessage(catalog.getUser().getEmail(), MailService.CATALOG_RATE, params);
+        } else if (entity.getCommentableType() == CommentableEntity.Type.USER) {
+            UserEntity user = (UserEntity) entity;
+            final Map<String, Object> params = new HashMap<String, Object>() {
+                {
+                    put("address", user.getFullUrl());
+                    put("text", comment);
+                    put("username", user.getFullName());
+                    put("user", user);
+                }
+            };
+            mailService.sendMailMessage(user.getEmail(), MailService.USER_RATE, params);
+        }
     }
 
     @Override
@@ -198,7 +187,7 @@ public class RatingServiceImpl implements RatingService, Logging {
         try {
 
             final Date fromDate = DateUtils.addDays(new Date(), -historyDays);
-            final List<CommentEntity> ratings = commentRepository.findAllRatings(catalog);
+            final List<CommentEntity> ratings = commentRepository.findAllByEntity(catalog);
             final List<LogEntity> catalogOps = findEvents(catalog.getUser(), catalog, fromDate);
             final List<OrderEntity> orders = orderRepository.findAllByCatalog(catalog);
 
@@ -246,93 +235,25 @@ public class RatingServiceImpl implements RatingService, Logging {
     }
 
     @Override
-    public List<CommentEntity> findAllComments(CatalogEntity catalog) {
-        return commentRepository.findAllByCatalogOrderByIdDesc(catalog);
+    public List<CommentEntity> findAllComments(final CommentableEntity entity) {
+        return commentRepository.findAllByEntity(entity);
     }
 
     @Override
-    public List<CommentEntity> findAllComments(final UserEntity customer) {
-        return commentRepository.findAllByUserOrderByIdDesc(customer);
-    }
-
-    @Override
-    public List<CommentEntity> findAllComments(final OrderEntity order) {
-        return commentRepository.findAllByOrderOrderByIdDesc(order);
-    }
-
-    @Override
-    public List<CommentEntity> findAllComments(final CommentEntity comment) {
-        return commentRepository.findAllChildren(comment);
-    }
-
-    @Override
-    public void createOrderComment(final OrderEntity order, final UserEntity author, final String replyText) {
-        final CommentEntity reply = new CommentEntity();
-        reply.setType(CommentEntity.Type.ORDER);
-        reply.setOrder(order);
-        reply.setAuthor(author);
-        reply.setText(replyText);
-        reply.setDate(new Date());
-        commentRepository.save(reply);
-    }
-
-    @Override
-    public void placeReply(final OrderEntity order, final UserEntity author, final String replyText) {
-        if (author.isCook() && StringUtils.isNotEmpty(replyText) && findAllComments(order).stream().filter(t -> t.getAuthor().equals(author)).count() == 0) {
-            try {
-                createOrderComment(order, author, replyText);
-                final Map<String, Object> params = new HashMap<String, Object>() {
-                    {
-                        put("username", order.getCustomer().getFullName());
-                        put("address", order.getOrderUrl());
-                        put("text", replyText);
-                    }
-                };
-                mailService.sendMailMessage(order.getCustomer(), MailService.ORDER_COMMENT, params);
-            } catch (MailException e) {
-                logger.error("", e);
+    public void placeTenderReply(final OrderEntity order, final UserEntity author, final String replyText) {
+        final Map<String, Object> params = new HashMap<String, Object>() {
+            {
+                put("username", order.getCustomer().getFullName());
+                put("address", order.getOrderUrl());
+                put("text", replyText);
             }
-        }
-    }
-
-    @Override
-    public void placeReply(final CommentEntity comment, final UserEntity author, final String replyText) {
-        final CommentEntity reply = new CommentEntity();
-        final OrderEntity order = comment.getOrder();
-        reply.setType(CommentEntity.Type.ORDER);
-        reply.setParent(comment);
-        reply.setAuthor(author);
-        reply.setText(replyText);
-        reply.setDate(new Date());
-        commentRepository.save(reply);
-        try {
-            final Map<String, Object> params = new HashMap<String, Object>() {
-                {
-                    put("address", order.getOrderUrl());
-                    put("text", replyText);
-                    put("order", order);
-                }
-            };
-            if (!order.getCustomer().equals(author)) {
-                params.put("username", order.getCustomer().getFullName());
-                mailService.sendMailMessage(order.getCustomer(), MailService.ORDER_COMMENT, params);
-            } else {
-                params.put("username", comment.getAuthor().getFullName());
-                mailService.sendMailMessage(comment.getAuthor(), MailService.ORDER_COMMENT, params);
-            }
-        } catch (MailException e) {
-            logger.error("", e);
-        }
-    }
-
-    @Override
-    public List<PhotoEntity> findAllPhotos(CommentEntity comment) {
-        return photoRepository.findAllByComment(comment);
+        };
+        mailService.sendMailMessage(order.getCustomer(), MailService.ORDER_COMMENT, params);
     }
 
     @Override
     public List<CommentEntity> findAllComments(final OrderEntity order, final UserEntity author) {
-        return commentRepository.findAllByOrderAndAuthorOrderByIdDesc(order, author);
+        return commentRepository.findAllByEntityAndAuthor(order, author);
     }
 
     @Override
@@ -368,7 +289,7 @@ public class RatingServiceImpl implements RatingService, Logging {
     }
 
     @Override
-    public CommentEntity processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
+    public ImageWithObject<CommentEntity, PhotoEntity> processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
 
         checkNotNull(objectId, "ObjectId should not be null");
         final CommentEntity comment = commentRepository.findOne(Long.parseLong(objectId));
@@ -377,11 +298,13 @@ public class RatingServiceImpl implements RatingService, Logging {
         final PhotoEntity photo = new PhotoEntity();
         photo.setType(PhotoEntity.Type.COMMENT);
         photo.setComment(comment);
-        photo.setUrlSmall(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE1), photo.getUrlSmall()));
-        photo.setUrl(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE1), photo.getUrl()));
+        photo.setAvatarUrlSmall(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE1), photo.getAvatarUrlSmall()));
+        photo.setAvatarUrl(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE2), photo.getAvatarUrl()));
+        photo.setAvatarUrlBig(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE3), photo.getAvatarUrlBig()));
         photoRepository.save(photo);
 
-        return comment;
+        return new ImageWithObject<>(comment, photo);
+
     }
 
 }

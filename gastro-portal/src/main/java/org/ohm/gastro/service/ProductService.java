@@ -20,7 +20,7 @@ import java.util.Set;
 /**
  * Created by ezhulkov on 21.08.14.
  */
-public interface ProductService extends ImageUploaderService<ProductEntity>, AltIdService<ProductEntity, ProductRepository> {
+public interface ProductService extends ImageUploaderService<ProductEntity, ProductEntity>, AltIdService<ProductEntity, ProductRepository> {
 
     int PRODUCTS_PER_PAGE = 8;
 
