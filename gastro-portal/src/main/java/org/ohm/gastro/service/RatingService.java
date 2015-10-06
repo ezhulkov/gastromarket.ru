@@ -1,5 +1,6 @@
 package org.ohm.gastro.service;
 
+import org.apache.commons.fileupload.FileItem;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.CommentableEntity;
@@ -39,6 +40,6 @@ public interface RatingService extends ImageUploaderService<CommentEntity, Photo
 
     void saveComment(CommentEntity comment);
 
-    void attachPhotos(CommentEntity comment, List<PhotoEntity> submittedPhotos);
+    void attachPhotos(CommentEntity comment, List<PhotoEntity> submittedPhotos, final List<FileItem> files);
 
 }

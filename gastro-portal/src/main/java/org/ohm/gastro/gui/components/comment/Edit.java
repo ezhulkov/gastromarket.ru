@@ -80,9 +80,12 @@ public class Edit extends BaseComponent {
     }
 
     public void onSuccessFromRateForm(Long cid) throws FileUploadException {
-        final java.util.List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(getHttpServletRequest());
+        java.util.List<FileItem> files = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(getHttpServletRequest()).stream()
+                .filter(t -> "rateFile".equals(t.getName()))
+                .filter(t -> t.getSize() != 0)
+                .collect(Collectors.toList());
         getRatingService().rateCommentableEntity(comment.getEntity(), comment, getAuthenticatedUserOpt().orElse(null));
-        getRatingService().attachPhotos(comment, submittedPhotos);
+        getRatingService().attachPhotos(comment, submittedPhotos, files);
     }
 
     public boolean getLike() {

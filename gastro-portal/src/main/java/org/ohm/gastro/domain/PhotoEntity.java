@@ -10,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Created by ezhulkov on 27.08.14.
@@ -50,6 +51,17 @@ public class PhotoEntity extends AbstractBaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private ProductEntity product;
+
+    @Transient
+    private String filePath;
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(final String filePath) {
+        this.filePath = filePath;
+    }
 
     public ProductEntity getProduct() {
         return product;

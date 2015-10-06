@@ -8,6 +8,7 @@ import com.google.common.collect.RangeMap;
 import com.google.common.collect.RangeSet;
 import com.google.common.collect.TreeRangeMap;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.ohm.gastro.domain.CatalogEntity;
@@ -263,7 +264,7 @@ public class RatingServiceImpl implements RatingService, Logging {
     }
 
     @Override
-    public void attachPhotos(final CommentEntity comment, final List<PhotoEntity> submittedPhotos) {
+    public void attachPhotos(final CommentEntity comment, final List<PhotoEntity> submittedPhotos, final List<FileItem> files) {
         final List<PhotoEntity> existing = photoRepository.findAllByComment(comment);
         photoRepository.delete(CollectionUtils.subtract(existing, submittedPhotos));
         final List<PhotoEntity> photos = submittedPhotos.stream().filter(t -> t.getProduct() != null).map(t -> {
