@@ -22,9 +22,6 @@ public class Replies extends AbstractOrder {
     private Block replyBlock;
 
     @Property
-    private String replyText;
-
-    @Property
     private CommentEntity oneComment;
 
     @Property
@@ -70,12 +67,6 @@ public class Replies extends AbstractOrder {
                 .filter(t -> t.getLevel() != null && t.getLevel() > getOrderService().findAllOrdersWithMetaStatus(t, Status.ACTIVE).size())
                 .findAny()
                 .isPresent();
-    }
-
-    public Block onSubmitFromReplyForm(Long oId) {
-        order = getOrderService().findOrder(oId);
-        getRatingService().placeTenderReply(order, getAuthenticatedUser(), replyText);
-        return replyBlock;
     }
 
 }

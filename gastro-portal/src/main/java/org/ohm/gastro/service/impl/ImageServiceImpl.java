@@ -22,10 +22,14 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.ohm.gastro.misc.Throwables.propagate;
@@ -72,7 +76,7 @@ public class ImageServiceImpl implements ImageService {
     private final String imageDestinationUrl;
     private final ApplicationContext applicationContext;
     private final PhotoRepository photoRepository;
-    private Map<FileType, ImageUploaderService> imageUploaderServiceMap;
+    private Map<FileType, Optional<ImageUploaderService>> imageUploaderServiceMap;
 
     @Autowired
     public ImageServiceImpl(@Value("${image.dest.path}") String imageDestinationPath,
@@ -90,16 +94,22 @@ public class ImageServiceImpl implements ImageService {
         this.imageUploaderServiceMap = applicationContext.getBeansOfType(ImageUploaderService.class)
                 .values().stream()
                 .collect(Collectors.toMap(bean -> ultimateTargetClass(bean).getAnnotation(ImageUploader.class).value(),
-                                          bean -> bean));
+                                          Optional::of));
     }
 
     @Override
     public Map<ImageSize, String> resizeImagePack(@Nonnull File file, @Nonnull FileType fileType, @Nullable String objectId) throws IOException {
+        return resizeImagePack(new FileInputStream(file), fileType, objectId);
+    }
 
-        final BufferedImage image = ImageIO.read(file);
+    @Override
+    public Map<ImageSize, String> resizeImagePack(@Nonnull final byte[] fileBytes, @Nonnull final FileType fileType, @Nullable final String objectId) throws IOException {
+        return resizeImagePack(new ByteArrayInputStream(fileBytes), fileType, objectId);
+    }
 
-        Logging.logger.debug("Resizing image {}, fileType {}, objectId {} ", file, fileType, objectId);
-
+    private Map<ImageSize, String> resizeImagePack(@Nonnull final InputStream is, @Nonnull final FileType fileType, @Nullable final String objectId) throws IOException {
+        final BufferedImage image = ImageIO.read(is);
+        Logging.logger.debug("Resizing image {}, fileType {}, objectId {} ", is, fileType, objectId);
         final Map<ImageSize, Integer[]> fileSizes = sizes.get(fileType);
         Map<ImageSize, String> imageUrls = fileSizes.entrySet().stream()
                 .map(entry -> propagate(() -> {
@@ -111,13 +121,9 @@ public class ImageServiceImpl implements ImageService {
                     Logging.logger.debug("Image resized {} to {}", imageSize, imageFileName);
                     return new Object[]{imageSize, imageDestinationUrl + imageName};
                 })).collect(Collectors.toMap(t -> (ImageSize) t[0], t -> (String) t[1]));
-
         Logging.logger.debug("Final image set {}", imageUrls);
-
-        imageUploaderServiceMap.get(fileType).processUploadedImages(objectId, imageUrls);
-
+        imageUploaderServiceMap.getOrDefault(fileType, Optional.empty()).ifPresent(bean -> bean.processUploadedImages(objectId, imageUrls));
         return imageUrls;
-
     }
 
     @Override

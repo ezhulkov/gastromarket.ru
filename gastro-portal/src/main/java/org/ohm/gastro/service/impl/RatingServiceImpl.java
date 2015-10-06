@@ -1,6 +1,5 @@
 package org.ohm.gastro.service.impl;
 
-import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableRangeSet;
 import com.google.common.collect.ImmutableRangeSet.Builder;
 import com.google.common.collect.Range;
@@ -8,13 +7,11 @@ import com.google.common.collect.RangeMap;
 import com.google.common.collect.RangeSet;
 import com.google.common.collect.TreeRangeMap;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.CommentableEntity;
-import org.ohm.gastro.domain.ImageWithObject;
 import org.ohm.gastro.domain.LogEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
@@ -27,9 +24,9 @@ import org.ohm.gastro.reps.ImageRepository;
 import org.ohm.gastro.reps.LogRepository;
 import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.reps.ProductRepository;
+import org.ohm.gastro.service.ImageService;
 import org.ohm.gastro.service.ImageService.FileType;
 import org.ohm.gastro.service.ImageService.ImageSize;
-import org.ohm.gastro.service.ImageUploader;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingService;
@@ -43,6 +40,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -50,14 +48,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static org.scribe.utils.Preconditions.checkNotNull;
-
 /**
  * Created by ezhulkov on 29.04.15.
  */
 @Component("ratingService")
 @Transactional
-@ImageUploader(FileType.COMMENT)
 public class RatingServiceImpl implements RatingService, Logging {
 
     private final LogRepository logRepository;
@@ -67,6 +62,7 @@ public class RatingServiceImpl implements RatingService, Logging {
     private final ImageRepository photoRepository;
     private final ProductRepository productRepository;
     private final MailService mailService;
+    private final ImageService imageService;
 
 
     private final int historyDays;
@@ -89,6 +85,7 @@ public class RatingServiceImpl implements RatingService, Logging {
                              final ProductRepository productRepository,
                              final ImageRepository photoRepository,
                              final MailService mailService,
+                             final ImageService imageService,
                              final @Value("${rating.series}") String ratingSeries,
                              final @Value("${rank.badge.series}") String badgeRankSeries,
                              final @Value("${product.badge.series}") String badgeProductSeries,
@@ -107,6 +104,7 @@ public class RatingServiceImpl implements RatingService, Logging {
         this.productRepository = productRepository;
         this.mailService = mailService;
         this.photoRepository = photoRepository;
+        this.imageService = imageService;
         this.historyDays = historyDays;
         this.retentionCoeff = retentionCoeff;
         this.posRatingCoeff = posRatingCoeff;
@@ -149,7 +147,7 @@ public class RatingServiceImpl implements RatingService, Logging {
 
     @Override
     @RatingModifier
-    public void rateCommentableEntity(@RatingTarget final CommentableEntity entity, final CommentEntity comment, final UserEntity author) {
+    public void placeComment(@RatingTarget final CommentableEntity entity, final CommentEntity comment, final UserEntity author) {
         if (StringUtils.isEmpty(comment.getText()) || author == null) return;
         comment.setEntity(entity);
         comment.setAuthor(author);
@@ -242,15 +240,20 @@ public class RatingServiceImpl implements RatingService, Logging {
     }
 
     @Override
-    public void placeTenderReply(final OrderEntity order, final UserEntity author, final String replyText) {
+    public void placeTenderReply(final OrderEntity tender, final CommentEntity reply, final UserEntity author) {
+        if (StringUtils.isEmpty(reply.getText())) return;
+        reply.setEntity(tender);
+        reply.setAuthor(author);
+        if (reply.getId() == null) reply.setDate(new Date());
+        commentRepository.save(reply);
         final Map<String, Object> params = new HashMap<String, Object>() {
             {
-                put("username", order.getCustomer().getFullName());
-                put("address", order.getOrderUrl());
-                put("text", replyText);
+                put("username", tender.getCustomer().getFullName());
+                put("address", tender.getOrderUrl());
+                put("text", reply.getText());
             }
         };
-        mailService.sendMailMessage(order.getCustomer(), MailService.ORDER_COMMENT, params);
+        mailService.sendMailMessage(tender.getCustomer(), MailService.ORDER_COMMENT, params);
     }
 
     @Override
@@ -264,14 +267,27 @@ public class RatingServiceImpl implements RatingService, Logging {
     }
 
     @Override
-    public void attachPhotos(final CommentEntity comment, final List<PhotoEntity> submittedPhotos, final List<FileItem> files) {
+    public void attachPhotos(final CommentEntity comment, final List<PhotoEntity> submittedPhotos) {
         final List<PhotoEntity> existing = photoRepository.findAllByComment(comment);
         photoRepository.delete(CollectionUtils.subtract(existing, submittedPhotos));
-        final List<PhotoEntity> photos = submittedPhotos.stream().filter(t -> t.getProduct() != null).map(t -> {
+        final List<PhotoEntity> photos = submittedPhotos.stream().map(t -> {
+            if (t.getFileBytes() != null) {
+                t.setProduct(null);
+            }
             t.setComment(comment);
             return t;
         }).collect(Collectors.toList());
         photoRepository.save(photos);
+        photos.stream().filter(t -> t.getFileBytes() != null).forEach(t -> {
+            try {
+                Map<ImageSize, String> imageUrls = imageService.resizeImagePack(t.getFileBytes(), FileType.COMMENT, t.getId().toString());
+                t.setAvatarUrlSmall(imageUrls.get(ImageSize.SIZE1));
+                t.setAvatarUrl(imageUrls.get(ImageSize.SIZE2));
+                t.setAvatarUrlBig(imageUrls.get(ImageSize.SIZE3));
+            } catch (IOException e) {
+                logger.error("", e);
+            }
+        });
     }
 
     @Override
@@ -299,25 +315,6 @@ public class RatingServiceImpl implements RatingService, Logging {
         }
         if (!top) builder.add(Range.closed(prevRange, Integer.MAX_VALUE));
         return builder.build();
-    }
-
-    @Override
-    public ImageWithObject<CommentEntity, PhotoEntity> processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
-
-        checkNotNull(objectId, "ObjectId should not be null");
-        final CommentEntity comment = commentRepository.findOne(Long.parseLong(objectId));
-        checkNotNull(comment, "Comment should not be null");
-
-        final PhotoEntity photo = new PhotoEntity();
-        photo.setType(PhotoEntity.Type.COMMENT);
-        photo.setComment(comment);
-        photo.setAvatarUrlSmall(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE1), photo.getAvatarUrlSmall()));
-        photo.setAvatarUrl(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE2), photo.getAvatarUrl()));
-        photo.setAvatarUrlBig(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE3), photo.getAvatarUrlBig()));
-        photoRepository.save(photo);
-
-        return new ImageWithObject<>(comment, photo);
-
     }
 
 }

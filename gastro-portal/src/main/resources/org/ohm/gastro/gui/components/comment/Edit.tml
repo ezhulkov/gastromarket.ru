@@ -24,29 +24,44 @@
         Чтобы прикрепить фото, нажмите "Добавить фотографию":
     </div>
     <t:ajaxformloop t:id="photos" value="photo" source="photos" encoder="formInjectorEncoder">
-        <div class="col-xs-12 gap2">
-            <input type="file" name="rateFile" accept="image/*"/>
-        </div>
-        <t:if test="cook">
-            <div class="col-xs-12">
-                или выберите блюдо из своего каталога
-            </div>
-            <div class="col-xs-12">
+        <div class="photo-item">
+            <t:hidden t:id="photoIndex" t:value="photo.index"/>
+            <t:unless test="photo.id">
+                <div class="col-xs-12">
+                    <input type="file" name="imageFile${photo.index}" accept="image/*"/>
+                </div>
+                <t:if test="cook">
+                    <div class="col-xs-12">
+                        или выберите блюдо из своего каталога
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <t:select t:id="photoProduct" class="form-control chosen-select" data-placeholder=""/>
+                        </div>
+                    </div>
+                </t:if>
+            </t:unless>
+            <t:if test="photo.id">
+                <div class="col-xs-3">
+                    <t:if test="photo.product">
+                        <img alt="${photo.product.name}" title="${photo.text}" src="${photo.product.avatarUrlSmall}"/>
+                        <t:parameter name="else">
+                            <img alt="${photo.text}" title="${photo.text}" src="${photo.avatarUrlSmall}"/>
+                        </t:parameter>
+                    </t:if>
+                </div>
+            </t:if>
+            <div class="${textClass}">
                 <div class="form-group">
-                    <t:select t:id="photoProduct" class="form-control chosen-select"/>
+                    <t:textfield t:id="photoText" class="form-control" placeholder="Тект к фотографии"/>
                 </div>
             </div>
-        </t:if>
-        <div class="col-xs-11">
-            <div class="form-group">
-                <t:textfield t:id="photoText" class="form-control" placeholder="Тект к фотографии"/>
+            <div class="col-xs-1">
+                <t:removerowlink class="glyphicon glyphicon-remove del-item"/>
             </div>
         </div>
-        <div class="col-xs-1">
-            <t:removerowlink class="glyphicon glyphicon-remove del-item"/>
-        </div>
         <t:parameter name="addRow">
-            <div class="col-xs-12">
+            <div class="col-xs-12 gap">
                 <t:addrowlink class="add-photo">+ Добавить фотографию</t:addrowlink>
             </div>
         </t:parameter>

@@ -22,6 +22,8 @@ public interface ImageService {
 
     Map<ImageSize, String> resizeImagePack(@Nonnull File file, @Nonnull FileType fileType, @Nullable String objectId) throws IOException;
 
+    Map<ImageSize, String> resizeImagePack(@Nonnull byte[] fileBytes, @Nonnull FileType fileType, @Nullable String objectId) throws IOException;
+
     PhotoEntity findPhoto(Long id);
 
     List<PhotoEntity> getPhotos(OrderEntity order);

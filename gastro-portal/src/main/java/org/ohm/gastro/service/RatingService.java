@@ -1,6 +1,5 @@
 package org.ohm.gastro.service;
 
-import org.apache.commons.fileupload.FileItem;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.CommentableEntity;
@@ -18,7 +17,7 @@ import java.util.List;
 /**
  * Created by ezhulkov on 13.03.15.
  */
-public interface RatingService extends ImageUploaderService<CommentEntity, PhotoEntity> {
+public interface RatingService {
 
     void registerEvent(@Nonnull LogEntity.Type type, @Nonnull UserEntity user, @Nullable CatalogEntity catalog, @Nullable Integer data);
 
@@ -26,7 +25,7 @@ public interface RatingService extends ImageUploaderService<CommentEntity, Photo
 
     List<LogEntity> findEvents(UserEntity user, Date dateFrom, Type type);
 
-    void rateCommentableEntity(CommentableEntity entity, CommentEntity comment, UserEntity author);
+    void placeComment(CommentableEntity entity, CommentEntity comment, UserEntity author);
 
     void updateRating(CatalogEntity catalog);
 
@@ -34,12 +33,12 @@ public interface RatingService extends ImageUploaderService<CommentEntity, Photo
 
     CommentEntity findComment(Long cId);
 
-    void placeTenderReply(OrderEntity order, UserEntity author, String replyText);
+    void placeTenderReply(OrderEntity tender, CommentEntity reply, UserEntity author);
 
     List<CommentEntity> findAllComments(OrderEntity order, UserEntity author);
 
     void saveComment(CommentEntity comment);
 
-    void attachPhotos(CommentEntity comment, List<PhotoEntity> submittedPhotos, final List<FileItem> files);
+    void attachPhotos(CommentEntity comment, List<PhotoEntity> submittedPhotos);
 
 }

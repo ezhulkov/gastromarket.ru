@@ -11,17 +11,20 @@ import org.apache.tapestry5.ValueEncoder;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Parameter;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Select;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.CommentableEntity;
 import org.ohm.gastro.domain.CommentableEntity.Type;
+import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.gui.misc.GenericSelectModel;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -57,6 +60,9 @@ public class Edit extends BaseComponent {
     @Parameter
     private boolean commentAllowed;
 
+    @Persist
+    private int index;
+
     private java.util.List<PhotoEntity> submittedPhotos = Lists.newArrayList();
 
     @Cached
@@ -80,12 +86,22 @@ public class Edit extends BaseComponent {
     }
 
     public void onSuccessFromRateForm(Long cid) throws FileUploadException {
-        java.util.List<FileItem> files = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(getHttpServletRequest()).stream()
-                .filter(t -> "rateFile".equals(t.getName()))
+        final Map<String, byte[]> imageFiles = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(getHttpServletRequest()).stream()
+                .filter(t -> t.getFieldName() != null && t.getFieldName().startsWith("imageFile"))
                 .filter(t -> t.getSize() != 0)
-                .collect(Collectors.toList());
-        getRatingService().rateCommentableEntity(comment.getEntity(), comment, getAuthenticatedUserOpt().orElse(null));
-        getRatingService().attachPhotos(comment, submittedPhotos, files);
+                .collect(Collectors.toMap(FileItem::getFieldName, FileItem::get));
+        if (comment.getEntity() instanceof OrderEntity) {
+            getRatingService().placeTenderReply((OrderEntity) comment.getEntity(), comment, getAuthenticatedUser());
+        } else {
+            getRatingService().placeComment(comment.getEntity(), comment, getAuthenticatedUser());
+        }
+        getRatingService().attachPhotos(comment,
+                                        submittedPhotos.stream()
+                                                .map(t -> {
+                                                    t.setFileBytes(imageFiles.get(String.format("imageFile%s", t.getIndex())));
+                                                    return t;
+                                                })
+                                                .collect(Collectors.toList()));
     }
 
     public boolean getLike() {
@@ -128,7 +144,7 @@ public class Edit extends BaseComponent {
     }
 
     public PhotoEntity onAddRow() {
-        return new PhotoEntity();
+        return new PhotoEntity(index++);
     }
 
     public PhotoEntity getPhoto() {
@@ -138,6 +154,10 @@ public class Edit extends BaseComponent {
     public void setPhoto(final PhotoEntity photo) {
         this.photo = photo;
         if (photo.getId() == null || !submittedPhotos.contains(photo)) submittedPhotos.add(photo);
+    }
+
+    public String getTextClass() {
+        return photo.getId() == null ? "col-xs-11" : "col-xs-8";
     }
 
 }

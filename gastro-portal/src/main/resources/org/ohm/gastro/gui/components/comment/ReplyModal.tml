@@ -1,0 +1,20 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="modal fade rate" id="${modalId}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="title">
+                    <h1><span>Оставить отклик</span></h1>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-text">
+                    Оставлять свои прямые контакты в отклике запрещено правилами сайта.
+                    Комментарии с таким содержанием будут модерированы или удалены.
+                    Пожалуйста, для обсуждения заказа используйте личные сообщения.
+                </div>
+                <t:comment.edit comment="comment" entity="entity"/>
+            </div>
+        </div>
+    </div>
+</div>

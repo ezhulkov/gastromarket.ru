@@ -53,14 +53,32 @@ public class PhotoEntity extends AbstractBaseEntity {
     private ProductEntity product;
 
     @Transient
-    private String filePath;
+    private byte[] fileBytes;
 
-    public String getFilePath() {
-        return filePath;
+    @Transient
+    private int index;
+
+    public PhotoEntity() {
     }
 
-    public void setFilePath(final String filePath) {
-        this.filePath = filePath;
+    public PhotoEntity(final int index) {
+        this.index = index;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(final int index) {
+        this.index = index;
+    }
+
+    public byte[] getFileBytes() {
+        return fileBytes;
+    }
+
+    public void setFileBytes(final byte[] fileBytes) {
+        this.fileBytes = fileBytes;
     }
 
     public ProductEntity getProduct() {

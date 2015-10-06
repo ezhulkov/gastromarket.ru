@@ -4,9 +4,9 @@
             <li>
                 <a data-toggle="modal" data-target="#img-big-${photo.id}" href="#img-big-${photo.id}">
                     <t:if test="photo.product">
-                        <img alt="${photo.product.name}" title="${photo.product.name}" src="${photo.product.avatarUrlSmall}"/>
+                        <img alt="${photo.product.name}" title="${photo.text}" src="${photo.product.avatarUrlSmall}"/>
                         <t:parameter name="else">
-                            <img alt="${photo.text}" title="фотография к комментарию" src="${photo.avatarUrlSmall}"/>
+                            <img alt="${photo.text}" title="${photo.text}" src="${photo.avatarUrlSmall}"/>
                         </t:parameter>
                     </t:if>
                 </a>
