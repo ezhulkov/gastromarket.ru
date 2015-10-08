@@ -49,21 +49,15 @@
     <script src="/js/bootstrap-datepicker.min.js"></script>
     <script src="/js/bootstrap-datepicker.ru.min.js" charset="UTF-8"></script>
     <script src="/js/intlTelInput.min.js"></script>
-    <script src="/js/custom.js?v=1.6"></script>
+    <script src="/js/custom.js?v=1.7"></script>
     <script type="text/javascript" src="//vk.com/js/api/openapi.js?116"></script>
     <script type="text/template" id="qq-template">
         <div class="qq-uploader-selector qq-uploader">
-            <div class="qq-upload-button-selector"/>
+            <div class="qq-upload-button-selector">
+                <div class="btn btn-white btn-file">Выберите файл</div>
                 <div class="qq-upload-list-selector hidden">
-                <div class="qq-edit-filename-selector hidden"/>
-            </div>
-        </div>
-    </script>
-    <script type="text/template" id="qq-template-photo">
-        <div class="qq-uploader-selector qq-uploader">
-            <div class="qq-upload-button-selector"/>
-                <div class="qq-upload-list-selector hidden">
-                <div class="qq-edit-filename-selector"/>
+                    <div class="qq-edit-filename-selector hidden"/>
+                </div>
             </div>
         </div>
     </script>
@@ -75,7 +69,7 @@
     <link href="/css/chosen.min.css" rel="stylesheet"/>
     <link href="/css/intlTelInput.css" rel="stylesheet" />
     <link href="/css/bootstrap-datepicker3.css" rel="stylesheet" />
-    <link href="/css/style.css?v=1.6" rel="stylesheet"/>
+    <link href="/css/style.css?v=1.7" rel="stylesheet"/>
     <!--<link href="/css/style.css.map?v=1.5" rel="stylesheet"/>-->
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>

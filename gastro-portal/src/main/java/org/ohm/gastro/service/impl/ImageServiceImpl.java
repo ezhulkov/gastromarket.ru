@@ -1,10 +1,6 @@
 package org.ohm.gastro.service.impl;
 
 import com.google.common.collect.ImmutableMap;
-import org.ohm.gastro.domain.CommentEntity;
-import org.ohm.gastro.domain.OrderEntity;
-import org.ohm.gastro.domain.PhotoEntity;
-import org.ohm.gastro.reps.PhotoRepository;
 import org.ohm.gastro.service.ImageService;
 import org.ohm.gastro.service.ImageUploader;
 import org.ohm.gastro.service.ImageUploaderService;
@@ -27,7 +23,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -60,12 +55,7 @@ public class ImageServiceImpl implements ImageService {
                     .put(ImageSize.SIZE2, new Integer[]{100, 100})
                     .put(ImageSize.SIZE3, new Integer[]{270, 270})
                     .build())
-            .put(FileType.ORDER, new ImmutableMap.Builder<ImageSize, Integer[]>()
-                    .put(ImageSize.SIZE1, new Integer[]{100, 100})
-                    .put(ImageSize.SIZE2, new Integer[]{270, 270})
-                    .put(ImageSize.SIZE3, new Integer[]{1000, 720})
-                    .build())
-            .put(FileType.COMMENT, new ImmutableMap.Builder<ImageSize, Integer[]>()
+            .put(FileType.PHOTO, new ImmutableMap.Builder<ImageSize, Integer[]>()
                     .put(ImageSize.SIZE1, new Integer[]{100, 100})
                     .put(ImageSize.SIZE2, new Integer[]{270, 270})
                     .put(ImageSize.SIZE3, new Integer[]{1000, 720})
@@ -75,18 +65,15 @@ public class ImageServiceImpl implements ImageService {
     private final String imageDestinationPath;
     private final String imageDestinationUrl;
     private final ApplicationContext applicationContext;
-    private final PhotoRepository photoRepository;
     private Map<FileType, Optional<ImageUploaderService>> imageUploaderServiceMap;
 
     @Autowired
     public ImageServiceImpl(@Value("${image.dest.path}") String imageDestinationPath,
                             @Value("${image.dest.url}") String imageDestinationUrl,
-                            final ApplicationContext applicationContext,
-                            final PhotoRepository photoRepository) {
+                            final ApplicationContext applicationContext) {
         this.imageDestinationPath = imageDestinationPath;
         this.imageDestinationUrl = imageDestinationUrl;
         this.applicationContext = applicationContext;
-        this.photoRepository = photoRepository;
     }
 
     @PostConstruct
@@ -124,21 +111,6 @@ public class ImageServiceImpl implements ImageService {
         Logging.logger.debug("Final image set {}", imageUrls);
         imageUploaderServiceMap.getOrDefault(fileType, Optional.empty()).ifPresent(bean -> bean.processUploadedImages(objectId, imageUrls));
         return imageUrls;
-    }
-
-    @Override
-    public PhotoEntity findPhoto(final Long id) {
-        return photoRepository.findOne(id);
-    }
-
-    @Override
-    public List<PhotoEntity> findAllPhotos(final OrderEntity order) {
-        return photoRepository.findAllByOrder(order);
-    }
-
-    @Override
-    public List<PhotoEntity> findAllPhotos(final CommentEntity comment) {
-        return photoRepository.findAllByComment(comment);
     }
 
     private BufferedImage resizeImage(final BufferedImage originalImage, final int width, final int height) {

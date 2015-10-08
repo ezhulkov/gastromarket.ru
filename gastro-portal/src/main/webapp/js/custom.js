@@ -351,10 +351,11 @@ function showModalResult(block) {
 }
 function initFineUploader(el) {
     jQuery(el).each(function (i, e) {
-        var button = jQuery(".uploader-button", e);
+        var button = jQuery(".uploader-button-container", e);
         var fileType = jQuery(e).attr("data-type");
         var respSize = jQuery(e).attr("data-size");
         var objectId = jQuery(e).attr("data-objectid");
+        var imageSelector = jQuery(e).attr("data-image");
         button.fineUploader({
             request: {
                 endpoint: '/upload?file_type=' + fileType + '&object_id=' + objectId
@@ -364,11 +365,15 @@ function initFineUploader(el) {
                 sizeLimit: 10485760,
                 itemLimit: 1
             }
+        }).on("submitted", function (id, name) {
+            jQuery(id.target).addClass("upload-progress");
         }).on("complete", function (id, name, responseJSON, xhr) {
+            jQuery(id.target).removeClass("upload-progress");
             if (respSize != undefined && respSize.length > 0) {
-                var d = new Date();
-                jQuery(e).find("img").attr("src", xhr[respSize] + "?" + d.getTime());
+                jQuery(imageSelector).attr("src", xhr[respSize] + "?" + new Date().getTime());
             }
+        }).on("error", function (id, name) {
+            jQuery(id.target).removeClass("upload-progress");
         });
     })
 }

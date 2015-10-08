@@ -10,7 +10,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  * Created by ezhulkov on 27.08.14.
@@ -52,33 +51,7 @@ public class PhotoEntity extends AbstractBaseEntity {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private ProductEntity product;
 
-    @Transient
-    private byte[] fileBytes;
-
-    @Transient
-    private int index;
-
     public PhotoEntity() {
-    }
-
-    public PhotoEntity(final int index) {
-        this.index = index;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(final int index) {
-        this.index = index;
-    }
-
-    public byte[] getFileBytes() {
-        return fileBytes;
-    }
-
-    public void setFileBytes(final byte[] fileBytes) {
-        this.fileBytes = fileBytes;
     }
 
     public ProductEntity getProduct() {
@@ -143,6 +116,10 @@ public class PhotoEntity extends AbstractBaseEntity {
 
     public void setText(final String text) {
         this.text = text;
+    }
+
+    public boolean isPhotoAttached() {
+        return comment != null || order != null;
     }
 
 }

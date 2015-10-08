@@ -1,27 +1,20 @@
 package org.ohm.gastro.service.impl;
 
-import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang.ObjectUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
-import org.ohm.gastro.domain.ImageWithObject;
 import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.OrderProductEntity;
-import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.reps.CatalogRepository;
-import org.ohm.gastro.reps.ImageRepository;
 import org.ohm.gastro.reps.OrderProductRepository;
 import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.reps.UserRepository;
-import org.ohm.gastro.service.ImageService.FileType;
-import org.ohm.gastro.service.ImageService.ImageSize;
-import org.ohm.gastro.service.ImageUploader;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.OrderService;
 import org.ohm.gastro.service.RatingModifier;
@@ -46,20 +39,16 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import static org.scribe.utils.Preconditions.checkNotNull;
-
 /**
  * Created by ezhulkov on 12.10.14.
  */
 @Component("orderService")
 @Transactional
-@ImageUploader(FileType.ORDER)
 public class OrderServiceImpl implements Runnable, OrderService, Logging {
 
     private final OrderRepository orderRepository;
     private final OrderProductRepository orderProductRepository;
     private final CatalogRepository catalogRepository;
-    private final ImageRepository photoRepository;
     private final MailService mailService;
     private final UserRepository userRepository;
     private final RatingService ratingService;
@@ -71,7 +60,6 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     public OrderServiceImpl(final OrderRepository orderRepository,
                             final OrderProductRepository orderProductRepository,
                             final CatalogRepository catalogRepository,
-                            final ImageRepository photoRepository,
                             final MailService mailService,
                             final UserRepository userRepository,
                             final RatingService ratingService,
@@ -79,7 +67,6 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
         this.orderRepository = orderRepository;
         this.orderProductRepository = orderProductRepository;
         this.catalogRepository = catalogRepository;
-        this.photoRepository = photoRepository;
         this.mailService = mailService;
         this.userRepository = userRepository;
         this.ratingService = ratingService;
@@ -349,24 +336,6 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     @Override
     public List<OrderProductEntity> findAllItems(final OrderEntity order) {
         return orderProductRepository.findAllByOrder(order);
-    }
-
-    @Override
-    public ImageWithObject<OrderEntity, PhotoEntity> processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
-
-        checkNotNull(objectId, "ObjectId should not be null");
-        final OrderEntity order = orderRepository.findOne(Long.parseLong(objectId));
-        checkNotNull(order, "Order should not be null");
-
-        final PhotoEntity photo = new PhotoEntity();
-        photo.setType(PhotoEntity.Type.ORDER);
-        photo.setOrder(order);
-        photo.setAvatarUrlSmall(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE1), photo.getAvatarUrlSmall()));
-        photo.setAvatarUrl(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE2), photo.getAvatarUrl()));
-        photo.setAvatarUrlBig(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE3), photo.getAvatarUrlBig()));
-        photoRepository.save(photo);
-
-        return new ImageWithObject<>(order, photo);
     }
 
     @Override

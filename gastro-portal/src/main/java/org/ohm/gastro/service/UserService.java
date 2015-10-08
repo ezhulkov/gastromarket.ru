@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by ezhulkov on 21.08.14.
  */
-public interface UserService extends UserDetailsService, ImageUploaderService<UserEntity, UserEntity> {
+public interface UserService extends UserDetailsService, ImageUploaderService {
 
     List<UserEntity> findAllUser();
 

@@ -6,7 +6,6 @@ import org.ohm.gastro.domain.CommentableEntity;
 import org.ohm.gastro.domain.LogEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
-import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.UserEntity;
 
 import javax.annotation.Nonnull;
@@ -38,9 +37,5 @@ public interface RatingService {
     List<CommentEntity> findAllComments(OrderEntity order, UserEntity author);
 
     void saveComment(CommentEntity comment);
-
-    void attachPhotos(CommentEntity comment, List<PhotoEntity> submittedPhotos);
-
-    void attachPhotos(OrderEntity order, List<PhotoEntity> submittedPhotos);
 
 }

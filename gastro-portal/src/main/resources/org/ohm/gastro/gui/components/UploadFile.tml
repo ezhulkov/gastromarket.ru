@@ -1,11 +1,6 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="upload-file ${type} ${additionalClass}" data-objectid="${objectId}" data-type="${type}" data-size="${responseSize}">
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="upload-file upload-${inputType} ${type} ${additionalClass}" data-image="${imageSelector}" data-inputtype="${inputType}" data-objectid="${objectId}" data-type="${type}" data-size="${responseSize}">
     <t:if test="imageUrl">
-        <img src="${imageUrl}"/>
+        <img id="image-${type}-${objectId}" src="${imageUrl}"/>
     </t:if>
-    <t:if test="button">
-        <div class="uploader-button"></div>
-        <t:parameter name="else">
-            <a class="uploader-button dotted-link">добавить фото</a>
-        </t:parameter>
-    </t:if>
+    <div class="uploader-button-container"></div>
 </div>

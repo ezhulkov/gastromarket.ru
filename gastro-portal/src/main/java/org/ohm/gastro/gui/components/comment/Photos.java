@@ -23,7 +23,7 @@ public class Photos extends BaseComponent {
 
     @Cached(watch = "comment")
     public List<PhotoEntity> getPhotos() {
-        return getImageService().findAllPhotos(comment);
+        return getPhotoService().findAllPhotos(comment);
     }
 
 }

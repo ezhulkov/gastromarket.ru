@@ -1,9 +1,6 @@
 package org.ohm.gastro.gui.components.comment;
 
-import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Parameter;
@@ -13,9 +10,6 @@ import org.ohm.gastro.domain.CommentableEntity;
 import org.ohm.gastro.domain.CommentableEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
-
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 13.08.15.
@@ -57,22 +51,12 @@ public class Edit extends BaseComponent {
     }
 
     public void onSuccessFromRateForm(Long cid) throws FileUploadException {
-        final Map<String, byte[]> imageFiles = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(getHttpServletRequest()).stream()
-                .filter(t -> t.getFieldName() != null && t.getFieldName().startsWith("imageFile"))
-                .filter(t -> t.getSize() != 0)
-                .collect(Collectors.toMap(FileItem::getFieldName, FileItem::get));
         if (comment.getEntity() instanceof OrderEntity) {
             getRatingService().placeTenderReply((OrderEntity) comment.getEntity(), comment, getAuthenticatedUser());
         } else {
             getRatingService().placeComment(comment.getEntity(), comment, getAuthenticatedUser());
         }
-        getRatingService().attachPhotos(comment,
-                                        inject.getSubmittedPhotos().stream()
-                                                .map(t -> {
-                                                    t.setFileBytes(imageFiles.get(String.format("imageFile%s", t.getIndex())));
-                                                    return t;
-                                                })
-                                                .collect(Collectors.toList()));
+        getPhotoService().attachPhotos(comment, null, inject.getSubmittedPhotos());
     }
 
     public boolean getLike() {

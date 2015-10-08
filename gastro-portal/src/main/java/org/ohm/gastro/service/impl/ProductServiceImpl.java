@@ -8,7 +8,6 @@ import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.javatuples.Tuple;
 import org.ohm.gastro.domain.CatalogEntity;
-import org.ohm.gastro.domain.ImageWithObject;
 import org.ohm.gastro.domain.OfferEntity;
 import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.domain.ProductEntity;
@@ -58,7 +57,7 @@ import static org.scribe.utils.Preconditions.checkNotNull;
  * Created by ezhulkov on 01.02.15.
  */
 @SuppressWarnings("unchecked")
-@Component
+@Component("productService")
 @Transactional
 @ImageUploader(FileType.PRODUCT)
 public class ProductServiceImpl implements ProductService, Logging {
@@ -89,21 +88,15 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
-    public ImageWithObject<ProductEntity, ProductEntity> processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
-
+    public void processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
         checkNotNull(objectId, "ObjectId should not be null");
         ProductEntity product = productRepository.findOne(Long.parseLong(objectId));
         checkNotNull(product, "Product should not be null");
-
         product.setAvatarUrlSmall(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE1), product.getAvatarUrlSmall()));
         product.setAvatarUrlMedium(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE2), product.getAvatarUrlMedium()));
         product.setAvatarUrl(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE3), product.getAvatarUrl()));
         product.setAvatarUrlBig(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE4), product.getAvatarUrlBig()));
-
-        product = productRepository.saveAndFlush(product);
-
-        return new ImageWithObject<>(product, product);
-
+        productRepository.saveAndFlush(product);
     }
 
     @Override

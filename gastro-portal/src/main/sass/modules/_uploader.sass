@@ -1,34 +1,43 @@
 @import "../include/var"
 
-.qq-upload-button-selector
-  width: 49px
-  height: 49px
-  background: url("../img/avatar-upload.png") no-repeat
-
-.qq-upload-button-hover
-  width: 49px
-  height: 49px
-  background: url("../img/avatar-upload-hover.png") no-repeat
-
 .upload-file
-  overflow: hidden
   position: relative
-
-.upload-file.AVATAR
-  width: 210px
-  height: 210px
-
-.upload-file.AVATAR img
-  width: 210px
-  height: 210px
-
-.upload-file.PRODUCT
-  width: 560px
-  height: 404px
-  margin: 0 auto
-
-.upload-file div.qq-uploader-selector
-  position: absolute
-  bottom: 10px
-  right: 10px
-
+  &.AVATAR
+    width: 210px
+    height: 210px
+    img
+      width: 210px
+      height: 210px
+  &.PRODUCT
+    width: 560px
+    height: 404px
+    margin: 0 auto
+    img
+      width: 560px
+      height: 404px
+  .uploader-button-container.upload-progress
+    min-height: 40px
+    background: url("../img/spinner.gif") no-repeat center center
+    background-size: contain
+    .btn-file
+      display: none
+    .qq-upload-button-selector
+      background: none
+  &.upload-icon
+    .uploader-button-container
+      position: absolute
+      right: 10px
+      bottom: 10px
+    .qq-upload-button-selector
+      width: 49px
+      height: 49px
+      background: url("../img/avatar-upload.png") no-repeat
+    .qq-upload-button-hover
+      width: 49px
+      height: 49px
+      background: url("../img/avatar-upload-hover.png") no-repeat
+    .btn-file
+      display: none
+  &.upload-button
+    .btn-file
+      width: 100%

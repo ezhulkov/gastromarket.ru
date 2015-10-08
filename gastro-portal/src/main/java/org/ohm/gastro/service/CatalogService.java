@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by ezhulkov on 21.08.14.
  */
-public interface CatalogService extends ImageUploaderService<CatalogEntity, CatalogEntity>, AltIdService<CatalogEntity, CatalogRepository> {
+public interface CatalogService extends ImageUploaderService, AltIdService<CatalogEntity, CatalogRepository> {
 
     int MAX_WIZARD_STEP = 4;
 

@@ -13,7 +13,7 @@ import org.ohm.gastro.service.ImageService.ImageSize;
 public class UploadFile extends BaseComponent {
 
     @Property
-    @Parameter(defaultPrefix = BindingConstants.LITERAL)
+    @Parameter(defaultPrefix = BindingConstants.LITERAL, value = "")
     private String objectId;
 
     @Property
@@ -29,15 +29,18 @@ public class UploadFile extends BaseComponent {
     private String imageUrl;
 
     @Property
-    @Parameter(name = "class", defaultPrefix = BindingConstants.LITERAL)
+    @Parameter(name = "class", defaultPrefix = BindingConstants.LITERAL, value = "")
     private String additionalClass;
 
     @Property
-    @Parameter(name = "inputType", defaultPrefix = BindingConstants.LITERAL, value = "button")
+    @Parameter(name = "inputType", defaultPrefix = BindingConstants.LITERAL, value = "icon")
     private String inputType;
 
-    public boolean isButton() {
-        return "button".equals(inputType);
+    @Parameter(name = "imageSelector", defaultPrefix = BindingConstants.LITERAL)
+    private String imageSelector;
+
+    public String getImageSelector() {
+        return imageSelector == null ? String.format("#image-%s-%s", type, objectId) : imageSelector;
     }
 
 }

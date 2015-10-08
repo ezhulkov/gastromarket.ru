@@ -8,13 +8,11 @@ import com.google.common.io.BaseEncoding;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
-import org.ohm.gastro.domain.ImageWithObject;
 import org.ohm.gastro.domain.LogEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.domain.UserEntity.Status;
 import org.ohm.gastro.domain.UserEntity.Type;
 import org.ohm.gastro.reps.CatalogRepository;
-import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.reps.UserRepository;
 import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.EmptyPasswordException;
@@ -59,7 +57,6 @@ import static org.scribe.utils.Preconditions.checkNotNull;
 public class UserServiceImpl implements UserService, Logging {
 
     private final UserRepository userRepository;
-    private final OrderRepository orderRepository;
     private final PasswordEncoder passwordEncoder;
     private final RatingService ratingService;
     private final CatalogRepository catalogRepository;
@@ -70,12 +67,10 @@ public class UserServiceImpl implements UserService, Logging {
 
     @Autowired
     public UserServiceImpl(final UserRepository userRepository,
-                           final OrderRepository orderRepository,
                            final PasswordEncoder passwordEncoder,
                            final RatingService ratingService,
                            final CatalogRepository catalogRepository,
                            final MailService mailService) {
-        this.orderRepository = orderRepository;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.ratingService = ratingService;
@@ -288,20 +283,14 @@ public class UserServiceImpl implements UserService, Logging {
     }
 
     @Override
-    public ImageWithObject<UserEntity, UserEntity> processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
-
+    public void processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
         checkNotNull(objectId, "ObjectId should not be null");
         UserEntity user = userRepository.findOne(Long.parseLong(objectId));
         checkNotNull(user, "User should not be null");
-
         user.setAvatarUrlSmall(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE1), user.getAvatarUrlSmall()));
         user.setAvatarUrlMedium(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE2), user.getAvatarUrlMedium()));
         user.setAvatarUrl(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE3), user.getAvatarUrl()));
-
-        user = userRepository.save(user);
-
-        return new ImageWithObject<>(user, user);
-
+        userRepository.save(user);
     }
 
     @Override
