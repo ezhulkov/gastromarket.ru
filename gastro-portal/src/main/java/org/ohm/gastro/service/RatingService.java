@@ -41,4 +41,6 @@ public interface RatingService {
 
     void attachPhotos(CommentEntity comment, List<PhotoEntity> submittedPhotos);
 
+    void attachPhotos(OrderEntity order, List<PhotoEntity> submittedPhotos);
+
 }

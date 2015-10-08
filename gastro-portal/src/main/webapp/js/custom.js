@@ -14,7 +14,7 @@ jQuery.noConflict();
             });
         });
     }
-    Effect.DefaultOptions.duration = 0.1;
+    Effect.DefaultOptions.duration = 0.3;
     var originalHide = Element.hide;
     Element.addMethods({
         hide: function (element) {
@@ -346,11 +346,9 @@ function initLoginModal() {
     hideAll();
     jQuery(".modal-dialog.login").show();
 }
-
 function showModalResult(block) {
     jQuery(block).find(".data").hide();
 }
-
 function initFineUploader(el) {
     jQuery(el).each(function (i, e) {
         var button = jQuery(".uploader-button", e);

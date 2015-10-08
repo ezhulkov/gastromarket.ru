@@ -1,7 +1,7 @@
 @import "../include/var"
 @import "tools"
 
-.comment
+.comment, .order-create
   margin-bottom: 20px
   .pic
     margin-top: 25px
@@ -36,6 +36,8 @@
     float: left
     margin-top: 20px
     width: 100%
+  .t-forminjector:nth-last-child(n+2) > .photo-item
+    border-bottom: 1px solid $greyTextColor
   .photos
     list-style: none
     padding: 0

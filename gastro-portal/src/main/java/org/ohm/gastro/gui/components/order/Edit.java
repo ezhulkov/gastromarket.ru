@@ -1,8 +1,13 @@
 package org.ohm.gastro.gui.components.order;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Component;
+import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
@@ -12,6 +17,9 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
+import java.util.Map;
+import java.util.stream.Collectors;
+
 /**
  * Created by ezhulkov on 31.07.15.
  */
@@ -20,6 +28,9 @@ public class Edit extends BaseComponent {
     public enum Stage {
         DESC, CONTACTS
     }
+
+    @InjectComponent
+    private org.ohm.gastro.gui.components.comment.Inject inject;
 
     @Property
     @Parameter(defaultPrefix = BindingConstants.PROP, allowNull = true, required = false)
@@ -114,6 +125,7 @@ public class Edit extends BaseComponent {
 
     //Desc section
     public void onPrepareFromDescAjaxForm() {
+        inject.getSubmittedPhotos().clear();
         if (order == null || order.getId() == null) {
             if (extOrder != null) {
                 newOrder = extOrder;
@@ -129,7 +141,7 @@ public class Edit extends BaseComponent {
         this.error = true;
     }
 
-    public void onSubmitFromDescAjaxForm(Long tId) {
+    public void onSubmitFromDescAjaxForm(Long tId) throws FileUploadException {
         if (!error) {
             final OrderEntity origOrder = tId != null ? getOrderService().findOrder(tId) : order;
             origOrder.setName(order.getName());
@@ -147,6 +159,17 @@ public class Edit extends BaseComponent {
                             getOrderService().saveTender(origOrder, getAuthenticatedUser()) :
                             getOrderService().saveOrder(origOrder, getAuthenticatedUser());
                 }
+                final Map<String, byte[]> imageFiles = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(getHttpServletRequest()).stream()
+                        .filter(t -> t.getFieldName() != null && t.getFieldName().startsWith("imageFile"))
+                        .filter(t -> t.getSize() != 0)
+                        .collect(Collectors.toMap(FileItem::getFieldName, FileItem::get));
+                getRatingService().attachPhotos(origOrder,
+                                                inject.getSubmittedPhotos().stream()
+                                                        .map(t -> {
+                                                            t.setFileBytes(imageFiles.get(String.format("imageFile%s", t.getIndex())));
+                                                            return t;
+                                                        })
+                                                        .collect(Collectors.toList()));
                 if (ordersBlock != null) getAjaxResponseRenderer().addRender("ordersZone", ordersBlock);
                 if (orderBlock != null) getAjaxResponseRenderer().addRender(orderZoneId, orderBlock);
                 getAjaxResponseRenderer().addRender(getOrderEditZone(), editContactsBlock);

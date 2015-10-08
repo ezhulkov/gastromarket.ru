@@ -1,0 +1,58 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+    <div class="col-xs-12 gap2">
+        Чтобы прикрепить фото, нажмите "Добавить фотографию":
+    </div>
+    <t:ajaxformloop t:id="photos" value="photo" source="photos" encoder="formInjectorEncoder">
+        <div class="photo-item">
+            <t:hidden t:id="photoIndex" t:value="photo.index"/>
+            <t:unless test="photo.id">
+                <div class="col-sm-4 col-xs-12">
+                    <div class="form-group">
+                        <span class="btn btn-white btn-file">
+                            Выберите файл <input class="photo-fileuploader" type="file" name="imageFile${photo.index}" accept="image/*"/>
+                        </span>
+                    </div>
+                </div>
+                <t:if test="cook">
+                    <div class="col-sm-8 col-xs-12">
+                        <div class="form-group">
+                            <t:select t:id="photoProduct" class="form-control chosen-select" data-placeholder="или выберите блюдо из каталога"/>
+                        </div>
+                    </div>
+                    <t:parameter name="else">
+                        <div class="col-xs-12"></div>
+                    </t:parameter>
+                </t:if>
+            </t:unless>
+            <t:if test="photo.id">
+                <div class="col-sm-3 col-xs-12">
+                    <t:if test="photo.product">
+                        <img alt="${photo.product.name}" title="${photo.text}" src="${photo.product.avatarUrlSmall}"/>
+                        <t:parameter name="else">
+                            <img alt="${photo.text}" title="${photo.text}" src="${photo.avatarUrlSmall}"/>
+                        </t:parameter>
+                    </t:if>
+                </div>
+            </t:if>
+            <div class="${textClass}">
+                <div class="form-group">
+                    <t:textfield t:id="photoText" class="form-control" placeholder="Тект к фотографии"/>
+                </div>
+            </div>
+            <div class="hidden-lg hidden-md hidden-sm col-xs-12">
+                <t:removerowlink class="del-item">Удалить</t:removerowlink>
+            </div>
+            <div class="col-sm-1 hidden-xs">
+                <t:removerowlink class="glyphicon glyphicon-remove del-item"/>
+            </div>
+        </div>
+        <script>
+            initControls();
+        </script>
+        <t:parameter name="addRow">
+            <div class="col-xs-12 gap">
+                <t:addrowlink class="add-photo">+ Добавить фотографию</t:addrowlink>
+            </div>
+        </t:parameter>
+    </t:ajaxformloop>
+</div>

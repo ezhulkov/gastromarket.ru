@@ -132,7 +132,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public List<PhotoEntity> getPhotos(final OrderEntity order) {
+    public List<PhotoEntity> findAllPhotos(final OrderEntity order) {
         return photoRepository.findAllByOrder(order);
     }
 

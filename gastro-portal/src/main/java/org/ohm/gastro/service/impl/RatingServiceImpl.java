@@ -268,19 +268,28 @@ public class RatingServiceImpl implements RatingService, Logging {
 
     @Override
     public void attachPhotos(final CommentEntity comment, final List<PhotoEntity> submittedPhotos) {
-        final List<PhotoEntity> existing = photoRepository.findAllByComment(comment);
+        attachPhotos(submittedPhotos, photoRepository.findAllByComment(comment), comment, null, FileType.COMMENT);
+    }
+
+    @Override
+    public void attachPhotos(final OrderEntity order, final List<PhotoEntity> submittedPhotos) {
+        attachPhotos(submittedPhotos, photoRepository.findAllByOrder(order), null, order, FileType.ORDER);
+    }
+
+    private void attachPhotos(List<PhotoEntity> submittedPhotos, List<PhotoEntity> existing, CommentEntity comment, OrderEntity order, FileType type) {
         photoRepository.delete(CollectionUtils.subtract(existing, submittedPhotos));
         final List<PhotoEntity> photos = submittedPhotos.stream().map(t -> {
             if (t.getFileBytes() != null) {
                 t.setProduct(null);
             }
             t.setComment(comment);
+            t.setOrder(order);
             return t;
         }).collect(Collectors.toList());
         photoRepository.save(photos);
         photos.stream().filter(t -> t.getFileBytes() != null).forEach(t -> {
             try {
-                Map<ImageSize, String> imageUrls = imageService.resizeImagePack(t.getFileBytes(), FileType.COMMENT, t.getId().toString());
+                Map<ImageSize, String> imageUrls = imageService.resizeImagePack(t.getFileBytes(), type, t.getId().toString());
                 t.setAvatarUrlSmall(imageUrls.get(ImageSize.SIZE1));
                 t.setAvatarUrl(imageUrls.get(ImageSize.SIZE2));
                 t.setAvatarUrlBig(imageUrls.get(ImageSize.SIZE3));

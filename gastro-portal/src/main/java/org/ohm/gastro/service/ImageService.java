@@ -26,7 +26,7 @@ public interface ImageService {
 
     PhotoEntity findPhoto(Long id);
 
-    List<PhotoEntity> getPhotos(OrderEntity order);
+    List<PhotoEntity> findAllPhotos(OrderEntity order);
 
     List<PhotoEntity> findAllPhotos(CommentEntity comment);
 

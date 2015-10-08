@@ -1,27 +1,17 @@
 package org.ohm.gastro.gui.components.comment;
 
-import com.google.common.collect.Lists;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.BindingConstants;
-import org.apache.tapestry5.ValueEncoder;
-import org.apache.tapestry5.annotations.Cached;
-import org.apache.tapestry5.annotations.Component;
+import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Parameter;
-import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.corelib.components.Select;
-import org.apache.tapestry5.corelib.components.TextField;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.CommentableEntity;
 import org.ohm.gastro.domain.CommentableEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
-import org.ohm.gastro.domain.PhotoEntity;
-import org.ohm.gastro.domain.ProductEntity;
-import org.ohm.gastro.gui.misc.GenericSelectModel;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.Map;
@@ -40,8 +30,6 @@ public class Edit extends BaseComponent {
     @Parameter
     private CommentableEntity entity;
 
-    private PhotoEntity photo;
-
     @Property
     @Parameter(defaultPrefix = BindingConstants.LITERAL)
     private String modalId;
@@ -50,32 +38,15 @@ public class Edit extends BaseComponent {
     @Parameter(defaultPrefix = BindingConstants.LITERAL)
     private String title;
 
-    @Component(id = "photoProduct", parameters = {"model=productsModel", "encoder=productsModel", "value=photo.product"})
-    private Select productsField;
-
-    @Component(id = "photoText", parameters = {"value=photo.text"})
-    private TextField desc;
-
     @Property
     @Parameter
     private boolean commentAllowed;
 
-    @Persist
-    private int index;
-
-    private java.util.List<PhotoEntity> submittedPhotos = Lists.newArrayList();
-
-    @Cached
-    public GenericSelectModel<ProductEntity> getProductsModel() {
-        return new GenericSelectModel<>(getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream()
-                                                .flatMap(t -> getProductService().findProductsForFrontend(null, t, true, false, null, null, null, 0, Integer.MAX_VALUE).stream())
-                                                .collect(Collectors.toList()),
-                                        ProductEntity.class,
-                                        "name", "id", getAccess());
-    }
+    @InjectComponent
+    private Inject inject;
 
     public void onPrepareFromRateForm(Long cid) {
-        submittedPhotos.clear();
+        inject.getSubmittedPhotos().clear();
         if (comment == null && entity != null && isAuthenticated()) {
             comment = new CommentEntity();
             comment.setEntity(entity);
@@ -96,7 +67,7 @@ public class Edit extends BaseComponent {
             getRatingService().placeComment(comment.getEntity(), comment, getAuthenticatedUser());
         }
         getRatingService().attachPhotos(comment,
-                                        submittedPhotos.stream()
+                                        inject.getSubmittedPhotos().stream()
                                                 .map(t -> {
                                                     t.setFileBytes(imageFiles.get(String.format("imageFile%s", t.getIndex())));
                                                     return t;
@@ -122,42 +93,6 @@ public class Edit extends BaseComponent {
 
     public Object[] getRateFormContext() {
         return new Object[]{comment == null ? null : comment.getId()};
-    }
-
-    public java.util.List<PhotoEntity> getPhotos() {
-        if (comment.getId() == null) return Lists.newArrayList();
-        return getImageService().findAllPhotos(comment);
-    }
-
-    public ValueEncoder<PhotoEntity> getFormInjectorEncoder() {
-        return new ValueEncoder<PhotoEntity>() {
-            @Override
-            public String toClient(PhotoEntity value) {
-                return value.getId() == null ? "" : value.getId().toString();
-            }
-
-            @Override
-            public PhotoEntity toValue(String id) {
-                return StringUtils.isEmpty(id) ? new PhotoEntity() : getImageService().findPhoto(Long.parseLong(id));
-            }
-        };
-    }
-
-    public PhotoEntity onAddRow() {
-        return new PhotoEntity(index++);
-    }
-
-    public PhotoEntity getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(final PhotoEntity photo) {
-        this.photo = photo;
-        if (photo.getId() == null || !submittedPhotos.contains(photo)) submittedPhotos.add(photo);
-    }
-
-    public String getTextClass() {
-        return photo.getId() == null ? "col-xs-11" : "col-xs-8";
     }
 
 }
