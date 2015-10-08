@@ -6,7 +6,7 @@ package org.ohm.gastro.domain;
 public interface CommentableEntity extends BaseEntity {
 
     public enum Type {
-        CATALOG, USER, ORDER
+        CATALOG, USER, ORDER, CONVERSATION
     }
 
     public Type getCommentableType();

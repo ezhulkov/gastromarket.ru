@@ -1,0 +1,49 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <div class="container orders office">
+        <div class="title">
+            <h1><span>Личные сообщения</span></h1>
+            <a>Новое сообщение</a>
+        </div>
+        <t:zone t:id="messagesZone">
+            <t:delegate to="messagesBlock"/>
+        </t:zone>
+        <t:block t:id="messagesBlock">
+            <div class="comments">
+                <t:loop source="conversations" value="conversation">
+                    <div class="row comment message ${unread}">
+                        <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-0 col-sm-3 col-xs-12 fluid-xs-block pic">
+                            <a href="${opponentLink}">
+                                <img src="${opponentAvatar}"/>
+                            </a>
+                        </div>
+                        <div class="col-lg-7 col-lg-offset-0 col-md-7 col-md-offset-0 col-sm-8 col-sm-offset-0 col-xs-12">
+                            <div class="date">
+                                ${lastComment?.datePrintable}
+                            </div>
+                            <div class="name">
+                                <a href="${opponentLink}">
+                                    ${opponentName}
+                                </a>
+                            </div>
+                            <t:pagelink page="office/message" t:context="conversation.id">
+                                <div class="text">
+                                    <t:if test="lastComment">
+                                        <t:outputraw value="lastComment.textRaw"/>
+                                        <t:parameter name="else">
+                                            Нет сообщений
+                                        </t:parameter>
+                                    </t:if>
+                                </div>
+                            </t:pagelink>
+                        </div>
+                    </div>
+                    <t:parameter name="empty">
+                        <div class="empty">Нет личных сообщений</div>
+                    </t:parameter>
+                </t:loop>
+            </div>
+        </t:block>
+    </div>
+
+</t:layout>

@@ -48,6 +48,7 @@ public class CommentEntity extends AbstractBaseEntity {
                     @MetaValue(targetEntity = UserEntity.class, value = "USER"),
                     @MetaValue(targetEntity = OrderEntity.class, value = "ORDER"),
                     @MetaValue(targetEntity = CatalogEntity.class, value = "CATALOG"),
+                    @MetaValue(targetEntity = ConversationEntity.class, value = "CONVERSATION"),
             })
     @JoinColumn(name = "entity_id")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)

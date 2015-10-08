@@ -38,10 +38,6 @@ public class HeaderLayout extends BaseComponent {
         getShoppingCart().setJustAdded(false);
     }
 
-    public int getUnreadMessages() {
-        return getMessageService().getUnreadMessages(getAuthenticatedUser());
-    }
-
     public String getDeclProducts() {
         return getDeclInfo("cart", getShoppingCart().getCatalogs().size());
     }

@@ -24,8 +24,8 @@ import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.filter.SocialFilter;
 import org.ohm.gastro.gui.dto.ShoppingCart;
 import org.ohm.gastro.service.CatalogService;
+import org.ohm.gastro.service.ConversationService;
 import org.ohm.gastro.service.MailService;
-import org.ohm.gastro.service.MessageService;
 import org.ohm.gastro.service.OfferService;
 import org.ohm.gastro.service.OrderService;
 import org.ohm.gastro.service.PhotoService;
@@ -113,7 +113,7 @@ public abstract class BaseComponent {
     private UserService userService;
 
     @Inject
-    private MessageService messageService;
+    private ConversationService conversationService;
 
     @Inject
     private AjaxResponseRenderer ajaxResponseRenderer;
@@ -248,8 +248,8 @@ public abstract class BaseComponent {
         return orderService;
     }
 
-    public MessageService getMessageService() {
-        return messageService;
+    public ConversationService getConversationService() {
+        return conversationService;
     }
 
     public ShoppingCart getShoppingCart() {

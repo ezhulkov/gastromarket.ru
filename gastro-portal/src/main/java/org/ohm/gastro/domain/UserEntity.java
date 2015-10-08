@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by ezhulkov on 24.08.14.
@@ -144,6 +145,10 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails, Comme
 
     public void setCatalogs(List<CatalogEntity> catalogs) {
         this.catalogs = catalogs;
+    }
+
+    public Optional<CatalogEntity> getFirstCatalog() {
+        return isCook() ? getCatalogs().stream().findFirst() : Optional.empty();
     }
 
     @Override

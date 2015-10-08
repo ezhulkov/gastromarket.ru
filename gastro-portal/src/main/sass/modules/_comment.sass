@@ -2,7 +2,7 @@
 @import "tools"
 
 .comment
-  margin-bottom: 20px
+  margin-bottom: 10px
   .pic
     margin-top: 25px
     margin-bottom: 25px
@@ -32,6 +32,16 @@
     padding: 3px 20px
   .moderate
     font-size: 12px
+  &.unread
+    .name
+      margin-bottom: 5px
+    .text
+      background-color: $lightGreyColor
+      margin: -5px -15px
+      padding: 5px 15px
+  &.message
+    .text
+      cursor: pointer
 
 .photo-inject
   .photo-item

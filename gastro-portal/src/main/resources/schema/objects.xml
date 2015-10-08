@@ -989,4 +989,19 @@
         <dropColumn tableName="comment" columnName="parent_id"/>
     </changeSet>
 
+    <changeSet id="87" author="ezhulkov">
+        <dropTable tableName="message"/>
+        <createTable tableName="conversation">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="last_seen" type="java.sql.Types.TIMESTAMP"/>
+            <column name="date" type="java.sql.Types.TIMESTAMP"/>
+            <column name="sender_id" type="java.sql.Types.BIGINT"/>
+            <column name="recipient_id" type="java.sql.Types.BIGINT"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="conversation" baseColumnNames="sender_id" constraintName="conversation_sender_fk" referencedTableName="users" referencedColumnNames="id" onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="conversation" baseColumnNames="recipient_id" constraintName="conversation_recipient_fk" referencedTableName="users" referencedColumnNames="id" onDelete="CASCADE"/>
+    </changeSet>
+
 </databaseChangeLog>
