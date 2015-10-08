@@ -114,25 +114,38 @@ public class ImageServiceImpl implements ImageService {
     }
 
     private BufferedImage resizeImage(final BufferedImage originalImage, final int width, final int height) {
-        final int originalWidth = originalImage.getWidth();
-        final int originalHeight = originalImage.getHeight();
-        final int croppedWidth;
-        final int croppedHeight;
-        if (width > height) {
-            croppedWidth = originalWidth;
-            croppedHeight = Math.min(height * originalWidth / width, originalHeight);
-        } else if (width < height) {
-            croppedWidth = Math.min(width * originalHeight / height, originalWidth);
+        final float originalWidth = originalImage.getWidth();
+        final float originalHeight = originalImage.getHeight();
+        final float croppedWidth;
+        final float croppedHeight;
+        if (originalWidth / originalHeight > width / height) {
             croppedHeight = originalHeight;
+            croppedWidth = width * originalHeight / height;
+        } else if (originalWidth / originalHeight < width / height) {
+            croppedHeight = height * originalWidth / width;
+            croppedWidth = originalWidth;
         } else {
             croppedWidth = Math.min(originalHeight, originalWidth);
             croppedHeight = Math.min(originalHeight, originalWidth);
         }
-        final BufferedImage croppedImage = originalImage.getSubimage((originalWidth - croppedWidth) / 2, (originalHeight - croppedHeight) / 2, croppedWidth, croppedHeight);
+        final int finalWidth = (int) Math.min(croppedWidth, width);
+        final int finalHeight = (int) Math.min(croppedHeight, height);
+        final BufferedImage croppedImage = originalImage.getSubimage((int) (originalWidth - croppedWidth) / 2,
+                                                                     (int) (originalHeight - croppedHeight) / 2,
+                                                                     (int) croppedWidth,
+                                                                     (int) croppedHeight);
         final BufferedImage resizedImage = new BufferedImage(width, height, ColorSpace.TYPE_RGB);
         final Graphics2D g = resizedImage.createGraphics();
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-        g.drawImage(croppedImage, 0, 0, width, height, null);
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, width, height);
+        g.drawImage(croppedImage,
+                    (width - finalWidth) / 2,
+                    (height - finalHeight) / 2,
+                    finalWidth, finalHeight, null);
+        g.setColor(Color.LIGHT_GRAY);
+        g.setStroke(new BasicStroke(1));
+        g.drawRect(0, 0, width - 1, height - 1);
         g.dispose();
         return resizedImage;
     }

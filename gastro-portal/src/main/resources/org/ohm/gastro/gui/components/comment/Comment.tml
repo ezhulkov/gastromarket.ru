@@ -24,6 +24,6 @@
                 <t:comment.editmodal comment="comment" modalId="moderate-${comment.id}"/>
             </t:if>
         </div>
-        <t:comment.photos comment="comment"/>
+        <t:photos comment="comment"/>
     </div>
 </div>

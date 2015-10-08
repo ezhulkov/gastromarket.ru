@@ -1,7 +1,7 @@
 @import "../include/var"
 @import "tools"
 
-.comment, .order-create
+.comment
   margin-bottom: 20px
   .pic
     margin-top: 25px
@@ -32,18 +32,23 @@
     padding: 3px 20px
   .moderate
     font-size: 12px
+
+.photo-inject
   .photo-item
     margin-top: 20px
     width: 100%
-  .photos
-    list-style: none
-    padding: 0
-    li
-      display: inline-block
-      width: 100px
-      height: 100px
-      margin-top: 10px
-      margin-right: 10px
+  .t-forminjector, div[id^='fragment']
+    min-height: 100px
+
+.photos
+  list-style: none
+  padding: 0
+  li
+    display: inline-block
+    width: 100px
+    height: 100px
+    margin-top: 10px
+    margin-right: 10px
 
 .reply-denied
   list-style: none

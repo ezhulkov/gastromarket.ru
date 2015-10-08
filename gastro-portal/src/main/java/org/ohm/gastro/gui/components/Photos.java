@@ -1,9 +1,9 @@
-package org.ohm.gastro.gui.components.comment;
+package org.ohm.gastro.gui.components;
 
-import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.CommentEntity;
+import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
@@ -19,11 +19,16 @@ public class Photos extends BaseComponent {
     private CommentEntity comment;
 
     @Property
+    @Parameter(name = "order")
+    private OrderEntity order;
+
+    @Property
     private PhotoEntity photo;
 
-    @Cached(watch = "comment")
     public List<PhotoEntity> getPhotos() {
-        return getPhotoService().findAllPhotos(comment);
+        return comment != null ?
+                getPhotoService().findAllPhotos(comment) :
+                getPhotoService().findAllPhotos(order);
     }
 
 }
