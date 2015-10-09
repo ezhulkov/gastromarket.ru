@@ -3,7 +3,7 @@
     <div class="container">
         <div class="title">
             <h1><span>Все блюда от ${catalog.name}</span></h1>
-            <t:pagelink page="catalog/index" t:context="catalog.altId">На страницу кулинара<span/></t:pagelink>
+            <t:pagelink class="back" page="catalog/index" t:context="catalog.altId"><span/>На страницу кулинара</t:pagelink>
         </div>
         <t:if test="catalogOwner">
             <div class="links-set">

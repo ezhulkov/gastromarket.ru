@@ -28,4 +28,10 @@ public class ConversationServiceImpl implements ConversationService {
     public List<ConversationEntity> findAllConversations(final UserEntity user) {
         return conversationRepository.findAllConversations(user);
     }
+
+    @Override
+    public ConversationEntity find(final Long id) {
+        return conversationRepository.findOne(id);
+    }
+
 }

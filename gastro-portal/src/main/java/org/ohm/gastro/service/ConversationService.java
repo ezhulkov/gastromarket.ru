@@ -12,4 +12,6 @@ public interface ConversationService {
 
     List<ConversationEntity> findAllConversations(UserEntity userEntity);
 
+    ConversationEntity find(Long id);
+
 }
