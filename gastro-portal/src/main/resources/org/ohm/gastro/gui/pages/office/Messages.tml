@@ -1,6 +1,6 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="container orders office fixed-header">
+    <div class="container office fixed-header">
         <div class="title">
             <h1><span>Личные сообщения</span></h1>
             <a>Новое сообщение</a>
@@ -8,7 +8,7 @@
         <div class="comments">
             <t:loop source="conversations" value="conversation">
                 <div class="row comment message ${unread}">
-                    <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-0 col-sm-3 col-xs-12 fluid-xs-block pic">
+                    <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-0 col-sm-3 col-xs-12 hidden-xs text-right pic">
                         <a href="${opponentLink}">
                             <img src="${opponentAvatar}"/>
                         </a>

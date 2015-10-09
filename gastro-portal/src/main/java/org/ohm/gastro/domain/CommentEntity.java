@@ -121,4 +121,16 @@ public class CommentEntity extends AbstractBaseEntity {
         return CommonsUtils.GUI_DATE_LONG.get().format(date);
     }
 
+    public String getAvatarUrl() {
+        return getAuthor().getFirstCatalog().map(CatalogEntity::getAvatarUrlMedium).orElse(getAuthor().getAvatarUrlMedium());
+    }
+
+    public String getLinkUrl() {
+        return getAuthor().getFirstCatalog().map(CatalogEntity::getFullUrl).orElse(getAuthor().getFullUrl());
+    }
+
+    public String getLinkName() {
+        return getAuthor().getFirstCatalog().map(CatalogEntity::getName).orElse(getAuthor().getFullName());
+    }
+
 }

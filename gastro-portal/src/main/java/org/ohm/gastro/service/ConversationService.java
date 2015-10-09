@@ -14,4 +14,6 @@ public interface ConversationService {
 
     ConversationEntity find(Long id);
 
+    void save(ConversationEntity conversation);
+
 }

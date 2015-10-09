@@ -34,4 +34,9 @@ public class ConversationServiceImpl implements ConversationService {
         return conversationRepository.findOne(id);
     }
 
+    @Override
+    public void save(final ConversationEntity conversation) {
+        conversationRepository.save(conversation);
+    }
+
 }

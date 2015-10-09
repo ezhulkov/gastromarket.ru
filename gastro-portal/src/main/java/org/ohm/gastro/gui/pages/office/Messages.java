@@ -6,6 +6,7 @@ import org.ohm.gastro.domain.ConversationEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 24.08.14.
@@ -16,7 +17,9 @@ public class Messages extends BaseComponent {
     private ConversationEntity conversation;
 
     public List<ConversationEntity> getConversations() {
-        return getConversationService().findAllConversations(getAuthenticatedUserOpt().orElse(null));
+        return getConversationService().findAllConversations(getAuthenticatedUserOpt().orElse(null)).stream()
+                .sorted((o1, o2) -> o1.getId().compareTo(o2.getId()))
+                .collect(Collectors.toList());
     }
 
     public String getOpponentLink() {

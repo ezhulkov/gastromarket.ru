@@ -22,24 +22,6 @@ public class Comment extends BaseComponent {
     @Parameter(defaultPrefix = BindingConstants.LITERAL, value = "true")
     private boolean showEdit;
 
-    public String getAvatarUrl() {
-        return isCookReply() ?
-                getFirstCatalog().map(CatalogEntity::getAvatarUrlMedium).orElse(comment.getAuthor().getAvatarUrlMedium()) :
-                comment.getAuthor().getAvatarUrlMedium();
-    }
-
-    public String getLinkUrl() {
-        return isCookReply() ?
-                getFirstCatalog().map(CatalogEntity::getFullUrl).get() :
-                comment.getAuthor().getFullUrl();
-    }
-
-    public String getLinkName() {
-        return isCookReply() ?
-                getFirstCatalog().map(CatalogEntity::getName).orElse(comment.getAuthor().getFullName()) :
-                comment.getAuthor().getFullName();
-    }
-
     private Optional<CatalogEntity> getFirstCatalog() {
         return getFirstCatalog(comment.getAuthor());
     }

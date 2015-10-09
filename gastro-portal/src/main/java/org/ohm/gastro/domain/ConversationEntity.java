@@ -77,15 +77,15 @@ public class ConversationEntity extends AbstractBaseEntity implements Commentabl
     }
 
     public String getOpponentLink(final UserEntity user) {
-        return getOpponentInfo(user, t -> t.isCook() ? t.getFirstCatalog().map(CatalogEntity::getFullUrl).orElse(null) : t.getFullUrl());
+        return getOpponentInfo(user, t -> t.getFirstCatalog().map(CatalogEntity::getFullUrl).orElse(t.getFullUrl()));
     }
 
     public String getOpponentName(final UserEntity user) {
-        return getOpponentInfo(user, t -> t.isCook() ? t.getFirstCatalog().map(CatalogEntity::getName).orElse(null) : t.getFullName());
+        return getOpponentInfo(user, t -> t.getFirstCatalog().map(CatalogEntity::getName).orElse(t.getFullName()));
     }
 
     public String getOpponentAvatar(final UserEntity user) {
-        return getOpponentInfo(user, t -> t.isCook() ? t.getFirstCatalog().map(CatalogEntity::getAvatarUrlMedium).orElse(null) : t.getAvatarUrlMedium());
+        return getOpponentInfo(user, t -> t.getFirstCatalog().map(CatalogEntity::getAvatarUrlMedium).orElse(t.getAvatarUrlMedium()));
     }
 
     private <T> T getOpponentInfo(final UserEntity user, final Function<UserEntity, T> f) {

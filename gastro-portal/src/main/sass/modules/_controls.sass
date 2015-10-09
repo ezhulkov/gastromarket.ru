@@ -75,17 +75,17 @@
   height: 100px
   text-align: center
   position: relative
-  margin: -15px -30px 30px -30px
-  padding-left: 30px
-  padding-right: 30px
+  margin-top: -15px
+  margin-bottom: 20px
   background: white
   z-index: 10
+  top: 20px
   h1, h2
     margin-left: auto
     margin-right: auto
     position: relative
     text-align: center
-    padding-top: 40px
+    padding-top: 20px
     background: white
     +tablet-media
       width: 100% !important
@@ -94,7 +94,7 @@
     @extend .round-link
     position: absolute
     background: white
-    top: 37px
+    top: 20px
     right: 30px
     +tablet-media
       position: initial
@@ -110,12 +110,21 @@
 +desktop-media
   .fixed-header
     padding-top: 135px
-    .title
+    & > .title-simple
+      padding-left: 30px
+      padding-right: 30px
+      margin-left: -30px
+      margin-right: -30px
       position: fixed
       width: 1200px
       top: 75px
+      & > a
+        top: 40px
       h1
         margin-top: 0
+        padding-top: 40px
+      h1.line:after, h2.line:after
+        top: 82%
 
 .title
   @extend .title-simple

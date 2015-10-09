@@ -254,6 +254,11 @@ public class RatingServiceImpl implements RatingService, Logging {
     }
 
     @Override
+    public void deleteComment(final Long cId) {
+        commentRepository.delete(cId);
+    }
+
+    @Override
     public CommentEntity findComment(final Long cId) {
         return commentRepository.findOne(cId);
     }

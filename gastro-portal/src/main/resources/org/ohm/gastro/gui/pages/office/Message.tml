@@ -5,21 +5,38 @@
             <h1><span>${opponentName}</span></h1>
             <t:pagelink page="office/messages" class="back"><span/>Назад</t:pagelink>
         </div>
-        <div class="row message-list">
-            <div class="col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-offset-0 col-sm-12 col-xs-12">
-                <t:zone t:id="messageZone" id="messageZone">
-                    <t:delegate to="messageBlock"/>
-                </t:zone>
-            </div>
-        </div>
-        <div class="row message-post">
-            <div class="col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-offset-0 col-sm-12 col-xs-12">
-                POST
-            </div>
-        </div>
+        <t:zone t:id="messageZone" id="messageZone">
+            <t:delegate to="messageBlock"/>
+        </t:zone>
         <t:block t:id="messageBlock">
             <t:loop source="comments" value="comment">
-                ${comment.textRaw}
+                <div class="row message ${unread}">
+                    <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-0 col-sm-3 col-xs-12 hidden-xs text-right pic">
+                        <a href="${comment.linkUrl}">
+                            <img src="${comment.avatarUrl}"/>
+                        </a>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                        <div class="name">
+                            <a href="${comment.linkUrl}">
+                                ${comment.linkName}
+                            </a>
+                        </div>
+                        <div class="text">
+                            ${comment.textRaw}
+                        </div>
+                        <t:photos comment="comment"/>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                        <div class="date">
+                            ${comment.datePrintable}
+                        </div>
+                        <t:actionlink class="delete" t:zone="messageZone" t:id="deleteComment" t:context="comment.id">удалить</t:actionlink>
+                    </div>
+                </div>
+                <t:parameter name="empty">
+                    <div class="empty">Нет сообщений</div>
+                </t:parameter>
             </t:loop>
         </t:block>
     </div>
@@ -27,14 +44,12 @@
     <script>
         var messageZone = jQuery("#messageZone");
         var initMessages = function () {
-            var messages = jQuery(".message-list");
-            messages.scrollTop(messages[0].scrollHeight);
+            jQuery(".messages .message .delete").on('click', function () {
+                jQuery(this).closest(".message").fadeOut(200);
+            });
         };
         initMessages();
-        Event.observe(messageZone.get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
-            initMessages();
-        });
-
+        Event.observe(messageZone.get(0), Tapestry.ZONE_UPDATED_EVENT, initMessages);
     </script>
 
 </t:layout>

@@ -1,7 +1,7 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="row comment">
     <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-0 col-sm-3 col-xs-12 fluid-xs-block pic">
-        <a href="${linkUrl}">
-            <img src="${avatarUrl}"/>
+        <a href="${comment.linkUrl}">
+            <img src="${comment.avatarUrl}"/>
         </a>
     </div>
     <div class="col-lg-7 col-lg-offset-0 col-md-7 col-md-offset-0 col-sm-8 col-sm-offset-0 col-xs-12">
@@ -9,8 +9,8 @@
             ${comment.datePrintable}
         </div>
         <div class="name">
-            <a href="${linkUrl}">
-                ${linkName}
+            <a href="${comment.linkUrl}">
+                ${comment.linkName}
             </a>
         </div>
         <div class="text">

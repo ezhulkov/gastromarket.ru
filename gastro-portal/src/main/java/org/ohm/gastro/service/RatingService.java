@@ -38,4 +38,6 @@ public interface RatingService {
 
     void saveComment(CommentEntity comment);
 
+    void deleteComment(Long cId);
+
 }
