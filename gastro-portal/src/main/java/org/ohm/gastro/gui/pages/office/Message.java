@@ -5,6 +5,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.ConversationEntity;
+import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.Date;
@@ -34,7 +35,13 @@ public class Message extends BaseComponent {
 
     private Date lastSeen;
 
-    public void onActivate(Long id) {
+    public Object onActivate(String newConversation, Long id) {
+        final UserEntity opponent = getUserService().findUser(id);
+        conversation = getConversationService().findOrCreateConversation(getAuthenticatedUser(), opponent);
+        return getPageLinkSource().createPageRenderLinkWithContext(Message.class, conversation.getId());
+    }
+
+    public boolean onActivate(Long id) {
         conversation = getConversationService().find(id);
         comments = getCommentsInt();
         if (!comments.isEmpty() && comments.get(comments.size() - 1).getAuthor().equals(getAuthenticatedUser())) {
@@ -44,6 +51,7 @@ public class Message extends BaseComponent {
             conversation.setLastSeenDate(new Date());
             getConversationService().save(conversation);
         }
+        return false;
     }
 
     public Long onPassivate() {

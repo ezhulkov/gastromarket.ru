@@ -33,4 +33,6 @@ public interface ConversationService {
 
     void deleteComment(Long cId);
 
+    ConversationEntity findOrCreateConversation(final UserEntity sender, UserEntity opponent);
+
 }

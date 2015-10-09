@@ -3,7 +3,6 @@
     <div class="container office fixed-header">
         <div class="title">
             <h1><span>Личные сообщения</span></h1>
-            <a>Новое сообщение</a>
         </div>
         <div class="comments">
             <t:loop source="conversations" value="conversation">

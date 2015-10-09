@@ -4,6 +4,9 @@
         <div class="container">
             <div class="title">
                 <h1><span>${catalog.name}</span></h1>
+                <t:if test="authenticated">
+                    <t:pagelink page="office/message" t:context="['NEW',catalog.user.id]">Личное сообщение<span/></t:pagelink>
+                </t:if>
             </div>
             <t:if test="catalogOwner">
                 <div class="links-set">

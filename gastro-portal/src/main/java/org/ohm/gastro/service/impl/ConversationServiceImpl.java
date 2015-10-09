@@ -71,6 +71,23 @@ public class ConversationServiceImpl implements ConversationService {
     }
 
     @Override
+    public ConversationEntity findOrCreateConversation(final UserEntity sender, final UserEntity opponent) {
+        ConversationEntity conversation = conversationRepository.findAllConversations(sender).stream()
+                .filter(t -> t.getSender().equals(opponent) || t.getRecipient().equals(opponent))
+                .findFirst()
+                .orElse(null);
+        if (conversation == null) {
+            conversation = new ConversationEntity();
+            conversation.setDate(new Date());
+            conversation.setLastSeenDate(new Date());
+            conversation.setSender(sender);
+            conversation.setRecipient(opponent);
+            conversationRepository.save(conversation);
+        }
+        return conversation;
+    }
+
+    @Override
     public CommentEntity findComment(final Long cId) {
         return commentRepository.findOne(cId);
     }
