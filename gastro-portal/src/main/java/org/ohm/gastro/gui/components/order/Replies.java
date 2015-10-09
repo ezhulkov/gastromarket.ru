@@ -30,7 +30,7 @@ public class Replies extends AbstractOrder {
 
     @Cached
     public java.util.List<CommentEntity> getComments() {
-        return getRatingService().findAllComments(order);
+        return getConversationService().findAllComments(order);
     }
 
     @Cached
@@ -42,7 +42,7 @@ public class Replies extends AbstractOrder {
     public boolean isDoesNotHaveReply() {
         return getAuthenticatedUserOpt()
                 .filter(UserEntity::isCook)
-                .map(user -> getRatingService().findAllComments(order, user).size() == 0)
+                .map(user -> getConversationService().findAllComments(order, user).size() == 0)
                 .orElse(false);
     }
 

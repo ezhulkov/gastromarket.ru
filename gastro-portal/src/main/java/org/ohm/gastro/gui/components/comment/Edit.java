@@ -46,15 +46,15 @@ public class Edit extends BaseComponent {
             comment.setEntity(entity);
             comment.setAuthor(getAuthenticatedUser());
         } else {
-            comment = getRatingService().findComment(cid);
+            comment = getConversationService().findComment(cid);
         }
     }
 
     public void onSuccessFromRateForm(Long cid) throws FileUploadException {
         if (comment.getEntity() instanceof OrderEntity) {
-            getRatingService().placeTenderReply((OrderEntity) comment.getEntity(), comment, getAuthenticatedUser());
+            getConversationService().placeTenderReply((OrderEntity) comment.getEntity(), comment, getAuthenticatedUser());
         } else {
-            getRatingService().placeComment(comment.getEntity(), comment, getAuthenticatedUser());
+            getConversationService().placeComment(comment.getEntity(), comment, getAuthenticatedUser());
         }
         getPhotoService().attachPhotos(comment, null, inject.getSubmittedPhotos());
     }

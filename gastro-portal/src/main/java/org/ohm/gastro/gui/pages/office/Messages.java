@@ -35,11 +35,11 @@ public class Messages extends BaseComponent {
     }
 
     public CommentEntity getLastComment() {
-        return getRatingService().findAllComments(conversation).stream().findFirst().orElse(null);
+        return getConversationService().findAllComments(conversation).stream().findFirst().orElse(null);
     }
 
     public String getUnread() {
-        return getLastComment() != null && conversation.getLastSeenDate().before(getLastComment().getDate()) ? "unread" : "";
+        return getLastComment() != null && !getLastComment().getAuthor().equals(getAuthenticatedUser()) && conversation.getLastSeenDate().before(getLastComment().getDate()) ? "unread" : "";
     }
 
 }

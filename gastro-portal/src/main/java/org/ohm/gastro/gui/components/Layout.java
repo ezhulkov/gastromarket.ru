@@ -29,6 +29,10 @@ public class Layout extends BaseComponent {
     private boolean header;
 
     @Property
+    @Parameter(name = "footer", required = false, value = "true")
+    private boolean footer;
+
+    @Property
     @Parameter(name = "bottomBlock", defaultPrefix = "literal")
     private Block bottomBlock;
 

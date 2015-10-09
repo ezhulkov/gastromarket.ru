@@ -1,6 +1,9 @@
 package org.ohm.gastro.service;
 
+import org.ohm.gastro.domain.CommentEntity;
+import org.ohm.gastro.domain.CommentableEntity;
 import org.ohm.gastro.domain.ConversationEntity;
+import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.UserEntity;
 
 import java.util.List;
@@ -15,5 +18,19 @@ public interface ConversationService {
     ConversationEntity find(Long id);
 
     void save(ConversationEntity conversation);
+
+    void placeComment(CommentableEntity entity, CommentEntity comment, UserEntity author);
+
+    List<CommentEntity> findAllComments(CommentableEntity entity);
+
+    CommentEntity findComment(Long cId);
+
+    void placeTenderReply(OrderEntity tender, CommentEntity reply, UserEntity author);
+
+    List<CommentEntity> findAllComments(OrderEntity order, UserEntity author);
+
+    void saveComment(CommentEntity comment);
+
+    void deleteComment(Long cId);
 
 }

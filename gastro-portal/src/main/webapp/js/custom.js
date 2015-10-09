@@ -416,6 +416,30 @@ function addMoreProperties(el) {
     initPropEdit(newBlock);
     jQuery(newBlock).insertAfter(lastBlock);
 }
+function initMessagePage() {
+    var messageZone = jQuery("#messageZone");
+    var initMessages = function () {
+        jQuery(".messages .message .delete").on('click', function () {
+            jQuery(this).closest(".message").fadeOut(200);
+        });
+        jQuery("html, body").scrollTop(jQuery(document).height());
+    };
+    Event.observe(messageZone.get(0), Tapestry.ZONE_UPDATED_EVENT, initMessages);
+    jQuery(document).ready(initMessages);
+    jQuery(".post .text").each(function () {
+        autosize(this);
+    }).on("autosize:resized", function () {
+        jQuery(".messages").css("padding-bottom", jQuery(this).height());
+        jQuery("html, body").scrollTop(jQuery(document).height());
+    }).on("keydown", function (e) {
+        if ((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey) {
+            e.preventDefault();
+            e.stopPropagation();
+            triggerEvent(jQuery(this).closest("form").find("input[type='submit']")[0], "click");
+            jQuery(this).val("");
+        }
+    });
+}
 function initPropEdit(blocks) {
     jQuery(blocks).each(function (i, block) {
         counter++;

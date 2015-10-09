@@ -2,6 +2,7 @@
 @import "tools"
 
 .messages
+  min-height: 400px
   .message
     margin-bottom: 5px
     .pic img
@@ -27,4 +28,24 @@
     &:hover
       .delete
         display: block
+
+.post
+  min-height: 100px
+  position: fixed
+  bottom: 0
+  left: 0
+  right: 0
+  background: white
+  z-index: 10
+  .hr
+    border-bottom: 2px solid $lightGreyColor
+    margin-top: 10px
+    margin-bottom: 10px
+  .submit
+    height: 34px
+    padding: 4px 25px
+  .text
+    max-height: 80px
+
+
 

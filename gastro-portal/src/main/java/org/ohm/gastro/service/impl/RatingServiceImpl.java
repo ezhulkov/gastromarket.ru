@@ -6,11 +6,9 @@ import com.google.common.collect.Range;
 import com.google.common.collect.RangeMap;
 import com.google.common.collect.RangeSet;
 import com.google.common.collect.TreeRangeMap;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
-import org.ohm.gastro.domain.CommentableEntity;
 import org.ohm.gastro.domain.LogEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
@@ -21,10 +19,7 @@ import org.ohm.gastro.reps.CommentRepository;
 import org.ohm.gastro.reps.LogRepository;
 import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.reps.ProductRepository;
-import org.ohm.gastro.service.MailService;
-import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingService;
-import org.ohm.gastro.service.RatingTarget;
 import org.ohm.gastro.trait.Logging;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +31,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -50,10 +43,9 @@ public class RatingServiceImpl implements RatingService, Logging {
 
     private final LogRepository logRepository;
     private final OrderRepository orderRepository;
-    private final CommentRepository commentRepository;
     private final CatalogRepository catalogRepository;
     private final ProductRepository productRepository;
-    private final MailService mailService;
+    private final CommentRepository commentRepository;
 
 
     private final int historyDays;
@@ -74,7 +66,6 @@ public class RatingServiceImpl implements RatingService, Logging {
                              final CommentRepository commentRepository,
                              final CatalogRepository catalogRepository,
                              final ProductRepository productRepository,
-                             final MailService mailService,
                              final @Value("${rating.series}") String ratingSeries,
                              final @Value("${rank.badge.series}") String badgeRankSeries,
                              final @Value("${product.badge.series}") String badgeProductSeries,
@@ -91,7 +82,6 @@ public class RatingServiceImpl implements RatingService, Logging {
         this.commentRepository = commentRepository;
         this.catalogRepository = catalogRepository;
         this.productRepository = productRepository;
-        this.mailService = mailService;
         this.historyDays = historyDays;
         this.retentionCoeff = retentionCoeff;
         this.posRatingCoeff = posRatingCoeff;
@@ -130,39 +120,6 @@ public class RatingServiceImpl implements RatingService, Logging {
     @Override
     public List<LogEntity> findEvents(UserEntity user, Date dateFrom, Type type) {
         return logRepository.findAll(user, dateFrom, type);
-    }
-
-    @Override
-    @RatingModifier
-    public void placeComment(@RatingTarget final CommentableEntity entity, final CommentEntity comment, final UserEntity author) {
-        if (StringUtils.isEmpty(comment.getText()) || author == null) return;
-        comment.setEntity(entity);
-        comment.setAuthor(author);
-        if (comment.getId() == null) comment.setDate(new Date());
-        commentRepository.save(comment);
-        if (entity.getCommentableType() == CommentableEntity.Type.CATALOG) {
-            CatalogEntity catalog = (CatalogEntity) entity;
-            final Map<String, Object> params = new HashMap<String, Object>() {
-                {
-                    put("address", catalog.getFullUrl());
-                    put("text", comment);
-                    put("username", catalog.getUser().getFullName());
-                    put("catalog", catalog.getId());
-                }
-            };
-            mailService.sendMailMessage(catalog.getUser().getEmail(), MailService.CATALOG_RATE, params);
-        } else if (entity.getCommentableType() == CommentableEntity.Type.USER) {
-            UserEntity user = (UserEntity) entity;
-            final Map<String, Object> params = new HashMap<String, Object>() {
-                {
-                    put("address", user.getFullUrl());
-                    put("text", comment);
-                    put("username", user.getFullName());
-                    put("user", user);
-                }
-            };
-            mailService.sendMailMessage(user.getEmail(), MailService.USER_RATE, params);
-        }
     }
 
     @Override
@@ -219,48 +176,6 @@ public class RatingServiceImpl implements RatingService, Logging {
             MDC.clear();
         }
 
-    }
-
-    @Override
-    public List<CommentEntity> findAllComments(final CommentableEntity entity) {
-        return commentRepository.findAllByEntity(entity);
-    }
-
-    @Override
-    public void placeTenderReply(final OrderEntity tender, final CommentEntity reply, final UserEntity author) {
-        if (StringUtils.isEmpty(reply.getText())) return;
-        reply.setEntity(tender);
-        reply.setAuthor(author);
-        if (reply.getId() == null) reply.setDate(new Date());
-        commentRepository.save(reply);
-        final Map<String, Object> params = new HashMap<String, Object>() {
-            {
-                put("username", tender.getCustomer().getFullName());
-                put("address", tender.getOrderUrl());
-                put("text", reply.getText());
-            }
-        };
-        mailService.sendMailMessage(tender.getCustomer(), MailService.ORDER_COMMENT, params);
-    }
-
-    @Override
-    public List<CommentEntity> findAllComments(final OrderEntity order, final UserEntity author) {
-        return commentRepository.findAllByEntityAndAuthor(order, author);
-    }
-
-    @Override
-    public void saveComment(CommentEntity comment) {
-        commentRepository.save(comment);
-    }
-
-    @Override
-    public void deleteComment(final Long cId) {
-        commentRepository.delete(cId);
-    }
-
-    @Override
-    public CommentEntity findComment(final Long cId) {
-        return commentRepository.findOne(cId);
     }
 
     private int calcRating(final int productsCount, final int retentionCount, final int posCount, final int negCount, final int doneOrdersCount, final int cancelOrdersCount, final int totalSum) {

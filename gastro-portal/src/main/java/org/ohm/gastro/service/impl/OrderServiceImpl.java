@@ -15,6 +15,7 @@ import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.OrderProductRepository;
 import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.reps.UserRepository;
+import org.ohm.gastro.service.ConversationService;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.OrderService;
 import org.ohm.gastro.service.RatingModifier;
@@ -55,6 +56,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
     private final TransactionTemplate transactionTemplate;
+    private final ConversationService conversationService;
 
     @Autowired
     public OrderServiceImpl(final OrderRepository orderRepository,
@@ -63,7 +65,8 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                             final MailService mailService,
                             final UserRepository userRepository,
                             final RatingService ratingService,
-                            final TransactionTemplate transactionTemplate) {
+                            final TransactionTemplate transactionTemplate,
+                            final ConversationService conversationService) {
         this.orderRepository = orderRepository;
         this.orderProductRepository = orderProductRepository;
         this.catalogRepository = catalogRepository;
@@ -71,6 +74,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
         this.userRepository = userRepository;
         this.ratingService = ratingService;
         this.transactionTemplate = transactionTemplate;
+        this.conversationService = conversationService;
     }
 
     @PreDestroy
@@ -368,7 +372,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     public void triggerTenderEmail(OrderEntity tender, DateTime period) {
         transactionTemplate.execute(status -> {
             final OrderEntity localTender = orderRepository.findOne(tender.getId());
-            final List<CommentEntity> replies = ratingService.findAllComments(localTender);
+            final List<CommentEntity> replies = conversationService.findAllComments(localTender);
             if (!replies.isEmpty()) {
                 logger.info("Fire trigger {} for tender {}", period, localTender);
                 localTender.setTriggerTime(new Date());

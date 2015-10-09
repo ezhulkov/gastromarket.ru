@@ -8,7 +8,7 @@ import org.ohm.gastro.domain.CommentEntity;
 public class TenderInfo extends AbstractOrder {
 
     public java.util.List<CommentEntity> getComments() {
-        return getRatingService().findAllComments(order);
+        return getConversationService().findAllComments(order);
     }
 
     public boolean isShow() {

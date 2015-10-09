@@ -19,15 +19,15 @@ public class Ratings extends BaseComponent {
     }
 
     public boolean getHasRatings() {
-        return getRatingService().findAllComments(entity).stream().filter(t -> t.getRating() != 0).findAny().isPresent();
+        return getConversationService().findAllComments(entity).stream().filter(t -> t.getRating() != 0).findAny().isPresent();
     }
 
     public long getPosRatings() {
-        return getRatingService().findAllComments(entity).stream().filter(t -> t.getRating() > 0).count();
+        return getConversationService().findAllComments(entity).stream().filter(t -> t.getRating() > 0).count();
     }
 
     public long getNegRatings() {
-        return getRatingService().findAllComments(entity).stream().filter(t -> t.getRating() < 0).count();
+        return getConversationService().findAllComments(entity).stream().filter(t -> t.getRating() < 0).count();
     }
 
 }

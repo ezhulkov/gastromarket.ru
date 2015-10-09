@@ -26,25 +26,32 @@ public class Message extends BaseComponent {
     @Inject
     private Block messageBlock;
 
+    @Property
+    private String text;
+
+    @Property
+    private List<CommentEntity> comments;
+
     private Date lastSeen;
 
     public void onActivate(Long id) {
         conversation = getConversationService().find(id);
-        lastSeen = conversation.getLastSeenDate();
-        conversation.setLastSeenDate(new Date());
-        getConversationService().save(conversation);
+        comments = getCommentsInt();
+        if (!comments.isEmpty() && comments.get(comments.size() - 1).getAuthor().equals(getAuthenticatedUser())) {
+            lastSeen = new Date();
+        } else {
+            lastSeen = conversation.getLastSeenDate();
+            conversation.setLastSeenDate(new Date());
+            getConversationService().save(conversation);
+        }
     }
 
     public Long onPassivate() {
         return conversation == null ? null : conversation.getId();
     }
 
-    public List<CommentEntity> getComments() {
-        return getRatingService().findAllComments(conversation).stream().sorted((o1, o2) -> o1.getId().compareTo(o2.getId())).collect(Collectors.toList());
-    }
-
     public String getUnread() {
-        return comment.getDate().after(lastSeen) ? "unread" : "";
+        return !comment.getAuthor().equals(getAuthenticatedUser()) && comment.getDate().after(lastSeen) ? "unread" : "";
     }
 
     public String getOpponentName() {
@@ -52,8 +59,24 @@ public class Message extends BaseComponent {
     }
 
     public Object onActionFromDeleteComment(Long cId) {
-        getRatingService().deleteComment(cId);
+        getConversationService().deleteComment(cId);
         return null;
+    }
+
+    public Block onSubmitFromPostForm(Long cid) {
+        final CommentEntity comment = new CommentEntity();
+        comment.setText(text);
+        getConversationService().placeComment(conversation, comment, getAuthenticatedUser());
+        comments = getCommentsInt();
+        return messageBlock;
+    }
+
+    public boolean isCommentOwner() {
+        return comment.getAuthor().equals(getAuthenticatedUser());
+    }
+
+    private List<CommentEntity> getCommentsInt() {
+        return getConversationService().findAllComments(conversation).stream().sorted((o1, o2) -> o1.getId().compareTo(o2.getId())).collect(Collectors.toList());
     }
 
 }

@@ -1,4 +1,4 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" footer="false">
 
     <div class="container messages office fixed-header">
         <div class="title">
@@ -8,48 +8,67 @@
         <t:zone t:id="messageZone" id="messageZone">
             <t:delegate to="messageBlock"/>
         </t:zone>
-        <t:block t:id="messageBlock">
-            <t:loop source="comments" value="comment">
-                <div class="row message ${unread}">
-                    <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-0 col-sm-3 col-xs-12 hidden-xs text-right pic">
-                        <a href="${comment.linkUrl}">
-                            <img src="${comment.avatarUrl}"/>
-                        </a>
-                    </div>
-                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-                        <div class="name">
-                            <a href="${comment.linkUrl}">
-                                ${comment.linkName}
-                            </a>
-                        </div>
-                        <div class="text">
-                            ${comment.textRaw}
-                        </div>
-                        <t:photos comment="comment"/>
-                    </div>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                        <div class="date">
-                            ${comment.datePrintable}
-                        </div>
-                        <t:actionlink class="delete" t:zone="messageZone" t:id="deleteComment" t:context="comment.id">удалить</t:actionlink>
-                    </div>
-                </div>
-                <t:parameter name="empty">
-                    <div class="empty">Нет сообщений</div>
-                </t:parameter>
-            </t:loop>
-        </t:block>
     </div>
 
+    <div class="container post">
+        <div class="row">
+            <div class="row">
+                <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-offset-0 col-xs-12 hr"></div>
+            </div>
+            <t:form t:id="postForm" t:context="conversation.id" t:zone="messageZone" class="form" t:clientValidation="none" role="form">
+                <div class="col-lg-offset-3 col-lg-5 col-md-offset-3 col-md-5 col-sm-offset-3 col-sm-5 col-xs-12">
+                    <div class="form-group">
+                        <t:textarea t:value="text" t:id="text" rows="1" class="form-control text" style="max-height: 74px" placeholder="Ваше сообщение"/>
+                        <div class="label-tip hidden-xs">
+                            ctrl+enter отправка сообщения
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                    <div class="form-buttons" xml:space="preserve">
+                        <input class="btn btn-white submit" type="submit" value="Отправить"/>
+                    </div>
+                </div>
+            </t:form>
+        </div>
+    </div>
+
+    <t:block t:id="messageBlock">
+        <t:loop source="comments" value="comment">
+            <div class="row message ${unread}">
+                <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-0 col-sm-3 col-xs-12 hidden-xs text-right pic">
+                    <a href="${comment.linkUrl}">
+                        <img src="${comment.avatarUrl}"/>
+                    </a>
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                    <div class="name">
+                        <a href="${comment.linkUrl}">
+                            ${comment.linkName}
+                        </a>
+                    </div>
+                    <div class="text">
+                        <t:outputraw value="comment.textRaw"/>
+                    </div>
+                    <t:photos comment="comment"/>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                    <div class="date">
+                        ${comment.datePrintable}
+                    </div>
+                    <t:if test="commentOwner">
+                        <t:actionlink class="delete" t:zone="messageZone" t:id="deleteComment" t:context="comment.id">удалить</t:actionlink>
+                    </t:if>
+                </div>
+            </div>
+            <t:parameter name="empty">
+                <div class="empty">Нет сообщений</div>
+            </t:parameter>
+        </t:loop>
+    </t:block>
+
     <script>
-        var messageZone = jQuery("#messageZone");
-        var initMessages = function () {
-            jQuery(".messages .message .delete").on('click', function () {
-                jQuery(this).closest(".message").fadeOut(200);
-            });
-        };
-        initMessages();
-        Event.observe(messageZone.get(0), Tapestry.ZONE_UPDATED_EVENT, initMessages);
+        initMessagePage();
     </script>
 
 </t:layout>

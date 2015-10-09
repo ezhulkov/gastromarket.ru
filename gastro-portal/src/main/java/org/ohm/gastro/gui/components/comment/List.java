@@ -99,7 +99,7 @@ public class List extends BaseComponent {
     }
 
     public java.util.List<CommentEntity> getComments() {
-        return getRatingService().findAllComments(entity);
+        return getConversationService().findAllComments(entity);
     }
 
 }
