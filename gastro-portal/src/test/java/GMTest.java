@@ -1,3 +1,4 @@
+import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.imageio.ImageIO;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 public class GMTest {
 
     @Test
+    @Ignore
     public void testFJPool() {
 
         final RecursiveTask<List<String>> task1 = new RecursiveTask<List<String>>() {
@@ -57,6 +59,7 @@ public class GMTest {
     }
 
     @Test
+    @Ignore
     public void testScalr() throws IOException {
         final BufferedImage image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("2.jpg"));
         ImageIO.write(resizeImage(image, 5472, 3648), "jpeg", new File("/Users/ezhulkov/Desktop/s/orig.jpeg"));
