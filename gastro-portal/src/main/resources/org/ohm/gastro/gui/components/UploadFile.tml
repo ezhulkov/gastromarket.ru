@@ -1,4 +1,7 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="upload-file upload-${inputType} ${type} ${additionalClass}" data-image="${imageSelector}" data-inputtype="${inputType}" data-objectid="${objectId}" data-type="${type}" data-size="${responseSize}">
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="upload-file upload-${inputType} ${type} ${additionalClass}"
+     data-image="${imageSelector}" data-targetcontext="${targetContext}"
+     data-inputtype="${inputType}" data-objectid="${objectId}"
+     data-type="${type}" data-size="${responseSize}" data-refreshajax="${refreshAjax}">
     <t:if test="imageUrl">
         <img id="image-${type}-${objectId}" src="${imageUrl}"/>
     </t:if>

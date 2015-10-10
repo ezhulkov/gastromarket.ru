@@ -39,12 +39,14 @@ public class UploadFilter extends BaseApplicationFilter implements Logging {
         File file = null;
         try {
 
+            final ImageService imageService = ApplicationContextHolder.getApplicationContext().getBean(ImageService.class);
             final List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(httpServletRequest);
             final Map<String, String> multipartParams = items.stream().filter(FileItem::isFormField).collect(Collectors.toMap(FileItem::getFieldName,
                                                                                                                               FileItem::getString));
             final String filePath = multipartParams.get("file_path");
             final String fileTypeStr = multipartParams.get("file_type");
             final String objectIdStr = multipartParams.get("object_id");
+            final String targetContext = multipartParams.get("target_context");
 
             checkNotNull(filePath, "file_path should not be empty");
             checkNotNull(fileTypeStr, "file_type should not be empty");
@@ -52,12 +54,12 @@ public class UploadFilter extends BaseApplicationFilter implements Logging {
             file = new File(filePath);
 
             final FileType fileType = FileType.valueOf(fileTypeStr);
-            final String objectId = fileType == FileType.AVATAR ? BaseComponent.getAuthenticatedUser(null).map(t -> t.getId().toString()).orElse("0") : objectIdStr;
+            final String objectId = imageService.explicitlyGetObjectId(fileType, objectIdStr, targetContext, BaseComponent.getAuthenticatedUser(null).orElse(null));
 
             checkNotNull(objectId, "objectId should not be empty");
             checkArgument(file.exists(), "file %s should exist", filePath);
 
-            final Map<ImageSize, String> imageUrls = ApplicationContextHolder.getApplicationContext().getBean(ImageService.class).resizeImagePack(file, fileType, objectId);
+            final Map<ImageSize, String> imageUrls = imageService.resizeImagePack(file, fileType, objectId);
 
             httpServletResponse.setContentType("application/json");
             httpServletResponse.setCharacterEncoding("UTF-8");

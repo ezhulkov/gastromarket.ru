@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <t:parameter name="empty">
-                    <div class="empty">Нет личных сообщений</div>
+                    <div class="empty">Нет сообщений</div>
                 </t:parameter>
             </t:loop>
         </div>

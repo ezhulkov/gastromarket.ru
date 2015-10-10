@@ -294,6 +294,11 @@ public class UserServiceImpl implements UserService, Logging {
     }
 
     @Override
+    public String explicitlyGetObject(final String objectIdStr, final String targetContext, final UserEntity caller) {
+        return caller.getId().toString();
+    }
+
+    @Override
     public void deleteUser(Long id) {
         final UserEntity user = userRepository.findOne(id);
         userRepository.delete(user);

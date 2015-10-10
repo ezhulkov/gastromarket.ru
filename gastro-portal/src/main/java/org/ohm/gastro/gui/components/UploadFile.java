@@ -17,6 +17,10 @@ public class UploadFile extends BaseComponent {
     private String objectId;
 
     @Property
+    @Parameter(defaultPrefix = BindingConstants.LITERAL, value = "")
+    private String targetContext;
+
+    @Property
     @Parameter(required = true, allowNull = false, defaultPrefix = BindingConstants.LITERAL)
     private FileType type;
 
@@ -31,6 +35,10 @@ public class UploadFile extends BaseComponent {
     @Property
     @Parameter(name = "class", defaultPrefix = BindingConstants.LITERAL, value = "")
     private String additionalClass;
+
+    @Property
+    @Parameter(name = "refreshAjax", defaultPrefix = BindingConstants.LITERAL, value = "")
+    private String refreshAjax;
 
     @Property
     @Parameter(name = "inputType", defaultPrefix = BindingConstants.LITERAL, value = "icon")

@@ -5,6 +5,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.ConversationEntity;
+import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
@@ -24,8 +25,11 @@ public class Message extends BaseComponent {
     private CommentEntity comment;
 
     @Property
+    private PhotoEntity photo;
+
+    @Property
     @Inject
-    private Block messageBlock;
+    private Block messagesBlock;
 
     @Property
     private String text;
@@ -70,12 +74,18 @@ public class Message extends BaseComponent {
         return null;
     }
 
+    public Block onActionFromUploadPhotoAjaxLink(Long cId) {
+        conversation = getConversationService().find(cId);
+        comments = getConversationService().findAllComments(conversation);
+        return messagesBlock;
+    }
+
     public Block onSubmitFromPostForm(Long cid) {
         final CommentEntity comment = new CommentEntity();
         comment.setText(text);
         getConversationService().placeComment(conversation, comment, getAuthenticatedUser());
         comments = getConversationService().findAllComments(conversation);
-        return messageBlock;
+        return messagesBlock;
     }
 
     public boolean isCommentOwner() {

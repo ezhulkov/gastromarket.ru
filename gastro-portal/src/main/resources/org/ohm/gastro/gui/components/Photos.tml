@@ -2,7 +2,7 @@
     <ul class="photos">
         <t:loop source="photos" value="photo">
             <li>
-                <a data-toggle="modal" data-target="#img-big-${photo.id}" href="#img-big-${photo.id}">
+                <a data-toggle="modal" data-target="#img-big-${photo.id}" id="img-${photo.id}" href="#img-big-${photo.id}">
                     <t:if test="photo.product">
                         <img alt="${photo.product.name}" title="${photo.text}" src="${photo.product.avatarUrlSmall}"/>
                         <t:parameter name="else">

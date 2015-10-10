@@ -1,5 +1,6 @@
 package org.ohm.gastro.service;
 
+import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.service.ImageService.ImageSize;
 
 import java.util.Map;
@@ -10,5 +11,9 @@ import java.util.Map;
 public interface ImageUploaderService {
 
     void processUploadedImages(String objectId, Map<ImageSize, String> imageUrls);
+
+    default String explicitlyGetObject(String objectIdStr, String targetContext, UserEntity caller) {
+        return objectIdStr;
+    }
 
 }

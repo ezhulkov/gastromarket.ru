@@ -7,9 +7,11 @@ import org.ohm.gastro.domain.CommentableEntity;
 import org.ohm.gastro.domain.CommentableEntity.Type;
 import org.ohm.gastro.domain.ConversationEntity;
 import org.ohm.gastro.domain.OrderEntity;
+import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.reps.CommentRepository;
 import org.ohm.gastro.reps.ConversationRepository;
+import org.ohm.gastro.reps.PhotoRepository;
 import org.ohm.gastro.service.ConversationService;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.RatingModifier;
@@ -31,12 +33,17 @@ import java.util.Optional;
 @Transactional
 public class ConversationServiceImpl implements ConversationService {
 
+    private final PhotoRepository photoRepository;
     private final ConversationRepository conversationRepository;
     private final CommentRepository commentRepository;
     private final MailService mailService;
 
     @Autowired
-    public ConversationServiceImpl(ConversationRepository conversationRepository, final CommentRepository commentRepository, final MailService mailService) {
+    public ConversationServiceImpl(final PhotoRepository photoRepository,
+                                   final ConversationRepository conversationRepository,
+                                   final CommentRepository commentRepository,
+                                   final MailService mailService) {
+        this.photoRepository = photoRepository;
         this.conversationRepository = conversationRepository;
         this.commentRepository = commentRepository;
         this.mailService = mailService;
@@ -104,6 +111,19 @@ public class ConversationServiceImpl implements ConversationService {
     }
 
     @Override
+    public PhotoEntity addPhotoComment(final ConversationEntity conversation, final UserEntity user) {
+        final CommentEntity comment = new CommentEntity();
+        comment.setEntity(conversation);
+        comment.setAuthor(user);
+        comment.setText("Фотография");
+        commentRepository.save(comment);
+        final PhotoEntity photo = new PhotoEntity();
+        photo.setComment(comment);
+        photo.setType(PhotoEntity.Type.COMMENT);
+        return photoRepository.save(photo);
+    }
+
+    @Override
     public CommentEntity findComment(final Long cId) {
         return commentRepository.findOne(cId);
     }
@@ -161,8 +181,19 @@ public class ConversationServiceImpl implements ConversationService {
             };
             mailService.sendMailMessage(user.getEmail(), MailService.USER_RATE, params);
         } else if (entity.getCommentableType() == Type.CONVERSATION) {
-            ((ConversationEntity) entity).setLastActionDate(new Date());
-            conversationRepository.save((ConversationEntity) entity);
+            final ConversationEntity conversation = (ConversationEntity) entity;
+            final UserEntity opponent = conversation.getOpponent(author).get();
+            conversation.setLastActionDate(new Date());
+            conversationRepository.save(conversation);
+            final Map<String, Object> params = new HashMap<String, Object>() {
+                {
+                    put("username", opponent.getFullName());
+                    put("address", conversation.getFullUrl());
+                    put("conversation", conversation);
+                    put("authorName", author.getFirstCatalog().map(t -> t.getName()).orElse(author.getFullName()));
+                }
+            };
+            mailService.sendMailMessage(opponent, MailService.NEW_MESSAGE, params);
         }
     }
 

@@ -99,6 +99,10 @@ public class ConversationEntity extends AbstractBaseEntity implements Commentabl
         return getOpponentInfo(user, t -> t.getFirstCatalog().map(CatalogEntity::getAvatarUrlMedium).orElse(t.getAvatarUrlMedium()));
     }
 
+    public String getFullUrl() {
+        return "http://gastromarket.ru/office/message/" + getId();
+    }
+
     private <T> T getOpponentInfo(final UserEntity user, final Function<UserEntity, T> f) {
         return getOpponent(user).map(f).orElse(null);
     }

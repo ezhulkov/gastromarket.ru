@@ -1,6 +1,7 @@
 package org.ohm.gastro.service.impl;
 
 import com.google.common.collect.ImmutableMap;
+import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.service.ImageService;
 import org.ohm.gastro.service.ImageUploader;
 import org.ohm.gastro.service.ImageUploaderService;
@@ -85,6 +86,11 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    public String explicitlyGetObjectId(@Nonnull final FileType fileType, final String objectIdStr, final String targetContext, @Nonnull final UserEntity caller) {
+        return imageUploaderServiceMap.getOrDefault(fileType, Optional.empty()).map(bean -> bean.explicitlyGetObject(objectIdStr, targetContext, caller)).orElse("0");
+    }
+
+    @Override
     public Map<ImageSize, String> resizeImagePack(@Nonnull File file, @Nonnull FileType fileType, @Nullable String objectId) throws IOException {
         return resizeImagePack(new FileInputStream(file), fileType, objectId);
     }
@@ -120,9 +126,9 @@ public class ImageServiceImpl implements ImageService {
         final float croppedHeight;
         if (originalWidth / originalHeight > width / height) {
             croppedHeight = originalHeight;
-            croppedWidth = width * originalHeight / height;
+            croppedWidth = Math.min(originalWidth, width * originalHeight / height);
         } else if (originalWidth / originalHeight < width / height) {
-            croppedHeight = height * originalWidth / width;
+            croppedHeight = Math.min(originalHeight, height * originalWidth / width);
             croppedWidth = originalWidth;
         } else {
             croppedWidth = Math.min(originalHeight, originalWidth);

@@ -4,6 +4,7 @@ import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.CommentableEntity;
 import org.ohm.gastro.domain.ConversationEntity;
 import org.ohm.gastro.domain.OrderEntity;
+import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.UserEntity;
 
 import java.util.List;
@@ -39,5 +40,7 @@ public interface ConversationService {
     int getUnreadMessagesCount(UserEntity user);
 
     Optional<CommentEntity> findLastComment(ConversationEntity conversation);
+
+    PhotoEntity addPhotoComment(ConversationEntity conversation, UserEntity user);
 
 }

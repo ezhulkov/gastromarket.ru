@@ -131,7 +131,6 @@ function isMobile() {
         isAndroid = ua.match(/android/);
     return isIOS || isAmazon || isAndroid || ua.match(/(blackberry|bb10|mobi|tablet|playbook|opera mini|nexus 7)/i);
 }
-
 function initMainPage() {
     var current = Math.floor(Math.random() * 8) + 1;
     var zindex = 1;
@@ -148,23 +147,19 @@ function initMainPage() {
     jQuery(".main-img-after.main" + current).fadeIn(0);
     setTimeout(nextBackground, 5000);
 }
-
 function activate_menu(el) {
     jQuery(el).closest(".office-menu").find(".sel").removeClass("sel");
     jQuery(el).addClass("sel");
 }
-
 function initTitle(el) {
     jQuery(el).each(function (i, e) {
         var h = jQuery(e).find("h1,h2");
         jQuery(h).css("width", realTitleWidth(jQuery(h)) + 50).addClass("line");
     });
 }
-
 function initChosen(el, onReady) {
     jQuery(el).on("chosen:ready", onReady).chosen({"width": "100%", allow_single_deselect: true});
 }
-
 function showProductModal(pid) {
     if (isMobile())return
     var modal = jQuery("#product-modal-template");
@@ -352,27 +347,32 @@ function showModalResult(block) {
 function initFineUploader(el) {
     jQuery(el).each(function (i, e) {
         var button = jQuery(".uploader-button-container", e);
-        var fileType = jQuery(e).attr("data-type");
-        var respSize = jQuery(e).attr("data-size");
-        var objectId = jQuery(e).attr("data-objectid");
-        var imageSelector = jQuery(e).attr("data-image");
+        var fileType = jQuery(e).attr("data-type") || "";
+        var respSize = jQuery(e).attr("data-size") || "";
+        var objectId = jQuery(e).attr("data-objectid") || "";
+        var targetContext = jQuery(e).attr("data-targetcontext") || "";
+        var imageSelector = jQuery(e).attr("data-image") || "";
+        var refreshAjax = jQuery(e).attr("data-refreshajax") || "";
         button.fineUploader({
             request: {
-                endpoint: '/upload?file_type=' + fileType + '&object_id=' + objectId
+                endpoint: '/upload?file_type=' + fileType + '&object_id=' + objectId + '&target_context=' + targetContext
             },
             validation: {
                 allowedExtensions: ['jpeg', 'jpg', 'png'],
                 sizeLimit: 10485760,
                 itemLimit: 1
             }
-        }).on("submitted", function (id, name) {
+        }).unbind("submitted").bind("submitted", function (id, name) {
             jQuery(id.target).addClass("upload-progress");
-        }).on("complete", function (id, name, responseJSON, xhr) {
+        }).unbind("complete").bind("complete", function (id, name, responseJSON, xhr) {
             jQuery(id.target).removeClass("upload-progress");
             if (respSize != undefined && respSize.length > 0) {
                 jQuery(imageSelector).attr("src", xhr[respSize] + "?" + new Date().getTime());
             }
-        }).on("error", function (id, name) {
+            if (refreshAjax != null) {
+                triggerEvent(jQuery(refreshAjax).get(0), "click");
+            }
+        }).unbind("error").bind("error", function (id, name) {
             jQuery(id.target).removeClass("upload-progress");
         });
     })
@@ -417,7 +417,7 @@ function addMoreProperties(el) {
     jQuery(newBlock).insertAfter(lastBlock);
 }
 function initMessagePage() {
-    var messageZone = jQuery("#messageZone");
+    var messageZone = jQuery("#messagesZone");
     var initMessages = function () {
         jQuery(".messages .message .delete").on('click', function () {
             jQuery(this).closest(".message").fadeOut(200);

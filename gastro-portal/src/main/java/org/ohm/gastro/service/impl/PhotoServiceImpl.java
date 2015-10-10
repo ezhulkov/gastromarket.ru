@@ -1,9 +1,13 @@
 package org.ohm.gastro.service.impl;
 
 import org.ohm.gastro.domain.CommentEntity;
+import org.ohm.gastro.domain.ConversationEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.PhotoEntity;
+import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.reps.PhotoRepository;
+import org.ohm.gastro.reps.UserRepository;
+import org.ohm.gastro.service.ConversationService;
 import org.ohm.gastro.service.ImageService.FileType;
 import org.ohm.gastro.service.ImageService.ImageSize;
 import org.ohm.gastro.service.ImageUploader;
@@ -15,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Map;
 
+import static org.apache.commons.lang.StringUtils.isNotEmpty;
 import static org.scribe.utils.Preconditions.checkNotNull;
 
 /**
@@ -26,10 +31,16 @@ import static org.scribe.utils.Preconditions.checkNotNull;
 public class PhotoServiceImpl implements PhotoService {
 
     private final PhotoRepository photoRepository;
+    private final UserRepository userRepository;
+    private final ConversationService conversationService;
 
     @Autowired
-    public PhotoServiceImpl(final PhotoRepository photoRepository) {
+    public PhotoServiceImpl(final PhotoRepository photoRepository,
+                            final UserRepository userRepository,
+                            final ConversationService conversationService) {
         this.photoRepository = photoRepository;
+        this.userRepository = userRepository;
+        this.conversationService = conversationService;
     }
 
     @Override
@@ -75,6 +86,14 @@ public class PhotoServiceImpl implements PhotoService {
         photo.setAvatarUrl(imageUrls.get(ImageSize.SIZE2));
         photo.setAvatarUrlBig(imageUrls.get(ImageSize.SIZE3));
         photoRepository.saveAndFlush(photo);
+    }
+
+    @Override
+    public String explicitlyGetObject(final String objectIdStr, final String targetContext, final UserEntity caller) {
+        if (isNotEmpty(objectIdStr)) return objectIdStr;
+        final UserEntity user = userRepository.findOne(caller.getId());
+        final ConversationEntity conversation = conversationService.find(Long.parseLong(targetContext));
+        return conversationService.addPhotoComment(conversation, user).getId().toString();
     }
 
 }
