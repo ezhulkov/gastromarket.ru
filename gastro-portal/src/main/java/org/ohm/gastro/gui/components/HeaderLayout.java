@@ -42,6 +42,10 @@ public class HeaderLayout extends BaseComponent {
         return getDeclInfo("cart", getShoppingCart().getCatalogs().size());
     }
 
+    public String getDeclMessages() {
+        return getDeclInfo("message", getConversationService().getUnreadMessagesCount(getAuthenticatedUser()));
+    }
+
     public java.util.List getCatalogs() {
         return getCatalogService().findAllCatalogs(getAuthenticatedUserOpt().orElse(null));
     }
@@ -52,7 +56,7 @@ public class HeaderLayout extends BaseComponent {
 
     public Link getCartLink() {
         return isAuthenticated() ?
-                getPageLinkSource().createPageRenderLinkWithContext(Orders.class, false, Status.NEW) :
+                getPageLinkSource().createPageRenderLinkWithContext(Orders.class, true, Status.NEW) :
                 getPageLinkSource().createPageRenderLink(Cart.class);
     }
 

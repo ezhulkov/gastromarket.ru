@@ -1,12 +1,16 @@
 package org.ohm.gastro.gui.components.comment;
 
 import org.apache.tapestry5.BindingConstants;
+import org.apache.tapestry5.Link;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
+import org.ohm.gastro.domain.CommentableEntity;
+import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.pages.office.Order;
 
 import java.util.Optional;
 
@@ -18,6 +22,17 @@ public class Comment extends BaseComponent {
     @Property
     @Parameter
     private CommentEntity comment;
+
+    @Property
+    @Parameter
+    private CommentableEntity entity;
+
+    @Property
+    @Parameter(value = "false")
+    private boolean reply;
+
+    @Property
+    private String attachReason;
 
     @Parameter(defaultPrefix = BindingConstants.LITERAL, value = "true")
     private boolean showEdit;
@@ -36,6 +51,33 @@ public class Comment extends BaseComponent {
 
     public boolean isCanEditComment() {
         return showEdit && getAuthenticatedUserOpt().map(t -> t.isAdmin() || t.equals(comment.getAuthor())).orElse(false);
+    }
+
+    public boolean isOrderOpened() {
+        return entity != null &&
+                entity instanceof OrderEntity &&
+                getOrder().getCatalog() == null &&
+                !getOrder().isTenderExpired();
+    }
+
+    public boolean isOrderUser() {
+        return entity != null &&
+                entity instanceof OrderEntity &&
+                getOrder().getCustomer().equals(getAuthenticatedUserOpt().orElse(null));
+    }
+
+    public Link onSuccessFromAttachTenderAjaxForm(Long cid, Long oid) {
+        final Link link = getFirstCatalog(getUserService().findUser(cid)).map(catalog -> {
+            final OrderEntity tender = getOrderService().findOrder(oid);
+            tender.setAttachReason(attachReason);
+            getOrderService().attachTender(catalog, tender, getAuthenticatedUser());
+            return getPageLinkSource().createPageRenderLinkWithContext(Order.class, true, tender.getId(), false);
+        }).orElse(null);
+        return link;
+    }
+
+    public OrderEntity getOrder() {
+        return (OrderEntity) entity;
     }
 
 }

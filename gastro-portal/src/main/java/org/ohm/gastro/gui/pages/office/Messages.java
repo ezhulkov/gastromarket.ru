@@ -18,7 +18,7 @@ public class Messages extends BaseComponent {
 
     public List<ConversationEntity> getConversations() {
         return getConversationService().findAllConversations(getAuthenticatedUserOpt().orElse(null)).stream()
-                .sorted((o1, o2) -> o1.getId().compareTo(o2.getId()))
+                .sorted((o1, o2) -> o2.getLastActionDate().compareTo(o1.getLastActionDate()))
                 .collect(Collectors.toList());
     }
 
@@ -35,11 +35,14 @@ public class Messages extends BaseComponent {
     }
 
     public CommentEntity getLastComment() {
-        return getConversationService().findAllComments(conversation).stream().findFirst().orElse(null);
+        return getConversationService().findLastComment(conversation).orElse(null);
     }
 
     public String getUnread() {
-        return getLastComment() != null && !getLastComment().getAuthor().equals(getAuthenticatedUser()) && conversation.getLastSeenDate().before(getLastComment().getDate()) ? "unread" : "";
+        return getConversationService().findLastComment(conversation)
+                .map(t -> !t.getAuthor().equals(getAuthenticatedUser()) && conversation.getLastSeenDate().before(t.getDate()))
+                .map(t -> t ? "unread" : "")
+                .orElse("");
     }
 
 }

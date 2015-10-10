@@ -16,9 +16,13 @@ import java.util.List;
  */
 public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
 
-    @Query("from CommentEntity where entity=:entity order by id desc")
+    @Query("from CommentEntity where entity=:entity order by date asc")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    List<CommentEntity> findAllByEntity(@Param("entity") CommentableEntity entity);
+    List<CommentEntity> findAllByEntityOrderByDateAsc(@Param("entity") CommentableEntity entity);
+
+    @Query("from CommentEntity where entity=:entity order by date desc")
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    List<CommentEntity> findAllByEntityOrderByDateDesc(@Param("entity") CommentableEntity entity);
 
     @Query("from CommentEntity where entity=:entity and author=:author order by id desc")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})

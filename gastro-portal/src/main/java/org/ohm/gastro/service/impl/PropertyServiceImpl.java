@@ -61,7 +61,6 @@ public class PropertyServiceImpl implements PropertyService, Logging {
         return propertyValueRepository.findAllChildrenValues(value, new Sort(Direction.ASC, "name"));
     }
 
-
     @Override
     public PropertyEntity findProperty(Long id) {
         return propertyRepository.findOne(id);

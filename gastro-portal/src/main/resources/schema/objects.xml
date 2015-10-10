@@ -1004,4 +1004,13 @@
         <addForeignKeyConstraint baseTableName="conversation" baseColumnNames="recipient_id" constraintName="conversation_recipient_fk" referencedTableName="users" referencedColumnNames="id" onDelete="CASCADE"/>
     </changeSet>
 
+    <changeSet id="88" author="ezhulkov">
+        <addColumn tableName="conversation">
+            <column name="last_action_date" type="java.sql.Types.TIMESTAMP" defaultValueDate="now()"/>
+        </addColumn>
+        <sql>
+            update conversation set last_action_date=now();
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

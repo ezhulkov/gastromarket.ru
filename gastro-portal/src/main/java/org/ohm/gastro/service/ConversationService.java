@@ -7,6 +7,7 @@ import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.UserEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by ezhulkov on 21.08.14.
@@ -34,5 +35,9 @@ public interface ConversationService {
     void deleteComment(Long cId);
 
     ConversationEntity findOrCreateConversation(final UserEntity sender, UserEntity opponent);
+
+    int getUnreadMessagesCount(UserEntity user);
+
+    Optional<CommentEntity> findLastComment(ConversationEntity conversation);
 
 }

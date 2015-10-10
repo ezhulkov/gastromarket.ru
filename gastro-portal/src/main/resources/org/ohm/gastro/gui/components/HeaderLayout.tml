@@ -17,14 +17,12 @@
                 <div class="collapse navbar-collapse no-transition bs-navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <t:if test="authenticated">
+                            <li>
+                                <t:pagelink page="office/messages">${declMessages}</t:pagelink>
+                            </li>
                             <t:if test="cook">
                                 <li>
                                     <t:pagelink page="office/orders" context="['true','ACTIVE']"><span/>Мои заказы</t:pagelink>
-                                </li>
-                            </t:if>
-                            <t:if test="user">
-                                <li>
-                                    <a href="#bonus" data-toggle="modal" data-target="#bonus">${bonusesMessage}</a>
                                 </li>
                             </t:if>
                         </t:if>
@@ -47,6 +45,9 @@
                                             </t:unless>
                                         </li>
                                         <t:if test="user">
+                                            <li>
+                                                <a href="#bonus" data-toggle="modal" data-target="#bonus">${bonusesMessage}</a>
+                                            </li>
                                             <li>
                                                 <t:pagelink page="office/orders" context="['true','NEW']">Мои заказы</t:pagelink>
                                             </li>
@@ -82,52 +83,41 @@
                 </div>
             </t:if>
         </div>
+    </nav>
 
-
-        <div class="container hidden">
-            <t:if test="header">
-                <div class="pull-right">
-
-                    <t:if test="authenticated">
-
-                    </t:if>
-                </div>
-            </t:if>
-        </div>
-
-        <div class="modal fade" id="bonus" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <div class="title">
-                            <h1><span>Бонусные баллы</span></h1>
-                        </div>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+    <div class="modal fade" id="bonus" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="title">
+                        <h1><span>Бонусные баллы</span></h1>
                     </div>
-                    <div class="modal-body form">
-                        <div class="col-xs-12">
-                            <p class="modal-text">
-                                Каждый раз, когда вы или ваш друг совершает заказ через ГастроМаркет,
-                                вы зарабатываете бонусные баллы, которые можно потратить на приятные подарки.
-                            </p>
-                            <div class="form-buttons" xml:space="preserve">
-                                <a class="btn btn-red btn-lg" href="/bonus">Узнайте подробности</a>
-                            </div>
-                        </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body form">
+                    <div class="col-xs-12">
+                        <p class="modal-text">
+                            Каждый раз, когда вы или ваш друг совершает заказ через ГастроМаркет,
+                            вы зарабатываете бонусные баллы, которые можно потратить на приятные подарки.
+                        </p>
+                        <div class="form-buttons" xml:space="preserve">
+                           <a class="btn btn-red btn-lg" href="/bonus">Узнайте подробности</a>
+                       </div>
                     </div>
                 </div>
             </div>
         </div>
-
-    </nav>
+    </div>
 
     <t:zone t:id="orderShowZone"/>
 
     <t:block t:id="basketBlock">
-        <a class="basket" href="${cartLink}">
-            <span/>
-            ${declProducts}
-        </a>
+        <t:if test="declProducts">
+            <a class="basket" href="${cartLink}">
+                <span/>
+                ${declProducts}
+            </a>
+        </t:if>
     </t:block>
 
     <t:block t:id="orderShowBlock">

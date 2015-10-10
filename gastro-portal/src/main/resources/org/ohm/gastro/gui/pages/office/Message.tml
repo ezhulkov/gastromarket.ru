@@ -3,7 +3,7 @@
     <div class="container messages office fixed-header">
         <div class="title">
             <h1><span>${opponentName}</span></h1>
-            <t:pagelink page="office/messages" class="back"><span/>Назад</t:pagelink>
+            <t:pagelink page="office/messages" class="back"><span/>Все сообщения</t:pagelink>
         </div>
         <t:zone t:id="messageZone" id="messageZone">
             <t:delegate to="messageBlock"/>

@@ -1,6 +1,6 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="comments">
     <t:loop source="comments" value="comment">
-        <t:comment.comment comment="comment"/>
+        <t:comment.comment comment="comment" entity="entity" reply="reply"/>
         <t:if test="reply">
             <div class="reply-block gap2">
                 <t:if test="authenticated">

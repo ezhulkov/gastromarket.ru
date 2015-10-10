@@ -15,9 +15,9 @@
     </modules>
 
     <properties>
-        <spring_version>4.0.6.RELEASE</spring_version>
+        <spring_version>4.2.1.RELEASE</spring_version>
         <spring_security_version>3.2.5.RELEASE</spring_security_version>
-        <hibernate_version>4.3.6.Final</hibernate_version>
+        <hibernate_version>5.0.2.Final</hibernate_version>
         <tapestry_version>5.3.8</tapestry_version>
     </properties>
 
@@ -170,7 +170,7 @@
             <dependency>
                 <groupId>org.springframework.data</groupId>
                 <artifactId>spring-data-jpa</artifactId>
-                <version>1.6.2.RELEASE</version>
+                <version>1.9.0.RELEASE</version>
             </dependency>
             <!--  Hibernate  -->
             <dependency>

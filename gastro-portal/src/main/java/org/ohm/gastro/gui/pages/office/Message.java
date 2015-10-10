@@ -10,7 +10,7 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 /**
  * Created by ezhulkov on 24.08.14.
@@ -43,14 +43,13 @@ public class Message extends BaseComponent {
 
     public boolean onActivate(Long id) {
         conversation = getConversationService().find(id);
-        comments = getCommentsInt();
-        if (!comments.isEmpty() && comments.get(comments.size() - 1).getAuthor().equals(getAuthenticatedUser())) {
-            lastSeen = new Date();
-        } else {
-            lastSeen = conversation.getLastSeenDate();
-            conversation.setLastSeenDate(new Date());
+        comments = getConversationService().findAllComments(conversation);
+        Optional<CommentEntity> lastComment = getConversationService().findLastComment(conversation);
+        lastSeen = lastComment.map(t -> t.getAuthor().equals(getAuthenticatedUser()) ? new Date() : conversation.getLastSeenDate()).orElse(new Date());
+        lastComment.filter(t -> !t.getAuthor().equals(getAuthenticatedUser())).ifPresent(t -> {
+            conversation.setLastSeenDate(t.getDate());
             getConversationService().save(conversation);
-        }
+        });
         return false;
     }
 
@@ -75,16 +74,12 @@ public class Message extends BaseComponent {
         final CommentEntity comment = new CommentEntity();
         comment.setText(text);
         getConversationService().placeComment(conversation, comment, getAuthenticatedUser());
-        comments = getCommentsInt();
+        comments = getConversationService().findAllComments(conversation);
         return messageBlock;
     }
 
     public boolean isCommentOwner() {
         return comment.getAuthor().equals(getAuthenticatedUser());
-    }
-
-    private List<CommentEntity> getCommentsInt() {
-        return getConversationService().findAllComments(conversation).stream().sorted((o1, o2) -> o1.getId().compareTo(o2.getId())).collect(Collectors.toList());
     }
 
 }

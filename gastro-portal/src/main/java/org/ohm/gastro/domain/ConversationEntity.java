@@ -35,6 +35,17 @@ public class ConversationEntity extends AbstractBaseEntity implements Commentabl
     @Column
     private Date date = new Date();
 
+    @Column(name = "last_action_date")
+    private Date lastActionDate = new Date();
+
+    public Date getLastActionDate() {
+        return lastActionDate;
+    }
+
+    public void setLastActionDate(final Date lastActionDate) {
+        this.lastActionDate = lastActionDate;
+    }
+
     public Date getDate() {
         return date;
     }

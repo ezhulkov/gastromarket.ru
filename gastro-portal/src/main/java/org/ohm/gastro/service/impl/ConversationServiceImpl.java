@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.CommentableEntity;
+import org.ohm.gastro.domain.CommentableEntity.Type;
 import org.ohm.gastro.domain.ConversationEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.UserEntity;
@@ -15,12 +16,13 @@ import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Created by ezhulkov on 24.11.14.
@@ -88,13 +90,27 @@ public class ConversationServiceImpl implements ConversationService {
     }
 
     @Override
+    public int getUnreadMessagesCount(final UserEntity user) {
+        return conversationRepository.findAllConversations(user).stream()
+                .mapToInt(t -> (int) commentRepository.findAllByEntityOrderByDateAsc(t).stream()
+                        .filter(m -> !m.getAuthor().equals(user) && m.getDate().after(t.getLastSeenDate()))
+                        .count())
+                .sum();
+    }
+
+    @Override
+    public Optional<CommentEntity> findLastComment(final ConversationEntity conversation) {
+        return commentRepository.findAllByEntityOrderByDateDesc(conversation).stream().findFirst();
+    }
+
+    @Override
     public CommentEntity findComment(final Long cId) {
         return commentRepository.findOne(cId);
     }
 
     @Override
     public List<CommentEntity> findAllComments(final CommentableEntity entity) {
-        return commentRepository.findAllByEntity(entity);
+        return commentRepository.findAllByEntityOrderByDateAsc(entity);
     }
 
     @Override
@@ -144,6 +160,9 @@ public class ConversationServiceImpl implements ConversationService {
                 }
             };
             mailService.sendMailMessage(user.getEmail(), MailService.USER_RATE, params);
+        } else if (entity.getCommentableType() == Type.CONVERSATION) {
+            ((ConversationEntity) entity).setLastActionDate(new Date());
+            conversationRepository.save((ConversationEntity) entity);
         }
     }
 

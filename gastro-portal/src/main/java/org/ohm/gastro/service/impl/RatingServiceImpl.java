@@ -131,7 +131,7 @@ public class RatingServiceImpl implements RatingService, Logging {
         try {
 
             final Date fromDate = DateUtils.addDays(new Date(), -historyDays);
-            final List<CommentEntity> ratings = commentRepository.findAllByEntity(catalog);
+            final List<CommentEntity> ratings = commentRepository.findAllByEntityOrderByDateAsc(catalog);
             final List<LogEntity> catalogOps = findEvents(catalog.getUser(), catalog, fromDate);
             final List<OrderEntity> orders = orderRepository.findAllByCatalog(catalog);
 
