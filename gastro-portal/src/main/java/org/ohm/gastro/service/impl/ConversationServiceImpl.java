@@ -70,11 +70,6 @@ public class ConversationServiceImpl implements ConversationService {
     }
 
     @Override
-    public void saveComment(CommentEntity comment) {
-        commentRepository.save(comment);
-    }
-
-    @Override
     public void deleteComment(final Long cId) {
         commentRepository.delete(cId);
     }
@@ -136,40 +131,44 @@ public class ConversationServiceImpl implements ConversationService {
     @Override
     public void placeTenderReply(final OrderEntity tender, final CommentEntity reply, final UserEntity author) {
         if (StringUtils.isEmpty(reply.getText())) return;
+        final Long origId = tender.getId();
         reply.setEntity(tender);
         reply.setAuthor(author);
         if (reply.getId() == null) reply.setDate(new Date());
         commentRepository.save(reply);
-        final Map<String, Object> params = new HashMap<String, Object>() {
-            {
-                put("username", tender.getCustomer().getFullName());
-                put("address", tender.getOrderUrl());
-                put("text", reply.getText());
-            }
-        };
-        mailService.sendMailMessage(tender.getCustomer(), MailService.ORDER_COMMENT, params);
+        if (origId == null) {
+            final Map<String, Object> params = new HashMap<String, Object>() {
+                {
+                    put("username", tender.getCustomer().getFullName());
+                    put("address", tender.getOrderUrl());
+                    put("text", reply.getText());
+                }
+            };
+            mailService.sendMailMessage(tender.getCustomer(), MailService.ORDER_COMMENT, params);
+        }
     }
 
     @Override
     @RatingModifier
     public void placeComment(@RatingTarget final CommentableEntity entity, final CommentEntity comment, final UserEntity author) {
         if (StringUtils.isEmpty(comment.getText()) || author == null) return;
+        final Long origId = comment.getId();
         comment.setEntity(entity);
         comment.setAuthor(author);
         if (comment.getId() == null) comment.setDate(new Date());
         commentRepository.save(comment);
-        if (entity.getCommentableType() == CommentableEntity.Type.CATALOG) {
+        if (entity.getCommentableType() == CommentableEntity.Type.CATALOG && origId == null) {
             CatalogEntity catalog = (CatalogEntity) entity;
             final Map<String, Object> params = new HashMap<String, Object>() {
                 {
                     put("address", catalog.getFullUrl());
                     put("text", comment);
                     put("username", catalog.getUser().getFullName());
-                    put("catalog", catalog.getId());
+                    put("catalog", catalog);
                 }
             };
             mailService.sendMailMessage(catalog.getUser().getEmail(), MailService.CATALOG_RATE, params);
-        } else if (entity.getCommentableType() == CommentableEntity.Type.USER) {
+        } else if (entity.getCommentableType() == CommentableEntity.Type.USER && origId == null) {
             UserEntity user = (UserEntity) entity;
             final Map<String, Object> params = new HashMap<String, Object>() {
                 {

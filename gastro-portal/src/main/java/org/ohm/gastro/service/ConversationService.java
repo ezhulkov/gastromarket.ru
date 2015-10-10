@@ -31,8 +31,6 @@ public interface ConversationService {
 
     List<CommentEntity> findAllComments(OrderEntity order, UserEntity author);
 
-    void saveComment(CommentEntity comment);
-
     void deleteComment(Long cId);
 
     ConversationEntity findOrCreateConversation(final UserEntity sender, UserEntity opponent);
