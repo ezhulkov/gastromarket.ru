@@ -15,6 +15,7 @@ public class Unsubscribe extends BaseComponent {
     public void onActivate(String link) {
         this.recipient = getMailService().parseUnsubscribeLink(link);
         if (recipient != null) {
+            logger.info("Unsubscribing {}", recipient);
             recipient.setSubscribeEmail(false);
             getUserService().saveUser(recipient);
         }

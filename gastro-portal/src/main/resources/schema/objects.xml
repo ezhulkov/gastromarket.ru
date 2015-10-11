@@ -1013,4 +1013,13 @@
         </sql>
     </changeSet>
 
+    <changeSet id="89" author="ezhulkov">
+        <addColumn tableName="comment">
+            <column name="email_sent" type="java.sql.Types.BOOLEAN" defaultValueBoolean="false"/>
+        </addColumn>
+        <sql>
+            update comment set email_sent=true;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

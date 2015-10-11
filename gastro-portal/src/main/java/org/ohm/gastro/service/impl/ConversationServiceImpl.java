@@ -131,12 +131,13 @@ public class ConversationServiceImpl implements ConversationService {
     @Override
     public void placeTenderReply(final OrderEntity tender, final CommentEntity reply, final UserEntity author) {
         if (StringUtils.isEmpty(reply.getText())) return;
-        final Long origId = tender.getId();
         reply.setEntity(tender);
         reply.setAuthor(author);
         if (reply.getId() == null) reply.setDate(new Date());
         commentRepository.save(reply);
-        if (origId == null) {
+        if (!reply.isEmailSent()) {
+            reply.setEmailSent(true);
+            commentRepository.save(reply);
             final Map<String, Object> params = new HashMap<String, Object>() {
                 {
                     put("username", tender.getCustomer().getFullName());

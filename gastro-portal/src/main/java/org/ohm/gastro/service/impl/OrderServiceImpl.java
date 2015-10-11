@@ -181,7 +181,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                 put("name", ObjectUtils.defaultIfNull(tender.getName(), ""));
                 put("comment", ObjectUtils.defaultIfNull(tender.getComment(), ""));
                 put("total", ObjectUtils.defaultIfNull(tender.getTotalPrice(), ""));
-                put("date", ObjectUtils.defaultIfNull(tender.getDatePrintable(), "-"));
+                put("date", ObjectUtils.defaultIfNull(tender.getDueDateAsString(), "-"));
                 put("address", tender.getOrderUrl());
                 put("tender", tender);
                 put("recipients", getRecipients());
@@ -228,7 +228,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                 put("name", ObjectUtils.defaultIfNull(tender.getName(), ""));
                 put("comment", ObjectUtils.defaultIfNull(tender.getComment(), "-"));
                 put("total", ObjectUtils.defaultIfNull(tender.getTotalPrice(), "-"));
-                put("date", ObjectUtils.defaultIfNull(tender.getDatePrintable(), "-"));
+                put("date", ObjectUtils.defaultIfNull(tender.getDueDateAsString(), "-"));
                 put("address", tender.getOrderUrl());
                 put("tender", tender);
                 put("cooks", rcpt);
