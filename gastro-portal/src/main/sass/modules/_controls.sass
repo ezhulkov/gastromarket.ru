@@ -137,6 +137,12 @@
 .title
   @extend .title-simple
   overflow: hidden
+  +tablet-media
+    h1 > span
+      display: block
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
   +desktop-media
     h1.line:after, h2.line:after
       content: ""

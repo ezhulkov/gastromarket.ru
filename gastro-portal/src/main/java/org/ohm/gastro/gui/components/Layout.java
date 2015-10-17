@@ -18,6 +18,10 @@ public class Layout extends BaseComponent {
     @Parameter(name = "description", required = false)
     private String description;
 
+    @Property
+    @Parameter(name = "pageClass", required = false, defaultPrefix = BindingConstants.LITERAL)
+    private String pageClass;
+
     @Parameter(name = "keywords", required = false)
     private String keywords;
 

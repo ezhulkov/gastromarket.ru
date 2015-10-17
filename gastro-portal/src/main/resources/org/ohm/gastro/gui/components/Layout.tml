@@ -79,14 +79,12 @@
     <![endif]-->
 
 </head>
-<body>
+<body class="page ${pageClass}">
 <!--noindex-->
 <div id="fb-root"></div>
 <t:headerlayout header="header"/>
 <!--/noindex-->
-<div class="page">
-    <t:body/>
-</div>
+<t:body/>
 <!--noindex-->
 <t:invitation/>
 <t:wizardInvitation/>

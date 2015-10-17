@@ -1,4 +1,4 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" pageClass="main-page">
 
     <header class="main-header">
         <div class="container">
@@ -8,10 +8,7 @@
                 </div>
                 <div class="col-lg-7 col-md-6 col-sm-12 col-xs-12 hidden-xs">
                     <h2>
-                        Разместите заявку и более 200 независимых кулинаров и домашних кондитеров Москвы и Подмосковья будут готовы сделать для вас торты, капкейки, пироги,
-                        готовые столы на свадьбу или день рождения и много много других кулинарных шедевров!
-                        <br/><br/>
-                        Всё это можно найти на ГастроМаркет.
+                        200 домашних кондитеров и кулинаров Москвы готовы сделать блюдо по индивидуальному заказу. Торты, капкейки, пироги, первые блюда и салаты — любые кулинарные шедевры для вашего праздника!
                     </h2>
                 </div>
                 <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">
@@ -21,7 +18,7 @@
         </div>
     </header>
 
-    <section class="main-howto">
+    <section class="howto">
         <div class="container">
             <div class="title">
                 <h1><span>Как это работает</span></h1>
@@ -46,46 +43,7 @@
         </div>
     </section>
 
-    <section class="main-testimonial">
-        <div class="container">
-            <div class="title gray">
-                <h1><span>Отзывы покупателей</span></h1>
-            </div>
-            <div class="row">
-                <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-2 col-xs-12 text-center">
-                    <a href="http://gastromarket.ru/catalog/jazzcook"><img src="/img/comment2.jpg" alt="JazzCook"/></a>
-                    <br/>
-                    <br/>
-                </div>
-                <div class="col-lg-8 col-lg-offset-0 col-md-8 col-md-offset-0 col-sm-9 col-sm-offset-0 col-xs-12 f16px">
-                    <p>
-                        "Мы заказывали детский торт на день рождения и пироги. Это было так вкусно, что мы не могли остановиться. Пироги смели тут же, а дети по три раза просили добавки торта!
-                        Взрослым торт тоже понравился, вкус очень яркий, как в детстве, не сравнится с покупными. Огромное вам спасибо!"
-                    </p>
-                    <p>
-                        <i>&mdash; отзыв о <a href="http://gastromarket.ru/catalog/jazzcook">Jazz Cook</a></i>
-                    </p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-2 col-xs-12 text-center">
-                    <a href="gastromarket.ru/catalog/vilki-v-storonu"><img src="/img/comment1.jpg" alt="Вилки в сторону"/></a>
-                    <br/>
-                    <br/>
-                </div>
-                <div class="col-lg-8 col-lg-offset-0 col-md-8 col-md-offset-0 col-sm-9 col-sm-offset-0 col-xs-10 f16px">
-                    <p>
-                        "Спасибо за приготовления гастрономического шедевра и создание праздничного настроения! Торт одновременно красивый и вкусный! Жалко было есть, но банановая начинка ммммм ;)"
-                    </p>
-                    <p>
-                        <i>&mdash; отзыв о <a href="http://gastromarket.ru/catalog/vilki-v-storonu">Вилки в сторону</a></i>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="main-tenders">
+    <section class="tenders">
         <div class="container">
             <div class="title">
                 <h1><span>Последние заявки</span></h1>
@@ -101,9 +59,9 @@
         </div>
     </section>
 
-    <section class="main-cooks">
+    <section class="cooks">
         <div class="container">
-            <div class="title gray">
+            <div class="title">
                 <h1><span>Лучшие кулинары</span></h1>
                 <t:pagelink page="catalog/list">Все кулинары<span/></t:pagelink>
             </div>
@@ -122,7 +80,7 @@
         </div>
     </section>
 
-    <section class="main-products hidden-xs">
+    <section class="products">
         <div class="container">
             <div class="title">
                 <h1><span>Примеры блюд</span></h1>
@@ -146,7 +104,7 @@
         </div>
     </section>
 
-    <section class="main-categories">
+    <section class="categories">
         <div class="container">
             <div class="title">
                 <h1><span>Поиск по категориям</span></h1>
@@ -166,6 +124,60 @@
                     </div>
                 </t:loop>
             </div>
+        </div>
+    </section>
+
+    <section class="testimonial">
+        <div class="container">
+            <div class="title">
+                <h1><span>Отзывы покупателей</span></h1>
+            </div>
+            <div class="row">
+                <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-2 col-xs-12 text-center">
+                    <a href="http://gastromarket.ru/user/15150"><img src="/img/avatar-testimonial-1.jpg" alt="Алекс"/></a>
+                    <br/>
+                    <br/>
+                </div>
+                <div class="col-lg-8 col-lg-offset-0 col-md-8 col-md-offset-0 col-sm-9 col-sm-offset-0 col-xs-12 f16px">
+                    <p>
+                        "Заказывал детям фирменный набор - капкейки очень вкусные! Спасибо :) Мы ваши клиенты отныне"
+                    </p>
+                    <p>
+                        <i>&mdash; отзыв <a href="http://gastromarket.ru/user/15150">Алекса</a> о <a href="http://gastromarket.ru/catalog/konditerskaya-evabonbons">"Кондитерская evabonbons"</a></i>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-2 col-xs-12 text-center">
+                    <a href="http://gastromarket.ru/user/14560"><img src="/img/avatar-testimonial-3.jpg" alt="Евгений"/></a>
+                    <br/>
+                    <br/>
+                </div>
+                <div class="col-lg-8 col-lg-offset-0 col-md-8 col-md-offset-0 col-sm-9 col-sm-offset-0 col-xs-12 f16px">
+                    <p>
+                        "Заказывали тортик по заявке. Получился отличнейший торт! Лёгкий,нежный,вкусный, головокружительно пахнет шоколадом, большое спасибо!"
+                    </p>
+                    <p>
+                        <i>&mdash; отзыв <a href="http://gastromarket.ru/user/14560">Евгения</a> о <a href="http://gastromarket.ru/catalog/strana-sladostei">"Страна сладостей"</a></i>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-2 col-xs-12 text-center">
+                    <a href="http://gastromarket.ru/user/17390"><img src="/img/avatar-testimonial-2.jpg" alt="Мария"/></a>
+                    <br/>
+                    <br/>
+                </div>
+                <div class="col-lg-8 col-lg-offset-0 col-md-8 col-md-offset-0 col-sm-9 col-sm-offset-0 col-xs-12 f16px">
+                    <p>
+                        "Огромное спасибо Наталье! Приготовила «под ключ» стол на день рождения дочери. Довольны остались все, все было вкусное, красивое и в меру диетическое, ровно, как мы любим. Отдельное спасибо за то, с каким терпением Наталья выяснила наши гастрономические предпочтения, и как точно «попала» во все вкусы, начиная от степени солености всех блюд и заканчивая крупной нарезкой салатов. Прекрасно выбранные продукты, все привезено вовремя, минута в минуту. Короче, огромное спасибо и всем-всем рекомендуем!!!"
+                    </p>
+                    <p>
+                        <i>&mdash; отзыв <a href="http://gastromarket.ru/user/17390">Марии</a> о <a href="http://gastromarket.ru/catalog/vkusovye-oschuscheniya">"Вкусовые Ощущения"</a></i>
+                    </p>
+                </div>
+            </div>
+
         </div>
     </section>
 
