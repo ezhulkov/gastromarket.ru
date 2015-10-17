@@ -46,6 +46,7 @@ public class Index extends BaseComponent {
     public List<OrderEntity> getTenders() {
         return getOrderService().findAllTenders().stream()
                 .sorted(((o1, o2) -> o2.getDate().compareTo(o1.getDate())))
+                .filter(t -> !t.isTenderExpired())
                 .limit(3).collect(Collectors.toList());
     }
 
