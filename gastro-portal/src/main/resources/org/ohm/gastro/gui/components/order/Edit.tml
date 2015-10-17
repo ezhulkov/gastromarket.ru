@@ -116,7 +116,7 @@
                         <div class="col-xs-12 gap">
                             <div class="form-buttons" xml:space="preserve">
                                 <input class="btn btn-red" t:type="submit" t:id="saveAndBack" value="&lt; Назад"/>
-                                <input class="btn btn-red" t:type="submit" t:id="saveAndClose" onclick="yaCounter29411415.reachGoal('TENDER_PLACED'); return true;"  value="${closeLabel}"/>
+                                <input class="btn btn-red" t:type="submit" t:id="saveAndClose" onclick="yaCounter29411415.reachGoal('TENDER_PLACED'); return true;" value="${closeLabel}"/>
                             </div>
                         </div>
                     </t:form>

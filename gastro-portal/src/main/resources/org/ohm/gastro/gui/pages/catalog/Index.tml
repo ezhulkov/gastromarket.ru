@@ -128,13 +128,13 @@
                     </div>
                     <t:if test="catalog.deliveryRaw">
                         <div class="description gap">
-                            <div class="f18px">Условия доставки:</div>
+                            <h3>Условия доставки</h3>
                             <t:outputraw value="catalog.deliveryRaw"/>
                         </div>
                     </t:if>
                     <t:if test="catalog.paymentRaw">
                         <div class="description gap">
-                            <div class="f18px">Условия оплаты:</div>
+                            <h3>Условия оплаты</h3>
                             <t:outputraw value="catalog.paymentRaw"/>
                         </div>
                     </t:if>
@@ -150,7 +150,7 @@
                     </t:if>
                     <t:if test="catalog.cancellationRaw">
                         <div class="description gap">
-                            <div class="f18px">Условия отмены:</div>
+                            <h3>Условия отмены</h3>
                             <t:outputraw value="catalog.cancellationRaw"/>
                         </div>
                     </t:if>
@@ -184,68 +184,72 @@
         </div>
     </section>
 
-    <section>
-        <div class="container">
-            <div class="title">
-                <h1><span>Блюда</span></h1>
-                <t:if test="products">
-                    <t:pagelink page="catalog/products" t:context="catalog.altId">Показать все блюда<span/></t:pagelink>
-                    <t:parameter name="else">
-                        <t:if test="catalogOwner">
-                            <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>
-                        </t:if>
-                    </t:parameter>
-                </t:if>
-            </div>
-            <t:zone t:id="productsZone">
-                <t:delegate to="productsBlock"/>
-            </t:zone>
-            <t:block t:id="productsBlock">
-                <div id="product-items" class="grid-block products fixed ${sortable}">
-                    <t:loop source="products" value="oneProduct">
-                        <t:product product="oneProduct" class="fixed" edit="${catalogOwner}"/>
-                        <t:parameter name="empty">
-                            <div class="empty">Меню кулинара пусто</div>
+    <t:if test="showProducts">
+        <section>
+            <div class="container">
+                <div class="title">
+                    <h1><span>Блюда кулинара</span></h1>
+                    <t:if test="products">
+                        <t:pagelink page="catalog/products" t:context="catalog.altId">Показать все блюда<span/></t:pagelink>
+                        <t:parameter name="else">
+                            <t:if test="catalogOwner">
+                                <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>
+                            </t:if>
                         </t:parameter>
-                    </t:loop>
-                    <t:if test="catalogOwner">
-                        <t:form t:id="reorderAjaxForm" t:clientValidation="none" t:zone="productsZone" class="hidden reorder">
-                            <input t:type="textfield" t:id="reorder" t:value="reorder"/>
-                            <input t:type="submit" t:id="ordersubmit"/>
-                        </t:form>
                     </t:if>
                 </div>
-            </t:block>
-            <t:productModalTemplate/>
-        </div>
-    </section>
-
-    <section>
-        <div class="container">
-            <div class="title">
-                <h1><span>Готовые предложения</span></h1>
-                <t:if test="offers">
-                    <t:pagelink page="catalog/offers" t:context="catalog.altId">Показать все предложения<span/></t:pagelink>
-                    <t:parameter name="else">
+                <t:zone t:id="productsZone">
+                    <t:delegate to="productsBlock"/>
+                </t:zone>
+                <t:block t:id="productsBlock">
+                    <div id="product-items" class="grid-block products fixed ${sortable}">
+                        <t:loop source="products" value="oneProduct">
+                            <t:product product="oneProduct" class="fixed" edit="${catalogOwner}"/>
+                            <t:parameter name="empty">
+                                <div class="empty">Меню кулинара пусто</div>
+                            </t:parameter>
+                        </t:loop>
                         <t:if test="catalogOwner">
-                            <a class="offer-edit-link" data-toggle="modal" data-target="#of-new" href="#of-new">Добавить предложения</a>
+                            <t:form t:id="reorderAjaxForm" t:clientValidation="none" t:zone="productsZone" class="hidden reorder">
+                                <input t:type="textfield" t:id="reorder" t:value="reorder"/>
+                                <input t:type="submit" t:id="ordersubmit"/>
+                            </t:form>
                         </t:if>
-                    </t:parameter>
-                </t:if>
+                    </div>
+                </t:block>
+                <t:productModalTemplate/>
             </div>
-            <t:zone t:id="offersZone">
-                <t:delegate to="offersBlock"/>
-            </t:zone>
-            <t:block t:id="offersBlock">
-                <t:loop source="offers" value="offer">
-                    <t:offer offer="offer" type="SHORT" editMode="catalogOwner" offersBlock="offersBlock"/>
-                    <t:parameter name="empty">
-                        <div class="empty">Нет готовых предложений</div>
-                    </t:parameter>
-                </t:loop>
-            </t:block>
-        </div>
-    </section>
+        </section>
+    </t:if>
+
+    <t:if test="showOffers">
+        <section>
+            <div class="container">
+                <div class="title">
+                    <h1><span>Готовые предложения</span></h1>
+                    <t:if test="offers">
+                        <t:pagelink page="catalog/offers" t:context="catalog.altId">Показать все предложения<span/></t:pagelink>
+                        <t:parameter name="else">
+                            <t:if test="catalogOwner">
+                                <a class="offer-edit-link" data-toggle="modal" data-target="#of-new" href="#of-new">Добавить предложения</a>
+                            </t:if>
+                        </t:parameter>
+                    </t:if>
+                </div>
+                <t:zone t:id="offersZone">
+                    <t:delegate to="offersBlock"/>
+                </t:zone>
+                <t:block t:id="offersBlock">
+                    <t:loop source="offers" value="offer">
+                        <t:offer offer="offer" type="SHORT" editMode="catalogOwner" offersBlock="offersBlock"/>
+                        <t:parameter name="empty">
+                            <div class="empty">Нет готовых предложений</div>
+                        </t:parameter>
+                    </t:loop>
+                </t:block>
+            </div>
+        </section>
+    </t:if>
 
     <section>
         <div class="container">

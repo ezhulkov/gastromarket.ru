@@ -1,20 +1,22 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="container orders office">
-        <div class="title">
-            <h1><span>Все заявки</span></h1>
-            <t:unless test="cook">
-                <a href="#tender-new" data-toggle="modal" class="round-link" data-target="#order-new">Разместить заявку</a>
-            </t:unless>
+    <section>
+        <div class="container orders office">
+            <div class="title">
+                <h1><span>Все заявки</span></h1>
+                <t:unless test="cook">
+                    <a href="#tender-new" data-toggle="modal" class="round-link" data-target="#order-new">Разместить заявку</a>
+                </t:unless>
+            </div>
+            <t:order.filter status="status" privateOrders="false" frontend="true"/>
+            <t:zone t:id="ordersZone">
+                <t:delegate to="ordersBlock"/>
+            </t:zone>
+            <t:block t:id="ordersBlock">
+                <t:order.list status="prop:status" privateOrders="false" frontend="true"/>
+            </t:block>
         </div>
-        <t:order.filter status="status" privateOrders="false" frontend="true"/>
-        <t:zone t:id="ordersZone">
-            <t:delegate to="ordersBlock"/>
-        </t:zone>
-        <t:block t:id="ordersBlock">
-            <t:order.list status="prop:status" privateOrders="false" frontend="true"/>
-        </t:block>
-    </div>
+    </section>
 
     <t:if test="tender">
         <t:order.edit ordersBlock="ordersBlock" edit="false" extOrder="tender" tender="true"/>

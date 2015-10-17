@@ -1,13 +1,15 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" id="reply" class="replies">
     <t:if test="tender">
-        <div class="row">
-            <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
-                <div class="attention">
-                    Все зарегистрированные кулинары, у которых заполнен каталог, могут оставить отклик к заявке.<br/>
-                    Автору заявки достаточно просто выбрать лучшего кулинара и нажать ссылку "выбрать исполнителя". После этого заявка перейдет в статус заказа и будет недоступна для откликов.
+        <t:if test="order.tenderOpen">
+            <div class="row">
+                <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
+                    <div class="attention">
+                        Все зарегистрированные кулинары, у которых заполнен каталог, могут оставить отклик к заявке.<br/>
+                        Автору заявки достаточно просто выбрать лучшего кулинара и нажать ссылку "выбрать исполнителя". После этого заявка перейдет в статус заказа и будет недоступна для откликов.
+                    </div>
                 </div>
             </div>
-        </div>
+        </t:if>
     </t:if>
 
     <div>

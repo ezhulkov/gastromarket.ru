@@ -392,6 +392,10 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
         this.triggerTime = triggerTime;
     }
 
+    public boolean isTenderOpen() {
+        return !isTenderExpired() && getCatalog() == null;
+    }
+
     public boolean isTenderExpired() {
         return dueDate != null && LocalDateTime.fromDateFields(dueDate).toDateTime().withTimeAtStartOfDay().plusDays(1).isBeforeNow();
     }

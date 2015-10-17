@@ -131,4 +131,12 @@ public class Index extends AbstractCatalogPage {
         return catalog == null ? null : getMessages().format("page.keywords.catalog", catalog.getName());
     }
 
+    public boolean isShowOffers() {
+        return isCatalogOwner() || !getOffers().isEmpty();
+    }
+
+    public boolean isShowProducts() {
+        return isCatalogOwner() || !getProducts().isEmpty();
+    }
+
 }

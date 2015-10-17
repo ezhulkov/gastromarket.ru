@@ -60,7 +60,7 @@
                                                 </div>
                                                 <div class="col-xs-12">
                                                     <div class="form-buttons" xml:space="preserve">
-                                                        <input class="btn btn-red" type="submit" value="Выбрать"/>
+                                                        <input class="btn btn-red" type="submit" onclick="yaCounter29411415.reachGoal('TENDER_ATTACH'); return true;"  value="Выбрать"/>
                                                     </div>
                                                 </div>
                                             </t:form>

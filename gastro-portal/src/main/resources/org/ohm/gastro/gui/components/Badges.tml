@@ -16,7 +16,7 @@
             <span>${catalog.productBadge}</span>
         </div>
         <t:parameter name="else">
-            <div class="gmbadge popover-holder" data-content="Нет бейджа 'Загружено товаров'">
+            <div class="gmbadge popover-holder" data-content="Загружено меньше 25 товаров">
                 <img src="/img/badge-product-stub.png" srcset="/img/badge-product-stubx2.png 2x"/>
             </div>
         </t:parameter>
@@ -27,7 +27,7 @@
             <span>${catalog.orderBadge}</span>
         </div>
         <t:parameter name="else">
-            <div class="gmbadge popover-holder" data-content="Нет бейджа 'Выполнено заказов'">
+            <div class="gmbadge popover-holder" data-content="Выполнено меньше 5 заказов">
                 <img src="/img/badge-order-stub.png" srcset="/img/badge-order-stubx2.png 2x"/>
             </div>
         </t:parameter>

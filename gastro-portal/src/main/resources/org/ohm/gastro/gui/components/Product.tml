@@ -20,7 +20,6 @@
                 <t:if test="editMode">
                     <div class="edit-block upload-file" data-objectid="${product.id}" data-type="PRODUCT" data-size="SIZE2">
                         <span class="glyphicon glyphicon-move handle" aria-hidden="true" title="Сортировать" alt="Сортировать"></span>
-                        <a class="uploader-button" title="Загрузить фото" alt="Загрузить фото"/>
                         <t:actionlink rel="nofollow" t:id="edit" t:context="product.id" t:zone="${editZoneId}" class="edit" title="Редактировать" alt="Редактировать"/>
                         <a href="#delete" data-toggle="modal" class="delete" data-target="#deleteProduct${product.id}" title="Удалить" alt="Удалить"/>
                     </div>
