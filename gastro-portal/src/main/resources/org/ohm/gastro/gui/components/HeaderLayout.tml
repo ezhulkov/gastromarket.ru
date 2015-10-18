@@ -15,6 +15,14 @@
             </div>
             <t:if test="header">
                 <div class="collapse navbar-collapse no-transition bs-navbar-collapse">
+                    <ul class="nav navbar-nav navbar-left hidden-md hidden-sm hidden-xs">
+                        <li>
+                            <a href="#geo" data-toggle="modal" data-target="#geo">Москва</a>
+                        </li>
+                        <li>
+                            <t:pagelink page="about">О проекте</t:pagelink>
+                        </li>
+                    </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <t:if test="authenticated">
                             <li>
@@ -22,7 +30,7 @@
                             </li>
                             <t:if test="cook">
                                 <li>
-                                    <t:pagelink page="office/orders" context="['true','ACTIVE']"><span/>Мои заказы</t:pagelink>
+                                    <t:pagelink page="office/orders" context="['true','ACTIVE']">Мои заказы</t:pagelink>
                                 </li>
                             </t:if>
                         </t:if>
@@ -76,7 +84,7 @@
                         </t:if>
                         <t:unless test="authenticated">
                             <li>
-                                <a href="#login" data-toggle="modal" class="login-link" data-target="#login">Войти или зарегистрироваться</a>
+                                <a href="#login" data-toggle="modal" class="login-link" data-target="#login">Войти</a>
                             </li>
                         </t:unless>
                     </ul>
@@ -109,12 +117,38 @@
         </div>
     </div>
 
+    <div class="modal fade" id="geo" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="title">
+                        <h1><span>География проекта</span></h1>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body form">
+                    <div class="col-xs-12">
+                        <p class="modal-text">
+                            Пока ГастроМаркет работает только в Москве и Подмосковье. Но скоро мы запустимся и в других городах.
+                        </p>
+                        <p class="modal-text">
+                            Следите за новостями в социальных сетях!
+                        </p>
+                        <ul class="social big">
+                            <li><a href="http://vk.com/gastromarket" title="vk.com" class="vk">vk.com</a></li>
+                            <li><a href="https://www.facebook.com/gastromarket.ru" title="facebook.com" class="fb">facebook.com</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <t:zone t:id="orderShowZone"/>
 
     <t:block t:id="basketBlock">
         <t:if test="declProducts">
             <a class="basket" href="${cartLink}">
-                <span/>
                 ${declProducts}
             </a>
         </t:if>

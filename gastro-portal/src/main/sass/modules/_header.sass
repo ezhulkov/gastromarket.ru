@@ -38,18 +38,24 @@
     min-height: 55px
     width: 100%
     background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(30, 30, 30, 0.1)), to(rgba(255, 255, 255, 0.0)))
-  &.navbar-inverse .navbar-nav > li a
-    &, &:hover, &:active
-      color: $navLinkColor
-      background-color: transparent !important
-    &:hover
-      text-decoration: underline
+  &.navbar-inverse .navbar-nav > li
+    & > a, & > span
+      padding-left: 10px
+      padding-right: 10px
+    a
+      &, &:hover, &:active
+        color: $navLinkColor
+        background-color: transparent !important
+      &:hover
+        text-decoration: underline
   +tablet-media
     li
       text-align: center
       a
         text-overflow: ellipsis
         overflow: hidden
+        padding-top: 5px
+        padding-bottom: 5px
     .dropdown
       padding-top: 10px
       padding-bottom: 10px
@@ -57,5 +63,5 @@
       display: none
     .navbar-right .dropdown-menu
       right: 0
-    .navbar-nav .open .dropdown-menu>li>a
+    .navbar-nav .open .dropdown-menu > li > a
       padding: 5px 20px
