@@ -2152,8 +2152,8 @@ body.mobile .rub:after {
 }
 .product-modal-template .close {
   position: absolute;
-  right: -25px;
-  top: 10px;
+  right: -35px;
+  top: 0;
   color: white;
   opacity: 1;
 }
