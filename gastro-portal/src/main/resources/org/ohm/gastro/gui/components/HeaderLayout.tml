@@ -24,9 +24,17 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <t:if test="authenticated">
+                        <t:unless test="cook">
                             <li>
+                                <t:pagelink page="tender/list" t:context="['NEW','true']" class="red-text">Разместить заявку</t:pagelink>
+                            </li>
+                        </t:unless>
+                        <t:if test="authenticated">
+                            <li class="hidden-sm">
                                 <t:pagelink page="office/messages">${declMessages}</t:pagelink>
+                            </li>
+                            <li class="hidden-xs hidden-md hidden-lg">
+                                <t:pagelink page="office/messages">Сообщения</t:pagelink>
                             </li>
                             <t:if test="cook">
                                 <li>
@@ -148,9 +156,8 @@
 
     <t:block t:id="basketBlock">
         <t:if test="declProducts">
-            <a class="basket" href="${cartLink}">
-                ${declProducts}
-            </a>
+            <a class="basket hidden-sm" href="${cartLink}">${declProducts}</a>
+            <a class="basket hidden-xs hidden-md hidden-lg">Заказы</a>
         </t:if>
     </t:block>
 
