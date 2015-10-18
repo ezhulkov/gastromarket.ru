@@ -1,6 +1,6 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <section class="page">
+    <section>
         <div class="container">
             <div class="title">
                 <h1><span>Информация для кулинаров</span></h1>
@@ -111,9 +111,11 @@
     </section>
 
     <t:parameter name="bottomBlock">
-        <div class="bottom-image">
-            <div></div>
-        </div>
+        <t:if test="authenticated">
+            <div class="bottom-image">
+                <div></div>
+            </div>
+        </t:if>
     </t:parameter>
 
 </t:layout>

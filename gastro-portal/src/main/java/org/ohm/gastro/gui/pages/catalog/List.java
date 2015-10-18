@@ -5,8 +5,6 @@ import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.CatalogEntity;
-import org.ohm.gastro.domain.ProductEntity;
-import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
@@ -19,12 +17,6 @@ public class List extends BaseComponent {
 
     @Property
     private CatalogEntity oneCatalog;
-
-    @Property
-    private ProductEntity oneProduct;
-
-    @Property
-    private PropertyEntity oneProperty;
 
     public Object onActivate(EventContext context) {
         if (context.getCount() == 0) return null;

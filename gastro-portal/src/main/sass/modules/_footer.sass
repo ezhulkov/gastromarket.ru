@@ -2,25 +2,50 @@
 @import "tools"
 
 .footer
-  background-color: #242424
-  ul
-    list-style-type: none
-    padding-left: 20px
-    padding-right: 20px
-    li
-      display: inline-block
-  .menu a
-    padding: 0 27px
+  &, & a
     color: #faf3de
-  .menu
-    padding: 25px 0 5px 0
-    text-align: center
-    font-size: 16px
-  .copyright
-    color: #928e83
-    padding: 10px 0 10px 0
-    text-align: center
+  ul
+    list-style: none
+    padding: 0
+    margin: 0
+  .press, .info, .catalogs, .legal
+    background-color: #242424
+  .press
+    background-color: #626262
+  .legal, .press
+    ul
+      text-align: center
+      li
+        display: inline-block
+        padding: 0 20px
+    +desktop-media
+      padding-top: 25px
+      padding-bottom: 25px
+  .legal
+    background-color: #0a0a0a
+    padding-bottom: 50px
+    &, & a
+      color: gray
+  .logo
+    opacity: 0.7
   +tablet-media
-    ul li
-      display: block
-      margin-bottom: 10px
+    .info
+      padding-top: 10px
+    .catalogs
+      padding-bottom: 20px
+    .press
+      padding-top: 10px
+      padding-bottom: 10px
+      ul li
+        display: block
+        padding: 5px 0
+    .info, .catalogs
+      ul
+        text-align: center
+        li
+          display: block
+          padding: 3px 0
+  +desktop-media
+    section
+      padding-top: 20px
+      padding-bottom: 20px

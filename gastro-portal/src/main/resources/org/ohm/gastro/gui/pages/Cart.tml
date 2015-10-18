@@ -1,6 +1,6 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="page">
+    <section>
         <div class="container">
             <div class="title">
                 <h1><span>Заказы</span></h1>
@@ -9,7 +9,7 @@
                 <t:order.list status="NEW" privateOrders="true"/>
             </div>
         </div>
-    </div>
+    </section>
 
     <t:loginUserModal modalId="cart_login">
         <t:parameter name="addText">

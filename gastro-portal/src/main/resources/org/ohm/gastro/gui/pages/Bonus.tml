@@ -1,6 +1,6 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <section class="page">
+    <section>
         <div class="container">
             <div class="title">
                 <h1><span>Бонусные баллы</span></h1>
@@ -79,7 +79,7 @@
                     </t:if>
                 </div>
 
-                <div class="gap5"></div>
+                <div class="gap5">&nbsp;</div>
 
                 <h2>Как потратить бонусные баллы</h2>
                 <div class="row gap3">

@@ -1,44 +1,45 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="prop:title">
 
-    <div class="container">
-        <div class="gap5">
-            <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="search-bar">
-                <div class="col-sm-1"/>
-                <div class="col-sm-10">
-                    <input t:id="search" t:value="searchString" t:type="TextField" placeholder="Поиск"/>
-                    <input type="submit" value=""/>
-                </div>
-                <div class="col-sm-1"/>
-            </t:form>
-        </div>
-        <div class="gap5"/>
-
-        <div id="product-items" class="grid-block products"/>
-        <t:zone t:id="productsZone">
-            <t:delegate to="productsBlock"/>
-        </t:zone>
-        <t:block t:id="productsBlock">
-            <t:loop source="products" value="oneProduct">
-                <t:product product="oneProduct"/>
-            </t:loop>
-            <div class="more-products">
-                <t:if test="hasProducts">
-                    <div class="more-link">
-                        <t:actionlink rel="nofollow" t:id="fetchProductsAjaxLink" t:context="fetchContext" t:zone="productsZone" class="">Показать еще...</t:actionlink>
+    <section>
+        <div class="container">
+            <div class="gap5">
+                <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="search-bar">
+                    <div class="col-sm-1"/>
+                    <div class="col-sm-10">
+                        <input t:id="search" t:value="searchString" t:type="TextField" placeholder="Поиск"/>
+                        <input type="submit" value=""/>
                     </div>
-                </t:if>
+                    <div class="col-sm-1"/>
+                </t:form>
             </div>
-            <t:unless test="wasProducts">
-                <div class="row">
-                    <div class="text-center f20px">
-                        Мы не смогли найти по этому запросу
-                    </div>
-                </div>
-            </t:unless>
-        </t:block>
-        <t:productModalTemplate/>
+            <div class="gap5"/>
 
-    </div>
+            <div id="product-items" class="grid-block products"/>
+            <t:zone t:id="productsZone">
+                <t:delegate to="productsBlock"/>
+            </t:zone>
+            <t:block t:id="productsBlock">
+                <t:loop source="products" value="oneProduct">
+                    <t:product product="oneProduct"/>
+                </t:loop>
+                <div class="more-products">
+                    <t:if test="hasProducts">
+                        <div class="more-link">
+                            <t:actionlink rel="nofollow" t:id="fetchProductsAjaxLink" t:context="fetchContext" t:zone="productsZone" class="">Показать еще...</t:actionlink>
+                        </div>
+                    </t:if>
+                </div>
+                <t:unless test="wasProducts">
+                    <div class="row">
+                        <div class="text-center f20px">
+                            Мы не смогли найти по этому запросу
+                        </div>
+                    </div>
+                </t:unless>
+            </t:block>
+            <t:productModalTemplate/>
+        </div>
+    </section>
 
     <script>
         jQuery(initProductCatalog(jQuery("#productsZone")));

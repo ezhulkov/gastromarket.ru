@@ -1,16 +1,18 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="container orders office">
-        <div class="title">
-            <h1><span>Заказы</span></h1>
+    <section>
+        <div class="container orders office">
+            <div class="title">
+                <h1><span>Заказы</span></h1>
+            </div>
+            <t:order.filter status="status" privateOrders="privateOrders"/>
+            <t:zone t:id="ordersZone">
+                <t:delegate to="ordersBlock"/>
+            </t:zone>
+            <t:block t:id="ordersBlock">
+                <t:order.list status="prop:status" privateOrders="privateOrders" onlyMine="true"/>
+            </t:block>
         </div>
-        <t:order.filter status="status" privateOrders="privateOrders"/>
-        <t:zone t:id="ordersZone">
-            <t:delegate to="ordersBlock"/>
-        </t:zone>
-        <t:block t:id="ordersBlock">
-            <t:order.list status="prop:status" privateOrders="privateOrders" onlyMine="true"/>
-        </t:block>
-    </div>
+    </section>
 
 </t:layout>

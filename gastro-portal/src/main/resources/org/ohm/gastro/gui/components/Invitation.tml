@@ -78,7 +78,7 @@
                                 </div>
                                 <div class="col-xs-12">
                                     <div class="form-buttons" xml:space="preserve">
-                                        <input class="btn btn-red" onclick="yaCounter29411415.reachGoal('COOK_REQUEST'); return true;"  type="submit" value="Оставить заявку"/>
+                                        <input class="btn btn-red" onclick="yaCounter29411415.reachGoal('COOK_REQUEST'); return true;"  type="submit" value="Оставить заявку на подключение"/>
                                     </div>
                                 </div>
                             </t:form>

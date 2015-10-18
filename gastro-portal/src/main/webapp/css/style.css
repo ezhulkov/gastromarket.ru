@@ -2586,6 +2586,10 @@ body.mobile .rub:after {
   width: 100%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(30, 30, 30, 0.1)), to(rgba(255, 255, 255, 0)));
 }
+.navbar.navbar-inverse .navbar-nav > li > a, .navbar.navbar-inverse .navbar-nav > li > span {
+  padding-left: 10px;
+  padding-right: 10px;
+}
 .navbar.navbar-inverse .navbar-nav > li a, .navbar.navbar-inverse .navbar-nav > li a:hover, .navbar.navbar-inverse .navbar-nav > li a:active {
   color: #269398;
   background-color: transparent !important;
@@ -2600,6 +2604,8 @@ body.mobile .rub:after {
   .navbar li a {
     text-overflow: ellipsis;
     overflow: hidden;
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
   .navbar .dropdown {
     padding-top: 10px;

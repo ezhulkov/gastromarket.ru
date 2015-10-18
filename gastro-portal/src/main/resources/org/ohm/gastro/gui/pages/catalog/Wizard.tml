@@ -1,24 +1,28 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="${catalog.name}">
 
-    <div class="container">
-        <t:unless test="lastStep">
-            <div class="title">
-                <h1><span>Настройка страницы</span></h1>
-            </div>
-        </t:unless>
-        <t:if test="lastStep">
-            <div class="title">
-                <h2><span>Всё готово!</span></h2>
-                <t:pagelink page="catalog/index" context="catalog.altId">Перейти на страницу<span/></t:pagelink>
-            </div>
-        </t:if>
-        <p class="modal-text">
-            Шаг ${catalog.wizardStep} из ${catalog.maxWizardStep} - ${stepDescription}
-        </p>
+    <section>
+        <div class="container">
+            <t:unless test="lastStep">
+                <div class="title">
+                    <h1><span>Настройка страницы</span></h1>
+                </div>
+            </t:unless>
+            <t:if test="lastStep">
+                <div class="title">
+                    <h2><span>Всё готово!</span></h2>
+                    <t:pagelink page="catalog/index" context="catalog.altId">Перейти на страницу<span/></t:pagelink>
+                </div>
+            </t:if>
+            <p class="modal-text">
+                Шаг ${catalog.wizardStep} из ${catalog.maxWizardStep} - ${stepDescription}
+            </p>
 
-    </div>
+        </div>
+    </section>
 
-    <t:delegate to="currentStepBlock"/>
+    <section>
+        <t:delegate to="currentStepBlock"/>
+    </section>
 
     <t:block id="step1">
         <div class="container">

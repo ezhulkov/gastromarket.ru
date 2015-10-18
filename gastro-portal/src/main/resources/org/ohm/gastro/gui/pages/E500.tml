@@ -1,14 +1,22 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" header="false">
 
-    <div class="container">
-        <div class="title">
-            <h1><span>Ошибка</span></h1>
+    <section>
+        <div class="container">
+            <div class="title">
+                <h1><span>Ошибка</span></h1>
+            </div>
+            <div class="row">
+                <p class="modal-text">
+                    Код 500 - ошибка сервера.
+                </p>
+                <p class="modal-text">
+                    Что-то пошло не так. Скорее всего мы уже это исправляем и в ближайшее время починим.
+                </p>
+                <p class="modal-text">
+                    <img src="/img/e500.jpeg"/>
+                </p>
+            </div>
         </div>
-        <div class="row">
-            <p class="modal-text">
-                Код 500 - ошибка сервера
-            </p>
-        </div>
-    </div>
+    </section>
 
 </t:layout>

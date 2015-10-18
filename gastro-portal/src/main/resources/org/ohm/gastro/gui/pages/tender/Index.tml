@@ -1,33 +1,35 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" keywords="keywords">
 
-    <div class="container orders office">
-        <div class="title">
-            <h1><span>Заявка</span></h1>
-        </div>
-        <t:order.filter status="order.metaStatus" privateOrders="false" frontend="true"/>
-        <t:zone t:id="orderZone">
-            <t:delegate to="orderBlock"/>
-        </t:zone>
-        <t:block t:id="orderBlock">
-            <div class="row">
-                <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
-                    <t:if test="newOrder">
-                        <h2 class="gap">Заявка размещена!</h2>
-
-                        <div class="attention new-order">
-                            <p class="modal-text">Заявка размещена на ГастроМаркет и доступна кулинарам для просмотра и комментирования.</p>
-
-                            <p class="modal-text">В случае возникновения вопросов, пишите на
-                                <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет заказы" class="red-text">contacts@gastromarket.ru</a>.
-                            </p>
-                        </div>
-                    </t:if>
-                    <t:order.order order="order" replies="true" type="FULL" privateOrders="false" mainPage="true" reloadPage="true" frontend="true"/>
-                </div>
+    <section>
+        <div class="container orders office">
+            <div class="title">
+                <h1><span>Заявка</span></h1>
             </div>
-            <t:order.replies order="order" frontend="true" reply="true"/>
-        </t:block>
-    </div>
+            <t:order.filter status="order.metaStatus" privateOrders="false" frontend="true"/>
+            <t:zone t:id="orderZone">
+                <t:delegate to="orderBlock"/>
+            </t:zone>
+            <t:block t:id="orderBlock">
+                <div class="row">
+                    <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
+                        <t:if test="newOrder">
+                            <h2 class="gap">Заявка размещена!</h2>
+
+                            <div class="attention new-order">
+                                <p class="modal-text">Заявка размещена на ГастроМаркет и доступна кулинарам для просмотра и комментирования.</p>
+
+                                <p class="modal-text">В случае возникновения вопросов, пишите на
+                                    <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет заказы" class="red-text">contacts@gastromarket.ru</a>.
+                                </p>
+                            </div>
+                        </t:if>
+                        <t:order.order order="order" replies="true" type="FULL" privateOrders="false" mainPage="true" reloadPage="true" frontend="true"/>
+                    </div>
+                </div>
+                <t:order.replies order="order" frontend="true" reply="true"/>
+            </t:block>
+        </div>
+    </section>
 
     <t:unless test="authenticated">
         <t:loginUserModal modalId="tender_login">

@@ -1,41 +1,45 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" footer="false">
 
-    <div class="container messages office fixed-header">
-        <div class="title">
-            <h1><span>${opponentName}</span></h1>
-            <t:pagelink page="office/messages" class="back"><span/>Все сообщения</t:pagelink>
-        </div>
-        <t:zone t:id="messagesZone" id="messagesZone">
-            <t:delegate to="messagesBlock"/>
-        </t:zone>
-    </div>
-
-    <div class="container post">
-        <div class="row">
-            <div class="row">
-                <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-offset-0 col-xs-12 hr"></div>
+    <section>
+        <div class="container messages office fixed-header">
+            <div class="title">
+                <h1><span>${opponentName}</span></h1>
+                <t:pagelink page="office/messages" class="back"><span/>Все сообщения</t:pagelink>
             </div>
-            <t:form t:id="postForm" t:context="conversation.id" t:zone="messagesZone" class="form" t:clientValidation="none" role="form">
-                <div class="col-lg-offset-2 col-lg-1 col-lg-offset-2 col-md-31 col-sm-offset-2 col-sm-1 col-xs-2">
-                    <t:actionlink t:id="uploadPhotoAjaxLink" id="uploadPhotoAjaxLink" t:zone="messagesZone" t:context="conversation.id" class="hidden"/>
-                    <t:uploadfile type="PHOTO" inputType="msg-icon" refreshAjax="#uploadPhotoAjaxLink" targetContext="${conversation.id}"/>
+            <t:zone t:id="messagesZone" id="messagesZone">
+                <t:delegate to="messagesBlock"/>
+            </t:zone>
+        </div>
+    </section>
+
+    <section>
+        <div class="container post">
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-offset-0 col-xs-12 hr"></div>
                 </div>
-                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-10">
-                    <div class="form-group">
-                        <t:textarea t:value="text" t:id="text" rows="1" class="form-control text" style="max-height: 74px" placeholder="Ваше сообщение"/>
-                        <div class="label-tip hidden-xs">
-                            ctrl+enter отправка сообщения
+                <t:form t:id="postForm" t:context="conversation.id" t:zone="messagesZone" class="form" t:clientValidation="none" role="form">
+                    <div class="col-lg-offset-2 col-lg-1 col-lg-offset-2 col-md-31 col-sm-offset-2 col-sm-1 col-xs-2">
+                        <t:actionlink t:id="uploadPhotoAjaxLink" id="uploadPhotoAjaxLink" t:zone="messagesZone" t:context="conversation.id" class="hidden"/>
+                        <t:uploadfile type="PHOTO" inputType="msg-icon" refreshAjax="#uploadPhotoAjaxLink" targetContext="${conversation.id}"/>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-10">
+                        <div class="form-group">
+                            <t:textarea t:value="text" t:id="text" rows="1" class="form-control text" style="max-height: 74px" placeholder="Ваше сообщение"/>
+                            <div class="label-tip hidden-xs">
+                                ctrl+enter отправка сообщения
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                    <div class="form-buttons" xml:space="preserve">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                        <div class="form-buttons" xml:space="preserve">
                         <input class="btn btn-white submit" type="submit" value="Отправить"/>
                     </div>
-                </div>
-            </t:form>
+                    </div>
+                </t:form>
+            </div>
         </div>
-    </div>
+    </section>
 
     <t:block t:id="messagesBlock">
         <t:loop source="comments" value="comment">

@@ -1,14 +1,16 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="container">
-        <div class="title">
-            <h1><span>Отмена оповещений</span></h1>
+    <section>
+        <div class="container">
+            <div class="title">
+                <h1><span>Отмена оповещений</span></h1>
+            </div>
+            <div class="row">
+                <p class="modal-text">Извините за беспокойство, мы отменили eMail оповещения для адреса ${recipient?.email}</p>
+                <p class="modal-text">Вы можете вернуть настройки оповещений в настройке профиля.</p>
+            </div>
         </div>
-        <div class="row">
-            <p class="modal-text">Извините за беспокойство, мы отменили eMail оповещения для адреса ${recipient?.email}</p>
-            <p class="modal-text">Вы можете вернуть настройки оповещений в настройке профиля.</p>
-        </div>
-    </div>
+    </section>
 
     <t:yagoal goal="UNSUBSCRIBE"/>
 

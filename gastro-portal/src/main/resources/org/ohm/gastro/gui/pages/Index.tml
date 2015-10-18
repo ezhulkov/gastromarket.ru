@@ -181,19 +181,19 @@
         </div>
     </section>
 
-    <t:parameter name="bottomBlock">
-        <footer class="main-footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-7 col-md-6 col-sm-12 col-xs-12 hidden-xs">
-                        <h2>Мы помогаем сделать лучший выбор в ассортименте выпечки, домашней еды и кейтеринга для вашего праздника, предоставляя самую качественную базу независимых кулинаров и их продукции.</h2>
-                    </div>
-                    <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">
-                        <t:order.landingForm/>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </t:parameter>
+    <!--<t:parameter name="bottomBlock">-->
+        <!--<footer class="main-footer">-->
+            <!--<div class="container">-->
+                <!--<div class="row">-->
+                    <!--<div class="col-lg-7 col-md-6 col-sm-12 col-xs-12 hidden-xs">-->
+                        <!--<h2>Мы помогаем сделать лучший выбор в ассортименте выпечки, домашней еды и кейтеринга для вашего праздника, предоставляя самую качественную базу независимых кулинаров и их продукции.</h2>-->
+                    <!--</div>-->
+                    <!--<div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">-->
+                        <!--<t:order.landingForm/>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</footer>-->
+    <!--</t:parameter>-->
 
 </t:layout>
