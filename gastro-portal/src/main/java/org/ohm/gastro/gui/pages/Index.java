@@ -45,8 +45,8 @@ public class Index extends BaseComponent {
     @Cached
     public List<OrderEntity> getTenders() {
         return getOrderService().findAllTenders().stream()
+                .filter(t -> !(t.isTenderExpired() && t.getCatalog() == null))
                 .sorted(((o1, o2) -> o2.getDate().compareTo(o1.getDate())))
-                .filter(t -> !t.isTenderExpired())
                 .limit(3).collect(Collectors.toList());
     }
 

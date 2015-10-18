@@ -1,6 +1,6 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="ratings">
     <t:if test="catalog">
-        Рейтинг: <a href="/rating" class="rating">${catalog.level}</a>&nbsp;&nbsp;
+        Рейтинг: <a href="#ratings-modal" data-toggle="modal" data-target="#ratings-modal">${catalog.level}</a>&nbsp;&nbsp;
     </t:if>
     Отзывы:
     <t:if test="hasRatings">

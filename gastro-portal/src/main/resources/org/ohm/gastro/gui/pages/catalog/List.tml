@@ -38,5 +38,6 @@
     </t:loop>
 
     <t:productmodaltemplate/>
+    <t:ratingsModal/>
 
 </t:layout>

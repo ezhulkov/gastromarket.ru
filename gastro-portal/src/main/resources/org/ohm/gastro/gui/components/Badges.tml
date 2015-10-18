@@ -11,12 +11,12 @@
         </t:parameter>
     </t:if>
     <t:if test="catalog.productBadge">
-        <div class="gmbadge popover-holder" data-content="Товаров: больше ${catalog.productBadge}">
+        <div class="gmbadge popover-holder" data-content="Блюд: больше ${catalog.productBadge}">
             <img src="/img/badge-product-small.png" srcset="/img/badge-product-smallx2.png 2x"/>
             <span>${catalog.productBadge}</span>
         </div>
         <t:parameter name="else">
-            <div class="gmbadge popover-holder" data-content="Загружено меньше 25 товаров">
+            <div class="gmbadge popover-holder" data-content="Загружено меньше 25 блюд">
                 <img src="/img/badge-product-stub.png" srcset="/img/badge-product-stubx2.png 2x"/>
             </div>
         </t:parameter>
