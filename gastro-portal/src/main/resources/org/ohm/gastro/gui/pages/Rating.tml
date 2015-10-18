@@ -74,9 +74,11 @@
     </section>
 
     <t:parameter name="bottomBlock">
-        <div class="bottom-image">
-            <div></div>
-        </div>
+        <t:if test="authenticated">
+            <div class="bottom-image">
+                <div></div>
+            </div>
+        </t:if>
     </t:parameter>
 
 </t:layout>

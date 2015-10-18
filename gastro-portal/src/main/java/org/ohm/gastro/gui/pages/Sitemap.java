@@ -1,4 +1,4 @@
-package org.ohm.gastro.gui.components;
+package org.ohm.gastro.gui.pages;
 
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
@@ -10,10 +10,13 @@ import java.util.List;
 /**
  * Created by ezhulkov on 23.08.14.
  */
-public class FooterLayout extends BaseComponent {
+public class Sitemap extends BaseComponent {
 
     @Property
     private PropertyValueEntity category;
+
+    @Property
+    private PropertyValueEntity subCategory;
 
     @Cached
     public List<PropertyValueEntity> getCategories() {

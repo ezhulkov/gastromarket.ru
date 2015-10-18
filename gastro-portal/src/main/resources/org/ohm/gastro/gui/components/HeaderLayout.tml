@@ -84,7 +84,7 @@
                         </t:if>
                         <t:unless test="authenticated">
                             <li>
-                                <a href="#login" data-toggle="modal" class="login-link" data-target="#login">Войти</a>
+                                <a href="#login" data-toggle="modal" class="login-link" data-target="#login">Войти или зарегистрироваться</a>
                             </li>
                         </t:unless>
                     </ul>
