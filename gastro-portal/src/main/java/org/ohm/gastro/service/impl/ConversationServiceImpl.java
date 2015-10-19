@@ -9,9 +9,12 @@ import org.ohm.gastro.domain.ConversationEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.UserEntity;
+import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.CommentRepository;
 import org.ohm.gastro.reps.ConversationRepository;
+import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.reps.PhotoRepository;
+import org.ohm.gastro.reps.UserRepository;
 import org.ohm.gastro.service.ConversationService;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.RatingModifier;
@@ -38,17 +41,35 @@ public class ConversationServiceImpl implements ConversationService {
     private final PhotoRepository photoRepository;
     private final ConversationRepository conversationRepository;
     private final CommentRepository commentRepository;
+    private final CatalogRepository catalogRepository;
+    private final UserRepository userRepository;
+    private final OrderRepository orderRepository;
     private final MailService mailService;
 
     @Autowired
     public ConversationServiceImpl(final PhotoRepository photoRepository,
                                    final ConversationRepository conversationRepository,
                                    final CommentRepository commentRepository,
+                                   final CatalogRepository catalogRepository,
+                                   final UserRepository userRepository,
+                                   final OrderRepository orderRepository,
                                    final MailService mailService) {
         this.photoRepository = photoRepository;
         this.conversationRepository = conversationRepository;
         this.commentRepository = commentRepository;
+        this.catalogRepository = catalogRepository;
+        this.userRepository = userRepository;
+        this.orderRepository = orderRepository;
         this.mailService = mailService;
+    }
+
+    @Override
+    public CommentableEntity getEntity(final Type entityType, final Long entityId) {
+        if (entityType == Type.CATALOG) return catalogRepository.findOne(entityId);
+        if (entityType == Type.USER) return userRepository.findOne(entityId);
+        if (entityType == Type.ORDER) return orderRepository.findOne(entityId);
+        if (entityType == Type.CONVERSATION) return conversationRepository.findOne(entityId);
+        throw new RuntimeException(entityType.name());
     }
 
     @Override
@@ -72,8 +93,8 @@ public class ConversationServiceImpl implements ConversationService {
     }
 
     @Override
-    public List<CommentEntity> findAllComments(final OrderEntity order, final UserEntity author) {
-        return commentRepository.findAllByEntityAndAuthor(order, author);
+    public List<CommentEntity> findAllComments(final CommentableEntity entity, final UserEntity author) {
+        return commentRepository.findAllByEntityAndAuthor(entity, author);
     }
 
     @Override

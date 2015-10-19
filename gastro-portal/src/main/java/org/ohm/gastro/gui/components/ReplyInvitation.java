@@ -25,8 +25,8 @@ public class ReplyInvitation extends BaseComponent {
                         getOrderService().findAllOrders(getAuthenticatedUser(), null).stream().filter(t -> t.getStatus() == Status.CLOSED);
         return closedOrders.filter(t ->
                                            isCook() ?
-                                                   getConversationService().findAllComments(t.getCustomer()).isEmpty() :
-                                                   getConversationService().findAllComments(t.getCatalog()).isEmpty())
+                                                   getConversationService().findAllComments(t.getCustomer(), getAuthenticatedUser()).isEmpty() :
+                                                   getConversationService().findAllComments(t.getCatalog(), getAuthenticatedUser()).isEmpty())
                 .findFirst().orElse(null);
     }
 

@@ -24,9 +24,10 @@
                         <t:order.order order="order" type="FULL" privateOrders="privateOrders" replies="true"/>
                     </div>
                 </div>
-                <t:order.replies order="order" reply="true"/>
             </t:block>
         </div>
     </section>
+
+    <t:order.replies order="order" reply="true"/>
 
 </t:layout>

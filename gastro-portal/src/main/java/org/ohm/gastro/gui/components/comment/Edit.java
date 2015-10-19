@@ -39,19 +39,19 @@ public class Edit extends BaseComponent {
     @InjectComponent
     private Inject inject;
 
-    public void onPrepareFromRateForm(Long cid) {
+    public void onPrepareFromRateForm(Long cid, CommentableEntity.Type entityType, Long entityId) {
         inject.getSubmittedPhotos().clear();
-        if (comment == null && entity != null && isAuthenticated()) {
+        if (cid == null && entityType != null) {
             comment = new CommentEntity();
-            comment.setEntity(entity);
+            comment.setEntity(getConversationService().getEntity(entityType, entityId));
             comment.setAuthor(getAuthenticatedUser());
         } else {
             comment = getConversationService().findComment(cid);
         }
     }
 
-    public void onSuccessFromRateForm(Long cid) throws FileUploadException {
-        if (comment.getEntity() instanceof OrderEntity) {
+    public void onSuccessFromRateForm(Long cid, CommentableEntity.Type entityType, Long entityId) throws FileUploadException {
+        if (entity instanceof OrderEntity) {
             getConversationService().placeTenderReply((OrderEntity) comment.getEntity(), comment, getAuthenticatedUser());
         } else {
             getConversationService().placeComment(comment.getEntity(), comment, getAuthenticatedUser());
@@ -76,7 +76,9 @@ public class Edit extends BaseComponent {
     }
 
     public Object[] getRateFormContext() {
-        return new Object[]{comment == null ? null : comment.getId()};
+        return comment == null ?
+                new Object[]{null, entity.getCommentableType(), entity.getId()} :
+                new Object[]{comment.getId(), null, null};
     }
 
 }

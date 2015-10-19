@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                     <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="product.catalog.altId">
-                        <span><img src="${product.catalog.avatarUrlSmall}"/></span>${product.catalog.name}
+                        <span><img class="avatar-small" src="${product.catalog.avatarUrlMedium}"/></span>${product.catalog.name}
                     </t:pageLink>
                     <div class="basket-block">
                         <div class="price pull-left">

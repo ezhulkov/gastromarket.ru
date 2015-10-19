@@ -15,6 +15,8 @@ import java.util.Optional;
  */
 public interface ConversationService {
 
+    CommentableEntity getEntity(CommentableEntity.Type entityType, Long entityId);
+
     List<ConversationEntity> findAllConversations(UserEntity userEntity);
 
     List<ConversationEntity> findAllConversations();
@@ -31,7 +33,7 @@ public interface ConversationService {
 
     void placeTenderReply(OrderEntity tender, CommentEntity reply, UserEntity author);
 
-    List<CommentEntity> findAllComments(OrderEntity order, UserEntity author);
+    List<CommentEntity> findAllComments(CommentableEntity entity, UserEntity author);
 
     void deleteComment(Long cId);
 

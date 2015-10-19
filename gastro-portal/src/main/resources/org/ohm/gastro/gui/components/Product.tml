@@ -45,7 +45,7 @@
             <div class="data">
                 <t:pagelink page="product" t:context="product.altId" class="pname">${product.name}</t:pagelink>
                 <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="product.catalog.altId">
-                    <span><img src="${product.catalog.avatarUrlSmall}"/></span>${product.catalog.name}
+                    <span><img class="avatar-small" src="${product.catalog.avatarUrlMedium}"/></span>${product.catalog.name}
                 </t:pageLink>
                 <t:if test="product.descriptionRaw">
                     <div class="desc">
@@ -95,7 +95,7 @@
                     </div>
                 </div>
                 <div class="cook">
-                    <img class="avatar-small" src="${product.catalog.avatarUrlSmall}"/>
+                    <img class="avatar-small" src="${product.catalog.avatarUrlMedium}"/>
                     <a href="/catalog/${product.catalog.altId}">${product.catalog.name}</a>
                 </div>
                 <div class="url">/product/${product.altId}</div>

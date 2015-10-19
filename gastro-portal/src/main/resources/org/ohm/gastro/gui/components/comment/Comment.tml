@@ -2,7 +2,7 @@
     <div class="row comment">
         <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-0 col-sm-3 col-xs-12 fluid-xs-block pic">
             <a href="${comment.author.linkUrl}">
-                <img src="${comment.author.avatarUrl}"/>
+                <img src="${comment.author.linkAvatar}"/>
             </a>
         </div>
         <div class="col-lg-7 col-lg-offset-0 col-md-7 col-md-offset-0 col-sm-8 col-sm-offset-0 col-xs-12">
@@ -47,7 +47,7 @@
                                                     <p class="modal-text">
                                                         Вы выбираете исполнителем кулинара<br/>
                                                         <a class="pic-holder catalog-link" href="${comment.author.linkUrl}">
-                                                            <span><img src="${comment.author.avatarUrl}" class="avatar-small"/></span>${comment.author.linkName}
+                                                            <span><img src="${comment.author.linkAvatar}" class="avatar-small"/></span>${comment.author.linkName}
                                                         </a>
                                                     </p>
                                                     <p class="modal-text">
