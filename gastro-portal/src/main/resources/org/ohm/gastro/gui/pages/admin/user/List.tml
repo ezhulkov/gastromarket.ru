@@ -11,7 +11,8 @@
     </div>
 
     <t:grid source="users" row="oneUser"
-            exclude="sourceUrl,loginDate,id,username,password,fullUrl,subscribeEmail,accountNonExpired,accountNonLocked,avatarUrl,avatarUrlMedium,avatarUrlSmall,credentialsNonExpired,enabled,status,anonymous,deliveryAddress,mobilePhone,bonus,loginDatePrintable,datePrintable,printableName,user,admin,cook"
+            exclude="sourceUrl,loginDate,id,username,password,fullUrl,subscribeEmail,accountNonExpired,accountNonLocked,avatarUrl,avatarUrlMedium,avatarUrlSmall,credentialsNonExpired,
+            enabled,status,anonymous,deliveryAddress,mobilePhone,bonus,loginDatePrintable,datePrintable,printableName,user,admin,cook,commentableType,linkAvatar,linkUrl,linkName"
             reorder="email,fullName,type,date,referrer,toggle,delete" add="referrer,toggle,delete"
             t:mixins="GridSortingDisabled"
             class="table table-hover">
