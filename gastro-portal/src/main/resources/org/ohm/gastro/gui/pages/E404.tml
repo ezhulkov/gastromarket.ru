@@ -13,41 +13,41 @@
                     Мы не смогли найти такую страницу, возможно она была переименована.
                 </p>
                 <p class="modal-text">
-                    Посмотрите каталоги лучших кулинаров, возможно то, что вы искали, находится у них.
+                    Посмотрите <t:pagelink page="catalog/list">каталоги лучших кулинаров</t:pagelink>, возможно то, что вы искали, находится у них
                 </p>
             </div>
         </div>
-        <t:loop source="catalogs" value="oneCatalog">
-            <div class="catalog-item-wrap">
-                <div class="catalog-item short">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 fluid-xs-block">
-                                <t:pagelink page="catalog/index" t:context="oneCatalog.altId"><img class="pic" src="${oneCatalog.avatarUrl}"/></t:pagelink>
-                            </div>
-                            <div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">
-                                <t:pagelink page="catalog/index" t:context="oneCatalog.altId" class="name">${oneCatalog.name}</t:pagelink>
-                                <div class="root-categories">${rootProperties}</div>
-                                <t:badges catalog="oneCatalog"/>
-                                <t:ratings entity="oneCatalog"/>
-                                <div class="description">
-                                    <t:outputraw value="oneCatalog.descriptionRaw"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row gap">
-                            <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 fluid-xs-block time-info">
-                                <div class="grey-text f16px">Последний вход на сайт:</div>
-                                <div class="grey-text f16px">${oneCatalog.user.loginDatePrintable}</div>
-                            </div>
-                            <div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">
-                                <t:pagelink page="catalog/products" t:context="oneCatalog.altId" class="round-link">Показать все блюда<span/></t:pagelink>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </t:loop>
+        <!--<t:loop source="catalogs" value="oneCatalog">-->
+            <!--<div class="catalog-item-wrap">-->
+                <!--<div class="catalog-item short">-->
+                    <!--<div class="container">-->
+                        <!--<div class="row">-->
+                            <!--<div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 fluid-xs-block">-->
+                                <!--<t:pagelink page="catalog/index" t:context="oneCatalog.altId"><img class="pic" src="${oneCatalog.avatarUrl}"/></t:pagelink>-->
+                            <!--</div>-->
+                            <!--<div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">-->
+                                <!--<t:pagelink page="catalog/index" t:context="oneCatalog.altId" class="name">${oneCatalog.name}</t:pagelink>-->
+                                <!--<div class="root-categories">${rootProperties}</div>-->
+                                <!--<t:badges catalog="oneCatalog"/>-->
+                                <!--<t:ratings entity="oneCatalog"/>-->
+                                <!--<div class="description">-->
+                                    <!--<t:outputraw value="oneCatalog.descriptionRaw"/>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="row gap">-->
+                            <!--<div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 fluid-xs-block time-info">-->
+                                <!--<div class="grey-text f16px">Последний вход на сайт:</div>-->
+                                <!--<div class="grey-text f16px">${oneCatalog.user.loginDatePrintable}</div>-->
+                            <!--</div>-->
+                            <!--<div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">-->
+                                <!--<t:pagelink page="catalog/products" t:context="oneCatalog.altId" class="round-link">Показать все блюда<span/></t:pagelink>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</t:loop>-->
     </section>
 
 </t:layout>
