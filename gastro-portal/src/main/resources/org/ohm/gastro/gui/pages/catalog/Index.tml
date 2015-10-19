@@ -252,12 +252,10 @@
     </t:if>
 
     <section>
-        <div class="container">
-            <div class="title">
-                <h1><span>Отзывы о кулинаре</span></h1>
-            </div>
-            <t:comment.list entity="catalog"/>
+        <div class="title">
+            <h1><span>Отзывы о кулинаре</span></h1>
         </div>
+        <t:comment.list entity="catalog"/>
     </section>
 
     <t:ratingsModal/>

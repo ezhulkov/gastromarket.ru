@@ -21,12 +21,10 @@
     </section>
 
     <section>
-        <div class="container">
-            <div class="title">
-                <h1><span>Отзывы о пользователе</span></h1>
-            </div>
-            <t:comment.list entity="customer"/>
+        <div class="title">
+            <h1><span>Отзывы о пользователе</span></h1>
         </div>
+        <t:comment.list entity="customer"/>
     </section>
 
 </t:layout>

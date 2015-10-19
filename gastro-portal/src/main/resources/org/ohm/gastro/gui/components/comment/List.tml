@@ -1,4 +1,4 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="comments">
+<section xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="comments">
     <t:loop source="comments" value="comment">
         <t:comment.comment comment="comment" entity="entity" reply="reply"/>
         <t:if test="reply">
@@ -55,4 +55,4 @@
             <div class="empty">Нет отзывов</div>
         </t:parameter>
     </t:loop>
-</div>
+</section>

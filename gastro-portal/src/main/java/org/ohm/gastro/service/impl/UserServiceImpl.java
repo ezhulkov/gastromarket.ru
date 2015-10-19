@@ -132,19 +132,25 @@ public class UserServiceImpl implements UserService, Logging {
             catalog.setName(StringUtils.isEmpty(catalogName) ? user.getFullName() + " - страница кулинара" : catalogName);
             catalogService.saveWithAltId(catalog, catalogRepository);
             user.getCatalogs().add(catalog);
-            if (sendEmail) mailService.sendMailMessage(user,
-                                                       MailService.NEW_CATALOG,
-                                                       ImmutableMap.of("username", user.getFullName(),
-                                                                       "cook", user,
-                                                                       "catalog", catalog,
-                                                                       "password", password));
+            final Map<String, Object> params = new HashMap<String, Object>() {
+                {
+                    put("username", user.getFullName());
+                    put("user", user);
+                    put("catalog", catalog);
+                    put("password", password);
+                }
+            };
+            if (sendEmail) mailService.sendMailMessage(user, MailService.NEW_CATALOG, params);
         } else if (Type.USER.equals(user.getType())) {
             user.setBonus(100);
-            if (sendEmail) mailService.sendMailMessage(user,
-                                                       MailService.NEW_USER,
-                                                       ImmutableMap.of("username", user.getFullName(),
-                                                                       "user", user,
-                                                                       "password", password));
+            final Map<String, Object> params = new HashMap<String, Object>() {
+                {
+                    put("username", user.getFullName());
+                    put("user", user);
+                    put("password", password);
+                }
+            };
+            if (sendEmail) mailService.sendMailMessage(user, MailService.NEW_USER, params);
         }
         user.setLoginDate(new Date());
         saveUser(user, password);
