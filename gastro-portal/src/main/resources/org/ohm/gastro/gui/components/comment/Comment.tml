@@ -29,8 +29,8 @@
             <t:if test="orderOpened">
                 <div class="reply-block gap">
                     <t:if test="authenticated">
-                        <t:pagelink page="office/message" t:context="['NEW',comment.author.id]" class="btn btn-white btn-xs">обсудить детали<span/></t:pagelink>
                         <t:if test="orderUser">
+                            <t:pagelink page="office/message" t:context="['NEW',comment.author.id]" class="btn btn-white btn-xs">обсудить детали<span/></t:pagelink>
                             <a href="#choose_cook" data-toggle="modal" class="btn btn-white btn-xs" data-target="#choose_cook_${comment.id}">выбрать исполнителя</a>
                             <div class="modal fade" id="choose_cook_${comment.id}" tabindex="-1" role="dialog" aria-hidden="true">
                                 <div class="modal-dialog">

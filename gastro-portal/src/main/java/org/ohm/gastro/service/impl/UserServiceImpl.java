@@ -41,6 +41,7 @@ import javax.annotation.Nonnull;
 import java.beans.PropertyDescriptor;
 import java.io.StringReader;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -131,7 +132,7 @@ public class UserServiceImpl implements UserService, Logging {
             catalog.setName(StringUtils.isEmpty(catalogName) ? user.getFullName() + " - страница кулинара" : catalogName);
             catalogService.saveWithAltId(catalog, catalogRepository);
             user.getCatalogs().add(catalog);
-            if (sendEmail) mailService.sendMailMessage(user.getEmail(),
+            if (sendEmail) mailService.sendMailMessage(user,
                                                        MailService.NEW_CATALOG,
                                                        ImmutableMap.of("username", user.getFullName(),
                                                                        "cook", user,
@@ -139,12 +140,13 @@ public class UserServiceImpl implements UserService, Logging {
                                                                        "password", password));
         } else if (Type.USER.equals(user.getType())) {
             user.setBonus(100);
-            if (sendEmail) mailService.sendMailMessage(user.getEmail(),
+            if (sendEmail) mailService.sendMailMessage(user,
                                                        MailService.NEW_USER,
                                                        ImmutableMap.of("username", user.getFullName(),
                                                                        "user", user,
                                                                        "password", password));
         }
+        user.setLoginDate(new Date());
         saveUser(user, password);
         return user;
     }
@@ -166,8 +168,13 @@ public class UserServiceImpl implements UserService, Logging {
             user.setPassword(encPassword);
             userRepository.save(user);
             logger.info("Setting new password for user {}, {}", user, password);
-            mailService.sendMailMessage(eMail, MailService.CHANGE_PASSWD, ImmutableMap.of("username", ObjectUtils.defaultIfNull(user.getFullName(), ""),
-                                                                                          "password", password));
+            final Map<String, Object> params = new HashMap<String, Object>() {
+                {
+                    put("username", ObjectUtils.defaultIfNull(user.getFullName(), ""));
+                    put("password", password);
+                }
+            };
+            mailService.sendMailMessage(eMail, MailService.CHANGE_PASSWD, params);
         }
     }
 
@@ -180,13 +187,17 @@ public class UserServiceImpl implements UserService, Logging {
         logger.info("about: {}", about);
         logger.info("sourceInfo: {}", sourceInfo);
 
-        mailService.sendAdminMessage(MailService.NEW_APPLICATION, ImmutableMap.of("cookname", defaultIfNull(fullName, ""),
-                                                                                  "email", defaultIfNull(eMail, ""),
-                                                                                  "sourceInfo", defaultIfNull(sourceInfo, ""),
-                                                                                  "about", defaultIfNull(about, "")));
-        mailService.sendMailMessage(eMail, MailService.NEW_APPLICATION_COOK, ImmutableMap.of("username", defaultIfNull(fullName, ""),
-                                                                                             "email", defaultIfNull(eMail, ""),
-                                                                                             "about", defaultIfNull(about, "")));
+        final Map<String, Object> params = new HashMap<String, Object>() {
+            {
+                put("cookname", defaultIfNull(fullName, ""));
+                put("email", defaultIfNull(eMail, ""));
+                put("sourceInfo", defaultIfNull(sourceInfo, ""));
+                put("about", defaultIfNull(about, ""));
+                put("username", defaultIfNull(fullName, ""));
+            }
+        };
+        mailService.sendAdminMessage(MailService.NEW_APPLICATION, params);
+        mailService.sendMailMessage(eMail, MailService.NEW_APPLICATION_COOK, params);
 
     }
 

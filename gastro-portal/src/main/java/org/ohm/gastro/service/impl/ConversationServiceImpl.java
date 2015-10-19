@@ -143,6 +143,7 @@ public class ConversationServiceImpl implements ConversationService {
                     put("username", tender.getCustomer().getFullName());
                     put("address", tender.getOrderUrl());
                     put("text", reply.getText());
+                    put("order", tender);
                 }
             };
             mailService.sendMailMessage(tender.getCustomer(), MailService.ORDER_COMMENT, params);
@@ -168,7 +169,7 @@ public class ConversationServiceImpl implements ConversationService {
                     put("catalog", catalog);
                 }
             };
-            mailService.sendMailMessage(catalog.getUser().getEmail(), MailService.CATALOG_RATE, params);
+            mailService.sendMailMessage(catalog.getUser(), MailService.CATALOG_RATE, params);
         } else if (entity.getCommentableType() == CommentableEntity.Type.USER && origId == null) {
             UserEntity user = (UserEntity) entity;
             final Map<String, Object> params = new HashMap<String, Object>() {
@@ -179,7 +180,7 @@ public class ConversationServiceImpl implements ConversationService {
                     put("user", user);
                 }
             };
-            mailService.sendMailMessage(user.getEmail(), MailService.USER_RATE, params);
+            mailService.sendMailMessage(user, MailService.USER_RATE, params);
         } else if (entity.getCommentableType() == Type.CONVERSATION) {
             final ConversationEntity conversation = (ConversationEntity) entity;
             final UserEntity opponent = conversation.getOpponent(author).get();

@@ -54,6 +54,6 @@ public interface MailService {
     @Nullable
     UserEntity parseUnsubscribeLink(String link);
 
-    String generateUnsubscribeLink(UserEntity user);
+    String generateUnsubscribeLink(String user);
 
 }

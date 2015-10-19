@@ -120,19 +120,20 @@ public class MailServiceImpl implements MailService, Logging {
 
     @Override
     public void sendMailMessage(final UserEntity recipient, final String templateKey, final Map<String, Object> params) throws MailException {
-        params.put("unsubscribe", generateUnsubscribeLink(recipient));
         if (recipient.isSubscribeEmail()) sendMailMessage(recipient.getEmail(), templateKey, params);
     }
 
     @Override
-    public void sendMailMessage(String recipient, String templateKey, Map<String, Object> params) {
+    public void sendMailMessage(final String recipient, final String templateKey, final Map<String, Object> params) {
 
         if (!production) return;
 
         logger.info("Sending email to " + recipient + " using template " + templateKey);
 
+        params.put("unsubscribe", generateUnsubscribeLink(recipient));
+
         try (
-                final StringWriter stringWriter = new StringWriter();
+                final StringWriter stringWriter = new StringWriter()
         ) {
             velocityEngine.mergeTemplate(String.format(TEMPLATE_PATH, templateKey), "UTF-8", new VelocityContext(new HashMap<>(params)), stringWriter);
             final String messageBody = stringWriter.toString();
@@ -181,15 +182,7 @@ public class MailServiceImpl implements MailService, Logging {
                                                    user.getEmail(),
                                                    mergeVarsStr);
         logger.info("MailChimp request {}", mailChimpJson);
-        try (
-                final CloseableHttpClient httpClient = HttpClients.createDefault();
-        ) {
-            final HttpPost httpPost = new HttpPost(MC_SYNC_ENDPOINT);
-            httpPost.setEntity(new StringEntity(mailChimpJson, Charsets.UTF_8));
-            httpClient.execute(httpPost);
-        } catch (Exception ex) {
-            logger.error("", ex);
-        }
+        syncMailChimp(MC_SYNC_ENDPOINT, new StringEntity(mailChimpJson, Charsets.UTF_8));
     }
 
     @Override
@@ -200,21 +193,7 @@ public class MailServiceImpl implements MailService, Logging {
                                                    user.getEmail(),
                                                    user.getEmail());
         logger.info("MailChimp request {}", mailChimpJson);
-        try (
-                final CloseableHttpClient httpClient = HttpClients.createDefault();
-        ) {
-            final HttpPost httpPost = new HttpPost(MC_DEL_ENDPOINT);
-            httpPost.setEntity(new StringEntity(mailChimpJson, Charsets.UTF_8));
-            httpClient.execute(httpPost);
-        } catch (Exception ex) {
-            logger.error("", ex);
-        }
-    }
-
-    private String getTitle(String messageBody) {
-        Matcher matcher = TITLE_CUTTER.matcher(messageBody);
-        if (matcher.find()) return matcher.group(1);
-        return null;
+        syncMailChimp(MC_DEL_ENDPOINT, new StringEntity(mailChimpJson, Charsets.UTF_8));
     }
 
     @Nullable
@@ -224,7 +203,12 @@ public class MailServiceImpl implements MailService, Logging {
             synchronized (desCipher) {
                 desCipher.init(Cipher.DECRYPT_MODE, desKey);
                 byte[] bytes = desCipher.doFinal(Hex.decode(link.toUpperCase()));
-                return userRepository.findOne(Long.parseLong(new String(bytes)));
+                final String uid = new String(bytes);
+                final UserEntity user = userRepository.findByEmail(uid);
+                if (user == null) {
+                    return userRepository.findOne(Long.parseLong(uid));
+                }
+                return user;
             }
         } catch (Exception e) {
             logger.error("", e);
@@ -233,15 +217,33 @@ public class MailServiceImpl implements MailService, Logging {
     }
 
     @Override
-    public String generateUnsubscribeLink(final UserEntity user) {
+    public String generateUnsubscribeLink(final String email) {
         try {
             synchronized (desCipher) {
                 desCipher.init(Cipher.ENCRYPT_MODE, desKey);
-                return new String(Hex.encode(desCipher.doFinal(user.getId().toString().getBytes()))).toLowerCase();
+                return new String(Hex.encode(desCipher.doFinal(email.getBytes()))).toLowerCase();
             }
         } catch (Exception e) {
             logger.error("", e);
         }
+        return null;
+    }
+
+    private void syncMailChimp(String mcSyncEndpoint, StringEntity entity) {
+        try (
+                final CloseableHttpClient httpClient = HttpClients.createDefault()
+        ) {
+            final HttpPost httpPost = new HttpPost(mcSyncEndpoint);
+            httpPost.setEntity(entity);
+            httpClient.execute(httpPost);
+        } catch (Exception ex) {
+            logger.error("", ex);
+        }
+    }
+
+    private String getTitle(String messageBody) {
+        Matcher matcher = TITLE_CUTTER.matcher(messageBody);
+        if (matcher.find()) return matcher.group(1);
         return null;
     }
 
