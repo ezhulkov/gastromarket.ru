@@ -196,7 +196,7 @@ public class ConversationServiceImpl implements ConversationService {
             final Map<String, Object> params = new HashMap<String, Object>() {
                 {
                     put("address", catalog.getFullUrl());
-                    put("text", comment);
+                    put("text", comment.getText());
                     put("username", catalog.getUser().getFullName());
                     put("catalog", catalog);
                 }
@@ -207,7 +207,7 @@ public class ConversationServiceImpl implements ConversationService {
             final Map<String, Object> params = new HashMap<String, Object>() {
                 {
                     put("address", user.getFullUrl());
-                    put("text", comment);
+                    put("text", comment.getText());
                     put("username", user.getFullName());
                     put("user", user);
                 }

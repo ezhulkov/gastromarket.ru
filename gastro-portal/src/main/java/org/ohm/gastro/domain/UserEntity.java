@@ -316,7 +316,7 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails, Comme
     }
 
     public String getLinkAvatar() {
-        return getFirstCatalog().map(CatalogEntity::getAvatarUrlMedium).orElse(getAvatarUrl());
+        return getFirstCatalog().map(CatalogEntity::getAvatarUrl).orElse(getAvatarUrl());
     }
 
     public String getLinkUrl() {

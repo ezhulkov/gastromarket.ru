@@ -1,7 +1,6 @@
 package org.ohm.gastro.gui.components.comment;
 
 import org.apache.tapestry5.Block;
-import org.apache.tapestry5.Link;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.CatalogEntity;
@@ -10,7 +9,6 @@ import org.ohm.gastro.domain.CommentableEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
-import org.ohm.gastro.gui.pages.office.Order;
 
 import java.util.Optional;
 
@@ -80,15 +78,6 @@ public class List extends BaseComponent {
 
     public boolean isOrderOpened() {
         return order != null && order.getCatalog() == null && !order.isTenderExpired();
-    }
-
-    public Link onSuccessFromAttachTenderAjaxForm(Long cid, Long oid) {
-        return getFirstCatalog(getUserService().findUser(cid)).map(catalog -> {
-            final OrderEntity tender = getOrderService().findOrder(oid);
-            tender.setAttachReason(attachReason);
-            getOrderService().attachTender(catalog, tender, getAuthenticatedUser());
-            return getPageLinkSource().createPageRenderLinkWithContext(Order.class, true, this.order.getId(), false);
-        }).orElse(null);
     }
 
     public boolean isReplyAllowed() {

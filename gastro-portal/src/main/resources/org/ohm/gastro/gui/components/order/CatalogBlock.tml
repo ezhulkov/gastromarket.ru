@@ -3,7 +3,7 @@
         <div class="row catalog">
             <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12 fluid-xs-block">
                 <t:pagelink target="_blank" page="catalog/index" context="catalog.altId">
-                    <img src="${catalog.avatarUrlMedium}"/>
+                    <img class="avatar-medium" src="${catalog.avatarUrl}"/>
                 </t:pagelink>
             </div>
             <div class="col-lg-5 col-md-5 col-sm-9 col-xs-12">
