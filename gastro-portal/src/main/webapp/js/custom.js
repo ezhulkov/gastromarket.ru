@@ -429,7 +429,7 @@ function initMessagePage() {
     jQuery(".post .text").each(function () {
         autosize(this);
     }).on("autosize:resized", function () {
-        jQuery(".messages").css("padding-bottom", jQuery(this).height());
+        jQuery(".messages").css("padding-bottom", 60 + jQuery(this).height());
         jQuery("html, body").scrollTop(jQuery(document).height());
     }).on("keydown", function (e) {
         if ((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey) {
