@@ -315,6 +315,18 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails, Comme
         return CommentableEntity.Type.USER;
     }
 
+    public String getLinkAvatar() {
+        return getFirstCatalog().map(CatalogEntity::getAvatarUrlMedium).orElse(getAvatarUrlMedium());
+    }
+
+    public String getLinkUrl() {
+        return getFirstCatalog().map(CatalogEntity::getFullUrl).orElse(getFullUrl());
+    }
+
+    public String getLinkName() {
+        return getFirstCatalog().map(CatalogEntity::getName).orElse(getFullName());
+    }
+
     @Override
     public String toString() {
         return "UserEntity{" +

@@ -4,7 +4,7 @@
         <div class="title">
             <h1><span>Системные настройки</span></h1>
         </div>
-        <ul class="office-menu">
+        <ul class="menu">
             <li id="property">
                 <t:pagelink page="admin/property/list">Свойства</t:pagelink>
             </li>
@@ -13,6 +13,9 @@
             </li>
             <li id="catalog">
                 <t:pagelink page="admin/catalog/list">Каталоги</t:pagelink>
+            </li>
+            <li id="conversation">
+                <t:pagelink page="admin/conversation/list">Модерация</t:pagelink>
             </li>
         </ul>
         <t:body/>

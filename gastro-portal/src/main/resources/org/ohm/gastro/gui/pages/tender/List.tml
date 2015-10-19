@@ -1,7 +1,7 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
     <section>
-        <div class="container orders office">
+        <div class="container orders">
             <div class="title">
                 <h1><span>Все заявки</span></h1>
                 <t:unless test="cook">

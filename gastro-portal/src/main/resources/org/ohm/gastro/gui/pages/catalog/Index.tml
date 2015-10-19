@@ -156,7 +156,7 @@
                     </t:if>
                     <t:if test="admin">
                         <p>
-                            <t:pagelink page="admin/catalog/index" t:context="catalog.id">редактировать</t:pagelink>
+                            <t:pagelink page="admin/catalog/index" t:context="['UPDATE',catalog.id]">редактировать</t:pagelink>
                         </p>
                     </t:if>
                 </div>

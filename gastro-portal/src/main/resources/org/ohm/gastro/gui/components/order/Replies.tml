@@ -16,109 +16,111 @@
 
     <t:if test="tenderType">
         <t:unless test="orderClosed">
-            <t:if test="authenticated">
-                <t:if test="commentAllowed">
-                    <div class="gap3 text-center">
-                        <a href="#tender_reply"
-                           data-toggle="modal"
-                           data-target="#tender_reply"
-                           onclick="yaCounter29411415.reachGoal('REPLY_CLICK'); return true;"
-                           class="btn btn-red btn-lg">
-                            Откликнуться на заявку
-                        </a>
-                    </div>
-                    <t:comment.replymodal entity="order" modalId="tender_reply"/>
-                    <t:parameter name="else">
-                        <t:unless test="user">
-                            <div class="gap3 text-center">
-                                <a href="#tender_reply_denied" data-toggle="modal" data-target="#tender_reply_denied"
-                                   onclick="yaCounter29411415.reachGoal('REPLY_CLICK'); return true;"
-                                   class="btn btn-red btn-lg">
-                                    Откликнуться на заявку
-                                </a>
-                            </div>
-                            <div class="modal fade" id="tender_reply_denied" tabindex="-1" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <div class="title">
-                                                <h1><span>Отклик</span></h1>
+            <div class="container">
+                <t:if test="authenticated">
+                    <t:if test="commentAllowed">
+                        <div class="gap3 text-center">
+                            <a href="#tender_reply"
+                               data-toggle="modal"
+                               data-target="#tender_reply"
+                               onclick="yaCounter29411415.reachGoal('REPLY_CLICK'); return true;"
+                               class="btn btn-red btn-lg">
+                                Откликнуться на заявку
+                            </a>
+                        </div>
+                        <t:comment.replymodal entity="order" modalId="tender_reply"/>
+                        <t:parameter name="else">
+                            <t:unless test="user">
+                                <div class="gap3 text-center">
+                                    <a href="#tender_reply_denied" data-toggle="modal" data-target="#tender_reply_denied"
+                                       onclick="yaCounter29411415.reachGoal('REPLY_CLICK'); return true;"
+                                       class="btn btn-red btn-lg">
+                                        Откликнуться на заявку
+                                    </a>
+                                </div>
+                                <div class="modal fade" id="tender_reply_denied" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="title">
+                                                    <h1><span>Отклик</span></h1>
+                                                </div>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
                                             </div>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <p class="modal-text red-text">
-                                                    <b>К сожалению, вы не можете оставлять отклики к этой заявке.</b>
-                                                </p>
-                                                <p class="modal-text text-left">
-                                                    Пожалуйста, обратите внимание на необходимые требования:
-                                                </p>
-                                                <ul class="reply-denied">
-                                                    <li>
-                                                        <span class="glyphicon ${cook}" aria-hidden="true"/>
-                                                        <t:if test="cook">Вы кулинар на сайте
-                                                            <t:parameter name="else">
-                                                                Вы не кулинар на сайте
-                                                                <div class="label-tip">
-                                                                    Возможно, надо зайти другим пользователем или оставить заявку на подключение.
-                                                                </div>
-                                                            </t:parameter>
-                                                        </t:if>
-                                                    </li>
-                                                    <li>
-                                                        <span class="glyphicon ${catalogReady}" aria-hidden="true"/>
-                                                        <t:if test="catalogReady">Ваш каталог заполнен
-                                                            <t:parameter name="else">
-                                                                Каталог не заполнен
-                                                                <div class="label-tip">
-                                                                    Необходимо завершить все шаги настройки каталога и добавить хотя бы одно блюдо.
-                                                                </div>
-                                                            </t:parameter>
-                                                        </t:if>
-                                                    </li>
-                                                    <li>
-                                                        <span class="glyphicon ${doesNotHaveReply}" aria-hidden="true"/>
-                                                        <t:if test="doesNotHaveReply">Один отклик на заявку
-                                                            <t:parameter name="else">
-                                                                У вас уже есть отклик к этой заявке
-                                                                <div class="label-tip">
-                                                                    К заявке можно оставлять только один отклик. Если хотите обсуждать детали - это можно делать под откликом.
-                                                                </div>
-                                                            </t:parameter>
-                                                        </t:if>
-                                                    </li>
-                                                    <li>
-                                                        <span class="glyphicon ${hasOrderSlots}" aria-hidden="true"/>
-                                                        <t:if test="hasOrderSlots">Рейтинг позволяет оставить отклик
-                                                            <t:parameter name="else">
-                                                                Рейтинг не позволяет откликнуться
-                                                                <div class="label-tip">
-                                                                    Чем выше рейтинг, тем больше активных заказов вы можете иметь. Доведите до конца существующие заказы и сможете откликаться на заявки.
-                                                                </div>
-                                                            </t:parameter>
-                                                        </t:if>
-                                                    </li>
-                                                </ul>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <p class="modal-text red-text">
+                                                        <b>К сожалению, вы не можете оставлять отклики к этой заявке.</b>
+                                                    </p>
+                                                    <p class="modal-text text-left">
+                                                        Пожалуйста, обратите внимание на необходимые требования:
+                                                    </p>
+                                                    <ul class="reply-denied">
+                                                        <li>
+                                                            <span class="glyphicon ${cook}" aria-hidden="true"/>
+                                                            <t:if test="cook">Вы кулинар на сайте
+                                                                <t:parameter name="else">
+                                                                    Вы не кулинар на сайте
+                                                                    <div class="label-tip">
+                                                                        Возможно, надо зайти другим пользователем или оставить заявку на подключение.
+                                                                    </div>
+                                                                </t:parameter>
+                                                            </t:if>
+                                                        </li>
+                                                        <li>
+                                                            <span class="glyphicon ${catalogReady}" aria-hidden="true"/>
+                                                            <t:if test="catalogReady">Ваш каталог заполнен
+                                                                <t:parameter name="else">
+                                                                    Каталог не заполнен
+                                                                    <div class="label-tip">
+                                                                        Необходимо завершить все шаги настройки каталога и добавить хотя бы одно блюдо.
+                                                                    </div>
+                                                                </t:parameter>
+                                                            </t:if>
+                                                        </li>
+                                                        <li>
+                                                            <span class="glyphicon ${doesNotHaveReply}" aria-hidden="true"/>
+                                                            <t:if test="doesNotHaveReply">Один отклик на заявку
+                                                                <t:parameter name="else">
+                                                                    У вас уже есть отклик к этой заявке
+                                                                    <div class="label-tip">
+                                                                        К заявке можно оставлять только один отклик. Если хотите обсуждать детали - это можно делать под откликом.
+                                                                    </div>
+                                                                </t:parameter>
+                                                            </t:if>
+                                                        </li>
+                                                        <li>
+                                                            <span class="glyphicon ${hasOrderSlots}" aria-hidden="true"/>
+                                                            <t:if test="hasOrderSlots">Рейтинг позволяет оставить отклик
+                                                                <t:parameter name="else">
+                                                                    Рейтинг не позволяет откликнуться
+                                                                    <div class="label-tip">
+                                                                        Чем выше рейтинг, тем больше активных заказов вы можете иметь. Доведите до конца существующие заказы и сможете откликаться на заявки.
+                                                                    </div>
+                                                                </t:parameter>
+                                                            </t:if>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </t:unless>
+                            </t:unless>
+                        </t:parameter>
+                    </t:if>
+                    <t:parameter name="else">
+                        <div class="gap2 text-center">
+                            <a href="#tender_login" data-toggle="modal"
+                               data-target="#tender_login"
+                               class="btn btn-red btn-lg"
+                               onclick="yaCounter29411415.reachGoal('REPLY_CLICK'); return true;">
+                                Откликнуться на заявку
+                            </a>
+                        </div>
                     </t:parameter>
                 </t:if>
-                <t:parameter name="else">
-                    <div class="gap2 text-center">
-                        <a href="#tender_login" data-toggle="modal"
-                           data-target="#tender_login"
-                           class="btn btn-red btn-lg"
-                           onclick="yaCounter29411415.reachGoal('REPLY_CLICK'); return true;">
-                            Откликнуться на заявку
-                        </a>
-                    </div>
-                </t:parameter>
-            </t:if>
+            </div>
         </t:unless>
     </t:if>
 

@@ -1,11 +1,11 @@
 <section xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
     <t:if test="fromCart">
         <t:loop source="catalogs" value="catalog" formState="NONE">
-            <section class="row">
+            <div class="row">
                 <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
                     <t:order.order catalog="catalog" type="BASKET" privateOrders="true" frontend="false"/>
                 </div>
-            </section>
+            </div>
             <t:parameter name="empty">
                 <div class="row">
                     <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">

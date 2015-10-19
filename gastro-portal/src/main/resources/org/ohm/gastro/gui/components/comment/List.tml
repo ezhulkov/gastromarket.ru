@@ -1,56 +1,58 @@
 <section xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="comments">
     <t:loop source="comments" value="comment">
-        <t:comment.comment comment="comment" entity="entity" reply="reply"/>
-        <t:if test="reply">
-            <div class="reply-block gap2">
-                <t:if test="authenticated">
-                    <t:if test="orderUser">
-                        <a href="#choose_cook" data-toggle="modal" class="btn btn-white btn-xs" data-target="#choose-cook-${comment.id}">выбрать исполнителя</a>
-                        <div class="modal fade" id="choose_cook_${comment.id}" tabindex="-1" role="dialog" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <div class="title">
-                                            <h1><span>Выбрать исполнителя</span></h1>
-                                        </div>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <t:form t:id="attachTenderAjaxForm" t:context="[comment.author.id,order.id]" class="form" style="padding-top:0;" t:clientValidation="none" autofocus="false" role="form">
-                                            <p class="modal-text">
-                                                Вы выбираете исполнителем кулинара<br/>
-                                                <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="order.catalog?.altId">
-                                                    <span><img src="${avatarUrl}" class="avatar-small"/></span>${linkName}
-                                                </t:pageLink>
-                                            </p>
-                                            <p class="modal-text">
-                                                Пожалуйста, расскажите нам, почему вы выбрали именно его?<br/>
-                                                Эта информация позволит нам улучшить сервис.
-                                            </p>
-                                            <div class="col-xs-12">
-                                                <div class="form-group">
-                                                    <textarea t:type="TextArea" t:id="attachReason" t:value="attachReason" rows="5" class="form-control"/>
-                                                </div>
+        <section class="zebra-row">
+            <t:comment.comment comment="comment" entity="entity" reply="reply"/>
+            <t:if test="reply">
+                <div class="reply-block gap2">
+                    <t:if test="authenticated">
+                        <t:if test="orderUser">
+                            <a href="#choose_cook" data-toggle="modal" class="btn btn-white btn-xs" data-target="#choose-cook-${comment.id}">выбрать исполнителя</a>
+                            <div class="modal fade" id="choose_cook_${comment.id}" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="title">
+                                                <h1><span>Выбрать исполнителя</span></h1>
                                             </div>
-                                            <div class="col-xs-12">
-                                                <div class="form-buttons" xml:space="preserve">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <t:form t:id="attachTenderAjaxForm" t:context="[comment.author.id,order.id]" class="form" style="padding-top:0;" t:clientValidation="none" autofocus="false" role="form">
+                                                <p class="modal-text">
+                                                    Вы выбираете исполнителем кулинара<br/>
+                                                    <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="order.catalog?.altId">
+                                                        <span><img src="${avatarUrl}" class="avatar-small"/></span>${linkName}
+                                                    </t:pageLink>
+                                                </p>
+                                                <p class="modal-text">
+                                                    Пожалуйста, расскажите нам, почему вы выбрали именно его?<br/>
+                                                    Эта информация позволит нам улучшить сервис.
+                                                </p>
+                                                <div class="col-xs-12">
+                                                    <div class="form-group">
+                                                        <textarea t:type="TextArea" t:id="attachReason" t:value="attachReason" rows="5" class="form-control"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12">
+                                                    <div class="form-buttons" xml:space="preserve">
                                                    <input class="btn btn-red" type="submit" value="Выбрать"/>
                                                </div>
-                                            </div>
-                                        </t:form>
+                                                </div>
+                                            </t:form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </t:if>
-                    <t:parameter name="else">
-                        <t:if test="orderOpened">
-                            <a href="#tender_login" data-toggle="modal" class="btn btn-white btn-xs" data-target="#tender_login">выбрать исполнителя</a>
                         </t:if>
-                    </t:parameter>
-                </t:if>
-            </div>
-        </t:if>
+                        <t:parameter name="else">
+                            <t:if test="orderOpened">
+                                <a href="#tender_login" data-toggle="modal" class="btn btn-white btn-xs" data-target="#tender_login">выбрать исполнителя</a>
+                            </t:if>
+                        </t:parameter>
+                    </t:if>
+                </div>
+            </t:if>
+        </section>
         <t:parameter name="empty">
             <div class="empty">Нет отзывов</div>
         </t:parameter>

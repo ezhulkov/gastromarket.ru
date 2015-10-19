@@ -17,6 +17,8 @@ import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,6 +54,11 @@ public class ConversationServiceImpl implements ConversationService {
     @Override
     public List<ConversationEntity> findAllConversations(final UserEntity user) {
         return conversationRepository.findAllConversations(user);
+    }
+
+    @Override
+    public List<ConversationEntity> findAllConversations() {
+        return conversationRepository.findAll(new Sort(Direction.DESC, "lastActionDate"));
     }
 
     @Override
@@ -132,8 +139,10 @@ public class ConversationServiceImpl implements ConversationService {
     public void placeTenderReply(final OrderEntity tender, final CommentEntity reply, final UserEntity author) {
         if (StringUtils.isEmpty(reply.getText())) return;
         reply.setEntity(tender);
-        reply.setAuthor(author);
-        if (reply.getId() == null) reply.setDate(new Date());
+        if (reply.getId() == null) {
+            reply.setDate(new Date());
+            reply.setAuthor(author);
+        }
         commentRepository.save(reply);
         if (!reply.isEmailSent()) {
             reply.setEmailSent(true);
@@ -156,8 +165,10 @@ public class ConversationServiceImpl implements ConversationService {
         if (StringUtils.isEmpty(comment.getText()) || author == null) return;
         final Long origId = comment.getId();
         comment.setEntity(entity);
-        comment.setAuthor(author);
-        if (comment.getId() == null) comment.setDate(new Date());
+        if (comment.getId() == null) {
+            comment.setAuthor(author);
+            comment.setDate(new Date());
+        }
         commentRepository.save(comment);
         if (entity.getCommentableType() == CommentableEntity.Type.CATALOG && origId == null) {
             CatalogEntity catalog = (CatalogEntity) entity;

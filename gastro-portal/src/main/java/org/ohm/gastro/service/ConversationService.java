@@ -17,6 +17,8 @@ public interface ConversationService {
 
     List<ConversationEntity> findAllConversations(UserEntity userEntity);
 
+    List<ConversationEntity> findAllConversations();
+
     ConversationEntity find(Long id);
 
     void save(ConversationEntity conversation);

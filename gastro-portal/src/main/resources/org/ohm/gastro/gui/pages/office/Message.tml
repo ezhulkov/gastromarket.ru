@@ -45,14 +45,14 @@
         <t:loop source="comments" value="comment">
             <div class="row message ${unread}">
                 <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-0 col-sm-3 col-xs-12 hidden-xs text-right pic">
-                    <a href="${comment.linkUrl}">
-                        <img src="${comment.avatarUrl}"/>
+                    <a href="${comment.author.linkUrl}">
+                        <img src="${comment.author.avatarUrl}"/>
                     </a>
                 </div>
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
                     <div class="name">
-                        <a href="${comment.linkUrl}">
-                            ${comment.linkName}
+                        <a href="${comment.author.linkUrl}">
+                            ${comment.author.linkName}
                         </a>
                     </div>
                     <div class="text">

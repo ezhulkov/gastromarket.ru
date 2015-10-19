@@ -2,6 +2,7 @@ package org.ohm.gastro.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.ohm.gastro.util.CommonsUtils;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,7 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.Date;
 import java.util.Optional;
-import java.util.function.Function;
 
 /**
  * Created by ezhulkov on 27.08.14.
@@ -88,24 +88,23 @@ public class ConversationEntity extends AbstractBaseEntity implements Commentabl
     }
 
     public String getOpponentLink(final UserEntity user) {
-        return getOpponentInfo(user, t -> t.getFirstCatalog().map(CatalogEntity::getFullUrl).orElse(t.getFullUrl()));
+        return getOpponent(user).map(UserEntity::getLinkUrl).orElse(null);
     }
 
     public String getOpponentName(final UserEntity user) {
-        return getOpponentInfo(user, t -> t.getFirstCatalog().map(CatalogEntity::getName).orElse(t.getFullName()));
+        return getOpponent(user).map(UserEntity::getLinkName).orElse(null);
     }
 
     public String getOpponentAvatar(final UserEntity user) {
-        return getOpponentInfo(user, t -> t.getFirstCatalog().map(CatalogEntity::getAvatarUrlMedium).orElse(t.getAvatarUrlMedium()));
+        return getOpponent(user).map(UserEntity::getLinkAvatar).orElse(null);
     }
 
     public String getFullUrl() {
         return "http://gastromarket.ru/office/message/" + getId();
     }
 
-    private <T> T getOpponentInfo(final UserEntity user, final Function<UserEntity, T> f) {
-        return getOpponent(user).map(f).orElse(null);
+    public String getLastActionDatePrintable() {
+        return lastActionDate == null ? "" : CommonsUtils.GUI_DATE_LONG.get().format(lastActionDate);
     }
-
 
 }

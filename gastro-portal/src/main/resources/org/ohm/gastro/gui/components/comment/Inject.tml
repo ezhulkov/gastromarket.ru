@@ -25,7 +25,7 @@
                     </div>
                 </t:if>
                 <div class="form-group">
-                    <t:textfield t:id="photoText" class="form-control" placeholder="Тект к фотографии"/>
+                    <t:textfield t:id="photoText" class="form-control" placeholder="Текст к фотографии"/>
                 </div>
             </div>
             <div class="hidden-lg hidden-md hidden-sm col-xs-12">
