@@ -414,7 +414,7 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
     }
 
     public final boolean isTenderExpired() {
-        return dueDate != null && LocalDateTime.fromDateFields(dueDate).toDateTime().withTimeAtStartOfDay().plusDays(1).isBeforeNow();
+        return !isTenderAttached() && dueDate != null && LocalDateTime.fromDateFields(dueDate).toDateTime().withTimeAtStartOfDay().plusDays(1).isBeforeNow();
     }
 
     public final boolean isOrderClosed() {

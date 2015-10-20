@@ -17,6 +17,9 @@
             <li id="conversation">
                 <t:pagelink page="admin/conversation/list">Модерация</t:pagelink>
             </li>
+            <li id="orders">
+                <t:pagelink page="admin/orders/list">Заказы</t:pagelink>
+            </li>
         </ul>
         <t:body/>
     </div>

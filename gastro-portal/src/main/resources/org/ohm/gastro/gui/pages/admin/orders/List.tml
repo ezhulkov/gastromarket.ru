@@ -1,0 +1,32 @@
+<t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <div class="title-simple">
+        <h1>Все заказы</h1>
+    </div>
+
+    <t:grid source="orders" row="oneOrder"
+            add="customer,catalog"
+            reorder="orderNumber,customer,catalog,status"
+            exclude="id,altId,name,lastModified,totalPrice,lastModifiedPrintable,annonceSent,comment,usedBonuses,date,personCount,promoCode,datePrintable,
+            dueDate,dueDateAsString,attachReason,triggerTime,viewsCount,commentRaw,metaStatusString,orderUrl,order,attachTime,wasSetup,
+            referrerBonus,metaStatus,locationUrl,bonus,commentableType,tenderExpired,tender,type,tenderAttached,orderClosed,tenderActive"
+            t:mixins="GridSortingDisabled" class="table table-hover">
+
+        <t:parameter name="orderNumberCell">
+            <t:pagelink page="office/order" t:context="[oneOrder.order,oneOrder.id,false]">${oneOrder.datePrintable} &nbsp; №${oneOrder.orderNumber} </t:pagelink>
+        </t:parameter>
+        <t:parameter name="customerCell">
+            <t:pagelink page="user/index" t:context="oneOrder.customer.id">${oneOrder.customer.fullName}</t:pagelink>
+        </t:parameter>
+        <t:parameter name="catalogCell">
+            <t:if test="oneOrder.catalog">
+                <t:pagelink page="catalog/index" t:context="oneOrder.catalog.altId">${oneOrder.catalog.name}</t:pagelink>
+            </t:if>
+        </t:parameter>
+    </t:grid>
+
+    <script>
+        activate_menu('#orders');
+    </script>
+
+</t:adminlayout>

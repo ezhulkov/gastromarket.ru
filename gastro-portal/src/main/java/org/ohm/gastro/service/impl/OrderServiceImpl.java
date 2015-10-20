@@ -23,6 +23,8 @@ import org.ohm.gastro.service.RatingService;
 import org.ohm.gastro.service.RatingTarget;
 import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.mail.MailException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -131,6 +133,11 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
             return order;
         }
         return preOrder;
+    }
+
+    @Override
+    public List<OrderEntity> findAllOrders() {
+        return orderRepository.findAll(new Sort(Direction.DESC, "date"));
     }
 
     @Override

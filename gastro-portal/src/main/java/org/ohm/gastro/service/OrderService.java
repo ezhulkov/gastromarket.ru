@@ -16,6 +16,8 @@ public interface OrderService {
 
     OrderEntity placeOrder(OrderEntity preOrder);
 
+    List<OrderEntity> findAllOrders();
+
     List<OrderEntity> findAllOrders(UserEntity customer, CatalogEntity catalog);
 
     List<OrderEntity> findAllOrders(CatalogEntity catalog);
