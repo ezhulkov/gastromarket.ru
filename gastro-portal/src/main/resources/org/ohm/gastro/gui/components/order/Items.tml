@@ -31,8 +31,10 @@
         </t:loop>
     </div>
     <t:parameter name="else">
-        <div class="empty">
-            В заказе нет элементов :(
-        </div>
+        <t:if test="cartOrOrder">
+            <div class="empty">
+                В заказе нет элементов :(
+            </div>
+        </t:if>
     </t:parameter>
 </t:if>
