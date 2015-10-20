@@ -53,31 +53,25 @@ public class Comment extends BaseComponent {
         return showEdit && getAuthenticatedUserOpt().map(t -> t.isAdmin() || t.equals(comment.getAuthor())).orElse(false);
     }
 
-    public boolean isOrderOpened() {
-        return entity != null &&
-                entity instanceof OrderEntity &&
-                getOrder().getCatalog() == null &&
-                !getOrder().isTenderExpired();
-    }
-
-    public boolean isOrderUser() {
-        return entity != null &&
-                entity instanceof OrderEntity &&
-                getOrder().getCustomer().equals(getAuthenticatedUserOpt().orElse(null));
+    public boolean isOrderOwner() {
+        return getOrder().isOrderOwner(getAuthenticatedUserSafe());
     }
 
     public Link onSuccessFromAttachTenderAjaxForm(Long cid, Long oid) {
-        final Link link = getFirstCatalog(getUserService().findUser(cid)).map(catalog -> {
+        return getFirstCatalog(getUserService().findUser(cid)).map(catalog -> {
             final OrderEntity tender = getOrderService().findOrder(oid);
             tender.setAttachReason(attachReason);
             getOrderService().attachTender(catalog, tender, getAuthenticatedUser());
             return getPageLinkSource().createPageRenderLinkWithContext(Order.class, true, tender.getId(), false);
         }).orElse(null);
-        return link;
     }
 
     public OrderEntity getOrder() {
         return (OrderEntity) entity;
+    }
+
+    public boolean isAttachedCatalog() {
+        return getOrder().isTenderAttached() && getOrder().getCatalog().equals(comment.getAuthor().getFirstCatalog().orElse(null));
     }
 
 }

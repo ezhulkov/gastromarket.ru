@@ -1,7 +1,7 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="row total">
-    <t:if test="tenderType">
+    <t:if test="order?.tender">
         <t:unless test="frontend">
-            <t:if test="order.catalog">
+            <t:if test="order?.tenderAttached">
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                     <span class="f20px">Бюджет заявки:</span><br/>
                 </div>
@@ -9,7 +9,7 @@
                     ${total}&nbsp;<span class="rub"/>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <t:if test="orderCustomer">
+                    <t:if test="orderOwner">
                         После выполнения заявки вы получите бонусных баллов: ${order.bonus}<br/>
                     </t:if>
                     <t:if test="catalog?.prepayment">
@@ -19,7 +19,7 @@
             </t:if>
         </t:unless>
     </t:if>
-    <t:unless test="tenderType">
+    <t:if test="cartOrOrder">
         <t:if test="items">
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                 <span class="f20px">Стоимость заказа:</span><br/>
@@ -28,8 +28,8 @@
                 ${total}&nbsp;<span class="rub"/>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <t:if test="orderCustomer">
-                    После выполнения заказа вы получите бонусных баллов: ${order.bonus}<br/>
+                <t:if test="orderOwner">
+                    После выполнения заказа вы получите бонусных баллов: ${orderBonus}<br/>
                 </t:if>
                 <t:if test="catalog.basketMin">
                     ${basketMinText}<br/>
@@ -40,5 +40,5 @@
                 При внесении изменений в заказ конечная стоимость может измениться.
             </div>
         </t:if>
-    </t:unless>
+    </t:if>
 </div>

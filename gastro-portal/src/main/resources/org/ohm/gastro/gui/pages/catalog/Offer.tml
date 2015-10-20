@@ -23,4 +23,8 @@
         </div>
     </section>
 
+    <script>
+        initBasket();
+    </script>
+
 </t:layout>

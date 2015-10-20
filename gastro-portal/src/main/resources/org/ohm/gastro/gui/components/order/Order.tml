@@ -49,7 +49,7 @@
             </t:block>
             <t:block t:id="clientEditBlock">
                 <t:unless test="mainPage">
-                    <t:if test="canEditOrder">
+                    <t:if test="canEdit">
                         <t:actionlink rel="nofollow" class="edit-link" t:id="editTender" t:context="order.id" t:zone="${editZoneId}">Редактировать</t:actionlink>
                     </t:if>
                     <script>
@@ -83,6 +83,7 @@
             </t:block>
         </t:if>
         <script>
+            jQuery(".modal-backdrop").remove();
             jQuery("body").removeClass("modal-open");
         </script>
     </t:block>
@@ -95,7 +96,7 @@
     </t:block>
     <t:zone t:id="editZone" id="${editZoneId}"/>
     <t:block t:id="editOrderBlock">
-        <t:order.edit modalId="order-${order.id}" order="order" orderBlock="orderMainBlock" orderZoneId="${orderShowCatalogZoneId}" reloadPage="reloadPage" tender="tender"/>
+        <t:order.edit modalId="order-${order.id}" order="order" orderBlock="orderMainBlock" orderZoneId="${orderShowCatalogZoneId}" reloadPage="reloadPage" tender="order?.tender"/>
         <script>
             var pe = jQuery("#order-${order.id}");
             pe.modal('show');

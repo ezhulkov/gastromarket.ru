@@ -87,12 +87,12 @@ public class Order extends AbstractOrder {
         if (order == null) return null;
         if (order.isTenderExpired() && order.getCatalog() == null) return expiredBlock;
         if (frontend) {
-            if (isCanEdit()) return clientEditBlock;
+            if (order.isCanEdit(getAuthenticatedUserSafe())) return clientEditBlock;
             return isCanReplyTender() ? tenderReplyBlock : catalogAttachedBlock;
         }
         if (!isCook()) {
             if (order.getMetaStatus() == Status.CLOSED) return clientRateCook;
-            if (isCanEdit()) return clientEditBlock;
+            if (order.isCanEdit(getAuthenticatedUserSafe())) return clientEditBlock;
         } else {
             if (order.getMetaStatus() == Status.CLOSED) return cookRateClient;
         }
@@ -110,7 +110,7 @@ public class Order extends AbstractOrder {
         if (order != null && order.getType() == OrderEntity.Type.PUBLIC) return orderMainBlock;
         if (type == Type.BASKET || type == Type.SHORT || type == Type.MAIN_PAGE) return orderMainBlock;
         if (isAuthenticated()) {
-            return order == null || order.isAllowed(getAuthenticatedUser()) ? orderMainBlock : deniedOrderBlock;
+            return order == null || order.isAccessAllowed(getAuthenticatedUser()) ? orderMainBlock : deniedOrderBlock;
         } else {
             return deniedOrderBlock;
         }
@@ -118,10 +118,6 @@ public class Order extends AbstractOrder {
 
     public String getEditZoneId() {
         return order == null ? "editZoneNew" : "editZone" + order.getId();
-    }
-
-    public boolean isCanEditOrder() {
-        return isAuthenticated() && order != null && order.getCustomer().equals(getAuthenticatedUser());
     }
 
 }

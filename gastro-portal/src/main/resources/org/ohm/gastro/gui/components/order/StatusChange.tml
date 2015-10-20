@@ -1,5 +1,5 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="status">
-    <t:if test="tenderType">
+    <t:if test="order.tender">
         Статус заявки:&nbsp;
         <t:parameter name="else">
             Статус заказа:&nbsp;

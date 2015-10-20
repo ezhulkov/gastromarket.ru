@@ -98,7 +98,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
             order.setPromoCode(preOrder.getPromoCode());
             order.setComment(preOrder.getComment());
             order.setProducts(preOrder.getProducts());
-            order.setStatus(Status.ACTIVE);
+            order.setStatus(Status.CONFIRMED);
             order.setWasSetup(true);
             order.setType(OrderEntity.Type.PRIVATE);
             order.setCatalog(preOrder.getCatalog());
@@ -160,7 +160,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
 
     @Override
     public OrderEntity placeTender(final OrderEntity tender, final UserEntity caller) {
-        if (tender == null || !tender.isAllowed(caller)) return tender;
+        if (tender == null || !tender.isAccessAllowed(caller)) return tender;
         tender.setDate(new Date());
         tender.setType(OrderEntity.Type.PUBLIC);
         tender.setStatus(Status.NEW);
@@ -257,7 +257,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
 
     @Override
     public OrderEntity saveTender(final OrderEntity tender, final UserEntity caller) {
-        if (tender == null || !tender.isAllowed(caller)) return tender;
+        if (tender == null || !tender.isAccessAllowed(caller)) return tender;
         tender.setLastModified(new Date());
         return orderRepository.save(tender);
     }
@@ -274,7 +274,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
 
     @Override
     public OrderEntity saveOrder(final OrderEntity order, final UserEntity caller) {
-        if (order == null || !order.isAllowed(caller)) return order;
+        if (order == null || !order.isAccessAllowed(caller)) return order;
         if (order.getType() == OrderEntity.Type.PRIVATE) order.setTotalPrice(order.getProducts().stream().mapToInt(t -> t.getCount() * t.getPrice()).sum());
         return orderRepository.save(order);
     }
@@ -283,7 +283,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     public void deleteProduct(final Long oid, final Long pid, final UserEntity caller) {
         final OrderEntity order = orderRepository.findOne(oid);
         final OrderProductEntity product = orderProductRepository.findOne(pid);
-        if (order == null || !order.isAllowed(caller)) return;
+        if (order == null || !order.isAccessAllowed(caller)) return;
         product.setCount(product.getCount() - 1);
         if (product.getCount() <= 0) {
             order.getProducts().remove(product);
@@ -298,7 +298,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     @Override
     @RatingModifier
     public void changeStatus(final OrderEntity order, final Status status, @RatingTarget final CatalogEntity catalog, final UserEntity caller) {
-        if (order == null || !order.isAllowed(caller)) return;
+        if (order == null || !order.isAccessAllowed(caller)) return;
         final UserEntity customer = order.getCustomer();
         final UserEntity referrer = customer.getReferrer();
         order.setStatus(status);

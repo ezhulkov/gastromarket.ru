@@ -28,4 +28,8 @@
         </t:block>
     </section>
 
+    <script>
+        initBasket();
+    </script>
+
 </t:layout>

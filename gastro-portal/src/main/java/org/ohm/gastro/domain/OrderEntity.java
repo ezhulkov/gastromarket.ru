@@ -314,17 +314,6 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
         }
     }
 
-    public boolean isTender() {
-        return type == Type.PUBLIC;
-    }
-
-    public boolean isAllowed(final UserEntity user) {
-        return user != null &&
-                (user.isAdmin() ||
-                        getCustomer() != null && getCustomer().equals(user) ||
-                        getCatalog() != null && getCatalog().getUser().equals(user));
-    }
-
     public String getCommentRaw() {
         String text = (String) ObjectUtils.defaultIfNull(comment, "");
         text = text.replaceAll("\\n", "<br/>");
@@ -344,7 +333,7 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
 
     @Transient
     public int getBonus() {
-        return (int) Math.ceil(getTotalPrice() * 3 / 100);
+        return getBonus(getTotalPrice());
     }
 
     @Transient
@@ -392,17 +381,56 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
         this.triggerTime = triggerTime;
     }
 
-    public boolean isTenderOpen() {
-        return !isTenderExpired() && getCatalog() == null;
+    public CommentableEntity.Type getCommentableType() {
+        return CommentableEntity.Type.ORDER;
     }
 
-    public boolean isTenderExpired() {
+    //Helpers
+    public final boolean isTender() {
+        return type == Type.PUBLIC;
+    }
+
+    public final boolean isOrder() {
+        return !isTender();
+    }
+
+    public final boolean isAccessAllowed(final UserEntity user) {
+        return user != null &&
+                (user.isAdmin() ||
+                        getCustomer() != null && getCustomer().equals(user) ||
+                        getCatalog() != null && getCatalog().getUser().equals(user));
+    }
+
+    public final boolean isContactsAllowed(final UserEntity user) {
+        return user != null && user.isCook() && getStatus().getLevel() >= Status.CONFIRMED.getLevel();
+    }
+
+    public final boolean isTenderActive() {
+        return isTender() && !isTenderExpired() && !isTenderAttached();
+    }
+
+    public final boolean isTenderAttached() {
+        return getCatalog() != null;
+    }
+
+    public final boolean isTenderExpired() {
         return dueDate != null && LocalDateTime.fromDateFields(dueDate).toDateTime().withTimeAtStartOfDay().plusDays(1).isBeforeNow();
     }
 
-    @Override
-    public CommentableEntity.Type getCommentableType() {
-        return CommentableEntity.Type.ORDER;
+    public final boolean isOrderClosed() {
+        return getStatus().getLevel() >= Status.CLOSED.getLevel();
+    }
+
+    public final boolean isCanEdit(final UserEntity user) {
+        return isOrderOwner(user) && getStatus().getLevel() <= Status.ACTIVE.getLevel();
+    }
+
+    public final boolean isOrderOwner(final UserEntity user) {
+        return user != null && getCustomer().equals(user);
+    }
+
+    public static int getBonus(int total) {
+        return (int) Math.ceil(total * 3 / 100);
     }
 
 }

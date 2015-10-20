@@ -127,6 +127,11 @@ public abstract class BaseComponent {
     }
 
     @Cached
+    public UserEntity getAuthenticatedUserSafe() {
+        return getAuthenticatedUserOpt().orElse(null);
+    }
+
+    @Cached
     public Optional<UserEntity> getAuthenticatedUserOpt() {
         return getAuthenticatedUser(userService);
     }

@@ -5,14 +5,16 @@
             <div class="title">
                 <h1><span>${catalog.name}</span></h1>
                 <t:if test="authenticated">
-                    <t:pagelink page="office/message" t:context="['NEW',catalog.user.id]">Личное сообщение<span/></t:pagelink>
+                    <t:unless test="cook">
+                        <t:pagelink page="office/message" t:context="['NEW',catalog.user.id]">Личное сообщение<span/></t:pagelink>
+                    </t:unless>
                 </t:if>
             </div>
             <t:if test="catalogOwner">
                 <div class="links-set">
-                    <a data-toggle="modal" data-target="#catalog-edit" href="#catalog-edit">Редактировать страницу</a>
-                    <a data-toggle="modal" data-target="#pr-new" href="#pr-new" class="hidden-xs">Добавить блюдо</a>
-                    <a data-toggle="modal" data-target="#of-new" href="#of-new" class="hidden-xs">Добавить готовое предложение</a>
+                    <a data-toggle="modal" data-target="#catalog-edit" href="#catalog-edit">Редактировать страницу</a>&nbsp;
+                    <a data-toggle="modal" data-target="#pr-new" href="#pr-new" class="hidden-xs">Добавить блюдо</a>&nbsp;
+                    <a data-toggle="modal" data-target="#of-new" href="#of-new" class="hidden-xs">Добавить готовое предложение</a>&nbsp;
                     <t:pagelink page="office/import" context="catalog.altId" class="hidden-xs">Импортировать меню <span/></t:pagelink>
                 </div>
                 <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>

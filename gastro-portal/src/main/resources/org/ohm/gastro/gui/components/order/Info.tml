@@ -1,13 +1,11 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="row">
     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-        <t:unless test="tender">
-            <t:if test="tenderType">
-                <span class="f20px">Комментарии к заявке:</span><br/>
-                <t:parameter name="else">
-                    <span class="f20px">Комментарии к заказу:</span><br/>
-                </t:parameter>
-            </t:if>
-        </t:unless>
+        <t:if test="order.tender">
+            <span class="f20px">Комментарии к заявке:</span><br/>
+            <t:parameter name="else">
+                <span class="f20px">Комментарии к заказу:</span><br/>
+            </t:parameter>
+        </t:if>
         <t:if test="order.comment">
             <t:outputraw value="order.commentRaw"/>
         </t:if>

@@ -6,7 +6,6 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
-import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.OrderProductEntity;
 import org.ohm.gastro.gui.components.order.Order.Type;
 import org.ohm.gastro.gui.mixins.BaseComponent;
@@ -51,38 +50,12 @@ public abstract class AbstractOrder extends BaseComponent {
     @Parameter(defaultPrefix = BindingConstants.LITERAL)
     protected Type type = Type.SHORT;
 
-    public boolean isTender() {
-        return isTenderType() && order.getCatalog() == null;
-    }
-
-    public boolean isTenderType() {
-        return order != null && order.getType() == OrderEntity.Type.PUBLIC;
-    }
-
     public boolean isBasket() {
         return type == Type.BASKET;
     }
 
     public boolean isEdit() {
         return type == Type.FULL;
-    }
-
-    public boolean isContactsAllowed() {
-        return isCook() && order.getStatus().getLevel() >= Status.CONFIRMED.getLevel();
-    }
-
-    public boolean isOrderClosed() {
-        return order != null && order.getStatus().getLevel() >= Status.CLOSED.getLevel();
-    }
-
-    public boolean isCanEdit() {
-        return getAuthenticatedUserOpt().
-                map(t -> order == null || (order.getCustomer().equals(t) && (order.getStatus() == Status.ACTIVE || order.getStatus() == Status.NEW)))
-                .orElse(false);
-    }
-
-    public boolean isOrderCustomer() {
-        return order != null && order.getCustomer().equals(getAuthenticatedUserOpt().orElse(null));
     }
 
     public int getTotal() {
@@ -96,4 +69,25 @@ public abstract class AbstractOrder extends BaseComponent {
     public void setCatalog(final CatalogEntity catalog) {
         this.catalog = catalog;
     }
+
+    public boolean isCanEdit() {
+        return order == null || order.isCanEdit(getAuthenticatedUserSafe());
+    }
+
+    public boolean isOrderOwner() {
+        return order == null || order.isOrderOwner(getAuthenticatedUserSafe());
+    }
+
+    public boolean isContactsAllowed() {
+        return order == null || order.isContactsAllowed(getAuthenticatedUserSafe());
+    }
+
+    public boolean isCartOrOrder() {
+        return order == null || order.isOrder();
+    }
+
+    public int getOrderBonus() {
+        return order == null ? OrderEntity.getBonus(getTotal()) : order.getBonus();
+    }
+
 }

@@ -35,7 +35,7 @@ public class Replies extends AbstractOrder {
 
     @Cached
     public boolean isCommentAllowed() {
-        return isDoesNotHaveReply() && isCatalogReady() && isHasOrderSlots();
+        return isCook() && isDoesNotHaveReply() && isCatalogReady() && isHasOrderSlots();
     }
 
     @Cached
