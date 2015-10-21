@@ -2,9 +2,7 @@ package org.ohm.gastro.filter;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.ohm.gastro.domain.UserEntity;
-import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.service.MailService;
-import org.ohm.gastro.service.UserService;
 import org.ohm.gastro.service.impl.ApplicationContextHolder;
 import org.ohm.gastro.trait.Logging;
 import org.ohm.gastro.util.CommonsUtils;
@@ -36,7 +34,6 @@ public class ApplicationFilter extends BaseApplicationFilter {
         Slf4JStopWatch stopWatch = null;
 
         if (needToLog) {
-            tryLogin(httpServletRequest.getParameter("ql"));
             final String servletPath = httpServletRequest.getServletPath();
             final String userAgent = ((String) ObjectUtils.defaultIfNull(httpServletRequest.getHeader("User-Agent"), "-")).toLowerCase();
             final Long opNumber = opCounter.incrementAndGet();
@@ -76,22 +73,6 @@ public class ApplicationFilter extends BaseApplicationFilter {
             stopWatch.stop();
         }
 
-    }
-
-    private void tryLogin(String ql) {
-        final UserService userService = ApplicationContextHolder.getBean(UserService.class);
-        final MailService mailService = ApplicationContextHolder.getBean(MailService.class);
-        if (ql != null && !BaseComponent.getAuthenticatedUser(userService).isPresent()) {
-            try {
-                final UserEntity user = mailService.parseSecuredEmail(ql);
-                if (user != null) {
-                    Logging.logger.info("Trying to quick login user {}", user);
-                    userService.manuallyLogin(user);
-                }
-            } catch (Exception e) {
-                Logging.logger.error("", e);
-            }
-        }
     }
 
 }
