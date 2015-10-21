@@ -61,7 +61,7 @@
         <t:if test="catalogOwner">
             <t:productEdit modalId="pr-edit" product="product" catalog="product.catalog" reloadPage="true"/>
         </t:if>
-        <div class="modal fade img-big" id="img-big" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade img-big-modal" id="img-big" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog image-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -71,7 +71,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
                     </div>
                     <div class="modal-body">
-                        <img alt="${product.name}" title="${product.name}" src="${product.avatarUrlBig}"/>
+                        <img class="img-big" alt="${product.name}" title="${product.name}" src="${product.avatarUrlBig}"/>
                     </div>
                 </div>
             </div>

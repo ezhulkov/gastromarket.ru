@@ -10,7 +10,7 @@
                         </t:parameter>
                     </t:if>
                 </a>
-                <div class="modal fade img-big" id="img-big-${photo.id}" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal fade img-big-modal" id="img-big-${photo.id}" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog image-lg">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -28,9 +28,9 @@
                                         Подробности на странице
                                         <t:pagelink page="product/index" t:context="photo.product.altId" target="_tab">${photo.product.name}</t:pagelink>
                                     </p>
-                                    <img alt="${photo.product.name}" title="${photo.product.name}" src="${photo.product.avatarUrlBig}"/>
+                                    <img class="img-big" alt="${photo.product.name}" title="${photo.product.name}" src="${photo.product.avatarUrlBig}"/>
                                     <t:parameter name="else">
-                                        <img alt="${photo.text}" title="фотография к комментарию" src="${photo.avatarUrlBig}"/>
+                                        <img class="img-big" alt="${photo.text}" title="фотография к комментарию" src="${photo.avatarUrlBig}"/>
                                     </t:parameter>
                                 </t:if>
                             </div>

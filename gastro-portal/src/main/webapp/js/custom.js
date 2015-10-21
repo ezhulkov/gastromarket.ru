@@ -101,13 +101,16 @@ function initPopover() {
         });
 }
 function initModalStack() {
-    jQuery(".modal").on("hide.bs.modal", function (event) {
+    jQuery(".modal").on("hide.bs.modal", function () {
         jQuery("body").data("fv_open_modals", jQuery("body").data("fv_open_modals") - 1);
     });
-    jQuery(".modal").on("show.bs.modal", function (event) {
+    jQuery(".modal").on("show.bs.modal", function () {
         if (jQuery("body").data("fv_open_modals") == undefined) jQuery("body").data("fv_open_modals", 0);
         jQuery("body").data("fv_open_modals", jQuery("body").data("fv_open_modals") + 1);
         jQuery(this).css("z-index", 1040 + (10 * jQuery("body").data("fv_open_modals")));
+        if (jQuery(this).hasClass("img-big-modal")) {
+            jQuery(this).find(".img-big").css("height", jQuery(window).height() - 200);
+        }
     });
 }
 function initSortable() {
@@ -131,22 +134,6 @@ function isMobile() {
         isAndroid = ua.match(/android/);
     return isIOS || isAmazon || isAndroid || ua.match(/(blackberry|bb10|mobi|tablet|playbook|opera mini|nexus 7)/i);
 }
-function initMainPage() {
-    var current = Math.floor(Math.random() * 8) + 1;
-    var zindex = 1;
-
-    function nextBackground() {
-        if (++current > 8) current = 1;
-        var pic = jQuery(".main-img-after.main" + current);
-        jQuery(pic).fadeIn(1500, function () {
-            jQuery(".main-img-after").not(this).fadeOut(10);
-        });
-        setTimeout(nextBackground, 5000);
-    }
-
-    jQuery(".main-img-after.main" + current).fadeIn(0);
-    setTimeout(nextBackground, 5000);
-}
 function activate_menu(el) {
     jQuery(el).closest(".office-menu").find(".sel").removeClass("sel");
     jQuery(el).addClass("sel");
@@ -161,7 +148,7 @@ function initChosen(el, onReady) {
     jQuery(el).on("chosen:ready", onReady).chosen({"width": "100%", allow_single_deselect: true});
 }
 function showProductModal(pid) {
-    if (isMobile())return
+    if (isMobile()) return;
     var modal = jQuery("#product-modal-template");
     var productMain = jQuery("div[data-productid='" + pid + "']:first");
     var product = jQuery(productMain).find(".modal-data");
@@ -171,7 +158,7 @@ function showProductModal(pid) {
     var layoutBlock3 = function () {
         block3.show();
         block3.height(block1.height() - block3.position().top);
-    }
+    };
     //Init blocks
     if (product.find("div.has-block2").text() == 'true') {
         block2.show();
@@ -228,8 +215,8 @@ function productLeftScroll(pid) {
 
 function productRightScroll(pid) {
     var productMain = jQuery("div[data-productid='" + pid + "']:first");
-    var pid = productMain.next().attr("data-productid");
-    if (pid != undefined) showProductModal(pid);
+    var pid2 = productMain.next().attr("data-productid");
+    if (pid2 != undefined) showProductModal(pid2);
 }
 
 function initProductInCatalog(items) {
@@ -281,7 +268,7 @@ function initProductCatalog(ajaxContainer) {
                 initProductInCatalog(items);
             }
         });
-    }
+    };
     layoutFunction(jQuery("#product-items"));
     initBasket();
     var scrollMutex = true;
