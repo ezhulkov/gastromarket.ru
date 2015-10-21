@@ -3,6 +3,7 @@ package org.ohm.gastro.reps;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.CommentableEntity;
 import org.ohm.gastro.domain.UserEntity;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
@@ -27,5 +28,13 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
     @Query("from CommentEntity where entity=:entity and author=:author order by id desc")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     List<CommentEntity> findAllByEntityAndAuthor(@Param("entity") CommentableEntity entity, @Param("author") UserEntity author);
+
+    @Query("from CommentEntity where entity=:entity order by date desc")
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    List<CommentEntity> findAllByEntity(@Param("entity") CommentableEntity entity, Pageable page);
+
+    @Query("select count(*) from CommentEntity where entity=:entity")
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    int findAllCountByEntity(@Param("entity") CommentableEntity entity);
 
 }

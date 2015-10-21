@@ -1,0 +1,43 @@
+<t:loop xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" source="comments" value="comment">
+    <div class="row message ${unread}">
+        <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs text-right pic">
+            <a href="${comment.author.linkUrl}">
+                <img src="${comment.author.linkAvatar}"/>
+            </a>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                <div class="name">
+                    <a href="${comment.author.linkUrl}">
+                        ${comment.author.linkName}
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                <t:if test="commentOwner">
+                    <div class="date delete">
+                        ${comment.datePrintable}
+                    </div>
+                    <t:actionlink class="delete" t:zone="newMessagesZone" t:id="deleteComment" t:context="comment.id">удалить</t:actionlink>
+                    <t:parameter name="else">
+                        <div class="date">
+                            ${comment.datePrintable}
+                        </div>
+                    </t:parameter>
+                </t:if>
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-7 col-sx-12">
+                <div class="text">
+                    <t:outputraw value="comment.textRaw"/>
+                </div>
+                <t:photos comment="comment"/>
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-7 col-sx-12"></div>
+        </div>
+    </div>
+    <t:parameter name="empty">
+        <t:if test="showEmpty">
+            <div class="empty">Нет сообщений</div>
+        </t:if>
+    </t:parameter>
+</t:loop>

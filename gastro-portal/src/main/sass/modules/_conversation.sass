@@ -3,7 +3,13 @@
 
 .messages
   min-height: 400px
-  padding-bottom: 60px
+  +desktop-media
+    padding-bottom: 60px
+  +tablet-media
+    padding-bottom: 80px
+  .links-set
+    margin-top: 0
+    margin-bottom: 10px
   .message
     margin-bottom: 5px
     .pic img
@@ -16,17 +22,18 @@
     .date
       color: gray
       font-size: 14px
-      margin-top: 22px
-      +tablet-media
-        margin-top: 5px
     .delete
       display: none
+    .date.delete
+      display: block
     &.unread
       .text
         background-color: $lightGreyColor
         margin: -2px -10px -3px -10px
         padding: 2px 10px 3px 10px
     &:hover
+      .date.delete
+        display: none
       .delete
         display: block
 

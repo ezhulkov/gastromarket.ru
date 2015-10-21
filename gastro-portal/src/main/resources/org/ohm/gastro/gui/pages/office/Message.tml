@@ -6,9 +6,13 @@
                 <h1><span>${opponentName}</span></h1>
                 <t:pagelink page="office/messages" class="back"><span/>Все сообщения</t:pagelink>
             </div>
-            <t:zone t:id="messagesZone" id="messagesZone">
+            <t:zone t:id="messagesFetchZone">
+                <t:delegate to="messagesFetchBlock"/>
+            </t:zone>
+            <t:zone t:id="allMessagesZone">
                 <t:delegate to="messagesBlock"/>
             </t:zone>
+            <t:zone t:id="newMessagesZone"/>
         </div>
     </section>
 
@@ -18,9 +22,9 @@
                 <div class="row">
                     <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-offset-0 col-xs-12 hr"></div>
                 </div>
-                <t:form t:id="postForm" t:context="conversation.id" t:zone="messagesZone" class="form" t:clientValidation="none" role="form">
+                <t:form t:id="postForm" t:context="conversation.id" t:zone="newMessagesZone" class="form" t:clientValidation="none" role="form">
                     <div class="col-lg-offset-2 col-lg-1 col-lg-offset-2 col-md-31 col-sm-offset-2 col-sm-1 col-xs-2">
-                        <t:actionlink t:id="uploadPhotoAjaxLink" id="uploadPhotoAjaxLink" t:zone="messagesZone" t:context="conversation.id" class="hidden"/>
+                        <t:actionlink t:id="uploadPhotoAjaxLink" id="uploadPhotoAjaxLink" t:zone="newMessagesZone" t:context="conversation.id" class="hidden"/>
                         <t:uploadfile type="PHOTO" inputType="msg-icon" refreshAjax="#uploadPhotoAjaxLink" targetContext="${conversation.id}"/>
                     </div>
                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-10">
@@ -41,41 +45,23 @@
         </div>
     </section>
 
-    <t:block t:id="messagesBlock">
-        <t:loop source="comments" value="comment">
-            <div class="row message ${unread}">
-                <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-0 col-sm-3 col-xs-12 hidden-xs text-right pic">
-                    <a href="${comment.author.linkUrl}">
-                        <img src="${comment.author.linkAvatar}"/>
-                    </a>
-                </div>
-                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-                    <div class="name">
-                        <a href="${comment.author.linkUrl}">
-                            ${comment.author.linkName}
-                        </a>
-                    </div>
-                    <div class="text">
-                        <t:outputraw value="comment.textRaw"/>
-                    </div>
-                    <t:photos comment="comment"/>
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                    <div class="date">
-                        ${comment.datePrintable}
-                    </div>
-                    <t:if test="commentOwner">
-                        <t:actionlink class="delete" t:zone="messagesZone" t:id="deleteComment" t:context="comment.id">удалить</t:actionlink>
-                    </t:if>
-                </div>
+    <t:block t:id="messagesFetchBlock">
+        <t:if test="showFetch">
+            <div class="links-set">
+                <t:actionlink rel="nofollow" t:id="fetchMessagesAjaxLink" t:context="[fetchFrom,fetchTo]" t:zone="${messagesZoneId}">предыдущие сообщения</t:actionlink>
             </div>
-            <t:parameter name="empty">
-                <div class="empty">Нет сообщений</div>
-            </t:parameter>
-        </t:loop>
-        <t:if test="photo">
-
         </t:if>
+    </t:block>
+
+    <t:block t:id="messagesBlock">
+        <t:zone t:id="messagesZone" id="${messagesZoneId}"/>
+        <t:message.list comments="comments" lastSeen="lastSeen"/>
+        <script>initMessages();</script>
+    </t:block>
+
+    <t:block t:id="newMessageBlock">
+        <t:message.list showEmpty="false" comments="newComments"/>
+        <script>initMessages();</script>
     </t:block>
 
     <script>

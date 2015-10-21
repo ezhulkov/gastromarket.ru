@@ -403,20 +403,24 @@ function addMoreProperties(el) {
     initPropEdit(newBlock);
     jQuery(newBlock).insertAfter(lastBlock);
 }
+function initMessages() {
+    jQuery(".messages .message .delete").on('click', function () {
+        jQuery(this).closest(".message").fadeOut(200);
+    });
+}
 function initMessagePage() {
-    var messageZone = jQuery("#messagesZone");
-    var initMessages = function () {
-        jQuery(".messages .message .delete").on('click', function () {
-            jQuery(this).closest(".message").fadeOut(200);
-        });
+    var newMessagesZone = jQuery("#newMessagesZone");
+    jQuery(document).ready(function () {
+        initMessages();
         jQuery("html, body").scrollTop(jQuery(document).height());
-    };
-    Event.observe(messageZone.get(0), Tapestry.ZONE_UPDATED_EVENT, initMessages);
-    jQuery(document).ready(initMessages);
+    });
+    Event.observe(newMessagesZone.get(0), Tapestry.ZONE_UPDATED_EVENT, function () {
+        jQuery("html, body").scrollTop(jQuery(document).height());
+    });
     jQuery(".post .text").each(function () {
         autosize(this);
     }).on("autosize:resized", function () {
-        jQuery(".messages").css("padding-bottom", 60 + jQuery(this).height());
+        jQuery(".messages").css("padding-bottom", (isMobile() ? 80 : 60) + jQuery(this).height());
         jQuery("html, body").scrollTop(jQuery(document).height());
     }).on("keydown", function (e) {
         if ((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey) {

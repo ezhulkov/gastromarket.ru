@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.pages.office;
 
+import com.google.common.collect.Lists;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -8,15 +9,19 @@ import org.ohm.gastro.domain.ConversationEntity;
 import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.springframework.data.annotation.Persistent;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 24.08.14.
  */
 public class Message extends BaseComponent {
+
+    private final static int PAGE_SIZE = 10;
 
     @Property
     private ConversationEntity conversation;
@@ -32,12 +37,32 @@ public class Message extends BaseComponent {
     private Block messagesBlock;
 
     @Property
+    @Inject
+    private Block messagesFetchBlock;
+
+    @Property
+    @Inject
+    private Block newMessageBlock;
+
+    @Property
     private String text;
 
     @Property
-    private List<CommentEntity> comments;
+    private int fetchFrom = 0;
 
+    @Property
+    private int fetchTo = PAGE_SIZE;
+
+    @Property
+    @Persistent
+    private List<CommentEntity> newComments = Lists.newArrayList();
+
+    @Property
     private Date lastSeen;
+
+    public void beginRender() {
+        newComments.clear();
+    }
 
     public Object onActivate(String newConversation, Long id) {
         final UserEntity opponent = getUserService().findUser(id);
@@ -47,7 +72,6 @@ public class Message extends BaseComponent {
 
     public boolean onActivate(Long id) {
         conversation = getConversationService().find(id);
-        comments = getConversationService().findAllComments(conversation);
         final Optional<CommentEntity> lastComment = getConversationService().findLastComment(conversation);
         lastSeen = lastComment.map(t -> t.getAuthor().equals(getAuthenticatedUser()) ? new Date() : conversation.getLastSeenDate()).orElse(new Date());
         if (!isAdmin()) {
@@ -63,35 +87,51 @@ public class Message extends BaseComponent {
         return conversation == null ? null : conversation.getId();
     }
 
-    public String getUnread() {
-        return !comment.getAuthor().equals(getAuthenticatedUser()) && comment.getDate().after(lastSeen) ? "unread" : "";
-    }
-
     public String getOpponentName() {
         return conversation.getOpponentName(getAuthenticatedUser());
     }
 
-    public Object onActionFromDeleteComment(Long cId) {
-        getConversationService().deleteComment(cId);
-        return null;
-    }
-
-    public Block onActionFromUploadPhotoAjaxLink(Long cId) {
+    public void onActionFromUploadPhotoAjaxLink(Long cId) {
         conversation = getConversationService().find(cId);
-        comments = getConversationService().findAllComments(conversation);
-        return messagesBlock;
+        fetchFrom = 0;
+        fetchTo = PAGE_SIZE;
+        newComments.clear();
+        getAjaxResponseRenderer()
+                .addRender("allMessagesZone", messagesBlock)
+                .addRender("newMessagesZone", newMessageBlock);
     }
 
     public Block onSubmitFromPostForm(Long cid) {
-        final CommentEntity comment = new CommentEntity();
-        comment.setText(text);
-        getConversationService().placeComment(conversation, comment, getAuthenticatedUser());
-        comments = getConversationService().findAllComments(conversation);
-        return messagesBlock;
+        conversation = getConversationService().find(cid);
+        CommentEntity newComment = new CommentEntity();
+        newComment.setText(text);
+        getConversationService().placeComment(conversation, newComment, getAuthenticatedUser());
+        newComments.add(newComment);
+        return newMessageBlock;
     }
 
-    public boolean isCommentOwner() {
-        return comment.getAuthor().equals(getAuthenticatedUser());
+    public String getMessagesZoneId() {
+        return String.format("messagesZone_%s_%s", fetchFrom, fetchTo);
+    }
+
+    public boolean isShowFetch() {
+        return getConversationService().findAllCommentsCount(conversation) > fetchTo;
+    }
+
+    public void onActionFromFetchMessagesAjaxLink(int from, int to) {
+        this.fetchFrom = from;
+        this.fetchTo = to;
+        getAjaxResponseRenderer()
+                .addRender(getMessagesZoneId(), messagesBlock)
+                .addRender("messagesFetchZone", messagesFetchBlock);
+        this.fetchFrom += to - from;
+        this.fetchTo += PAGE_SIZE;
+    }
+
+    public List<CommentEntity> getComments() {
+        return getConversationService().findAllComments(conversation, fetchFrom, fetchTo).stream()
+                .sorted((o1, o2) -> o1.getDate().compareTo(o2.getDate()))
+                .collect(Collectors.toList());
     }
 
 }

@@ -1,5 +1,6 @@
 package org.ohm.gastro.service.impl;
 
+import com.google.common.collect.Lists;
 import org.apache.commons.lang.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
@@ -20,6 +21,7 @@ import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
@@ -98,6 +100,14 @@ public class ConversationServiceImpl implements ConversationService {
     }
 
     @Override
+    public List<CommentEntity> findAllComments(ConversationEntity conversation, int from, int to) {
+        final int count = to - from;
+        if (count == 0) return Lists.newArrayList();
+        final int page = from / count;
+        return commentRepository.findAllByEntity(conversation, new PageRequest(page, count));
+    }
+
+    @Override
     public void deleteComment(final Long cId) {
         commentRepository.delete(cId);
     }
@@ -144,6 +154,11 @@ public class ConversationServiceImpl implements ConversationService {
         photo.setComment(comment);
         photo.setType(PhotoEntity.Type.COMMENT);
         return photoRepository.save(photo);
+    }
+
+    @Override
+    public int findAllCommentsCount(CommentableEntity entity) {
+        return commentRepository.findAllCountByEntity(entity);
     }
 
     @Override
