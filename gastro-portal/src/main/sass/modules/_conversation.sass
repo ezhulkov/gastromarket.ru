@@ -22,10 +22,23 @@
     .date
       color: gray
       font-size: 14px
+      min-height: 22px
+      &.delete-true
+        a
+          display: none
+        div
+          display: block
+      &.delete-true:hover
+        a
+          display: block
+        div
+          display: none
     .delete
       display: none
     .date.delete
       display: block
+    .text
+      padding: 0
     &.unread
       .text
         background-color: $lightGreyColor

@@ -34,13 +34,12 @@ jQuery.noConflict();
     js.src = "//connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.3&appId=325659080959378";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
-Event.observe(document, Tapestry.ZONE_UPDATED_EVENT, function (event) {
+Event.observe(document, Tapestry.ZONE_UPDATED_EVENT, function () {
     initControls();
 });
 jQuery(document).ready(function () {
     jQuery("body").addClass(isMobile() ? "mobile" : "desktop");
     initLoginModal();
-    initModalStack();
     initControls();
     initSmoothScroll();
 });
@@ -67,6 +66,7 @@ function initControls() {
     initTitle(jQuery("div.title"));
     initFineUploader(jQuery("div.upload-file"));
     initSortable();
+    initModalStack();
 }
 function initDatePicker() {
     jQuery('.date-picker').datepicker({
@@ -413,6 +413,11 @@ function initMessagePage() {
     jQuery(document).ready(function () {
         initMessages();
         jQuery("html, body").scrollTop(jQuery(document).height());
+    });
+    Event.observe(document, Tapestry.ZONE_UPDATED_EVENT, function (event) {
+        if (jQuery(event.target).attr("id").startsWith("messagesZone")) {
+            window.scrollBy(0, jQuery(event.target).height() + 15);
+        }
     });
     Event.observe(newMessagesZone.get(0), Tapestry.ZONE_UPDATED_EVENT, function () {
         jQuery("html, body").scrollTop(jQuery(document).height());

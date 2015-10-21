@@ -6,6 +6,8 @@ import org.springframework.mail.MailException;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 /**
  * Created by ezhulkov on 13.03.15.
@@ -55,5 +57,9 @@ public interface MailService {
     UserEntity parseUnsubscribeLink(String link);
 
     String generateUnsubscribeLink(String user);
+
+    void scheduleSend(UserEntity user, String key, Consumer<String> routine, long time, TimeUnit timeUnit);
+
+    void cancelAllTasks(UserEntity user);
 
 }

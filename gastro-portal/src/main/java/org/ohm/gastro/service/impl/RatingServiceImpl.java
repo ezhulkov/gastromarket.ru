@@ -145,6 +145,7 @@ public class RatingServiceImpl implements RatingService, Logging {
 
             final Integer prevLevel = catalog.getLevel();
             final int rating = calcRating(productsCount, retentionCount, posCount, negCount, doneOrdersCount, cancelOrdersCount, totalSum);
+            logger.info("Updating rating for catalog {}", catalog);
             logger.info("productsCount:{}, retentionCount:{}, posCount:{}, negCount:{}, doneOrdersCount:{}, cancelOrdersCount:{}, totalSum:{}",
                         productsCount, retentionCount, posCount, negCount, doneOrdersCount, cancelOrdersCount, totalSum);
 
@@ -153,9 +154,9 @@ public class RatingServiceImpl implements RatingService, Logging {
             catalog.setRating(rating);
             catalog.setLevel(levelMap.get(rating));
 
-            logger.info("Rating for catalog {} changed", catalog);
 
             if (catalog.getLevel() != null && (prevLevel == null || !catalog.getLevel().equals(prevLevel))) {
+                logger.info("Rating for catalog {} changed", catalog);
                 registerEvent(Type.RATING_CHANGE, catalog.getUser(), catalog, catalog.getLevel());
             }
 

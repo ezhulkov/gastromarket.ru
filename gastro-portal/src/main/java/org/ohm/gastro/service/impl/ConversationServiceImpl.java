@@ -2,6 +2,7 @@ package org.ohm.gastro.service.impl;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.lang.StringUtils;
+import org.ohm.gastro.domain.AltIdBaseEntity;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.CommentableEntity;
@@ -32,6 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by ezhulkov on 24.11.14.
@@ -233,15 +235,18 @@ public class ConversationServiceImpl implements ConversationService {
             final UserEntity opponent = conversation.getOpponent(author).get();
             conversation.setLastActionDate(new Date());
             conversationRepository.save(conversation);
-            final Map<String, Object> params = new HashMap<String, Object>() {
-                {
-                    put("username", opponent.getFullName());
-                    put("address", conversation.getFullUrl());
-                    put("conversation", conversation);
-                    put("authorName", author.getFirstCatalog().map(t -> t.getName()).orElse(author.getFullName()));
-                }
-            };
-            mailService.sendMailMessage(opponent, MailService.NEW_MESSAGE, params);
+            mailService.scheduleSend(opponent, MailService.NEW_MESSAGE, t -> {
+                final Map<String, Object> params = new HashMap<String, Object>() {
+                    {
+                        put("username", opponent.getFullName());
+                        put("address", conversation.getFullUrl());
+                        put("conversation", conversation);
+                        put("authorName", author.getFirstCatalog().map(AltIdBaseEntity::getName).orElse(author.getFullName()));
+                    }
+                };
+                mailService.sendMailMessage(opponent, MailService.NEW_MESSAGE, params);
+            }, 5, TimeUnit.MINUTES);
+
         }
     }
 

@@ -16,10 +16,13 @@ import javax.annotation.PreDestroy;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 02.05.15.
@@ -30,7 +33,7 @@ public class RatingModifierAdvice implements AfterReturningAdvice, Logging {
     private final ApplicationContext applicationContext;
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
 
-    private static volatile ScheduledFuture scheduledFuture = null;
+    private final static Map<String, ScheduledFuture> scheduledFutures = new ConcurrentHashMap<>();
 
     @Autowired
     public RatingModifierAdvice(final ApplicationContext applicationContext) {
@@ -63,22 +66,28 @@ public class RatingModifierAdvice implements AfterReturningAdvice, Logging {
 
         if (i == parameters.length || i > args.length) return;
         final Object targetObject = args[i];
-        final List<CatalogEntity> catalogs = targetObject instanceof CatalogEntity ?
-                Lists.newArrayList((CatalogEntity) targetObject) :
-                targetObject instanceof UserEntity ? catalogService.findAllCatalogs((UserEntity) targetObject) : null;
+        if (targetObject != null) {
+            final List<CatalogEntity> catalogs = targetObject instanceof CatalogEntity ?
+                    Lists.newArrayList((CatalogEntity) targetObject) :
+                    targetObject instanceof UserEntity ? catalogService.findAllCatalogs((UserEntity) targetObject) : Lists.newArrayList();
+            final String operationKey = catalogs.stream().sorted((o1, o2) -> o1.getId().compareTo(o2.getId())).map(t -> t.getId().toString()).collect(Collectors.joining());
 
-        if (catalogs != null) {
-            synchronized (this) {
-                if (scheduledFuture != null) scheduledFuture.cancel(false);
-                scheduledFuture = scheduledExecutorService.schedule((Runnable) () -> {
-                                                                        try {
-                                                                            catalogs.forEach(ratingService::updateRating);
-                                                                        } catch (Exception ex) {
-                                                                            logger.error("", ex);
-                                                                        }
-                                                                    },
-                                                                    5000,
-                                                                    TimeUnit.MILLISECONDS);
+            synchronized (scheduledFutures) {
+                final ScheduledFuture prevScheduledFuture = scheduledFutures.remove(operationKey);
+                if (prevScheduledFuture != null) prevScheduledFuture.cancel(false);
+                final ScheduledFuture scheduledFuture = scheduledExecutorService.schedule((Runnable) () -> {
+                                                                                              synchronized (scheduledFutures) {
+                                                                                                  if (scheduledFutures.remove(operationKey) == null) return;
+                                                                                              }
+                                                                                              try {
+                                                                                                  catalogs.forEach(ratingService::updateRating);
+                                                                                              } catch (Exception ex) {
+                                                                                                  logger.error("", ex);
+                                                                                              }
+                                                                                          },
+                                                                                          5000,
+                                                                                          TimeUnit.MILLISECONDS);
+                scheduledFutures.put(operationKey, scheduledFuture);
             }
         }
 

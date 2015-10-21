@@ -23,8 +23,7 @@ public interface ProductRepository extends AltIdRepository<ProductEntity> {
             "where (v1=:value or v2=:value or :value is null) and " +
             "   (pr.catalog=:catalog or :catalog is null) and " +
             "   (pr.hidden=:hidden or :hidden is null) and " +
-            "   (pr.wasSetup=true or :wasSetup is null) " +
-            "order by pr.id desc")
+            "   (pr.wasSetup=true or :wasSetup is null) ")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     Page<ProductEntity> findAllByRootValueAndCatalog(@Param("value") PropertyValueEntity value,
                                                      @Param("catalog") CatalogEntity catalog,

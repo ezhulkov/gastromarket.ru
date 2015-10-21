@@ -265,7 +265,7 @@ public class ProductServiceImpl implements ProductService, Logging {
         if (count == 0) return Lists.newArrayList();
         final int page = from / count;
         final Sort sort = orderType == OrderType.POSITION || orderType == OrderType.NONE || orderType == null ?
-                new Sort(Direction.DESC, "id") :
+                new Sort(Direction.DESC, "date") :
                 new Sort(direction, orderType.name().toLowerCase());
         final List<ProductEntity> products = productRepository.findAllByRootValueAndCatalog(propertyValue, catalog, wasSetup, hidden, new PageRequest(page, count, sort)).getContent();
         return orderType == OrderType.POSITION ?

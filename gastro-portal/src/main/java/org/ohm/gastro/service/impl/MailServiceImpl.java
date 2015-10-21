@@ -32,8 +32,13 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -83,8 +88,10 @@ public class MailServiceImpl implements MailService, Logging {
     private final ExecutorService executorService;
     private final JavaMailSenderImpl mailSender;
     private final boolean production;
-    final SecretKey desKey;
-    final Cipher desCipher;
+    private final SecretKey desKey;
+    private final Cipher desCipher;
+    private final Map<String, ScheduledFuture> scheduledFutures = new ConcurrentHashMap<>();
+    private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
 
     @Autowired
     public MailServiceImpl(final UserRepository userRepository,
@@ -116,6 +123,7 @@ public class MailServiceImpl implements MailService, Logging {
     @PreDestroy
     public void shutdown() {
         executorService.shutdownNow();
+        scheduledExecutorService.shutdownNow();
     }
 
     @Override
@@ -126,9 +134,9 @@ public class MailServiceImpl implements MailService, Logging {
     @Override
     public void sendMailMessage(final String recipient, final String templateKey, final Map<String, Object> params) {
 
-        if (!production) return;
-
         logger.info("Sending email to " + recipient + " using template " + templateKey);
+
+        if (!production) return;
 
         params.put("unsubscribe", generateUnsubscribeLink(recipient));
 
@@ -159,7 +167,6 @@ public class MailServiceImpl implements MailService, Logging {
         } catch (Exception e) {
             logger.error("", e);
         }
-
 
     }
 
@@ -227,6 +234,30 @@ public class MailServiceImpl implements MailService, Logging {
             logger.error("", e);
         }
         return null;
+    }
+
+    @Override
+    public void scheduleSend(final UserEntity user, final String key, final Consumer<String> routine, final long time, final TimeUnit timeUnit) {
+        logger.info("Scheduling task for {}, key {}", user, key);
+        if (user == null || key == null) return;
+        final String operationKey = String.format("%s%s", user.getId(), key);
+        synchronized (scheduledFutures) {
+            final ScheduledFuture scheduledFuture = scheduledFutures.remove(operationKey);
+            if (scheduledFuture != null) scheduledFuture.cancel(true);
+            scheduledFutures.put(operationKey,
+                                 scheduledExecutorService.schedule(() -> {
+                                     synchronized (scheduledFutures) {
+                                         if (scheduledFutures.remove(operationKey) == null) return;
+                                         routine.accept(operationKey);
+                                     }
+                                 }, time, timeUnit));
+        }
+    }
+
+    @Override
+    public void cancelAllTasks(final UserEntity user) {
+        logger.info("Cancelling all scheduled tasks for {}", user);
+        scheduledFutures.remove(String.format("%s%s", user.getId(), NEW_MESSAGE));
     }
 
     private void syncMailChimp(String mcSyncEndpoint, StringEntity entity) {

@@ -47,8 +47,8 @@
 
     <t:block t:id="messagesFetchBlock">
         <t:if test="showFetch">
-            <div class="links-set">
-                <t:actionlink rel="nofollow" t:id="fetchMessagesAjaxLink" t:context="[fetchFrom,fetchTo]" t:zone="${messagesZoneId}">предыдущие сообщения</t:actionlink>
+            <div class="text-center">
+                <t:actionlink class="round-link" rel="nofollow" t:id="fetchMessagesAjaxLink" t:context="[fetchFrom,fetchTo]" t:zone="${messagesZoneId}">предыдущие сообщения</t:actionlink>
             </div>
         </t:if>
     </t:block>
