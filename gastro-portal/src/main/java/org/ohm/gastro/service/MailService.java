@@ -54,9 +54,11 @@ public interface MailService {
     void deleteChimpList(@Nonnull final UserEntity user);
 
     @Nullable
-    UserEntity parseUnsubscribeLink(String link);
+    UserEntity parseSecuredEmail(String link);
 
-    String generateUnsubscribeLink(String user);
+    String generateSecuredEmail(String user);
+
+    String generateSecuredEmail(String user, long timeout);
 
     void scheduleSend(UserEntity user, String key, Consumer<String> routine, long time, TimeUnit timeUnit);
 

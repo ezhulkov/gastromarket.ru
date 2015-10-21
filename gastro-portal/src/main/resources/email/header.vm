@@ -50,11 +50,11 @@
                                                                         <tr>
                                                                             <td valign="top">
                                                                                 #if(${link})
-                                                                                    <a href="${link}?${utm}" title="" style="word-wrap:break-word" target="_blank">
+                                                                                    <a href="${link}?${params}" title="" style="word-wrap:break-word" target="_blank">
                                                                                         <img alt="Логотип" src="http://gastromarket.ru/img/logotype1-small.png" width="112" style="max-width:112px;border:0;outline:none;text-decoration:none;vertical-align:bottom" class="CToWUd">
                                                                                     </a>
                                                                                 #else
-                                                                                    <a href="http://gastromarket.ru?${utm}" title="" style="word-wrap:break-word" target="_blank">
+                                                                                    <a href="http://gastromarket.ru?${params}" title="" style="word-wrap:break-word" target="_blank">
                                                                                         <img alt="Логотип" src="http://gastromarket.ru/img/logotype1-small.png" width="112" style="max-width:112px;border:0;outline:none;text-decoration:none;vertical-align:bottom" class="CToWUd">
                                                                                     </a>
                                                                                 #end

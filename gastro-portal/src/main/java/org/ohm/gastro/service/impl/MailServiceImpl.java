@@ -29,6 +29,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import java.io.StringWriter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -138,7 +139,8 @@ public class MailServiceImpl implements MailService, Logging {
 
         if (!production) return;
 
-        params.put("unsubscribe", generateUnsubscribeLink(recipient));
+        params.put("unsubscribe", generateSecuredEmail(recipient, -1));
+        params.put("quicklogin", generateSecuredEmail(recipient, 300000));
 
         try (
                 final StringWriter stringWriter = new StringWriter()
@@ -205,17 +207,20 @@ public class MailServiceImpl implements MailService, Logging {
 
     @Nullable
     @Override
-    public UserEntity parseUnsubscribeLink(final String link) {
+    public UserEntity parseSecuredEmail(final String link) {
         try {
             synchronized (desCipher) {
                 desCipher.init(Cipher.DECRYPT_MODE, desKey);
                 byte[] bytes = desCipher.doFinal(Hex.decode(link.toUpperCase()));
-                final String uid = new String(bytes);
-                final UserEntity user = userRepository.findByEmail(uid);
-                if (user == null) {
-                    return userRepository.findOne(Long.parseLong(uid));
+                final String secret = new String(bytes);
+                final int delimiterPos = secret.indexOf("_");
+                final Long timeOut = Long.parseLong(secret.substring(0, delimiterPos));
+                final String uid = secret.substring(delimiterPos + 1);
+                if (timeOut < System.currentTimeMillis()) {
+                    logger.error("Expired secure link {}", new Date(timeOut));
+                    return null;
                 }
-                return user;
+                return userRepository.findByEmail(uid);
             }
         } catch (Exception e) {
             logger.error("", e);
@@ -224,11 +229,18 @@ public class MailServiceImpl implements MailService, Logging {
     }
 
     @Override
-    public String generateUnsubscribeLink(final String email) {
+    public String generateSecuredEmail(final String email) {
+        return generateSecuredEmail(email, -1);
+    }
+
+    @Override
+    public String generateSecuredEmail(final String email, final long timeout) {
+        if ("ezhulkov@gmail.com".equals(email)) return "";
         try {
+            final String secret = String.format("%s_%s", timeout == -1 ? Long.MAX_VALUE : System.currentTimeMillis() + timeout, email);
             synchronized (desCipher) {
                 desCipher.init(Cipher.ENCRYPT_MODE, desKey);
-                return new String(Hex.encode(desCipher.doFinal(email.getBytes()))).toLowerCase();
+                return new String(Hex.encode(desCipher.doFinal(secret.getBytes()))).toLowerCase();
             }
         } catch (Exception e) {
             logger.error("", e);
@@ -256,7 +268,7 @@ public class MailServiceImpl implements MailService, Logging {
 
     @Override
     public void cancelAllTasks(final UserEntity user) {
-        logger.info("Cancelling all scheduled tasks for {}", user);
+        logger.debug("Cancelling all scheduled tasks for {}", user);
         scheduledFutures.remove(String.format("%s%s", user.getId(), NEW_MESSAGE));
     }
 

@@ -223,7 +223,6 @@ public class UserServiceImpl implements UserService, Logging {
 
     @Override
     public void signupSocial(UserEntity userProfile, final Object referrerUser) {
-
         UserEntity existingUser = userRepository.findByEmail(userProfile.getEmail());
         if (referrerUser != null) userProfile.setReferrer(userRepository.findOne(((UserEntity) referrerUser).getId()));
         if (existingUser == null) {
@@ -235,12 +234,14 @@ public class UserServiceImpl implements UserService, Logging {
             if (StringUtils.isNotEmpty(userProfile.getAvatarUrlSmall())) existingUser.setAvatarUrlSmall(userProfile.getAvatarUrlSmall());
             userRepository.save(existingUser);
         }
+        manuallyLogin(existingUser);
+    }
 
-        Authentication authentication = new UsernamePasswordAuthenticationToken(existingUser, null, existingUser.getAuthorities());
+    @Override
+    public void manuallyLogin(final UserEntity user) {
+        Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        afterSuccessfulLogin(userProfile);
-
+        afterSuccessfulLogin(user);
     }
 
     @Override

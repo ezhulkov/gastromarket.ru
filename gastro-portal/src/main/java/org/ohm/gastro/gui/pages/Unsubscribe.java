@@ -13,7 +13,7 @@ public class Unsubscribe extends BaseComponent {
     private UserEntity recipient;
 
     public void onActivate(String link) {
-        this.recipient = getMailService().parseUnsubscribeLink(link);
+        this.recipient = getMailService().parseSecuredEmail(link);
         if (recipient != null) {
             logger.info("Unsubscribing {}", recipient);
             recipient.setSubscribeEmail(false);

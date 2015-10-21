@@ -9,12 +9,9 @@ import org.ohm.gastro.service.EmptyPasswordException;
 import org.ohm.gastro.service.UserExistsException;
 import org.ohm.gastro.service.UserService;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletRequest;
@@ -96,10 +93,7 @@ public class Signup extends BaseComponent {
         user.setType(Type.USER);
         user.setReferrer(referrer);
         user = userService.createUser(user, password, null, true);
-        final UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), password);
-        token.setDetails(new WebAuthenticationDetails(httpServletRequest));
-        final Authentication authentication = authenticationProvider.authenticate(token);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        userService.manuallyLogin(user);
     }
 
 }

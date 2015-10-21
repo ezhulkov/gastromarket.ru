@@ -40,4 +40,6 @@ public interface UserService extends UserDetailsService, ImageUploaderService {
 
     void deleteUser(Long id);
 
+    void manuallyLogin(final UserEntity user);
+
 }

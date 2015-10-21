@@ -1,11 +1,11 @@
 #set($subject = "Статус заказа изменен")
 #set($link = "${address}")
-#set($utm = "utm_source=internal&utm_medium=mail&utm_campaign=order&utm_content=${order.id}")
+#set($params = "ql=${quicklogin}&utm_source=internal&utm_medium=mail&utm_campaign=order&utm_content=${order.id}")
 #parse("email/header.vm")
 <p>
-    Статус заказа <a href="$address?${utm}">№${ordernumber}</a> изменен и переведен в ${status}.
+    Статус заказа <a href="$address?${params}">№${ordernumber}</a> изменен и переведен в ${status}.
 </p>
 <p>
-    Вы можете следить за выполнением заказа по адресу: <a href="$address?${utm}">$address</a>
+    Вы можете следить за выполнением заказа по адресу: <a href="$address?${params}">$address</a>
 </p>
 #parse("email/footer.vm")
