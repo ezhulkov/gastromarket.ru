@@ -241,7 +241,7 @@ public class ConversationServiceImpl implements ConversationService {
                         put("username", opponent.getFullName());
                         put("address", conversation.getFullUrl());
                         put("conversation", conversation);
-                        put("authorName", author.getFirstCatalog().map(AltIdBaseEntity::getName).orElse(author.getFullName()));
+                        put("authorName", author.getFirstCatalog().map(AltIdBaseEntity::getName).orElseGet(() -> author.getFullName()));
                     }
                 };
                 mailService.sendMailMessage(opponent, MailService.NEW_MESSAGE, params);

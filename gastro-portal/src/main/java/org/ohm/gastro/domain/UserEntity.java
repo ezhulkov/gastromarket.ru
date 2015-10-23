@@ -316,15 +316,15 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails, Comme
     }
 
     public String getLinkAvatar() {
-        return getFirstCatalog().map(CatalogEntity::getAvatarUrl).orElse(getAvatarUrl());
+        return getFirstCatalog().map(CatalogEntity::getAvatarUrl).orElseGet(() -> getAvatarUrl());
     }
 
     public String getLinkUrl() {
-        return getFirstCatalog().map(CatalogEntity::getFullUrl).orElse(getFullUrl());
+        return getFirstCatalog().map(CatalogEntity::getFullUrl).orElseGet(() -> getFullUrl());
     }
 
     public String getLinkName() {
-        return getFirstCatalog().map(CatalogEntity::getName).orElse(getFullName());
+        return getFirstCatalog().map(CatalogEntity::getName).orElseGet(() -> getFullName());
     }
 
     @Override

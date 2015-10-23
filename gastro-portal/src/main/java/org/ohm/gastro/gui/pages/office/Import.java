@@ -97,7 +97,7 @@ public class Import extends BaseComponent {
                         .map(token -> getApplicationContext().getBean(socialCode, MediaImportService.class)
                                 .getAlbums(token).stream()
                                 .collect(Collectors.groupingBy(MediaAlbum::getPageName)))
-                        .orElse(Maps.newHashMap());
+                        .orElseGet(() -> Maps.newHashMap());
         synchronized (Import.class) {
             cachedAlbums.put(socialCode, albumsByPage);
         }

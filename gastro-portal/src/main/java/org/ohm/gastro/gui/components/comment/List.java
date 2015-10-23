@@ -44,19 +44,19 @@ public class List extends BaseComponent {
 
     public String getAvatarUrl() {
         return isCookeReply() ?
-                getFirstCatalog().map(CatalogEntity::getAvatarUrlMedium).orElse(comment.getAuthor().getAvatarUrlMedium()) :
+                getFirstCatalog().map(CatalogEntity::getAvatarUrlMedium).orElseGet(() -> comment.getAuthor().getAvatarUrlMedium()) :
                 comment.getAuthor().getAvatarUrlMedium();
     }
 
     public String getLinkUrl() {
         return isCookeReply() ?
-                (getFirstCatalog().map(t -> "/catalog/" + t.getAltId()).orElse("/index")) :
+                (getFirstCatalog().map(t -> "/catalog/" + t.getAltId()).orElseGet(() -> "/index")) :
                 ("/user/" + comment.getAuthor().getId());
     }
 
     public String getLinkName() {
         return isCookeReply() ?
-                getFirstCatalog().map(CatalogEntity::getName).orElse(comment.getAuthor().getFullName()) :
+                getFirstCatalog().map(CatalogEntity::getName).orElseGet(() -> comment.getAuthor().getFullName()) :
                 comment.getAuthor().getFullName();
     }
 

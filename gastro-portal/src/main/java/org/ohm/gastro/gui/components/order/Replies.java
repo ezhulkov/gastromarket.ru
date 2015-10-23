@@ -51,7 +51,7 @@ public class Replies extends AbstractOrder {
         return getAuthenticatedUserOpt()
                 .filter(UserEntity::isCook)
                 .map(t -> getCatalogService().findAllCatalogs(t).stream())
-                .orElse(Stream.empty())
+                .orElseGet(() -> Stream.empty())
                 .filter(CatalogEntity::isWasSetup)
                 .filter(t -> getProductService().findProductsForFrontendCount(t) > 0)
                 .findFirst()
@@ -63,7 +63,7 @@ public class Replies extends AbstractOrder {
         return getAuthenticatedUserOpt()
                 .filter(UserEntity::isCook)
                 .map(t -> getCatalogService().findAllCatalogs(t).stream())
-                .orElse(Stream.empty())
+                .orElseGet(() -> Stream.empty())
                 .filter(t -> t.getLevel() != null && t.getLevel() > getOrderService().findAllOrdersWithMetaStatus(t, Status.ACTIVE).size())
                 .findAny()
                 .isPresent();

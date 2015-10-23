@@ -73,7 +73,7 @@ public class Message extends BaseComponent {
     public boolean onActivate(Long id) {
         conversation = getConversationService().find(id);
         final Optional<CommentEntity> lastComment = getConversationService().findLastComment(conversation);
-        lastSeen = lastComment.map(t -> t.getAuthor().equals(getAuthenticatedUser()) ? new Date() : conversation.getLastSeenDate()).orElse(new Date());
+        lastSeen = lastComment.map(t -> t.getAuthor().equals(getAuthenticatedUser()) ? new Date() : conversation.getLastSeenDate()).orElseGet(() -> new Date());
         if (!isAdmin()) {
             lastComment.filter(t -> !t.getAuthor().equals(getAuthenticatedUser())).ifPresent(t -> {
                 conversation.setLastSeenDate(t.getDate());
