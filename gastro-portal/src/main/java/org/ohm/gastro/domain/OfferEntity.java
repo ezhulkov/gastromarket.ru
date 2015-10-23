@@ -1,7 +1,7 @@
 package org.ohm.gastro.domain;
 
 import com.google.common.collect.Lists;
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 

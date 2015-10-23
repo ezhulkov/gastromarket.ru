@@ -5,8 +5,8 @@ import au.com.bytecode.opencsv.bean.HeaderColumnNameMappingStrategy;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.BaseEncoding;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.LogEntity;
 import org.ohm.gastro.domain.UserEntity;
@@ -29,7 +29,6 @@ import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -46,7 +45,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import static org.apache.commons.lang.ObjectUtils.defaultIfNull;
+import static org.apache.commons.lang3.ObjectUtils.defaultIfNull;
 import static org.scribe.utils.Preconditions.checkNotNull;
 
 /**
@@ -239,9 +238,10 @@ public class UserServiceImpl implements UserService, Logging {
 
     @Override
     public void manuallyLogin(final UserEntity user) {
-        Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        afterSuccessfulLogin(user);
+        if (user != null) {
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities()));
+            afterSuccessfulLogin(user);
+        }
     }
 
     @Override
@@ -322,4 +322,10 @@ public class UserServiceImpl implements UserService, Logging {
         userRepository.delete(user);
         mailService.deleteChimpList(user);
     }
+
+    @Override
+    public UserEntity findUser(String email) {
+        return userRepository.findByEmail(email);
+    }
+
 }

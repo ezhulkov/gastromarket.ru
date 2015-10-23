@@ -9,6 +9,7 @@ import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.util.CommonsUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,6 +32,7 @@ public class Index extends BaseComponent {
     private ProductEntity oneProduct;
 
     public Object onActivate(EventContext context) {
+        logger.info(CommonsUtils.generateSecuredEmail("test@test.com"));
         if (context.getCount() == 0) return null;
         return new HttpError(404, "Page not found.");
     }

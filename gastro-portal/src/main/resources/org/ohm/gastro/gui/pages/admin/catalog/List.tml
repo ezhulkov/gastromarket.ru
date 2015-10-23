@@ -5,10 +5,9 @@
     </div>
 
     <t:grid source="catalogs" row="oneCatalog"
-            reorder="name,type,date,user,rating,level,products,del"
-            exclude="id,description,delivery,avatarUrl,avatarUrlSmall,avatarUrlMedium,payment,wasSetup,altId,basketMin,wizardStep,maxWizardStep,productBadge,orderBadge,
-            descriptionRaw,deliveryRaw,rankBadge,paymentRaw,fullUrl,cancellationRaw,lastModified,lastModifiedPrintable,cancellation,prepayment,locationUrl,cert1,cert2,cert3,commentableType"
-            add="user,del,products"
+            add="user,del"
+            include="name,rating,level"
+            reorder="name,user,rating,level,del"
             t:mixins="GridSortingDisabled" class="table table-hover">
         <t:parameter name="nameHeader">
             Название
@@ -21,9 +20,6 @@
         </t:parameter>
         <t:parameter name="ratingCell">
             ${oneCatalog.rating}
-        </t:parameter>
-        <t:parameter name="productsCell">
-            ${oneCatalog.products.size()}
         </t:parameter>
         <t:parameter name="delCell">
             <t:actionlink rel="nofollow" t:id="delete" context="oneCatalog.id" class="glyphicon glyphicon-remove"/>

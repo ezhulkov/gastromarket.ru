@@ -1,6 +1,6 @@
 package org.ohm.gastro.filter;
 
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.impl.ApplicationContextHolder;

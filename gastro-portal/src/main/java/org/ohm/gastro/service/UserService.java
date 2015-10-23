@@ -26,6 +26,8 @@ public interface UserService extends UserDetailsService, ImageUploaderService {
 
     UserEntity findUser(Long id);
 
+    UserEntity findUser(String email);
+
     void resetPassword(String eMail);
 
     void processApplicationRequest(String eMail, String fullName, String about, String sourceInfo);
@@ -40,6 +42,6 @@ public interface UserService extends UserDetailsService, ImageUploaderService {
 
     void deleteUser(Long id);
 
-    void manuallyLogin(final UserEntity user);
+    void manuallyLogin(UserEntity user);
 
 }

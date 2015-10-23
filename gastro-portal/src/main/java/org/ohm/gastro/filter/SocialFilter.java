@@ -1,8 +1,8 @@
 package org.ohm.gastro.filter;
 
 import com.google.common.collect.Maps;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.service.SocialSource;

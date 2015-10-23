@@ -18,7 +18,8 @@ public class ReplyInvitation extends BaseComponent {
     public OrderEntity getOrderWithNoReply() {
         if (!isAuthenticated() ||
                 getComponentResources().getPage() instanceof Order ||
-                getComponentResources().getPage() instanceof Orders) return null;
+                getComponentResources().getPage() instanceof Orders ||
+                getRequest().getParameter("ql") != null) return null;
         final Stream<OrderEntity> closedOrders =
                 isCook() ?
                         getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream().flatMap(t -> getOrderService().findAllOrders(t, Status.CLOSED).stream()) :

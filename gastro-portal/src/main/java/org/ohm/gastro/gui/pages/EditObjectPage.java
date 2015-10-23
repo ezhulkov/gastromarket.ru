@@ -1,6 +1,6 @@
 package org.ohm.gastro.gui.pages;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
 import org.ohm.gastro.domain.BaseEntity;

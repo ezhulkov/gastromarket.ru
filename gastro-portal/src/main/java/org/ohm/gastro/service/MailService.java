@@ -4,7 +4,6 @@ import org.ohm.gastro.domain.UserEntity;
 import org.springframework.mail.MailException;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
@@ -52,13 +51,6 @@ public interface MailService {
     void syncChimpList(@Nonnull final UserEntity user, @Nonnull final Map<String, String> mergeVars);
 
     void deleteChimpList(@Nonnull final UserEntity user);
-
-    @Nullable
-    UserEntity parseSecuredEmail(String link);
-
-    String generateSecuredEmail(String user);
-
-    String generateSecuredEmail(String user, long timeout);
 
     void scheduleSend(UserEntity user, String key, Consumer<String> routine, long time, TimeUnit timeUnit);
 

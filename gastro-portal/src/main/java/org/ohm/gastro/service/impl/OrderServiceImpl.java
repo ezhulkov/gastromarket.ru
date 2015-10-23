@@ -1,7 +1,7 @@
 package org.ohm.gastro.service.impl;
 
 import com.google.common.collect.Lists;
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.ohm.gastro.domain.CatalogEntity;

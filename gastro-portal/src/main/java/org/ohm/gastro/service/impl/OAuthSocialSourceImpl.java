@@ -2,7 +2,7 @@ package org.ohm.gastro.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.ohm.gastro.misc.EndpointCallback;
 import org.ohm.gastro.service.SocialSource;
 import org.ohm.gastro.trait.Logging;

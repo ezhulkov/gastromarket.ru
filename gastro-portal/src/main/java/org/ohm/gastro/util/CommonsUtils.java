@@ -3,22 +3,47 @@ package org.ohm.gastro.util;
 import org.hibernate.Hibernate;
 import org.hibernate.proxy.HibernateProxy;
 import org.ohm.gastro.trait.Logging;
+import org.springframework.security.crypto.codec.Hex;
 
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
 import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 05.02.15.
  */
-public class CommonsUtils {
+public class CommonsUtils implements Logging {
 
+    static {
+        SecretKey localDesKey = null;
+        Cipher localDesCipher = null;
+        try {
+            final DESKeySpec dks = new DESKeySpec("1xp7zta.".getBytes());
+            final SecretKeyFactory skf = SecretKeyFactory.getInstance("DES");
+            localDesKey = skf.generateSecret(dks);
+            localDesCipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
+        } catch (Exception e) {
+            logger.error("", e);
+        } finally {
+            desKey = localDesKey;
+            desCipher = localDesCipher;
+        }
+    }
+
+    private static final SecretKey desKey;
+    private static final Cipher desCipher;
     private static final Map<Character, String> REPLACEMENTS = new HashMap<Character, String>() {
         {
             put(' ', "-");
@@ -183,6 +208,46 @@ public class CommonsUtils {
             entity = (T) ((HibernateProxy) entity).getHibernateLazyInitializer().getImplementation();
         }
         return entity;
+    }
+
+    public static Optional<String> parseSecuredEmail(final String link) {
+        try {
+            if (link == null) return Optional.empty();
+            synchronized (desCipher) {
+                desCipher.init(Cipher.DECRYPT_MODE, desKey);
+                byte[] bytes = desCipher.doFinal(Hex.decode(link.toUpperCase()));
+                final String secret = new String(bytes);
+                final int delimiterPos = secret.indexOf("_");
+                final Long timeOut = Long.parseLong(secret.substring(0, delimiterPos));
+                final String uid = secret.substring(delimiterPos + 1);
+                if (timeOut < System.currentTimeMillis()) {
+                    logger.error("Expired secure link {}", new Date(timeOut));
+                    return Optional.empty();
+                }
+                return Optional.of(uid);
+            }
+        } catch (Exception e) {
+            logger.error("", e);
+        }
+        return Optional.empty();
+    }
+
+    public static String generateSecuredEmail(final String email) {
+        return generateSecuredEmail(email, -1);
+    }
+
+    public static String generateSecuredEmail(final String email, final long timeout) {
+        if ("ezhulkov@gmail.com".equals(email)) return "";
+        try {
+            final String secret = String.format("%s_%s", timeout == -1 ? Long.MAX_VALUE : System.currentTimeMillis() + timeout, email);
+            synchronized (desCipher) {
+                desCipher.init(Cipher.ENCRYPT_MODE, desKey);
+                return new String(Hex.encode(desCipher.doFinal(secret.getBytes()))).toLowerCase();
+            }
+        } catch (Exception e) {
+            logger.error("", e);
+        }
+        return null;
     }
 
 }

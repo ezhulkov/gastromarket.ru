@@ -1,7 +1,7 @@
 package org.ohm.gastro.service.impl;
 
 import com.google.common.base.Charsets;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -12,24 +12,18 @@ import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.reps.UserRepository;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.trait.Logging;
+import org.ohm.gastro.util.CommonsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
-import org.springframework.security.crypto.codec.Hex;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.PreDestroy;
-import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.DESKeySpec;
 import java.io.StringWriter;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -83,14 +77,11 @@ public class MailServiceImpl implements MailService, Logging {
                     "   }" +
                     "}";
 
-    private final UserRepository userRepository;
     private final VelocityEngine velocityEngine;
     private final String defaultFrom;
     private final ExecutorService executorService;
     private final JavaMailSenderImpl mailSender;
     private final boolean production;
-    private final SecretKey desKey;
-    private final Cipher desCipher;
     private final Map<String, ScheduledFuture> scheduledFutures = new ConcurrentHashMap<>();
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
 
@@ -98,7 +89,6 @@ public class MailServiceImpl implements MailService, Logging {
     public MailServiceImpl(final UserRepository userRepository,
                            @Value("${mail.from:ГастроМаркет <contacts@gastromarket.ru>}") String defaultFrom,
                            @Value("${production}") boolean production) throws Exception {
-        this.userRepository = userRepository;
         final Properties properties = new Properties();
         properties.setProperty("input.encoding", "UTF-8");
         properties.setProperty("resource.loader", "class");
@@ -115,10 +105,6 @@ public class MailServiceImpl implements MailService, Logging {
         mailSender.setDefaultEncoding("UTF-8");
         this.mailSender = mailSender;
         this.production = production;
-        final DESKeySpec dks = new DESKeySpec("1xp7zta.".getBytes());
-        final SecretKeyFactory skf = SecretKeyFactory.getInstance("DES");
-        desKey = skf.generateSecret(dks);
-        desCipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
     }
 
     @PreDestroy
@@ -139,8 +125,8 @@ public class MailServiceImpl implements MailService, Logging {
 
         if (!production) return;
 
-        params.put("unsubscribe", generateSecuredEmail(recipient, -1));
-        params.put("quicklogin", generateSecuredEmail(recipient, 300000));
+        params.put("unsubscribe", CommonsUtils.generateSecuredEmail(recipient, -1));
+        params.put("quicklogin", CommonsUtils.generateSecuredEmail(recipient, 300000));
 
         try (
                 final StringWriter stringWriter = new StringWriter()
@@ -203,49 +189,6 @@ public class MailServiceImpl implements MailService, Logging {
                                                    user.getEmail());
         logger.info("MailChimp request {}", mailChimpJson);
         syncMailChimp(MC_DEL_ENDPOINT, new StringEntity(mailChimpJson, Charsets.UTF_8));
-    }
-
-    @Nullable
-    @Override
-    public UserEntity parseSecuredEmail(final String link) {
-        try {
-            synchronized (desCipher) {
-                desCipher.init(Cipher.DECRYPT_MODE, desKey);
-                byte[] bytes = desCipher.doFinal(Hex.decode(link.toUpperCase()));
-                final String secret = new String(bytes);
-                final int delimiterPos = secret.indexOf("_");
-                final Long timeOut = Long.parseLong(secret.substring(0, delimiterPos));
-                final String uid = secret.substring(delimiterPos + 1);
-                if (timeOut < System.currentTimeMillis()) {
-                    logger.error("Expired secure link {}", new Date(timeOut));
-                    return null;
-                }
-                return userRepository.findByEmail(uid);
-            }
-        } catch (Exception e) {
-            logger.error("", e);
-        }
-        return null;
-    }
-
-    @Override
-    public String generateSecuredEmail(final String email) {
-        return generateSecuredEmail(email, -1);
-    }
-
-    @Override
-    public String generateSecuredEmail(final String email, final long timeout) {
-        if ("ezhulkov@gmail.com".equals(email)) return "";
-        try {
-            final String secret = String.format("%s_%s", timeout == -1 ? Long.MAX_VALUE : System.currentTimeMillis() + timeout, email);
-            synchronized (desCipher) {
-                desCipher.init(Cipher.ENCRYPT_MODE, desKey);
-                return new String(Hex.encode(desCipher.doFinal(secret.getBytes()))).toLowerCase();
-            }
-        } catch (Exception e) {
-            logger.error("", e);
-        }
-        return null;
     }
 
     @Override
