@@ -85,7 +85,7 @@ public class CatalogServiceImpl implements CatalogService, Logging {
     }
 
     @Override
-    public void processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
+    public void processUploadedImages(final FileType fileType, String objectId, Map<ImageSize, String> imageUrls) {
         checkNotNull(objectId, "ObjectId should not be null");
         CatalogEntity catalog = catalogRepository.findOne(Long.parseLong(objectId));
         checkNotNull(catalog, "Product should not be null");

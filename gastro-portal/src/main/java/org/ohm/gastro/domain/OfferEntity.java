@@ -9,10 +9,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PostLoad;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -46,13 +44,8 @@ public class OfferEntity extends SitemapBaseEntity implements PurchaseEntity {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private CatalogEntity catalog;
 
-    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-    @JoinTable(name = "offer_product",
-            joinColumns = @JoinColumn(name = "offer_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id")
-    )
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private List<ProductEntity> products = Lists.newArrayList();
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "offer")
+    private List<PhotoEntity> photos = Lists.newArrayList();
 
     @Transient
     private String avatarUrl;
@@ -62,8 +55,8 @@ public class OfferEntity extends SitemapBaseEntity implements PurchaseEntity {
 
     @PostLoad
     public void loaded() {
-        avatarUrlSmall = products.size() == 0 ? "/img/offer-stub-100x100.jpg" : products.get(0).getAvatarUrlSmall();
-        avatarUrl = products.size() == 0 ? "/img/offer-stub-270x270.jpg" : products.get(0).getAvatarUrlMedium();
+        avatarUrlSmall = photos.size() == 0 ? "/img/offer-stub-100x100.jpg" : photos.get(0).getLinkAvatarSmall();
+        avatarUrl = photos.size() == 0 ? "/img/offer-stub-270x270.jpg" : photos.get(0).getLinkAvatar();
     }
 
     public Integer getPersons() {
@@ -123,14 +116,6 @@ public class OfferEntity extends SitemapBaseEntity implements PurchaseEntity {
         return promoted;
     }
 
-    public List<ProductEntity> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<ProductEntity> products) {
-        this.products = products;
-    }
-
     @Override
     public String getAvatarUrlSmall() {
         return avatarUrlSmall;
@@ -142,7 +127,7 @@ public class OfferEntity extends SitemapBaseEntity implements PurchaseEntity {
     }
 
     public String getDescriptionRaw() {
-        String desc = (String) ObjectUtils.defaultIfNull(description, "");
+        String desc = ObjectUtils.defaultIfNull(description, "");
         desc = desc.replaceAll("\\n", "<br/>");
         return desc;
     }

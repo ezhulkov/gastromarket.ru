@@ -315,7 +315,7 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
     }
 
     public String getCommentRaw() {
-        String text = (String) ObjectUtils.defaultIfNull(comment, "");
+        String text = ObjectUtils.defaultIfNull(comment, "");
         text = text.replaceAll("\\n", "<br/>");
         return text;
     }

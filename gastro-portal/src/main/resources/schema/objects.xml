@@ -1022,4 +1022,16 @@
         </sql>
     </changeSet>
 
+    <changeSet id="90" author="ezhulkov">
+        <addColumn tableName="photo">
+            <column name="offer_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="photo" baseColumnNames="offer_id" constraintName="photo_offer_fk" referencedTableName="offer" referencedColumnNames="id" onDelete="CASCADE"/>
+        <sql>
+            insert into photo (id,type,offer_id,product_id)
+            select nextval('hibernate_sequence'),'OFFER',offer_id,product_id from offer_product;
+        </sql>
+        <dropTable tableName="offer_product"/>
+    </changeSet>
+
 </databaseChangeLog>

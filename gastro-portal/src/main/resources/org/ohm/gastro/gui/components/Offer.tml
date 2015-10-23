@@ -34,11 +34,11 @@
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <t:if test="editMode">
                         <div class="edit" xml:space="preserve">
-                                                        <t:actionlink rel="nofollow" t:id="edit" t:context="offer.id" t:zone="${editZoneId}">Редактировать</t:actionlink>
-                                                        <t:unless test="mainPage">
-                                                            <a href="#delete" data-toggle="modal" class="delete" data-target="#deleteOffer${offer.id}">Удалить</a>
-                                                        </t:unless>
-                                                    </div>
+                            <t:actionlink rel="nofollow" t:id="edit" t:context="offer.id" t:zone="${editZoneId}">Редактировать</t:actionlink>
+                            <t:unless test="mainPage">
+                                <a href="#delete" data-toggle="modal" class="delete" data-target="#deleteOffer${offer.id}">Удалить</a>
+                            </t:unless>
+                        </div>
                         <div class="modal fade delete-offer" id="deleteOffer${offer.id}" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -66,23 +66,7 @@
                     <div class="description">
                         <t:outputraw value="offer.descriptionRaw"/>
                     </div>
-                    <t:if test="products">
-                        <h3>Блюда в предложении:</h3>
-                        <ul class="offer-products">
-                            <t:loop source="products" value="product">
-                                <li>
-                                    <t:pagelink page="product/index" t:context="product.altId">
-                                        <img src="${product.avatarUrlSmall}" class="popover-holder" data-content="${product.name}"/>
-                                    </t:pagelink>
-                                    <t:if test="editMode">
-                                        <div class="delete">
-                                            <t:actionlink rel="nofollow" t:id="deleteProduct" t:context="[product.id,offer.id]" t:zone="${offerZoneId}"/>
-                                        </div>
-                                    </t:if>
-                                </li>
-                            </t:loop>
-                        </ul>
-                    </t:if>
+                    <t:photos offer="offer"/>
                 </div>
             </div>
         </div>

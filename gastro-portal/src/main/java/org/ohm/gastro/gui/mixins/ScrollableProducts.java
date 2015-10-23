@@ -73,7 +73,7 @@ public abstract class ScrollableProducts extends BaseComponent {
     }
 
     protected void initScrollableContext(String ppid, String pid, Long catId, OrderType orderType, Direction direction) {
-        final String context = (String) ObjectUtils.defaultIfNull(pid, "empty");
+        final String context = ObjectUtils.defaultIfNull(pid, "empty");
         if (!context.equals(prevContext)) {
             this.from = 0;
             this.to = ProductService.PRODUCTS_PER_PAGE;

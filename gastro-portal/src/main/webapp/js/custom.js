@@ -109,7 +109,7 @@ function initModalStack() {
         jQuery("body").data("fv_open_modals", jQuery("body").data("fv_open_modals") + 1);
         jQuery(this).css("z-index", 1040 + (10 * jQuery("body").data("fv_open_modals")));
         if (jQuery(this).hasClass("img-big-modal") && !isMobile()) {
-            jQuery(this).find(".img-big").css("height", Math.min(720, jQuery(window).height() - 200));
+            jQuery(this).find(".img-big").css("height", Math.max(100, Math.min(720, jQuery(window).height() - 220)));
         }
     });
 }

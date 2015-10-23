@@ -1,6 +1,5 @@
 package org.ohm.gastro.gui.components;
 
-import com.google.common.collect.Lists;
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
@@ -9,7 +8,6 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.OfferEntity;
 import org.ohm.gastro.domain.PriceModifierEntity;
-import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.stream.Collectors;
@@ -49,18 +47,9 @@ public class Offer extends BaseComponent {
     @Property
     private Block editBlock;
 
-    @Property
-    private ProductEntity product;
-
-
     @Cached
     public java.util.List<PriceModifierEntity> getPriceModifiers() {
         return getProductService().findAllModifiers(offer).stream().filter(t -> t.getPrice() != 0).collect(Collectors.toList());
-    }
-
-    @Cached(watch = "offer")
-    public java.util.List<ProductEntity> getProducts() {
-        return type == Type.SHORT ? Lists.newArrayList() : getProductService().findAllProducts(offer);
     }
 
     public String getAdditionalClass() {
@@ -99,13 +88,6 @@ public class Offer extends BaseComponent {
 
     public String getOfferZoneId() {
         return "offerZone" + offer.getId();
-    }
-
-    public Block onActionFromDeleteProduct(Long pid, Long oid) {
-        offer = getOfferService().findOffer(oid);
-        offer.getProducts().remove(getProductService().findProduct(pid));
-        getOfferService().saveOffer(offer);
-        return offerBlock;
     }
 
     public boolean isMainPage() {

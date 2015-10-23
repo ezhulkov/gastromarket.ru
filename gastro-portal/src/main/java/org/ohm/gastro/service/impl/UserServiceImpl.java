@@ -301,7 +301,7 @@ public class UserServiceImpl implements UserService, Logging {
     }
 
     @Override
-    public void processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
+    public void processUploadedImages(final FileType fileType, String objectId, Map<ImageSize, String> imageUrls) {
         checkNotNull(objectId, "ObjectId should not be null");
         UserEntity user = userRepository.findOne(Long.parseLong(objectId));
         checkNotNull(user, "User should not be null");
@@ -312,7 +312,7 @@ public class UserServiceImpl implements UserService, Logging {
     }
 
     @Override
-    public String explicitlyGetObject(final String objectIdStr, final String targetContext, final UserEntity caller) {
+    public String explicitlyGetObject(final FileType fileType, final String objectIdStr, final String targetContext, final UserEntity caller) {
         return caller.getId().toString();
     }
 

@@ -9,8 +9,10 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Select;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.ohm.gastro.domain.CommentEntity;
+import org.ohm.gastro.domain.OfferEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.PhotoEntity;
+import org.ohm.gastro.domain.PhotoEntity.Type;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.gui.misc.GenericSelectModel;
 import org.ohm.gastro.gui.mixins.BaseComponent;
@@ -27,7 +29,9 @@ public class Inject extends BaseComponent {
     @Parameter
     private CommentEntity comment;
 
-    @Property
+    @Parameter
+    private OfferEntity offer;
+
     @Parameter
     private OrderEntity order;
 
@@ -69,7 +73,7 @@ public class Inject extends BaseComponent {
     }
 
     public PhotoEntity onAddRow() {
-        return getPhotoService().createPhoto();
+        return getPhotoService().createPhoto(getType());
     }
 
     public void onRemoveRow(final PhotoEntity photo) {
@@ -85,14 +89,32 @@ public class Inject extends BaseComponent {
         if (photo.getId() == null || !submittedPhotos.contains(photo)) submittedPhotos.add(photo);
     }
 
+    public OfferEntity getOffer() {
+        return offer;
+    }
+
+    public void setOffer(final OfferEntity offer) {
+        this.offer = offer;
+    }
+
     public java.util.List<PhotoEntity> getPhotos() {
         if (comment != null) {
             if (comment.getId() == null) return Lists.newArrayList();
             return getPhotoService().findAllPhotos(comment);
-        } else {
+        } else if (order != null) {
             if (order.getId() == null) return Lists.newArrayList();
             return getPhotoService().findAllPhotos(order);
+        } else {
+            if (offer.getId() == null) return Lists.newArrayList();
+            return getPhotoService().findAllPhotos(offer);
         }
+    }
+
+    public PhotoEntity.Type getType() {
+        if (comment != null) return Type.COMMENT;
+        if (order != null) return Type.ORDER;
+        if (offer != null) return Type.OFFER;
+        return null;
     }
 
 }

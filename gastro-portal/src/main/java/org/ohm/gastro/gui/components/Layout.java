@@ -41,11 +41,11 @@ public class Layout extends BaseComponent {
     private Block bottomBlock;
 
     public String getDescription() {
-        return (String) ObjectUtils.defaultIfNull(description, getMessages().get("page.description"));
+        return ObjectUtils.defaultIfNull(description, getMessages().get("page.description"));
     }
 
     public String getTitle() {
-        return (String) ObjectUtils.defaultIfNull(title, getMessages().get("page.title"));
+        return ObjectUtils.defaultIfNull(title, getMessages().get("page.title"));
     }
 
     public String getSocialImage() {
@@ -53,7 +53,7 @@ public class Layout extends BaseComponent {
     }
 
     public String getKeywords() {
-        return (String) ObjectUtils.defaultIfNull(keywords, getMessages().get("page.keywords"));
+        return ObjectUtils.defaultIfNull(keywords, getMessages().get("page.keywords"));
     }
 
 }

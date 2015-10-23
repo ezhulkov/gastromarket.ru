@@ -24,7 +24,7 @@
                                     ${photo.text}
                                 </p>
                                 <t:if test="photo.product">
-                                    <p class="modal-text">
+                                    <p class="modal-text prod-desc">
                                         Подробности на странице
                                         <t:pagelink page="product/index" t:context="photo.product.altId" target="_tab">${photo.product.name}</t:pagelink>
                                     </p>

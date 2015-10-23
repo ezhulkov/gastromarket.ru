@@ -20,7 +20,7 @@ import javax.persistence.Table;
 public class PhotoEntity extends AbstractBaseEntity {
 
     public enum Type {
-        ORDER, COMMENT
+        ORDER, COMMENT, OFFER
     }
 
     @Column
@@ -42,6 +42,10 @@ public class PhotoEntity extends AbstractBaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private OrderEntity order;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private OfferEntity offer;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -120,6 +124,26 @@ public class PhotoEntity extends AbstractBaseEntity {
 
     public boolean isPhotoAttached() {
         return comment != null || order != null;
+    }
+
+    public OfferEntity getOffer() {
+        return offer;
+    }
+
+    public void setOffer(final OfferEntity offer) {
+        this.offer = offer;
+    }
+
+    public String getLinkAvatarSmall() {
+        return product == null ? avatarUrlSmall : product.getAvatarUrlSmall();
+    }
+
+    public String getLinkAvatar() {
+        return product == null ? avatarUrl : product.getAvatarUrl();
+    }
+
+    public String getLinkAvatarBig() {
+        return product == null ? avatarUrlBig : product.getAvatarUrlBig();
     }
 
 }

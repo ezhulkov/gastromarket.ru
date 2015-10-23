@@ -106,7 +106,7 @@ public class CommentEntity extends AbstractBaseEntity {
     }
 
     public String getTextRaw() {
-        String text = (String) ObjectUtils.defaultIfNull(this.text, "");
+        String text = ObjectUtils.defaultIfNull(this.text, "");
         text = text.replaceAll("\\n", "<br/>");
         return text;
     }

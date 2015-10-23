@@ -34,7 +34,7 @@ public class SocialFilter extends BaseApplicationFilter {
             throws ServletException, IOException {
 
         try {
-            final String rqType = (String) ObjectUtils.defaultIfNull(httpServletRequest.getParameter("type"), "direct");
+            final String rqType = ObjectUtils.defaultIfNull(httpServletRequest.getParameter("type"), "direct");
             final String socialNetwork = httpServletRequest.getParameter("social");
             Logging.logger.debug("Calling SocialFilter with parameters rqType: {}, socialNetwork {}", rqType, socialNetwork);
 

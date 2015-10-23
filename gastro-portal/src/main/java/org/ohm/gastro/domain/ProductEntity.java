@@ -241,7 +241,7 @@ public class ProductEntity extends SitemapBaseEntity implements PurchaseEntity {
     }
 
     public String getDescriptionRaw() {
-        String desc = (String) ObjectUtils.defaultIfNull(description, "");
+        String desc = ObjectUtils.defaultIfNull(description, "");
         desc = desc.replaceAll("\\n", "<br/>");
         return desc;
     }

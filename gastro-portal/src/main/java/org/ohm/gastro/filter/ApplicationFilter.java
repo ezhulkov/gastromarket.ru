@@ -35,7 +35,7 @@ public class ApplicationFilter extends BaseApplicationFilter {
 
         if (needToLog) {
             final String servletPath = httpServletRequest.getServletPath();
-            final String userAgent = ((String) ObjectUtils.defaultIfNull(httpServletRequest.getHeader("User-Agent"), "-")).toLowerCase();
+            final String userAgent = (ObjectUtils.defaultIfNull(httpServletRequest.getHeader("User-Agent"), "-")).toLowerCase();
             final Long opNumber = opCounter.incrementAndGet();
             final String referer = httpServletRequest.getHeader("Referer");
             final String sid = httpServletRequest.getSession(false) == null ? "-" : httpServletRequest.getSession(false).getId();

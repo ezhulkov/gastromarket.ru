@@ -102,7 +102,7 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
-    public void processUploadedImages(String objectId, Map<ImageSize, String> imageUrls) {
+    public void processUploadedImages(final FileType fileType, String objectId, Map<ImageSize, String> imageUrls) {
         checkNotNull(objectId, "ObjectId should not be null");
         ProductEntity product = productRepository.findOne(Long.parseLong(objectId));
         checkNotNull(product, "Product should not be null");

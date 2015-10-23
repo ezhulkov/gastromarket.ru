@@ -261,7 +261,7 @@ public class CatalogEntity extends SitemapBaseEntity implements CommentableEntit
     }
 
     public String getCancellationRaw() {
-        return ((String) ObjectUtils.defaultIfNull(cancellation, "")).replaceAll("\\n", "<br/>");
+        return (ObjectUtils.defaultIfNull(cancellation, "")).replaceAll("\\n", "<br/>");
     }
 
     public void setCancellation(final String cancellation) {
@@ -277,19 +277,19 @@ public class CatalogEntity extends SitemapBaseEntity implements CommentableEntit
     }
 
     public String getDescriptionRaw() {
-        String desc = (String) ObjectUtils.defaultIfNull(description, "");
+        String desc = ObjectUtils.defaultIfNull(description, "");
         desc = desc.replaceAll("\\n", "<br/>");
         return desc;
     }
 
     public String getDeliveryRaw() {
-        String desc = (String) ObjectUtils.defaultIfNull(delivery, "");
+        String desc = ObjectUtils.defaultIfNull(delivery, "");
         desc = desc.replaceAll("\\n", "<br/>");
         return desc;
     }
 
     public String getPaymentRaw() {
-        String desc = (String) ObjectUtils.defaultIfNull(payment, "");
+        String desc = ObjectUtils.defaultIfNull(payment, "");
         desc = desc.replaceAll("\\n", "<br/>");
         return desc;
     }

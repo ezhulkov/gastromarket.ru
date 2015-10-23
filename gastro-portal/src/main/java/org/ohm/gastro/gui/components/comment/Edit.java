@@ -56,7 +56,7 @@ public class Edit extends BaseComponent {
         } else {
             getConversationService().placeComment(comment.getEntity(), comment, getAuthenticatedUser());
         }
-        getPhotoService().attachPhotos(comment, null, inject.getSubmittedPhotos());
+        getPhotoService().attachPhotos(comment, inject.getSubmittedPhotos());
     }
 
     public boolean getLike() {

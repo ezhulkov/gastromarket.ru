@@ -153,7 +153,7 @@ public class Edit extends BaseComponent {
                             getOrderService().saveTender(origOrder, getAuthenticatedUser()) :
                             getOrderService().saveOrder(origOrder, getAuthenticatedUser());
                 }
-                getPhotoService().attachPhotos(null, order, inject.getSubmittedPhotos());
+                getPhotoService().attachPhotos(order, inject.getSubmittedPhotos());
                 if (ordersBlock != null) getAjaxResponseRenderer().addRender("ordersZone", ordersBlock);
                 if (orderBlock != null) getAjaxResponseRenderer().addRender(orderZoneId, orderBlock);
                 getAjaxResponseRenderer().addRender(getOrderEditZone(), editContactsBlock);
