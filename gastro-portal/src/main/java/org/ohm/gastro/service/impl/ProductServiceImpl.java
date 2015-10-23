@@ -1,6 +1,9 @@
 package org.ohm.gastro.service.impl;
 
 import com.google.common.base.Objects;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
@@ -39,6 +42,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -48,6 +52,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -69,6 +75,14 @@ public class ProductServiceImpl implements ProductService, Logging {
     private final PropertyService propertyService;
     private final ImageService imageService;
     private final PriceModifierRepository priceModifierRepository;
+    private final LoadingCache<CatalogCategoryPair, Integer> cachedCategoriesProducts = CacheBuilder.newBuilder()
+            .expireAfterAccess(10, TimeUnit.MINUTES)
+            .build(new CacheLoader<CatalogCategoryPair, Integer>() {
+                @Override
+                public Integer load(final CatalogCategoryPair cat) throws Exception {
+                    return findAllCategoryProductsCount(cat.catalog, cat.category);
+                }
+            });
 
     @Autowired
     public ProductServiceImpl(final ProductRepository productRepository,
@@ -214,8 +228,8 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
-    public int findAllCategoryProductsCount(@Nonnull CatalogEntity catalog, @Nonnull PropertyValueEntity category) {
-        return category.getId() == null ?
+    public int findAllCategoryProductsCount(@Nullable CatalogEntity catalog, @Nullable PropertyValueEntity category) {
+        return category == null || category.getId() == null ?
                 productRepository.findCountInCatalog(catalog, false) :
                 productRepository.findCountByRootValueAndCatalog(category, catalog, null, false);
     }
@@ -331,6 +345,27 @@ public class ProductServiceImpl implements ProductService, Logging {
     @Override
     public List<PropertyValueEntity> findAllRootValues(CatalogEntity catalog, Boolean wasSetup) {
         return propertyValueRepository.findAllRootValues(catalog, wasSetup);
+    }
+
+    @Override
+    public int findAllProductsCountCached(final CatalogEntity catalog, @Nonnull final PropertyValueEntity category) {
+        try {
+            return cachedCategoriesProducts.get(new CatalogCategoryPair(catalog, category));
+        } catch (ExecutionException e) {
+            logger.error("", e);
+        }
+        return 0;
+    }
+
+    private class CatalogCategoryPair {
+
+        private final CatalogEntity catalog;
+        private final PropertyValueEntity category;
+
+        public CatalogCategoryPair(final CatalogEntity catalog, final PropertyValueEntity category) {
+            this.catalog = catalog;
+            this.category = category;
+        }
     }
 
 }

@@ -164,13 +164,6 @@ public class Products extends BaseComponent {
         return propertyValue.getId() == null ? getMessages().get("raw.products.tip") : null;
     }
 
-    public java.util.List<PropertyValueEntity> getAllProperties() {
-        return getProductService().findAllRootValues(catalog, isCatalogOwner() ? null : true).stream()
-                .flatMap(t -> Stream.concat(Stream.of(t), t.getParents().stream()))
-                .distinct()
-                .collect(Collectors.toList());
-    }
-
     @Cached
     public java.util.List<PropertyValueEntity> getRootProperties() {
         if (propertyValue != null) return Lists.newArrayList(propertyValue);

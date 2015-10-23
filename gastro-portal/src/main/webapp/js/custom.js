@@ -108,8 +108,8 @@ function initModalStack() {
         if (jQuery("body").data("fv_open_modals") == undefined) jQuery("body").data("fv_open_modals", 0);
         jQuery("body").data("fv_open_modals", jQuery("body").data("fv_open_modals") + 1);
         jQuery(this).css("z-index", 1040 + (10 * jQuery("body").data("fv_open_modals")));
-        if (jQuery(this).hasClass("img-big-modal")) {
-            jQuery(this).find(".img-big").css("height", jQuery(window).height() - 200);
+        if (jQuery(this).hasClass("img-big-modal") && !isMobile()) {
+            jQuery(this).find(".img-big").css("height", Math.min(720, jQuery(window).height() - 200));
         }
     });
 }

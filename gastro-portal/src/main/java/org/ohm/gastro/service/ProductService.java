@@ -13,6 +13,7 @@ import org.ohm.gastro.service.social.MediaElement;
 import org.springframework.data.domain.Sort.Direction;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -30,7 +31,9 @@ public interface ProductService extends ImageUploaderService, AltIdService<Produ
 
     List<ProductEntity> findAllRawProducts(@Nonnull CatalogEntity catalog, final int from, final int to);
 
-    int findAllCategoryProductsCount(@Nonnull CatalogEntity catalog, @Nonnull PropertyValueEntity category);
+    int findAllCategoryProductsCount(@Nullable CatalogEntity catalog, @Nullable PropertyValueEntity category);
+
+    int findAllProductsCountCached(final CatalogEntity catalog, @Nonnull PropertyValueEntity category);
 
     List<ProductEntity> findAllProducts(OfferEntity offer);
 

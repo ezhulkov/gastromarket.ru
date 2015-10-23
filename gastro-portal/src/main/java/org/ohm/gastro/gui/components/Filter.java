@@ -1,9 +1,9 @@
 package org.ohm.gastro.gui.components;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.PropertyValueEntity.Tag;
 import org.ohm.gastro.gui.mixins.BaseComponent;
@@ -36,13 +36,12 @@ public class Filter extends BaseComponent {
     @Parameter(name = "direction", allowNull = true, required = false)
     private Direction direction;
 
+    @Parameter(name = "catalog", allowNull = true, required = false)
+    private CatalogEntity catalog;
+
     @Property
     @Parameter(name = "pageContext", allowNull = false, required = false)
     private String pageContext;
-
-    @Property
-    @Parameter(name = "allValues", allowNull = true, required = false)
-    private List<PropertyValueEntity> allValues;
 
     @Cached
     public java.util.List<PropertyValueEntity> getValues() {
@@ -69,12 +68,12 @@ public class Filter extends BaseComponent {
         return getPropertyService().findAllChildrenValues(oneValue);
     }
 
-    public boolean getShow() {
-        return CollectionUtils.isEmpty(allValues) || allValues.contains(oneValue);
+    public boolean isShowCategory() {
+        return getProductService().findAllProductsCountCached(catalog, oneValue) > 0;
     }
 
-    public boolean getShowSub() {
-        return CollectionUtils.isEmpty(allValues) || allValues.contains(oneChildValue);
+    public boolean isShowSubCategory() {
+        return getProductService().findAllProductsCountCached(catalog, oneChildValue) > 0;
     }
 
 }

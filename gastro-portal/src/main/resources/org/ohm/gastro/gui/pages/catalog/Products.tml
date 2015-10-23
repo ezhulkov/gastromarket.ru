@@ -14,7 +14,7 @@
                 <t:productEdit catalog="catalog" edit="false" productsBlock="newProductsBlock" productsZoneId="literal:newProductsZone"/>
             </t:if>
             <t:filter parentValue="parentPropertyValue"
-                      allValues="allProperties"
+                      catalog="catalog"
                       value="propertyValue"
                       orderType="orderType"
                       direction="direction"

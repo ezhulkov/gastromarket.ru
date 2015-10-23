@@ -60,4 +60,8 @@ public class Index extends BaseComponent {
         return getPropertyService().findAllValues(PropertyValueEntity.Tag.ROOT);
     }
 
+    public boolean isShowCategory() {
+        return getProductService().findAllProductsCountCached(null, onePropertyValue) > 0;
+    }
+
 }

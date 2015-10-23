@@ -83,11 +83,15 @@ $mainpics: main1 main2 main3 main4 main5 main6 main7 main8
         width: 200px
         height: 186px
         .name
+          font-size: 18px
           line-height: 40px
         img
           height: 145px
           width: 100%
           display: block
+        &.item.enable-false
+          .name, img
+            opacity: 0.15
       +tablet-media
         .categories
           padding-left: 0
@@ -99,7 +103,5 @@ $mainpics: main1 main2 main3 main4 main5 main6 main7 main8
           width: 100%
           display: block
           margin: 0 auto
-          .category
-            display: none
         .item:nth-child(2n)
           background-color: #f5f5f5

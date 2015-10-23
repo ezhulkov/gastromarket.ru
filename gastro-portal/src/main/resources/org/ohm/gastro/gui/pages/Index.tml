@@ -114,13 +114,19 @@
         <div class="container categories">
             <div class="row grid-block">
                 <t:loop source="propertyValues" value="onePropertyValue">
-                    <div class="item">
-                        <t:pagelink page="product/list" context="onePropertyValue.altId" class="category">
-                            <img alt="${onePropertyValue.name}" title="${onePropertyValue.name}" src="/img/category/category-${onePropertyValue.altId}-small.jpg"/>
-                        </t:pagelink>
-                        <t:pagelink page="product/list" context="onePropertyValue.altId" class="name f18px">
-                            ${onePropertyValue.name}
-                        </t:pagelink>
+                    <div class="item enable-${showCategory}">
+                        <t:if test="showCategory">
+                            <t:pagelink page="product/list" context="onePropertyValue.altId" class="hidden-xs">
+                                <img alt="${onePropertyValue.name}" title="${onePropertyValue.name}" src="/img/category/category-${onePropertyValue.altId}-small.jpg"/>
+                            </t:pagelink>
+                            <t:pagelink page="product/list" context="onePropertyValue.altId" class="name">
+                                ${onePropertyValue.name}
+                            </t:pagelink>
+                            <t:parameter name="else">
+                                <img alt="${onePropertyValue.name}" title="${onePropertyValue.name}" src="/img/category/category-${onePropertyValue.altId}-small.jpg" class="hidden-xs"/>
+                                <span class="name">${onePropertyValue.name}</span>
+                            </t:parameter>
+                        </t:if>
                     </div>
                 </t:loop>
             </div>

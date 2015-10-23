@@ -19,15 +19,18 @@
         +tablet-media
           display: block
     .dropdown-menu
-      margin: 10px 0 0 60px
+      margin-top: 10px
       li
         display: block
-        a
+        a, span
+          padding: 3px 20px
           font-size: $f14px
           color: $redTextColor
           display: block
           width: 180px
           text-align: left
+        span.disabled
+          color: lightgray
         &.submenu:hover
           .dropdown-menu
             display: block
@@ -79,10 +82,7 @@
           &:after
             display: none
         li:nth-child(2n)
-          background-color: #f5f5f5
-        .submenu > .dropdown-menu,
-        .submenu:hover > .dropdown-menu
-          display: none
+          +zebra-row
 
   .order
     background: url("../img/order.png") no-repeat
@@ -98,13 +98,5 @@
   .order-DESC
     @extend .order
     background-position: 0 -5px
-
-  .disable
-    font-size: $f14px
-    color: lightgray
-    display: block
-    width: 160px
-    text-align: left
-    margin: 4px 0 5px 20px
   
 
