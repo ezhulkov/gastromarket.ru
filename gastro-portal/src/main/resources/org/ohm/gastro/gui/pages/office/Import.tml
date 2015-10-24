@@ -6,7 +6,7 @@
                 <h1><span>Импорт каталога блюд</span></h1>
             </div>
             <div class="row">
-                <p class="modal-text">Выберите социальную сеть, где у Вас уже есть готовый каталог блюд:</p>
+                <p class="modal-text">Выберите социальную сеть, где у вас уже есть готовый каталог блюд:</p>
 
                 <div class="row">
                     <div class="col-sm-12">
@@ -20,7 +20,7 @@
             </div>
             <div class="row">
                 <t:if test="socialCodes">
-                    <p class="modal-text gap3">Отметьте блюда, которые Вы бы хотели добавить на свою страницу в ГастроМаркете,<br/> и нажмите кнопку "Импортировать" внизу страницы:</p>
+                    <p class="modal-text gap3">Отметьте блюда, которые вы бы хотели добавить на свою страницу в ГастроМаркете,<br/> и нажмите кнопку "Импортировать" внизу страницы:</p>
                     <t:loop source="socialCodes" value="socialCode">
                         <div class="import-item">
                             <div class="title">

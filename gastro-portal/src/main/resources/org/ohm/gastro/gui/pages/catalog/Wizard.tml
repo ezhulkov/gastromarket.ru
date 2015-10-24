@@ -96,7 +96,7 @@
                     <div class="form-group">
                         <t:label for="desc">${nameLabel}:</t:label>
                         <div class="label-tip">
-                            Как бы Вы хотели, чтобы называлась Ваша страница? Примеры - 'Кулинар Сергей Петров' или 'Кондитерская SmartCakes'
+                            Как бы вы хотели, чтобы называлась Ваша страница? Примеры - 'Кулинар Сергей Петров' или 'Кондитерская SmartCakes'
                         </div>
                         <input t:id="name" rows="6" class="form-control"/>
                     </div>
@@ -138,7 +138,7 @@
                     <div class="form-group">
                         <t:label for="cancellation">Условия отмены:</t:label>
                         <div class="label-tip">
-                            Возможно ли отменить заказ и какую часть предоплаты Вы возвращаете?
+                            Возможно ли отменить заказ и какую часть предоплаты вы возвращаете?
                         </div>
                         <input t:id="cancellation" rows="3" class="form-control" tabindex="3"/>
                     </div>

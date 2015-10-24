@@ -74,7 +74,7 @@
                                                 <div class="form-group">
                                                     <t:label for="cancellation">Условия отмены:</t:label>
                                                     <div class="label-tip">
-                                                        Возможно ли отменить заказ и какую часть предоплаты Вы возвращаете?
+                                                        Возможно ли отменить заказ и какую часть предоплаты вы возвращаете?
                                                     </div>
                                                     <input t:id="cancellation" rows="2" class="form-control"/>
                                                 </div>
