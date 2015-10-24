@@ -36,17 +36,10 @@
                             <li class="hidden-xs hidden-md hidden-lg">
                                 <t:pagelink page="office/messages">Сообщения</t:pagelink>
                             </li>
-                            <t:if test="cook">
-                                <li>
-                                    <t:pagelink page="office/orders" context="['true','ACTIVE']">Мои заказы</t:pagelink>
-                                </li>
-                            </t:if>
+                            <li>
+                                <t:pagelink page="office/orders">Заказы</t:pagelink>
+                            </li>
                         </t:if>
-                        <t:zone elementName="li" t:id="basketZone">
-                            <t:unless test="cook">
-                                <t:delegate to="basketBlock"/>
-                            </t:unless>
-                        </t:zone>
                         <t:if test="authenticated">
                             <li>
                                 <span class="dropdown">
@@ -55,17 +48,19 @@
                                         <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li>
-                                            <t:unless test="cook">
-                                                <t:pagelink page="office/index" context="['UPDATE','0']">Мой профиль</t:pagelink>
-                                            </t:unless>
-                                        </li>
+                                        <t:if test="cook">
+                                            <li>
+                                                <t:pagelink page="office/index" context="['UPDATE','0']">Настройки</t:pagelink>
+                                            </li>
+                                            <t:parameter name="else">
+                                                <li>
+                                                    <t:pagelink page="office/index" context="['UPDATE','0']">Мой профиль</t:pagelink>
+                                                </li>
+                                            </t:parameter>
+                                        </t:if>
                                         <t:if test="user">
                                             <li>
                                                 <a href="#bonus" data-toggle="modal" data-target="#bonus">${bonusesMessage}</a>
-                                            </li>
-                                            <li>
-                                                <t:pagelink page="office/orders" context="['true','NEW']">Мои заказы</t:pagelink>
                                             </li>
                                         </t:if>
                                         <t:if test="cook">
@@ -80,11 +75,6 @@
                                                 <t:pagelink page="admin/property/list">Системные настройки</t:pagelink>
                                             </li>
                                         </t:if>
-                                        <li>
-                                            <t:if test="cook">
-                                                <t:pagelink page="office/index" context="['UPDATE','0']">Настройки</t:pagelink>
-                                            </t:if>
-                                        </li>
                                         <li><a href="/logout" class="red-text">Выход</a></li>
                                     </ul>
                                 </span>
@@ -153,13 +143,6 @@
     </div>
 
     <t:zone t:id="orderShowZone"/>
-
-    <t:block t:id="basketBlock">
-        <t:if test="declProducts">
-            <a class="basket hidden-sm" href="${cartLink}">${declProducts}</a>
-            <a class="basket hidden-xs hidden-md hidden-lg">Заказы</a>
-        </t:if>
-    </t:block>
 
     <t:block t:id="orderShowBlock">
         <t:if test="shoppingCart.justAdded">

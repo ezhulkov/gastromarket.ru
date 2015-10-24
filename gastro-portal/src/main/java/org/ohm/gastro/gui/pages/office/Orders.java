@@ -1,6 +1,7 @@
 package org.ohm.gastro.gui.pages.office;
 
 import org.apache.tapestry5.Block;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.OrderEntity;
@@ -17,10 +18,12 @@ public class Orders extends BaseComponent {
     private Block ordersBlock;
 
     @Property
-    private OrderEntity.Status status = Status.NEW;
+    @Persist
+    private OrderEntity.Status status;
 
     @Property
-    private boolean privateOrders = false;
+    @Persist
+    private Boolean privateOrders;
 
     public void onActivate(boolean privateOrders, OrderEntity.Status status) {
         this.status = status;
@@ -28,7 +31,10 @@ public class Orders extends BaseComponent {
     }
 
     public Object[] onPassivate() {
-        return new Object[]{privateOrders, status};
+        return new Object[]{
+                privateOrders != null ? privateOrders : isCook(),
+                status != null ? status : (isCook() ? Status.ACTIVE : Status.NEW)
+        };
     }
 
 }

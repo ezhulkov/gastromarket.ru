@@ -26,14 +26,9 @@ public class HeaderLayout extends BaseComponent {
 
     @Inject
     @Property
-    private Block basketBlock;
-
-    @Inject
-    @Property
     private Block orderShowBlock;
 
     public void beginRender() {
-        getShoppingCart().setBasketBlock(basketBlock);
         getShoppingCart().setOrderShowBlock(orderShowBlock);
         getShoppingCart().setJustAdded(false);
     }

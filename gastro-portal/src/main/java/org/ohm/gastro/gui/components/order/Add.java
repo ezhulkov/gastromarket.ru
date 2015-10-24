@@ -27,9 +27,7 @@ public class Add extends BaseComponent {
 
     public void onActionFromAjaxLinkPurchase(PurchaseEntity.Type eType, Long eId, Long mId) {
         getShoppingCart().addItem(createPurchaseItem(eType, eId, mId));
-        getAjaxResponseRenderer()
-                .addRender("basketZone", getShoppingCart().getBasketBlock())
-                .addRender("orderShowZone", getShoppingCart().getOrderShowBlock());
+        getAjaxResponseRenderer().addRender("orderShowZone", getShoppingCart().getOrderShowBlock());
     }
 
     public void onActionFromAjaxLinkPurchase2(PurchaseEntity.Type eType, Long eId) {
