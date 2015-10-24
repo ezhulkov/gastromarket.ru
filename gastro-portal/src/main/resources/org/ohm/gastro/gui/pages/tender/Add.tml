@@ -1,6 +1,6 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" pageClass="tender-add">
 
-    <section class="tender">
+    <section class="tender white-section">
         <div class="container">
             <div class="title">
                 <h1><span>Новая заявка</span></h1>
@@ -111,9 +111,9 @@
         </div>
     </section>
 
-    <t:howtosection additionalClass="hidden-xs zebra-section"/>
+    <t:howtosection additionalClass="hidden-xs gray-section"/>
 
-    <t:lasttenderssection additionalClass="hidden-xs"/>
+    <t:lasttenderssection additionalClass="hidden-xs white-section"/>
 
     <script>
         initTenderAddPage();

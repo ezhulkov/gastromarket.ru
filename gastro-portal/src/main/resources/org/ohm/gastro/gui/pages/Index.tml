@@ -3,26 +3,26 @@
     <section class="main-header">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-lg-12 caption">
                     <h1>Ищете торт на заказ?</h1>
                 </div>
-                <div class="col-lg-7 col-md-6 col-sm-12 col-xs-12 hidden-xs">
+                <div class="col-lg-offset-1 col-lg-10 info">
                     <h2>
                         200 домашних кондитеров и кулинаров Москвы готовы сделать блюдо по индивидуальному заказу. Торты, капкейки, пироги, первые блюда и салаты — любые кулинарные шедевры для вашего праздника!
                     </h2>
                 </div>
-                <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">
-                    <t:order.landingForm/>
+                <div class="col-lg-12 cta">
+                    <t:pagelink page="tender/add" class="btn btn-lg btn-red">Разместить заявку</t:pagelink>
                 </div>
             </div>
         </div>
     </section>
 
-    <t:howToSection/>
+    <t:howToSection additionalClass="white-section"/>
 
-    <t:lastTendersSection additionalClass="zebra-section"/>
+    <t:lastTendersSection additionalClass="gray-section"/>
 
-    <section class="cooks">
+    <section class="cooks white-section">
         <div class="container">
             <div class="title">
                 <h1><span>Лучшие кулинары</span></h1>
@@ -43,7 +43,7 @@
         </div>
     </section>
 
-    <section class="products zebra-section">
+    <section class="products gray-section">
         <div class="container">
             <div class="title">
                 <h1><span>Примеры блюд</span></h1>
@@ -67,7 +67,7 @@
         </div>
     </section>
 
-    <section class="categories">
+    <section class="categories white-section">
         <div class="container">
             <div class="title">
                 <h1><span>Поиск по категориям</span></h1>
@@ -96,7 +96,7 @@
         </div>
     </section>
 
-    <section class="testimonial zebra-section">
+    <section class="testimonial gray-section">
         <div class="container">
             <div class="title">
                 <h1><span>Отзывы покупателей</span></h1>

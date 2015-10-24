@@ -16,9 +16,6 @@ public class Index extends BaseComponent {
     @Property
     private OrderEntity order;
 
-    @Property
-    private boolean newOrder;
-
     @Inject
     @Property
     private Block orderBlock;
@@ -30,10 +27,9 @@ public class Index extends BaseComponent {
         return onActivate(null);
     }
 
-    public Object onActivate(Long orderId, boolean newOrder) {
+    public Object onActivate(Long orderId) {
         order = getOrderService().findOrder(orderId);
         if (order == null) return new HttpError(404, "Page not found.");
-        this.newOrder = !isCook() && newOrder;
         final String cookieName = "tender_seen_" + order.getId();
         if (cookies.readCookieValue(cookieName) == null) {
             cookies.writeCookieValue(cookieName, "true");
@@ -43,12 +39,8 @@ public class Index extends BaseComponent {
         return true;
     }
 
-    public Object onActivate(Long orderId) {
-        return onActivate(orderId, false);
-    }
-
     public Object[] onPassivate() {
-        return newOrder ? new Object[]{order.getId(), newOrder} : new Object[]{order.getId()};
+        return new Object[]{order.getId()};
     }
 
     public String getKeywords() {

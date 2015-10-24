@@ -8,7 +8,7 @@
             <div class="row">
                 <p class="modal-text">Мы отправили детали заказа Вам на адрес электронной почты и в ближайшее время с Вами свяжется кулинар для уточнения деталей.</p>
 
-                <p class="modal-text">В случае возникновения вопросов, пишите на <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет заказы" class="red-text">contacts@gastromarket.ru</a>.</p>
+                <p class="modal-text">Есть вопросы? Пишите на <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет заказы" class="red-text">contacts@gastromarket.ru</a>.</p>
 
                 <div class="gap3 text-center">
                     <div class="col-xs-12">

@@ -6,9 +6,10 @@
                 <h1><span>Спасибо за заявку!</span></h1>
             </div>
             <div class="row">
-                <p class="modal-text">После модерации завки мы пришлём вам письмо и заявка попадёт в общий список, который доступен для всех кулинаров.</p>
+                <p class="modal-text">Ваша заявка уже находится на модерации, которая займёт не более одного часа. <br/>
+                                      После модерации мы пришлём вам письмо и заявка попадёт в общий список, который доступен для всех кулинаров.</p>
 
-                <p class="modal-text">В случае возникновения вопросов, пишите на <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет заказы" class="red-text">contacts@gastromarket.ru</a>.</p>
+                <p class="modal-text">Есть вопросы? Пишите на <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет заказы" class="red-text">contacts@gastromarket.ru</a>.</p>
                 <div class="gap3 text-center">
                     <div class="col-xs-12">
                         <t:pagelink page="index" class="btn btn-lg btn-red">Перейти на главную</t:pagelink>
