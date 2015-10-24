@@ -1,15 +1,14 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <section class="s600px">
+    <section class="tender s600px">
         <div class="container">
             <div class="title">
-                <h1><span>Спасибо за заказ!</span></h1>
+                <h1><span>Спасибо за заявку!</span></h1>
             </div>
             <div class="row">
-                <p class="modal-text">Мы отправили детали заказа Вам на адрес электронной почты и в ближайшее время с Вами свяжется кулинар для уточнения деталей.</p>
+                <p class="modal-text">После модерации завки мы пришлём вам письмо и заявка попадёт в общий список, который доступен для всех кулинаров.</p>
 
                 <p class="modal-text">В случае возникновения вопросов, пишите на <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет заказы" class="red-text">contacts@gastromarket.ru</a>.</p>
-
                 <div class="gap3 text-center">
                     <div class="col-xs-12">
                         <t:pagelink page="index" class="btn btn-lg btn-red">Перейти на главную</t:pagelink>
@@ -18,5 +17,7 @@
             </div>
         </div>
     </section>
+
+    <t:yagoal goal="TENDER_PLACED"/>
 
 </t:layout>

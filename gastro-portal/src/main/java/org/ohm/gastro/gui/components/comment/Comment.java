@@ -2,8 +2,11 @@ package org.ohm.gastro.gui.components.comment;
 
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Link;
+import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.corelib.components.Form;
+import org.apache.tapestry5.corelib.components.TextField;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.CommentableEntity;
@@ -37,6 +40,18 @@ public class Comment extends BaseComponent {
     @Parameter(defaultPrefix = BindingConstants.LITERAL, value = "true")
     private boolean showEdit;
 
+    @Component(id = "fullName", parameters = {"value=authenticatedUser.fullName", "validate=required"})
+    private TextField fullName;
+
+    @Component(id = "mobilePhone", parameters = {"value=authenticatedUser.mobilePhone", "validate=required"})
+    private TextField mobilePhone;
+
+    @Component(id = "deliveryAddress", parameters = {"value=authenticatedUser.deliveryAddress", "validate=required"})
+    private TextField deliveryAddress;
+
+    @Component
+    private Form attachTenderAjaxForm;
+
     private Optional<CatalogEntity> getFirstCatalog() {
         return getFirstCatalog(comment.getAuthor());
     }
@@ -58,6 +73,7 @@ public class Comment extends BaseComponent {
     }
 
     public Link onSuccessFromAttachTenderAjaxForm(Long cid, Long oid) {
+        if (attachTenderAjaxForm.getHasErrors()) return null;
         return getFirstCatalog(getUserService().findUser(cid)).map(catalog -> {
             final OrderEntity tender = getOrderService().findOrder(oid);
             tender.setAttachReason(attachReason);

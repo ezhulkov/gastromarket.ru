@@ -10,7 +10,6 @@ import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
-import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.corelib.components.Select;
 import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
@@ -119,9 +118,6 @@ public class ProductEdit extends BaseComponent {
     @Property
     @Parameter(defaultPrefix = BindingConstants.PROP, allowNull = true, required = false)
     private ProductEntity product;
-
-    @Component(id = "descForm")
-    private Form descForm;
 
     @Cached
     public List<PropertyEntity> getMandatoryProperties() {

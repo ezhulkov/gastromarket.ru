@@ -19,8 +19,6 @@ public class List extends BaseComponent {
 
     private Status status;
 
-    private boolean forceModal;
-
     @Persist
     private OrderEntity tender;
 
@@ -34,7 +32,6 @@ public class List extends BaseComponent {
 
     public boolean onActivate(Status status, boolean forceModal) {
         this.status = status;
-        this.forceModal = !isCook() && forceModal;
         return true;
     }
 
@@ -47,7 +44,7 @@ public class List extends BaseComponent {
     }
 
     public Object onPassivate() {
-        return forceModal ? new Object[]{status, true} : status != null ? status : null;
+        return status;
     }
 
     public Status getStatus() {
@@ -58,11 +55,4 @@ public class List extends BaseComponent {
         this.status = status;
     }
 
-    public boolean isForceModal() {
-        return forceModal;
-    }
-
-    public void setForceModal(boolean forceModal) {
-        this.forceModal = forceModal;
-    }
 }

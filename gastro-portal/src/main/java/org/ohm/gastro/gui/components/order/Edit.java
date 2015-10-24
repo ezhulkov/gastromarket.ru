@@ -82,7 +82,7 @@ public class Edit extends BaseComponent {
     @Component(id = "budget", parameters = {"value=order.totalPrice", "validate=required"})
     private TextField budget;
 
-    @Component(id = "personCount", parameters = {"value=order.personCount", "validate=required"})
+    @Component(id = "personCount", parameters = {"value=order.personCount"})
     private TextField personCount;
 
     @Parameter(name = "ordersBlock", required = false, allowNull = false)
@@ -193,7 +193,6 @@ public class Edit extends BaseComponent {
         }
         if (!error) {
             getUserService().saveUser(order.getCustomer());
-            if (tender) getOrderService().commitTender(order, getAuthenticatedUser());
         } else {
             getAjaxResponseRenderer().addRender(getOrderEditZone(), editContactsBlock);
             return null;

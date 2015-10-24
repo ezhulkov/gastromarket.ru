@@ -43,7 +43,6 @@ public class LandingForm extends BaseComponent {
 
     public org.ohm.gastro.gui.pages.tender.List onSubmitFromTenderForm() {
         page.setTender(tender);
-        page.setForceModal(true);
         page.setStatus(Status.NEW);
         return page;
     }

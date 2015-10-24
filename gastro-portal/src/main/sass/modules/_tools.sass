@@ -187,6 +187,17 @@ body.mobile .rub:after
   &:hover, &:active, &:visited
     text-decoration: none
 
+.s600px
+  min-height: 600px
+  +tablet-media
+    min-height: initial
+
 .zebra-row:nth-child(2n)
   +zebra-row
+
+.zebra-section
+  padding-bottom: 20px
+  +zebra-row
+  .container > .title, .container > .title *
+    +zebra-row
 

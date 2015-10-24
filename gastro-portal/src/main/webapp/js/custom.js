@@ -516,7 +516,9 @@ function triggerEvent(element, eventName) {
         }
     }
 }
-
+function initTenderAddPage() {
+    jQuery(".tender-form .name").focus();
+}
 String.prototype.format = function () {
     var formatted = this;
     for (var i = 0; i < arguments.length; i++) {

@@ -42,8 +42,6 @@ public interface OrderService {
 
     OrderEntity placeTender(OrderEntity tender, UserEntity caller);
 
-    OrderEntity commitTender(OrderEntity tender, UserEntity caller);
-
     OrderEntity attachTender(CatalogEntity catalog, OrderEntity order, UserEntity caller);
 
     void sendTenderAnnonce(OrderEntity order);

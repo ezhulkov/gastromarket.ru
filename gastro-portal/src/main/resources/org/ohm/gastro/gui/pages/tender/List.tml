@@ -5,10 +5,14 @@
             <div class="title">
                 <h1><span>Все заявки</span></h1>
                 <t:unless test="cook">
-                    <a href="#tender-new" data-toggle="modal" class="round-link" data-target="#order-new">Разместить заявку</a>
+                    <t:pagelink page="tender/add" class="round-link">Разместить заявку</t:pagelink>
                 </t:unless>
             </div>
             <t:order.filter status="status" privateOrders="false" frontend="true"/>
+        </div>
+    </section>
+    <section>
+        <div class="container">
             <t:zone t:id="ordersZone">
                 <t:delegate to="ordersBlock"/>
             </t:zone>
@@ -18,26 +22,6 @@
         </div>
     </section>
 
-    <t:if test="tender">
-        <t:order.edit ordersBlock="ordersBlock" edit="false" extOrder="tender" tender="true"/>
-        <t:parameter name="else">
-            <t:order.edit ordersBlock="ordersBlock" edit="false" tender="true"/>
-        </t:parameter>
-    </t:if>
-    <t:unless test="authenticated">
-        <t:loginUserModal modalId="order-login">
-            <t:parameter name="addText">
-                <div class="row">
-                    <p class="modal-text red-text">Для оформления заявки необходимо войти или зарегистрироваться.</p>
-                </div>
-            </t:parameter>
-        </t:loginUserModal>
-    </t:unless>
-
-    <t:if test="forceModal">
-        <script>
-            jQuery("#order-new").modal('show');
-        </script>
-    </t:if>
+    <t:order.edit ordersBlock="ordersBlock" edit="false" extOrder="tender" tender="true"/>
 
 </t:layout>

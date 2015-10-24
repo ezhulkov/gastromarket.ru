@@ -48,7 +48,7 @@
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
                                             </div>
                                             <div class="modal-body">
-                                                <t:form t:id="attachTenderAjaxForm" t:context="[comment.author.id,order.id]" class="form" style="padding-top:0;" t:clientValidation="none" autofocus="false" role="form">
+                                                <t:form t:id="attachTenderAjaxForm" t:context="[comment.author.id,order.id]" class="form" style="padding-top:0;" autofocus="false" role="form">
                                                     <p class="modal-text">
                                                         Вы выбираете исполнителем кулинара<br/>
                                                         <a class="pic-holder catalog-link" href="${comment.author.linkUrl}">
@@ -65,6 +65,29 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-12">
+                                                        <div class="form-group">
+                                                            <t:label for="fullName">Ваше имя:*</t:label>
+                                                            <input t:id="fullName" class="form-control"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12">
+                                                        <div class="form-group">
+                                                            <t:label for="deliveryAddress">Адрес доставки:*</t:label>
+                                                            <input t:id="deliveryAddress" class="form-control" rows="5"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12">
+                                                        <div class="form-group">
+                                                            <t:label for="mobilePhone">Контактный телефон:*</t:label>
+                                                            <input t:id="mobilePhone" class="form-control mobile-phone" placeholder="+7 xxx xxx-xx-xx"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12">
+                                                        <div class="form-group label-tip">
+                                                            * - персональные данные обязательны для заполнения и скрыты для посетителей и кулинаров. <br/> Только выбранный вами кулинар получит к ним доступ
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 gap">
                                                         <div class="form-buttons" xml:space="preserve">
                                                         <input class="btn btn-red" type="submit" onclick="yaCounter29411415.reachGoal('TENDER_ATTACH'); return true;"  value="Выбрать"/>
                                                     </div>

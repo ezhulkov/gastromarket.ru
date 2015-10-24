@@ -110,23 +110,16 @@
                         </div>
                         <div class="col-xs-12">
                             <div class="form-group label-tip">
-                                * - персональные данные скрыты для посетителей и кулинаров. <br/>Выбранный для заявки кулинар получит к ним доступ только внесении предоплаты.
+                                * - персональные данные скрыты для посетителей и кулинаров. <br/> Только выбранный вами кулинар получит к ним доступ
                             </div>
                         </div>
                         <div class="col-xs-12 gap">
                             <div class="form-buttons" xml:space="preserve">
                                 <input class="btn btn-red" t:type="submit" t:id="saveAndBack" value="&lt; Назад"/>
-                                <input class="btn btn-red" t:type="submit" t:id="saveAndClose" onclick="yaCounter29411415.reachGoal('TENDER_PLACED'); return true;" value="${closeLabel}"/>
+                                <input class="btn btn-red" t:type="submit" t:id="saveAndClose" value="${closeLabel}"/>
                             </div>
                         </div>
                     </t:form>
-                    <div class="row gap">
-                        <p class="modal-text f14px">
-                            Размещая заявку, вы соглашаетесь c условиями<br/>
-                            <a href="/agreement" target="_tab" class="red-text f14px">публичной оферты</a> и
-                            <a href="/confident" target="_tab" class="red-text f14px">политики конфиденциальности</a>
-                        </p>
-                    </div>
                 </t:block>
             </div>
         </div>

@@ -162,25 +162,20 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
 
     @Override
     public List<OrderEntity> findAllTenders() {
-        return orderRepository.findAllByType(OrderEntity.Type.PUBLIC);
+        return orderRepository.findAllByType(OrderEntity.Type.PUBLIC).stream().filter(t -> t.isWasSetup()).collect(Collectors.toList());
     }
 
     @Override
     public OrderEntity placeTender(final OrderEntity tender, final UserEntity caller) {
-        if (tender == null || !tender.isAccessAllowed(caller)) return tender;
         tender.setDate(new Date());
         tender.setType(OrderEntity.Type.PUBLIC);
         tender.setStatus(Status.NEW);
         tender.setWasSetup(false);
+        tender.setCustomer(caller);
         orderRepository.save(tender);
         tender.setOrderNumber(Long.toString(tender.getId()));
-        return orderRepository.save(tender);
-    }
-
-    @Override
-    public OrderEntity commitTender(OrderEntity tender, UserEntity caller) {
-        tender.setWasSetup(true);
         orderRepository.save(tender);
+        logger.info("Placing tender {}", tender);
         final Map<String, Object> params = new HashMap<String, Object>() {
             {
                 put("username", tender.getCustomer().getFullName());
@@ -225,6 +220,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     @Override
     public void sendTenderAnnonce(OrderEntity tender) {
         if (tender.isAnnonceSent()) return;
+        tender.setWasSetup(true);
         tender.setAnnonceSent(true);
         orderRepository.save(tender);
         final List<UserEntity> rcpt = getRecipients();

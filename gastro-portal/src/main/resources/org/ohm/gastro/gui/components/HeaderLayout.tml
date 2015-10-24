@@ -26,7 +26,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <t:unless test="cook">
                             <li>
-                                <t:pagelink page="tender/list" t:context="['NEW','true']" class="red-text">Разместить заявку</t:pagelink>
+                                <t:pagelink page="tender/add" class="red-text">Разместить заявку</t:pagelink>
                             </li>
                         </t:unless>
                         <t:if test="authenticated">
