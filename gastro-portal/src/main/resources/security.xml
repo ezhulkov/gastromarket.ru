@@ -43,7 +43,10 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
 
     <beans:bean id="authenticationSuccessHandler" class="org.ohm.gastro.service.impl.AuthSuccessfulHandler">
         <beans:property name="useReferer" value="true"/>
+        <beans:property name="redirectStrategy" ref="redirectStrategy"/>
     </beans:bean>
+
+    <beans:bean id="redirectStrategy" class="org.ohm.gastro.service.impl.GmRedirectStrategy"/>
 
     <beans:bean id="logoutSuccessHandler" class="org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler">
         <beans:property name="useReferer" value="true"/>

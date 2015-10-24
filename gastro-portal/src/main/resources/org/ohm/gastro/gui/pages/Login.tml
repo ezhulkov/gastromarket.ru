@@ -20,7 +20,7 @@
                             </div>
                         </div>
                     </t:if>
-                    <form method="post" action="j_security_check" class="form" role="form">
+                    <form method="post" action="/j_security_check" class="form" role="form">
                         <div class="form-group">
                             <label for="j_username">Адрес почты:</label>
                             <input id="j_username" name="j_username" type="text" class="form-control"/>

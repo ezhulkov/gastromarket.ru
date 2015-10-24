@@ -1,6 +1,5 @@
 package org.ohm.gastro.gui.components.order;
 
-import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.OrderEntity.Type;
@@ -48,11 +47,10 @@ public class StatusChange extends AbstractOrder {
         return Arrays.asList(getStatuses()).contains(Status.CANCELLED);
     }
 
-    public Block onActionFromStatusChange(Long oId, Status status) {
+    public void onActionFromStatusChange(Long oId, Status status) {
         this.order = getOrderService().findOrder(oId);
         this.catalog = order.getCatalog();
         getOrderService().changeStatus(order, status, catalog, getAuthenticatedUser());
-        return orderBlock;
     }
 
 }

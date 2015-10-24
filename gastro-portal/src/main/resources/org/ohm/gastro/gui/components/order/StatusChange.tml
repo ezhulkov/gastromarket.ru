@@ -22,7 +22,7 @@
                             <t:if test="statusAction">
                                 <div class="row">
                                     <div class="col-sm-4 col-xs-12 fluid-xs-block">
-                                        <t:actionlink rel="nofollow" t:id="statusChange" t:context="[order.id,status]" t:zone="${orderShowCatalogZoneId}" class="dotted-link f18px">${statusAction}</t:actionlink>
+                                        <t:actionlink rel="nofollow" t:id="statusChange" t:context="[order.id,status]" class="dotted-link f18px">${statusAction}</t:actionlink>
                                     </div>
                                     <div class="col-sm-8 col-xs-12 text-left lhnormal"><i class="f16px">&mdash; ${statusTitle}</i></div>
                                 </div>

@@ -23,7 +23,4 @@
 Комментарий к заказу: <br/>${comment}<br/>
 <b>Общая стоимость заказа: ${total} руб.</b>
 </p>
-<p>
-    Детали заказа по адресу: <a href="${address}?${params}">$address</a>
-</p>
 #parse("email/footer.vm")

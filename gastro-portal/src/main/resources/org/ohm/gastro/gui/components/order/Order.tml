@@ -83,8 +83,8 @@
             </t:block>
         </t:if>
         <script>
-            jQuery(".modal-backdrop").remove();
-            jQuery("body").removeClass("modal-open");
+            //            jQuery(".modal-backdrop").remove();
+            //            jQuery("body").removeClass("modal-open");
         </script>
     </t:block>
     <t:block t:id="deniedOrderBlock">

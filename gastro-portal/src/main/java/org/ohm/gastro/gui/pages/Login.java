@@ -12,7 +12,7 @@ public class Login extends BaseComponent {
     private boolean error;
 
     public Class onActivate() {
-//        if (isAuthenticated()) return Index.class;
+        if (isAuthenticated()) return Index.class;
         return null;
     }
 
