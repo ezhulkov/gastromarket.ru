@@ -1034,4 +1034,26 @@
         <dropTable tableName="offer_product"/>
     </changeSet>
 
+    <changeSet id="91" author="ezhulkov">
+        <createTable tableName="bill">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="catalog_id" type="java.sql.Types.BIGINT"/>
+            <column name="date" type="java.sql.Types.TIMESTAMP"/>
+            <column name="bill_number" type="number"/>
+            <column name="status" type="text"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="bill" baseColumnNames="catalog_id" constraintName="bill_catalog_fk" referencedTableName="catalog" referencedColumnNames="id" onDelete="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="92" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="closed_date" type="java.sql.Types.TIMESTAMP"/>
+        </addColumn>
+        <sql>
+            update orders set closed_date=date where status='CLOSED';
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

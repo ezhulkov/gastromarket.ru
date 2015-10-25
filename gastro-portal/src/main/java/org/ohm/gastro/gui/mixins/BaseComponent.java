@@ -23,6 +23,7 @@ import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.filter.SocialFilter;
 import org.ohm.gastro.gui.dto.ShoppingCart;
+import org.ohm.gastro.service.BillService;
 import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.ConversationService;
 import org.ohm.gastro.service.MailService;
@@ -78,6 +79,9 @@ public abstract class BaseComponent {
 
     @Inject
     private ApplicationContext applicationContext;
+
+    @Inject
+    private BillService billService;
 
     @Inject
     private PhotoService photoService;
@@ -291,6 +295,10 @@ public abstract class BaseComponent {
 
     public PhotoService getPhotoService() {
         return photoService;
+    }
+
+    public BillService getBillService() {
+        return billService;
     }
 
     public OrderProductEntity createPurchaseItem(PurchaseEntity.Type eType, Long eId, Long mid) {

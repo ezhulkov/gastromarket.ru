@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.query.Param;
 
 import javax.persistence.QueryHint;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,5 +41,11 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
 
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     List<OrderEntity> findAllByCatalog(@Param("catalog") CatalogEntity catalog);
+
+    @Query("from OrderEntity p " +
+            "where p.catalog=:catalog and p.closedDate>=:from and p.closedDate<:to " +
+            "order by date asc")
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    List<OrderEntity> findAllByBill(@Param("catalog") CatalogEntity catalog, @Param("from") Date from, @Param("to") Date to);
 
 }

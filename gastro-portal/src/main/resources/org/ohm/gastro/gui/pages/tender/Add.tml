@@ -11,7 +11,7 @@
                         <t:delegate to="tenderInfoBlock"/>
                     </t:zone>
                     <t:block t:id="tenderInfoBlock">
-                        <t:form t:id="tenderInfoForm" t:zone="tenderInfoZone" t:clientValidation="none" class="form tender-form" role="form">
+                        <t:form t:id="tenderInfoForm" t:zone="tenderInfoZone" t:clientValidation="none" class="form tender-form" rel="nofollow" role="form">
                             <div class="caption">Описание заявки</div>
                             <div class="modal-text">более 200 независимых кулинаров Москвы готовы сделать для вас кулинарный шедевр</div>
                             <t:if test="error">
@@ -90,11 +90,11 @@
                     </t:block>
                 </div>
                 <div class="col-lg-6 col-md-5 hidden-sm hidden-xs">
-                    <h2>Примеры заявок</h2>
                     <t:zone t:id="sampleZone" class="sample-zone">
                         <t:delegate to="samplesBlock"/>
                     </t:zone>
                     <t:block t:id="samplesBlock">
+                        <div class="caption">Примеры заявок</div>
                         <ul>
                             <t:loop source="samples" value="oneSample">
                                 <li>

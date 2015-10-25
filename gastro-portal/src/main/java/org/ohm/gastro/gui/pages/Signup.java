@@ -40,22 +40,22 @@ public class Signup extends BaseComponent {
     @Property
     private String fullName;
 
-    public Class onActivate() throws IOException {
+    public Object onActivate() throws IOException {
         return onActivate(null);
     }
 
-    public Class onActivate(Long referrerId) throws IOException {
+    public Object onActivate(Long referrerId) throws IOException {
         return onActivate(false, referrerId);
     }
 
-    public Class onActivate(boolean error, Long referrerId) throws IOException {
+    public Object onActivate(boolean error, Long referrerId) throws IOException {
         if (isAuthenticated()) return Index.class;
         this.error = error;
         if (referrerId != null) {
             referrer = getUserService().findUser(referrerId);
             getHttpServletRequest().setAttribute("referrerUser", referrer);
         }
-        return null;
+        return true;
     }
 
     public Object[] onPassivate() {

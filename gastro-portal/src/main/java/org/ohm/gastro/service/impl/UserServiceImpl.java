@@ -14,6 +14,7 @@ import org.ohm.gastro.domain.UserEntity.Status;
 import org.ohm.gastro.domain.UserEntity.Type;
 import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.UserRepository;
+import org.ohm.gastro.service.BillService;
 import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.EmptyPasswordException;
 import org.ohm.gastro.service.ImageService.FileType;
@@ -62,6 +63,7 @@ public class UserServiceImpl implements UserService, Logging {
     private final CatalogRepository catalogRepository;
     private final MailService mailService;
     private final Random random = new Random();
+    private final BillService billService;
 
     private CatalogService catalogService;
 
@@ -70,12 +72,14 @@ public class UserServiceImpl implements UserService, Logging {
                            final PasswordEncoder passwordEncoder,
                            final RatingService ratingService,
                            final CatalogRepository catalogRepository,
-                           final MailService mailService) {
+                           final MailService mailService,
+                           final BillService billService) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.ratingService = ratingService;
         this.catalogRepository = catalogRepository;
         this.mailService = mailService;
+        this.billService = billService;
     }
 
     @Autowired
@@ -250,10 +254,11 @@ public class UserServiceImpl implements UserService, Logging {
 
         if (userDetails instanceof UserEntity) {
             UserEntity user = userRepository.findByEmail(((UserEntity) userDetails).getEmail());
-            logger.info("User {} successful logged in", user);
+            logger.info("User {} successfully logged in", user);
             user.setLoginDate(new Date());
             saveUser(user);
             ratingService.registerEvent(LogEntity.Type.LOGIN, user, null, null);
+            if (user.isCook()) catalogRepository.findAllByUser(user).forEach(billService::createMissingBills);
         }
 
     }

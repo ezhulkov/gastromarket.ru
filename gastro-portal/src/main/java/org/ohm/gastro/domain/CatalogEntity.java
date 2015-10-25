@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang3.ObjectUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.joda.time.DateTime;
 import org.ohm.gastro.service.CatalogService;
 
 import javax.persistence.CascadeType;
@@ -336,6 +337,10 @@ public class CatalogEntity extends SitemapBaseEntity implements CommentableEntit
     @Override
     public CommentableEntity.Type getCommentableType() {
         return CommentableEntity.Type.CATALOG;
+    }
+
+    public DateTime getFirstBillingDate() {
+        return new DateTime(date).withDayOfMonth(1);
     }
 
 }

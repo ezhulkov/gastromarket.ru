@@ -1,0 +1,14 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <section class="s600px">
+        <div class="container">
+            <div class="title">
+                <h1><span>Счета</span></h1>
+            </div>
+            <div class="row">
+                <t:grid source="bills" row="bill"/>
+            </div>
+        </div>
+    </section>
+
+</t:layout>

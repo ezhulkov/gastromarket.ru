@@ -305,7 +305,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
         final UserEntity customer = order.getCustomer();
         final UserEntity referrer = customer.getReferrer();
         order.setStatus(status);
-        orderRepository.save(order);
+
         final Map<String, Object> params = new HashMap<String, Object>() {
             {
                 put("ordernumber", order.getOrderNumber());
@@ -315,6 +315,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
             }
         };
         if (status == Status.CLOSED) {
+            order.setClosedDate(new Date());
             ratingService.registerEvent(Type.ORDER_DONE, catalog.getUser(), catalog, order.getTotalPrice());
             final int bonus = order.getBonus();
             customer.giveBonus(bonus);
@@ -338,6 +339,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
             params.put("username", order.getCatalog().getUser().getFullName());
             mailService.sendMailMessage(order.getCatalog().getUser(), MailService.EDIT_ORDER, params);
         }
+        orderRepository.save(order);
     }
 
     @Override

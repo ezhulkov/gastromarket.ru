@@ -28,6 +28,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "orders")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class OrderEntity extends SitemapBaseEntity implements CommentableEntity {
 
     public enum Status {
@@ -130,16 +131,22 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
     @Column
     private Date date = new Date();
 
+    @Column(name = "closed_date")
+    private Date closedDate = null;
+
     @Column(name = "user_bonuses")
     private int usedBonuses = 0;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private UserEntity customer;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<OrderProductEntity> products = Lists.newArrayList();
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private CatalogEntity catalog;
 
     @Column(name = "total_price")
@@ -383,6 +390,14 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
 
     public CommentableEntity.Type getCommentableType() {
         return CommentableEntity.Type.ORDER;
+    }
+
+    public Date getClosedDate() {
+        return closedDate;
+    }
+
+    public void setClosedDate(final Date closedDate) {
+        this.closedDate = closedDate;
     }
 
     //Helpers
