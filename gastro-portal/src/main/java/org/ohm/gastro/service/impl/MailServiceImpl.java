@@ -211,8 +211,9 @@ public class MailServiceImpl implements MailService, Logging {
 
     @Override
     public void cancelAllTasks(final UserEntity user) {
-        logger.info("Cancelling all scheduled tasks for {}", user);
-        scheduledFutures.remove(String.format("%s%s", user.getId(), NEW_MESSAGE));
+        if (scheduledFutures.remove(String.format("%s%s", user.getId(), NEW_MESSAGE)) != null) {
+            logger.info("Cancelling new_message scheduled tasks for {}", user);
+        }
     }
 
     private void syncMailChimp(String mcSyncEndpoint, StringEntity entity) {
