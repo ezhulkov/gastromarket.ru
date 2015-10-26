@@ -48,6 +48,9 @@ public class CatalogEntity extends SitemapBaseEntity implements CommentableEntit
     @Column
     private String payment;
 
+    @Column(name = "free_months")
+    private int freeMonths = 1;
+
     @Column(name = "wizard_step")
     private Integer wizardStep = 1;
 
@@ -343,4 +346,11 @@ public class CatalogEntity extends SitemapBaseEntity implements CommentableEntit
         return new DateTime(date).withDayOfMonth(1);
     }
 
+    public int getFreeMonths() {
+        return freeMonths;
+    }
+
+    public void setFreeMonths(int freeMonths) {
+        this.freeMonths = freeMonths;
+    }
 }

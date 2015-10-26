@@ -1,14 +1,58 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <section class="s600px">
+    <section class="s600px bills">
         <div class="container">
             <div class="title">
                 <h1><span>Счета</span></h1>
             </div>
-            <div class="row">
-                <t:grid source="bills" row="bill"/>
-            </div>
         </div>
+        <t:loop source="bills" value="bill">
+            <section class="zebra-row bill">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-offset-1 col-lg-8 col-md-offset-1 col-md-8 col-sm-offset-0 col-sm-10 col-xs-9">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 nopad">
+                                <div class="name">
+                                    <a role="button" data-toggle="collapse" href="#collapseBill${bill.id}" aria-expanded="false" aria-controls="collapseBill${bill.id}">
+                                        Счёт №${bill.billNumber}
+                                    </a>
+                                </div>
+                                <div class="date">${bill.datePrintable}-${bill.closingDatePrintable}</div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 nopad">
+                                Сумма заказов: <b>${billTotalOrdersSum}</b>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 nopad">
+                                Комиссия: <b>${billFee}</b>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                            <span class="status ${bill.status.name().toLowerCase()}">${billStatus}</span>
+                        </div>
+                    </div>
+                    <div class="row order collapse" id="collapseBill${bill.id}">
+                        <div class="col-lg-offset-1 col-lg-8 col-md-offset-1 col-md-8 col-sm-offset-0 col-sm-10 col-xs-9">
+                            <t:loop source="orders" value="order">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 nopad">
+                                    <t:pagelink target="_blank" page="office/order" t:context="[order.order,order.id,false]">Заказ №${order.orderNumber}</t:pagelink>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 nopad">
+                                    ${orderTotalPrice}
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 nopad">
+                                    ${orderStatus}
+                                </div>
+                                <t:parameter name="empty">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 nopad">
+                                        Нет выполненных или открытых заказов
+                                    </div>
+                                </t:parameter>
+                            </t:loop>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </t:loop>
     </section>
 
 </t:layout>

@@ -21,6 +21,8 @@ public interface BillService {
 
     BillEntity updateBill(BillEntity bill);
 
-    List<OrderEntity> findBillOrders(BillEntity bill);
+    List<OrderEntity> findClosedOrders(BillEntity bill);
+
+    List<OrderEntity> findOpenedOrders(BillEntity bill);
 
 }

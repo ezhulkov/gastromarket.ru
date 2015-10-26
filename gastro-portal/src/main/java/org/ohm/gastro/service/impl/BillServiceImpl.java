@@ -46,7 +46,7 @@ public class BillServiceImpl implements BillService, Logging {
     @Override
     public void createMissingBills(final CatalogEntity catalog) {
         final Optional<BillEntity> lastBill = findAllBills(catalog).stream().reduce((a, b) -> b);
-        final DateTime lastBillDate = lastBill.map(t -> t.getDateAsJoda().plusMonths(1)).orElseGet(catalog::getFirstBillingDate);
+        final DateTime lastBillDate = lastBill.map(BillEntity::getClosingDateAsJoda).orElseGet(catalog::getFirstBillingDate);
         final int lastBillNumber = lastBill.map(BillEntity::getBillNumber).orElse(0);
         final int missingMonths = Math.max(0, Months.monthsBetween(lastBillDate, DateTime.now().withDayOfMonth(1)).getMonths());
         final List<BillEntity> missingBills = IntStream.rangeClosed(1, missingMonths).mapToObj(t -> {
@@ -54,7 +54,9 @@ public class BillServiceImpl implements BillService, Logging {
             bill.setBillNumber(lastBillNumber + t);
             bill.setDate(lastBillDate.plusMonths(t - 1).toDate());
             bill.setCatalog(catalog);
-            bill.setStatus(bill.getBillNumber() <= 3 ? Status.FREE : findBillOrders(bill).size() == 0 ? Status.EMPTY : Status.UNPAID);
+            final List<OrderEntity> closedOrders = findClosedOrders(bill);
+            bill.setTotalOrdersSum(closedOrders.stream().mapToInt(OrderEntity::getTotalPrice).sum());
+            bill.setStatus(bill.getBillNumber() <= catalog.getFreeMonths() ? Status.FREE : closedOrders.size() == 0 ? Status.EMPTY : Status.UNPAID);
             logger.info("Creating missing bill {} for catalog {}", bill, catalog);
             return bill;
         }).collect(Collectors.toList());
@@ -72,8 +74,13 @@ public class BillServiceImpl implements BillService, Logging {
     }
 
     @Override
-    public List<OrderEntity> findBillOrders(final BillEntity bill) {
-        return orderRepository.findAllByBill(bill.getCatalog(), bill.getDate(), bill.getDateAsJoda().plusMonths(1).toDate());
+    public List<OrderEntity> findClosedOrders(final BillEntity bill) {
+        return orderRepository.findAllClosedByBill(bill.getCatalog(), bill.getDate(), bill.getClosingDate());
+    }
+
+    @Override
+    public List<OrderEntity> findOpenedOrders(BillEntity bill) {
+        return orderRepository.findAllOpenedByBill(bill.getCatalog(), bill.getDate(), bill.getClosingDate());
     }
 
 }

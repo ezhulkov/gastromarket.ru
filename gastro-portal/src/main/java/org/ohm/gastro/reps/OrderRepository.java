@@ -46,6 +46,12 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
             "where p.catalog=:catalog and p.closedDate>=:from and p.closedDate<:to " +
             "order by date asc")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    List<OrderEntity> findAllByBill(@Param("catalog") CatalogEntity catalog, @Param("from") Date from, @Param("to") Date to);
+    List<OrderEntity> findAllClosedByBill(@Param("catalog") CatalogEntity catalog, @Param("from") Date from, @Param("to") Date to);
+
+    @Query("from OrderEntity p " +
+            "where p.catalog=:catalog and p.date>=:from and p.date<:to and closedDate is null " +
+            "order by date asc")
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    List<OrderEntity> findAllOpenedByBill(@Param("catalog") CatalogEntity catalog, @Param("from") Date from, @Param("to") Date to);
 
 }

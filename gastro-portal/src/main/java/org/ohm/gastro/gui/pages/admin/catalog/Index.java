@@ -24,6 +24,9 @@ public class Index extends EditObjectPage<CatalogEntity> {
     @Component(id = "name", parameters = {"value=object?.name"})
     private TextField nameField;
 
+    @Component(id = "freeMonths", parameters = {"value=object?.freeMonths"})
+    private TextField freeMonthsField;
+
     @Component(id = "desc", parameters = {"value=object?.description"})
     private TextArea descField;
 

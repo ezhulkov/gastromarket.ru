@@ -1056,4 +1056,16 @@
         </sql>
     </changeSet>
 
+    <changeSet id="93" author="ezhulkov">
+        <addColumn tableName="catalog">
+            <column name="free_months" type="number" defaultValueNumeric="1"/>
+        </addColumn>
+        <addColumn tableName="bill">
+            <column name="total_orders_sum" type="number"/>
+        </addColumn>
+        <sql>
+            update catalog set free_months=1;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

@@ -8,7 +8,6 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
-import org.ohm.gastro.domain.UserEntity;
 
 import java.util.stream.Stream;
 
@@ -35,13 +34,12 @@ public class Replies extends AbstractOrder {
 
     @Cached
     public boolean isCommentAllowed() {
-        return isCook() && isDoesNotHaveReply() && isCatalogReady() && isHasOrderSlots();
+        return isCook() && isDoesNotHaveReply() && isCatalogReady() && isHasOrderSlots() && isAllPaid();
     }
 
     @Cached
     public boolean isDoesNotHaveReply() {
         return getAuthenticatedUserOpt()
-                .filter(UserEntity::isCook)
                 .map(user -> getConversationService().findAllComments(order, user).size() == 0)
                 .orElse(false);
     }
@@ -49,9 +47,8 @@ public class Replies extends AbstractOrder {
     @Cached
     public boolean isCatalogReady() {
         return getAuthenticatedUserOpt()
-                .filter(UserEntity::isCook)
                 .map(t -> getCatalogService().findAllCatalogs(t).stream())
-                .orElseGet(() -> Stream.empty())
+                .orElseGet(Stream::empty)
                 .filter(CatalogEntity::isWasSetup)
                 .filter(t -> getProductService().findProductsForFrontendCount(t) > 0)
                 .findFirst()
@@ -61,12 +58,19 @@ public class Replies extends AbstractOrder {
     @Cached
     public boolean isHasOrderSlots() {
         return getAuthenticatedUserOpt()
-                .filter(UserEntity::isCook)
                 .map(t -> getCatalogService().findAllCatalogs(t).stream())
-                .orElseGet(() -> Stream.empty())
+                .orElseGet(Stream::empty)
                 .filter(t -> t.getLevel() != null && t.getLevel() > getOrderService().findAllOrdersWithMetaStatus(t, Status.ACTIVE).size())
                 .findAny()
                 .isPresent();
+    }
+
+    @Cached
+    public boolean isAllPaid() {
+        return getAuthenticatedUserOpt()
+                .map(t -> getCatalogService().findAllCatalogs(t).stream())
+                .orElseGet(Stream::empty)
+                .noneMatch(t -> getBillService().findAllUnpaidBills(t).size() > 0);
     }
 
 }

@@ -51,50 +51,48 @@
                                                     Пожалуйста, обратите внимание на необходимые требования:
                                                 </p>
                                                 <ul class="reply-denied">
-                                                    <li>
-                                                        <span class="glyphicon ${cook}" aria-hidden="true"/>
-                                                        <t:if test="cook">Вы кулинар на сайте
-                                                            <t:parameter name="else">
-                                                                Вы не кулинар на сайте
-                                                                <div class="label-tip">
-                                                                    Возможно, надо зайти другим пользователем или оставить заявку на подключение.
-                                                                </div>
-                                                            </t:parameter>
-                                                        </t:if>
-                                                    </li>
-                                                    <li>
-                                                        <span class="glyphicon ${catalogReady}" aria-hidden="true"/>
-                                                        <t:if test="catalogReady">Ваш каталог заполнен
-                                                            <t:parameter name="else">
-                                                                Каталог не заполнен
-                                                                <div class="label-tip">
-                                                                    Необходимо завершить все шаги настройки каталога и добавить хотя бы одно блюдо.
-                                                                </div>
-                                                            </t:parameter>
-                                                        </t:if>
-                                                    </li>
-                                                    <li>
-                                                        <span class="glyphicon ${doesNotHaveReply}" aria-hidden="true"/>
-                                                        <t:if test="doesNotHaveReply">Один отклик на заявку
-                                                            <t:parameter name="else">
-                                                                У вас уже есть отклик к этой заявке
-                                                                <div class="label-tip">
-                                                                    К заявке можно оставлять только один отклик. Если хотите обсуждать детали - это можно делать под откликом.
-                                                                </div>
-                                                            </t:parameter>
-                                                        </t:if>
-                                                    </li>
-                                                    <li>
-                                                        <span class="glyphicon ${hasOrderSlots}" aria-hidden="true"/>
-                                                        <t:if test="hasOrderSlots">Рейтинг позволяет оставить отклик
-                                                            <t:parameter name="else">
-                                                                Рейтинг не позволяет откликнуться
-                                                                <div class="label-tip">
-                                                                    Чем выше рейтинг, тем больше активных заказов вы можете иметь. Доведите до конца существующие заказы и сможете откликаться на заявки.
-                                                                </div>
-                                                            </t:parameter>
-                                                        </t:if>
-                                                    </li>
+                                                    <t:unless test="cook">
+                                                        <li>
+                                                            Вы не кулинар на сайте
+                                                            <div class="label-tip">
+                                                                Возможно, надо зайти другим пользователем или оставить заявку на подключение.
+                                                            </div>
+                                                        </li>
+                                                    </t:unless>
+                                                    <t:unless test="catalogReady">
+                                                        <li>
+                                                            Каталог не заполнен
+                                                            <div class="label-tip">
+                                                                Необходимо завершить все шаги настройки каталога и добавить хотя бы одно блюдо.
+                                                            </div>
+                                                        </li>
+                                                    </t:unless>
+                                                    <t:unless test="doesNotHaveReply">
+                                                        <li>
+                                                            У вас уже есть отклик к этой заявке
+                                                            <div class="label-tip">
+                                                                К заявке можно оставлять только один отклик. Если хотите обсуждать детали - это можно делать в личных сообщениях.
+                                                            </div>
+                                                        </li>
+                                                    </t:unless>
+                                                    <t:unless test="hasOrderSlots">
+                                                        <li>
+                                                            Рейтинг не позволяет откликнуться
+                                                            <div class="label-tip">
+                                                                Чем выше рейтинг, тем больше активных заказов вы можете иметь. Доведите до конца существующие заказы и сможете откликаться на заявки.
+                                                            </div>
+                                                        </li>
+                                                    </t:unless>
+                                                    <t:unless test="allPaid">
+                                                        <li>
+                                                            Есть <t:pagelink page="office/bills">неоплаченные счета</t:pagelink>
+                                                            <div class="label-tip">
+                                                                В списке выставленных счетов есть неоплаченные счета. Оплатите их на
+                                                                <t:pagelink class="f12px" page="office/bills">странице счетов</t:pagelink>
+                                                                и сможете откликаться на заявки.
+                                                            </div>
+                                                        </li>
+                                                    </t:unless>
                                                 </ul>
                                             </div>
                                         </div>

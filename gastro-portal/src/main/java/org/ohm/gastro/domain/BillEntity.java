@@ -1,9 +1,11 @@
 package org.ohm.gastro.domain;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
+import org.ohm.gastro.util.CommonsUtils;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,6 +33,9 @@ public class BillEntity extends AbstractBaseEntity {
 
     @Column(name = "date")
     private Date date;
+
+    @Column(name = "total_orders_sum")
+    private int totalOrdersSum;
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -78,6 +83,34 @@ public class BillEntity extends AbstractBaseEntity {
 
     public boolean isCurrent() {
         return false;
+    }
+
+    public int getTotalOrdersSum() {
+        return totalOrdersSum;
+    }
+
+    public void setTotalOrdersSum(int totalOrdersSum) {
+        this.totalOrdersSum = totalOrdersSum;
+    }
+
+    public Date getClosingDate() {
+        return getClosingDateAsJoda().toDate();
+    }
+
+    public DateTime getClosingDateAsJoda() {
+        return getDateAsJoda().plusMonths(1);
+    }
+
+    public String getDatePrintable() {
+        return CommonsUtils.GUI_DATE.get().format(date);
+    }
+
+    public String getClosingDatePrintable() {
+        return CommonsUtils.GUI_DATE.get().format(getClosingDateAsJoda().minusDays(1).toDate());
+    }
+
+    public int getFee() {
+        return status == Status.FREE ? 0 : (int) Math.ceil((float) ObjectUtils.defaultIfNull(totalOrdersSum, 0) / 10);
     }
 
     @Override
