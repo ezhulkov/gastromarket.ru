@@ -1,7 +1,7 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="container">
     <div class="row comment">
         <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-0 col-sm-3 col-xs-12 fluid-xs-block pic">
-            <a href="${comment.author.linkUrl}">
+            <a href="${comment.author?.linkUrl}">
                 <img src="${comment.author.linkAvatar}"/>
             </a>
         </div>
@@ -10,7 +10,7 @@
                 ${comment.datePrintable}
             </div>
             <div class="name">
-                <a href="${comment.author.linkUrl}">
+                <a href="${comment.author?.linkUrl}">
                     ${comment.author.linkName}
                 </a>
             </div>
@@ -51,8 +51,8 @@
                                                 <t:form t:id="attachTenderAjaxForm" t:context="[comment.author.id,order.id]" class="form" style="padding-top:0;" autofocus="false" role="form">
                                                     <p class="modal-text">
                                                         Вы выбираете исполнителем кулинара<br/>
-                                                        <a class="pic-holder catalog-link" href="${comment.author.linkUrl}">
-                                                            <span><img src="${comment.author.linkAvatar}" class="avatar-small"/></span>${comment.author.linkName}
+                                                        <a class="pic-holder catalog-link" href="${comment.author?.linkUrl}">
+                                                            <span><img src="${comment.author?.linkAvatar}" class="avatar-small"/></span>${comment.author?.linkName}
                                                         </a>
                                                     </p>
                                                     <p class="modal-text">

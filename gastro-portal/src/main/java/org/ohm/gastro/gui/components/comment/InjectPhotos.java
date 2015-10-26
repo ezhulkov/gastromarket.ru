@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 /**
  * Created by ezhulkov on 13.08.15.
  */
-public class Inject extends BaseComponent {
+public class InjectPhotos extends BaseComponent {
 
     @Property
     @Parameter

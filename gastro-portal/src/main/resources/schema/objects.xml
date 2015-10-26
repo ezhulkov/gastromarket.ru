@@ -1068,4 +1068,8 @@
         </sql>
     </changeSet>
 
+    <changeSet id="94" author="ezhulkov">
+        <dropColumn tableName="comment" columnName="email_sent"/>
+    </changeSet>
+
 </databaseChangeLog>

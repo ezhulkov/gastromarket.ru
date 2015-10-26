@@ -211,7 +211,7 @@ public class MailServiceImpl implements MailService, Logging {
 
     @Override
     public void cancelAllTasks(final UserEntity user) {
-        logger.debug("Cancelling all scheduled tasks for {}", user);
+        logger.info("Cancelling all scheduled tasks for {}", user);
         scheduledFutures.remove(String.format("%s%s", user.getId(), NEW_MESSAGE));
     }
 

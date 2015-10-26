@@ -37,10 +37,10 @@ public class Edit extends BaseComponent {
     private boolean commentAllowed;
 
     @InjectComponent
-    private Inject inject;
+    private InjectPhotos injectPhotos;
 
-    public void onPrepareFromRateForm(Long cid, CommentableEntity.Type entityType, Long entityId) {
-        inject.getSubmittedPhotos().clear();
+    public void onPrepareFromEditForm(Long cid, CommentableEntity.Type entityType, Long entityId) {
+        injectPhotos.getSubmittedPhotos().clear();
         if (cid == null && entityType != null) {
             comment = new CommentEntity();
             comment.setEntity(getConversationService().getEntity(entityType, entityId));
@@ -50,13 +50,13 @@ public class Edit extends BaseComponent {
         }
     }
 
-    public void onSuccessFromRateForm(Long cid, CommentableEntity.Type entityType, Long entityId) throws FileUploadException {
+    public void onSuccessFromEditForm(Long cid, CommentableEntity.Type entityType, Long entityId) throws FileUploadException {
         if (entity instanceof OrderEntity) {
             getConversationService().placeTenderReply((OrderEntity) comment.getEntity(), comment, getAuthenticatedUser());
         } else {
             getConversationService().placeComment(comment.getEntity(), comment, getAuthenticatedUser());
         }
-        getPhotoService().attachPhotos(comment, inject.getSubmittedPhotos());
+        getPhotoService().attachPhotos(comment, injectPhotos.getSubmittedPhotos());
     }
 
     public boolean getLike() {
@@ -75,7 +75,7 @@ public class Edit extends BaseComponent {
         return isShowRate() ? getMessages().get("comment.rate") : getMessages().get("comment.add");
     }
 
-    public Object[] getRateFormContext() {
+    public Object[] getEditFormContext() {
         return comment == null ?
                 new Object[]{null, entity.getCommentableType(), entity.getId()} :
                 new Object[]{comment.getId(), null, null};

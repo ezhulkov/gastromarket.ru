@@ -34,9 +34,6 @@ public class CommentEntity extends AbstractBaseEntity {
     @Column
     private Date date = new Date();
 
-    @Column(name = "email_sent")
-    private boolean emailSent;
-
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private UserEntity author;
@@ -118,14 +115,6 @@ public class CommentEntity extends AbstractBaseEntity {
     public void setOpinion(Boolean opinion) {
         if (opinion == null) rating = 0;
         else rating = opinion ? 1 : -1;
-    }
-
-    public boolean isEmailSent() {
-        return emailSent;
-    }
-
-    public void setEmailSent(final boolean emailSent) {
-        this.emailSent = emailSent;
     }
 
     public String getDatePrintable() {

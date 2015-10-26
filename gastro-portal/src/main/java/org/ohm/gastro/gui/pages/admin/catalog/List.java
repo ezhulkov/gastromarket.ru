@@ -22,4 +22,8 @@ public class List extends BaseComponent {
         getCatalogService().deleteCatalog(id);
     }
 
+    public int getBillsCount() {
+        return getBillService().findAllBills(oneCatalog).size();
+    }
+
 }

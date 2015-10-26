@@ -1,9 +1,9 @@
 package org.ohm.gastro.gui.pages.office;
 
-import com.google.common.collect.Lists;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.BillEntity;
+import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
@@ -23,12 +23,25 @@ public class Bills extends BaseComponent {
     @Property
     private OrderEntity order;
 
-    @Cached
-    public List<BillEntity> getBills() {
-        return getAuthenticatedUser().getFirstCatalog().map(t -> getBillService().findAllBills(t)).orElseGet(Lists::newLinkedList);
-    }
+    @Property
+    private CatalogEntity catalog;
 
     private final NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
+
+    public boolean onActivate() {
+        catalog = getAuthenticatedUser().getFirstCatalog().orElse(null);
+        return true;
+    }
+
+    public boolean onActivate(Long catId) {
+        catalog = isAdmin() ? getCatalogService().findCatalog(catId) : getAuthenticatedUser().getFirstCatalog().orElse(null);
+        return true;
+    }
+
+    @Cached
+    public List<BillEntity> getBills() {
+        return getBillService().findAllBills(catalog);
+    }
 
     public String getBillStatus() {
         return getMessages().get("BILL." + bill.getStatus().name());

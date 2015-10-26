@@ -5,18 +5,24 @@
     </div>
 
     <t:grid source="catalogs" row="oneCatalog"
-            add="user,del"
+            add="user,bills,del"
             include="name,rating,level"
-            reorder="name,user,rating,level,del"
+            reorder="name,user,bills,rating,level,del"
             t:mixins="GridSortingDisabled" class="table table-hover">
         <t:parameter name="nameHeader">
             Название
+        </t:parameter>
+        <t:parameter name="billsHeader">
+            Счета
         </t:parameter>
         <t:parameter name="userCell">
             <t:pagelink t:page="admin/user/index" t:context="['UPDATE',oneCatalog.user.id]">${oneCatalog.user.email}</t:pagelink>
         </t:parameter>
         <t:parameter name="nameCell">
             <t:pagelink page="admin/catalog/index" context="['UPDATE',oneCatalog.id]">${oneCatalog.name}</t:pagelink>
+        </t:parameter>
+        <t:parameter name="billsCell">
+            <t:pagelink page="office/bills" context="oneCatalog.id">Все счета ${billsCount}</t:pagelink>
         </t:parameter>
         <t:parameter name="ratingCell">
             ${oneCatalog.rating}

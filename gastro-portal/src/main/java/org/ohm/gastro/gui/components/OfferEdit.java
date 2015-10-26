@@ -11,6 +11,7 @@ import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OfferEntity;
+import org.ohm.gastro.gui.components.comment.InjectPhotos;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.catalog.Offer;
 
@@ -27,7 +28,7 @@ public class OfferEdit extends BaseComponent {
     private PriceModifier priceModifier;
 
     @InjectComponent
-    private org.ohm.gastro.gui.components.comment.Inject inject;
+    private InjectPhotos injectPhotos;
 
     @Inject
     @Property
@@ -145,12 +146,12 @@ public class OfferEdit extends BaseComponent {
 
     public void onPrepareFromProductsForm(Long pid) {
         offer = getOfferService().findOffer(pid);
-        inject.setOffer(offer);
-        inject.getSubmittedPhotos().clear();
+        injectPhotos.setOffer(offer);
+        injectPhotos.getSubmittedPhotos().clear();
     }
 
     public Object onSubmitFromProductsForm(Long pid) {
-        getPhotoService().attachPhotos(offer, inject.getSubmittedPhotos());
+        getPhotoService().attachPhotos(offer, injectPhotos.getSubmittedPhotos());
         if (goBack) {
             getAjaxResponseRenderer().addRender(getOfferEditZone(), editDescBlock);
             return null;

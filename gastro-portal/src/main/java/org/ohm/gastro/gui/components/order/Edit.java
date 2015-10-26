@@ -12,6 +12,7 @@ import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.OrderEntity;
+import org.ohm.gastro.gui.components.comment.InjectPhotos;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 /**
@@ -24,7 +25,7 @@ public class Edit extends BaseComponent {
     }
 
     @InjectComponent
-    private org.ohm.gastro.gui.components.comment.Inject inject;
+    private InjectPhotos injectPhotos;
 
     @Property
     @Parameter(defaultPrefix = BindingConstants.PROP, allowNull = true, required = false)
@@ -119,7 +120,7 @@ public class Edit extends BaseComponent {
 
     //Desc section
     public void onPrepareFromDescAjaxForm() {
-        inject.getSubmittedPhotos().clear();
+        injectPhotos.getSubmittedPhotos().clear();
         if (order == null || order.getId() == null) {
             if (extOrder != null) {
                 newOrder = extOrder;
@@ -153,7 +154,7 @@ public class Edit extends BaseComponent {
                             getOrderService().saveTender(origOrder, getAuthenticatedUser()) :
                             getOrderService().saveOrder(origOrder, getAuthenticatedUser());
                 }
-                getPhotoService().attachPhotos(order, inject.getSubmittedPhotos());
+                getPhotoService().attachPhotos(order, injectPhotos.getSubmittedPhotos());
                 if (ordersBlock != null) getAjaxResponseRenderer().addRender("ordersZone", ordersBlock);
                 if (orderBlock != null) getAjaxResponseRenderer().addRender(orderZoneId, orderBlock);
                 getAjaxResponseRenderer().addRender(getOrderEditZone(), editContactsBlock);

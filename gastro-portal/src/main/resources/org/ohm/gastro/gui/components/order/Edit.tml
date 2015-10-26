@@ -76,7 +76,7 @@
                                 <input t:id="personCount" type="number" class="form-control"/>
                             </div>
                         </div>
-                        <t:comment.inject order="order"/>
+                        <t:comment.injectPhotos order="order"/>
                         <div class="col-xs-12 gap">
                             <div class="form-buttons" xml:space="preserve">
                                 <input class="btn btn-red" t:type="submit" t:id="saveAndContacts" value="Контактные данные >"/>

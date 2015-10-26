@@ -176,14 +176,10 @@ public class ConversationServiceImpl implements ConversationService {
     @Override
     public void placeTenderReply(final OrderEntity tender, final CommentEntity reply, final UserEntity author) {
         if (StringUtils.isEmpty(reply.getText())) return;
-        reply.setEntity(tender);
         if (reply.getId() == null) {
+            reply.setEntity(tender);
             reply.setDate(new Date());
             reply.setAuthor(author);
-        }
-        commentRepository.save(reply);
-        if (!reply.isEmailSent()) {
-            reply.setEmailSent(true);
             commentRepository.save(reply);
             final Map<String, Object> params = new HashMap<String, Object>() {
                 {
@@ -194,6 +190,8 @@ public class ConversationServiceImpl implements ConversationService {
                 }
             };
             mailService.sendMailMessage(tender.getCustomer(), MailService.ORDER_COMMENT, params);
+        } else {
+            commentRepository.save(reply);
         }
     }
 
@@ -202,10 +200,10 @@ public class ConversationServiceImpl implements ConversationService {
     public void placeComment(@RatingTarget final CommentableEntity entity, final CommentEntity comment, final UserEntity author) {
         if (StringUtils.isEmpty(comment.getText()) || author == null) return;
         final Long origId = comment.getId();
-        comment.setEntity(entity);
         if (comment.getId() == null) {
             comment.setAuthor(author);
             comment.setDate(new Date());
+            comment.setEntity(entity);
         }
         commentRepository.save(comment);
         if (entity.getCommentableType() == CommentableEntity.Type.CATALOG && origId == null) {
@@ -241,7 +239,7 @@ public class ConversationServiceImpl implements ConversationService {
                         put("username", opponent.getFullName());
                         put("address", conversation.getFullUrl());
                         put("conversation", conversation);
-                        put("authorName", author.getFirstCatalog().map(AltIdBaseEntity::getName).orElseGet(() -> author.getFullName()));
+                        put("authorName", author.getFirstCatalog().map(AltIdBaseEntity::getName).orElseGet(author::getFullName));
                     }
                 };
                 mailService.sendMailMessage(opponent, MailService.NEW_MESSAGE, params);
