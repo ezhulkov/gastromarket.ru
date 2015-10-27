@@ -23,5 +23,5 @@ Disallow:/*ajaxlink
 Disallow:/*ajaxform
 Disallow:/*wizard
 
-Sitemap: http://gastromarket.ru/sitemap.xml
-Host: http://gastromarket.ru
+Sitemap: https://gastromarket.ru/sitemap.xml
+Host: https://gastromarket.ru

@@ -248,7 +248,7 @@ public class ProductEntity extends SitemapBaseEntity implements PurchaseEntity {
 
     @Override
     public String getLocationUrl() {
-        return "http://gastromarket.ru/product/" + getAltId();
+        return "https://gastromarket.ru/product/" + getAltId();
     }
 
     public String getAvatarUrlBig() {

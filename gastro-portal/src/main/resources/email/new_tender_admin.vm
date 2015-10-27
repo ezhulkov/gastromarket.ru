@@ -14,6 +14,6 @@
     Комментарий: ${comment}<br/>
     Заявка лежит по адресу: <a href="${address}?${params}">${address}</a><br/>
     Количество получателей: ${recipients.size()}<br/>
-    Подтверждение отправки: <a href="http://gastromarket.ru/tender/sendannonce/${tender.id}">http://gastromarket.ru/tender/sendannonce/${tender.id}</a>
+    Подтверждение отправки: <a href="https://gastromarket.ru/tender/sendannonce/${tender.id}">https://gastromarket.ru/tender/sendannonce/${tender.id}</a>
 </p>
 #parse("email/footer.vm")

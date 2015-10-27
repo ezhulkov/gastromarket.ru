@@ -45,6 +45,9 @@ public class Index extends EditObjectPage<CatalogEntity> {
     @Component(id = "cert3", parameters = {"value=object?.cert3"})
     private Checkbox cert3;
 
+    @Component(id = "contractSigned", parameters = {"value=object?.contractSigned"})
+    private Checkbox contractSigned;
+
     @Cached
     public java.util.List<ProductEntity> getProducts() {
         return getProductService().findProductsForFrontend(null, getObject(), null, null, null, null, null, 0, Integer.MAX_VALUE);

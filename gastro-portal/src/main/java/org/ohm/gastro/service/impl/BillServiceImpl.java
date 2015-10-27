@@ -45,10 +45,11 @@ public class BillServiceImpl implements BillService, Logging {
 
     @Override
     public void createMissingBills(final CatalogEntity catalog) {
+        if (catalog == null) return;
         final Optional<BillEntity> lastBill = findAllBills(catalog).stream().reduce((a, b) -> b);
         final DateTime lastBillDate = lastBill.map(BillEntity::getClosingDateAsJoda).orElseGet(catalog::getFirstBillingDate);
         final int lastBillNumber = lastBill.map(BillEntity::getBillNumber).orElse(0);
-        final int missingMonths = Math.max(0, Months.monthsBetween(lastBillDate, DateTime.now().withDayOfMonth(1)).getMonths());
+        final int missingMonths = Math.max(0, Months.monthsBetween(lastBillDate, DateTime.now()).getMonths());
         final List<BillEntity> missingBills = IntStream.rangeClosed(1, missingMonths).mapToObj(t -> {
             final BillEntity bill = new BillEntity();
             bill.setBillNumber(lastBillNumber + t);

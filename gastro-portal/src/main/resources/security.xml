@@ -41,7 +41,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
 
     <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>
 
-    <beans:bean id="authenticationSuccessHandler" class="org.ohm.gastro.service.impl.AuthSuccessfulHandler">
+    <beans:bean id="authenticationSuccessHandler" class="org.ohm.gastro.service.impl.GmAuthSuccessfulHandler">
         <beans:property name="useReferer" value="true"/>
         <beans:property name="redirectStrategy" ref="redirectStrategy"/>
     </beans:bean>

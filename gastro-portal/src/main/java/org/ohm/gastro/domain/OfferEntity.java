@@ -141,7 +141,7 @@ public class OfferEntity extends SitemapBaseEntity implements PurchaseEntity {
 
     @Override
     public String getLocationUrl() {
-        return "http://gastromarket.ru/catalog/offer/" + getAltId();
+        return "https://gastromarket.ru/catalog/offer/" + getAltId();
     }
 
 }

@@ -49,7 +49,7 @@ public class Layout extends BaseComponent {
     }
 
     public String getSocialImage() {
-        return "http://gastromarket.ru" + ObjectUtils.defaultIfNull(socialImage, "/img/logo.jpg");
+        return "https://gastromarket.ru" + ObjectUtils.defaultIfNull(socialImage, "/img/logo.jpg");
     }
 
     public String getKeywords() {

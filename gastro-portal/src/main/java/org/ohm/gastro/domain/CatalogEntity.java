@@ -84,6 +84,9 @@ public class CatalogEntity extends SitemapBaseEntity implements CommentableEntit
     @Column(name = "cert_3")
     private Boolean cert3 = false;
 
+    @Column(name = "contract_signed")
+    private Boolean contractSigned;
+
     @Column
     private Date date = new Date(System.currentTimeMillis());
 
@@ -109,7 +112,7 @@ public class CatalogEntity extends SitemapBaseEntity implements CommentableEntit
     private List<OfferEntity> offers = Lists.newArrayList();
 
     public String getFullUrl() {
-        return "http://gastromarket.ru/catalog/" + getAltId();
+        return "https://gastromarket.ru/catalog/" + getAltId();
     }
 
     public Date getDate() {
@@ -310,7 +313,7 @@ public class CatalogEntity extends SitemapBaseEntity implements CommentableEntit
 
     @Override
     public String getLocationUrl() {
-        return "http://gastromarket.ru/catalog/" + getAltId();
+        return "https://gastromarket.ru/catalog/" + getAltId();
     }
 
     public Boolean getCert1() {
@@ -353,4 +356,13 @@ public class CatalogEntity extends SitemapBaseEntity implements CommentableEntit
     public void setFreeMonths(int freeMonths) {
         this.freeMonths = freeMonths;
     }
+
+    public Boolean getContractSigned() {
+        return contractSigned;
+    }
+
+    public void setContractSigned(Boolean contractSigned) {
+        this.contractSigned = contractSigned;
+    }
+
 }

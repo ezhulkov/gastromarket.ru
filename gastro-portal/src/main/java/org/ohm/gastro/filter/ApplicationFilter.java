@@ -46,7 +46,7 @@ public class ApplicationFilter extends BaseApplicationFilter {
             stopWatch = new Slf4JStopWatch("op" + opNumber, servletPath);
             MDC.put("sid", sid);
             MDC.put("ip", httpServletRequest.getHeader("X-Real-IP"));
-            MDC.put("referer", referer == null || referer.startsWith("http://gastromarket") || referer.startsWith("http://localhost") ? "" : referer);
+            MDC.put("referer", referer == null || referer.startsWith("https://gastromarket") || referer.startsWith("http://localhost") ? "" : referer);
             MDC.put("uid", uid);
             MDC.put("op", "op" + Long.toString(opNumber));
             StringBuilder logStr = new StringBuilder(httpServletRequest.getMethod());

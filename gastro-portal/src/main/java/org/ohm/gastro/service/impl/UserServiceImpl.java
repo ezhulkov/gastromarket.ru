@@ -259,6 +259,8 @@ public class UserServiceImpl implements UserService, Logging {
             saveUser(user);
             ratingService.registerEvent(LogEntity.Type.LOGIN, user, null, null);
             if (user.isCook()) catalogRepository.findAllByUser(user).forEach(billService::createMissingBills);
+        } else {
+            logger.error("Not an UserEntity instance {}", userDetails);
         }
 
     }

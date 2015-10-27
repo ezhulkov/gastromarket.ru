@@ -30,6 +30,7 @@ public class Bills extends BaseComponent {
 
     public boolean onActivate() {
         catalog = getAuthenticatedUser().getFirstCatalog().orElse(null);
+        getBillService().createMissingBills(catalog);
         return true;
     }
 

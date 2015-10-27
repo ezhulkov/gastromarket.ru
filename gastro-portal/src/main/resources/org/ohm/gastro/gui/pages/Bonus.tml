@@ -63,7 +63,7 @@
                                         </p>
                                         <div class="col-xs-12">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" value="http://gastromarket.ru/signup/${authenticatedUser.id}"/>
+                                                <input type="text" class="form-control" value="https://gastromarket.ru/signup/${authenticatedUser.id}"/>
                                             </div>
                                             <div class="row">&nbsp;</div>
                                         </div>
