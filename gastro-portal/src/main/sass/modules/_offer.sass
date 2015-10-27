@@ -3,89 +3,24 @@
 @import "tools"
 
 .offer-item
-  position: relative
-  padding: 30px 0 20px 0
-  +tablet-media
-    .info-block
-      margin-top: 10px
-  .pic-block
-    text-align: right
-    img
-      width: initial
-      height: initial
-    @media (max-width: 750px)
-      text-align: left
-  .data-header
-    margin: 5px 0 0 0
-    height: auto
-    a
-      margin: 0
-  .name
-    color: $blackTextColor
-    font-size: $f30px
-    line-height: $f30px
-  .price
-    +price-class($priceFontSize, left, bold)
-  .persons
-    font-size: $f16px
-    margin-top: 5px
-    font-weight: bold
-  .description
-    font-size: $f16px
-    margin-top: 5px
+  padding-top: 10px
+  padding-bottom: 10px
+  &.short, &.list
+    .pic
+      width: 100px
+      +desktop-media
+        margin-top: 50px
+  &.full
+    .pic
+      width: 270px
   .edit
     display: none
   &:hover
     .edit
       display: block
-  &.short
-    .products a
-      color: $redTextColor
-      font-size: $f18px
-    .description
-      max-height: 65px
-      overflow: hidden
-    .catalog-link
-      display: none
-
-ul.offer-products
-  list-style: none
-  padding: 0
-  margin: 0
-  li
-    vertical-align: top
-    display: inline-block
-    margin: 0 $gap $gap 0
-    height: 100px
-    width: 100px
-    position: relative
-    .delete
-      display: none
-      position: absolute
-      top: 0
-      right: 0
-      bottom: 0
-      left: 0
-      background-color: rgba(255, 0, 0, 0.6)
-      line-height: 100px
-      text-align: center
-      a
-        top: 25px
-        left: 25px
-        background: url("../img/product-edit.png") no-repeat
-        background-position-x: -98px
-        width: 49px
-        height: 49px
-        position: absolute
-    &:hover
-      .delete
-        display: block
 
 .offer-edit
   .price
     font-weight: bold
     font-size: 20px
     height: 50px
-
-.offer-item-wrap:nth-child(odd)
-  background-color: #f5f5f5

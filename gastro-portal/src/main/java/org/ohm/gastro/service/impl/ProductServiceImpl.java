@@ -11,7 +11,6 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.javatuples.Tuple;
 import org.ohm.gastro.domain.CatalogEntity;
-import org.ohm.gastro.domain.OfferEntity;
 import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.ProductEntity.Unit;
@@ -232,11 +231,6 @@ public class ProductServiceImpl implements ProductService, Logging {
         return category == null || category.getId() == null ?
                 productRepository.findCountInCatalog(catalog, false) :
                 productRepository.findCountByRootValueAndCatalog(category, catalog, null, false);
-    }
-
-    @Override
-    public List<ProductEntity> findAllProducts(final OfferEntity offer) {
-        return productRepository.findAllByOffer(offer);
     }
 
     @Override

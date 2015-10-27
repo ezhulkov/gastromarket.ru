@@ -1,6 +1,5 @@
 package org.ohm.gastro.gui.pages.catalog;
 
-import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.OfferEntity;
 import org.ohm.gastro.domain.ProductEntity;
@@ -19,11 +18,6 @@ public abstract class AbstractOfferPage extends BaseComponent {
 
     public String getTitle() {
         return offer.getName();
-    }
-
-    @Cached(watch = "offer")
-    public java.util.List<ProductEntity> getProducts() {
-        return getProductService().findAllProducts(offer);
     }
 
 }

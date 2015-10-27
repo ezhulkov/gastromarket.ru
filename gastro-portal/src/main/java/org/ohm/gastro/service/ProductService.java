@@ -2,7 +2,6 @@ package org.ohm.gastro.service;
 
 import org.javatuples.Tuple;
 import org.ohm.gastro.domain.CatalogEntity;
-import org.ohm.gastro.domain.OfferEntity;
 import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
@@ -34,8 +33,6 @@ public interface ProductService extends ImageUploaderService, AltIdService<Produ
     int findAllCategoryProductsCount(@Nullable CatalogEntity catalog, @Nullable PropertyValueEntity category);
 
     int findAllProductsCountCached(final CatalogEntity catalog, @Nonnull PropertyValueEntity category);
-
-    List<ProductEntity> findAllProducts(OfferEntity offer);
 
     PriceModifierEntity findPriceModifier(Long id);
 

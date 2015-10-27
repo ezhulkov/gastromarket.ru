@@ -1,6 +1,6 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+<section xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="offer-item ${additionalClass} zebra-row">
 
-    <t:zone t:id="offerZone" id="${offerZoneId}" class="offer-item ${additionalClass}">
+    <t:zone t:id="offerZone" id="${offerZoneId}" class="container">
         <t:delegate to="offerBlock"/>
     </t:zone>
 
@@ -15,23 +15,23 @@
     </t:block>
 
     <t:block t:id="offerBlock">
-        <div class="row">
-            <div class="${leftBlock} fluid-xs-block">
+        <div class="row info">
+            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12  fluid-sm-block">
                 <t:pagelink page="catalog/offer" t:context="offer.altId">
                     <img class="pic" src="${avatarUrl}"/>
                 </t:pagelink>
             </div>
-            <div class="${rightBlock} nopad info-block">
-                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-                    <t:pagelink page="catalog/offer" t:context="offer.altId" class="name">${offer.name}</t:pagelink>
+            <div class="col-lg-9 col-md-8 col-sm-12 col-xs-12  info-block">
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 nopad ">
+                    <t:pagelink page="catalog/offer" t:context="offer.altId" class="name black-text f30px">${offer.name}</t:pagelink>
                     <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="offer.catalog.altId">
                         <span><img class="avatar-small" src="${offer.catalog.avatarUrlMedium}"/></span>${offer.catalog.name}
                     </t:pageLink>
-                    <div class="persons">
+                    <div class="persons bold">
                         ${personsCountDecl}
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 nopad">
                     <t:if test="editMode">
                         <div class="edit" xml:space="preserve">
                             <t:actionlink rel="nofollow" t:id="edit" t:context="offer.id" t:zone="${editZoneId}">Редактировать</t:actionlink>
@@ -62,7 +62,7 @@
                         </div>
                     </t:if>
                 </div>
-                <div class="col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 nopad">
                     <div class="description">
                         <t:outputraw value="offer.descriptionRaw"/>
                     </div>
@@ -70,30 +70,25 @@
                 </div>
             </div>
         </div>
-        <t:unless test="short">
-            <t:if test="priceModifiers">
-                <div class="price-modifier gap">
-                    <t:loop source="priceModifiers" value="priceModifier">
-                        <div class="row">
-                            <div class="${leftBlock} basket-block fluid-xs-block">
-                                <span class="modifier-price"><span class="sign">${priceModifier.signPrintable}</span>${priceModifier.price} <span class="rub"/></span>
-                            </div>
-                            <div class="${rightBlock} basket-block text-left">
-                                <span class="modifier-name">${priceModifier.description}</span>
-                            </div>
-                        </div>
-                    </t:loop>
+        <div class="row price-modifier gap">
+            <t:loop source="priceModifiers" value="priceModifier">
+                <div class="col-lg-3 col-md-4 col-sm-3 col-xs-12 fluid-xs-block">
+                    <span class="modifier-price"><span class="sign">${priceModifier.signPrintable}</span>${priceModifier.price} <span class="rub"/></span>
                 </div>
-            </t:if>
-        </t:unless>
-        <div class="row gap">
-            <div class="${leftBlock} basket-block fluid-xs-block">
+                <div class="col-lg-9 col-md-8 col-sm-9 col-xs-12">
+                    <span class="modifier-name">${priceModifier.description}</span>
+                </div>
+            </t:loop>
+        </div>
+        <div class="row basket-block gap">
+            <div class="col-lg-3 col-md-4 col-sm-3 col-xs-12 fluid-xs-block">
                 <span class="price">${offer.price} <span class="rub"/></span>
             </div>
-            <div class="${rightBlock} basket-block text-left">
+            <div class="col-lg-9 col-md-8 col-sm-9 col-xs-12">
                 <t:order.add entity="offer" priceModifiers="priceModifiers"/>
             </div>
         </div>
+
     </t:block>
 
-</div>
+</section>

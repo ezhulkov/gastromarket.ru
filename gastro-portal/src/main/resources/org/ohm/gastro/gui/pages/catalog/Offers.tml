@@ -13,17 +13,15 @@
                 <t:offerEdit catalog="catalog" edit="false" offersBlock="offersBlock"/>
             </t:if>
         </div>
+    </section>
 
+    <section>
         <t:zone t:id="offersZone">
             <t:delegate to="offersBlock"/>
         </t:zone>
         <t:block t:id="offersBlock">
             <t:loop source="allOffers" value="offer">
-                <div class="offer-item-wrap">
-                    <div class="container">
-                        <t:offer offer="offer" type="LIST" editMode="catalogOwner" offersBlock="offersBlock"/>
-                    </div>
-                </div>
+                <t:offer offer="offer" type="LIST" editMode="catalogOwner" offersBlock="offersBlock"/>
             </t:loop>
         </t:block>
     </section>

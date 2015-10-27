@@ -47,7 +47,7 @@ public class Offer extends BaseComponent {
     @Property
     private Block editBlock;
 
-    @Cached
+    @Cached(watch = "offer")
     public java.util.List<PriceModifierEntity> getPriceModifiers() {
         return getProductService().findAllModifiers(offer).stream().filter(t -> t.getPrice() != 0).collect(Collectors.toList());
     }

@@ -13,9 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -84,14 +81,6 @@ public class ProductEntity extends SitemapBaseEntity implements PurchaseEntity {
 
     @Column(name = "avatar_url_big")
     private String avatarUrlBig = "/img/product-stub-1000x720.png";
-
-    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-    @JoinTable(name = "offer_product",
-            joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "offer_id", referencedColumnName = "id")
-    )
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private List<OfferEntity> offers = Lists.newArrayList();
 
     public ProductEntity() {
     }
@@ -199,14 +188,6 @@ public class ProductEntity extends SitemapBaseEntity implements PurchaseEntity {
 
     public void setWasSetup(final boolean wasSetup) {
         this.wasSetup = wasSetup;
-    }
-
-    public List<OfferEntity> getOffers() {
-        return offers;
-    }
-
-    public void setOffers(final List<OfferEntity> offers) {
-        this.offers = offers;
     }
 
     public String getPosition() {
