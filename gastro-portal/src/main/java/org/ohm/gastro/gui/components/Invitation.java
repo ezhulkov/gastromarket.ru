@@ -6,6 +6,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.AppResults;
+import org.ohm.gastro.util.CommonsUtils;
 
 /**
  * Created by ezhulkov on 23.08.14.
@@ -39,7 +40,7 @@ public class Invitation extends BaseComponent {
     }
 
     public Object onSubmitFromApplicationAjaxForm() {
-        if (error) return applicationFormBlock;
+        if (error || CommonsUtils.checkAjaxBotRequest(getHttpServletRequest())) return applicationFormBlock;
         getUserService().processApplicationRequest(eMail, fullName, about, sourceInfo);
         return getPageLinkSource().createPageRenderLinkWithContext(AppResults.class, eMail);
     }

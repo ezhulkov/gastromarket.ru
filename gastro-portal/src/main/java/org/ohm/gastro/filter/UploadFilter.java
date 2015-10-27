@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.FileUtils;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.service.ImageService;
 import org.ohm.gastro.service.ImageService.FileType;
@@ -16,13 +15,10 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -36,30 +32,24 @@ public class UploadFilter extends BaseApplicationFilter implements Logging {
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain)
             throws ServletException, IOException {
 
-        File file = null;
         try {
 
             final ImageService imageService = ApplicationContextHolder.getApplicationContext().getBean(ImageService.class);
             final List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(httpServletRequest);
-            final Map<String, String> multipartParams = items.stream().filter(FileItem::isFormField).collect(Collectors.toMap(FileItem::getFieldName,
-                                                                                                                              FileItem::getString));
-            final String filePath = multipartParams.get("file_path");
-            final String fileTypeStr = multipartParams.get("file_type");
-            final String objectIdStr = multipartParams.get("object_id");
-            final String targetContext = multipartParams.get("target_context");
+            final byte[] imageBuf = items.stream().filter(t -> "qqfile".equals(t.getFieldName())).map(FileItem::get).findFirst().orElseThrow(() -> new RuntimeException("no qqfile parameter"));
+            final String fileTypeStr = httpServletRequest.getParameter("file_type");
+            final String objectIdStr = httpServletRequest.getParameter("object_id");
+            final String targetContext = httpServletRequest.getParameter("target_context");
 
-            checkNotNull(filePath, "file_path should not be empty");
             checkNotNull(fileTypeStr, "file_type should not be empty");
-
-            file = new File(filePath);
+            checkNotNull(imageBuf, "qqfile should not be empty");
 
             final FileType fileType = FileType.valueOf(fileTypeStr);
             final String objectId = imageService.explicitlyGetObjectId(fileType, objectIdStr, targetContext, BaseComponent.getAuthenticatedUser(null).orElse(null));
 
             checkNotNull(objectId, "objectId should not be empty");
-            checkArgument(file.exists(), "file %s should exist", filePath);
 
-            final Map<ImageSize, String> imageUrls = imageService.resizeImagePack(file, fileType, objectId);
+            final Map<ImageSize, String> imageUrls = imageService.resizeImagePack(imageBuf, fileType, objectId);
 
             httpServletResponse.setContentType("application/json");
             httpServletResponse.setCharacterEncoding("UTF-8");
@@ -71,10 +61,6 @@ public class UploadFilter extends BaseApplicationFilter implements Logging {
 
             Logging.logger.error("", e);
             httpServletResponse.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-
-        } finally {
-
-            FileUtils.deleteQuietly(file);
 
         }
 
