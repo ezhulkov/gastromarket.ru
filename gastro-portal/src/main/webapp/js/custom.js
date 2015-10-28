@@ -422,9 +422,9 @@ function initMessagePage() {
     });
     Event.observe(newMessagesZone.get(0), Tapestry.ZONE_UPDATED_EVENT, function () {
         jQuery("html, body").scrollTop(jQuery(document).height());
-        jQuery(postInput).val("");
+        jQuery(postInput).val("").focus();
         jQuery(this).find(".message").last().find(".text").fadeOut(0, function () {
-            jQuery(this).fadeIn(500);
+            jQuery(this).fadeIn(700);
         });
     });
     jQuery(postInput)
