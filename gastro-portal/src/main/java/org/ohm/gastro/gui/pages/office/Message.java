@@ -102,6 +102,7 @@ public class Message extends BaseComponent {
     }
 
     public Block onSubmitFromPostForm(Long cid) {
+        if (text == null) return newMessageBlock;
         conversation = getConversationService().find(cid);
         CommentEntity newComment = new CommentEntity();
         newComment.setText(text);

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.Lists;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by ezhulkov on 09.01.15.
@@ -19,6 +20,10 @@ public class VkontakteAlbumsResponse {
         return response;
     }
 
+    public Optional<Response> getResponseOpt() {
+        return Optional.ofNullable(getResponse());
+    }
+
     public void setResponse(final Response response) {
         this.response = response;
     }
@@ -31,6 +36,10 @@ public class VkontakteAlbumsResponse {
 
         public List<Item> getItems() {
             return items;
+        }
+
+        public Optional<List<Item>> getItemsOpt() {
+            return Optional.ofNullable(items);
         }
 
         public void setItems(final List<Item> items) {

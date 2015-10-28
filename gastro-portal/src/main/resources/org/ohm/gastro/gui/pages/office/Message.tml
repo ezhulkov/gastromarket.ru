@@ -22,14 +22,14 @@
                 <div class="row">
                     <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-offset-0 col-xs-12 hr"></div>
                 </div>
-                <t:form t:id="postForm" t:context="conversation.id" t:zone="newMessagesZone" class="form" t:clientValidation="none" role="form">
+                <t:form t:id="postForm" t:context="conversation.id" t:zone="newMessagesZone" class="form postform" t:clientValidation="none" role="form">
                     <div class="col-lg-offset-2 col-lg-1 col-lg-offset-2 col-md-31 col-sm-offset-2 col-sm-1 col-xs-2">
                         <t:actionlink t:id="uploadPhotoAjaxLink" id="uploadPhotoAjaxLink" t:zone="newMessagesZone" t:context="conversation.id" class="hidden"/>
                         <t:uploadfile type="PHOTO" inputType="msg-icon" refreshAjax="#uploadPhotoAjaxLink" targetContext="${conversation.id}"/>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-10">
                         <div class="form-group">
-                            <t:textarea t:value="text" t:id="text" rows="1" class="form-control text" style="max-height: 74px" placeholder="Ваше сообщение"/>
+                            <t:textarea t:value="text" t:id="text" rows="1" class="form-control text" tabindex="0" style="max-height: 74px" placeholder="Ваше сообщение"/>
                             <div class="label-tip hidden-xs">
                                 ctrl+enter отправка сообщения
                             </div>

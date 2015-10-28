@@ -409,6 +409,7 @@ function initMessages() {
     });
 }
 function initMessagePage() {
+    var postInput = jQuery(".post .text");
     var newMessagesZone = jQuery("#newMessagesZone");
     jQuery(document).ready(function () {
         initMessages();
@@ -421,18 +422,25 @@ function initMessagePage() {
     });
     Event.observe(newMessagesZone.get(0), Tapestry.ZONE_UPDATED_EVENT, function () {
         jQuery("html, body").scrollTop(jQuery(document).height());
+        jQuery(postInput).val("");
+        jQuery(this).find(".message").last().find(".text").fadeOut(0, function () {
+            jQuery(this).fadeIn(500);
+        });
     });
-    jQuery(".post .text").each(function () {
-        autosize(this);
-    }).on("autosize:resized", function () {
-        jQuery(".messages").css("padding-bottom", (isMobile() ? 80 : 60) + jQuery(this).height());
-        jQuery("html, body").scrollTop(jQuery(document).height());
-    }).on("keydown", function (e) {
+    jQuery(postInput)
+        .focus()
+        .each(function () {
+            autosize(this);
+        })
+        .on("autosize:resized", function () {
+            jQuery(".messages").css("padding-bottom", (isMobile() ? 80 : 60) + jQuery(this).height());
+            jQuery("html, body").scrollTop(jQuery(document).height());
+        });
+    jQuery(document).keydown(function (e) {
         if ((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey) {
             e.preventDefault();
             e.stopPropagation();
-            triggerEvent(jQuery(this).closest("form").find("input[type='submit']")[0], "click");
-            jQuery(this).val("");
+            triggerEvent(jQuery("form.postform").find("input[type='submit']")[0], "click");
         }
     });
 }

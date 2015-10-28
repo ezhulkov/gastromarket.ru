@@ -29,7 +29,7 @@
                     <div class="col-xs-12">
                         <div class="form-group">
                             <label for="username1">Адрес почты:</label>
-                            <input id="username1" name="j_username" type="text" class="form-control"/>
+                            <input id="username1" name="j_username" type="email" class="form-control"/>
                         </div>
                     </div>
                     <div class="col-xs-12">
@@ -85,7 +85,7 @@
                     <div class="col-xs-12">
                         <div class="form-group">
                             <t:label for="eMail">Адрес почты:</t:label>
-                            <input t:type="TextField" t:id="eMail" t:value="eMail" type="text" class="form-control"/>
+                            <input t:type="TextField" t:id="eMail" t:value="eMail" type="email" class="form-control"/>
                         </div>
                     </div>
                     <div class="col-xs-12">
@@ -155,7 +155,7 @@
                         <div class="col-xs-12">
                             <div class="form-group">
                                 <t:label for="eMail2">Адрес почты:</t:label>
-                                <input t:type="TextField" t:id="eMail2" t:value="eMail" t:validate="required,email,maxlength=64" class="form-control"/>
+                                <input t:type="TextField" t:id="eMail2" type="email" t:value="eMail" t:validate="required,email,maxlength=64" class="form-control"/>
                             </div>
                         </div>
                         <div class="col-xs-12">

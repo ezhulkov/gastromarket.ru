@@ -58,7 +58,7 @@ public abstract class OAuthSocialSourceImpl<ST extends Api> implements SocialSou
             getAuthService().signRequest(token, request);
             response = request.send();
             final String body = response.getBody();
-            return onSuccess.applyThrowing(body);
+            return body == null ? null : onSuccess.applyThrowing(body);
         } catch (Exception e) {
             logger.error("Error parsing response {}", response == null ? null : response.getBody());
             logger.error("", e);

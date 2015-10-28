@@ -1,5 +1,6 @@
 package org.ohm.gastro.service.impl;
 
+import com.google.common.collect.Lists;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.misc.Throwables;
 import org.ohm.gastro.service.MediaImportService;
@@ -9,6 +10,7 @@ import org.ohm.gastro.service.social.MediaResponse;
 import org.ohm.gastro.service.social.VKontakteUserProfile;
 import org.ohm.gastro.service.social.VKontakteUserProfileResponse;
 import org.ohm.gastro.service.social.VkontakteAlbumsResponse;
+import org.ohm.gastro.service.social.VkontakteAlbumsResponse.Response;
 import org.ohm.gastro.service.social.VkontakteGroupsResponse;
 import org.ohm.gastro.service.social.VkontakteImagesResponse;
 import org.scribe.builder.api.VkontakteApi;
@@ -148,10 +150,14 @@ public final class VkontakteSourceImpl extends OAuthSocialSourceImpl<VkontakteAp
         protected List<MediaAlbum> compute() {
             return callEndpoint(url,
                                 token,
-                                body -> mapper.readValue(body, VkontakteAlbumsResponse.class).getResponse().getItems().stream()
-                                        .map(t -> new MediaAlbum(pageId + "_" + t.getId(), t.getTitle(), pageName))
-                                        .peek(t -> logger.info("Album from vk {}", t))
-                                        .collect(Collectors.toList())
+                                body -> mapper.readValue(body, VkontakteAlbumsResponse.class)
+                                        .getResponseOpt()
+                                        .map(Response::getItems)
+                                        .map(items -> items.stream()
+                                                .map(t -> new MediaAlbum(pageId + "_" + t.getId(), t.getTitle(), pageName))
+                                                .peek(t -> logger.info("Album from vk {}", t))
+                                                .collect(Collectors.toList()))
+                                        .orElse(Lists.newArrayList())
             );
         }
     }
