@@ -221,7 +221,7 @@ public class CommonsUtils implements Logging {
                 final Long timeOut = Long.parseLong(secret.substring(0, delimiterPos));
                 final String uid = secret.substring(delimiterPos + 1);
                 if (timeOut < System.currentTimeMillis()) {
-                    logger.error("Expired secure link {}", new Date(timeOut));
+                    logger.error("Expired secure link {} for {}", new Date(timeOut), uid);
                     return Optional.empty();
                 }
                 return Optional.of(uid);

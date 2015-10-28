@@ -218,9 +218,14 @@ public class UserServiceImpl implements UserService, Logging {
         logger.info("fullName: {}", fullName);
         logger.info("comment: {}", comment);
 
-        mailService.sendAdminMessage(MailService.FEEDBACK, ImmutableMap.of("fullname", defaultIfNull(fullName, ""),
-                                                                           "email", defaultIfNull(eMail, ""),
-                                                                           "comment", defaultIfNull(comment, "")));
+        final Map<String, Object> params = new HashMap<String, Object>() {
+            {
+                put("fullname", defaultIfNull(fullName, ""));
+                put("email", defaultIfNull(eMail, ""));
+                put("comment", defaultIfNull(comment, ""));
+            }
+        };
+        mailService.sendAdminMessage(MailService.FEEDBACK, params);
 
     }
 

@@ -353,7 +353,7 @@ function initFineUploader(el) {
             jQuery(id.target).addClass("upload-progress");
         }).unbind("complete").bind("complete", function (id, name, responseJSON, xhr) {
             jQuery(id.target).removeClass("upload-progress");
-            if (respSize != undefined && respSize.length > 0) {
+            if (respSize != undefined && respSize.length > 0 && xhr[respSize] != undefined) {
                 jQuery(imageSelector).attr("src", xhr[respSize] + "?" + new Date().getTime());
             }
             if (refreshAjax != null) {
