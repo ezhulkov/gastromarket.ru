@@ -13,6 +13,7 @@ import org.ohm.gastro.reps.UserRepository;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.trait.Logging;
 import org.ohm.gastro.util.CommonsUtils;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
@@ -199,12 +200,15 @@ public class MailServiceImpl implements MailService, Logging {
         synchronized (scheduledFutures) {
             final ScheduledFuture scheduledFuture = scheduledFutures.remove(operationKey);
             if (scheduledFuture != null) scheduledFuture.cancel(true);
+            final Map<String, String> copyOfContextMap = MDC.getCopyOfContextMap();
             scheduledFutures.put(operationKey,
                                  scheduledExecutorService.schedule(() -> {
+                                     MDC.setContextMap(copyOfContextMap);
                                      synchronized (scheduledFutures) {
                                          if (scheduledFutures.remove(operationKey) == null) return;
                                          routine.accept(operationKey);
                                      }
+                                     MDC.clear();
                                  }, time, timeUnit));
         }
     }

@@ -417,7 +417,8 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
     }
 
     public final boolean isContactsAllowed(final UserEntity user) {
-        return user != null && user.isCook() && getStatus().getLevel() >= Status.CONFIRMED.getLevel();
+        return user != null &&
+                (user.equals(getCustomer()) || user.getFirstCatalog().map(t -> t.equals(getCatalog())).orElse(false));
     }
 
     public final boolean isTenderActive() {

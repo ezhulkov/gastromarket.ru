@@ -4,6 +4,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.ohm.gastro.service.UserService;
 import org.ohm.gastro.trait.Logging;
 import org.ohm.gastro.util.CommonsUtils;
+import org.slf4j.MDC;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
@@ -23,6 +24,7 @@ public class GmTokenBasedRememberMeServices extends TokenBasedRememberMeServices
 
     @Override
     protected UserDetails processAutoLoginCookie(String[] cookieTokens, HttpServletRequest request, HttpServletResponse response) {
+        MDC.clear();
         return Optional.ofNullable(request.getParameter("ql"))
                 .map(this::tryLogin)
                 .orElseGet(() -> super.processAutoLoginCookie(cookieTokens, request, response));
