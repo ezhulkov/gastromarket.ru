@@ -12,7 +12,7 @@
                     </h2>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cta">
-                    <t:pagelink page="tender/add" class="btn btn-lg btn-red">Разместить заявку</t:pagelink>
+                    <t:pagelink page="tender/add" class="btn btn-red">Разместить заявку</t:pagelink>
                 </div>
             </div>
         </div>

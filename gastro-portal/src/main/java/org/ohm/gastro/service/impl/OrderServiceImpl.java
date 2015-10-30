@@ -254,8 +254,8 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     }
 
     private List<UserEntity> getRecipients() {
-//        return catalogRepository.findAll().stream().map(CatalogEntity::getUser).distinct().filter(UserEntity::isSubscribeEmail).collect(Collectors.toList());
-        return Lists.newArrayList(userRepository.findOne(1l));
+        return catalogRepository.findAll().stream().map(CatalogEntity::getUser).distinct().filter(UserEntity::isSubscribeEmail).collect(Collectors.toList());
+//        return Lists.newArrayList(userRepository.findOne(1l));
     }
 
     @Override
