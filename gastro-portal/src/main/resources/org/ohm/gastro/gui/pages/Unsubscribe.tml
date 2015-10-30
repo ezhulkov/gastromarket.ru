@@ -6,12 +6,42 @@
                 <h1><span>Отмена оповещений</span></h1>
             </div>
             <div class="row">
-                <p class="modal-text">Извините за беспокойство, мы отменили eMail оповещения для адреса ${recipient?.email}</p>
-                <p class="modal-text">Вы можете вернуть настройки оповещений в настройке профиля.</p>
+                <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 col-xs-offset-0 col-xs-12">
+                    <p class="modal-text">Мы хотим сделать удобный для кулинаров и покупателей сервис. <br/>Если вас не затруднит, укажите, пожалуйста, причину отписки.</p>
+
+                    <t:form class="form gap" t:clientValidation="none" t:context="email" role="form">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <t:checkbox t:id="wrong" t:value="wrong"/>
+                                &nbsp;
+                                <t:label class="control-label" for="wrong"> - содержание писем неактуально для меня</t:label>
+                                <br/>
+                                <t:checkbox t:id="many" t:value="many"/>
+                                &nbsp;
+                                <t:label class="control-label" for="many"> - вы присылаете слишком много писем</t:label>
+                                <br/>
+                                <t:checkbox t:id="client" t:value="client"/>
+                                &nbsp;
+                                <t:label class="control-label" for="client"> - я кулинар и мне НЕ интересно получать новых покупателей</t:label>
+                                <br/>
+                                <t:checkbox t:id="spam" t:value="spam"/>
+                                &nbsp;
+                                <t:label class="control-label" for="spam"> - меня никто не спрашивал про этот спам</t:label>
+                            </div>
+                            <div class="form-group">
+                                <t:label for="reason">Другая причина:</t:label>
+                                <textarea t:type="TextArea" t:id="reason" t:value="reason" rows="5" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="form-buttons" xml:space="preserve">
+                               <input class="btn btn-red" type="submit" value="Отписаться"/>
+                           </div>
+                        </div>
+                    </t:form>
+                </div>
             </div>
         </div>
     </section>
-
-    <t:yagoal goal="UNSUBSCRIBE"/>
 
 </t:layout>

@@ -2,10 +2,10 @@
 
     <section>
         <div class="container">
+            <div class="title">
+                <h1><span>Вход</span></h1>
+            </div>
             <div class="row">
-                <div class="title">
-                    <h1><span>Вход</span></h1>
-                </div>
                 <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 col-xs-offset-0 col-xs-12">
                     <p class="modal-text">Вход через аккаунт одной из социальных сетей</p>
                     <ul class="social big">

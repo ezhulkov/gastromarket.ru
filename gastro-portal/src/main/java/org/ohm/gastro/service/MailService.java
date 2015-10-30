@@ -35,6 +35,7 @@ public interface MailService {
     String NEW_MESSAGE = "new_message";
     String EDIT_ORDER = "edit_order";
     String TENDER_REMINDER = "tender_reminder";
+    String USER_UNSUBSCRIBED = "user_unsubscribed";
 
     String MC_FILLED = "FILLED";
     String MC_CATALOG = "CATALOG";
