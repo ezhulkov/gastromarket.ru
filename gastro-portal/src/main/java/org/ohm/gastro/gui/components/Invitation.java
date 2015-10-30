@@ -40,7 +40,8 @@ public class Invitation extends BaseComponent {
     }
 
     public Object onSubmitFromApplicationAjaxForm() {
-        if (error || CommonsUtils.checkAjaxBotRequest(getHttpServletRequest())) return applicationFormBlock;
+        if (CommonsUtils.checkAjaxBotRequest(getHttpServletRequest())) return null;
+        if (error) return applicationFormBlock;
         getUserService().processApplicationRequest(eMail, fullName, about, sourceInfo);
         return getPageLinkSource().createPageRenderLinkWithContext(AppResults.class, eMail);
     }
