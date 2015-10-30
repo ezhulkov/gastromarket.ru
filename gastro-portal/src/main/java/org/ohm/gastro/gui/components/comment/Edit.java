@@ -59,6 +59,10 @@ public class Edit extends BaseComponent {
         getPhotoService().attachPhotos(comment, injectPhotos.getSubmittedPhotos());
     }
 
+    public boolean isOpenBudget() {
+        return comment.getBudget() != null || entity instanceof OrderEntity && ((OrderEntity) entity).isTender() && ((OrderEntity) entity).getTotalPrice() == null;
+    }
+
     public boolean getLike() {
         return true;
     }

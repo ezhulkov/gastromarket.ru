@@ -61,7 +61,6 @@ function initControls() {
     initMobilePhone();
     initDatePicker();
     initToolTip();
-    initPopover();
     initChosen(jQuery("select.chosen-select"));
     initTitle(jQuery("div.title"));
     initFineUploader(jQuery("div.upload-file"));
@@ -72,6 +71,7 @@ function initDatePicker() {
     jQuery('.date-picker').datepicker({
         format: "dd/mm/yyyy",
         weekStart: 1,
+        startDate: new Date(),
         todayBtn: true,
         language: "ru",
         autoclose: true,
@@ -90,15 +90,7 @@ function initMobilePhone() {
 }
 function initToolTip() {
     jQuery(".tip").tooltip({placement: "bottom"});
-}
-function initPopover() {
-    jQuery(".popover-holder")
-        .on('mouseenter', function () {
-            jQuery(this).popover({placement: "bottom"}).popover('show');
-        })
-        .on('mouseleave', function () {
-            jQuery(this).popover('hide');
-        });
+    jQuery('[data-toggle="popover"]').popover();
 }
 function initModalStack() {
     //jQuery(".modal").on("hide.bs.modal", function () {
@@ -525,7 +517,7 @@ function triggerEvent(element, eventName) {
     }
 }
 function initTenderAddPage() {
-    jQuery(".tender-form .name").focus();
+    //jQuery(".tender-form .name").focus();
 }
 String.prototype.format = function () {
     var formatted = this;

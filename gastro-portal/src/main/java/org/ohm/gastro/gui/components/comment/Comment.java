@@ -72,11 +72,12 @@ public class Comment extends BaseComponent {
         return getOrder().isOrderOwner(getAuthenticatedUserSafe());
     }
 
-    public Link onSuccessFromAttachTenderAjaxForm(Long cid, Long oid) {
+    public Link onSuccessFromAttachTenderAjaxForm(Long uid, Long oid, Long cid) {
         if (attachTenderAjaxForm.getHasErrors()) return null;
-        return getFirstCatalog(getUserService().findUser(cid)).map(catalog -> {
+        return getFirstCatalog(getUserService().findUser(uid)).map(catalog -> {
             final OrderEntity tender = getOrderService().findOrder(oid);
             tender.setAttachReason(attachReason);
+            if (tender.getTotalPrice() == null) tender.setTotalPrice(getConversationService().findComment(cid).getBudget());
             getOrderService().attachTender(catalog, tender, getAuthenticatedUser());
             return getPageLinkSource().createPageRenderLinkWithContext(Order.class, true, tender.getId(), false);
         }).orElse(null);

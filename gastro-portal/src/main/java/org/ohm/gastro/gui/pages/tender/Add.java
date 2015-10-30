@@ -37,7 +37,7 @@ public class Add extends BaseComponent {
     @Component(id = "dueDate", parameters = {"value=tender.dueDateAsString", "validate=required"})
     private TextField dueDate;
 
-    @Component(id = "budget", parameters = {"value=tender.totalPrice", "validate=required"})
+    @Component(id = "budget", parameters = {"value=tender.totalPrice"})
     private TextField budget;
 
     @Component(id = "personCount", parameters = {"value=tender.personCount"})

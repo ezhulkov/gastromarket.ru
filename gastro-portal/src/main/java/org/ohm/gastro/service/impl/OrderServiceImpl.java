@@ -180,9 +180,9 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
             {
                 put("username", tender.getCustomer().getFullName());
                 put("customer", tender.getCustomer());
-                put("name", ObjectUtils.defaultIfNull(tender.getName(), ""));
-                put("comment", ObjectUtils.defaultIfNull(tender.getComment(), ""));
-                put("total", ObjectUtils.defaultIfNull(tender.getTotalPrice(), ""));
+                put("name", ObjectUtils.defaultIfNull(tender.getName(), "-"));
+                put("comment", ObjectUtils.defaultIfNull(tender.getComment(), "-"));
+                put("total", ObjectUtils.defaultIfNull(tender.getTotalPrice(), "-"));
                 put("date", ObjectUtils.defaultIfNull(tender.getDueDateAsString(), "-"));
                 put("address", tender.getOrderUrl());
                 put("tender", tender);
@@ -228,9 +228,9 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
             {
                 put("username", tender.getCustomer().getFullName());
                 put("customer", tender.getCustomer());
+                put("total", tender.getTotalPrice());
                 put("name", ObjectUtils.defaultIfNull(tender.getName(), ""));
                 put("comment", ObjectUtils.defaultIfNull(tender.getComment(), "-"));
-                put("total", ObjectUtils.defaultIfNull(tender.getTotalPrice(), "-"));
                 put("date", ObjectUtils.defaultIfNull(tender.getDueDateAsString(), "-"));
                 put("address", tender.getOrderUrl());
                 put("tender", tender);
@@ -254,8 +254,8 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     }
 
     private List<UserEntity> getRecipients() {
-        return catalogRepository.findAll().stream().map(CatalogEntity::getUser).distinct().filter(UserEntity::isSubscribeEmail).collect(Collectors.toList());
-//        return Lists.newArrayList(userRepository.findOne(1l));
+//        return catalogRepository.findAll().stream().map(CatalogEntity::getUser).distinct().filter(UserEntity::isSubscribeEmail).collect(Collectors.toList());
+        return Lists.newArrayList(userRepository.findOne(1l));
     }
 
     @Override

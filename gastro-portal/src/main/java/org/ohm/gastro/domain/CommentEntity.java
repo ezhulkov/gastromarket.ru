@@ -29,6 +29,9 @@ public class CommentEntity extends AbstractBaseEntity {
     private String text;
 
     @Column
+    private Integer budget;
+
+    @Column
     private Integer rating;
 
     @Column
@@ -92,6 +95,14 @@ public class CommentEntity extends AbstractBaseEntity {
 
     public void setAuthor(final UserEntity author) {
         this.author = author;
+    }
+
+    public Integer getBudget() {
+        return budget;
+    }
+
+    public void setBudget(final Integer budget) {
+        this.budget = budget;
     }
 
     public CommentableEntity getEntity() {

@@ -14,6 +14,9 @@
                     ${comment.author.linkName}
                 </a>
             </div>
+            <t:if test="comment.budget">
+                <div class="f20px">Предложение стоимости: ${comment.budget} <span class="rub"/> </div>
+            </t:if>
             <div class="text">
                 <span class="glyphicon glyphicon-thumbs-${comment.rating}" aria-hidden="true"/>
                 <t:outputraw value="comment.textRaw"/>
@@ -48,7 +51,7 @@
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
                                             </div>
                                             <div class="modal-body">
-                                                <t:form t:id="attachTenderAjaxForm" t:context="[comment.author.id,order.id]" class="form" style="padding-top:0;" autofocus="false" role="form">
+                                                <t:form t:id="attachTenderAjaxForm" t:context="[comment.author.id,order.id,comment.id]" class="form" style="padding-top:0;" autofocus="false" role="form">
                                                     <p class="modal-text">
                                                         Вы выбираете исполнителем кулинара<br/>
                                                         <a class="pic-holder catalog-link" href="${comment.author?.linkUrl}">

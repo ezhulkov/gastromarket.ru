@@ -5,9 +5,14 @@
                 <t:pagelink page="tender/index" t:context="order.id" class="f30px black-text">${order.name}</t:pagelink>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 fluid-xs-block">
-                <span class="price">
-                    ${order.totalPrice}&nbsp;<span class="rub"/>
-                </span>
+                <t:if test="order.totalPrice">
+                    <span class="price">
+                        ${order.totalPrice}&nbsp;<span class="rub"/>
+                    </span>
+                    <t:parameter name="else">
+                        <span class="open-price">Открытый бюджет</span>
+                    </t:parameter>
+                </t:if>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                 <t:pageLink class="pic-holder catalog-link" page="user/index" t:context="order.customer.id">

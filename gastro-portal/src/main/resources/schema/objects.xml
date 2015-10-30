@@ -1081,4 +1081,10 @@
         </sql>
     </changeSet>
 
+    <changeSet id="96" author="ezhulkov">
+        <addColumn tableName="comment">
+            <column name="budget" type="number"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

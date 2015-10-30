@@ -11,7 +11,7 @@
                         <t:delegate to="tenderInfoBlock"/>
                     </t:zone>
                     <t:block t:id="tenderInfoBlock">
-                        <t:form t:id="tenderInfoForm" t:zone="tenderInfoZone" t:clientValidation="none" class="form tender-form" rel="nofollow" role="form">
+                        <t:form t:id="tenderInfoForm" t:zone="tenderInfoZone" t:clientValidation="none" t:autofocus="false" class="form tender-form" rel="nofollow" role="form">
                             <div class="caption">Описание заявки</div>
                             <div class="modal-text">более 200 независимых кулинаров Москвы готовы сделать для вас кулинарный шедевр</div>
                             <t:if test="error">
@@ -22,17 +22,20 @@
                             </t:if>
                             <div class="col-xs-12 gap">
                                 <div class="form-group">
-                                    <input t:id="name" type="text" class="form-control name" placeholder="Что вы хотите заказать?"/>
+                                    <input t:id="name" type="text" class="form-control name" placeholder="Что вы хотите заказать?"
+                                           data-toggle="popover" data-container="body" data-content="Например, 'Торт на день рождения' или 'Набор капкейков для любимой'" data-trigger="focus" data-placement="right"/>
                                 </div>
                             </div>
                             <div class="col-xs-12">
                                 <div class="form-group">
-                                    <textarea t:id="comment" rows="5" class="form-control" placeholder="Добавьте описание своей заявки"/>
+                                    <textarea t:id="comment" rows="5" class="form-control" placeholder="Добавьте описание своей заявки"
+                                              data-toggle="popover" data-container="body" data-content="Расскажите подробнее о своей заявке. В качестве подсказки можете обратиться к примерам заявок справа." data-trigger="focus" data-placement="right"/>
                                 </div>
                             </div>
                             <div class="col-xs-12">
                                 <div class="form-group">
-                                    <input t:id="budget" type="number" class="form-control price" placeholder="Бюджет заявки"/>
+                                    <input t:id="budget" type="number" class="form-control price" placeholder="Бюджет заявки"
+                                           data-toggle="popover" data-container="body" data-content="Сколько вы готовы потратить на исполнение заявки. Если не указать бюджет, то кулинары сами предложат свою цену." data-trigger="focus" data-placement="right"/>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
