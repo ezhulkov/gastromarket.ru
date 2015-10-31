@@ -1,4 +1,13 @@
 var counter = 0;
+var titleDict = new Map([
+    ["birthday", "Планируете день рождения?"]
+]);
+var textDict = new Map([
+    ["birthday", "200 домашних кондитеров и кулинаров Москвы готовы сделать блюдо по индивидуальному заказу. <br/> Торты, капкейки, пироги, первые блюда и салаты — любые кулинарные шедевры для вашего дня рождения!"]
+]);
+var bgDict = new Map([
+    ["birthday", "url(../img/landing-main.jpg)"]
+]);
 jQuery.noConflict();
 (function () {
     var isBootstrapEvent = false;
@@ -9,7 +18,7 @@ jQuery.noConflict();
             'hide.bs.modal',
             'hide.bs.tooltip',
             'hide.bs.popover'], function (index, eventName) {
-            all.on(eventName, function (event) {
+            all.on(eventName, function () {
                 isBootstrapEvent = true;
             });
         });
@@ -79,6 +88,14 @@ function initDatePicker() {
         autoPlaceholder: false
     });
 }
+function initMainPageMedia() {
+    var term = getUrlVars()["utm_term"];
+    if (term != undefined) {
+        if (textDict.get(term) != undefined) jQuery("#main-text").html(textDict.get(term));
+        if (titleDict.get(term) != undefined) jQuery("#main-title").html(titleDict.get(term));
+        if (bgDict.get(term) != undefined) jQuery("#main-header").css("background-image", bgDict.get(term));
+    }
+}
 function initMobilePhone() {
     jQuery(document).ready(function () {
         jQuery(".mobile-phone").intlTelInput({
@@ -90,16 +107,10 @@ function initMobilePhone() {
 }
 function initToolTip() {
     jQuery(".tip").tooltip({placement: "bottom"});
-    jQuery('[data-toggle="popover"]').popover();
+    jQuery("[data-toggle='popover']").popover();
 }
 function initModalStack() {
-    //jQuery(".modal").on("hide.bs.modal", function () {
-    //    jQuery("body").data("fv_open_modals", jQuery("body").data("fv_open_modals") - 1);
-    //});
     jQuery(".modal").on("show.bs.modal", function () {
-        //if (jQuery("body").data("fv_open_modals") == undefined) jQuery("body").data("fv_open_modals", 0);
-        //jQuery("body").data("fv_open_modals", jQuery("body").data("fv_open_modals") + 1);
-        //jQuery(this).css("z-index", 1040 + (10 * jQuery("body").data("fv_open_modals")));
         if (jQuery(this).hasClass("img-big-modal") && !isMobile()) {
             jQuery(this).find(".img-big").css("height", Math.max(100, Math.min(720, jQuery(window).height() - 220)));
         }
@@ -109,8 +120,8 @@ function initSortable() {
     jQuery(".sortable-container").sortable({
         placeholder: "ui-state-highlight",
         handle: ".handle",
-        update: function (event, ui) {
-            var items = jQuery.map(jQuery(event.target).find(".item"), function (n, i) {
+        update: function (event) {
+            var items = jQuery.map(jQuery(event.target).find(".item"), function (n) {
                 return jQuery(n).attr("data-productid");
             });
             var form = jQuery(event.target).find("form.reorder");
@@ -240,7 +251,7 @@ function initProductCatalogFixed() {
 function initProductCatalog(ajaxContainer) {
     var layoutFunction = function (target) {
         var newItems = jQuery("div.product-item", jQuery("div[id^='productsZone']"));
-        var existingItemIds = jQuery.map(jQuery("div.product-item", target), function (n, i) {
+        var existingItemIds = jQuery.map(jQuery("div.product-item", target), function (n) {
             return jQuery(n).attr("id");
         });
         jQuery(newItems).each(function (i, e) {
@@ -264,7 +275,7 @@ function initProductCatalog(ajaxContainer) {
     layoutFunction(jQuery("#product-items"));
     initBasket();
     var scrollMutex = true;
-    Event.observe(ajaxContainer.get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
+    Event.observe(ajaxContainer.get(0), Tapestry.ZONE_UPDATED_EVENT, function () {
         layoutFunction(jQuery("#product-items"));
         setTimeout(function () {
             scrollMutex = true;
@@ -300,20 +311,20 @@ function initLoginModal() {
         jQuery(".modal-body.data").hide();
         jQuery(".modal-body input.t-error").removeClass("t-error");
     };
-    jQuery(".forget-link").unbind("click").bind("click", function (e) {
+    jQuery(".forget-link").unbind("click").bind("click", function () {
         hideAll();
         jQuery(".modal-dialog.remember").show();
         jQuery(".modal-body.data").show();
     });
-    jQuery(".login-link").unbind("click").bind("click", function (e) {
+    jQuery(".login-link").unbind("click").bind("click", function () {
         hideAll();
         jQuery(".modal-dialog.login").show();
     });
-    jQuery(".signup-link").unbind("click").bind("click", function (e) {
+    jQuery(".signup-link").unbind("click").bind("click", function () {
         hideAll();
         jQuery(".modal-dialog.signup").show();
     });
-    jQuery(".application-link").unbind("click").bind("click", function (e) {
+    jQuery(".application-link").unbind("click").bind("click", function () {
         hideAll();
         jQuery(".modal-dialog.application").show();
     });
@@ -341,7 +352,7 @@ function initFineUploader(el) {
                 sizeLimit: 10485760,
                 itemLimit: 1
             }
-        }).unbind("submitted").bind("submitted", function (id, name) {
+        }).unbind("submitted").bind("submitted", function (id) {
             jQuery(id.target).addClass("upload-progress");
         }).unbind("complete").bind("complete", function (id, name, responseJSON, xhr) {
             jQuery(id.target).removeClass("upload-progress");
@@ -351,14 +362,14 @@ function initFineUploader(el) {
             if (refreshAjax != null) {
                 triggerEvent(jQuery(refreshAjax).get(0), "click");
             }
-        }).unbind("error").bind("error", function (id, name) {
+        }).unbind("error").bind("error", function (id) {
             jQuery(id.target).removeClass("upload-progress");
         });
     })
 }
 function initImportPage() {
     jQuery(".import-item").each(function (i, e) {
-        Event.observe(jQuery("div.elements-zone", e).get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
+        Event.observe(jQuery("div.elements-zone", e).get(0), Tapestry.ZONE_UPDATED_EVENT, function () {
             var target = jQuery(".grid-block.import", e);
             jQuery(".element-item", e).appendTo(target);
             jQuery(".element-item", target).filter(function () {
@@ -382,7 +393,7 @@ function initWizardPage() {
     var step1 = jQuery("div.step1-zone");
     if (step1.length != 0) {
         step1.show();
-        Event.observe(step1.get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
+        Event.observe(step1.get(0), Tapestry.ZONE_UPDATED_EVENT, function () {
             jQuery("div.step1-zone").fadeIn(100);
         });
     }
@@ -518,6 +529,16 @@ function triggerEvent(element, eventName) {
 }
 function initTenderAddPage() {
     //jQuery(".tender-form .name").focus();
+}
+function getUrlVars() {
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for (var i = 0; i < hashes.length; i++) {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
 }
 String.prototype.format = function () {
     var formatted = this;

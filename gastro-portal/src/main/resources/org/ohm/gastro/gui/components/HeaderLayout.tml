@@ -33,12 +33,14 @@
                             <li class="hidden-sm">
                                 <t:pagelink page="office/messages">${declMessages}</t:pagelink>
                             </li>
-                            <li class="hidden-xs hidden-md hidden-lg">
-                                <t:pagelink page="office/messages">Сообщения</t:pagelink>
-                            </li>
-                            <li>
-                                <t:pagelink page="office/orders">Заказы</t:pagelink>
-                            </li>
+                            <t:unless test="admin">
+                                <li class="hidden-xs hidden-md hidden-lg">
+                                    <t:pagelink page="office/messages">Сообщения</t:pagelink>
+                                </li>
+                                <li>
+                                    <t:pagelink page="office/orders">Заказы</t:pagelink>
+                                </li>
+                            </t:unless>
                         </t:if>
                         <t:if test="authenticated">
                             <li>
@@ -48,17 +50,10 @@
                                         <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <t:if test="cook">
-                                            <li>
-                                                <t:pagelink page="office/index" context="['UPDATE','0']">Настройки</t:pagelink>
-                                            </li>
-                                            <t:parameter name="else">
-                                                <li>
-                                                    <t:pagelink page="office/index" context="['UPDATE','0']">Мой профиль</t:pagelink>
-                                                </li>
-                                            </t:parameter>
-                                        </t:if>
                                         <t:if test="user">
+                                            <li>
+                                                <t:pagelink page="user/index" context="authenticatedUser.id">Мой профиль</t:pagelink>
+                                            </li>
                                             <li>
                                                 <a href="#bonus" data-toggle="modal" data-target="#bonus">${bonusesMessage}</a>
                                             </li>
@@ -75,6 +70,9 @@
                                                 <t:pagelink page="admin/property/list">Системные настройки</t:pagelink>
                                             </li>
                                         </t:if>
+                                        <li>
+                                            <t:pagelink page="office/index" context="['UPDATE','0']">Настройки</t:pagelink>
+                                        </li>
                                         <li><a href="/logout" class="red-text">Выход</a></li>
                                     </ul>
                                 </span>

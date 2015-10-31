@@ -7,7 +7,7 @@
   -webkit-border-radius: 6px
   -moz-border-radius: 6px
   border-radius: 6px
-  +tablet-media
+  +mobile-media
     width: 100%
     margin-bottom: 5px
     padding: 8px 0
@@ -43,7 +43,7 @@
   &.btn-lg
     padding: 10px 45px
     font-size: 20px
-    +tablet-media
+    +mobile-media
       padding: 10px 0
 
 .round-link
@@ -87,7 +87,7 @@
     text-align: center
     padding-top: 20px
     background: white
-    +tablet-media
+    +mobile-media
       width: 100% !important
       padding-top: 15px
       margin-top: 0
@@ -97,7 +97,7 @@
     background: white
     top: 40px
     right: 30px
-    +tablet-media
+    +mobile-media
       position: initial
       display: block
       margin-top: 10px
@@ -136,7 +136,7 @@
 .title
   @extend .title-simple
   overflow: hidden
-  +tablet-media
+  +mobile-media
     h1 > span
       display: block
       overflow: hidden
@@ -274,12 +274,14 @@ label.t-error
 .form
   padding: 10px
   overflow: auto
-  +tablet-media
+  +mobile-media
     padding: 0
 
 +tablet-media
   .popover
     display: none !important
+
++mobile-media
   .form-group
     margin-left: 0
     margin-right: 0

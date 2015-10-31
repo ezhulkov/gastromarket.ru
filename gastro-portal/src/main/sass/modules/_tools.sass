@@ -14,6 +14,10 @@
     @content
 
 =tablet-media
+  @media (max-width: 992px)
+    @content
+
+=mobile-media
   @media (max-width: 750px)
     @content
 
@@ -188,7 +192,7 @@ body.mobile .rub:after
 
 .s600px
   min-height: 600px
-  +tablet-media
+  +mobile-media
     min-height: initial
 
 .zebra-row:nth-child(2n)
