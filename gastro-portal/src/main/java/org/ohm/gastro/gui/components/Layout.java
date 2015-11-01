@@ -12,8 +12,11 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
  */
 public class Layout extends BaseComponent {
 
-    @Parameter(name = "title", required = false)
+    @Parameter(name = "title", required = false, defaultPrefix = BindingConstants.LITERAL)
     private String title;
+
+    @Parameter(name = "breadCrumbTitle", required = false, defaultPrefix = BindingConstants.LITERAL)
+    private String breadCrumbTitle;
 
     @Parameter(name = "description", required = false)
     private String description;
@@ -33,12 +36,20 @@ public class Layout extends BaseComponent {
     private boolean header;
 
     @Property
+    @Parameter(name = "breadcrumbs", required = false, value = "true", defaultPrefix = BindingConstants.PROP)
+    private boolean breadcrumbs;
+
+    @Property
     @Parameter(name = "footer", required = false, value = "true")
     private boolean footer;
 
     @Property
     @Parameter(name = "bottomBlock", defaultPrefix = "literal")
     private Block bottomBlock;
+
+    public void beginRender() {
+        getBreadCrumbs().addItem(breadCrumbTitle == null ? getTitle() : breadCrumbTitle, getCurrentPage());
+    }
 
     public String getDescription() {
         return ObjectUtils.defaultIfNull(description, getMessages().get("page.description"));

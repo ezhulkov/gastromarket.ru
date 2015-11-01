@@ -22,6 +22,7 @@ import org.ohm.gastro.domain.PurchaseEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.filter.SocialFilter;
+import org.ohm.gastro.gui.dto.BreadCrumbs;
 import org.ohm.gastro.gui.dto.ShoppingCart;
 import org.ohm.gastro.service.BillService;
 import org.ohm.gastro.service.CatalogService;
@@ -124,6 +125,9 @@ public abstract class BaseComponent {
 
     @SessionState
     private ShoppingCart shoppingCart;
+
+    @SessionState
+    private BreadCrumbs breadCrumbs;
 
     @Cached
     public UserEntity getAuthenticatedUser() {
@@ -263,6 +267,10 @@ public abstract class BaseComponent {
 
     public ShoppingCart getShoppingCart() {
         return shoppingCart;
+    }
+
+    public BreadCrumbs getBreadCrumbs() {
+        return breadCrumbs;
     }
 
     public void setShoppingCart(ShoppingCart shoppingCart) {

@@ -1,4 +1,4 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" keywords="keywords">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" keywords="keywords" title="${offer?.name}">
 
     <section>
         <div class="container">
@@ -11,15 +11,6 @@
             <t:block t:id="offerBlock">
                 <t:offer offer="offer" type="FULL" editMode="catalogOwner"/>
             </t:block>
-            <!--<t:if test="offers">-->
-            <!--<div class="title">-->
-            <!--<h1><span>Другие предложения</span></h1>-->
-            <!--<t:pagelink page="catalog/offers" t:context="offer.catalog.altId">Показать все предложения<span/></t:pagelink>-->
-            <!--</div>-->
-            <!--<t:loop source="offers" value="offer">-->
-            <!--<t:offer offer="offer" type="SHORT"/>-->
-            <!--</t:loop>-->
-            <!--</t:if>-->
         </div>
     </section>
 

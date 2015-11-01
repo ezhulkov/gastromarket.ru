@@ -16,6 +16,7 @@ public class SendAnnonce extends BaseComponent {
     private boolean sent;
 
     public void onActivate(Long orderId) {
+        if (!isAdmin()) return;
         this.order = getOrderService().findOrder(orderId);
         sent = !order.isAnnonceSent();
         getOrderService().sendTenderAnnonce(order);

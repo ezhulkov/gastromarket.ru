@@ -1,0 +1,14 @@
+<section xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="breadcrumbs">
+    <div class="container">
+        <ul class="row">
+            <t:loop source="lastPages" value="pageLink" index="index">
+                <t:if test="lastPage">
+                    <li class="active">${pageLink.name}</li>
+                    <t:parameter name="else">
+                        <li><a href="${pageLink.url}">${pageLink.name}</a></li>
+                    </t:parameter>
+                </t:if>
+            </t:loop>
+        </ul>
+    </div>
+</section>

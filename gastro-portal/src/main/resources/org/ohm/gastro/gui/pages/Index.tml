@@ -1,4 +1,4 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" pageClass="main-page">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" pageClass="main-page" breadcrumbs="false" breadCrumbTitle="Главная">
 
     <section class="main-header" id="main-header">
         <div class="container">

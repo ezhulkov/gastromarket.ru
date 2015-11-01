@@ -3,6 +3,7 @@ package org.ohm.gastro.gui.services;
 import org.apache.tapestry5.ioc.Configuration;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.services.ApplicationStateContribution;
+import org.ohm.gastro.gui.dto.BreadCrumbs;
 import org.ohm.gastro.gui.dto.ShoppingCart;
 
 /**
@@ -25,6 +26,7 @@ public class AppModule {
 
     public void contributeApplicationStateManager(MappedConfiguration<Class, ApplicationStateContribution> configuration) {
         configuration.add(ShoppingCart.class, new ApplicationStateContribution("session", ShoppingCart::new));
+        configuration.add(BreadCrumbs.class, new ApplicationStateContribution("session", BreadCrumbs::new));
     }
 
 }
