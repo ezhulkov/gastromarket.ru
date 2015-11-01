@@ -294,7 +294,7 @@ function initProductCatalog(ajaxContainer) {
         setTimeout(function () {
             jQuery("#tender-adv").modal("show");
             jQuery.cookie("tenderadv.shown", "true", {expires: 30, path: "/"});
-        }, 1000);
+        }, 10000);
     }
 }
 
