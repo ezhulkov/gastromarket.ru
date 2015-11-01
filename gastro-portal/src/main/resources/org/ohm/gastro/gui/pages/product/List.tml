@@ -37,6 +37,36 @@
         </div>
     </section>
 
+    <div class="modal fade" id="tender-adv" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="title">
+                        <h1><span>Заявки кулинарам</span></h1>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body form">
+                    <div class="col-xs-12">
+                        <p class="modal-text">
+                            Если в каталоге нет того, что вы ищете, то попрбуйте оставить заявку.
+                        </p>
+                        <p class="modal-text hidden-xs">
+                            <img src="/img/chef-128x128.png" srcset="/img/chef-256x256.png 2x" alt="тендер" title="конкурс"/>
+                        </p>
+                        <p class="modal-text">
+                            Более 200 домашних кулинаров и кондитеров Москвы и Подмосковья смогут откликнуться на неё и вам останется только выбрать лучшего исполнителя.
+                        </p>
+                        <div class="form-buttons" xml:space="preserve">
+                           <t:pagelink page="tender/add" class="btn btn-red btn-lg">Оставить заявку</t:pagelink>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script>
         jQuery(initProductCatalog(jQuery("#productsZone")));
     </script>

@@ -255,6 +255,7 @@ function initProductCatalog(ajaxContainer) {
             return jQuery(n).attr("id");
         });
         jQuery(newItems).each(function (i, e) {
+            jQuery(e).hide();
             var eid = jQuery(e).attr("id");
             if (jQuery.inArray(eid, existingItemIds) < 0) jQuery(e).appendTo(target);
         });
@@ -267,7 +268,7 @@ function initProductCatalog(ajaxContainer) {
                 jQuery(items)
                     .filter(function () {
                         return jQuery(this).css("display") == "none";
-                    }).fadeIn(300);
+                    }).fadeIn(500);
                 initProductInCatalog(items);
             }
         });
@@ -289,6 +290,12 @@ function initProductCatalog(ajaxContainer) {
             }
         }
     });
+    if (jQuery.cookie("tenderadv.shown") == undefined) {
+        setTimeout(function () {
+            jQuery("#tender-adv").modal("show");
+            jQuery.cookie("tenderadv.shown", "true", {expires: 30, path: "/"});
+        }, 1000);
+    }
 }
 
 function initBasket() {
