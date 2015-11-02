@@ -37,4 +37,8 @@ public class Orders extends BaseComponent {
         };
     }
 
+    public String getTitle() {
+        return status == null ? "Заказы" : getMessages().get(String.format("title.%s.%s", privateOrders, status));
+    }
+
 }

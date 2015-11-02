@@ -47,10 +47,6 @@ public class Layout extends BaseComponent {
     @Parameter(name = "bottomBlock", defaultPrefix = "literal")
     private Block bottomBlock;
 
-    public void beginRender() {
-        getBreadCrumbs().addItem(breadCrumbTitle == null ? getTitle() : breadCrumbTitle, getCurrentPage());
-    }
-
     public String getDescription() {
         return ObjectUtils.defaultIfNull(description, getMessages().get("page.description"));
     }

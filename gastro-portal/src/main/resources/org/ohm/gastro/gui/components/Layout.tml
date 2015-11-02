@@ -50,6 +50,7 @@
     <script src="/js/bootstrap-datepicker.min.js"></script>
     <script src="/js/bootstrap-datepicker.ru.min.js" charset="UTF-8"></script>
     <script src="/js/intlTelInput.min.js"></script>
+    <script src="/js/jquery.hanselsrevenge.js"></script>
     <script src="/js/custom.js?v=1.11"></script>
     <script type="text/javascript" src="//vk.com/js/api/openapi.js?116"></script>
     <script type="text/template" id="qq-template">
@@ -84,9 +85,9 @@
 <div id="fb-root"></div>
 <t:headerlayout header="header"/>
 <!--/noindex-->
-<!--<t:if test="breadcrumbs">-->
-    <!--<t:breadcrumbs breadCrumbsList="breadCrumbsList"/>-->
-<!--</t:if>-->
+<t:if test="breadcrumbs">
+    <t:breadcrumbs/>
+</t:if>
 <t:body/>
 <!--noindex-->
 <t:invitation/>
