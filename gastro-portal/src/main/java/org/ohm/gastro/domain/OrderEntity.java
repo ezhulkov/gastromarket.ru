@@ -118,9 +118,6 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
     @Column(name = "attach_time")
     private Date attachTime;
 
-    @Column(name = "trigger_time")
-    private Date triggerTime = new Date();
-
     @Column(name = "views_count")
     private Integer viewsCount = 0;
 
@@ -380,14 +377,6 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
         this.attachTime = attachTime;
     }
 
-    public Date getTriggerTime() {
-        return triggerTime;
-    }
-
-    public void setTriggerTime(Date triggerTime) {
-        this.triggerTime = triggerTime;
-    }
-
     public CommentableEntity.Type getCommentableType() {
         return CommentableEntity.Type.ORDER;
     }
@@ -401,6 +390,15 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
     }
 
     //Helpers
+
+    public DateTime getClosedDateAsJoda() {
+        return new DateTime(closedDate);
+    }
+
+    public DateTime getDateAsJoda() {
+        return new DateTime(date);
+    }
+
     public final boolean isTender() {
         return type == Type.PUBLIC;
     }

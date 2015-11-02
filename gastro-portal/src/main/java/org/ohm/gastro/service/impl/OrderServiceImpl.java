@@ -1,9 +1,8 @@
 package org.ohm.gastro.service.impl;
 
-import com.google.common.collect.Lists;
 import org.apache.commons.lang3.ObjectUtils;
 import org.joda.time.DateTime;
-import org.joda.time.Period;
+import org.joda.time.Interval;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
@@ -40,7 +39,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by ezhulkov on 12.10.14.
@@ -59,6 +62,8 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
     private final TransactionTemplate transactionTemplate;
     private final ConversationService conversationService;
+    private final static TimeUnit TRIGGER_TIME_UNIT = TimeUnit.MILLISECONDS;
+    private final static long TRIGGER_TIME_PERIOD = 30000;
 
     @Autowired
     public OrderServiceImpl(final OrderRepository orderRepository,
@@ -87,7 +92,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
 
     @PostConstruct
     public void start() {
-        scheduler.scheduleAtFixedRate(this, 1, 10, TimeUnit.MINUTES);
+        scheduler.scheduleAtFixedRate(this, 1, TRIGGER_TIME_PERIOD, TRIGGER_TIME_UNIT);
     }
 
     @Override
@@ -351,47 +356,67 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     public void run() {
         try {
             logger.debug("Check for trigger send");
-            final DateTime now = DateTime.now();
-            findAllTenders().stream()
-                    .filter(t -> t.getStatus() == Status.NEW)
-                    .filter(t -> t.getCatalog() == null)
-                    .filter(t -> !t.isTenderExpired())
-                    .forEach(tender -> {
-                        final DateTime tenderTime = new DateTime(tender.getDate());
-                        final DateTime lastTrigger = new DateTime(tender.getTriggerTime() == null ? tender.getDate() : tender.getTriggerTime());
-                        Lists.newArrayList(tenderTime.plus(Period.days(3)),
-                                           tenderTime.plus(Period.days(1)),
-                                           tenderTime.plus(Period.minutes(45)))
-                                .stream()
-                                .filter(now::isAfter)
-                                .filter(lastTrigger::isBefore)
-                                .findFirst()
-                                .ifPresent(period -> triggerTenderEmail(tender, period));
-                    });
+            final List<OrderEntity> allOrders = findAllOrders();
+            triggerLauncher(allOrders,
+                            t -> t.isTender() && t.getStatus() == Status.NEW && t.getCatalog() == null && !t.isTenderExpired() && !conversationService.findAllComments(t).isEmpty(),
+                            t -> Stream.of(t.getDateAsJoda().plusHours(1), t.getDateAsJoda().plusDays(1), t.getDateAsJoda().plusDays(3)),
+                            this::triggerTenderReminder,
+                            "TENDER_REMINDER");
+            triggerLauncher(allOrders,
+                            t -> t.getCatalog() != null && t.getMetaStatus() == Status.ACTIVE && !t.isTenderExpired(),
+                            t -> Stream.of(t.getDueDateAsJoda().minusDays(1)),
+                            this::triggerOrderReadyReminder,
+                            "ORDER_READY_REMINDER");
+            triggerLauncher(allOrders,
+                            t -> t.isTenderExpired(),
+                            t -> Stream.of(t.getDueDateAsJoda().plusHours(1)),
+                            this::triggerTenderExpiredSurvey,
+                            "TENDER_EXPIRED_SURVEY");
+            triggerLauncher(allOrders,
+                            t -> t.getStatus() == Status.CLOSED,
+                            t -> Stream.of(t.getClosedDateAsJoda().plusDays(1)),
+                            this::orderRateReminder,
+                            "ORDER_RATE_REMINDER");
+
         } catch (Exception e) {
             logger.error("", e);
         }
     }
 
-    @Override
-    public void triggerTenderEmail(OrderEntity tender, DateTime period) {
+    private void triggerLauncher(final List<OrderEntity> allOrders, final Predicate<OrderEntity> filter, final Function<OrderEntity, Stream<DateTime>> timeSeries, final Consumer<OrderEntity> consumer, final String name) {
+        final Interval interval = new Interval(DateTime.now().minus(TRIGGER_TIME_PERIOD), DateTime.now());
+        allOrders.stream()
+                .filter(filter)
+                .filter(t -> timeSeries.apply(t).anyMatch(interval::contains))
+                .peek(t -> logger.info("Firing '{}' for order {}", name, t))
+                .forEach(consumer::accept);
+    }
+
+    private void triggerTenderExpiredSurvey(final OrderEntity order) {
+
+    }
+
+    private void triggerOrderReadyReminder(final OrderEntity order) {
+
+    }
+
+    private void orderRateReminder(final OrderEntity order) {
+
+    }
+
+    private void triggerTenderReminder(final OrderEntity tender) {
         transactionTemplate.execute(status -> {
             final OrderEntity localTender = orderRepository.findOne(tender.getId());
             final List<CommentEntity> replies = conversationService.findAllComments(localTender);
-            if (!replies.isEmpty()) {
-                logger.info("Fire trigger {} for tender {}", period, localTender);
-                localTender.setTriggerTime(new Date());
-                orderRepository.save(localTender);
-                final Map<String, Object> params = new HashMap<String, Object>() {
-                    {
-                        put("username", localTender.getCustomer().getFullName());
-                        put("address", localTender.getOrderUrl());
-                        put("tender", localTender);
-                        put("replies", replies);
-                    }
-                };
-                mailService.sendMailMessage(localTender.getCustomer(), MailService.TENDER_REMINDER, params);
-            }
+            final Map<String, Object> params = new HashMap<String, Object>() {
+                {
+                    put("username", localTender.getCustomer().getFullName());
+                    put("address", localTender.getOrderUrl());
+                    put("tender", localTender);
+                    put("replies", replies);
+                }
+            };
+            mailService.sendMailMessage(localTender.getCustomer(), MailService.TENDER_REMINDER, params);
             return null;
         });
     }

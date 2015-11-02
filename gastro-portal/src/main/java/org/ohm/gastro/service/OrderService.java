@@ -1,6 +1,5 @@
 package org.ohm.gastro.service;
 
-import org.joda.time.DateTime;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
@@ -45,8 +44,6 @@ public interface OrderService {
     OrderEntity attachTender(CatalogEntity catalog, OrderEntity order, UserEntity caller);
 
     void sendTenderAnnonce(OrderEntity order);
-
-    void triggerTenderEmail(OrderEntity tender, DateTime period);
 
     List<OrderEntity> findAllOrdersWithMetaStatus(final CatalogEntity catalog, final Status status);
 
