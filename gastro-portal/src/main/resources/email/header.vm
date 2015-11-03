@@ -116,7 +116,7 @@
                                                                     #else
                                                                         <h1 style="margin:20px 0 0 0;padding:0;display:block;font-family:Helvetica;font-size:40px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:-1px;text-align:left;color:#555!important">
                                                                             <span style="font-size:24px">
-                                                                                #if( !${username} )
+                                                                                #if( ${username} )
                                                                                     <span style="line-height:1.6em">Здравствуйте, ${username}</span>
                                                                                 #else
                                                                                     <span style="line-height:1.6em">Здравствуйте,</span>

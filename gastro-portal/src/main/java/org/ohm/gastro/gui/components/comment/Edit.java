@@ -25,6 +25,10 @@ public class Edit extends BaseComponent {
     private CommentableEntity entity;
 
     @Property
+    @Parameter
+    private OrderEntity order;
+
+    @Property
     @Parameter(defaultPrefix = BindingConstants.LITERAL)
     private String modalId;
 
@@ -50,10 +54,15 @@ public class Edit extends BaseComponent {
         }
     }
 
-    public void onSuccessFromEditForm(Long cid, CommentableEntity.Type entityType, Long entityId) throws FileUploadException {
+    public void onSuccessFromEditForm(Long cid, CommentableEntity.Type entityType, Long entityId, Long oId) throws FileUploadException {
         if (entity instanceof OrderEntity) {
             getConversationService().placeTenderReply((OrderEntity) comment.getEntity(), comment, getAuthenticatedUser());
         } else {
+            if (oId != null) {
+                order = getOrderService().findOrder(oId);
+                if (isCook()) order.setCookRate(true);
+                else if (isUser()) order.setClientRate(true);
+            }
             getConversationService().placeComment(comment.getEntity(), comment, getAuthenticatedUser());
         }
         getPhotoService().attachPhotos(comment, injectPhotos.getSubmittedPhotos());
@@ -81,7 +90,7 @@ public class Edit extends BaseComponent {
 
     public Object[] getEditFormContext() {
         return comment == null ?
-                new Object[]{null, entity.getCommentableType(), entity.getId()} :
+                new Object[]{null, entity.getCommentableType(), entity.getId(), order == null ? null : order.getId()} :
                 new Object[]{comment.getId(), null, null};
     }
 

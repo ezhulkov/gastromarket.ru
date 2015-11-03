@@ -158,9 +158,31 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
     @Column(name = "annonce_sent")
     private boolean annonceSent = false;
 
+    @Column(name = "cook_rate")
+    private boolean cookRate = false;
+
+    @Column(name = "client_rate")
+    private boolean clientRate = false;
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "order")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<PhotoEntity> photos = Lists.newArrayList();
+
+    public boolean isCookRate() {
+        return cookRate;
+    }
+
+    public void setCookRate(boolean cookRate) {
+        this.cookRate = cookRate;
+    }
+
+    public boolean isClientRate() {
+        return clientRate;
+    }
+
+    public void setClientRate(boolean clientRate) {
+        this.clientRate = clientRate;
+    }
 
     public List<PhotoEntity> getPhotos() {
         return photos;

@@ -4,7 +4,7 @@
 
 #parse("email/header.vm")
 <p>
-    Мы хотели напомнить, что срок исполнения заказа <a href="${address}?${params}" style="color: red;">${tender.name}</a> истекает завтра.
+    Мы хотели напомнить, что скоро истекает срок исполнения заказа <a href="${address}?${params}" style="color: red;">${tender.name}</a>.
 </p>
 <p>
     Не забудьте связаться с заказчиком и уточнить детали доставки.

@@ -60,16 +60,20 @@
             <t:block t:id="clientRateCook">
                 <t:unless test="mainPage">
                     <t:unless test="frontend">
-                        <a href="#cook_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#cook_rate_${order.id}">Оценить кулинара</a>
-                        <t:comment.editmodal entity="order?.catalog" modalId="cook_rate_${order.id}" title="Оценить кулинара"/>
+                        <t:unless test="order.clientRate">
+                            <a href="#cook_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#cook_rate_${order.id}">Оценить кулинара</a>
+                            <t:comment.editmodal entity="order?.catalog" order="order" modalId="cook_rate_${order.id}" title="Оценить кулинара"/>
+                        </t:unless>
                     </t:unless>
                 </t:unless>
             </t:block>
             <t:block t:id="cookRateClient">
                 <t:unless test="mainPage">
                     <t:unless test="frontend">
-                        <a href="#client_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#client_rate_${order.id}">Оценить заказчика</a>
-                        <t:comment.editmodal entity="order?.customer" modalId="client_rate_${order.id}" title="Оценить заказчика"/>
+                        <t:unless test="order.cookRate">
+                            <a href="#client_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#client_rate_${order.id}">Оценить заказчика</a>
+                            <t:comment.editmodal entity="order?.customer" order="order" modalId="client_rate_${order.id}" title="Оценить заказчика"/>
+                        </t:unless>
                     </t:unless>
                 </t:unless>
             </t:block>
@@ -82,10 +86,6 @@
                 <a href="#tender_exprired_${order.id}" data-toggle="modal" data-target="#tender_exprired_${order.id}" class="round-link">Заявка просрочена</a>
             </t:block>
         </t:if>
-        <script>
-            //            jQuery(".modal-backdrop").remove();
-            //            jQuery("body").removeClass("modal-open");
-        </script>
     </t:block>
     <t:block t:id="deniedOrderBlock">
         <div class="row">

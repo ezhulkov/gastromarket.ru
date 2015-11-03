@@ -20,15 +20,10 @@ public class ReplyInvitation extends BaseComponent {
                 getComponentResources().getPage() instanceof Order ||
                 getComponentResources().getPage() instanceof Orders ||
                 getRequest().getParameter("ql") != null) return null;
-        final Stream<OrderEntity> closedOrders =
-                isCook() ?
-                        getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream().flatMap(t -> getOrderService().findAllOrders(t, Status.CLOSED).stream()) :
-                        getOrderService().findAllOrders(getAuthenticatedUser(), null).stream().filter(t -> t.getStatus() == Status.CLOSED);
-        return closedOrders.filter(t ->
-                                           isCook() ?
-                                                   getConversationService().findAllComments(t.getCustomer(), getAuthenticatedUser()).isEmpty() :
-                                                   getConversationService().findAllComments(t.getCatalog(), getAuthenticatedUser()).isEmpty())
-                .findFirst().orElse(null);
+        final Stream<OrderEntity> closedOrders = isCook() ?
+                getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream().flatMap(t -> getOrderService().findAllOrders(t, Status.CLOSED).stream()) :
+                getOrderService().findAllOrders(getAuthenticatedUser(), null).stream().filter(t -> t.getStatus() == Status.CLOSED);
+        return closedOrders.filter(t -> isCook() ? !t.isCookRate() : !t.isClientRate()).findFirst().orElse(null);
     }
 
 }

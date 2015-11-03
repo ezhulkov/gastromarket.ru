@@ -63,7 +63,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     private final TransactionTemplate transactionTemplate;
     private final ConversationService conversationService;
     private final static TimeUnit TRIGGER_TIME_UNIT = TimeUnit.MILLISECONDS;
-    private final static long TRIGGER_TIME_PERIOD = 600000;
+    private final static long TRIGGER_TIME_PERIOD = 30000;
 
     @Autowired
     public OrderServiceImpl(final OrderRepository orderRepository,
@@ -373,7 +373,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                             this::triggerTenderExpiredSurvey,
                             "TENDER_EXPIRED_SURVEY");
             triggerLauncher(allOrders,
-                            t -> t.getStatus() == Status.CLOSED,
+                            t -> t.getStatus() == Status.CLOSED && (!t.isClientRate() || !t.isCookRate()),
                             t -> Stream.of(t.getClosedDateAsJoda().plusDays(1)),
                             this::orderRateReminder,
                             "ORDER_RATE_REMINDER");
@@ -410,6 +410,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
         final OrderEntity localTender = orderRepository.findOne(tender.getId());
         final Map<String, Object> params = new HashMap<String, Object>() {
             {
+                put("username", localTender.getCatalog().getUser().getFullName());
                 put("address", localTender.getOrderUrl());
                 put("tender", localTender);
             }
@@ -418,8 +419,24 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
         mailService.sendMailMessage(localTender.getCatalog().getUser(), MailService.ORDER_READY_REMINDER, params);
     }
 
-    private void orderRateReminder(final OrderEntity order) {
-
+    private void orderRateReminder(final OrderEntity tender) {
+        final OrderEntity localTender = orderRepository.findOne(tender.getId());
+        final Map<String, Object> params = new HashMap<String, Object>() {
+            {
+                put("address", localTender.getOrderUrl());
+                put("tender", localTender);
+            }
+        };
+        if (!tender.isCookRate()) {
+            params.put("username", localTender.getCatalog().getUser().getFullName());
+            params.put("cook", true);
+            mailService.sendMailMessage(localTender.getCatalog().getUser(), MailService.ORDER_RATE_REMINDER, params);
+        }
+        if (!tender.isClientRate()) {
+            params.put("username", localTender.getCustomer().getFullName());
+            params.put("cook", false);
+            mailService.sendMailMessage(localTender.getCustomer(), MailService.ORDER_RATE_REMINDER, params);
+        }
     }
 
     private void triggerTenderReminder(final OrderEntity tender) {

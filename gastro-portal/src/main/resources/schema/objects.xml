@@ -1087,4 +1087,15 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="97" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="cook_rate" type="java.sql.Types.BOOLEAN" defaultValueBoolean="false"/>
+            <column name="client_rate" type="java.sql.Types.BOOLEAN" defaultValueBoolean="false"/>
+        </addColumn>
+        <dropColumn tableName="orders" columnName="trigger_time"/>
+        <sql>
+            update orders set cook_rate=true,client_rate=true where status='CLOSED' or status='CANCELED';
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

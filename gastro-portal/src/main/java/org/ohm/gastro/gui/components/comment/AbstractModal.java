@@ -5,6 +5,7 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.CommentableEntity;
+import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 /**
@@ -19,6 +20,10 @@ public abstract class AbstractModal extends BaseComponent {
     @Property
     @Parameter
     private CommentableEntity entity;
+
+    @Property
+    @Parameter
+    private OrderEntity order;
 
     @Property
     @Parameter(defaultPrefix = BindingConstants.LITERAL)
