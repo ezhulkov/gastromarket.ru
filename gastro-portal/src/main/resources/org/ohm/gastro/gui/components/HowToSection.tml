@@ -1,24 +1,47 @@
-<section class="howto ${additionalClass}">
-    <div class="container">
-        <div class="title">
-            <h1><span>Как это работает</span></h1>
+<section>
+    <section class="howto ${additionalClass}">
+        <div class="container">
+            <div class="title">
+                <h1><span>Как это работает</span></h1>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-lg-offset-0 col-md-4 col-md-offset-0 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 text-center f16px">
+                    <img src="/img/cake-256x256.png" srcset="/img/cake-512x512.png 2x" alt="заявка" title="заявка"/>
+                    <p>Вы описываете детали заявки - бюджет, желаемую дату изготовления, комментарии и количество персон.</p>
+                    <p><strong>Заявку увидят более 200 кулинаров.</strong></p>
+                </div>
+                <div class="col-lg-4 col-lg-offset-0 col-md-4 col-md-offset-0 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 text-center f16px">
+                    <img src="/img/chef-256x256.png" srcset="/img/chef-512x512.png 2x" alt="тендер" title="конкурс"/>
+                    <p>Кулинары оставляют отклики к заявке, описывают условия выполнения и показывают своё портфолио блюд и услуг.</p>
+                    <p><strong>Вам нужно только выбрать лучшего.</strong></p>
+                </div>
+                <div class="col-lg-4 col-lg-offset-0 col-md-4 col-md-offset-0 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 text-center f16px">
+                    <img src="/img/baloons-256x256.png" srcset="/img/baloons-512x512.png 2x" alt="выполнение" title="выполнение"/>
+                    <p>Кулинар начнет исполнение заказа, по его завершению вам предложат оценить его работу и качество услуг.</p>
+                    <p><strong>ГастроМаркет - всё готово!</strong></p>
+                </div>
+            </div>
         </div>
-        <div class="row">
-            <div class="col-lg-4 col-lg-offset-0 col-md-4 col-md-offset-0 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 text-center f16px">
-                <img src="/img/cake-256x256.png" srcset="/img/cake-512x512.png 2x" alt="заявка" title="заявка"/>
-                <p>Вы описываете детали заявки - бюджет, желаемую дату изготовления, комментарии и количество персон.</p>
-                <p><strong>Заявку увидят более 200 кулинаров.</strong></p>
+    </section>
+    <section class="credibility">
+        <div class="container">
+            <div class="title">
+                <h1><span>Почему ГастроМаркет?</span></h1>
             </div>
-            <div class="col-lg-4 col-lg-offset-0 col-md-4 col-md-offset-0 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 text-center f16px">
-                <img src="/img/chef-256x256.png" srcset="/img/chef-512x512.png 2x" alt="тендер" title="конкурс"/>
-                <p>Кулинары оставляют отклики к заявке, описывают условия выполнения и показывают своё портфолио блюд и услуг.</p>
-                <p><strong>Вам нужно только выбрать лучшего.</strong></p>
-            </div>
-            <div class="col-lg-4 col-lg-offset-0 col-md-4 col-md-offset-0 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 text-center f16px">
-                <img src="/img/baloons-256x256.png" srcset="/img/baloons-512x512.png 2x" alt="выполнение" title="выполнение"/>
-                <p>Кулинар начнет исполнение заказа, по его завершению вам предложат оценить его работу и качество услуг.</p>
-                <p><strong>ГастроМаркет - всё готово!</strong></p>
+            <div class="row credibility">
+                <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-6 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+                    <strong>Качество</strong> - мы проверяем кулинаров и следим за качеством исполнения.
+                </div>
+                <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-6 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+                    <strong>Большой выбор</strong> - самый большой каталог блюд на одном сайте.
+                </div>
+                <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-6 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+                    <strong>Доступность</strong> - дешевле, чем заказывать в кондитерских.
+                </div>
+                <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-6 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+                    <strong>Уникальность</strong> - у нас не магазинные штамповки, а авторские шедевры.
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 </section>

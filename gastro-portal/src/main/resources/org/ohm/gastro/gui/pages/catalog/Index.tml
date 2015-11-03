@@ -253,7 +253,7 @@
         </t:block>
     </t:if>
 
-    <section>
+    <section id="replies">
         <div class="title">
             <h1><span>Отзывы о кулинаре</span></h1>
         </div>

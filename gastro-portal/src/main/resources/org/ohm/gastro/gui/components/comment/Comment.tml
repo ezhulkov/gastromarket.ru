@@ -14,8 +14,14 @@
                     ${comment.author.linkName}
                 </a>
             </div>
+            <t:if test="comment.author.cook">
+                <t:ratings entity="comment.author.firstCatalog.get()"/>
+                <t:if test="comment.author.catalogCert2">
+                    <div class="cert2">Надежный кулинар - сделали контрольную закупку</div>
+                </t:if>
+            </t:if>
             <t:if test="comment.budget">
-                <div class="f20px">Предложение стоимости: ${comment.budget} <span class="rub"/> </div>
+                <div class="f20px">Предложение стоимости: ${comment.budget} <span class="rub"/></div>
             </t:if>
             <div class="text">
                 <span class="glyphicon glyphicon-thumbs-${comment.rating}" aria-hidden="true"/>
