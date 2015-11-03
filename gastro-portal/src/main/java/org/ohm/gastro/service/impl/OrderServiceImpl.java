@@ -63,7 +63,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     private final TransactionTemplate transactionTemplate;
     private final ConversationService conversationService;
     private final static TimeUnit TRIGGER_TIME_UNIT = TimeUnit.MILLISECONDS;
-    private final static long TRIGGER_TIME_PERIOD = 30000;
+    private final static long TRIGGER_TIME_PERIOD = 600000;
 
     @Autowired
     public OrderServiceImpl(final OrderRepository orderRepository,
