@@ -368,8 +368,8 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                             this::triggerOrderReadyReminder,
                             "ORDER_READY_REMINDER");
             triggerLauncher(allOrders,
-                            t -> t.isTenderExpired(),
-                            t -> Stream.of(t.getDueDateAsJoda().plusHours(1)),
+                            t -> t.isTenderExpired() && !conversationService.findAllComments(t).isEmpty(),
+                            t -> Stream.of(t.getDueDateAsJoda().plusHours(12)),
                             this::triggerTenderExpiredSurvey,
                             "TENDER_EXPIRED_SURVEY");
             triggerLauncher(allOrders,
@@ -389,11 +389,21 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                 .filter(filter)
                 .filter(t -> timeSeries.apply(t).anyMatch(interval::contains))
                 .peek(t -> logger.info("Firing '{}' for order {}", name, t))
-                .forEach(consumer::accept);
+                .forEach(t -> transactionTemplate.execute(s -> {
+                    consumer.accept(t);
+                    return null;
+                }));
     }
 
-    private void triggerTenderExpiredSurvey(final OrderEntity order) {
-
+    private void triggerTenderExpiredSurvey(final OrderEntity tender) {
+        final OrderEntity localTender = orderRepository.findOne(tender.getId());
+        final Map<String, Object> params = new HashMap<String, Object>() {
+            {
+                put("username", localTender.getCustomer().getFullName());
+                put("tender", localTender);
+            }
+        };
+        mailService.sendMailMessage(localTender.getCustomer(), MailService.TENDER_REMINDER, params);
     }
 
     private void triggerOrderReadyReminder(final OrderEntity order) {
@@ -405,20 +415,17 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     }
 
     private void triggerTenderReminder(final OrderEntity tender) {
-        transactionTemplate.execute(status -> {
-            final OrderEntity localTender = orderRepository.findOne(tender.getId());
-            final List<CommentEntity> replies = conversationService.findAllComments(localTender);
-            final Map<String, Object> params = new HashMap<String, Object>() {
-                {
-                    put("username", localTender.getCustomer().getFullName());
-                    put("address", localTender.getOrderUrl());
-                    put("tender", localTender);
-                    put("replies", replies);
-                }
-            };
-            mailService.sendMailMessage(localTender.getCustomer(), MailService.TENDER_REMINDER, params);
-            return null;
-        });
+        final OrderEntity localTender = orderRepository.findOne(tender.getId());
+        final List<CommentEntity> replies = conversationService.findAllComments(localTender);
+        final Map<String, Object> params = new HashMap<String, Object>() {
+            {
+                put("username", localTender.getCustomer().getFullName());
+                put("address", localTender.getOrderUrl());
+                put("tender", localTender);
+                put("replies", replies);
+            }
+        };
+        mailService.sendMailMessage(localTender.getCustomer(), MailService.TENDER_REMINDER, params);
     }
 
 }

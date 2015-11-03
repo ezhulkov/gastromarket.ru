@@ -9,6 +9,7 @@
 </tr>
 </tbody>
 </table>
+#if(!${hideButton})
 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
     <tbody>
     <tr>
@@ -30,6 +31,7 @@
     </tr>
     </tbody>
 </table>
+#end
 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
     <tbody>
     <tr>
@@ -58,7 +60,7 @@
 
                     <td valign="top" style="padding-top:9px;padding-right:18px;padding-bottom:9px;padding-left:18px;color:#606060;font-family:Helvetica;font-size:15px;line-height:150%;text-align:left">
 
-                        <span style="line-height:20.7999992370605px">С уважением, робот ГастроМаркет</span><br style="line-height:20.7999992370605px">
+                        <span style="line-height:20.7999992370605px">С уважением, команда ГастроМаркет</span><br style="line-height:20.7999992370605px">
                         <br/>
                         <span style="line-height:20.7999992370605px">У вас есть вопросы или предложения?</span><br style="line-height:20.7999992370605px">
                         <span style="line-height:20.7999992370605px">Напишите на <a style="color:#606060;" href="mailto:contacts@gastromarket.ru" target="_blank">contacts@gastromarket.ru</a>&nbsp;</span>

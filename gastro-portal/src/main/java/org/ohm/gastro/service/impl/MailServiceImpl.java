@@ -134,6 +134,9 @@ public class MailServiceImpl implements MailService, Logging {
         ) {
             velocityEngine.mergeTemplate(String.format(TEMPLATE_PATH, templateKey), "UTF-8", new VelocityContext(new HashMap<>(params)), stringWriter);
             final String messageBody = stringWriter.toString();
+
+            System.out.println(messageBody);
+
             final String title = getTitle(messageBody);
             final MimeMessagePreparator preparator = mimeMessage -> {
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, false);
@@ -161,7 +164,6 @@ public class MailServiceImpl implements MailService, Logging {
 
     @Override
     public void sendAdminMessage(final String templateKey, final Map<String, Object> params) throws MailException {
-        if (!production) return;
         sendMailMessage("contacts@gastromarket.ru", templateKey, params);
     }
 
