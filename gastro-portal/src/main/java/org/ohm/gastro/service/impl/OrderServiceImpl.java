@@ -364,7 +364,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                             "TENDER_REMINDER");
             triggerLauncher(allOrders,
                             t -> t.getCatalog() != null && t.getMetaStatus() == Status.ACTIVE && !t.isTenderExpired(),
-                            t -> Stream.of(t.getDueDateAsJoda().minusDays(1)),
+                            t -> Stream.of(t.getDueDateAsJoda().minusDays(1).minusHours(6)),
                             this::triggerOrderReadyReminder,
                             "ORDER_READY_REMINDER");
             triggerLauncher(allOrders,
@@ -406,8 +406,16 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
         mailService.sendMailMessage(localTender.getCustomer(), MailService.TENDER_REMINDER, params);
     }
 
-    private void triggerOrderReadyReminder(final OrderEntity order) {
-
+    private void triggerOrderReadyReminder(final OrderEntity tender) {
+        final OrderEntity localTender = orderRepository.findOne(tender.getId());
+        final Map<String, Object> params = new HashMap<String, Object>() {
+            {
+                put("address", localTender.getOrderUrl());
+                put("tender", localTender);
+            }
+        };
+        params.put("username", localTender.getCatalog().getUser().getFullName());
+        mailService.sendMailMessage(localTender.getCatalog().getUser(), MailService.ORDER_READY_REMINDER, params);
     }
 
     private void orderRateReminder(final OrderEntity order) {
