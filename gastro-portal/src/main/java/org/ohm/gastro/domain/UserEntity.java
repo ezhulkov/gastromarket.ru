@@ -294,7 +294,7 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails, Comme
     }
 
     public int giveBonus(int bonus) {
-        this.bonus = (Integer) ObjectUtils.defaultIfNull(this.bonus, 0) + bonus;
+        this.bonus = ObjectUtils.defaultIfNull(this.bonus, 0) + bonus;
         return this.bonus;
     }
 
@@ -325,6 +325,14 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails, Comme
 
     public String getLinkName() {
         return getFirstCatalog().map(CatalogEntity::getName).orElseGet(() -> getFullName());
+    }
+
+    public int getCatalogRating() {
+        return getFirstCatalog().map(CatalogEntity::getLevel).orElse(1);
+    }
+
+    public boolean getCatalogCert2() {
+        return getFirstCatalog().map(CatalogEntity::getCert2).orElse(false);
     }
 
     @Override
