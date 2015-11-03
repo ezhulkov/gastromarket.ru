@@ -114,7 +114,7 @@
         </div>
     </section>
 
-    <t:howtosection additionalClass="hidden-xs gray-section"/>
+    <t:howtosection additionalClass="hidden-xs gray-section hidden-credentials"/>
 
     <t:lasttenderssection additionalClass="hidden-xs white-section"/>
 

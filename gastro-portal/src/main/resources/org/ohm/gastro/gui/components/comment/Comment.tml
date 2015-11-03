@@ -17,7 +17,7 @@
             <t:if test="comment.author.cook">
                 <t:ratings entity="comment.author.firstCatalog.get()"/>
                 <t:if test="comment.author.catalogCert2">
-                    <div class="cert2">Надежный кулинар - сделали контрольную закупку</div>
+                    <div class="cert2">Проверенный кулинар - была контрольная закупка</div>
                 </t:if>
             </t:if>
             <t:if test="comment.budget">
