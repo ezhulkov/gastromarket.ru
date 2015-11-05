@@ -403,7 +403,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                 put("tender", localTender);
             }
         };
-        mailService.sendMailMessage(localTender.getCustomer(), MailService.TENDER_REMINDER, params);
+        mailService.sendMailMessage(localTender.getCustomer(), MailService.TENDER_EXPIRED_SURVEY, params);
     }
 
     private void triggerOrderReadyReminder(final OrderEntity tender) {
