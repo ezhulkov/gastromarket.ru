@@ -4,6 +4,6 @@
     </t:if>
     <t:if test="hasRatings">
         Отзывы:
-        <t:pagelink page="catalog/index" context="catalog.altId" anchor="replies"><span class="pos">+${posRatings}</span> / <span class="neg">-${negRatings}</span></t:pagelink>
+        <t:pagelink page="catalog/index" context="catalog?.altId" anchor="replies"><span class="pos">+${posRatings}</span> / <span class="neg">-${negRatings}</span></t:pagelink>
     </t:if>
 </div>

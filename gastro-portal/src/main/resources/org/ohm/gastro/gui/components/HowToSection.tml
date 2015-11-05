@@ -29,16 +29,16 @@
                 <h1><span>Почему ГастроМаркет?</span></h1>
             </div>
             <div class="row credibility">
-                <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-6 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+                <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-6 col-sm-offset-0 col-xs-12 col-xs-offset-0">
                     <strong class="red-text">Качество</strong> &mdash; мы проверяем кулинаров и следим за качеством исполнения.
                 </div>
-                <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-6 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+                <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-6 col-sm-offset-0 col-xs-12 col-xs-offset-0">
                     <strong class="red-text">Большой выбор</strong> &mdash; самый большой каталог блюд на одном сайте.
                 </div>
-                <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-6 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+                <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-6 col-sm-offset-0 col-xs-12 col-xs-offset-0">
                     <strong class="red-text">Доступность</strong> &mdash; дешевле, чем заказывать в кондитерских.
                 </div>
-                <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-6 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+                <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-6 col-sm-offset-0 col-xs-12 col-xs-offset-0">
                     <strong class="red-text">Уникальность</strong> &mdash; у нас не магазинные штамповки, а авторские шедевры.
                 </div>
             </div>
