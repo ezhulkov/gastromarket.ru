@@ -62,6 +62,7 @@ public class Edit extends BaseComponent {
                 order = getOrderService().findOrder(oId);
                 if (isCook()) order.setCookRate(true);
                 else if (isUser()) order.setClientRate(true);
+                getOrderService().saveOrder(order);
             }
             getConversationService().placeComment(comment.getEntity(), comment, getAuthenticatedUser());
         }
@@ -91,7 +92,7 @@ public class Edit extends BaseComponent {
     public Object[] getEditFormContext() {
         return comment == null ?
                 new Object[]{null, entity.getCommentableType(), entity.getId(), order == null ? null : order.getId()} :
-                new Object[]{comment.getId(), null, null};
+                new Object[]{comment.getId(), null, null, null};
     }
 
 }
