@@ -217,7 +217,7 @@ public class CommonsUtils implements Logging {
                 desCipher.init(Cipher.DECRYPT_MODE, desKey);
                 byte[] bytes = desCipher.doFinal(Hex.decode(link.toUpperCase()));
                 final String secret = new String(bytes);
-                final int delimiterPos = secret.indexOf("_");
+                final int delimiterPos = secret.lastIndexOf("_");
                 final Long timeOut = Long.parseLong(secret.substring(0, delimiterPos));
                 final String uid = secret.substring(delimiterPos + 1);
                 if (timeOut < System.currentTimeMillis()) {
