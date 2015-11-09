@@ -62,13 +62,13 @@ public class Edit extends BaseComponent {
     @Property
     private boolean goBack;
 
-    @Component(id = "fullName", parameters = {"value=order.customer.fullName", "validate=required"})
+    @Component(id = "fullName", parameters = {"value=order.customer.fullName"})
     private TextField fullName;
 
-    @Component(id = "mobilePhone", parameters = {"value=order.customer.mobilePhone", "validate=required"})
+    @Component(id = "mobilePhone", parameters = {"value=order.customer.mobilePhone"})
     private TextField mobilePhone;
 
-    @Component(id = "deliveryAddress", parameters = {"value=order.customer.deliveryAddress", "validate=required"})
+    @Component(id = "deliveryAddress", parameters = {"value=order.customer.deliveryAddress"})
     private TextField deliveryAddress;
 
     @Component(id = "name", parameters = {"value=order.name", "validate=required"})
@@ -80,7 +80,7 @@ public class Edit extends BaseComponent {
     @Component(id = "dueDate", parameters = {"value=order.dueDateAsString", "validate=required"})
     private TextField dueDate;
 
-    @Component(id = "budget", parameters = {"value=order.totalPrice", "validate=required"})
+    @Component(id = "budget", parameters = {"value=order.totalPrice"})
     private TextField budget;
 
     @Component(id = "personCount", parameters = {"value=order.personCount"})

@@ -39,6 +39,13 @@
     <meta name="rating" content="General" />
     <meta name="robots" content="all" />
 
+    <meta name="application-name" content="ГастроМаркет"/>
+    <meta name="msapplication-TileColor" content="#000000"/>
+    <meta name="msapplication-square70x70logo" content="tiny.png"/>
+    <meta name="msapplication-square150x150logo" content="square.png"/>
+    <meta name="msapplication-wide310x150logo" content="wide.png"/>
+    <meta name="msapplication-square310x310logo" content="large.png"/>
+
     <script src="/js/jquery-1.11.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/chosen.jquery.min.js"></script>

@@ -1,6 +1,7 @@
 package org.ohm.gastro.gui.pages.tender;
 
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
@@ -15,11 +16,12 @@ public class SendAnnonce extends BaseComponent {
     @Property
     private boolean sent;
 
-    public void onActivate(Long orderId) {
-        if (!isAdmin()) return;
+    public Object onActivate(Long orderId) {
+        if (!isAdmin()) return new HttpError(403, "Should have admin role");
         this.order = getOrderService().findOrder(orderId);
         sent = !order.isAnnonceSent();
         getOrderService().sendTenderAnnonce(order);
+        return null;
     }
 
 }
