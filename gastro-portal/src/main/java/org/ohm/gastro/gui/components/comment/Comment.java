@@ -69,7 +69,7 @@ public class Comment extends BaseComponent {
     }
 
     public boolean isOrderOwner() {
-        return getOrder().isOrderOwner(getAuthenticatedUserSafe());
+        return isAdmin() || getOrder().isOrderOwner(getAuthenticatedUserSafe());
     }
 
     public Link onSuccessFromAttachTenderAjaxForm(Long uid, Long oid, Long cid) {
