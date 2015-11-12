@@ -49,7 +49,7 @@
                 <div class="modal-body form">
                     <div class="col-xs-12">
                         <p class="modal-text">
-                            Если в каталоге нет того, что вы ищете, то попрбуйте оставить заявку.
+                            Если в каталоге нет того, что вы ищете, то попробуйте оставить заявку.
                         </p>
                         <p class="modal-text hidden-xs">
                             <img src="/img/chef-128x128.png" srcset="/img/chef-256x256.png 2x" alt="тендер" title="конкурс"/>

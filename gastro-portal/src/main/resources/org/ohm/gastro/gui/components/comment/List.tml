@@ -7,5 +7,4 @@
             <div class="empty">Нет отзывов</div>
         </t:parameter>
     </t:loop>
-    <t:ratingsModal/>
 </section>

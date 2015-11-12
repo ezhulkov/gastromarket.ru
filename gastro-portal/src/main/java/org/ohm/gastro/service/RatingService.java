@@ -1,5 +1,6 @@
 package org.ohm.gastro.service;
 
+import com.google.common.collect.Range;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.LogEntity;
 import org.ohm.gastro.domain.LogEntity.Type;
@@ -20,6 +21,8 @@ public interface RatingService {
     List<LogEntity> findEvents(UserEntity user, CatalogEntity catalog, Date dateFrom);
 
     List<LogEntity> findEvents(UserEntity user, Date dateFrom, Type type);
+
+    Range<Integer> getRatingRange(int level);
 
     void updateRating(CatalogEntity catalog);
 

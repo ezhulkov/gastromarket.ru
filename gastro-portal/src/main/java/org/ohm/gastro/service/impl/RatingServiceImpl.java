@@ -32,6 +32,7 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 /**
@@ -123,6 +124,12 @@ public class RatingServiceImpl implements RatingService, Logging {
     }
 
     @Override
+    public Range<Integer> getRatingRange(int level) {
+        Entry<Range<Integer>, Integer> range = levelMap.getEntry(level);
+        return range == null ? null : range.getKey();
+    }
+
+    @Override
     public void updateRating(CatalogEntity catalog) {
 
         catalog = catalogRepository.findOne(catalog.getId());
@@ -181,11 +188,11 @@ public class RatingServiceImpl implements RatingService, Logging {
 
     private int calcRating(final int productsCount, final int retentionCount, final int posCount, final int negCount, final int doneOrdersCount, final int cancelOrdersCount, final int totalSum) {
         return (int) Math.max(0, productsCount * productsCoeff +
-                                      retentionCount * retentionCoeff +
-                                      posCount * posRatingCoeff +
-                                      negCount * negRatingCoeff +
-                                      doneOrdersCount / (cancelOrdersCount == 0 ? 1 : cancelOrdersCount) * productionCoeff +
-                                      totalSum * transactionCoeff
+                retentionCount * retentionCoeff +
+                posCount * posRatingCoeff +
+                negCount * negRatingCoeff +
+                doneOrdersCount / (cancelOrdersCount == 0 ? 1 : cancelOrdersCount) * productionCoeff +
+                totalSum * transactionCoeff
         );
     }
 

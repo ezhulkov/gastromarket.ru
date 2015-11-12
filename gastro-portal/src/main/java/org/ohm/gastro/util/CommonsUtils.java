@@ -211,13 +211,14 @@ public class CommonsUtils implements Logging {
     }
 
     public static Optional<String> parseSecuredEmail(final String link) {
+        String secret = "";
         try {
             if (link == null) return Optional.empty();
             synchronized (desCipher) {
                 desCipher.init(Cipher.DECRYPT_MODE, desKey);
                 byte[] bytes = desCipher.doFinal(Hex.decode(link.toUpperCase()));
-                final String secret = new String(bytes);
-                final int delimiterPos = secret.lastIndexOf("_");
+                secret = new String(bytes);
+                final int delimiterPos = secret.indexOf("_");
                 final Long timeOut = Long.parseLong(secret.substring(0, delimiterPos));
                 final String uid = secret.substring(delimiterPos + 1);
                 if (timeOut < System.currentTimeMillis()) {
@@ -227,7 +228,7 @@ public class CommonsUtils implements Logging {
                 return Optional.of(uid);
             }
         } catch (Exception e) {
-            logger.error("", e);
+            logger.error("bad secret " + secret, e);
         }
         return Optional.empty();
     }

@@ -57,7 +57,7 @@
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
                                             </div>
                                             <div class="modal-body">
-                                                <t:form t:id="attachTenderAjaxForm" t:context="[comment.author.id,order.id,comment.id]" class="form" style="padding-top:0;" autofocus="false" role="form">
+                                                <t:form t:id="attachTenderAjaxForm" t:context="[comment.author.id,order.id,comment.id]" class="form" style="padding-top:0;" clientValidation="BLUR" autofocus="false" role="form">
                                                     <p class="modal-text">
                                                         Вы выбираете исполнителем кулинара<br/>
                                                         <a class="pic-holder catalog-link" href="${comment.author?.linkUrl}">
@@ -70,25 +70,26 @@
                                                     </p>
                                                     <div class="col-xs-12">
                                                         <div class="form-group">
-                                                            <textarea t:type="TextArea" t:id="attachReason" t:value="attachReason" rows="5" class="form-control"/>
+                                                            <t:label for="attachReason">Причина выбора:</t:label>
+                                                            <textarea t:type="TextArea" t:id="attachReason" t:value="attachReason" t:validate="required" rows="5" class="form-control"/>
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-12">
                                                         <div class="form-group">
                                                             <t:label for="fullName">Ваше имя:*</t:label>
-                                                            <input t:id="fullName" class="form-control"/>
+                                                            <input t:id="fullName" class="form-control" t:validate="required"/>
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-12">
                                                         <div class="form-group">
                                                             <t:label for="deliveryAddress">Адрес доставки:*</t:label>
-                                                            <input t:id="deliveryAddress" class="form-control" rows="5"/>
+                                                            <input t:id="deliveryAddress" class="form-control" rows="5" t:validate="required"/>
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-12">
                                                         <div class="form-group">
                                                             <t:label for="mobilePhone">Контактный телефон:*</t:label>
-                                                            <input t:id="mobilePhone" class="form-control mobile-phone" placeholder="+7 xxx xxx-xx-xx"/>
+                                                            <input t:id="mobilePhone" class="form-control mobile-phone" placeholder="+7 xxx xxx-xx-xx" t:validate="required"/>
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-12">

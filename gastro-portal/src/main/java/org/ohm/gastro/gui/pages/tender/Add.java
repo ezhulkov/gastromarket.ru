@@ -40,8 +40,8 @@ public class Add extends BaseComponent {
     @Component(id = "budget", parameters = {"value=tender.totalPrice"})
     private TextField budget;
 
-    @Component(id = "personCount", parameters = {"value=tender.personCount"})
-    private TextField personCount;
+//    @Component(id = "personCount", parameters = {"value=tender.personCount"})
+//    private TextField personCount;
 
     @Inject
     @Property

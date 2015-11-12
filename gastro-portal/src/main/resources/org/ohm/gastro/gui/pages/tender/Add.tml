@@ -38,16 +38,16 @@
                                            data-toggle="popover" data-container="body" data-content="Сколько вы готовы потратить на исполнение заявки. Если не указать бюджет, то кулинары сами предложат свою цену." data-trigger="focus" data-placement="right"/>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-xs-12">
                                 <div class="form-group">
                                     <input t:id="dueDate" type="text" class="form-control date-picker" placeholder="Дата исполнения"/>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <input t:id="personCount" type="number" class="form-control" placeholder="Количество персон"/>
-                                </div>
-                            </div>
+                            <!--<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
+                                <!--<div class="form-group">-->
+                                    <!--<input t:id="personCount" type="number" class="form-control" placeholder="Количество персон"/>-->
+                                <!--</div>-->
+                            <!--</div>-->
                             <div class="col-xs-12">
                                 <div class="form-buttons">
                                     <t:if test="authenticated">
