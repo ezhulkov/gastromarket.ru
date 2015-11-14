@@ -47,7 +47,7 @@
                                 <span class="dropdown">
                                     <a data-target="#" href="#userMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                                         ${authenticatedUser.printableName}
-                                        <span class="caret"></span>
+                                        <span class="caret"/>
                                     </a>
                                     <ul class="dropdown-menu" role="menu">
                                         <t:if test="user">
@@ -59,6 +59,9 @@
                                             </li>
                                         </t:if>
                                         <t:if test="cook">
+                                            <li>
+                                                <t:pagelink page="office/bills/list">Счета</t:pagelink>
+                                            </li>
                                             <t:loop source="catalogs" value="oneCatalog">
                                                 <li>
                                                     <t:pagelink page="catalog/index" t:context="oneCatalog.altId">Страница '${oneCatalog.name}'</t:pagelink>
