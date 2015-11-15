@@ -30,7 +30,7 @@
                             <div class="unit">${productUnit}</div>
                         </div>
                         <div class="pull-right">
-                            <t:order.add entity="product"/>
+                            <t:order.add entity="product" priceModifiers="priceModifiers"/>
                         </div>
                     </div>
                     <t:if test="priceModifiers">

@@ -60,9 +60,8 @@ public class Index extends BaseComponent {
         return product.getCatalog().getUser().equals(getAuthenticatedUserOpt().orElse(null));
     }
 
-    @Cached
     public java.util.List<PriceModifierEntity> getPriceModifiers() {
-        return getProductService().findAllModifiers(product);
+        return getProductService().findAllModifiers(product).stream().filter(t -> t.getPrice() != 0).collect(Collectors.toList());
     }
 
     public String getKeywords() {

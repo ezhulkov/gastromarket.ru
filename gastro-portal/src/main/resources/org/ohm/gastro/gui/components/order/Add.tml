@@ -1,7 +1,7 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="order-add">
     <t:if test="priceModifiers">
         <a class="pic-holder basket-add" href="#" data-toggle="modal" data-target="#order-modifier-${entity.id}"><span/>Заказать</a>
-        <div class="modal fade" id="order-modifier-${entity.id}" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade price-modifier-modal" id="order-modifier-${entity.id}" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-md">
                 <div class="modal-content">
                     <div class="modal-header">
