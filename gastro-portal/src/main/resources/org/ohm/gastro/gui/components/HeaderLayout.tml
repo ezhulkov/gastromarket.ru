@@ -60,7 +60,7 @@
                                         </t:if>
                                         <t:if test="cook">
                                             <!--<li>-->
-                                                <!--<t:pagelink page="office/bills/list">Счета</t:pagelink>-->
+                                            <!--<t:pagelink page="office/bills/list">Счета</t:pagelink>-->
                                             <!--</li>-->
                                             <t:loop source="catalogs" value="oneCatalog">
                                                 <li>
