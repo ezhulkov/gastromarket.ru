@@ -9,6 +9,7 @@ import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.OrderEntity;
+import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.stream.Collectors;
@@ -40,8 +41,8 @@ public class Add extends BaseComponent {
     @Component(id = "budget", parameters = {"value=tender.totalPrice"})
     private TextField budget;
 
-//    @Component(id = "personCount", parameters = {"value=tender.personCount"})
-//    private TextField personCount;
+    @Component(id = "promoCode", parameters = {"value=tender.promoCode"})
+    private TextField promoCode;
 
     @Inject
     @Property
@@ -74,7 +75,10 @@ public class Add extends BaseComponent {
             needLogin = true;
             return tenderInfoBlock;
         }
-        getOrderService().placeTender(tender, getAuthenticatedUser());
+        final OrderEntity tender = getOrderService().placeTender(this.tender, getAuthenticatedUser());
+        java.util.List<PhotoEntity> photos = getTenderPhotos();
+        photos = photos.stream().peek(t -> t.setId(null)).collect(Collectors.toList());
+        getPhotoService().attachPhotos(tender, photos);
         return getPageLinkSource().createPageRenderLink(AddResults.class);
     }
 

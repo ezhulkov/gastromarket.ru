@@ -45,11 +45,15 @@ public class UploadFilter extends BaseApplicationFilter implements Logging {
             checkNotNull(imageBuf, "qqfile should not be empty");
 
             final FileType fileType = FileType.valueOf(fileTypeStr);
-            final String objectId = imageService.explicitlyGetObjectId(fileType, objectIdStr, targetContext, BaseComponent.getAuthenticatedUser(null).orElse(null));
+            final String objectId = fileType == FileType.TENDER ?
+                    objectIdStr :
+                    imageService.explicitlyGetObjectId(fileType, objectIdStr, targetContext, BaseComponent.getAuthenticatedUser(null).orElse(null));
 
             checkNotNull(objectId, "objectId should not be empty");
 
             final Map<ImageSize, String> imageUrls = imageService.resizeImagePack(imageBuf, fileType, objectId);
+
+            if (fileType == FileType.TENDER) httpServletRequest.getSession().setAttribute(FileType.TENDER + "_" + objectId, imageUrls);
 
             httpServletResponse.setContentType("application/json");
             httpServletResponse.setCharacterEncoding("UTF-8");

@@ -2,6 +2,7 @@ package org.ohm.gastro.gui.pages.office;
 
 import com.google.common.collect.Lists;
 import org.apache.tapestry5.Block;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CommentEntity;
@@ -9,7 +10,6 @@ import org.ohm.gastro.domain.ConversationEntity;
 import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
-import org.springframework.data.annotation.Persistent;
 
 import java.util.Date;
 import java.util.List;
@@ -54,14 +54,14 @@ public class Message extends BaseComponent {
     private int fetchTo = PAGE_SIZE;
 
     @Property
-    @Persistent
-    private List<CommentEntity> newComments = Lists.newArrayList();
+    @Persist
+    private List<CommentEntity> newComments;
 
     @Property
     private Date lastSeen;
 
     public void beginRender() {
-        newComments.clear();
+        newComments = Lists.newArrayList();
     }
 
     public Object onActivate(String newConversation, Long id) {
@@ -108,6 +108,7 @@ public class Message extends BaseComponent {
         newComment.setText(text);
         getConversationService().placeComment(conversation, newComment, getAuthenticatedUser());
         newComments.add(newComment);
+
         return newMessageBlock;
     }
 

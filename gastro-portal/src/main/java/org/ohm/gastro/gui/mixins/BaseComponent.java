@@ -11,9 +11,11 @@ import org.apache.tapestry5.services.ApplicationGlobals;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.Response;
+import org.apache.tapestry5.services.Session;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.hibernate.Hibernate;
 import org.ohm.gastro.domain.OrderProductEntity;
+import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
@@ -26,6 +28,8 @@ import org.ohm.gastro.gui.dto.ShoppingCart;
 import org.ohm.gastro.service.BillService;
 import org.ohm.gastro.service.CatalogService;
 import org.ohm.gastro.service.ConversationService;
+import org.ohm.gastro.service.ImageService.FileType;
+import org.ohm.gastro.service.ImageService.ImageSize;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.OfferService;
 import org.ohm.gastro.service.OrderService;
@@ -337,6 +341,25 @@ public abstract class BaseComponent {
         if (count % 10 == 1) return getMessages().format(value + ".decl.*1", count);
         if (count % 10 >= 2 && count % 10 <= 4) return getMessages().format(value + ".decl.*2-*4", count);
         return getMessages().format(value + ".decl.*5-*0", count);
+    }
+
+    public List<PhotoEntity> getTenderPhotos() {
+        final Session session = getRequest().getSession(false);
+        return session.getAttributeNames().stream()
+                .filter(t -> t.startsWith(FileType.TENDER.name()))
+                .map(t -> {
+                    final Map<ImageSize, String> imageUrls = (Map<ImageSize, String>) session.getAttribute(t);
+                    final PhotoEntity photo = new PhotoEntity();
+                    photo.setId(Long.parseLong(t.split("_")[1]));
+                    photo.setAvatarUrlSmall(imageUrls.get(ImageSize.SIZE1));
+                    photo.setAvatarUrl(imageUrls.get(ImageSize.SIZE2));
+                    photo.setAvatarUrlBig(imageUrls.get(ImageSize.SIZE3));
+                    return photo;
+                }).collect(Collectors.toList());
+    }
+
+    public Optional<PhotoEntity> getTenderPhoto(Long id) {
+        return getTenderPhotos().stream().filter(t -> id.equals(t.getId())).findFirst();
     }
 
 }

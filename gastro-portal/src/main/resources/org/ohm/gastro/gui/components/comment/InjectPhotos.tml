@@ -16,17 +16,24 @@
                 </div>
             </div>
             <div class="col-sm-8 col-xs-12">
-                <div class="form-group">
-                    <t:uploadfile type="PHOTO" responseSize="SIZE1" objectId="${photo.id}" inputType="button" imageSelector="#photo-${photo.id}"/>
-                </div>
-                <t:if test="cook">
+                <t:if test="tender">
                     <div class="form-group">
-                        <t:select t:id="photoProduct" class="form-control chosen-select" data-placeholder="или блюдо из своего каталога"/>
+                        <t:uploadfile type="TENDER" responseSize="SIZE1" objectId="${photo.id}" inputType="button" imageSelector="#photo-${photo.id}"/>
                     </div>
                 </t:if>
-                <div class="form-group">
-                    <t:textfield t:id="photoText" class="form-control" placeholder="Текст к фотографии"/>
-                </div>
+                <t:unless test="tender">
+                    <div class="form-group">
+                        <t:uploadfile type="PHOTO" responseSize="SIZE1" objectId="${photo.id}" inputType="button" imageSelector="#photo-${photo.id}"/>
+                    </div>
+                    <t:if test="cook">
+                        <div class="form-group">
+                            <t:select t:id="photoProduct" class="form-control chosen-select" data-placeholder="или блюдо из своего каталога"/>
+                        </div>
+                    </t:if>
+                    <div class="form-group">
+                        <t:textfield t:id="photoText" class="form-control" placeholder="Текст к фотографии"/>
+                    </div>
+                </t:unless>
             </div>
             <div class="hidden-lg hidden-md hidden-sm col-xs-12">
                 <t:removerowlink class="del-item">Удалить</t:removerowlink>
