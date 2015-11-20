@@ -91,6 +91,7 @@ public class Wizard extends AbstractCatalogPage {
 
     public void onSubmitFromWizardForm1() {
         if (wizardForm1.getHasErrors()) return;
+        catalog.setContractSigned(true);
         catalog.setWizardStep(Math.min(catalog.getWizardStep() + 1, catalog.getMaxWizardStep()));
         getCatalogService().saveCatalog(catalog);
         getUserService().saveUser(getAuthenticatedUser());

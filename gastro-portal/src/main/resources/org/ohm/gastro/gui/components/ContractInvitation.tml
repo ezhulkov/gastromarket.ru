@@ -1,0 +1,28 @@
+<t:if xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" test="needContract">
+    <div class="modal fade" id="contract" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog bonus">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="title">
+                        <h1><span>Договор с ГастроМаркет</span></h1>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-text">
+                        Здравствуйте, ${authenticatedUser.fullName}!
+                    </p>
+                    <p class="modal-text">
+                        У нас важные изменения на сайте. Мы просим вас перейти на страницу договора, нажав на ссылку ниже, и ознакомиться с ними. Спасибо!
+                    </p>
+                    <p class="modal-text center">
+                        <t:pagelink page="office/contract" class="red-text">Перейти на страницу соглашения с договором</t:pagelink>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        jQuery("#contract").modal('show');
+    </script>
+</t:if>
