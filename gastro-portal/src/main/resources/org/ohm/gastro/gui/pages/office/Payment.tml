@@ -1,0 +1,28 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="Оплата">
+
+    <section class="s600px">
+        <div class="container orders">
+            <div class="title">
+                <h1><span>Оплата счета</span></h1>
+            </div>
+            <div class="row">
+                <p class="modal-text">
+                    <t:if test="error">
+                        При оплате произошла ошибка.<br/>
+                        Пожалуйста, обратитесь к администрации сайта <a href="mailto:contacts@gastromarket.ru">contacts@gastromarket.ru</a>
+                    </t:if>
+                    <t:unless test="error">
+                        Оплата счета была успешно проведена.<br/>
+                        Спасибо, что пользуетесь нашим сервисом!
+                    </t:unless>
+                </p>
+            </div>
+            <div class="row gap2">
+                <div class="modal-text">
+                    <t:pagelink class="btn btn-red btn-lg" page="office/bills/list">Вернуться на страницу со счетами</t:pagelink>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</t:layout>

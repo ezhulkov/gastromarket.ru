@@ -39,7 +39,7 @@ public class ApplicationFilter extends BaseApplicationFilter {
             final Long opNumber = opCounter.incrementAndGet();
             final String referer = httpServletRequest.getHeader("Referer");
             final String sid = httpServletRequest.getSession(false) == null ? "-" : httpServletRequest.getSession(false).getId();
-            final String uid = userAgent.contains("bot") ? "BOT" :
+            final String uid = userAgent.contains("bot") || userAgent.contains("crawler") ? "BOT" :
                     SecurityContextHolder.getContext().getAuthentication() == null ?
                             "-" :
                             SecurityContextHolder.getContext().getAuthentication().getName();

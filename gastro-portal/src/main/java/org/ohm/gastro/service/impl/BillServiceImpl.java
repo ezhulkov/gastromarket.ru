@@ -9,11 +9,15 @@ import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.reps.BillRepository;
 import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.service.BillService;
+import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -26,11 +30,13 @@ public class BillServiceImpl implements BillService, Logging {
 
     private final BillRepository billRepository;
     private final OrderRepository orderRepository;
+    private final MailService mailService;
 
     @Autowired
-    public BillServiceImpl(final BillRepository billRepository, final OrderRepository orderRepository) {
+    public BillServiceImpl(final BillRepository billRepository, final OrderRepository orderRepository, final MailService mailService) {
         this.billRepository = billRepository;
         this.orderRepository = orderRepository;
+        this.mailService = mailService;
     }
 
     @Override
@@ -82,6 +88,39 @@ public class BillServiceImpl implements BillService, Logging {
     @Override
     public List<OrderEntity> findOpenedOrders(BillEntity bill) {
         return orderRepository.findAllOpenedByBill(bill.getCatalog(), bill.getDate(), bill.getClosingDate());
+    }
+
+    @Override
+    public boolean checkPayment(final Long billId, final Float amount) {
+        final BillEntity bill = billRepository.findOne(billId);
+        if (bill != null && bill.getStatus() == Status.UNPAID) {
+            logger.info("Checking payment for bill {}, amount {}, bill fee {}", bill, amount, bill.getFee());
+            return bill.getFee() == amount.intValue();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean proceedPayment(final Long billId) {
+        final BillEntity bill = billRepository.findOne(billId);
+        if (bill != null && bill.getStatus() == Status.UNPAID) {
+            logger.info("Bill {} was successfully paid", bill);
+            bill.setStatus(Status.PAID);
+            billRepository.save(bill);
+            try {
+                final Map<String, Object> params = new HashMap<String, Object>() {
+                    {
+                        put("bill", bill);
+                        put("catalog", bill.getCatalog());
+                    }
+                };
+                mailService.sendAdminMessage(MailService.NEW_BILL_ADMIN, params);
+            } catch (MailException e) {
+                logger.error("", e);
+            }
+            return true;
+        }
+        return false;
     }
 
 }

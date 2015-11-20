@@ -25,4 +25,8 @@ public interface BillService {
 
     List<OrderEntity> findOpenedOrders(BillEntity bill);
 
+    boolean proceedPayment(Long billId);
+
+    boolean checkPayment(Long billId, Float amount);
+
 }

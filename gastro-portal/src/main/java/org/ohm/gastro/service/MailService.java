@@ -13,6 +13,7 @@ import java.util.function.Consumer;
  */
 public interface MailService {
 
+    String NEW_BILL_ADMIN = "new_bill_admin";
     String CATALOG_RATE = "catalog_rate";
     String USER_RATE = "user_rate";
     String CHANGE_PASSWD = "change_passwd";
