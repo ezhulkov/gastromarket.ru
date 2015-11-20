@@ -191,7 +191,7 @@ public class RatingServiceImpl implements RatingService, Logging {
                 retentionCount * retentionCoeff +
                 posCount * posRatingCoeff +
                 negCount * negRatingCoeff +
-                doneOrdersCount / (cancelOrdersCount == 0 ? 1 : cancelOrdersCount) * productionCoeff +
+                doneOrdersCount * productionCoeff +
                 totalSum * transactionCoeff
         );
     }
