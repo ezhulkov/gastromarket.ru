@@ -70,7 +70,7 @@
     </context-param>
     <context-param>
         <param-name>staticResourceUrls</param-name>
-        <param-value>/favicon,/assets,/modules,/fonts,/css,/img,/favicon.ico,/js,/robots.txt,/chat</param-value>
+        <param-value>/favicon,/assets,/modules,/fonts,/css,/img,/favicon.ico,/js,/robots.txt</param-value>
     </context-param>
 
     <servlet>
@@ -161,9 +161,6 @@
 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
-    <listener>
-        <listener-class>org.ohm.gastro.servlet.SessionUserListener</listener-class>
     </listener>
 
     <error-page>

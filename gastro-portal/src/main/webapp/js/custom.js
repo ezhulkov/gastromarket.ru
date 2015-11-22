@@ -561,7 +561,8 @@ function getUrlVars() {
     return vars;
 }
 function onLogin() {
-    var ws = new WebSocket("ws://localhost:8080/chat");
+    var ws = new WebSocket("wss://gastromarket.ru/chat");
+    //var ws = new WebSocket("ws://localhost:8080/chat");
     ws.onmessage = function (message) {
         var unread = JSON.parse(message.data)["unread"];
         if (unread != undefined)jQuery("#unread-messages").text("+" + unread);

@@ -11,7 +11,6 @@ import org.ohm.gastro.service.UserService;
 import org.ohm.gastro.service.impl.ApplicationContextHolder;
 import org.ohm.gastro.trait.Logging;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -23,31 +22,18 @@ import java.util.Optional;
 /**
  * Created by ezhulkov on 22.11.15.
  */
-@SuppressWarnings("deprecation")
 public class MessageNotifierServlet extends WebSocketServlet implements Logging {
 
     private static Map<String, Optional<MessageNotifierInbound>> peerList = Maps.newHashMap();
-    private static Map<String, Optional<String>> indexList = Maps.newHashMap();
 
     @Override
-    protected StreamInbound createWebSocketInbound(final String s, final HttpServletRequest httpServletRequest) {
+    protected StreamInbound createWebSocketInbound(final String s) {
         final UserService userService = ApplicationContextHolder.getBean(UserService.class);
-        return new MessageNotifierInbound(httpServletRequest, userService);
-    }
-
-    public static void removePeer(String sessionId) {
-        synchronized (MessageNotifierServlet.class) {
-            peerList.remove(sessionId);
-            final Iterator<Entry<String, Optional<String>>> it = indexList.entrySet().iterator();
-            while (it.hasNext()) {
-                final Entry<String, Optional<String>> entry = it.next();
-                if (entry.getValue().get().equals(sessionId)) it.remove();
-            }
-        }
+        return new MessageNotifierInbound(userService);
     }
 
     public static void sendUnreadCount(String email, int count) {
-        indexList.getOrDefault(email, Optional.empty()).flatMap(t -> peerList.getOrDefault(t, Optional.empty())).ifPresent(peer -> {
+        peerList.getOrDefault(email, Optional.empty()).ifPresent(peer -> {
             logger.info("Sending unread message count {} to peer {}", count, peer);
             peer.sendMessage(count);
         });
@@ -55,14 +41,22 @@ public class MessageNotifierServlet extends WebSocketServlet implements Logging 
 
     private class MessageNotifierInbound extends MessageInbound {
 
-        private final String sessionId;
         private final Optional<UserEntity> userOpt;
-
         private WsOutbound peer;
 
-        public MessageNotifierInbound(HttpServletRequest request, UserService userService) {
-            this.sessionId = request.getSession().getId();
+        public MessageNotifierInbound(UserService userService) {
             this.userOpt = BaseComponent.getAuthenticatedUser(userService);
+        }
+
+        @Override
+        protected void onClose(final int status) {
+            synchronized (this) {
+                final Iterator<Entry<String, Optional<MessageNotifierInbound>>> iterator = peerList.entrySet().iterator();
+                while (iterator.hasNext()) {
+                    final Entry<String, Optional<MessageNotifierInbound>> next = iterator.next();
+                    if (this.equals(next.getValue().get())) iterator.remove();
+                }
+            }
         }
 
         @Override
@@ -70,9 +64,8 @@ public class MessageNotifierServlet extends WebSocketServlet implements Logging 
             userOpt.ifPresent(user -> {
                 logger.info("Opening chat client for user {}", userOpt);
                 this.peer = outbound;
-                synchronized (MessageNotifierServlet.class) {
-                    peerList.put(sessionId, Optional.of(this));
-                    indexList.put(user.getEmail(), Optional.of(sessionId));
+                synchronized (this) {
+                    peerList.put(user.getEmail(), Optional.of(this));
                 }
             });
         }
