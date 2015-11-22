@@ -10,6 +10,7 @@ import org.ohm.gastro.domain.ConversationEntity;
 import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.servlet.MessageNotifierServlet;
 
 import java.util.Date;
 import java.util.List;
@@ -103,12 +104,15 @@ public class Message extends BaseComponent {
 
     public Block onSubmitFromPostForm(Long cid) {
         if (text == null) return newMessageBlock;
+        final Optional<CommentEntity> lastMessage = newComments.stream().reduce((a, b) -> b);
+        if (lastMessage.filter(t -> text.equals(t.getText())).isPresent()) return newMessageBlock;
         conversation = getConversationService().find(cid);
         CommentEntity newComment = new CommentEntity();
         newComment.setText(text);
         getConversationService().placeComment(conversation, newComment, getAuthenticatedUser());
         newComments.add(newComment);
-
+        final UserEntity opponent = conversation.getOpponent(getAuthenticatedUser()).get();
+        MessageNotifierServlet.sendUnreadCount(opponent.getEmail(), getConversationService().getUnreadMessagesCount(opponent));
         return newMessageBlock;
     }
 

@@ -18,6 +18,8 @@ public class AppModule {
         configuration.add("/fonts/.*");
         configuration.add("/social/*");
         configuration.add("/upload/*");
+        configuration.add("/payment/*");
+        configuration.add("/chat/*");
         configuration.add("/favicon.ico");
         configuration.add("/robots.txt");
         configuration.add("/sitemap.xml");

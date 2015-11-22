@@ -70,8 +70,13 @@
     </context-param>
     <context-param>
         <param-name>staticResourceUrls</param-name>
-        <param-value>/favicon,/assets,/modules,/fonts,/css,/img,/favicon.ico,/js,/robots.txt</param-value>
+        <param-value>/favicon,/assets,/modules,/fonts,/css,/img,/favicon.ico,/js,/robots.txt,/chat</param-value>
     </context-param>
+
+    <servlet>
+        <servlet-name>messageChatServlet</servlet-name>
+        <servlet-class>org.ohm.gastro.servlet.MessageNotifierServlet</servlet-class>
+    </servlet>
 
     <filter>
         <filter-name>applicationFilter</filter-name>
@@ -149,8 +154,16 @@
         <dispatcher>ERROR</dispatcher>
     </filter-mapping>
 
+    <servlet-mapping>
+        <servlet-name>messageChatServlet</servlet-name>
+        <url-pattern>/chat</url-pattern>
+    </servlet-mapping>
+
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.ohm.gastro.servlet.SessionUserListener</listener-class>
     </listener>
 
     <error-page>
@@ -167,7 +180,7 @@
     </error-page>
 
     <session-config>
-        <session-timeout>60</session-timeout>
+        <session-timeout>240</session-timeout>
         <tracking-mode>COOKIE</tracking-mode>
     </session-config>
 

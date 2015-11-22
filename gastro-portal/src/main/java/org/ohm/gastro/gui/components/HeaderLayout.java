@@ -2,6 +2,7 @@ package org.ohm.gastro.gui.components;
 
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.Link;
+import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -37,8 +38,9 @@ public class HeaderLayout extends BaseComponent {
         return getDeclInfo("cart", getShoppingCart().getCatalogs().size());
     }
 
-    public String getDeclMessages() {
-        return getDeclInfo("message", getConversationService().getUnreadMessagesCount(getAuthenticatedUser()));
+    @Cached
+    public int getUnreadMessagesCount() {
+        return getConversationService().getUnreadMessagesCount(getAuthenticatedUser());
     }
 
     public java.util.List getCatalogs() {

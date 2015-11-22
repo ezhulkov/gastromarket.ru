@@ -31,7 +31,9 @@
                         </t:unless>
                         <t:if test="authenticated">
                             <li class="hidden-sm">
-                                <t:pagelink page="office/messages">${declMessages}</t:pagelink>
+                                <t:pagelink page="office/messages">Сообщения
+                                    <span id="unread-messages" class="red-text"><t:if test="unreadMessagesCount">+${unreadMessagesCount}</t:if></span>
+                                </t:pagelink>
                             </li>
                             <t:unless test="admin">
                                 <li class="hidden-xs hidden-md hidden-lg">
@@ -154,5 +156,11 @@
     <t:unless test="authenticated">
         <t:loginUserModal/>
     </t:unless>
+
+    <t:if test="authenticated">
+        <script>
+            onLogin()
+        </script>
+    </t:if>
 
 </div>
