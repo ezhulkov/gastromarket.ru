@@ -70,7 +70,7 @@
     </context-param>
     <context-param>
         <param-name>staticResourceUrls</param-name>
-        <param-value>/favicon,/assets,/modules,/fonts,/css,/img,/favicon.ico,/js,/robots.txt</param-value>
+        <param-value>/favicon,/assets,/modules,/fonts,/css,/img,/favicon.ico,/js,/robots.txt,/chat</param-value>
     </context-param>
 
     <servlet>
