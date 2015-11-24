@@ -62,7 +62,7 @@ public class MessageNotifierServlet extends WebSocketServlet implements Logging 
         @Override
         public void onOpen(WsOutbound outbound) {
             userOpt.ifPresent(user -> {
-                logger.info("Opening chat client for user {}", userOpt);
+                logger.debug("Opening chat client for user {}", userOpt);
                 this.peer = outbound;
                 synchronized (this) {
                     peerList.put(user.getEmail(), Optional.of(this));
