@@ -99,6 +99,7 @@
 <!--noindex-->
 <t:invitation/>
 <t:wizardInvitation/>
+<t:contractInvitation/>
 <t:replyInvitation/>
 <t:delegate to="bottomBlock"/>
 <t:if test="footer">
