@@ -61,9 +61,9 @@
                                             </li>
                                         </t:if>
                                         <t:if test="cook">
-                                            <!--<li>-->
-                                                <!--<t:pagelink page="office/bills/list">Счета</t:pagelink>-->
-                                            <!--</li>-->
+                                            <li>
+                                                <t:pagelink page="office/bills/list">Счета</t:pagelink>
+                                            </li>
                                             <t:loop source="catalogs" value="oneCatalog">
                                                 <li>
                                                     <t:pagelink page="catalog/index" t:context="oneCatalog.altId">Страница '${oneCatalog.name}'</t:pagelink>
