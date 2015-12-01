@@ -85,7 +85,7 @@ public class CatalogEntity extends SitemapBaseEntity implements CommentableEntit
     private Boolean cert3 = false;
 
     @Column(name = "contract_signed")
-    private Boolean contractSigned;
+    private Boolean contractSigned = false;
 
     @Column
     private Date date = new Date(System.currentTimeMillis());

@@ -34,7 +34,7 @@ public class Replies extends AbstractOrder {
 
     @Cached
     public boolean isCommentAllowed() {
-        return isCook() && isDoesNotHaveReply() && isCatalogReady() && isHasOrderSlots() && isAllPaid();
+        return isCook() && isDoesNotHaveReply() && isCatalogReady() && isHasOrderSlots() && isAllPaid() && isContractSigned();
     }
 
     @Cached
@@ -71,6 +71,15 @@ public class Replies extends AbstractOrder {
                 .map(t -> getCatalogService().findAllCatalogs(t).stream())
                 .orElseGet(Stream::empty)
                 .noneMatch(t -> getBillService().findAllUnpaidBills(t).size() > 0);
+    }
+
+    @Cached
+    public boolean isContractSigned() {
+        return getAuthenticatedUserOpt()
+                .map(t -> getCatalogService().findAllCatalogs(t).stream())
+                .orElseGet(Stream::empty)
+                .filter(t -> !t.getContractSigned())
+                .count() == 0;
     }
 
 }
