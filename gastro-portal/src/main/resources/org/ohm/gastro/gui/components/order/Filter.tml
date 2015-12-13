@@ -16,11 +16,11 @@
         </li>
     </t:unless>
     <t:if test="frontend">
+        <li id="new-tenders">
+            <t:pagelink page="tender/list" t:context="'NEW'">Активные заявки</t:pagelink>
+        </li>
         <li id="all-tenders">
             <t:pagelink page="tender/list" t:context="null">Все заявки</t:pagelink>
-        </li>
-        <li id="new-tenders">
-            <t:pagelink page="tender/list" t:context="'NEW'">Только активные</t:pagelink>
         </li>
     </t:if>
     <script>

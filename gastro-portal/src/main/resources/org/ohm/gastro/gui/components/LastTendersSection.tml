@@ -2,7 +2,7 @@
     <div class="container">
         <div class="title">
             <h1><span>Последние заявки</span></h1>
-            <t:pagelink page="tender/list">Все заявки<span/></t:pagelink>
+            <t:pagelink page="tender/list" context="literal:NEW">Все заявки<span/></t:pagelink>
         </div>
         <t:loop source="tenders" value="oneTender" forState="NONE">
             <div class="row">
