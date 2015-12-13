@@ -1,0 +1,58 @@
+<t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <div class="title-simple">
+        <h1>Модерация</h1>
+    </div>
+
+    <t:grid source="products" row="oneProduct"
+            include="name,price"
+            reorder="img,name,catalog,categories,price,edit,accept"
+            add="img,catalog,categories,edit,accept"
+            t:mixins="GridSortingDisabled" class="table table-hover">
+        <t:parameter name="nameHeader">Название</t:parameter>
+        <t:parameter name="catalogHeader">Каталог</t:parameter>
+        <t:parameter name="categoriesHeader">Категории</t:parameter>
+        <t:parameter name="editHeader"/>
+        <t:parameter name="acceptHeader"/>
+        <t:parameter name="imgCell">
+            <img src="${oneProduct.avatarUrlMedium}"/>
+        </t:parameter>
+        <t:parameter name="categoriesCell">
+            ${categories}
+        </t:parameter>
+        <t:parameter name="catalogCell">
+            <t:pagelink page="catalog/index" context="oneProduct.catalog.altId">
+                ${oneProduct.catalog.name}
+            </t:pagelink>
+        </t:parameter>
+        <t:parameter name="nameCell">
+            <t:pagelink page="product/index" context="oneProduct.altId">
+                ${oneProduct.name}
+            </t:pagelink>
+        </t:parameter>
+        <t:parameter name="editCell">
+            <t:actionlink t:id="edit" t:context="oneProduct.id" t:zone="editZone">Редактировать</t:actionlink>
+        </t:parameter>
+        <t:parameter name="acceptCell">
+            <t:actionlink t:id="accept" context="oneProduct.id">Принять</t:actionlink>
+        </t:parameter>
+        <t:parameter name="empty">
+            <div class="empty">Нет данных</div>
+        </t:parameter>
+    </t:grid>
+
+    <t:zone t:id="editZone"/>
+
+    <t:block t:id="editBlock">
+        <t:productEdit modalId="pr-${oneProduct?.id}" product="oneProduct" catalog="oneProduct.catalog"/>
+        <script>
+            var pe = jQuery("#pr-${oneProduct.id}");
+            pe.modal('show');
+        </script>
+    </t:block>
+
+    <script>
+        activate_menu('#product');
+    </script>
+
+</t:adminlayout>

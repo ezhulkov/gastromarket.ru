@@ -99,10 +99,11 @@
                                                     </div>
                                                     <div class="col-xs-12 gap">
                                                         <div class="form-buttons" xml:space="preserve">
-                                                        <input class="btn btn-red" type="submit" onclick="yaCounter29411415.reachGoal('TENDER_ATTACH'); return true;"  value="Выбрать"/>
+                                                        <input class="btn btn-red" type="submit" value="Выбрать"/>
                                                     </div>
                                                     </div>
                                                 </t:form>
+                                                <t:yagoalsubmit target="attachTenderAjaxForm" goal="TENDER_ATTACH"/>
                                             </div>
                                         </div>
                                     </div>

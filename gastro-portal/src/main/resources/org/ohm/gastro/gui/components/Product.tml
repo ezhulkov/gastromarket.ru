@@ -95,8 +95,9 @@
                     </div>
                 </div>
                 <div class="cook">
-                    <img class="avatar-small" src="${product.catalog.avatarUrlMedium}"/>
-                    <a href="/catalog/${product.catalog.altId}">${product.catalog.name}</a>
+                    <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="product.catalog.altId">
+                        <span><img class="avatar-small" src="${product.catalog.avatarUrlMedium}"/></span>${product.catalog.name}
+                    </t:pageLink>
                 </div>
                 <div class="url">/product/${product.altId}</div>
                 <div class="tags">

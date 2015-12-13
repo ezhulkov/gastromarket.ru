@@ -35,9 +35,10 @@
                             <input t:type="PasswordField" t:id="password" t:value="password" t:validate="required,maxlength=64" class="form-control"/>
                         </div>
                         <div class="form-buttons" xml:space="preserve">
-                        <input class="btn btn-red" type="submit" onclick="yaCounter29411415.reachGoal('SIGNUP'); return true;" value="Зарегистрироваться"/>
-                    </div>
+                            <input class="btn btn-red" type="submit" value="Зарегистрироваться"/>
+                        </div>
                     </t:form>
+                    <t:yagoalsubmit target="signupAjaxForm" goal="SIGNUP"/>
                     <div class="row">
                         <p class="modal-text f14px">
                             Регистрируясь, вы соглашаетесь c условиями<br/>

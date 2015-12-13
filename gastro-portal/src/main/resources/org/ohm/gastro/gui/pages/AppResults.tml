@@ -13,4 +13,6 @@
         </div>
     </section>
 
+    <t:yagoal goal="COOK_REQUEST"/>
+
 </t:layout>

@@ -64,7 +64,7 @@
                                     <div class="col-sm-1"/>
                                 </div>
                                 <div class="form-buttons" xml:space="preserve">
-                                    <input class="btn btn-red" type="submit" onclick="yaCounter29411415.reachGoal('ORDER_PLACED'); return true;" value="Завершить оформление заказа"/>
+                                    <input class="btn btn-red" type="submit" value="Завершить оформление заказа"/>
                                 </div>
                                 <div class="row gap">
                                     <p class="modal-text f14px">
@@ -110,6 +110,7 @@
                 </t:parameter>
             </t:if>
         </t:form>
+        <t:yagoalsubmit target="orderForm" goal="ORDER_PLACED"/>
         <t:parameter name="else">
             <div class="action-link">
                 <a href="#cart_login" data-toggle="modal" class="login-link round-link" data-target="#cart_login">Оформить заказ <span/></a>

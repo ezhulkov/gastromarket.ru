@@ -19,4 +19,6 @@
         </div>
     </section>
 
+    <t:yagoal goal="CART_PLACED"/>
+
 </t:layout>

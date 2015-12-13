@@ -133,9 +133,11 @@
       h1.line:after, h2.line:after
         top: 82%
 
+
 .title
   @extend .title-simple
   overflow: hidden
+  width: 100%
   +mobile-media
     h1 > span
       display: block
@@ -339,3 +341,6 @@ label.t-error
       content: "/"
       margin-right: 8px
       color: gray
+
+.form-horizontal
+  overflow-x: hidden

@@ -172,10 +172,11 @@
                         </div>
                         <div class="col-xs-12">
                             <div class="form-buttons" xml:space="preserve">
-                                <input class="btn btn-red" type="submit" onclick="yaCounter29411415.reachGoal('SIGNUP'); return true;" value="Зарегистрироваться"/>
+                                <input class="btn btn-red" type="submit" value="Зарегистрироваться"/>
                             </div>
                         </div>
                     </t:form>
+                    <t:yagoalsubmit target="signupAjaxForm" goal="SIGNUP"/>
                 </t:block>
                 <div class="row">
                     <p class="modal-text f14px">
