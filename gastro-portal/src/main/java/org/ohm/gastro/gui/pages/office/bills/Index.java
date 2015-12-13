@@ -22,12 +22,20 @@ public class Index extends BaseComponent {
     @Property
     private OrderEntity order;
 
+    @Property
+    private boolean test = false;
+
     private final ThreadLocal<NumberFormat> numberFormat = new ThreadLocal<NumberFormat>() {
         @Override
         public NumberFormat get() {
             return NumberFormat.getCurrencyInstance();
         }
     };
+
+    public void onActivate(Long id, boolean test) {
+        onActivate(id);
+        this.test = test;
+    }
 
     public void onActivate(Long id) {
         bill = getBillService().findBill(id);

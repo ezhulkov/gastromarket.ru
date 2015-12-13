@@ -22,7 +22,7 @@
             <t:pagelink page="admin/catalog/index" context="['UPDATE',oneCatalog.id]">${oneCatalog.name}</t:pagelink>
         </t:parameter>
         <t:parameter name="billsCell">
-            <t:pagelink page="office/bills" context="oneCatalog.id">Все счета ${billsCount}</t:pagelink>
+            <t:pagelink page="office/bills/list" context="oneCatalog.id">Все счета ${billsCount}</t:pagelink>
         </t:parameter>
         <t:parameter name="ratingCell">
             ${oneCatalog.rating}

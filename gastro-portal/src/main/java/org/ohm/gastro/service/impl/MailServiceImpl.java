@@ -135,6 +135,9 @@ public class MailServiceImpl implements MailService, Logging {
             velocityEngine.mergeTemplate(String.format(TEMPLATE_PATH, templateKey), "UTF-8", new VelocityContext(new HashMap<>(params)), stringWriter);
             final String messageBody = stringWriter.toString();
             final String title = getTitle(messageBody);
+
+//            FileUtils.write(new File("/Users/ezhulkov/Desktop/" + templateKey + ".html"), messageBody);
+
             final MimeMessagePreparator preparator = mimeMessage -> {
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, false);
                 message.setText(messageBody, true);

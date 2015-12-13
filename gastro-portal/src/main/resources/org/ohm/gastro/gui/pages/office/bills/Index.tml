@@ -39,21 +39,39 @@
                 </t:if>
             </div>
 
-            <!--<form action="https://demomoney.yandex.ru/eshop.xml" method="post">-->
-            <!--<input name="shopId" value="105591" type="hidden"/>-->
-            <!--<input name="scid" value="528624" type="hidden"/>-->
-            <!--<input name="СustomerNumber" value="${bill.catalog.id}" type="hidden"/>-->
-            <!--<input name="sum" value="10" type="hidden"/>-->
-            <!--<input name="orderNumber" value="${bill.id}" type="hidden"/>-->
-            <!--<input name="cps_phone" value="${bill.catalog.user.mobilePhone}" type="hidden"/>-->
-            <!--<input name="cps_email" value="${bill.catalog.user.email}" type="hidden"/>-->
-            <!--<input name="paymentType" value="PC" type="hidden"/>-->
-            <!--<input name="shopSuccessURL" value="http://gastromarket-dev.ru/office/payment" type="hidden"/>-->
-            <!--<input name="shopFailURL" value="http://gastromarket-dev.ru/office/payment/false" type="hidden"/>-->
-            <!--<input name="checkURL" value="http://gastromarket-dev.ru/payment/check" type="hidden"/>-->
-            <!--<input name="paymentAvisoURL" value="http://gastromarket-dev.ru/payment/success" type="hidden"/>-->
-            <!--<input type="submit" class="btn btn-red btn-lg" value="Оплатить через Яндекс.Кассу"/>-->
-            <!--</form>-->
+            <t:if test="test">
+                <!--<form action="https://demomoney.yandex.ru/eshop.xml" method="post">-->
+                <!--<input name="shopId" value="105591" type="hidden"/>-->
+                <!--<input name="scid" value="528624" type="hidden"/>-->
+                <!--<input name="СustomerNumber" value="${bill.catalog.id}" type="hidden"/>-->
+                <!--<input name="sum" value="10" type="hidden"/>-->
+                <!--<input name="orderNumber" value="${bill.id}" type="hidden"/>-->
+                <!--<input name="cps_phone" value="${bill.catalog.user.mobilePhone}" type="hidden"/>-->
+                <!--<input name="cps_email" value="${bill.catalog.user.email}" type="hidden"/>-->
+                <!--<input name="paymentType" value="PC" type="hidden"/>-->
+                <!--<input name="shopSuccessURL" value="http://gastromarket-dev.ru/office/payment" type="hidden"/>-->
+                <!--<input name="shopFailURL" value="http://gastromarket-dev.ru/office/payment/false" type="hidden"/>-->
+                <!--<input name="checkURL" value="http://gastromarket-dev.ru/payment/check" type="hidden"/>-->
+                <!--<input name="paymentAvisoURL" value="http://gastromarket-dev.ru/payment/success" type="hidden"/>-->
+                <!--<input type="submit" class="btn btn-red btn-lg" value="Оплатить через Яндекс.Кассу"/>-->
+                <!--</form>-->
+
+                <form action="https://money.yandex.ru/eshop.xml" method="post">
+                    <input name="shopId" value="105591" type="hidden"/>
+                    <input name="scid" value="37934" type="hidden"/>
+                    <input name="СustomerNumber" value="${bill.catalog.id}" type="hidden"/>
+                    <input name="sum" value="50" type="hidden"/>
+                    <input name="orderNumber" value="${bill.id}" type="hidden"/>
+                    <input name="cps_phone" value="${bill.catalog.user.mobilePhone}" type="hidden"/>
+                    <input name="cps_email" value="${bill.catalog.user.email}" type="hidden"/>
+                    <input name="paymentType" value="AC" type="hidden"/>
+                    <input name="shopSuccessURL" value="https://gastromarket.ru/office/payment" type="hidden"/>
+                    <input name="shopFailURL" value="https://gastromarket.ru/office/payment/false" type="hidden"/>
+                    <input name="checkURL" value="https://gastromarket.ru/payment/check" type="hidden"/>
+                    <input name="paymentAvisoURL" value="https://gastromarket.ru/payment/success" type="hidden"/>
+                    <input type="submit" class="btn btn-red btn-lg" value="Оплатить через Яндекс.Кассу"/>
+                </form>
+            </t:if>
 
             <t:if test="unpaid">
                 <div class="row text-center gap5">

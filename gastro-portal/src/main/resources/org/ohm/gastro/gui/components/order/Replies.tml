@@ -92,10 +92,10 @@
                                                     <t:unless test="allPaid">
                                                         <li>
                                                             Есть
-                                                            <t:pagelink page="office/bills">неоплаченные счета</t:pagelink>
+                                                            <t:pagelink page="office/bills/list">неоплаченные счета</t:pagelink>
                                                             <div class="label-tip">
                                                                 В списке выставленных счетов есть неоплаченные счета. Оплатите их на
-                                                                <t:pagelink class="f12px" page="office/bills">странице счетов</t:pagelink>
+                                                                <t:pagelink class="f12px" page="office/bills/list">странице счетов</t:pagelink>
                                                                 и сможете откликаться на заявки.
                                                             </div>
                                                         </li>
