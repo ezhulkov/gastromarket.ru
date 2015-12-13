@@ -80,8 +80,11 @@ public class Product extends BaseComponent {
     }
 
     public Block onActionFromDelete(Long pid) {
-        getProductService().deleteProduct(pid, getProductService().findProduct(pid).getCatalog());
-        product = null;
+        ProductEntity product = getProductService().findProduct(pid);
+        if (product != null) {
+            getProductService().deleteProduct(pid, product.getCatalog());
+        }
+        this.product = null;
         return productBlock;
     }
 

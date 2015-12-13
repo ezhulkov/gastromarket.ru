@@ -81,4 +81,12 @@ public interface ProductRepository extends AltIdRepository<ProductEntity> {
             "LIMIT :l", nativeQuery = true)
     List<ProductEntity> searchProducts(@Param("q") String query, @Param("o") int offset, @Param("l") int limit);
 
+    @Query("from ProductEntity where was_checked=false and was_setup=true")
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    List<ProductEntity> findAllUncheckedProducts();
+
+    @Query("from ProductEntity where import_source_url=:link")
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    List<ProductEntity> findByImportSourceUrl(@Param("link") String link);
+
 }

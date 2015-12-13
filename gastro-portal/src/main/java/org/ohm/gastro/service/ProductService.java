@@ -67,6 +67,8 @@ public interface ProductService extends ImageUploaderService, AltIdService<Produ
 
     List<ProductEntity> findRecommendedProducts(final Long pid, final int count);
 
+    List<ProductEntity> findUncheckedProducts();
+
     void promoteProduct(final Long pid);
 
     void importProducts(Map<String, Set<MediaElement>> cachedElements, CatalogEntity catalog);

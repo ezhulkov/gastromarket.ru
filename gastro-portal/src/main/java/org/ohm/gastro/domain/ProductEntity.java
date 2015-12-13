@@ -67,6 +67,12 @@ public class ProductEntity extends SitemapBaseEntity implements PurchaseEntity {
     @Column(name = "was_setup")
     private boolean wasSetup = false;
 
+    @Column(name = "was_checked")
+    private boolean wasChecked = false;
+
+    @Column(name = "import_source_url")
+    private String importSourceUrl;
+
     @Column(name = "hidden")
     private Boolean hidden = false;
 
@@ -190,6 +196,14 @@ public class ProductEntity extends SitemapBaseEntity implements PurchaseEntity {
         this.wasSetup = wasSetup;
     }
 
+    public boolean isWasChecked() {
+        return wasChecked;
+    }
+
+    public void setWasChecked(final boolean wasChecked) {
+        this.wasChecked = wasChecked;
+    }
+
     public String getPosition() {
         return position;
     }
@@ -248,4 +262,11 @@ public class ProductEntity extends SitemapBaseEntity implements PurchaseEntity {
         this.hidden = hidden;
     }
 
+    public String getImportSourceUrl() {
+        return importSourceUrl;
+    }
+
+    public void setImportSourceUrl(final String importSourceUrl) {
+        this.importSourceUrl = importSourceUrl;
+    }
 }

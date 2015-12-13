@@ -7,7 +7,7 @@
             </div>
             <t:if test="catalogOwner">
                 <div class="links-set">
-                    <a data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>
+                    <a data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>&nbsp;
                     <t:pagelink page="office/import" context="catalog.altId">Импортировать меню <span/></t:pagelink>
                 </div>
                 <t:productEdit catalog="catalog" edit="false" productsBlock="newProductsBlock" productsZoneId="literal:newProductsZone"/>

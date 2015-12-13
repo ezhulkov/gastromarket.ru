@@ -1098,4 +1098,25 @@
         </sql>
     </changeSet>
 
+    <changeSet id="98" author="ezhulkov">
+        <addColumn tableName="product">
+            <column name="was_checked" type="java.sql.Types.BOOLEAN" defaultValueBoolean="false"/>
+        </addColumn>
+        <sql>
+            update product set was_checked=false;
+        </sql>
+    </changeSet>
+
+    <changeSet id="99" author="ezhulkov">
+        <addColumn tableName="product">
+            <column name="import_source_url" type="text"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="100" author="ezhulkov">
+        <createIndex tableName="product" indexName="product_import_url_idx">
+            <column name="import_source_url"/>
+        </createIndex>
+    </changeSet>
+
 </databaseChangeLog>

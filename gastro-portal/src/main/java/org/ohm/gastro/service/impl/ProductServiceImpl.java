@@ -300,6 +300,11 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
+    public List<ProductEntity> findUncheckedProducts() {
+        return productRepository.findAllUncheckedProducts();
+    }
+
+    @Override
     public void promoteProduct(Long pid) {
         final ProductEntity product = productRepository.findOne(pid);
         product.setPromoted(!product.getPromoted());
@@ -309,26 +314,32 @@ public class ProductServiceImpl implements ProductService, Logging {
     @Override
     @RatingModifier
     public void importProducts(@Nonnull final Map<String, Set<MediaElement>> cachedElements, @Nonnull @RatingTarget final CatalogEntity catalog) {
-        cachedElements.entrySet().stream().flatMap(t -> t.getValue().stream()).filter(MediaElement::isChecked).forEach(element -> {
-            try {
-                logger.info("Importing {} product", element);
-                final ProductEntity product = new ProductEntity();
-                product.setCatalog(catalog);
-                product.setName(element.getCaption());
-                product.setUnit(Unit.PIECE);
-                product.setUnitValue(1);
-                product.setPrice(0);
-                product.setWasSetup(false);
-                productRepository.save(product);
-                final File file = File.createTempFile("gastromarket", "import");
-                FileUtils.copyURLToFile(new URL(element.getAvatarUrl()), file);
-                imageService.resizeImagePack(file,
-                                             FileType.PRODUCT,
-                                             product.getId().toString());
-            } catch (IOException e) {
-                logger.error("", e);
-            }
-        });
+        synchronized (this) {
+            cachedElements.entrySet().stream().flatMap(t -> t.getValue().stream()).filter(MediaElement::isChecked).distinct().forEach(element -> {
+                try {
+                    if (productRepository.findByImportSourceUrl(element.getLink()).size() > 0) {
+                        logger.info("Product {} already exists", element.getLink());
+                        return;
+                    }
+                    logger.info("Importing {} product", element);
+                    final ProductEntity product = new ProductEntity();
+                    product.setCatalog(catalog);
+                    product.setName(element.getCaption());
+                    product.setUnit(Unit.PIECE);
+                    product.setUnitValue(1);
+                    product.setPrice(0);
+                    product.setImportSourceUrl(element.getLink());
+                    productRepository.save(product);
+                    final File file = File.createTempFile("gastromarket", "import");
+                    FileUtils.copyURLToFile(new URL(element.getAvatarUrl()), file);
+                    imageService.resizeImagePack(file,
+                                                 FileType.PRODUCT,
+                                                 product.getId().toString());
+                } catch (IOException e) {
+                    logger.error("", e);
+                }
+            });
+        }
     }
 
     @Override

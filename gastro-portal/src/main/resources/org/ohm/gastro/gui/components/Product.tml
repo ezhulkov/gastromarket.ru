@@ -32,10 +32,10 @@
                                     </div>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
                                 </div>
-                                <div class="modal-body form-buttons" xml:space="preserve">
-                                <t:actionlink rel="nofollow" t:id="delete" t:context="product.id" class="btn btn-red deleteConfirm" t:zone="${productZoneId}" style="display: inline;">Удалить</t:actionlink>
-                                <a href="#" class="btn btn-white" style="display: inline;" data-dismiss="modal">Отмена</a>
-                            </div>
+                                <div class="modal-body form-buttons gap3" xml:space="preserve">
+                                    <t:actionlink rel="nofollow" t:id="delete" t:context="product.id" class="btn btn-red deleteConfirm" t:zone="${productZoneId}" style="display: inline;">Удалить</t:actionlink>
+                                    <a href="#" class="btn btn-white" style="display: inline;" data-dismiss="modal">Отмена</a>
+                                </div>
                             </div>
                         </div>
                     </div>

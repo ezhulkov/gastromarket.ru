@@ -77,6 +77,9 @@
                             </t:block>
                         </div>
                     </t:loop>
+                    <p class="modal-text attention gap3">
+                        Внимание! Импорт может занимать несколько минут. Чтобы избежать ошибок, лучше не обновлять страницу и дождаться результатов.
+                    </p>
                     <p class="modal-text">
                         <t:actionlink rel="nofollow" t:id="import" class="btn btn-red btn-lg">Импортировать</t:actionlink>
                     </p>

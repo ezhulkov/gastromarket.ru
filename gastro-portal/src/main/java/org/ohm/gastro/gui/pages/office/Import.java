@@ -113,6 +113,7 @@ public class Import extends BaseComponent {
         final MediaResponse mediaResponse = getToken(socialCode)
                 .map(token -> getApplicationContext().getBean(socialCode, MediaImportService.class).getImages(token, albumId, context))
                 .orElse(null);
+        logger.info("Got {} elements from {}", mediaResponse.getMediaElements().size(), socialCode);
         synchronized (Import.class) {
             Set<MediaElement> mediaElements = cachedElements.get(socialCode);
             if (mediaElements == null) {
