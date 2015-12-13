@@ -21,6 +21,9 @@ public class BasketSubmit extends AbstractOrder {
     @Component(id = "personCount", parameters = {"value=preOrder.personCount"})
     private TextField promoCodeField;
 
+    @Component(id = "promoCode", parameters = {"value=preOrder.promoCode"})
+    private TextField promoCode;
+
     @Component(id = "deliveryAddress", parameters = {"value=preOrder.customer.deliveryAddress", "validate=required"})
     private TextArea dAddressField;
 
