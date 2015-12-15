@@ -1,13 +1,13 @@
 var counter = 0;
-var titleDict = new Map([
-    ["birthday", "Планируете день рождения?"]
-]);
-var textDict = new Map([
-    ["birthday", "200 домашних кондитеров и кулинаров Москвы готовы сделать блюдо по индивидуальному заказу. <br/> Торты, капкейки, пироги, первые блюда и салаты — любые кулинарные шедевры для вашего дня рождения!"]
-]);
-var bgDict = new Map([
-    ["birthday", "url(../img/landing-main.jpg)"]
-]);
+var titleDict = {
+    "birthday": "Планируете день рождения?"
+};
+var textDict = {
+    "birthday": "200 домашних кондитеров и кулинаров Москвы готовы сделать блюдо по индивидуальному заказу. <br/> Торты, капкейки, пироги, первые блюда и салаты — любые кулинарные шедевры для вашего дня рождения!"
+};
+var bgDict = {
+    "birthday": "url(../img/landing-main.jpg)"
+};
 jQuery.noConflict();
 (function () {
     var isBootstrapEvent = false;
@@ -104,9 +104,9 @@ function initDatePicker() {
 function initMainPageMedia() {
     var term = getUrlVars()["utm_term"];
     if (term != undefined) {
-        if (textDict.get(term) != undefined) jQuery("#main-text").html(textDict.get(term));
-        if (titleDict.get(term) != undefined) jQuery("#main-title").html(titleDict.get(term));
-        if (bgDict.get(term) != undefined) jQuery("#main-header").css("background-image", bgDict.get(term));
+        if (textDict[term] != undefined) jQuery("#main-text").html(textDict[term]);
+        if (titleDict[term] != undefined) jQuery("#main-title").html(titleDict[term]);
+        if (bgDict[term] != undefined) jQuery("#main-header").css("background-image", bgDict[term]);
     }
 }
 function initMobilePhone() {

@@ -46,7 +46,7 @@
     <meta name="msapplication-wide310x150logo" content="wide.png"/>
     <meta name="msapplication-square310x310logo" content="large.png"/>
 
-    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script src="/js/jquery-2.1.4.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/chosen.jquery.min.js"></script>
     <script src="/js/jquery.cookie.js"></script>
@@ -58,8 +58,11 @@
     <script src="/js/bootstrap-datepicker.ru.min.js" charset="UTF-8"></script>
     <script src="/js/intlTelInput.min.js"></script>
     <script src="/js/jquery.hanselsrevenge.js"></script>
-    <script src="/js/custom.js?v=1.11"></script>
+    <script src="https://cdn.ravenjs.com/1.3.0/ember,jquery,native/raven.min.js"></script>
     <script type="text/javascript" src="//vk.com/js/api/openapi.js?116"></script>
+
+    <script src="/js/custom.js?v=1.11"></script>
+
     <script type="text/template" id="qq-template">
         <div class="qq-uploader-selector qq-uploader">
             <div class="qq-upload-button-selector">
@@ -72,6 +75,7 @@
     </script>
     <script type="text/javascript">
       VK.init({apiId: 4721365, onlyWidgets: true});
+      Raven.config('https://82ada64290eb4c16bfaf541b5fd62fd7@app.getsentry.com/61493').install()
     </script>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>

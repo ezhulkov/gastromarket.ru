@@ -330,6 +330,10 @@
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-coyote</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.thetransactioncompany</groupId>
+            <artifactId>cors-filter</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
