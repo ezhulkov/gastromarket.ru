@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
 <head>
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif&amp;subset=latin,cyrillic" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&amp;subset=latin,cyrillic-ext,cyrillic" rel="stylesheet" type="text/css"/>
+
     <title>${title}</title>
 
     <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png"/>
