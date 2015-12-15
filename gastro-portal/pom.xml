@@ -334,6 +334,10 @@
             <groupId>com.thetransactioncompany</groupId>
             <artifactId>cors-filter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>net.kencochrane.raven</groupId>
+            <artifactId>raven-logback</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

@@ -377,9 +377,14 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-            	<groupId>com.thetransactioncompany</groupId>
-            	<artifactId>cors-filter</artifactId>
-            	<version>2.5</version>
+                <groupId>com.thetransactioncompany</groupId>
+                <artifactId>cors-filter</artifactId>
+                <version>2.5</version>
+            </dependency>
+            <dependency>
+                <groupId>net.kencochrane.raven</groupId>
+                <artifactId>raven-logback</artifactId>
+                <version>6.0.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
