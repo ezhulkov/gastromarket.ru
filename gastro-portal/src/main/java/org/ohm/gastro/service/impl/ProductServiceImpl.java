@@ -103,13 +103,13 @@ public class ProductServiceImpl implements ProductService, Logging {
     @Override
     public void processUploadedImages(final FileType fileType, String objectId, Map<ImageSize, String> imageUrls) {
         checkNotNull(objectId, "ObjectId should not be null");
-        ProductEntity product = productRepository.findOne(Long.parseLong(objectId));
+        final ProductEntity product = productRepository.findOne(Long.parseLong(objectId));
         checkNotNull(product, "Product should not be null");
         product.setAvatarUrlSmall(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE1), product.getAvatarUrlSmall()));
         product.setAvatarUrlMedium(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE2), product.getAvatarUrlMedium()));
         product.setAvatarUrl(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE3), product.getAvatarUrl()));
         product.setAvatarUrlBig(Objects.firstNonNull(imageUrls.get(ImageSize.SIZE4), product.getAvatarUrlBig()));
-        productRepository.saveAndFlush(product);
+        productRepository.save(product);
     }
 
     @Override
