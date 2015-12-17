@@ -16,27 +16,27 @@ $mainpics: main1 main2 main3 main4 main5 main6 main7 main8
       min-height: 425px
       background: url(../img/landing-small5.jpg) no-repeat
       background-size: initial
-    .caption
-      margin-top: 110px
-      color: white
-      h1
-        font-size: 50px
-      +mobile-media
-        margin-top: 10px
-        h1
-          font-size: 34px
     .info
       color: white
+      +border-class(#000, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4))
+      padding: 15px 30px 30px 30px
+      margin-top: 150px
+      +mobile-media
+        margin: 10px 15px
+        padding: 10px
+        width: initial
+      h1
+        font-size: 50px
+        +mobile-media
+          font-size: 30px
+          line-height: initial
       h2
         font-family: 'PT Sans', sans-serif
         line-height: 26px
         font-size: 18px
-        padding: 30px
-        +border-class(#000, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4))
         +mobile-media
           line-height: initial
-          font-size: 16px
-          padding: 20px 10px
+          font-size: 18px
     .cta
       margin-top: 40px
       text-align: center
