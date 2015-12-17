@@ -21,7 +21,7 @@ public class ContractInvitation extends BaseComponent {
                 getAuthenticatedUserOpt()
                         .map(t -> getCatalogService().findAllCatalogs(t).stream())
                         .orElseGet(Stream::empty)
-                        .filter(t -> !t.getContractSigned())
+                        .filter(t -> !t.getContractSigned() && t.isWasSetup())
                         .count() != 0;
     }
 
