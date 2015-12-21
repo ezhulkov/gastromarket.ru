@@ -267,10 +267,15 @@
                 initProductCatalogFixed();
             };
             init();
-            Event.observe(jQuery("#productsZone").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
-                init();
-                initTitle(jQuery("div.title"));
-            });
+            var productsZone = jQuery("#productsZone");
+            if (productsZone != undefined) {
+                if (productsZone.get(0) != undefined) {
+                    Event.observe(productsZone.get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
+                        init();
+                        initTitle(jQuery("div.title"));
+                    })
+                }
+            }
         });
     </script>
 
