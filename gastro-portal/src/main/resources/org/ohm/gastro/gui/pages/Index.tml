@@ -60,6 +60,9 @@
                         <t:pagelink page="product/index" context="oneProduct.altId" class="name f20px">
                             ${oneProduct.name}
                         </t:pagelink>
+                        <t:pagelink page="product/index" context="oneProduct.altId" class="f24px black-text bold">
+                            ${oneProduct.price} <span class="rub"/>
+                        </t:pagelink>
                         <div class="btn-more">
                             <t:pagelink page="product" t:context="oneProduct.altId" class="btn btn-red btn-block">Узнать подробности</t:pagelink>
                         </div>
