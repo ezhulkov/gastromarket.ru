@@ -21,7 +21,7 @@
                     <div class="edit-block upload-file" data-objectid="${product.id}" data-type="PRODUCT" data-size="SIZE2">
                         <span class="glyphicon glyphicon-move handle" aria-hidden="true" title="Сортировать" alt="Сортировать"></span>
                         <t:actionlink rel="nofollow" t:id="edit" t:context="product.id" t:zone="${editZoneId}" class="edit" title="Редактировать" alt="Редактировать"/>
-                        <a href="#delete" data-toggle="modal" class="delete" data-target="#deleteProduct${product.id}" title="Удалить" alt="Удалить"/>
+                        <a href="#delete" data-toggle="modal" class="delete delete-product-btn" data-target="#deleteProduct${product.id}" title="Удалить" alt="Удалить"/>
                     </div>
                     <div class="modal fade delete-product" id="deleteProduct${product.id}" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
@@ -115,6 +115,11 @@
                 </script>
             </t:parameter>
         </t:if>
+        <t:unless test="product">
+            <script>
+                jQuery(".modal-backdrop").remove();
+            </script>
+        </t:unless>
     </t:block>
     <t:block t:id="recommendedBlock">
         <ul>
