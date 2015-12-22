@@ -216,6 +216,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
             mailService.sendMailMessage(catalog.getUser(), MailService.TENDER_ATTACHED_COOK, params);
             params.put("username", order.getCustomer().getFullName());
             mailService.sendMailMessage(order.getCustomer(), MailService.TENDER_ATTACHED_CUSTOMER, params);
+            mailService.sendAdminMessage(MailService.TENDER_ATTACHED_ADMIN, params);
         } catch (MailException e) {
             logger.error("", e);
         }
@@ -338,6 +339,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
             mailService.sendMailMessage(customer, MailService.CLOSE_ORDER_CUSTOMER, params);
             params.put("username", order.getCatalog().getUser().getFullName());
             mailService.sendMailMessage(order.getCatalog().getUser(), MailService.CLOSE_ORDER_COOK, params);
+            mailService.sendAdminMessage(MailService.CLOSE_ORDER_ADMIN, params);
         } else {
             params.put("username", customer.getFullName());
             mailService.sendMailMessage(customer, MailService.EDIT_ORDER, params);

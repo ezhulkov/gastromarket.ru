@@ -1,0 +1,6 @@
+#set($subject = "Закрытие заказа на ГастроМаркет")
+#parse("email/header.vm")
+<p>
+    Заказ №${ordernumber} закрыт.
+</p>
+#parse("email/footer.vm")

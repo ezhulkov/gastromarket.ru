@@ -190,6 +190,7 @@ public class ConversationServiceImpl implements ConversationService {
                 }
             };
             mailService.sendMailMessage(tender.getCustomer(), MailService.ORDER_COMMENT, params);
+            mailService.sendAdminMessage(MailService.ORDER_COMMENT_ADMIN, params);
         } else {
             commentRepository.save(reply);
         }

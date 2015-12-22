@@ -27,12 +27,15 @@ public interface MailService {
     String NEW_TENDER_CUSTOMER = "new_tender_customer";
     String TENDER_ATTACHED_COOK = "tender_attached_cook";
     String TENDER_ATTACHED_CUSTOMER = "tender_attached_customer";
+    String TENDER_ATTACHED_ADMIN = "tender_attached_admin";
     String NEW_ORDER_ADMIN = "new_order_admin";
     String NEW_ORDER_COOK = "new_order_cook";
-    String CLOSE_ORDER_COOK = "close_order_cook";
     String NEW_ORDER_CUSTOMER = "new_order_customer";
+    String CLOSE_ORDER_COOK = "close_order_cook";
     String CLOSE_ORDER_CUSTOMER = "close_order_customer";
+    String CLOSE_ORDER_ADMIN = "close_order_admin";
     String ORDER_COMMENT = "order_comment";
+    String ORDER_COMMENT_ADMIN = "order_comment_admin";
     String NEW_MESSAGE = "new_message";
     String EDIT_ORDER = "edit_order";
     String TENDER_REMINDER = "tender_reminder";

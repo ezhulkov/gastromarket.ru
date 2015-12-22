@@ -1,0 +1,6 @@
+#set($subject = "Выбор исполнителя")
+#parse("email/header.vm")
+<p>
+    Клиент выбрал исполителя для заявки <a href="https://gastromarket.ru/tender/${tender.id}">${tender.id}</a>.
+</p>
+#parse("email/footer.vm")
