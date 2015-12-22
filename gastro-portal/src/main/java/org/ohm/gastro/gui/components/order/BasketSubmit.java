@@ -15,7 +15,7 @@ import java.io.IOException;
  */
 public class BasketSubmit extends AbstractOrder {
 
-    @Component(id = "dueDate", parameters = {"value=preOrder.dueDateAsString"})
+    @Component(id = "dueDate", parameters = {"value=preOrder.dueDateAsString", "validate=required"})
     private TextField dueDateField;
 
     @Component(id = "personCount", parameters = {"value=preOrder.personCount"})

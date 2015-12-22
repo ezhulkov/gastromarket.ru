@@ -1,6 +1,6 @@
 <t:if xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" test="basket">
     <t:if test="authenticated">
-        <t:form t:id="orderForm" t:context="formContext" t:autofocus="false" t:clientValidation="none" class="form form-horizontal basket-submit" role="form">
+        <t:form t:id="orderForm" t:context="formContext" t:autofocus="false" t:clientValidation="BLUR" class="form form-horizontal basket-submit" role="form">
             <div class="form-group">
                 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                     <t:label t:for="comment">Комментарии к заказу:</t:label>
