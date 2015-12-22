@@ -39,6 +39,9 @@ public class LoginUserModal extends BaseComponent {
     private String eMail;
 
     @Property
+    private String mobilePhone;
+
+    @Property
     private String password;
 
     @Property
@@ -70,10 +73,14 @@ public class LoginUserModal extends BaseComponent {
         error = true;
     }
 
+    public long getTime() {
+        return System.currentTimeMillis();
+    }
+
     public Block onSubmitFromSignupAjaxForm() {
         if (!error) {
             try {
-                Signup.signupUser(eMail, fullName, password, null, getHttpServletRequest(), getUserService(), authenticationProvider);
+                Signup.signupUser(eMail, mobilePhone, fullName, password, null, getUserService());
                 return signupResultBlock;
             } catch (UserExistsException e) {
                 error = busyError = true;
@@ -83,7 +90,16 @@ public class LoginUserModal extends BaseComponent {
                 SecurityContextHolder.getContext().setAuthentication(null);
             }
         }
+        error = true;
         return signupFormBlock;
+    }
+
+    public String getSignupZone() {
+        return "signupZone" + modalId;
+    }
+
+    public String getRememberZone() {
+        return "rememberZone" + modalId;
     }
 
 }

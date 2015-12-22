@@ -8,13 +8,12 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.service.EmptyPasswordException;
 import org.ohm.gastro.service.UserExistsException;
 import org.ohm.gastro.service.UserService;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.annotation.Nonnull;
-import javax.servlet.http.HttpServletRequest;
+import javax.annotation.Nullable;
 import java.io.IOException;
 
 /**
@@ -33,6 +32,9 @@ public class Signup extends BaseComponent {
 
     @Property
     private String eMail;
+
+    @Property
+    private String mobilePhone;
 
     @Property
     private String password;
@@ -65,7 +67,7 @@ public class Signup extends BaseComponent {
     public Class onSubmitFromSignupAjaxForm() {
         if (!error) {
             try {
-                Signup.signupUser(eMail, fullName, password, referrer, getHttpServletRequest(), getUserService(), authenticationProvider);
+                Signup.signupUser(eMail, mobilePhone, fullName, password, referrer, getUserService());
                 return Index.class;
             } catch (UserExistsException | EmptyPasswordException e) {
                 error = true;
@@ -81,15 +83,15 @@ public class Signup extends BaseComponent {
     }
 
     public static void signupUser(@Nonnull String eMail,
+                                  @Nullable String mobilePhone,
                                   @Nonnull String fullName,
                                   @Nonnull String password,
                                   @Nonnull UserEntity referrer,
-                                  @Nonnull HttpServletRequest httpServletRequest,
-                                  @Nonnull UserService userService,
-                                  @Nonnull AuthenticationProvider authenticationProvider)
+                                  @Nonnull UserService userService)
             throws UserExistsException, EmptyPasswordException, AuthenticationException {
         UserEntity user = new UserEntity();
         user.setEmail(eMail);
+        user.setMobilePhone(mobilePhone);
         user.setFullName(fullName);
         user.setType(Type.USER);
         user.setReferrer(referrer);

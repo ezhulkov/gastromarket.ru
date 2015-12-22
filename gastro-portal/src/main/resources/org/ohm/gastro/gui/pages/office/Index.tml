@@ -23,6 +23,13 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <t:label class="col-sm-3 control-label" for="mobilePhone">Контактный телефон:</t:label>
+
+                            <div class="col-sm-9">
+                                <input t:id="mobilePhone" class="form-control mobile-phone" placeholder="+7 xxx xxx-xx-xx"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <t:label class="col-sm-3 control-label" for="subscribe">eMail оповещения:</t:label>
 
                             <div class="col-sm-9">
