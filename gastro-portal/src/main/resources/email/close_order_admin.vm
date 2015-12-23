@@ -1,4 +1,5 @@
 #set($subject = "Закрытие заказа на ГастроМаркет")
+#set($toadmin = true)
 #parse("email/header.vm")
 <p>
     Заказ №${ordernumber} закрыт.

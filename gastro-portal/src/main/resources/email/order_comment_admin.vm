@@ -1,4 +1,5 @@
 #set($subject = "Новый комментарий к заявке")
+#set($toadmin = true)
 #parse("email/header.vm")
 <p>
     Новый отклик к заявке <a href="https://gastromarket.ru/tender/${order.id}">${order.id}</a>.
