@@ -210,6 +210,8 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                 {
                     put("address", order.getOrderUrl());
                     put("tender", order);
+                    put("catalog", catalog);
+                    put("customer", order.getCustomer());
                 }
             };
             params.put("username", catalog.getUser().getFullName());
@@ -379,6 +381,11 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                             t -> Stream.of(t.getClosedDateAsJoda().plusDays(1)),
                             this::orderRateReminder,
                             "ORDER_RATE_REMINDER");
+            triggerLauncher(allOrders,
+                            t -> t.getStatus() != Status.CLOSED && t.getCatalog() != null && t.getDueDate() != null && t.getDueDate().before(new Date()),
+                            t -> Stream.of(t.getDueDateAsJoda().plusDays(1), t.getDueDateAsJoda().plusDays(2), t.getDueDateAsJoda().plusDays(3)),
+                            this::orderCloseReminder,
+                            "ORDER_CLOSE_REMINDER");
 
         } catch (Exception e) {
             logger.error("", e);
@@ -453,6 +460,17 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
             }
         };
         mailService.sendMailMessage(localTender.getCustomer(), MailService.TENDER_REMINDER, params);
+    }
+
+    private void orderCloseReminder(final OrderEntity order) {
+        final OrderEntity localOrder = orderRepository.findOne(order.getId());
+        final Map<String, Object> params = new HashMap<String, Object>() {
+            {
+                put("address", localOrder.getOrderUrl());
+                put("order", localOrder);
+            }
+        };
+        mailService.sendMailMessage(localOrder.getCatalog().getUser(), MailService.ORDER_CLOSE_REMINDER, params);
     }
 
 }

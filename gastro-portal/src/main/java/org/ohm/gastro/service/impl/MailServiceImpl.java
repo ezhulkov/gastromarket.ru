@@ -1,6 +1,7 @@
 package org.ohm.gastro.service.impl;
 
 import com.google.common.base.Charsets;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import javax.annotation.PreDestroy;
+import java.io.File;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
@@ -124,7 +126,7 @@ public class MailServiceImpl implements MailService, Logging {
 
         logger.info("Sending email to " + recipient + " using template " + templateKey);
 
-        if (!production) return;
+//        if (!production) return;
 
         params.put("unsubscribe", CommonsUtils.generateSecuredEmail(recipient));
         params.put("quicklogin", CommonsUtils.generateSecuredEmail(recipient, TimeUnit.HOURS.toMillis(6)));
@@ -136,7 +138,7 @@ public class MailServiceImpl implements MailService, Logging {
             final String messageBody = stringWriter.toString();
             final String title = getTitle(messageBody);
 
-//            FileUtils.write(new File("/Users/ezhulkov/Desktop/" + templateKey + ".html"), messageBody);
+            FileUtils.write(new File("/Users/ezhulkov/Desktop/" + templateKey + ".html"), messageBody);
 
             final MimeMessagePreparator preparator = mimeMessage -> {
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, false);

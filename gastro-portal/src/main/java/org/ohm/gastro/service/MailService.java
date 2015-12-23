@@ -41,6 +41,7 @@ public interface MailService {
     String TENDER_REMINDER = "tender_reminder";
     String ORDER_RATE_REMINDER = "order_rate_reminder";
     String ORDER_READY_REMINDER = "order_ready_reminder";
+    String ORDER_CLOSE_REMINDER = "order_close_reminder";
     String TENDER_EXPIRED_SURVEY = "tender_expired_survey";
     String USER_UNSUBSCRIBED = "user_unsubscribed";
 
