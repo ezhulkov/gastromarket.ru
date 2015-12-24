@@ -19,12 +19,12 @@ public class Search extends ScrollableProducts {
     private ProductEntity oneProduct;
 
     public boolean onActivate() {
-        initScrollableContext(null, null, null, null, null);
+        initScrollableContext(null, null, null, null);
         return true;
     }
 
     public boolean onActivate(String searchString) {
-        initScrollableContext(null, null, null, null, null);
+        initScrollableContext(null, null, null, null);
         this.searchString = searchString;
         return true;
     }

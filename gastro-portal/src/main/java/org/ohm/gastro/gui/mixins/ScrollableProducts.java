@@ -12,24 +12,20 @@ import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.service.ProductService;
 import org.ohm.gastro.service.ProductService.OrderType;
-import org.springframework.data.domain.Sort.Direction;
 
 public abstract class ScrollableProducts extends BaseComponent {
 
     @Property
-    protected PropertyValueEntity propertyValue = null;
+    protected PropertyValueEntity categoryPropertyValue = null;
+
+    @Property
+    protected PropertyValueEntity eventPropertyValue = null;
 
     @Property
     protected PropertyValueEntity parentPropertyValue = null;
 
     @Property
     protected CatalogEntity catalog = null;
-
-    @Property
-    protected Direction direction = null;
-
-    @Property
-    protected ProductService.OrderType orderType = OrderType.NONE;
 
     @Property
     protected boolean hasProducts = false;
@@ -52,17 +48,24 @@ public abstract class ScrollableProducts extends BaseComponent {
     protected String prevContext;
 
     @OnEvent(value = EventConstants.ACTION, component = "fetchProductsAjaxLink")
-    public Block fetchNextProducts(int from, Long pid, OrderType orderType, Direction direction) {
-        this.orderType = orderType;
-        this.direction = direction;
+    public Block fetchNextProducts(int from, Long cid, Long eid) {
         this.from = from;
         this.to = from + ProductService.PRODUCTS_PER_PAGE;
-        this.propertyValue = pid == null ? null : getPropertyService().findPropertyValue(pid);
+        this.categoryPropertyValue = cid == null ? null : getPropertyService().findPropertyValue(cid);
+        this.eventPropertyValue = eid == null ? null : getPropertyService().findPropertyValue(eid);
         return productsBlock;
     }
 
     protected java.util.List<ProductEntity> getProductsInternal() {
-        return getProductService().findProductsForFrontend(propertyValue, catalog, true, false, orderType, direction, null, from, to);
+        return getProductService().findProductsForFrontend(categoryPropertyValue == null ? eventPropertyValue : categoryPropertyValue,
+                                                           catalog,
+                                                           true,
+                                                           false,
+                                                           OrderType.NONE,
+                                                           null,
+                                                           null,
+                                                           from,
+                                                           to);
     }
 
     public java.util.List<ProductEntity> getProducts() {
@@ -72,26 +75,24 @@ public abstract class ScrollableProducts extends BaseComponent {
         return products;
     }
 
-    protected void initScrollableContext(String ppid, String pid, Long catId, OrderType orderType, Direction direction) {
-        final String context = ObjectUtils.defaultIfNull(pid, "empty");
+    protected void initScrollableContext(String ppid, String cid, String eid, Long catId) {
+        final String context = ObjectUtils.defaultIfNull(cid, "empty");
         if (!context.equals(prevContext)) {
             this.from = 0;
             this.to = ProductService.PRODUCTS_PER_PAGE;
             prevContext = context;
         }
-        this.propertyValue = pid == null ? null : getPropertyService().findPropertyValue(pid);
+        this.categoryPropertyValue = cid == null ? null : getPropertyService().findPropertyValue(cid);
+        this.eventPropertyValue = eid == null ? null : getPropertyService().findPropertyValue(eid);
         this.parentPropertyValue = ppid == null ? null : getPropertyService().findPropertyValue(ppid);
         this.catalog = catId == null ? null : getCatalogService().findCatalog(catId);
-        this.direction = direction;
-        this.orderType = orderType;
     }
 
     public Object[] getFetchContext() {
         return new Object[]{
                 to,
-                propertyValue == null ? null : propertyValue.getId(),
-                orderType,
-                direction
+                categoryPropertyValue == null ? null : categoryPropertyValue.getId(),
+                eventPropertyValue == null ? null : eventPropertyValue.getId()
         };
     }
 

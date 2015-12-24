@@ -27,7 +27,7 @@ import java.util.List;
 public class PropertyValueEntity extends AltIdBaseEntity {
 
     public enum Tag {
-        ROOT
+        ROOT, EVENT
     }
 
     @Column(name = "root_value")

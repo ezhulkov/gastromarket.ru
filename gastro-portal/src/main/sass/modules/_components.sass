@@ -45,33 +45,41 @@ section.testimonial
       margin-bottom: 20px
 
 section.categories
-  .item
-    margin: 14px
-    width: 200px
-    height: 186px
-    .name
-      font-size: 18px
-      line-height: 40px
-    img
-      height: 145px
-      width: 100%
-      display: block
-    &.item.enable-false
-      .name, img
-        opacity: 0.15
-  +mobile-media
-    .categories
-      padding-left: 0
-      padding-right: 0
+  .container.events, .container.categories
     .item
-      border: none
-      box-shadow: none
-      height: auto
-      width: 100%
-      display: block
-      margin: 0 auto
-    .item:nth-child(2n)
-      background-color: #f5f5f5
+      margin: 14px
+      width: 200px
+      height: 186px
+      .name
+        font-size: 18px
+        line-height: 40px
+      img
+        height: 145px
+        width: 100%
+        display: block
+      &.item.enable-false
+        .name, img
+          opacity: 0.15
+    +mobile-media
+      .categories, .events
+        padding-left: 0
+        padding-right: 0
+      .item
+        border: none
+        box-shadow: none
+        height: auto
+        width: 100%
+        display: block
+        margin: 0 auto
+      .item:nth-child(2n)
+        background-color: #f5f5f5
+  .container.events
+    .item
+      height: 136px
+      img
+        height: 95px
+      +mobile-media
+        height: initial
 
 section.howto
   padding-bottom: 20px

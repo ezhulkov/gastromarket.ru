@@ -14,9 +14,8 @@
             </t:if>
             <t:filter parentValue="parentPropertyValue"
                       catalog="catalog"
-                      value="propertyValue"
-                      orderType="orderType"
-                      direction="direction"
+                      categoryValue="categoryPropertyValue"
+                      eventValue="eventPropertyValue"
                       pageContext="/catalog/products/${catalog.altId}"/>
         </div>
     </section>

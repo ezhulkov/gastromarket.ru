@@ -5,13 +5,14 @@
             <div class="row">
                 <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12 info">
                     <h1 id="main-title">Ищете угощения на Новый Год?</h1>
+
                     <h2 id="main-text">
                         200 домашних кондитеров и кулинаров Москвы готовы сделать блюдо по индивидуальному заказу. <br/>
                         Торты, капкейки, пироги, первые блюда и салаты — любые кулинарные шедевры для вашего праздника!
                     </h2>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cta">
-                    <t:pagelink page="tender/add" class="btn btn-red f28px">Разместить заявку</t:pagelink>
+                    <t:pagelink page="tender/add" class="btn btn-red">Разместить заявку</t:pagelink>
                 </div>
             </div>
         </div>
@@ -76,7 +77,7 @@
         <div class="container">
             <div class="title">
                 <h1><span>Поиск по категориям</span></h1>
-                <t:pagelink page="product/list">Каталог блюд<span/></t:pagelink>
+                <t:pagelink page="product/list">Весь каталог<span/></t:pagelink>
             </div>
             <p class="modal-text">
                 На ГастроМаркете вы также сможете найти самый полный каталог блюд, приготовленных домашними кулинарами и небольшими кейтеринговыми компаниями.
@@ -85,7 +86,7 @@
         </div>
         <div class="container categories">
             <div class="row grid-block">
-                <t:loop source="propertyValues" value="onePropertyValue">
+                <t:loop source="categoryValues" value="onePropertyValue">
                     <div class="item enable-${showCategory}">
                         <t:if test="showCategory">
                             <t:pagelink page="product/list" context="onePropertyValue.altId" class="hidden-xs">
@@ -99,6 +100,25 @@
                                 <span class="name">${onePropertyValue.name}</span>
                             </t:parameter>
                         </t:if>
+                    </div>
+                </t:loop>
+            </div>
+        </div>
+        <div class="container">
+            <div class="title">
+                <h1><span>Поиск по событиям</span></h1>
+            </div>
+        </div>
+        <div class="container events">
+            <div class="row grid-block">
+                <t:loop source="eventValues" value="onePropertyValue">
+                    <div class="item">
+                        <t:pagelink page="product/list" context="[null,null,onePropertyValue.altId]" class="hidden-xs">
+                            <img alt="${onePropertyValue.name}" title="${onePropertyValue.name}" src="/img/category/category-${onePropertyValue.altId}-small.jpg"/>
+                        </t:pagelink>
+                        <t:pagelink page="product/list" context="[null,null,onePropertyValue.altId]" class="name">
+                            ${onePropertyValue.name}
+                        </t:pagelink>
                     </div>
                 </t:loop>
             </div>
@@ -121,7 +141,8 @@
                         "Заказывал детям фирменный набор - капкейки очень вкусные! Спасибо :) Мы ваши клиенты отныне"
                     </p>
                     <p>
-                        <i>&mdash; отзыв <a href="https://gastromarket.ru/user/15150">Алекса</a> о <a href="https://gastromarket.ru/catalog/konditerskaya-evabonbons">"Кондитерская evabonbons"</a></i>
+                        <i>&mdash; отзыв <a href="https://gastromarket.ru/user/15150">Алекса</a> о
+                            <a href="https://gastromarket.ru/catalog/konditerskaya-evabonbons">"Кондитерская evabonbons"</a></i>
                     </p>
                 </div>
             </div>

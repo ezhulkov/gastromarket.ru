@@ -7,6 +7,7 @@ import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
+import org.ohm.gastro.domain.PropertyValueEntity.Tag;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.List;
@@ -44,8 +45,13 @@ public class Index extends BaseComponent {
     }
 
     @Cached
-    public List<PropertyValueEntity> getPropertyValues() {
-        return getPropertyService().findAllValues(PropertyValueEntity.Tag.ROOT);
+    public List<PropertyValueEntity> getCategoryValues() {
+        return getPropertyService().findAllValues(Tag.ROOT);
+    }
+
+    @Cached
+    public List<PropertyValueEntity> getEventValues() {
+        return getPropertyService().findAllValues(Tag.EVENT);
     }
 
     public boolean isShowCategory() {

@@ -1,6 +1,7 @@
 package org.ohm.gastro.gui.pages.catalog;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
@@ -12,9 +13,7 @@ import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.gui.dto.NewProducts;
 import org.ohm.gastro.gui.mixins.BaseComponent;
-import org.ohm.gastro.service.ProductService;
 import org.ohm.gastro.service.ProductService.OrderType;
-import org.springframework.data.domain.Sort.Direction;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -60,16 +59,16 @@ public class Products extends BaseComponent {
     private String reorder;
 
     @Property
+    private PropertyValueEntity categoryPropertyValue = null;
+
+    @Property
+    private PropertyValueEntity eventPropertyValue = null;
+
+    @Property
     private PropertyValueEntity propertyValue = null;
 
     @Property
     private PropertyValueEntity parentPropertyValue = null;
-
-    @Property
-    private ProductService.OrderType orderType = OrderType.POSITION;
-
-    @Property
-    protected Direction direction = null;
 
     public void setupRender() {
         newProducts.getItems().clear();
@@ -84,20 +83,19 @@ public class Products extends BaseComponent {
     }
 
     public Object onActivate(String catId, String ppid) {
-        return onActivate(catId, null, ppid, OrderType.POSITION, null);
+        return onActivate(catId, null, ppid);
     }
 
-    public Object onActivate(String catId, String ppid, String pid) {
-        return onActivate(catId, ppid, pid, OrderType.POSITION, null);
+    public Object onActivate(String catId, String ppid, String cid) {
+        return onActivate(catId, ppid, cid, null);
     }
 
-    public Object onActivate(String catId, String ppid, String pid, ProductService.OrderType orderType, Direction direction) {
+    public Object onActivate(String catId, String ppid, String cid, String eid) {
         this.catalog = getCatalogService().findCatalog(catId);
         if (catalog == null) return new HttpError(404, "Page not found.");
         this.parentPropertyValue = ppid == null ? null : getPropertyService().findPropertyValue(ppid);
-        this.propertyValue = pid == null ? null : getPropertyService().findPropertyValue(pid);
-        this.direction = direction;
-        this.orderType = orderType;
+        this.categoryPropertyValue = cid == null ? null : getPropertyService().findPropertyValue(cid);
+        this.eventPropertyValue = eid == null ? null : getPropertyService().findPropertyValue(eid);
         return true;
     }
 
@@ -106,9 +104,9 @@ public class Products extends BaseComponent {
                 new Object[]{
                         catalog.getId(),
                         parentPropertyValue == null ? null : parentPropertyValue.getAltId(),
-                        propertyValue == null ? null : propertyValue.getAltId(),
-                        orderType == null ? null : orderType.name().toLowerCase(),
-                        direction == null ? null : direction.name().toLowerCase()};
+                        categoryPropertyValue == null ? null : categoryPropertyValue.getAltId(),
+                        eventPropertyValue == null ? null : eventPropertyValue.getAltId()
+                };
     }
 
     public String getTitle() {
@@ -130,17 +128,19 @@ public class Products extends BaseComponent {
                 getProductService().findProductsForFrontend(propertyValue, catalog,
                                                             isCatalogOwner() ? null : true,
                                                             isCatalogOwner() ? null : false,
-                                                            orderType, direction, propertyValue.getId().toString(), fetchFrom, fetchTo);
+                                                            OrderType.POSITION, null,
+                                                            propertyValue.getId().toString(), fetchFrom, fetchTo);
     }
 
     public boolean isShowFetch() {
-        return isCatalogOwner() && getProductService().findAllCategoryProductsCount(catalog, propertyValue) > fetchTo;
+        return isCatalogOwner() && getProductService().findAllCategoryProductsCount(catalog, getValue()) > fetchTo;
     }
 
-    public void onActionFromFetchProductsAjaxLink(Long cid, int from, int to) {
+    public void onActionFromFetchProductsAjaxLink(Long cid, Long eid, int from, int to) {
         this.fetchFrom = from;
         this.fetchTo = to;
-        this.propertyValue = cid == null ? new PropertyValueEntity() : getPropertyService().findPropertyValue(cid);
+        this.categoryPropertyValue = cid == null ? new PropertyValueEntity() : getPropertyService().findPropertyValue(cid);
+        this.eventPropertyValue = eid == null ? new PropertyValueEntity() : getPropertyService().findPropertyValue(eid);
         getAjaxResponseRenderer()
                 .addRender(getProductsZoneId(), productsBlock)
                 .addRender(getProductsFetchZoneId(), productsFetchBlock);
@@ -166,7 +166,7 @@ public class Products extends BaseComponent {
 
     @Cached
     public java.util.List<PropertyValueEntity> getRootProperties() {
-        if (propertyValue != null) return Lists.newArrayList(propertyValue);
+        if (getValue() != null) return Lists.newArrayList(getValue());
         final java.util.List<PropertyValueEntity> categories = getProductService().findAllRootValues(catalog, isCatalogOwner() ? null : true).stream()
                 .flatMap(t -> t.getParents().isEmpty() ? Stream.of(t) : t.getParents().stream())
                 .distinct()
@@ -177,7 +177,11 @@ public class Products extends BaseComponent {
     }
 
     public String getSortable() {
-        return isCatalogOwner() && propertyValue.getId() != null ? "sortable-container" : "";
+        return isCatalogOwner() && getValue().getId() != null ? "sortable-container" : "";
+    }
+
+    private PropertyValueEntity getValue() {
+        return ObjectUtils.defaultIfNull(categoryPropertyValue, eventPropertyValue);
     }
 
 }

@@ -7,8 +7,6 @@ import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.PropertyValueEntity.Tag;
 import org.ohm.gastro.gui.mixins.BaseComponent;
-import org.ohm.gastro.service.ProductService.OrderType;
-import org.springframework.data.domain.Sort.Direction;
 
 import java.util.List;
 
@@ -23,18 +21,14 @@ public class Filter extends BaseComponent {
     @Property
     private PropertyValueEntity oneChildValue;
 
-    @Parameter(name = "value", allowNull = true, required = false)
-    private PropertyValueEntity value;
+    @Parameter(name = "categoryValue", allowNull = true, required = false)
+    private PropertyValueEntity categoryValue;
+
+    @Parameter(name = "eventValue", allowNull = true, required = false)
+    private PropertyValueEntity eventValue;
 
     @Parameter(name = "parentValue", allowNull = true, required = false)
     private PropertyValueEntity parentValue;
-
-    @Parameter(name = "orderType", allowNull = true, required = false)
-    private OrderType orderType;
-
-    @Property
-    @Parameter(name = "direction", allowNull = true, required = false)
-    private Direction direction;
 
     @Parameter(name = "catalog", allowNull = true, required = false)
     private CatalogEntity catalog;
@@ -44,24 +38,21 @@ public class Filter extends BaseComponent {
     private String pageContext;
 
     @Cached
-    public java.util.List<PropertyValueEntity> getValues() {
+    public java.util.List<PropertyValueEntity> getCategoryValues() {
         return getPropertyService().findAllValues(Tag.ROOT);
     }
 
-    public String getPropertyName() {
-        return value == null ? getMessages().get("property.select") : value.getName().toLowerCase();
+    @Cached
+    public java.util.List<PropertyValueEntity> getEventValues() {
+        return getPropertyService().findAllValues(Tag.EVENT);
     }
 
-    public String getPropertyId() {
-        return value == null ? "$N" : value.getAltId();
+    public String getCategoryPropertyName() {
+        return categoryValue == null ? getMessages().get("property.select") : categoryValue.getName().toLowerCase();
     }
 
-    public String getParentPropertyId() {
-        return parentValue == null ? "$N" : parentValue.getAltId();
-    }
-
-    public String getOrderMessage() {
-        return orderType == null ? getMessages().get(OrderType.NONE.name()) : getMessages().get(orderType.name());
+    public String getEventPropertyName() {
+        return eventValue == null ? getMessages().get("property.select") : eventValue.getName().toLowerCase();
     }
 
     public List<PropertyValueEntity> getChildrenValues() {
