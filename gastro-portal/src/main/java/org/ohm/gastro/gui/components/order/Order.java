@@ -71,10 +71,6 @@ public class Order extends AbstractOrder {
         return type == Type.FULL || type == Type.MAIN_PAGE;
     }
 
-    public boolean isMainPage() {
-        return type == Type.MAIN_PAGE;
-    }
-
     public String getOrderShowCatalogZoneId() {
         return String.format("orderShowCatalogZoneId%s", order == null ? catalog.getId() : order.getId());
     }

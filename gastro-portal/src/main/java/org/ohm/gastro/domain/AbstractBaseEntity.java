@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.SequenceGenerator;
 
 /**
  * Created by ezhulkov on 24.08.14.
@@ -17,6 +18,7 @@ public abstract class AbstractBaseEntity implements BaseEntity {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "sequence", allocationSize = 1, initialValue = 30000)
     private Long id;
 
     @Override

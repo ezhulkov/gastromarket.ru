@@ -21,7 +21,7 @@
                                 </p>
                             </div>
                         </t:if>
-                        <t:order.order order="order" type="FULL" privateOrders="privateOrders" replies="true"/>
+                        <t:order.order order="order" type="FULL" orderPage="true" privateOrders="privateOrders" replies="true"/>
                     </div>
                 </div>
             </t:block>

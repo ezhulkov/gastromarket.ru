@@ -14,7 +14,7 @@
         <t:order.price items="items" catalog="catalog" order="order" frontend="frontend"/>
         <t:order.basketSubmit items="items" order="order" catalog="catalog" type="prop:type"/>
         <t:if test="full">
-            <t:order.info order="order" catalog="catalog" mainPage="mainPage" frontend="frontend"/>
+            <t:order.info order="order" catalog="catalog" orderPage="orderPage" frontend="frontend"/>
             <div class="action-link">
                 <t:delegate to="orderAdditionalBlock"/>
             </div>
@@ -48,34 +48,34 @@
                 </div>
             </t:block>
             <t:block t:id="clientEditBlock">
-                <t:unless test="mainPage">
+                <t:if test="orderPage">
                     <t:if test="canEdit">
                         <t:actionlink rel="nofollow" class="edit-link" t:id="editTender" t:context="order.id" t:zone="${editZoneId}">Редактировать</t:actionlink>
                     </t:if>
                     <script>
                         jQuery("body").removeClass("modal-open");
                     </script>
-                </t:unless>
+                </t:if>
             </t:block>
             <t:block t:id="clientRateCook">
-                <t:unless test="mainPage">
+                <t:if test="orderPage">
                     <t:unless test="frontend">
                         <t:unless test="order.clientRate">
                             <a href="#cook_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#cook_rate_${order.id}">Оценить кулинара</a>
                             <t:comment.editmodal entity="order?.catalog" order="order" modalId="cook_rate_${order.id}" title="Оценить кулинара"/>
                         </t:unless>
                     </t:unless>
-                </t:unless>
+                </t:if>
             </t:block>
             <t:block t:id="cookRateClient">
-                <t:unless test="mainPage">
+                <t:if test="orderPage">
                     <t:unless test="frontend">
                         <t:unless test="order.cookRate">
                             <a href="#client_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#client_rate_${order.id}">Оценить заказчика</a>
                             <t:comment.editmodal entity="order?.customer" order="order" modalId="client_rate_${order.id}" title="Оценить заказчика"/>
                         </t:unless>
                     </t:unless>
-                </t:unless>
+                </t:if>
             </t:block>
             <t:block t:id="tenderReplyBlock">
                 <t:unless test="replies">

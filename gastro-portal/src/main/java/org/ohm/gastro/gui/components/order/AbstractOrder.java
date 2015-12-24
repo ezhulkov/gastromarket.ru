@@ -35,8 +35,8 @@ public abstract class AbstractOrder extends BaseComponent {
     protected boolean frontend;
 
     @Property
-    @Parameter
-    protected boolean mainPage;
+    @Parameter(value = "false")
+    protected boolean orderPage;
 
     @Property
     @Parameter
@@ -79,7 +79,7 @@ public abstract class AbstractOrder extends BaseComponent {
     }
 
     public boolean isContactsAllowed() {
-        return isAdmin() || order == null || order.isContactsAllowed(getAuthenticatedUserSafe());
+        return orderPage && (isAdmin() || order == null || order.isContactsAllowed(getAuthenticatedUserSafe()));
     }
 
     public boolean isCartOrOrder() {
@@ -88,6 +88,10 @@ public abstract class AbstractOrder extends BaseComponent {
 
     public int getOrderBonus() {
         return order == null ? OrderEntity.getBonus(getTotal()) : order.getBonus();
+    }
+
+    public boolean isMainPage() {
+        return type == Type.MAIN_PAGE;
     }
 
 }

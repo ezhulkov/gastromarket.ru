@@ -14,7 +14,7 @@
             <t:block t:id="orderBlock">
                 <div class="row">
                     <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
-                        <t:order.order order="order" replies="true" type="FULL" privateOrders="false" mainPage="true" reloadPage="true" frontend="true"/>
+                        <t:order.order order="order" replies="true" type="FULL" orderPage="true" privateOrders="false" reloadPage="true" frontend="true"/>
                     </div>
                 </div>
             </t:block>

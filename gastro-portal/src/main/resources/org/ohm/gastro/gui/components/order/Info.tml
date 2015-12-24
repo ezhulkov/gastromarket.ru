@@ -22,27 +22,26 @@
             <div>${order.personCount}</div>
         </div>
     </t:if>
-    <t:unless test="mainPage">
-        <t:if test="contactsAllowed">
-            <t:if test="order.promoCode">
-                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                    <span class="f20px">Промо-код:</span><br/>
-                    <div>${order.promoCode}</div>
-                </div>
-            </t:if>
+    <t:if test="contactsAllowed">
+        <t:if test="order.promoCode">
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                <span class="f20px">Контакты:</span><br/>
-                <div>
-                    <t:pagelink page="user/index" t:context="order.customer.id">${order.customer.fullName}</t:pagelink>
-                    <br/>
-                    Отзывы +${clientPosRating}/-${clientNegRating}<br/>
-                    ${order.customer.mobilePhone}<br/>
-                    ${order.customer.deliveryAddress}<br/>
-                </div>
+                <span class="f20px">Промо-код:</span><br/>
+                <div>${order.promoCode}</div>
             </div>
         </t:if>
         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-            <t:photos order="order"/>
+            <span class="f20px">Контакты:</span><br/>
+            <div>
+                <t:pagelink page="user/index" t:context="order.customer.id">${order.customer.fullName}</t:pagelink>
+                <br/>
+                Отзывы +${clientPosRating}/-${clientNegRating}<br/>
+                ${order.customer.mobilePhone}<br/>
+                ${order.customer.deliveryAddress}<br/>
+                <i>Контакты не отображаются в публичном доступе.</i>
+            </div>
         </div>
-    </t:unless>
+    </t:if>
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+        <t:photos order="order"/>
+    </div>
 </div>
