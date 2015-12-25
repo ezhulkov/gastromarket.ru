@@ -1,24 +1,41 @@
 <t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="title-simple">
-        <h1>Модерация</h1>
-    </div>
+    <t:form t:id="filterForm" class="form form-horizontal" style="overflow: inherit;" role="form">
+        <div class="form-group">
+            <div class="col-xs-4">
+                <input t:id="catalogs" class="chosen-select" data-placeholder="Каталог"/>
+            </div>
+            <div class="col-xs-4">
+                <input t:id="show" t:value="show" t:type="select" class="chosen-select" validate="required"/>
+            </div>
+            <div class="col-xs-4">
+                <input type="submit" class="btn btn-red" value="Фильтровать"/>
+            </div>
+        </div>
+    </t:form>
 
     <t:grid source="products" row="oneProduct"
-            include="name,price"
-            reorder="img,name,catalog,categories,price,edit,accept"
-            add="img,catalog,categories,edit,accept"
-            t:mixins="GridSortingDisabled" class="table table-hover">
+            include="name"
+            reorder="img,name,catalog,categories,events,ingredients,actions"
+            add="img,catalog,categories,events,ingredients,actions"
+            t:mixins="GridSortingDisabled" class="table table-hover moderation">
         <t:parameter name="nameHeader">Название</t:parameter>
         <t:parameter name="catalogHeader">Каталог</t:parameter>
         <t:parameter name="categoriesHeader">Категории</t:parameter>
-        <t:parameter name="editHeader"/>
-        <t:parameter name="acceptHeader"/>
+        <t:parameter name="eventsHeader">События</t:parameter>
+        <t:parameter name="ingredientsHeader">Ингредиенты</t:parameter>
+        <t:parameter name="actionsHeader"/>
         <t:parameter name="imgCell">
-            <img src="${oneProduct.avatarUrlMedium}"/>
+            <img src="${oneProduct.avatarUrlSmall}"/>
         </t:parameter>
         <t:parameter name="categoriesCell">
-            ${categories}
+            <t:outputraw value="categories"/>
+        </t:parameter>
+        <t:parameter name="eventsCell">
+            <t:outputraw value="events"/>
+        </t:parameter>
+        <t:parameter name="ingredientsCell">
+            <t:outputraw value="ingredients"/>
         </t:parameter>
         <t:parameter name="catalogCell">
             <t:pagelink page="catalog/index" context="oneProduct.catalog.altId">
@@ -30,11 +47,10 @@
                 ${oneProduct.name}
             </t:pagelink>
         </t:parameter>
-        <t:parameter name="editCell">
-            <t:actionlink t:id="edit" t:context="oneProduct.id" t:zone="editZone">Редактировать</t:actionlink>
-        </t:parameter>
-        <t:parameter name="acceptCell">
-            <t:actionlink t:id="accept" context="oneProduct.id">Принять</t:actionlink>
+        <t:parameter name="actionsCell">
+            <t:actionlink t:id="edit" t:context="oneProduct.id" t:zone="editZone"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></t:actionlink><br/>
+            <t:actionlink t:id="hide" t:context="oneProduct.id" t:zone="editZone"><span class="glyphicon glyphicon-remove" aria-hidden="true"/></t:actionlink><br/>
+            <t:actionlink t:id="accept" context="oneProduct.id"><span class="glyphicon glyphicon-ok" aria-hidden="true"/></t:actionlink>
         </t:parameter>
         <t:parameter name="empty">
             <div class="empty">Нет данных</div>

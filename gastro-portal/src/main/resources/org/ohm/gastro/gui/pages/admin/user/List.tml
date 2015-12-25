@@ -1,10 +1,6 @@
 <t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="title-simple">
-        <h1>Список пользователей</h1>
-    </div>
-
-    <div class="links-set">
+    <div class="links-set" xml:space="preserve">
         <a data-toggle="modal" data-target="#create" href="#create">Создать</a>
         <a data-toggle="modal" data-target="#import" href="#create">Импорт</a>
         <a data-toggle="modal" data-target="#search" href="#create">Искать</a>

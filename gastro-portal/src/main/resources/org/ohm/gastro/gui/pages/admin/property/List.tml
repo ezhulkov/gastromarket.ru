@@ -1,8 +1,7 @@
 <t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="title-simple">
-        <h1>Список свойств</h1>
-        <a data-toggle="modal" data-target="#create" href="#create">Создать новое свойство<span/></a>
+    <div class="links-set" xml:space="preserve">
+        <a data-toggle="modal" data-target="#create" href="#create">Новое свойство</a>
     </div>
 
     <t:grid source="properties" row="oneProperty"

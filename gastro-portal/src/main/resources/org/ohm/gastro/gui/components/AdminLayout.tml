@@ -15,7 +15,7 @@
                 <t:pagelink page="admin/catalog/list">Каталоги</t:pagelink>
             </li>
             <li id="product">
-                <t:pagelink page="admin/product/list">Блюда</t:pagelink>
+                <t:pagelink page="admin/product/list">Модерация</t:pagelink>
             </li>
             <li id="conversation">
                 <t:pagelink page="admin/conversation/list">Сообщения</t:pagelink>

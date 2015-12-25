@@ -1,9 +1,5 @@
 <t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="title-simple">
-        <h1>Свойство "${object?.name}"</h1>
-    </div>
-
     <t:editObject t:id="editObject" showUpdate="true" showDelete="true" autoFocus="literal:true">
         <div class="form-group">
             <label class="col-sm-2 control-label" for="type">Тип:</label>

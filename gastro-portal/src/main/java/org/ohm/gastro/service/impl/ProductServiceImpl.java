@@ -300,8 +300,8 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
-    public List<ProductEntity> findUncheckedProducts() {
-        return productRepository.findAllUncheckedProducts();
+    public List<ProductEntity> findUncheckedProducts(CatalogEntity catalog, Boolean wasChecked) {
+        return productRepository.findAllUncheckedProducts(catalog, wasChecked);
     }
 
     @Override
