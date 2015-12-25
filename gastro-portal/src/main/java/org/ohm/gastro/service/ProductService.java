@@ -24,6 +24,8 @@ public interface ProductService extends ImageUploaderService, AltIdService<Produ
 
     int PRODUCTS_PER_PAGE = 8;
 
+    void saveProduct(ProductEntity product, List<PropertyValueEntity> newValues);
+
     enum OrderType {
         NAME, PRICE, NONE, POSITION
     }

@@ -177,6 +177,21 @@ public class ProductServiceImpl implements ProductService, Logging {
         return product;
     }
 
+    @Override
+    public void saveProduct(ProductEntity product, List<PropertyValueEntity> newValues) {
+        final List<TagEntity> tags = newValues.stream()
+                .map(t -> {
+                    final PropertyEntity property = propertyService.findProperty(t.getProperty().getId());
+                    final TagEntity tag = new TagEntity();
+                    tag.setProduct(product);
+                    tag.setProperty(property);
+                    tag.setValue(t);
+                    return tag;
+                }).collect(Collectors.toList());
+        tagRepository.save(tags);
+        System.out.println(tags);
+    }
+
     private Long getPropertyValueId(final String valueId, final String propId) {
         final String[] split = valueId.split("-");
         if (split.length > 1 && split[0].equals("new")) {
@@ -263,7 +278,7 @@ public class ProductServiceImpl implements ProductService, Logging {
     public void hideProduct(Long pid) {
         final ProductEntity product = productRepository.findOne(pid);
         product.setHidden(!product.getHidden());
-        productRepository.saveAndFlush(product);
+        productRepository.save(product);
     }
 
     @Override
