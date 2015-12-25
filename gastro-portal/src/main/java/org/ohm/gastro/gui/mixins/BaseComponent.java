@@ -6,6 +6,7 @@ import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.ioc.annotations.InjectService;
 import org.apache.tapestry5.ioc.services.PropertyAccess;
 import org.apache.tapestry5.services.ApplicationGlobals;
 import org.apache.tapestry5.services.PageRenderLinkSource;
@@ -51,6 +52,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 public abstract class BaseComponent {
@@ -62,6 +64,9 @@ public abstract class BaseComponent {
 
     @Inject
     private Request request;
+
+    @InjectService("properties")
+    private Properties properties;
 
     @Inject
     private Response response;
@@ -360,6 +365,10 @@ public abstract class BaseComponent {
 
     public Optional<PhotoEntity> getTenderPhoto(Long id) {
         return getTenderPhotos().stream().filter(t -> id.equals(t.getId())).findFirst();
+    }
+
+    public boolean isProduction() {
+        return Boolean.parseBoolean(properties.getProperty("production", "false"));
     }
 
 }

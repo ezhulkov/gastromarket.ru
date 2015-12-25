@@ -78,7 +78,9 @@
     </script>
     <script type="text/javascript">
       VK.init({apiId: 4721365, onlyWidgets: true});
-      Raven.config('https://82ada64290eb4c16bfaf541b5fd62fd7@app.getsentry.com/61493').install()
+      <t:if test="production">
+        Raven.config('https://82ada64290eb4c16bfaf541b5fd62fd7@app.getsentry.com/61493').install();
+      </t:if>
     </script>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>

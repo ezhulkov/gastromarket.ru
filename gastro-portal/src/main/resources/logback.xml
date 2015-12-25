@@ -57,6 +57,13 @@
             </evaluator>
             <onMismatch>DENY</onMismatch>
         </filter>
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator>
+                <expression>java.lang.Boolean.TRUE.equals(${mvn.logging.production})</expression>
+            </evaluator>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
         <dsn>https://82ada64290eb4c16bfaf541b5fd62fd7:896e0b8e0c524f449997e6835e9f0156@app.getsentry.com/61493</dsn>
     </appender>
 
