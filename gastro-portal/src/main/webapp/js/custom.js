@@ -71,7 +71,6 @@ function initControls() {
     initDatePicker();
     initToolTip();
     initChosen(jQuery("select.chosen-select"));
-    initTitle(jQuery("div.title"));
     initFineUploader(jQuery("div.upload-file"));
     initSortable();
     initModalStack();
@@ -153,12 +152,6 @@ function isMobile() {
 function activate_menu(el) {
     jQuery(el).closest(".office-menu").find(".sel").removeClass("sel");
     jQuery(el).addClass("sel");
-}
-function initTitle(el) {
-    jQuery(el).each(function (i, e) {
-        var h = jQuery(e).find("h1,h2");
-        jQuery(h).css("width", realTitleWidth(jQuery(h)) + 50).addClass("line");
-    });
 }
 function initChosen(el, onReady) {
     jQuery(el).on("chosen:ready", onReady).chosen({"width": "100%", allow_single_deselect: true});

@@ -230,7 +230,7 @@
                 <div class="title">
                     <h1><span>Готовые предложения</span></h1>
                     <t:if test="offers">
-                        <t:pagelink page="catalog/offers" t:context="catalog.altId">Показать все предложения<span/></t:pagelink>
+                        <t:pagelink page="catalog/offers" t:context="catalog.altId">Все предложения<span/></t:pagelink>
                         <t:parameter name="else">
                             <t:if test="catalogOwner">
                                 <a class="offer-edit-link" data-toggle="modal" data-target="#of-new" href="#of-new">Добавить предложения</a>
@@ -272,7 +272,6 @@
                 if (productsZone.get(0) != undefined) {
                     Event.observe(productsZone.get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
                         init();
-                        initTitle(jQuery("div.title"));
                     })
                 }
             }

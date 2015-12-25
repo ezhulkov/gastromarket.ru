@@ -1,0 +1,65 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="Тест" breadcrumbs="false">
+
+    <section>
+        <div class="title fixed">
+            <div class="container">
+                <h1><span>Vestibulum ac diam</span></h1>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <p class="modal-text">
+                    Donec rutrum congue leo eget malesuada. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Nulla porttitor accumsan tincidunt. Donec sollicitudin molestie malesuada. Vivamus suscipit tortor eget felis porttitor volutpat. Donec rutrum congue leo eget malesuada. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section style="background-color: lightgray;">
+        <div class="container">
+            <div class="title">
+                <h1><span>Vestibulum ac diam</span></h1>
+                <a href="/">Главная страница<span/></a>
+            </div>
+            <div class="row">
+                <p class="modal-text">
+                    Donec rutrum congue leo eget malesuada. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Nulla porttitor accumsan tincidunt. Donec sollicitudin molestie malesuada. Vivamus suscipit tortor eget felis porttitor volutpat. Donec rutrum congue leo eget malesuada. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="s600px">
+        <div class="container">
+            <div class="title">
+                <h1><span>Vestibulum ac diam</span></h1>
+            </div>
+            <div class="title">
+                <h1><span>Vestibulum ac diam</span></h1>
+                <a href="/">Главная страница<span/></a>
+            </div>
+            <div class="title">
+                <h1><span>Vestibulum ac diam</span></h1>
+                <a href="/">Главная страница важного проекта<span/></a>
+            </div>
+            <div class="title">
+                <h1><span>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Quisque velit nisi, pretium ut lacinia in, elementum id enim.</span></h1>
+                <a class="back" href="/"><span/>Главная страница</a>
+            </div>
+            <div class="title">
+                <h1><span>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui dui dui.</span></h1>
+                <a href="/">Главная страница важного проекта<span/></a>
+            </div>
+            <div class="title">
+                <h2>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Quisque velit nisi, pretium ut lacinia in, elementum id enim.</h2>
+                <a href="/">Главная страница<span/></a>
+            </div>
+            <!--<div class="row">-->
+            <!--<p class="modal-text">-->
+            <!--Donec rutrum congue leo eget malesuada. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Nulla porttitor accumsan tincidunt. Donec sollicitudin molestie malesuada. Vivamus suscipit tortor eget felis porttitor volutpat. Donec rutrum congue leo eget malesuada. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.-->
+            <!--</p>-->
+            <!--</div>-->
+        </div>
+    </section>
+
+</t:layout>

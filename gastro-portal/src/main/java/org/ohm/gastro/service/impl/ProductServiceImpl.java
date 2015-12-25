@@ -189,7 +189,6 @@ public class ProductServiceImpl implements ProductService, Logging {
                     return tag;
                 }).collect(Collectors.toList());
         tagRepository.save(tags);
-        System.out.println(tags);
     }
 
     private Long getPropertyValueId(final String valueId, final String propId) {
