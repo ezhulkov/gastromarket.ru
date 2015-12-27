@@ -187,6 +187,7 @@ public class ConversationServiceImpl implements ConversationService {
                     put("address", tender.getOrderUrl());
                     put("text", reply.getText());
                     put("order", tender);
+                    put("author", author.getFirstCatalog().orElse(null));
                 }
             };
             mailService.sendMailMessage(tender.getCustomer(), MailService.ORDER_COMMENT, params);

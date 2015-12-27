@@ -4,4 +4,8 @@
 <p>
     Новый отклик к заявке <a href="https://gastromarket.ru/tender/${order.id}">${order.id}</a>.
 </p>
+<p>
+    ${author.name}<br/>
+    ${text}
+</p>
 #parse("email/footer.vm")
