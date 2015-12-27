@@ -21,6 +21,8 @@
         </script>
     </section>
 
+    <t:searchSection additionalClass="darkgray-section"/>
+
     <t:howToSection additionalClass="white-section"/>
 
     <t:lastTendersSection additionalClass="gray-section"/>

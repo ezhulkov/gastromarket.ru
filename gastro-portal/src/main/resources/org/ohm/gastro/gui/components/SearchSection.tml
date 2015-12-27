@@ -1,0 +1,18 @@
+<section xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="search ${additionalClass}">
+    <div class="container">
+        <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="search-form">
+            <div class="row">
+                <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
+                    <div class="form-group">
+                        <input t:type="TextField" id="search" t:id="search" t:value="searchString" t:validate="maxlength=256" placeholder="Возможно вы ищете что-то конкретное, например 'Свадебный торт'" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                    <div class="form-group">
+                        <input type="submit" class="form-control btn btn-red" value="Начать поиск"/>
+                    </div>
+                </div>
+            </div>
+        </t:form>
+    </div>
+</section>

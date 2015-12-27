@@ -1,20 +1,10 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="prop:title">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="message:search.title">
+
+    <t:searchSection searchString="searchString"/>
 
     <section>
-        <div class="container">
-            <div class="gap5">
-                <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="search-bar">
-                    <div class="col-sm-1"/>
-                    <div class="col-sm-10">
-                        <input t:id="search" t:value="searchString" t:type="TextField" placeholder="Поиск"/>
-                        <input type="submit" value=""/>
-                    </div>
-                    <div class="col-sm-1"/>
-                </t:form>
-            </div>
-            <div class="gap5"/>
-
-            <div id="product-items" class="grid-block products"/>
+        <div class="container flexible">
+            <div id="product-items" class="grid-block products"></div>
             <t:zone t:id="productsZone">
                 <t:delegate to="productsBlock"/>
             </t:zone>
@@ -32,7 +22,7 @@
                 <t:unless test="wasProducts">
                     <div class="row">
                         <div class="text-center f20px">
-                            Мы не смогли найти по этому запросу
+                            По запросу '${searchString}' ничего нет
                         </div>
                     </div>
                 </t:unless>
