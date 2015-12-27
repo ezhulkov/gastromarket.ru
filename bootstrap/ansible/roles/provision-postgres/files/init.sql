@@ -18,56 +18,57 @@ CREATE DATABASE gastro OWNER gastro TEMPLATE template0 LC_COLLATE 'ru_RU.UTF-8' 
 
 
 -- разбить теги с запятыми
--- SELECT *
--- FROM (SELECT DISTINCT initcap(trim(unnest(regexp_split_to_array(name, ',')))) AS n
---       FROM property_value
---       WHERE name LIKE '%,%') ss
--- WHERE lower(n) NOT IN (SELECT lower(name)
---                        FROM property_value);
--- INSERT INTO property_value
--- (id, property_id, name, root_value)
---   SELECT
---     nextval('hibernate_sequence'),
---     11,
---     n,
---     TRUE
---   FROM (SELECT DISTINCT initcap(trim(unnest(regexp_split_to_array(name, ',')))) AS n
---         FROM property_value
---         WHERE name LIKE '%,%') ss
---   WHERE lower(n) NOT IN (SELECT lower(name)
---                          FROM property_value);
--- INSERT INTO tags (id, product_id, property_id, value_id)
---   SELECT
---     nextval('hibernate_sequence'),
---     pid,
---     11,
---     pv2.id
---   FROM (
---          SELECT
---            t.product_id                                               AS pid,
---            initcap(trim(unnest(regexp_split_to_array(pv.name, ',')))) AS pvname
---          FROM tags t
---            JOIN property_value pv ON pv.id = t.value_id
---          WHERE pv.name LIKE '%,%') AS ss JOIN property_value pv2 ON lower(pv2.name) = lower(pvname);
--- DELETE FROM property_value
--- WHERE name LIKE '%,%';
+SELECT *
+FROM (SELECT DISTINCT initcap(trim(unnest(regexp_split_to_array(name, ',')))) AS n
+      FROM property_value
+      WHERE name LIKE '%,%') ss
+WHERE lower(n) NOT IN (SELECT lower(name)
+                       FROM property_value);
+INSERT INTO property_value
+(id, property_id, name, root_value, client_generated)
+  SELECT
+    nextval('hibernate_sequence'),
+    11,
+    n,
+    TRUE,
+    TRUE
+  FROM (SELECT DISTINCT initcap(trim(unnest(regexp_split_to_array(name, ',')))) AS n
+        FROM property_value
+        WHERE name LIKE '%,%') ss
+  WHERE lower(n) NOT IN (SELECT lower(name)
+                         FROM property_value);
+INSERT INTO tags (id, product_id, property_id, value_id)
+  SELECT
+    nextval('hibernate_sequence'),
+    pid,
+    11,
+    pv2.id
+  FROM (
+         SELECT
+           t.product_id                                               AS pid,
+           initcap(trim(unnest(regexp_split_to_array(pv.name, ',')))) AS pvname
+         FROM tags t
+           JOIN property_value pv ON pv.id = t.value_id
+         WHERE pv.name LIKE '%,%') AS ss JOIN property_value pv2 ON lower(pv2.name) = lower(pvname);
+DELETE FROM property_value
+WHERE name LIKE '%,%';
 
 -- объединить одинаковые теги
--- delete from property_value where id in (
---   SELECT
---       id
---     FROM (SELECT
---             id,
---             name,
---             ROW_NUMBER()
---             OVER (PARTITION BY lower(trim(name))
---               ORDER BY id) AS rnum
---           FROM property_value) t
---     WHERE t.rnum >= 2
--- )
--- UPDATE tags
--- SET value_id = (SELECT min(pv.id)
---                 FROM property_value pv
---                 WHERE name IN (SELECT name
---                                FROM property_value pv2
---                                WHERE pv2.id = value_id));
+DELETE FROM property_value
+WHERE id IN (
+  SELECT id
+  FROM (SELECT
+          id,
+          name,
+          ROW_NUMBER()
+          OVER (PARTITION BY lower(trim(name))
+            ORDER BY id) AS rnum
+        FROM property_value) t
+  WHERE t.rnum >= 2
+)
+UPDATE tags
+SET value_id = (SELECT min(pv.id)
+                FROM property_value pv
+                WHERE name IN (SELECT name
+                               FROM property_value pv2
+                               WHERE pv2.id = value_id));

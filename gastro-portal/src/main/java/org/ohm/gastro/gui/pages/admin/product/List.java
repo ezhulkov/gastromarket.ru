@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.pages.admin.product;
 
+import com.google.common.collect.Lists;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
@@ -117,12 +118,16 @@ public class List extends BaseComponent {
 
     @Cached
     public java.util.List<PropertyValueEntity> getCategoryValues() {
-        return getPropertyService().findAllValues(Tag.ROOT);
+        return getPropertyService().findAllProperties().stream().filter(t -> "Категория".equals(t.getName())).findFirst()
+                .map(t -> getPropertyService().findAllRootValues(t))
+                .orElseGet(Lists::newArrayList);
     }
 
     @Cached
     public java.util.List<PropertyValueEntity> getEventValues() {
-        return getPropertyService().findAllValues(Tag.EVENT);
+        return getPropertyService().findAllProperties().stream().filter(t -> "Событие".equals(t.getName())).findFirst()
+                .map(t -> getPropertyService().findAllRootValues(t))
+                .orElseGet(Lists::newArrayList);
     }
 
     public void onSubmitFromProductForm() {
