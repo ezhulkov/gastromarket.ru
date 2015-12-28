@@ -62,4 +62,37 @@
         </div>
     </section>
 
+    <section>
+        <div class="container">
+            <div class="frame" style="width:560px; height: 404px;"><img id="sample_picture"/></div>
+            <br/>
+            <div id="controls" class="hidden">
+                <a href="#" id="rotateLeft" title="Rotate left">Rotate left</a>
+                <a href="#" id="zoomOut" title="Zoom out">Zoom out</a>
+                <a href="#" id="fit" title="Fit image">Fit image</a>
+                <a href="#" id="zoomIn" title="Zoom in">Zoom in</a>
+                <a href="#" id="rotateRight" title="Rotate right">Rotate right</a>
+                <a href="#" id="fit" title="Fit">Fit</a>
+            </div>
+            <script>
+                var picture = jQuery("#sample_picture");
+                picture.on("load", function () {
+                    picture.guillotine({eventOnChange: "guillotinechange"})
+                    picture.guillotine("fit");
+//                        picture.guillotine("zoomIn")
+                    jQuery("#controls").removeClass("hidden")
+                    jQuery("#controls a").click(function (e) {
+                        e.preventDefault();
+                        picture.guillotine(this.id)
+                    });
+                    picture.on("guillotinechange", function (e, data, action) {
+                        console.log(data);
+                    })
+                });
+                picture.attr("src", "img/landing-main.jpg");
+            </script>
+        </div>
+    </section>
+
+
 </t:layout>
