@@ -22,7 +22,7 @@ import java.util.Set;
  */
 public interface ProductService extends ImageUploaderService, AltIdService<ProductEntity, ProductRepository> {
 
-    int PRODUCTS_PER_PAGE = 8;
+    int PRODUCTS_PER_PAGE = 24;
 
     void saveProduct(ProductEntity product, List<PropertyValueEntity> newValues);
 

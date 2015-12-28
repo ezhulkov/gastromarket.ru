@@ -59,26 +59,26 @@ public interface ProductRepository extends AltIdRepository<ProductEntity> {
                                                     @Param("catalog") CatalogEntity catalog,
                                                     Pageable page);
 
-    @Query(value = "SELECT  DISTINCT * \n" +
-            "FROM (\n" +
-            "       SELECT\n" +
-            "         P.*,\n" +
-            "         TS_RANK_CD(TO_TSVECTOR('RU', COALESCE(V1.NAME, '') || ' ' ||\n" +
-            "                                      COALESCE(P.NAME, '') || ' ' ||\n" +
-            "                                      COALESCE(P.DESCRIPTION, '')),\n" +
-            "                    TO_TSQUERY(:q)) AS SCORE\n" +
-            "       FROM PRODUCT P\n" +
-            "         LEFT JOIN TAGS TAG ON TAG.PRODUCT_ID = P.ID\n" +
-            "         LEFT JOIN PROPERTY_VALUE V1 ON V1.ID = TAG.VALUE_ID\n" +
-            "       WHERE LOWER(COALESCE(V1.NAME, '') || ' ' ||\n" +
-            "                   COALESCE(P.NAME, '') || ' ' ||\n" +
-            "                   COALESCE(P.DESCRIPTION, '')) @@\n" +
-            "             TO_TSQUERY(:q)\n" +
-            "     ) S\n" +
-            "WHERE SCORE >= 0\n" +
-            "ORDER BY SCORE DESC\n" +
-            "OFFSET :o\n" +
-            "LIMIT :l", nativeQuery = true)
+    @Query(value = "select  distinct * \n" +
+            "from (\n" +
+            "       select\n" +
+            "         p.*,\n" +
+            "         ts_rank_cd(to_tsvector('ru', coalesce(v1.name, '') || ' ' ||\n" +
+            "                                      coalesce(p.name, '') || ' ' ||\n" +
+            "                                      coalesce(p.description, '')),\n" +
+            "                    to_tsquery(:q)) as score\n" +
+            "       from product p\n" +
+            "         left join tags tag on tag.product_id = p.id\n" +
+            "         left join property_value v1 on v1.id = tag.value_id\n" +
+            "       where lower(coalesce(v1.name, '') || ' ' ||\n" +
+            "                   coalesce(p.name, '') || ' ' ||\n" +
+            "                   coalesce(p.description, '')) @@\n" +
+            "             to_tsquery(:q)\n" +
+            "     ) s\n" +
+            "where score >= 0 and was_setup=true and hidden=false \n" +
+            "order by score desc\n" +
+            "offset :o\n" +
+            "limit :l", nativeQuery = true)
     List<ProductEntity> searchProducts(@Param("q") String query, @Param("o") int offset, @Param("l") int limit);
 
     @Query("from ProductEntity where was_checked=:checked and was_setup=true and (catalog=:catalog or :catalog is null)")
