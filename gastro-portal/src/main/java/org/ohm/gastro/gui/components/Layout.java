@@ -25,6 +25,10 @@ public class Layout extends BaseComponent {
     @Parameter(name = "pageClass", required = false, defaultPrefix = BindingConstants.LITERAL, value = " ")
     private String pageClass;
 
+    @Property
+    @Parameter(name = "forceShow", required = false, defaultPrefix = BindingConstants.LITERAL, value = "true")
+    private boolean forceShow;
+
     @Parameter(name = "keywords", required = false)
     private String keywords;
 

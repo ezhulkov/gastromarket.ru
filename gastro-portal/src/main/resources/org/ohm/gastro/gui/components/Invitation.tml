@@ -1,91 +1,91 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
-    <!--<t:if test="show">-->
-    <div class="invitation hidden-xs">
-        <div></div>
-        <div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 info">
-                <h1>Я &mdash; покупатель</h1>
+    <t:if test="show">
+        <div class="invitation hidden-xs">
+            <div></div>
+            <div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 info">
+                    <h1>Я &mdash; покупатель</h1>
 
-                <p>Пройдите регистрацию на ГастроМаркет и размещайте заказы, принимайте участие в акциях и оценивайте наших кулинаров.</p>
+                    <p>Пройдите регистрацию на ГастроМаркет и размещайте заказы, принимайте участие в акциях и оценивайте наших кулинаров.</p>
 
-                <div class="row">
-                    <a href="/userinfo" class="red-text">узнать подробности</a>
-                </div>
-
-                <t:unless test="authenticated">
-                    <a class="btn btn-red btn-lg signup-link" data-toggle="modal" data-target="#login">Зарегистрироваться</a>
-                </t:unless>
-
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 info">
-                <h1>Я &mdash; кулинар</h1>
-
-                <p>Подключайтесь к ГастроМаркет и полноценно используйте все возможности:
-                   заказы, продвижение, рейтинги и конкурсы.</p>
-
-                <div class="row">
-                    <a href="/cookinfo" class="red-text">узнать подробности</a>
-                </div>
-
-                <a class="btn btn-lg btn-red application-link" data-toggle="modal" data-target="#application">Оставить заявку</a>
-
-            </div>
-        </div>
-        <div></div>
-    </div>
-    <div class="modal fade" id="application" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="title">
-                        <h1><span>Заявка на подключение</span></h1>
+                    <div class="row">
+                        <a href="/userinfo" class="red-text">узнать подробности</a>
                     </div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+
+                    <t:unless test="authenticated">
+                        <a class="btn btn-red btn-lg signup-link" data-toggle="modal" data-target="#login">Зарегистрироваться</a>
+                    </t:unless>
+
                 </div>
-                <div class="modal-body">
-                    <t:zone t:id="applicationZone">
-                        <t:delegate to="applicationFormBlock"/>
-                    </t:zone>
-                    <t:block t:id="applicationFormBlock">
-                        <div class="row">
-                            <p class="modal-text">Если вы кулинар и хотите подключиться к ГастроМаркет, полноценно использовать все возможности сайта и продавать приготовленную вами еду, то оставьте заявку на подключение и мы обязательно с вами свяжемся.</p>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 info">
+                    <h1>Я &mdash; кулинар</h1>
+
+                    <p>Подключайтесь к ГастроМаркет и полноценно используйте все возможности:
+                       заказы, продвижение, рейтинги и конкурсы.</p>
+
+                    <div class="row">
+                        <a href="/cookinfo" class="red-text">узнать подробности</a>
+                    </div>
+
+                    <a class="btn btn-lg btn-red application-link" data-toggle="modal" data-target="#application">Оставить заявку</a>
+
+                </div>
+            </div>
+            <div></div>
+        </div>
+        <div class="modal fade" id="application" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="title">
+                            <h1><span>Заявка на подключение</span></h1>
                         </div>
-                        <t:form t:zone="applicationZone" t:id="applicationAjaxForm" class="form edit" t:clientValidation="none" role="form">
-                            <t:errors/>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <t:label for="eMail">Адрес почты:</t:label>
-                                    <input t:type="TextField" id="eMail" t:id="eMail" t:value="eMail" t:validate="required,email,maxlength=64" class="form-control"/>
-                                </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <t:zone t:id="applicationZone">
+                            <t:delegate to="applicationFormBlock"/>
+                        </t:zone>
+                        <t:block t:id="applicationFormBlock">
+                            <div class="row">
+                                <p class="modal-text">Если вы кулинар и хотите подключиться к ГастроМаркет, полноценно использовать все возможности сайта и продавать приготовленную вами еду, то оставьте заявку на подключение и мы обязательно с вами свяжемся.</p>
                             </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <t:label for="fullName">Полное имя:</t:label>
-                                    <input t:type="TextField" id="fullName" t:id="fullName" t:value="fullName" t:validate="required,maxlength=64" class="form-control"/>
+                            <t:form t:zone="applicationZone" t:id="applicationAjaxForm" class="form edit" t:clientValidation="none" role="form">
+                                <t:errors/>
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <t:label for="eMail">Адрес почты:</t:label>
+                                        <input t:type="TextField" id="eMail" t:id="eMail" t:value="eMail" t:validate="required,email,maxlength=64" class="form-control"/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <t:label for="sourceInfo">Откуда вы узнали о ГастроМаркет?</t:label>
-                                    <input t:type="TextField" id="sourceInfo" t:id="sourceInfo" t:value="sourceInfo" class="form-control"/>
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <t:label for="fullName">Полное имя:</t:label>
+                                        <input t:type="TextField" id="fullName" t:id="fullName" t:value="fullName" t:validate="required,maxlength=64" class="form-control"/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <t:label for="about">Расскажите о себе:</t:label>
-                                    <textarea t:type="TextArea" t:id="about" t:value="about" t:validate="required" rows="5" class="form-control"/>
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <t:label for="sourceInfo">Откуда вы узнали о ГастроМаркет?</t:label>
+                                        <input t:type="TextField" id="sourceInfo" t:id="sourceInfo" t:value="sourceInfo" class="form-control"/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-buttons" xml:space="preserve">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <t:label for="about">Расскажите о себе:</t:label>
+                                        <textarea t:type="TextArea" t:id="about" t:value="about" t:validate="required" rows="5" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="form-buttons" xml:space="preserve">
                                         <input class="btn btn-red" type="submit" value="Оставить заявку на подключение"/>
                                     </div>
-                            </div>
-                        </t:form>
-                    </t:block>
+                                </div>
+                            </t:form>
+                        </t:block>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!--</t:if>-->
+    </t:if>
 </div>

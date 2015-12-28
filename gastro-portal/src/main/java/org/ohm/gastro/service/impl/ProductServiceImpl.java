@@ -154,25 +154,26 @@ public class ProductServiceImpl implements ProductService, Logging {
         listValues.stream()
                 .forEach(t -> {
                     final String parentValueIdStr = (String) t.getValue(1);
-                    final Long parentValueId = getPropertyValueId(parentValueIdStr, (String) t.getValue(0));
-                    final Long childValueId = t.getSize() == 3 ? (Long) t.getValue(2) : null;
-                    final PropertyValueEntity parentValue = propertyService.findPropertyValue(parentValueId);
-                    final PropertyEntity property = parentValue.getProperty();
-                    final TagEntity parentTag = new TagEntity();
-                    final TagEntity childTag;
-                    parentTag.setProduct(product);
-                    parentTag.setProperty(property);
-                    parentTag.setValue(parentValue);
-                    tagRepository.save(parentTag);
-                    if (childValueId != null) {
-                        final PropertyValueEntity childValue = propertyService.findPropertyValue(childValueId);
-                        childTag = new TagEntity();
-                        childTag.setProduct(product);
-                        childTag.setProperty(property);
-                        childTag.setValue(childValue);
-                        childTag.setData(parentTag.getId().toString());
-                        tagRepository.save(childTag);
-                    }
+                    getPropertyValueIds(parentValueIdStr, (String) t.getValue(0)).forEach(parentValueId -> {
+                        final Long childValueId = t.getSize() == 3 ? (Long) t.getValue(2) : null;
+                        final PropertyValueEntity parentValue = propertyService.findPropertyValue(parentValueId);
+                        final PropertyEntity property = parentValue.getProperty();
+                        final TagEntity parentTag = new TagEntity();
+                        final TagEntity childTag;
+                        parentTag.setProduct(product);
+                        parentTag.setProperty(property);
+                        parentTag.setValue(parentValue);
+                        tagRepository.save(parentTag);
+                        if (childValueId != null) {
+                            final PropertyValueEntity childValue = propertyService.findPropertyValue(childValueId);
+                            childTag = new TagEntity();
+                            childTag.setProduct(product);
+                            childTag.setProperty(property);
+                            childTag.setValue(childValue);
+                            childTag.setData(parentTag.getId().toString());
+                            tagRepository.save(childTag);
+                        }
+                    });
                 });
         return product;
     }
@@ -191,18 +192,30 @@ public class ProductServiceImpl implements ProductService, Logging {
         tagRepository.save(tags);
     }
 
-    private Long getPropertyValueId(final String valueId, final String propId) {
+    private List<Long> getPropertyValueIds(final String valueId, final String propId) {
         final String[] split = valueId.split("-");
         if (split.length > 1 && split[0].equals("new")) {
-            final PropertyValueEntity newPropValue = new PropertyValueEntity();
-            final String value = Arrays.stream(Arrays.copyOfRange(split, 1, split.length)).collect(Collectors.joining("-"));
-            newPropValue.setName(StringUtils.capitalize(value));
-            newPropValue.setClientGenerated(true);
-            newPropValue.setRootValue(true);
-            newPropValue.setProperty(propertyRepository.findOne(Long.parseLong(propId)));
-            return propertyValueRepository.save(newPropValue).getId();
+            final String values = Arrays.stream(Arrays.copyOfRange(split, 1, split.length)).collect(Collectors.joining("-"));
+            if (StringUtils.isNoneEmpty(values)) {
+                return Arrays.stream(values.split(",")).filter(StringUtils::isNotEmpty).map(value -> {
+                    final PropertyEntity property = propertyRepository.findOne(Long.parseLong(propId));
+                    final String capitalize = StringUtils.capitalize(value.trim());
+                    final List<PropertyValueEntity> existingValues = propertyValueRepository.findAllByPropertyAndName(property, capitalize.toLowerCase());
+                    if (existingValues.isEmpty()) {
+                        final PropertyValueEntity newPropValue = new PropertyValueEntity();
+                        newPropValue.setName(capitalize);
+                        newPropValue.setClientGenerated(true);
+                        newPropValue.setRootValue(true);
+                        newPropValue.setProperty(property);
+                        return propertyValueRepository.save(newPropValue).getId();
+                    } else {
+                        return existingValues.get(0).getId();
+                    }
+                }).filter(t -> t != null).collect(Collectors.toList());
+            }
+            return Lists.newArrayList();
         } else {
-            return Long.parseLong(valueId);
+            return Lists.newArrayList(Long.parseLong(valueId));
         }
     }
 

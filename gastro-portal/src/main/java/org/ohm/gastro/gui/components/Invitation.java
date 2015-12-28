@@ -14,7 +14,7 @@ import org.ohm.gastro.util.CommonsUtils;
 public class Invitation extends BaseComponent {
 
     @Parameter
-    private boolean forceShow = false;
+    private boolean forceShow = true;
 
     @Property
     private String about;
@@ -47,7 +47,7 @@ public class Invitation extends BaseComponent {
     }
 
     public boolean isShow() {
-        return forceShow || !isAuthenticated();
+        return forceShow;
     }
 
 }

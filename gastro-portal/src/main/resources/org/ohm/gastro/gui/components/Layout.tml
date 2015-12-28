@@ -106,7 +106,7 @@
 </t:if>
 <t:body/>
 <!--noindex-->
-<t:invitation/>
+<t:invitation forceShow="forceShow"/>
 <t:wizardInvitation/>
 <t:contractInvitation/>
 <t:replyInvitation/>
