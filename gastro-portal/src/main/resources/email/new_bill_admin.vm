@@ -1,4 +1,4 @@
-#set($subject = "Счет ${bill.billNumber} оплачен}"
+#set($subject = "Счет ${bill.billNumber} оплачен")
 #set($toadmin = true)
 #parse("email/header.vm")
 <p>
