@@ -7,7 +7,7 @@
                         <input t:type="TextField" id="search" t:id="search" t:value="searchString" t:validate="maxlength=256" placeholder="Возможно вы ищете что-то конкретное, например 'Свадебный торт'" class="form-control"/>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 last">
                     <div class="form-group">
                         <input type="submit" class="form-control btn btn-red" value="Начать поиск"/>
                     </div>

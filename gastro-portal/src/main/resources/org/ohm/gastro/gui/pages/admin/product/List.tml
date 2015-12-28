@@ -14,10 +14,10 @@
         </div>
     </t:form>
 
-    <div class="links-set" xml:space="preserve">
-        <a data-toggle="modal" data-target="#categories" href="#categories">Категории</a>
-    </div>
     <t:form t:id="productForm" class="form">
+        <div class="links-set" xml:space="preserve">
+            <a data-toggle="modal" data-target="#categories" href="#categories">Категории</a>
+        </div>
         <div class="modal fade" id="categories" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
