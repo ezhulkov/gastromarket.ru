@@ -74,6 +74,14 @@
                 <div class="qq-upload-list-selector hidden">
                     <div class="qq-edit-filename-selector hidden"/>
                 </div>
+                <div class="qq-upload-button-tools">
+                    <a href="#" id="rotateLeft" title="Налево"><span class="glyphicon glyphicon-repeat flipped" aria-hidden="true"></span></a>
+                    <a href="#" id="zoomOut" title="Уменьшить"><span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span></a>
+                    <a href="#" id="fit" title="По размеру"><span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span></a>
+                    <a href="#" id="zoomIn" title="Увеличить"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a>
+                    <a href="#" id="rotateRight" title="Направо"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></a>
+                    <a href="#" id="upload" title="Загрузить"><span class="glyphicon glyphicon-ok upload" aria-hidden="true"></span></a>
+                </div>
             </div>
         </div>
     </script>

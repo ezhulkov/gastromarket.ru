@@ -25,6 +25,10 @@ public class UploadFile extends BaseComponent {
     private FileType type;
 
     @Property
+    @Parameter(required = false, defaultPrefix = BindingConstants.LITERAL, value = "false")
+    private boolean withTools;
+
+    @Property
     @Parameter(allowNull = false, defaultPrefix = BindingConstants.LITERAL)
     private ImageSize responseSize;
 
@@ -49,6 +53,10 @@ public class UploadFile extends BaseComponent {
 
     public String getImageSelector() {
         return imageSelector == null ? String.format("#image-%s-%s", type, objectId) : imageSelector;
+    }
+
+    public boolean isAutoUpload() {
+        return !withTools;
     }
 
 }

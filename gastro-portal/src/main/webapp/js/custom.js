@@ -356,27 +356,69 @@ function initFineUploader(el) {
         var targetContext = jQuery(e).attr("data-targetcontext") || "";
         var imageSelector = jQuery(e).attr("data-image") || "";
         var refreshAjax = jQuery(e).attr("data-refreshajax") || "";
-        button.fineUploader({
+        var autoUpload = Boolean(jQuery(e).attr("data-autoupload") === "true");
+        var fineUploaderUrl = '/upload?file_type=' + fileType + '&object_id=' + objectId + '&target_context=' + targetContext;
+        var fineUploader = button.fineUploader({
+            autoUpload: autoUpload,
             request: {
-                endpoint: '/upload?file_type=' + fileType + '&object_id=' + objectId + '&target_context=' + targetContext
+                endpoint: fineUploaderUrl
             },
             validation: {
                 allowedExtensions: ['jpeg', 'jpg', 'png'],
                 sizeLimit: 10485760,
                 itemLimit: 1
+            },
+            callbacks: {
+                onSubmitted: function (id, name) {
+                    if (autoUpload) {
+                        jQuery(id.target).addClass("upload-progress");
+                    } else {
+                        var image = jQuery(imageSelector);
+                        image.on("load", function (id) {
+                            image.guillotine({width: 210, height: 210});
+                            image.guillotine("fit");
+                            image.guillotine("zoomIn");
+                            image.on("upload", function (e) {
+                                var data = image.guillotine('getData');
+                                fineUploader.fineUploader("setEndpoint", fineUploaderUrl + "&s={0}&a={1}&x={2}&y={3}&w={4}&h={5}".format(data.scale, data.angle, data.x, data.y, data.w, data.h));
+                                fineUploader.fineUploader("uploadStoredFiles");
+                            });
+                            var container = jQuery(image).closest("div.upload-file").find(".qq-upload-button-selector")
+                            jQuery(container)
+                                .css("background", "white")
+                                .animate({
+                                    width: "170px"
+                                }, 200, function () {
+                                    jQuery(container).find("input[type='file']").hide();
+                                    jQuery(container).find(".qq-upload-button-tools").show();
+                                    jQuery(container).find(".qq-upload-button-tools a").unbind("click").bind("click", function () {
+                                        image.guillotine(this.id);
+                                        jQuery(image).trigger(this.id);
+                                        return false;
+                                    });
+                                });
+                        });
+                        var file = this.getFile(id);
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            image.attr("src", e.target.result);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                },
+                onComplete: function (id, name, responseJSON, xhr) {
+                    jQuery(id.target).removeClass("upload-progress");
+                    if (respSize != undefined && respSize.length > 0 && xhr[respSize] != undefined) {
+                        jQuery(imageSelector).attr("src", xhr[respSize] + "?" + new Date().getTime());
+                    }
+                    if (refreshAjax != null) {
+                        triggerEvent(jQuery(refreshAjax).get(0), "click");
+                    }
+                },
+                onError: function (id) {
+                    jQuery(id.target).removeClass("upload-progress");
+                }
             }
-        }).unbind("submitted").bind("submitted", function (id) {
-            jQuery(id.target).addClass("upload-progress");
-        }).unbind("complete").bind("complete", function (id, name, responseJSON, xhr) {
-            jQuery(id.target).removeClass("upload-progress");
-            if (respSize != undefined && respSize.length > 0 && xhr[respSize] != undefined) {
-                jQuery(imageSelector).attr("src", xhr[respSize] + "?" + new Date().getTime());
-            }
-            if (refreshAjax != null) {
-                triggerEvent(jQuery(refreshAjax).get(0), "click");
-            }
-        }).unbind("error").bind("error", function (id) {
-            jQuery(id.target).removeClass("upload-progress");
         });
     })
 }

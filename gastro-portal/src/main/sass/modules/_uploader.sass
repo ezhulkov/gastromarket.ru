@@ -2,12 +2,13 @@
 
 .upload-file
   position: relative
+  border: 1px solid #ccc
+  img
+    display: block
+    width: 100%
   &.AVATAR
     width: 210px
     height: 210px
-    img
-      width: 210px
-      height: 210px
   &.PRODUCT
     width: 560px
     height: 404px
@@ -15,27 +16,16 @@
     img
       width: 560px
       height: 404px
-  .uploader-button-container.upload-progress
-    min-height: 40px
-    background: url("../img/spinner.gif") no-repeat center center
-    background-size: contain
-    .btn-file
-      display: none
-    .qq-upload-button-selector
-      background: none
   &.upload-icon, &.upload-msg-icon
     .uploader-button-container
       position: absolute
       right: 10px
       bottom: 10px
     .qq-upload-button-selector
-      width: 49px
-      height: 49px
-      background: url("../img/avatar-upload.png") no-repeat
-    .qq-upload-button-hover
-      width: 49px
-      height: 49px
-      background: url("../img/avatar-upload-hover.png") no-repeat
+      width: 50px
+      height: 50px
+      border-radius: 25px
+      background: white url("../img/avatar-upload.png")
     .btn-file
       display: none
   &.upload-msg-icon
@@ -45,3 +35,19 @@
   &.upload-button
     .btn-file
       width: 100%
+  .uploader-button-container.upload-progress
+    background: url("../img/spinner.gif") no-repeat center center
+    background-size: contain
+    .btn-file, .qq-upload-button-selector, .qq-upload-button-tools
+      background: none
+  .qq-upload-button-tools
+    display: none
+    background: white
+    padding: 12px 10px 10px 14px
+    border-radius: 40px
+    & > a > span
+      margin: 0 5px
+      font-size: 12px
+    & > a > span.upload
+      margin: 0 5px 0 10px
+      font-size: 20px

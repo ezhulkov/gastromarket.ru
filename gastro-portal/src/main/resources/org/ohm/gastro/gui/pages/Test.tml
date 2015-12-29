@@ -62,37 +62,70 @@
         </div>
     </section>
 
-    <section>
+    <section class="hidden">
         <div class="container">
-            <div class="frame" style="width:560px; height: 404px;"><img id="sample_picture"/></div>
-            <br/>
-            <div id="controls" class="hidden">
-                <a href="#" id="rotateLeft" title="Rotate left">Rotate left</a>
-                <a href="#" id="zoomOut" title="Zoom out">Zoom out</a>
-                <a href="#" id="fit" title="Fit image">Fit image</a>
-                <a href="#" id="zoomIn" title="Zoom in">Zoom in</a>
-                <a href="#" id="rotateRight" title="Rotate right">Rotate right</a>
-                <a href="#" id="fit" title="Fit">Fit</a>
+            <div class='frame'>
+                <img id='sample_picture'/>
             </div>
+            <style>
+                .frame {
+                    width: 210px;
+                    height: 210px;
+                    border: 1px solid #ccc;
+                }
+
+                .frame > img {
+                    display: block;
+                    width: 100%
+                }
+            </style>
+            <div id="controls">
+                <a href="#" id="rotateLeft" title="Rotate left">Rotate left</a>&nbsp;
+                <a href="#" id="zoomOut" title="Zoom out">Zoom out</a>&nbsp;
+                <a href="#" id="fit" title="Fit image">Fit image</a>&nbsp;
+                <a href="#" id="zoomIn" title="Zoom in">Zoom in</a>&nbsp;
+                <a href="#" id="rotateRight" title="Rotate right">Rotate right</a>
+            </div>
+            <input type='file' id="imgInp"/>
+            <br/>
             <script>
                 var picture = jQuery("#sample_picture");
                 picture.on("load", function () {
-                    picture.guillotine({eventOnChange: "guillotinechange"})
+                    picture.guillotine({
+                        width: 210,
+                        height: 210,
+                        eventOnChange: "guillotinechange"
+                    });
                     picture.guillotine("fit");
-//                        picture.guillotine("zoomIn")
-                    jQuery("#controls").removeClass("hidden")
+                    picture.guillotine('zoomIn');
                     jQuery("#controls a").click(function (e) {
                         e.preventDefault();
                         picture.guillotine(this.id)
                     });
                     picture.on("guillotinechange", function (e, data, action) {
-                        console.log(data);
+
                     })
                 });
-                picture.attr("src", "img/landing-main.jpg");
+                jQuery("#imgInp").change(function () {
+                    var input = this;
+                    if (input.files) {
+                        if (input.files[0]) {
+                            var reader = new FileReader();
+                            reader.onload = function (e) {
+                                picture.attr("src", e.target.result);
+                            }
+                            reader.readAsDataURL(input.files[0]);
+                        }
+                    }
+                });
             </script>
         </div>
     </section>
 
+    <section>
+        <div class="container">
+            <t:uploadfile type="AVATAR" withTools="true" imageUrl="/img/avatar-stub-210x210.png"/>
+        </div>
+    </section>
 
 </t:layout>
