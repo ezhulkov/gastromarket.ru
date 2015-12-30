@@ -117,7 +117,7 @@ public class ImageServiceImpl implements ImageService {
     private Map<ImageSize, String> resizeImagePack(@Nonnull final InputStream is, @Nonnull final FileType fileType, @Nullable final String objectId,
                                                    @Nullable String scaleStr, @Nullable String angleStr,
                                                    @Nullable String xStr, @Nullable String yStr,
-                                                   @Nullable String widthStr, @Nullable String heightStr) throws IOException {
+                                                   @Nullable String wStr, @Nullable String hStr) throws IOException {
         final BufferedImage image = ImageIO.read(is);
         Logging.logger.debug("Resizing image {}, fileType {}, objectId {} ", is, fileType, objectId);
         final Map<ImageSize, Integer[]> fileSizes = sizes.get(fileType);
@@ -125,7 +125,7 @@ public class ImageServiceImpl implements ImageService {
                 .map(entry -> propagate(() -> {
                     ImageSize imageSize = entry.getKey();
                     final String imageName = String.format(IMAGE_NAME_TEMPLATE, fileType, objectId, imageSize);
-                    final BufferedImage resizedImage = resizeImage(image, entry.getValue()[0], entry.getValue()[1], scaleStr, angleStr, xStr, yStr);
+                    final BufferedImage resizedImage = resizeImage(image, entry.getValue()[0], entry.getValue()[1], scaleStr, angleStr, xStr, yStr, wStr, hStr);
                     final String imageFileName = imageDestinationPath + File.separator + imageName;
                     ImageIO.write(resizedImage, "jpeg", new File(imageFileName));
                     Logging.logger.debug("Image resized {} to {}", imageSize, imageFileName);
@@ -138,7 +138,7 @@ public class ImageServiceImpl implements ImageService {
 
     public static BufferedImage resizeImage(final BufferedImage originalImage, final int width, final int height,
                                             final String scaleStr, final String angleStr,
-                                            final String xStr, final String yStr) {
+                                            final String xStr, final String yStr, String wStr, String hStr) {
 
         //Rotate if needed
         final BufferedImage rotatedImage = angleStr == null ?
@@ -183,8 +183,8 @@ public class ImageServiceImpl implements ImageService {
             croppedY = (originalHeight - croppedHeight) / 2;
         } else {
             final float scale = Float.parseFloat(scaleStr);
-            croppedWidth = width / scale;
-            croppedHeight = height / scale;
+            croppedWidth = width / scale * Integer.parseInt(wStr) / width;
+            croppedHeight = height / scale * Integer.parseInt(hStr) / height;
             croppedX = Integer.parseInt(xStr) / scale;
             croppedY = Integer.parseInt(yStr) / scale;
         }
