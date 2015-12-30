@@ -361,7 +361,8 @@ public class ProductServiceImpl implements ProductService, Logging {
                     FileUtils.copyURLToFile(new URL(element.getAvatarUrl()), file);
                     imageService.resizeImagePack(file,
                                                  FileType.PRODUCT,
-                                                 product.getId().toString());
+                                                 product.getId().toString(),
+                                                 null, null, null, null, null, null);
                 } catch (IOException e) {
                     logger.error("", e);
                 }

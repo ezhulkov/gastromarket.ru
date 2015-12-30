@@ -16,7 +16,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -46,8 +49,8 @@ public class ImageServiceImpl implements ImageService {
                     .put(ImageSize.SIZE3, new Integer[]{210, 210})
                     .build())
             .put(FileType.PRODUCT, new ImmutableMap.Builder<ImageSize, Integer[]>()
-                    .put(ImageSize.SIZE1, new Integer[]{100, 100})
-                    .put(ImageSize.SIZE2, new Integer[]{270, 270})
+                    .put(ImageSize.SIZE1, new Integer[]{140, 101})
+                    .put(ImageSize.SIZE2, new Integer[]{280, 202})
                     .put(ImageSize.SIZE3, new Integer[]{560, 404})
                     .put(ImageSize.SIZE4, new Integer[]{1000, 720})
                     .build())
@@ -57,13 +60,13 @@ public class ImageServiceImpl implements ImageService {
                     .put(ImageSize.SIZE3, new Integer[]{270, 270})
                     .build())
             .put(FileType.PHOTO, new ImmutableMap.Builder<ImageSize, Integer[]>()
-                    .put(ImageSize.SIZE1, new Integer[]{100, 100})
-                    .put(ImageSize.SIZE2, new Integer[]{270, 270})
+                    .put(ImageSize.SIZE1, new Integer[]{140, 101})
+                    .put(ImageSize.SIZE2, new Integer[]{280, 202})
                     .put(ImageSize.SIZE3, new Integer[]{1000, 720})
                     .build())
             .put(FileType.TENDER, new ImmutableMap.Builder<ImageSize, Integer[]>()
-                    .put(ImageSize.SIZE1, new Integer[]{100, 100})
-                    .put(ImageSize.SIZE2, new Integer[]{270, 270})
+                    .put(ImageSize.SIZE1, new Integer[]{140, 101})
+                    .put(ImageSize.SIZE2, new Integer[]{280, 202})
                     .put(ImageSize.SIZE3, new Integer[]{1000, 720})
                     .build())
             .build();
@@ -96,16 +99,25 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public Map<ImageSize, String> resizeImagePack(@Nonnull File file, @Nonnull FileType fileType, @Nullable String objectId) throws IOException {
-        return resizeImagePack(new FileInputStream(file), fileType, objectId);
+    public Map<ImageSize, String> resizeImagePack(@Nonnull File file, @Nonnull FileType fileType, @Nullable String objectId,
+                                                  @Nullable String scaleStr, @Nullable String angleStr,
+                                                  @Nullable String xStr, @Nullable String yStr,
+                                                  @Nullable String widthStr, @Nullable String heightStr) throws IOException {
+        return resizeImagePack(new FileInputStream(file), fileType, objectId, scaleStr, angleStr, xStr, yStr, widthStr, heightStr);
     }
 
     @Override
-    public Map<ImageSize, String> resizeImagePack(@Nonnull final byte[] fileBytes, @Nonnull final FileType fileType, @Nullable final String objectId) throws IOException {
-        return resizeImagePack(new ByteArrayInputStream(fileBytes), fileType, objectId);
+    public Map<ImageSize, String> resizeImagePack(@Nonnull byte[] fileBytes, @Nonnull FileType fileType, @Nullable String objectId,
+                                                  @Nullable String scaleStr, @Nullable String angleStr,
+                                                  @Nullable String xStr, @Nullable String yStr,
+                                                  @Nullable String widthStr, @Nullable String heightStr) throws IOException {
+        return resizeImagePack(new ByteArrayInputStream(fileBytes), fileType, objectId, scaleStr, angleStr, xStr, yStr, widthStr, heightStr);
     }
 
-    private Map<ImageSize, String> resizeImagePack(@Nonnull final InputStream is, @Nonnull final FileType fileType, @Nullable final String objectId) throws IOException {
+    private Map<ImageSize, String> resizeImagePack(@Nonnull final InputStream is, @Nonnull final FileType fileType, @Nullable final String objectId,
+                                                   @Nullable String scaleStr, @Nullable String angleStr,
+                                                   @Nullable String xStr, @Nullable String yStr,
+                                                   @Nullable String widthStr, @Nullable String heightStr) throws IOException {
         final BufferedImage image = ImageIO.read(is);
         Logging.logger.debug("Resizing image {}, fileType {}, objectId {} ", is, fileType, objectId);
         final Map<ImageSize, Integer[]> fileSizes = sizes.get(fileType);
@@ -113,7 +125,7 @@ public class ImageServiceImpl implements ImageService {
                 .map(entry -> propagate(() -> {
                     ImageSize imageSize = entry.getKey();
                     final String imageName = String.format(IMAGE_NAME_TEMPLATE, fileType, objectId, imageSize);
-                    final BufferedImage resizedImage = resizeImage(image, entry.getValue()[0], entry.getValue()[1]);
+                    final BufferedImage resizedImage = resizeImage(image, entry.getValue()[0], entry.getValue()[1], scaleStr, angleStr, xStr, yStr);
                     final String imageFileName = imageDestinationPath + File.separator + imageName;
                     ImageIO.write(resizedImage, "jpeg", new File(imageFileName));
                     Logging.logger.debug("Image resized {} to {}", imageSize, imageFileName);
@@ -124,42 +136,64 @@ public class ImageServiceImpl implements ImageService {
         return imageUrls;
     }
 
-    private BufferedImage resizeImage(final BufferedImage originalImage, final int width, final int height) {
-        final float originalWidth = originalImage.getWidth();
-        final float originalHeight = originalImage.getHeight();
+    public static BufferedImage resizeImage(final BufferedImage originalImage, final int width, final int height,
+                                            final String scaleStr, final String angleStr,
+                                            final String xStr, final String yStr) {
+
+        //Rotate if needed
+        final BufferedImage rotatedImage = angleStr == null ?
+                originalImage :
+                rotate(originalImage, Integer.parseInt(angleStr));
+
+        //Calculate size
+        final float originalWidth = rotatedImage.getWidth();
+        final float originalHeight = rotatedImage.getHeight();
         final float croppedWidth;
         final float croppedHeight;
-        if (originalHeight < height && originalWidth < width) {
-            croppedHeight = originalHeight;
-            croppedWidth = originalWidth;
-        } else if (originalHeight / height == originalWidth / width) {
-            croppedHeight = originalHeight;
-            croppedWidth = originalWidth;
-        } else if ((float) width / height > originalWidth / originalHeight) {
-            if (width > originalWidth) {
-                croppedHeight = height;
-                croppedWidth = originalWidth;
-            } else {
-                croppedHeight = Math.min(originalHeight, height * originalWidth / width);
-                croppedWidth = originalWidth;
-            }
-        } else if ((float) width / height < originalWidth / originalHeight) {
-            if (height > originalHeight) {
+        final float croppedX;
+        final float croppedY;
+        if (angleStr == null) {
+            if (originalHeight < height && originalWidth < width) {
                 croppedHeight = originalHeight;
-                croppedWidth = width;
-            } else {
+                croppedWidth = originalWidth;
+            } else if (originalHeight / height == originalWidth / width) {
                 croppedHeight = originalHeight;
-                croppedWidth = Math.min(originalWidth, width * originalHeight / height);
+                croppedWidth = originalWidth;
+            } else if ((float) width / height > originalWidth / originalHeight) {
+                if (width > originalWidth) {
+                    croppedHeight = height;
+                    croppedWidth = originalWidth;
+                } else {
+                    croppedHeight = Math.min(originalHeight, height * originalWidth / width);
+                    croppedWidth = originalWidth;
+                }
+            } else if ((float) width / height < originalWidth / originalHeight) {
+                if (height > originalHeight) {
+                    croppedHeight = originalHeight;
+                    croppedWidth = width;
+                } else {
+                    croppedHeight = originalHeight;
+                    croppedWidth = Math.min(originalWidth, width * originalHeight / height);
+                }
+            } else {
+                croppedHeight = 0;
+                croppedWidth = 0;
             }
+            croppedX = (originalWidth - croppedWidth) / 2;
+            croppedY = (originalHeight - croppedHeight) / 2;
         } else {
-            croppedHeight = 0;
-            croppedWidth = 0;
+            final float scale = Float.parseFloat(scaleStr);
+            croppedWidth = width / scale;
+            croppedHeight = height / scale;
+            croppedX = Integer.parseInt(xStr) / scale;
+            croppedY = Integer.parseInt(yStr) / scale;
         }
 
-        final BufferedImage croppedImage = originalImage.getSubimage((int) (originalWidth - croppedWidth) / 2,
-                                                                     (int) (originalHeight - croppedHeight) / 2,
-                                                                     (int) croppedWidth,
-                                                                     (int) croppedHeight);
+        //Crop and resize image
+        final BufferedImage croppedImage = rotatedImage.getSubimage((int) croppedX,
+                                                                    (int) croppedY,
+                                                                    (int) croppedWidth,
+                                                                    (int) croppedHeight);
         final BufferedImage resizedImage = new BufferedImage(width, height, ColorSpace.TYPE_RGB);
         final Graphics2D g = resizedImage.createGraphics();
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -176,7 +210,21 @@ public class ImageServiceImpl implements ImageService {
         g.setStroke(new BasicStroke(2));
         g.drawRect(0, 0, width - 2, height - 2);
         g.dispose();
+
         return resizedImage;
+    }
+
+    public static BufferedImage rotate(BufferedImage image, double angle) {
+        int w = image.getWidth();
+        int h = image.getHeight();
+        final int neww = angle % 180 == 0 ? w : h;
+        final int newh = angle % 180 == 0 ? h : w;
+        final BufferedImage result = new BufferedImage(neww, newh, image.getType());
+        final Graphics2D g = result.createGraphics();
+        g.translate((neww - w) / 2, (newh - h) / 2);
+        g.rotate(Math.toRadians(angle), w / 2, h / 2);
+        g.drawRenderedImage(image, null);
+        return result;
     }
 
 }

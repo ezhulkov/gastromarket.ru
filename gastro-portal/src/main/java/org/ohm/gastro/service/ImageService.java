@@ -19,8 +19,15 @@ public interface ImageService {
 
     String explicitlyGetObjectId(@Nonnull FileType fileType, @Nullable String objectIdStr, @Nullable String targetContext, @Nonnull UserEntity caller);
 
-    Map<ImageSize, String> resizeImagePack(@Nonnull File file, @Nonnull FileType fileType, @Nullable String objectId) throws IOException;
+    Map<ImageSize, String> resizeImagePack(@Nonnull File file, @Nonnull FileType fileType, @Nullable String objectId,
+                                           @Nullable String scaleStr, @Nullable String angleStr,
+                                           @Nullable String xStr, @Nullable String yStr,
+                                           @Nullable String widthStr, @Nullable String heightStr) throws IOException;
 
-    Map<ImageSize, String> resizeImagePack(@Nonnull byte[] fileBytes, @Nonnull FileType fileType, @Nullable String objectId) throws IOException;
+    Map<ImageSize, String> resizeImagePack(@Nonnull byte[] fileBytes, @Nonnull FileType fileType, @Nullable String objectId,
+                                           @Nullable String scaleStr, @Nullable String angleStr,
+                                           @Nullable String xStr, @Nullable String yStr,
+                                           @Nullable String widthStr, @Nullable String heightStr) throws IOException;
+
 
 }

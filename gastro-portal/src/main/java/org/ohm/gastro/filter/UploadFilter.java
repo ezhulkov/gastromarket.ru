@@ -40,6 +40,12 @@ public class UploadFilter extends BaseApplicationFilter implements Logging {
             final String fileTypeStr = httpServletRequest.getParameter("file_type");
             final String objectIdStr = httpServletRequest.getParameter("object_id");
             final String targetContext = httpServletRequest.getParameter("target_context");
+            final String scaleStr = httpServletRequest.getParameter("s");
+            final String angleStr = httpServletRequest.getParameter("a");
+            final String xStr = httpServletRequest.getParameter("x");
+            final String yStr = httpServletRequest.getParameter("y");
+            final String widthStr = httpServletRequest.getParameter("w");
+            final String heightStr = httpServletRequest.getParameter("h");
 
             checkNotNull(fileTypeStr, "file_type should not be empty");
             checkNotNull(imageBuf, "qqfile should not be empty");
@@ -51,7 +57,7 @@ public class UploadFilter extends BaseApplicationFilter implements Logging {
 
             checkNotNull(objectId, "objectId should not be empty");
 
-            final Map<ImageSize, String> imageUrls = imageService.resizeImagePack(imageBuf, fileType, objectId);
+            final Map<ImageSize, String> imageUrls = imageService.resizeImagePack(imageBuf, fileType, objectId, scaleStr, angleStr, xStr, yStr, widthStr, heightStr);
 
             if (fileType == FileType.TENDER) httpServletRequest.getSession().setAttribute(FileType.TENDER + "_" + objectId, imageUrls);
 
