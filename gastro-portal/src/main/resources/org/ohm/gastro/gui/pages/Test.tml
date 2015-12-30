@@ -124,7 +124,18 @@
 
     <section>
         <div class="container">
-            <t:uploadfile type="AVATAR" withTools="true" imageUrl="/img/avatar-stub-210x210.png"/>
+            <div class="row">
+                <div class="col-sm-3">
+                    <t:uploadfile type="AVATAR" objectId="1" imageUrl="/img/avatar-stub-210x210.png"/>
+                </div>
+                <div class="col-sm-3">
+                    <t:uploadfile type="AVATAR" objectId="2" imageUrl="/img/avatar-stub-210x210.png" withTools="true"/>
+                </div>
+                <div class="col-sm-3">
+                </div>
+                <div class="col-sm-3">
+                </div>
+            </div>
         </div>
     </section>
 

@@ -370,28 +370,36 @@ function initFineUploader(el) {
             },
             callbacks: {
                 onSubmitted: function (id, name) {
+                    var image = jQuery(imageSelector);
+                    var btnContainer = jQuery(imageSelector).closest(".upload-file").find(".qq-upload-button-selector");
                     if (autoUpload) {
-                        jQuery(id.target).addClass("upload-progress");
+                        jQuery(button).addClass("upload-progress");
                     } else {
-                        var image = jQuery(imageSelector);
-                        image.on("load", function (id) {
+                        image.unbind("load").bind("load", function (id) {
+                            image.guillotine("remove");
                             image.guillotine({width: 210, height: 210});
                             image.guillotine("fit");
                             image.guillotine("zoomIn");
-                            image.on("upload", function (e) {
+                            image.unbind("upload").bind("upload", function (e) {
                                 var data = image.guillotine('getData');
                                 fineUploader.fineUploader("setEndpoint", fineUploaderUrl + "&s={0}&a={1}&x={2}&y={3}&w={4}&h={5}".format(data.scale, data.angle, data.x, data.y, data.w, data.h));
                                 fineUploader.fineUploader("uploadStoredFiles");
+                                image.guillotine("disable");
+                                jQuery(button).addClass("upload-progress");
+                                jQuery(btnContainer).css("background", "none");
+                                jQuery(btnContainer).css("width", "50px");
+                                jQuery(btnContainer).find("input[type='file']").show();
+                                jQuery(btnContainer).find(".qq-upload-button-tools").hide();
+                                jQuery(btnContainer).find(".qq-upload-button-tools a").unbind("click")
                             });
-                            var container = jQuery(image).closest("div.upload-file").find(".qq-upload-button-selector")
-                            jQuery(container)
+                            jQuery(btnContainer)
                                 .css("background", "white")
                                 .animate({
                                     width: "170px"
                                 }, 200, function () {
-                                    jQuery(container).find("input[type='file']").hide();
-                                    jQuery(container).find(".qq-upload-button-tools").show();
-                                    jQuery(container).find(".qq-upload-button-tools a").unbind("click").bind("click", function () {
+                                    jQuery(btnContainer).find("input[type='file']").hide();
+                                    jQuery(btnContainer).find(".qq-upload-button-tools").show();
+                                    jQuery(btnContainer).find(".qq-upload-button-tools a").unbind("click").bind("click", function () {
                                         image.guillotine(this.id);
                                         jQuery(image).trigger(this.id);
                                         return false;
@@ -407,16 +415,27 @@ function initFineUploader(el) {
                     }
                 },
                 onComplete: function (id, name, responseJSON, xhr) {
-                    jQuery(id.target).removeClass("upload-progress");
-                    if (respSize != undefined && respSize.length > 0 && xhr[respSize] != undefined) {
-                        jQuery(imageSelector).attr("src", xhr[respSize] + "?" + new Date().getTime());
-                    }
-                    if (refreshAjax != null) {
-                        triggerEvent(jQuery(refreshAjax).get(0), "click");
+                    var image = jQuery(imageSelector);
+                    var btnContainer = jQuery(imageSelector).closest(".upload-file").find(".qq-upload-button-selector");
+                    jQuery(button).removeClass("upload-progress");
+                    if (autoUpload) {
+                        if (respSize != undefined && respSize.length > 0 && xhr[respSize] != undefined) {
+                            jQuery(imageSelector).attr("src", xhr[respSize] + "?" + new Date().getTime());
+                        }
+                        if (refreshAjax != null) {
+                            triggerEvent(jQuery(refreshAjax).get(0), "click");
+                        }
+                    } else {
+                        jQuery(btnContainer).css("background", "white url('../img/avatar-upload.png')");
                     }
                 },
                 onError: function (id) {
-                    jQuery(id.target).removeClass("upload-progress");
+                    var image = jQuery(imageSelector);
+                    var btnContainer = jQuery(imageSelector).closest(".upload-file").find(".qq-upload-button-selector");
+                    jQuery(button).removeClass("upload-progress");
+                    if (!autoUpload) {
+                        jQuery(btnContainer).css("background", "white url('../img/avatar-upload.png')");
+                    }
                 }
             }
         });
