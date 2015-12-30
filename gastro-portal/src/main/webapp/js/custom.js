@@ -355,6 +355,8 @@ function initFineUploader(el) {
         var objectId = jQuery(e).attr("data-objectid") || "";
         var targetContext = jQuery(e).attr("data-targetcontext") || "";
         var imageSelector = jQuery(e).attr("data-image") || "";
+        var imageWidth = parseInt(jQuery(e).attr("data-image-width") || "210");
+        var imageHeight = parseInt(jQuery(e).attr("data-image-height") || "210");
         var refreshAjax = jQuery(e).attr("data-refreshajax") || "";
         var autoUpload = Boolean(jQuery(e).attr("data-autoupload") === "true");
         var fineUploaderUrl = '/upload?file_type=' + fileType + '&object_id=' + objectId + '&target_context=' + targetContext;
@@ -377,7 +379,7 @@ function initFineUploader(el) {
                     } else {
                         image.unbind("load").bind("load", function (id) {
                             image.guillotine("remove");
-                            image.guillotine({width: 210, height: 210});
+                            image.guillotine({width: imageWidth, height: imageHeight});
                             image.guillotine("fit");
                             image.guillotine("zoomIn");
                             image.unbind("upload").bind("upload", function (e) {
@@ -426,7 +428,7 @@ function initFineUploader(el) {
                             triggerEvent(jQuery(refreshAjax).get(0), "click");
                         }
                     } else {
-                        jQuery(btnContainer).css("background", "white url('../img/avatar-upload.png')");
+                        jQuery(btnContainer).css("background", "white url('/img/avatar-upload.png')");
                     }
                 },
                 onError: function (id) {
@@ -434,7 +436,7 @@ function initFineUploader(el) {
                     var btnContainer = jQuery(imageSelector).closest(".upload-file").find(".qq-upload-button-selector");
                     jQuery(button).removeClass("upload-progress");
                     if (!autoUpload) {
-                        jQuery(btnContainer).css("background", "white url('../img/avatar-upload.png')");
+                        jQuery(btnContainer).css("background", "white url('/img/avatar-upload.png')");
                     }
                 }
             }
@@ -615,11 +617,28 @@ function getUrlVars() {
     return vars;
 }
 function onLogin() {
-    var ws = new WebSocket("wss://gastromarket.ru/chat");
-    //var ws = new WebSocket("ws://localhost:8080/chat");
+    connectWebSocket("wss://gastromarket.ru/chat");
+    //connectWebSocket("ws://localhost:8080/chat");
+}
+function connectWebSocket(url) {
+    var ws = new WebSocket(url);
     ws.onmessage = function (message) {
         var unread = JSON.parse(message.data)["unread"];
         if (unread != undefined)jQuery("#unread-messages").text("+" + unread);
+    };
+    ws.onclose = function () {
+        console.log("ws close")
+        setTimeout(function () {
+            console.log("ws reconnect");
+            connectWebSocket(url);
+        }, 1000)
+    };
+    ws.onerror = function () {
+        console.log("ws error")
+        setTimeout(function () {
+            console.log("ws reconnect");
+            connectWebSocket(url);
+        }, 1000)
     };
 }
 String.prototype.format = function () {

@@ -59,7 +59,7 @@
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <t:uploadfile type="AVATAR" responseSize="SIZE3" imageUrl="${avatarUrl}"/>
+                        <t:uploadfile type="AVATAR" responseSize="SIZE3" imageUrl="${avatarUrl}" withTools="true"/>
                     </div>
                     <div class="col-sm-2"/>
                 </div>

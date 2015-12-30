@@ -1,5 +1,6 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="upload-file upload-${inputType} ${type} ${additionalClass}"
-     data-image="${imageSelector}" data-targetcontext="${targetContext}"
+     data-image="${imageSelector}" data-image-width="${imageWidth}" data-image-height="${imageHeight}"
+     data-targetcontext="${targetContext}"
      data-inputtype="${inputType}" data-objectid="${objectId}"
      data-type="${type}" data-size="${responseSize}"
      data-refreshajax="${refreshAjax}" data-autoupload="${autoUpload}">

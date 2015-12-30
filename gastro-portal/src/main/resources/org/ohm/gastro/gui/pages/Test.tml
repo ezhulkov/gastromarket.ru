@@ -132,11 +132,30 @@
                     <t:uploadfile type="AVATAR" objectId="2" imageUrl="/img/avatar-stub-210x210.png" withTools="true"/>
                 </div>
                 <div class="col-sm-3">
+                    <t:uploadfile type="PHOTO" inputType="msg-icon"/>
                 </div>
-                <div class="col-sm-3">
+            </div>
+            <div class="row gap">
+                <div class="col-sm-12">
+                    <t:uploadfile type="PRODUCT" imageUrl="/img/product-stub-560x404.png" objectId="3" withTools="true" imageWidth="560" imageHeight="404"/>
+                </div>
+            </div>
+            <div class="row gap">
+                <div class="col-sm-6">
+                    <img id="photo-4" src="/img/product-stub-100x100.png"/>
+                    <t:uploadfile type="TENDER" responseSize="SIZE1" objectId="4" inputType="button" imageSelector="#photo-4"/>
+                </div>
+                <div class="col-sm-6">
+                    <img id="photo-5" src="/img/product-stub-100x100.png"/>
+                    <t:uploadfile type="PHOTO" responseSize="SIZE1" objectId="5" inputType="button" imageSelector="#photo-5"/>
                 </div>
             </div>
         </div>
+        <style>
+            .upload-file.PRODUCT {
+                margin: 0
+            }
+        </style>
     </section>
 
 </t:layout>

@@ -2,7 +2,7 @@
 
 .upload-file
   position: relative
-  border: 1px solid #ccc
+  overflow: hidden
   img
     display: block
     width: 100%
@@ -13,9 +13,6 @@
     width: 560px
     height: 404px
     margin: 0 auto
-    img
-      width: 560px
-      height: 404px
   &.upload-icon, &.upload-msg-icon
     .uploader-button-container
       position: absolute
@@ -29,6 +26,7 @@
     .btn-file
       display: none
   &.upload-msg-icon
+    height: 36px
     .uploader-button-container
       top: -8px
       right: -10px
