@@ -121,10 +121,6 @@
 
     <t:lasttenderssection additionalClass="hidden-xs white-section"/>
 
-    <script>
-        initTenderAddPage();
-    </script>
-
     <t:yagoal goal="TENDER_EDIT"/>
 
 </t:layout>

@@ -373,7 +373,7 @@ function initFineUploader(el) {
             callbacks: {
                 onSubmitted: function (id, name) {
                     var image = jQuery(imageSelector);
-                    var btnContainer = jQuery(imageSelector).closest(".upload-file").find(".qq-upload-button-selector");
+                    var btnContainer = jQuery("div[data-image='" + imageSelector + "']").find(".qq-upload-button-selector");
                     if (autoUpload) {
                         jQuery(button).addClass("upload-progress");
                     } else {
@@ -394,10 +394,11 @@ function initFineUploader(el) {
                                 jQuery(btnContainer).find(".qq-upload-button-tools").hide();
                                 jQuery(btnContainer).find(".qq-upload-button-tools a").unbind("click")
                             });
+                            jQuery(btnContainer).find(".btn-file").hide();
                             jQuery(btnContainer)
                                 .css("background", "white")
                                 .animate({
-                                    width: "170px"
+                                    width: "175px"
                                 }, 200, function () {
                                     jQuery(btnContainer).find("input[type='file']").hide();
                                     jQuery(btnContainer).find(".qq-upload-button-tools").show();
@@ -603,9 +604,6 @@ function triggerEvent(element, eventName) {
         }
     }
 }
-function initTenderAddPage() {
-    //jQuery(".tender-form .name").focus();
-}
 function getUrlVars() {
     var vars = [], hash;
     var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -618,7 +616,6 @@ function getUrlVars() {
 }
 function onLogin() {
     connectWebSocket("wss://gastromarket.ru/chat");
-    //connectWebSocket("ws://localhost:8080/chat");
 }
 function connectWebSocket(url) {
     var ws = new WebSocket(url);

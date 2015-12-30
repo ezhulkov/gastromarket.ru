@@ -141,13 +141,13 @@
                 </div>
             </div>
             <div class="row gap">
-                <div class="col-sm-6">
-                    <img id="photo-4" src="/img/product-stub-100x100.png"/>
-                    <t:uploadfile type="TENDER" responseSize="SIZE1" objectId="4" inputType="button" imageSelector="#photo-4"/>
+                <div class="col-sm-2">
+                    <div style="width: 100px; height: 100px; overflow: hidden;">
+                        <img id="photo-4" src="/img/product-stub-100x100.png"/>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <img id="photo-5" src="/img/product-stub-100x100.png"/>
-                    <t:uploadfile type="PHOTO" responseSize="SIZE1" objectId="5" inputType="button" imageSelector="#photo-5"/>
+                <div class="col-sm-4">
+                    <t:uploadfile type="TENDER" responseSize="SIZE1" objectId="4" inputType="button" imageSelector="#photo-4" withTools="true" imageHeight="100" imageWidth="100"/>
                 </div>
             </div>
         </div>
