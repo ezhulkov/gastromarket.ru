@@ -12,7 +12,6 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
     <http pattern="/css/**" security="none"/>
     <http pattern="/js/**" security="none"/>
     <http pattern="/img/**" security="none"/>
-    <http pattern="/chat" security="none"/>
 
     <http access-denied-page="/e403" use-expressions="true" auto-config="false">
         <intercept-url pattern="/office" access="hasAnyRole('COOK,ADMIN,USER')"/>
