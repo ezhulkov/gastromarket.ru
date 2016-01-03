@@ -2,6 +2,7 @@ package org.ohm.gastro.service.impl;
 
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.service.UserService;
+import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
@@ -16,7 +17,7 @@ import java.io.IOException;
  * Created by ezhulkov on 29.04.15.
  */
 @Component
-public class GmAuthSuccessfulHandler extends SavedRequestAwareAuthenticationSuccessHandler {
+public class GmAuthSuccessfulHandler extends SavedRequestAwareAuthenticationSuccessHandler implements Logging {
 
     private final UserService userService;
 

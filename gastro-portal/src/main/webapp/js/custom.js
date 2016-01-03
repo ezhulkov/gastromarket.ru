@@ -612,26 +612,13 @@ function getUrlVars() {
 }
 function onLogin() {
     connectWebSocket("wss://gastromarket.ru/chat");
+    //connectWebSocket("ws://localhost:8080/chat");
 }
 function connectWebSocket(url) {
-    var ws = new WebSocket(url);
+    var ws = new ReconnectingWebSocket(url, null, {debug: false, reconnectInterval: 3000});
     ws.onmessage = function (message) {
         var unread = JSON.parse(message.data)["unread"];
         if (unread != undefined)jQuery("#unread-messages").text("+" + unread);
-    };
-    ws.onclose = function () {
-        console.log("ws close")
-        setTimeout(function () {
-            console.log("ws reconnect");
-            connectWebSocket(url);
-        }, 1000)
-    };
-    ws.onerror = function () {
-        console.log("ws error")
-        setTimeout(function () {
-            console.log("ws reconnect");
-            connectWebSocket(url);
-        }, 1000)
     };
 }
 String.prototype.format = function () {

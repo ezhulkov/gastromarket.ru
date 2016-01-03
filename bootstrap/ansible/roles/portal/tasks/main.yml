@@ -6,17 +6,20 @@
       - "/var/lib/gastro/media"
       - "/var/lib/gastro/sitemap"
 
+  - name: upload application
+    copy: src=../../gastro-portal/target/gastromarket.war dest=/tmp/ROOT.war owner=tomcat7 group=tomcat7 mode=0644
+
+  - name: upload static
+    copy: src=../../gastro-portal/target/static.tar.gz dest=/tmp/static.tar.gz owner=nginx group=nginx mode=0644
+
   - name: cleanup tomcat7 work files
     shell: rm -fr /var/lib/tomcat7/work/*
 
   - name: cleanup tomcat7 war file
     shell: rm -fr /var/lib/tomcat7/webapps/ROOT.war
 
-  - name: upload application
-    copy: src=../../gastro-portal/target/gastromarket.war dest=/var/lib/tomcat7/webapps/ROOT.war owner=tomcat7 group=tomcat7 mode=0644
-
-  - name: upload static
-    copy: src=../../gastro-portal/target/static.tar.gz dest=/tmp/static.tar.gz owner=nginx group=nginx mode=0644
+  - name: setup application
+    shell: mv /tmp/ROOT.war /var/lib/tomcat7/webapps/ROOT.war
 
   - name: untar static
     unarchive: src=/tmp/static.tar.gz dest=/ copy=false
