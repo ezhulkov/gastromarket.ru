@@ -134,7 +134,7 @@
                             <p class="modal-text">Загрузите фотографию в формате JPEG или PNG,<br/> размер которой должен быть меньше 10 мегабайт.</p>
                         </div>
                         <div class="row">
-                            <t:uploadfile type="PRODUCT" responseSize="SIZE3" imageUrl="${product?.avatarUrl}" objectId="${product?.id}"/>
+                            <t:uploadfile type="PRODUCT" imageUrl="${product?.avatarUrl}" imageHeight="404" imageWidth="560" objectId="${product?.id}" withTools="true"/>
                             <br/>
                         </div>
                         <div class="form-buttons" xml:space="preserve">

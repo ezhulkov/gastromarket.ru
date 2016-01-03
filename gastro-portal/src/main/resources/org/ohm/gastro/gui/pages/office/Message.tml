@@ -26,7 +26,7 @@
                 <t:form t:id="postForm" t:context="conversation.id" t:zone="newMessagesZone" class="form postform" t:clientValidation="none" role="form">
                     <div class="col-lg-offset-2 col-lg-1 col-lg-offset-2 col-md-31 col-sm-offset-2 col-sm-1 col-xs-2">
                         <t:actionlink t:id="uploadPhotoAjaxLink" id="uploadPhotoAjaxLink" t:zone="newMessagesZone" t:context="conversation.id" class="hidden"/>
-                        <t:uploadfile type="PHOTO" inputType="msg-icon" refreshAjax="#uploadPhotoAjaxLink" targetContext="${conversation.id}"/>
+                        <t:uploadfile type="PHOTO" inputType="msg-icon" refreshAjax="#uploadPhotoAjaxLink" targetContext="${conversation.id}" withTools="false"/>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-10">
                         <div class="form-group">

@@ -372,54 +372,57 @@ function initFineUploader(el) {
             },
             callbacks: {
                 onSubmitted: function (id, name) {
-                    var image = jQuery(imageSelector);
-                    var btnContainer = jQuery("div[data-image='" + imageSelector + "']").find(".qq-upload-button-selector");
-                    if (autoUpload) {
-                        jQuery(button).addClass("upload-progress");
-                    } else {
-                        image.unbind("load").bind("load", function (id) {
-                            image.guillotine("remove");
-                            image.guillotine({width: imageWidth, height: imageHeight});
-                            image.guillotine("fit");
-                            image.guillotine("zoomIn");
-                            image.unbind("upload").bind("upload", function (e) {
-                                var data = image.guillotine('getData');
-                                fineUploader.fineUploader("setEndpoint", fineUploaderUrl + "&s={0}&a={1}&x={2}&y={3}&w={4}&h={5}".format(data.scale, data.angle, data.x, data.y, data.w, data.h));
-                                fineUploader.fineUploader("uploadStoredFiles");
-                                image.guillotine("disable");
-                                jQuery(button).addClass("upload-progress");
-                                jQuery(btnContainer).css("background", "none");
-                                jQuery(btnContainer).css("width", "50px");
-                                jQuery(btnContainer).find("input[type='file']").show();
-                                jQuery(btnContainer).find(".qq-upload-button-tools").hide();
-                                jQuery(btnContainer).find(".qq-upload-button-tools a").unbind("click")
-                            });
-                            jQuery(btnContainer).find(".btn-file").hide();
-                            jQuery(btnContainer)
-                                .css("background", "white")
-                                .animate({
+                    var file = this.getFile(id);
+                    if (file.autoUpload != true) {
+                        var image = jQuery(imageSelector);
+                        var btnContainer = jQuery("div[data-image='" + imageSelector + "']").find(".qq-upload-button-selector");
+                        if (autoUpload) {
+                            jQuery(button).addClass("upload-progress");
+                        } else {
+                            image.unbind("load").bind("load", function (id) {
+                                image.guillotine("remove");
+                                image.guillotine({width: imageWidth, height: imageHeight});
+                                image.guillotine("fit");
+                                image.guillotine("zoomIn");
+                                image.unbind("upload").bind("upload", function (e) {
+                                    file.autoUpload = true;
+                                    var data = image.guillotine('getData');
+                                    fineUploader.fineUploader("clearStoredFiles");
+                                    fineUploader.fineUploader("setEndpoint", fineUploaderUrl + "&s={0}&a={1}&x={2}&y={3}&w={4}&h={5}".format(data.scale, data.angle, data.x, data.y, data.w, data.h));
+                                    fineUploader.fineUploader("addFiles", file);
+                                    fineUploader.fineUploader("uploadStoredFiles");
+                                    image.guillotine("disable");
+                                    jQuery(button).addClass("upload-progress");
+                                    jQuery(btnContainer).css("background", "none");
+                                    jQuery(btnContainer).css("width", "50px");
+                                    jQuery(btnContainer).find("input[type='file']").show();
+                                    jQuery(btnContainer).find(".qq-upload-button-tools").hide();
+                                    jQuery(btnContainer).find(".qq-upload-button-tools a").unbind("click")
+                                });
+                                jQuery(btnContainer).find(".btn-file").hide();
+                                jQuery(btnContainer).css("background", "white")
+                                jQuery(btnContainer).animate({
                                     width: "175px"
                                 }, 200, function () {
-                                    jQuery(btnContainer).find("input[type='file']").hide();
                                     jQuery(btnContainer).find(".qq-upload-button-tools").show();
+                                    jQuery(btnContainer).find("input[type='file']").hide();
                                     jQuery(btnContainer).find(".qq-upload-button-tools a").unbind("click").bind("click", function () {
                                         image.guillotine(this.id);
                                         jQuery(image).trigger(this.id);
                                         return false;
                                     });
                                 });
-                        });
-                        var file = this.getFile(id);
-                        var reader = new FileReader();
-                        reader.onload = function (e) {
-                            image.attr("src", e.target.result);
-                        };
-                        reader.readAsDataURL(file);
+                            });
+                            fineUploader.fineUploader("uploadStoredFiles");
+                            var reader = new FileReader();
+                            reader.onload = function (e) {
+                                image.attr("src", e.target.result);
+                            };
+                            reader.readAsDataURL(file);
+                        }
                     }
                 },
                 onComplete: function (id, name, responseJSON, xhr) {
-                    var image = jQuery(imageSelector);
-                    var btnContainer = jQuery(imageSelector).closest(".upload-file").find(".qq-upload-button-selector");
                     jQuery(button).removeClass("upload-progress");
                     if (autoUpload) {
                         if (respSize != undefined && respSize.length > 0 && xhr[respSize] != undefined) {
@@ -428,17 +431,10 @@ function initFineUploader(el) {
                         if (refreshAjax != null) {
                             triggerEvent(jQuery(refreshAjax).get(0), "click");
                         }
-                    } else {
-                        jQuery(btnContainer).css("background", "white url('/img/avatar-upload.png')");
                     }
                 },
-                onError: function (id) {
-                    var image = jQuery(imageSelector);
-                    var btnContainer = jQuery(imageSelector).closest(".upload-file").find(".qq-upload-button-selector");
+                onError: function (id, name, reason, xhr) {
                     jQuery(button).removeClass("upload-progress");
-                    if (!autoUpload) {
-                        jQuery(btnContainer).css("background", "white url('/img/avatar-upload.png')");
-                    }
                 }
             }
         });

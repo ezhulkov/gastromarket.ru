@@ -40,7 +40,7 @@
                         </div>
                     </div>
                 </t:if>
-                <img class="image" src="${product.avatarUrlMedium}"/>
+                <img class="image" style="background: url('${product.avatarUrlMedium}') 50% 50% no-repeat;"/>
             </div>
             <div class="data">
                 <t:pagelink page="product" t:context="product.altId" class="pname">${product.name}</t:pagelink>

@@ -111,7 +111,7 @@
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pic-block">
                     <t:if test="catalogOwner">
-                        <t:uploadfile type="CATALOG" responseSize="SIZE3" imageUrl="${catalog.avatarUrl}" objectId="${catalog.id}"/>
+                        <t:uploadfile type="CATALOG" imageUrl="${catalog.avatarUrl}" imageHeight="270" imageWidth="270" withTools="true" objectId="${catalog.id}"/>
                         <t:parameter name="else">
                             <img title="${catalog.name}" alt="${catalog.name}" class="pic" src="${catalog.avatarUrl}"/>
                         </t:parameter>

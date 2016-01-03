@@ -16,10 +16,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -50,7 +47,7 @@ public class ImageServiceImpl implements ImageService {
                     .build())
             .put(FileType.PRODUCT, new ImmutableMap.Builder<ImageSize, Integer[]>()
                     .put(ImageSize.SIZE1, new Integer[]{140, 101})
-                    .put(ImageSize.SIZE2, new Integer[]{280, 202})
+                    .put(ImageSize.SIZE2, new Integer[]{374, 270})
                     .put(ImageSize.SIZE3, new Integer[]{560, 404})
                     .put(ImageSize.SIZE4, new Integer[]{1000, 720})
                     .build())
@@ -61,12 +58,12 @@ public class ImageServiceImpl implements ImageService {
                     .build())
             .put(FileType.PHOTO, new ImmutableMap.Builder<ImageSize, Integer[]>()
                     .put(ImageSize.SIZE1, new Integer[]{140, 101})
-                    .put(ImageSize.SIZE2, new Integer[]{280, 202})
+                    .put(ImageSize.SIZE2, new Integer[]{374, 270})
                     .put(ImageSize.SIZE3, new Integer[]{1000, 720})
                     .build())
             .put(FileType.TENDER, new ImmutableMap.Builder<ImageSize, Integer[]>()
                     .put(ImageSize.SIZE1, new Integer[]{140, 101})
-                    .put(ImageSize.SIZE2, new Integer[]{280, 202})
+                    .put(ImageSize.SIZE2, new Integer[]{374, 270})
                     .put(ImageSize.SIZE3, new Integer[]{1000, 720})
                     .build())
             .build();

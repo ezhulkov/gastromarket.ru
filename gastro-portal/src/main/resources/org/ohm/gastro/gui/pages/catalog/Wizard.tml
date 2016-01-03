@@ -114,16 +114,16 @@
                 </div>
                 <div class="col-xs-12">
                     <div class="form-group">
-                        <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 nopad" style="margin-right: 10px;">
+                        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 nopad" style="margin-right: 10px;">
                             <t:label for="desc">${descLabel}:</t:label>
                             <div class="label-tip">
                                 ${descText}<br/>
                                 Помните, что доверие покупателей повышается, если они узнают о Вашей работе.
                             </div>
-                            <input t:id="desc" rows="9" class="form-control" tabindex="1"/>
+                            <input t:id="desc" rows="10" class="form-control" tabindex="1"/>
                         </div>
-                        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 nopad fluid-sm-block2 gap2 pic">
-                            <t:uploadfile type="CATALOG" responseSize="SIZE3" imageUrl="${catalog.avatarUrl}" objectId="${catalog.id}" class="wizard-upload"/>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 nopad fluid-sm-block2 pic" style="margin-top: 7px;">
+                            <t:uploadfile type="CATALOG" imageUrl="${catalog.avatarUrl}" imageHeight="270" imageWidth="270" withTools="true" objectId="${catalog.id}" class="wizard-upload"/>
                         </div>
                     </div>
                 </div>

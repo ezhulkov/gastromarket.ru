@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12 info">
-                    <h1 id="main-title">Ищете угощения на Новый Год?</h1>
+                    <h1 id="main-title">Ищете угощения для праздника?</h1>
 
                     <h2 id="main-text">
                         200 домашних кондитеров и кулинаров Москвы готовы сделать блюдо по индивидуальному заказу. <br/>
@@ -58,7 +58,7 @@
                 <t:loop source="products" value="oneProduct">
                     <div class="item">
                         <t:pagelink page="product/index" context="oneProduct.altId">
-                            <img alt="${oneProduct.name}" title="${oneProduct.name}" src="${oneProduct.avatarUrlMedium}"/>
+                            <img style="background: url('${oneProduct.avatarUrlMedium}') 50% 50% no-repeat;"/>
                         </t:pagelink>
                         <t:pagelink page="product/index" context="oneProduct.altId" class="name f20px">
                             ${oneProduct.name}
