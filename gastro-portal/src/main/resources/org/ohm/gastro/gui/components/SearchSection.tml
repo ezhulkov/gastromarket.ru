@@ -1,6 +1,6 @@
 <section xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="search ${additionalClass}">
     <div class="container">
-        <t:form t:id="searchForm" t:autofocus="false" t:clientValidation="none" class="search-form">
+        <t:form t:id="searchAjaxForm" t:autofocus="false" t:clientValidation="none" class="search-form">
             <div class="row">
                 <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
                     <div class="form-group">

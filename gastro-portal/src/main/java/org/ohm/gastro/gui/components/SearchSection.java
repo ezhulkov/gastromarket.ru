@@ -20,7 +20,7 @@ public class SearchSection extends BaseComponent {
     @Parameter(defaultPrefix = BindingConstants.PROP)
     private String searchString;
 
-    public Object onSubmitFromSearchForm() {
+    public Object onSubmitFromSearchAjaxForm() {
         System.out.println(searchString);
         if (StringUtils.isNotEmpty(searchString)) {
             return getPageLinkSource().createPageRenderLinkWithContext(Search.class, processSearchString(searchString));
@@ -35,6 +35,10 @@ public class SearchSection extends BaseComponent {
         searchString = searchString.replaceAll(";", "");
         searchString = searchString.replaceAll("<", "");
         searchString = searchString.replaceAll(">", "");
+        searchString = searchString.replaceAll("\\|", "");
+        searchString = searchString.replaceAll("drop", "");
+        searchString = searchString.replaceAll("delete", "");
+        searchString = searchString.replaceAll("truncate", "");
         return searchString;
     }
 
