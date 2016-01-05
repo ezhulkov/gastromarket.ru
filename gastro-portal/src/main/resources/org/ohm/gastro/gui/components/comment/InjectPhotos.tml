@@ -5,25 +5,25 @@
     <div class="clearfix"></div>
     <t:ajaxformloop t:id="photos" value="photo" source="photos" encoder="formInjectorEncoder" show="none">
         <div class="photo-item">
-            <div class="col-sm-3 col-xs-12 fluid-xs-block">
+            <div class="col-sm-4 col-xs-12 fluid-xs-block">
                 <div class="form-group img">
                     <t:if test="photo.product">
-                        <img alt="${photo.product.name}" id="photo-${photo.id}" title="${photo.text}" src="${photo.product.avatarUrlSmall}"/>
+                        <img alt="${photo.product.name}" id="photo-${photo.id}" title="${photo.text}" style="width: 140px; height: 101px;" src="${photo.product.avatarUrlMedium}"/>
                         <t:parameter name="else">
-                            <img alt="${photo.text}" id="photo-${photo.id}" title="${photo.text}" src="${photo.avatarUrlSmall}"/>
+                            <img alt="${photo.text}" id="photo-${photo.id}" title="${photo.text}" style="width: 140px; height: 101px;" src="${photo.avatarUrl}"/>
                         </t:parameter>
                     </t:if>
                 </div>
             </div>
-            <div class="col-sm-8 col-xs-12">
+            <div class="col-sm-7 col-xs-12">
                 <t:if test="tender">
                     <div class="form-group">
-                        <t:uploadfile type="TENDER" objectId="${photo.id}" inputType="button" imageSelector="#photo-${photo.id}" withTools="true" imageHeight="100" imageWidth="100"/>
+                        <t:uploadfile type="TENDER" responseSize="SIZE1" objectId="${photo.id}" inputType="button" imageSelector="#photo-${photo.id}"/>
                     </div>
                 </t:if>
                 <t:unless test="tender">
                     <div class="form-group">
-                        <t:uploadfile type="PHOTO" objectId="${photo.id}" inputType="button" imageSelector="#photo-${photo.id}" withTools="true" imageHeight="100" imageWidth="100"/>
+                        <t:uploadfile type="PHOTO" objectId="${photo.id}" inputType="button" imageSelector="#photo-${photo.id}" withTools="true" imageHeight="101" imageWidth="140"/>
                     </div>
                     <t:if test="cook">
                         <div class="form-group">

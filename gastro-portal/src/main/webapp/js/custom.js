@@ -380,10 +380,10 @@ function initFineUploader(el) {
                             jQuery(button).addClass("upload-progress");
                         } else {
                             image.unbind("load").bind("load", function (id) {
+                                jQuery(image).removeAttr("width").removeAttr("height").css("width", "").css("height", "");
                                 image.guillotine("remove");
                                 image.guillotine({width: imageWidth, height: imageHeight});
                                 image.guillotine("fit");
-                                image.guillotine("zoomIn");
                                 image.unbind("upload").bind("upload", function (e) {
                                     file.autoUpload = true;
                                     var data = image.guillotine('getData');
@@ -425,8 +425,8 @@ function initFineUploader(el) {
                 onComplete: function (id, name, responseJSON, xhr) {
                     jQuery(button).removeClass("upload-progress");
                     if (autoUpload) {
-                        if (respSize != undefined && respSize.length > 0 && xhr[respSize] != undefined) {
-                            jQuery(imageSelector).attr("src", xhr[respSize] + "?" + new Date().getTime());
+                        if (respSize != undefined && respSize.length > 0 && xhr.response != undefined) {
+                            jQuery(imageSelector).attr("src", JSON.parse(xhr.response)[respSize] + "?" + new Date().getTime());
                         }
                         if (refreshAjax != null) {
                             triggerEvent(jQuery(refreshAjax).get(0), "click");
@@ -615,7 +615,7 @@ function onLogin() {
     //connectWebSocket("ws://localhost:8080/chat");
 }
 function connectWebSocket(url) {
-    var ws = new ReconnectingWebSocket(url, null, {debug: false, reconnectInterval: 3000});
+    var ws = new ReconnectingWebSocket(url, null, {debug: false, reconnectInterval: 3000, maxReconnectAttempts: 10});
     ws.onmessage = function (message) {
         var unread = JSON.parse(message.data)["unread"];
         if (unread != undefined)jQuery("#unread-messages").text("+" + unread);

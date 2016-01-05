@@ -75,7 +75,7 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails, Comme
     private Date loginDate;
 
     @Column(name = "avatar_url")
-    private String avatarUrl = "/img/avatar-stub-210x210.png";
+    private String avatarUrl = "/img/avatar-stub-270x270.png";
 
     @Column(name = "avatar_url_medium")
     private String avatarUrlMedium = "/img/avatar-stub-100x100.png";

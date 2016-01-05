@@ -52,11 +52,11 @@ public class UploadFile extends BaseComponent {
     private String imageSelector;
 
     @Property
-    @Parameter(name = "imageWidth", defaultPrefix = BindingConstants.LITERAL, value = "210")
+    @Parameter(name = "imageWidth", defaultPrefix = BindingConstants.LITERAL, value = "270")
     private Integer imageWidth;
 
     @Property
-    @Parameter(name = "imageHeight", defaultPrefix = BindingConstants.LITERAL, value = "210")
+    @Parameter(name = "imageHeight", defaultPrefix = BindingConstants.LITERAL, value = "270")
     private Integer imageHeight;
 
     public String getImageSelector() {

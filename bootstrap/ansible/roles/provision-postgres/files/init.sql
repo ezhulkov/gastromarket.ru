@@ -72,3 +72,19 @@ SET value_id = (SELECT min(pv.id)
                 WHERE name IN (SELECT name
                                FROM property_value pv2
                                WHERE pv2.id = value_id));
+
+
+-- сбросить картинки
+update product set avatar_url_small='/img/product-stub-140x101.png';
+update product set avatar_url_medium='/img/product-stub-374x270.png';
+update product set avatar_url='/img/product-stub-560x404.png';
+update product set avatar_url_big='/img/product-stub-1000x720.png';
+update photo set avatar_url_small='/img/product-stub-140x101.png';
+update photo set avatar_url='/img/product-stub-374x270.png';
+update photo set avatar_url_big='/img/product-stub-1000x720.png';
+update users set avatar_url_small='/img/avatar-stub-23x23.png';
+update users set avatar_url='/img/avatar-stub-270x270.png';
+update users set avatar_url_medium='/img/avatar-stub-100x100.png';
+update catalog set avatar_url_small='/img/avatar-stub-23x23.png';
+update catalog set avatar_url_medium='/img/avatar-stub-100x100.png';
+update catalog set avatar_url='/img/avatar-stub-270x270.png';

@@ -31,10 +31,10 @@ public class PhotoEntity extends AbstractBaseEntity {
     private String text;
 
     @Column(name = "avatar_url_small")
-    private String avatarUrlSmall = "/img/avatar-stub-100x100.png";
+    private String avatarUrlSmall = "/img/product-stub-140x101.png";
 
     @Column(name = "avatar_url")
-    private String avatarUrl = "/img/avatar-stub-270x270.png";
+    private String avatarUrl = "/img/product-stub-374x270.png";
 
     @Column(name = "avatar_url_big")
     private String avatarUrlBig = "/img/product-stub-1000x720.png";

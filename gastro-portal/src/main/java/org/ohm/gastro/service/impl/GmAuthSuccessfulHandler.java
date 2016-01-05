@@ -29,7 +29,8 @@ public class GmAuthSuccessfulHandler extends SavedRequestAwareAuthenticationSucc
     @Override
     public void onAuthenticationSuccess(final HttpServletRequest request, final HttpServletResponse response, final Authentication authentication) throws ServletException, IOException {
         super.onAuthenticationSuccess(request, response, authentication);
-        userService.afterSuccessfulLogin((UserEntity) authentication.getPrincipal());
+        final String servletPath = request.getServletPath();
+        if (servletPath == null || !servletPath.startsWith("/chat")) userService.afterSuccessfulLogin((UserEntity) authentication.getPrincipal());
     }
 
 }

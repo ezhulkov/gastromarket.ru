@@ -38,8 +38,8 @@
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                         <div class="form-buttons" xml:space="preserve">
-                        <input class="btn btn-white submit" type="submit" value="Отправить"/>
-                    </div>
+                            <input class="btn btn-white submit" type="submit" value="Отправить"/>
+                        </div>
                     </div>
                 </t:form>
             </div>

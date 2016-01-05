@@ -77,10 +77,10 @@ public class ProductEntity extends SitemapBaseEntity implements PurchaseEntity {
     private Boolean hidden = false;
 
     @Column(name = "avatar_url_small")
-    private String avatarUrlSmall = "/img/product-stub-100x100.png";
+    private String avatarUrlSmall = "/img/product-stub-140x101.png";
 
     @Column(name = "avatar_url_medium")
-    private String avatarUrlMedium = "/img/product-stub-270x270.png";
+    private String avatarUrlMedium = "/img/product-stub-374x270.png";
 
     @Column(name = "avatar_url")
     private String avatarUrl = "/img/product-stub-560x404.png";
