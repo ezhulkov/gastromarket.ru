@@ -18,7 +18,7 @@
             <div class="col-sm-7 col-xs-12">
                 <t:if test="tender">
                     <div class="form-group">
-                        <t:uploadfile type="TENDER" responseSize="SIZE1" objectId="${photo.id}" inputType="button" imageSelector="#photo-${photo.id}"/>
+                        <t:uploadfile type="TENDER" responseSize="SIZE2" objectId="${photo.id}" inputType="button" imageSelector="#photo-${photo.id}"/>
                     </div>
                 </t:if>
                 <t:unless test="tender">

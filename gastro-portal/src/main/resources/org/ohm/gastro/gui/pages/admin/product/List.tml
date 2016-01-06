@@ -77,7 +77,24 @@
                 <input type="checkbox" name="PR-${oneProduct.id}"/>
             </t:parameter>
             <t:parameter name="imgCell">
-                <img src="${oneProduct.avatarUrlSmall}"/>
+                <a data-toggle="modal" data-target="#img-big-${oneProduct.id}" href="#img-big-${oneProduct.id}">
+                    <img src="${oneProduct.avatarUrlSmall}"/>
+                </a>
+                <div class="modal fade img-big-modal" id="img-big-${oneProduct.id}" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog image-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="title">
+                                    <h1><span>Фотография</span></h1>
+                                </div>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <img class="img-big" src="${oneProduct.avatarUrlBig}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </t:parameter>
             <t:parameter name="categoriesCell">
                 <t:outputraw value="categories"/>
@@ -96,6 +113,8 @@
                 <t:pagelink page="product/index" context="oneProduct.altId">
                     ${oneProduct.name}
                 </t:pagelink>
+                <hr/>
+                ${oneProduct.description}
             </t:parameter>
             <t:parameter name="actionsCell">
                 <t:actionlink t:id="edit" t:context="oneProduct.id" t:zone="editZone"><span title="редактировать" class="glyphicon glyphicon-pencil f14px" aria-hidden="true"/>

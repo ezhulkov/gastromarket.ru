@@ -78,6 +78,7 @@ public class List extends BaseComponent {
                 .filter(t -> t.getTag() == Tag.ROOT || t.getParents().stream().anyMatch(p -> p.getTag() == Tag.ROOT))
                 .map(AltIdBaseEntity::getName)
                 .distinct()
+                .sorted((String::compareTo))
                 .collect(Collectors.joining(";<br/>"));
     }
 
@@ -88,6 +89,7 @@ public class List extends BaseComponent {
                 .filter(t -> t.getTag() == Tag.EVENT)
                 .map(AltIdBaseEntity::getName)
                 .distinct()
+                .sorted((String::compareTo))
                 .collect(Collectors.joining(";<br/>"));
     }
 
@@ -98,6 +100,7 @@ public class List extends BaseComponent {
                 .filter(t -> t.getProperty().getName().equals("Ингредиенты"))
                 .map(AltIdBaseEntity::getName)
                 .distinct()
+                .sorted((String::compareTo))
                 .collect(Collectors.joining(";<br/>"));
     }
 

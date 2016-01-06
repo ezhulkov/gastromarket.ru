@@ -143,8 +143,6 @@ public class ImageServiceImpl implements ImageService {
                 rotatedImage :
                 crop(rotatedImage, Float.parseFloat(scaleStr), Integer.parseInt(xStr), Integer.parseInt(yStr), Integer.parseInt(wStr), Integer.parseInt(hStr));
 
-        if (true) return scaledImage;
-
         //Calculate size
         final float originalWidth = scaledImage.getWidth();
         final float originalHeight = scaledImage.getHeight();
@@ -220,7 +218,6 @@ public class ImageServiceImpl implements ImageService {
         final Graphics2D g = result.createGraphics();
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-//        g.scale(scale, scale);
         g.drawImage(image, -(int) Math.floor(x / scale), -(int) Math.floor(y / scale), image.getWidth(), image.getHeight(), null);
         g.dispose();
         return result;
