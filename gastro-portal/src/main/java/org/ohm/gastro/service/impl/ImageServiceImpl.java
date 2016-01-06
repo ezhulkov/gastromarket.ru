@@ -1,6 +1,7 @@
 package org.ohm.gastro.service.impl;
 
 import com.google.common.collect.ImmutableMap;
+import net.coobird.thumbnailator.Thumbnails;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.service.ImageService;
 import org.ohm.gastro.service.ImageUploader;
@@ -31,9 +32,6 @@ import java.util.stream.Collectors;
 import static org.ohm.gastro.misc.Throwables.propagate;
 import static org.springframework.aop.framework.AopProxyUtils.ultimateTargetClass;
 
-/**
- * Created by ezhulkov on 09.04.15.
- */
 @Component("imageService")
 @Transactional
 public class ImageServiceImpl implements ImageService {
@@ -115,7 +113,7 @@ public class ImageServiceImpl implements ImageService {
                                                    @Nullable String scaleStr, @Nullable String angleStr,
                                                    @Nullable String xStr, @Nullable String yStr,
                                                    @Nullable String wStr, @Nullable String hStr) throws IOException {
-        final BufferedImage image = ImageIO.read(is);
+        final BufferedImage image = Thumbnails.of(is).scale(1).asBufferedImage();
         Logging.logger.debug("Resizing image {}, fileType {}, objectId {} ", is, fileType, objectId);
         final Map<ImageSize, Integer[]> fileSizes = sizes.get(fileType);
         Map<ImageSize, String> imageUrls = fileSizes.entrySet().stream()
@@ -141,56 +139,60 @@ public class ImageServiceImpl implements ImageService {
         final BufferedImage rotatedImage = angleStr == null ?
                 originalImage :
                 rotate(originalImage, Integer.parseInt(angleStr));
+        final BufferedImage scaledImage = scaleStr == null ?
+                rotatedImage :
+                crop(rotatedImage, Float.parseFloat(scaleStr), Integer.parseInt(xStr), Integer.parseInt(yStr), Integer.parseInt(wStr), Integer.parseInt(hStr));
+
+        if (true) return scaledImage;
 
         //Calculate size
-        final float originalWidth = rotatedImage.getWidth();
-        final float originalHeight = rotatedImage.getHeight();
+        final float originalWidth = scaledImage.getWidth();
+        final float originalHeight = scaledImage.getHeight();
         final float croppedWidth;
         final float croppedHeight;
         final float croppedX;
         final float croppedY;
-        if (angleStr == null) {
-            if (originalHeight < height && originalWidth < width) {
-                croppedHeight = originalHeight;
+        if (originalHeight < height && originalWidth < width) {
+            croppedHeight = originalHeight;
+            croppedWidth = originalWidth;
+        } else if (originalHeight / height == originalWidth / width) {
+            croppedHeight = originalHeight;
+            croppedWidth = originalWidth;
+        } else if ((float) width / height > originalWidth / originalHeight) {
+            if (width > originalWidth) {
+                croppedHeight = height;
                 croppedWidth = originalWidth;
-            } else if (originalHeight / height == originalWidth / width) {
-                croppedHeight = originalHeight;
-                croppedWidth = originalWidth;
-            } else if ((float) width / height > originalWidth / originalHeight) {
-                if (width > originalWidth) {
-                    croppedHeight = height;
-                    croppedWidth = originalWidth;
-                } else {
-                    croppedHeight = Math.min(originalHeight, height * originalWidth / width);
-                    croppedWidth = originalWidth;
-                }
-            } else if ((float) width / height < originalWidth / originalHeight) {
-                if (height > originalHeight) {
-                    croppedHeight = originalHeight;
-                    croppedWidth = width;
-                } else {
-                    croppedHeight = originalHeight;
-                    croppedWidth = Math.min(originalWidth, width * originalHeight / height);
-                }
             } else {
-                croppedHeight = 0;
-                croppedWidth = 0;
+                croppedHeight = Math.min(originalHeight, height * originalWidth / width);
+                croppedWidth = originalWidth;
             }
-            croppedX = (originalWidth - croppedWidth) / 2;
-            croppedY = (originalHeight - croppedHeight) / 2;
+        } else if ((float) width / height < originalWidth / originalHeight) {
+            if (height > originalHeight) {
+                croppedHeight = originalHeight;
+                croppedWidth = width;
+            } else {
+                croppedHeight = originalHeight;
+                croppedWidth = Math.min(originalWidth, width * originalHeight / height);
+            }
         } else {
-            final float scale = Float.parseFloat(scaleStr);
-            croppedWidth = width / scale * Integer.parseInt(wStr) / width;
-            croppedHeight = height / scale * Integer.parseInt(hStr) / height;
-            croppedX = Integer.parseInt(xStr) / scale;
-            croppedY = Integer.parseInt(yStr) / scale;
+            croppedHeight = 0;
+            croppedWidth = 0;
         }
+        croppedX = (originalWidth - croppedWidth) / 2;
+        croppedY = (originalHeight - croppedHeight) / 2;
 
         //Crop and resize image
-        final BufferedImage croppedImage = rotatedImage.getSubimage((int) croppedX,
-                                                                    (int) croppedY,
-                                                                    (int) croppedWidth,
-                                                                    (int) croppedHeight);
+        final BufferedImage croppedImage;
+        try {
+            croppedImage = scaledImage.getSubimage((int) croppedX,
+                                                   (int) croppedY,
+                                                   (int) croppedWidth,
+                                                   (int) croppedHeight);
+        } catch (Exception e) {
+            Logging.logger.error("{},{},{},{}", croppedX, croppedY, croppedWidth, croppedHeight);
+            Logging.logger.error("", e);
+            throw e;
+        }
         final BufferedImage resizedImage = new BufferedImage(width, height, ColorSpace.TYPE_RGB);
         final Graphics2D g = resizedImage.createGraphics();
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -211,9 +213,23 @@ public class ImageServiceImpl implements ImageService {
         return resizedImage;
     }
 
+    public static BufferedImage crop(BufferedImage image, final float scale, final int x, final int y, final int width, final int height) {
+        final int croppedWidth = (int) (width / scale);
+        final int croppedHeight = (int) (height / scale);
+        final BufferedImage result = new BufferedImage(croppedWidth, croppedHeight, image.getType());
+        final Graphics2D g = result.createGraphics();
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+//        g.scale(scale, scale);
+        g.drawImage(image, -(int) Math.floor(x / scale), -(int) Math.floor(y / scale), image.getWidth(), image.getHeight(), null);
+        g.dispose();
+        return result;
+    }
+
     public static BufferedImage rotate(BufferedImage image, double angle) {
-        int w = image.getWidth();
-        int h = image.getHeight();
+        if (angle % 360 == 0) return image;
+        final int w = image.getWidth();
+        final int h = image.getHeight();
         final int neww = angle % 180 == 0 ? w : h;
         final int newh = angle % 180 == 0 ? h : w;
         final BufferedImage result = new BufferedImage(neww, newh, image.getType());
@@ -221,6 +237,7 @@ public class ImageServiceImpl implements ImageService {
         g.translate((neww - w) / 2, (newh - h) / 2);
         g.rotate(Math.toRadians(angle), w / 2, h / 2);
         g.drawRenderedImage(image, null);
+        g.dispose();
         return result;
     }
 

@@ -338,6 +338,10 @@
             <groupId>net.kencochrane.raven</groupId>
             <artifactId>raven-logback</artifactId>
         </dependency>
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
