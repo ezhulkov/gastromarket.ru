@@ -104,10 +104,11 @@ public class List extends BaseComponent {
                 .collect(Collectors.joining(";<br/>"));
     }
 
-    public void onActionFromAccept(Long id) {
+    public Object onActionFromAccept(Long id) {
         final ProductEntity product = getProductService().findProduct(id);
         product.setWasChecked(true);
         getProductService().saveProduct(product);
+        return null;
     }
 
     public Block onActionFromEdit(Long pid) {
@@ -115,8 +116,9 @@ public class List extends BaseComponent {
         return editBlock;
     }
 
-    public void onActionFromHide(Long pid) {
+    public Object onActionFromHide(Long pid) {
         getProductService().hideProduct(pid);
+        return null;
     }
 
     @Cached

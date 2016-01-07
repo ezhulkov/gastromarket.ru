@@ -6,8 +6,8 @@
                 <h1><span>${customer.fullName}</span></h1>
             </div>
             <div class="row">
-                <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pic-block">
-                    <img class="pic" src="${customer.avatarUrl}"/>
+                <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pic-block user-pic">
+                    <img class="pic" style="background: url('${customer.avatarUrl}') 50% 50% no-repeat;"/>
                     <div class="bottom">
                         <div class="grey-text f16px">Последний вход на сайт:</div>
                         <div class="grey-text f16px">${customer.loginDatePrintable}</div>

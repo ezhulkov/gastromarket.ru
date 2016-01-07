@@ -71,10 +71,12 @@
             <t:parameter name="categoriesHeader">Категории</t:parameter>
             <t:parameter name="eventsHeader">События</t:parameter>
             <t:parameter name="ingredientsHeader">Ингредиенты</t:parameter>
-            <t:parameter name="checkHeader"/>
+            <t:parameter name="checkHeader">
+                <input type="checkbox" id="ch-all"/>
+            </t:parameter>
             <t:parameter name="actionsHeader"/>
             <t:parameter name="checkCell">
-                <input type="checkbox" name="PR-${oneProduct.id}"/>
+                <input type="checkbox" class="ch-box" name="PR-${oneProduct.id}"/>
             </t:parameter>
             <t:parameter name="imgCell">
                 <a data-toggle="modal" data-target="#img-big-${oneProduct.id}" href="#img-big-${oneProduct.id}">
@@ -129,7 +131,7 @@
                     </t:unless>
                 </t:actionlink>
                 <br/>
-                <t:actionlink t:id="accept" context="oneProduct.id"><span title="проверено" class="glyphicon glyphicon-ok f14px" aria-hidden="true"/></t:actionlink>
+                <t:actionlink t:id="accept" context="oneProduct.id" t:zone="editZone"><span title="проверено" class="glyphicon glyphicon-ok f14px" aria-hidden="true"/></t:actionlink>
             </t:parameter>
             <t:parameter name="empty">
                 <div class="empty">Нет данных</div>
@@ -149,6 +151,11 @@
 
     <script>
         activate_menu('#product');
+        jQuery("#ch-all").unbind("click").bind("click", function () {
+            jQuery(".ch-box").each(function (i, e) {
+                jQuery(e).prop("checked", !jQuery(e).prop("checked"))
+            });
+        });
     </script>
 
 </t:adminlayout>

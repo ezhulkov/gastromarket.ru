@@ -5,103 +5,22 @@ def tags = [
         "торт",
         "капкейк",
         "тортназаказ",
-        "тортмск",
+        "тортспб",
         "тортнаденьрождения",
         "тортнасвадьбу",
         "кейтеринг"
 ]
 
 def filter = [
-        "москва",
-        "мск",
-        "499",
-        "495"
-]
-
-def nicknames = [
-        "uposhka",
-        "alexaprettyfoxy",
-        "marianna___k",
-        "drachinskaya",
-        "prekrasnayaya",
-        "kydriashka_mc",
-        "puuupsia",
-        "vichgakiss",
-        "lolasaifi",
-        "julia_bugrova",
-        "ann_azhishcheva",
-        "marycenika",
-        "magicholida",
-        "photo_inyusha",
-        "kkozmina",
-        "julie_gaika",
-        "agatha_moritz",
-        "varvara_kryu",
-        "mashamashkin",
-        "elisemikhailova",
-        "quizas_is_love",
-        "alchena_rumyanceva",
-        "anya_zaidentsal",
-        "annamalik11",
-        "vinjulia13",
-        "vlada_stormal",
-        "olya_savina",
-        "kristinka_mandarinka26",
-        "kudri_mari",
-        "alena_roshior",
-        "sandra_kazachkova",
-        "hallwood3",
-        "romanticnadiagirl",
-        "photonikonova",
-        "westsidetobe",
-        "sonika_",
-        "floartdeco",
-        "ekakucher",
-        "danaya_prigozhina",
-        "eleonorkaa",
-        "_lukaa_",
-        "lukeria10",
-        "kate_tsareova",
-        "viktori_chistova",
-        "spirina_a",
-        "ksushaoseyuk",
-        "dragi_92",
-        "ksnatalia",
-        "nice.owl",
-        "annie20743",
-        "mistafsi_",
-        "viavikss",
-        "e_andreewna",
-        "ekaterinamerkulova",
-        "anastasia1713",
-        "maria_budilina",
-        "nastjasheremetjeva",
-        "arinaolegovna9",
-        "katya_shashkina",
-        "lise4ek",
-        "sashachaplygina",
-        "oksana1441",
-        "seleba_loku",
-        "diana.babaeva",
-        "alieva_gyunay",
-        "anastasiajuravleva",
-        "daria_sokol_2001",
-        "daria_mitsevich",
-        "enzekreushka",
-        "natasha_reutov",
-        "g.rts",
-        "vs.jones",
-        "ann.potapova",
-        "katenokmrrr",
-        "yurevnae",
-        "it_is_a_kind_of_magic",
-        "rastipopa1",
-        "sladkadecor",
-        "marialisenkova",
-        "katerina5315",
-        "sunliteflower",
-        "cakejulia",
-        "culinary_academy_exclusive"
+        "питер",
+        "петербург",
+        "спб",
+        "812",
+        "812",
+        "7911",
+        "8911",
+        "7921",
+        "8921"
 ]
 
 def cooks = []
@@ -176,8 +95,7 @@ def nickToId(nicks) {
     }
 }
 
-//cooks = fetchCooks(tags);
-//localCooks = filterCooks(cooks, filter)
-//parseCooks(localCooks)
-
-nickToId(nicknames)
+cooks = fetchCooks(tags);
+localCooks = filterCooks(cooks, filter)
+parseCooks(localCooks)
+//nickToId(nicknames)
