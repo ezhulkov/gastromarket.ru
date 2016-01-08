@@ -79,7 +79,7 @@ public abstract class AbstractOrder extends BaseComponent {
     }
 
     public boolean isContactsAllowed() {
-        return orderPage && (isAdmin() || order == null || order.isContactsAllowed(getAuthenticatedUserSafe()));
+        return isAdmin() || order == null || order.isContactsAllowed(getAuthenticatedUserSafe());
     }
 
     public boolean isCartOrOrder() {

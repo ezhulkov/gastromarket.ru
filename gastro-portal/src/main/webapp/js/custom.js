@@ -360,8 +360,7 @@ function initFineUploader(el) {
         var refreshAjax = jQuery(e).attr("data-refreshajax") || "";
         var autoUpload = Boolean(jQuery(e).attr("data-autoupload") === "true");
         var fineUploaderUrl = '/upload?file_type=' + fileType + '&object_id=' + objectId + '&target_context=' + targetContext;
-        var fineUploader = button.fineUploader({
-            autoUpload: autoUpload,
+        var fineUploader = jQuery(button).fineUploader({
             request: {
                 endpoint: fineUploaderUrl
             },
@@ -369,76 +368,71 @@ function initFineUploader(el) {
                 allowedExtensions: ['jpeg', 'jpg', 'png'],
                 sizeLimit: 10485760,
                 itemLimit: 1
-            },
-            callbacks: {
-                onSubmitted: function (id, name) {
-                    var file = this.getFile(id);
-                    if (file.autoUpload != true) {
-                        var image = jQuery(imageSelector);
-                        var btnContainer = jQuery("div[data-image='" + imageSelector + "']").find(".qq-upload-button-selector");
-                        if (autoUpload) {
+            }
+        }).on("submit", function (id, name) {
+            var file = jQuery(this).fineUploader("getFile", 0);
+            if (file.autoUpload != true) {
+                var image = jQuery(imageSelector);
+                var btnContainer = jQuery("div[data-image='" + imageSelector + "']").find(".qq-upload-button-selector");
+                if (autoUpload) {
+                    jQuery(button).addClass("upload-progress");
+                    return true;
+                } else {
+                    image.unbind("load").bind("load", function (id) {
+                        jQuery(image).removeAttr("width").removeAttr("height").css("width", "").css("height", "");
+                        image.guillotine("remove");
+                        image.guillotine({width: imageWidth, height: imageHeight});
+                        image.guillotine("fit");
+                        image.unbind("upload").bind("upload", function (e) {
+                            file.autoUpload = true;
+                            var data = image.guillotine('getData');
+                            fineUploader.fineUploader("setEndpoint", fineUploaderUrl + "&s={0}&a={1}&x={2}&y={3}&w={4}&h={5}".format(data.scale, data.angle, data.x, data.y, data.w, data.h));
+                            fineUploader.fineUploader("clearStoredFiles");
+                            fineUploader.fineUploader("addFiles", file);
+                            image.guillotine("disable");
                             jQuery(button).addClass("upload-progress");
-                        } else {
-                            image.unbind("load").bind("load", function (id) {
-                                jQuery(image).removeAttr("width").removeAttr("height").css("width", "").css("height", "");
-                                image.guillotine("remove");
-                                image.guillotine({width: imageWidth, height: imageHeight});
-                                image.guillotine("fit");
-                                image.unbind("upload").bind("upload", function (e) {
-                                    file.autoUpload = true;
-                                    var data = image.guillotine('getData');
-                                    fineUploader.fineUploader("clearStoredFiles");
-                                    fineUploader.fineUploader("setEndpoint", fineUploaderUrl + "&s={0}&a={1}&x={2}&y={3}&w={4}&h={5}".format(data.scale, data.angle, data.x, data.y, data.w, data.h));
-                                    fineUploader.fineUploader("addFiles", file);
-                                    fineUploader.fineUploader("uploadStoredFiles");
-                                    image.guillotine("disable");
-                                    jQuery(button).addClass("upload-progress");
-                                    jQuery(btnContainer).css("background", "none");
-                                    jQuery(btnContainer).css("width", "50px");
-                                    jQuery(btnContainer).find("input[type='file']").show();
-                                    jQuery(btnContainer).find(".qq-upload-button-tools").hide();
-                                    jQuery(btnContainer).find(".qq-upload-button-tools a").unbind("click")
-                                });
-                                jQuery(btnContainer).find(".btn-file").hide();
-                                jQuery(btnContainer).css("background", "white")
-                                jQuery(btnContainer).animate({
-                                    width: "175px"
-                                }, 200, function () {
-                                    jQuery(btnContainer).find(".qq-upload-button-tools").show();
-                                    jQuery(btnContainer).find("input[type='file']").hide();
-                                    jQuery(btnContainer).find(".qq-upload-button-tools a").unbind("click").bind("click", function () {
-                                        image.guillotine(this.id);
-                                        jQuery(image).trigger(this.id);
-                                        return false;
-                                    });
-                                });
+                            jQuery(btnContainer).css("background", "none");
+                            jQuery(btnContainer).css("width", "50px");
+                            jQuery(btnContainer).find("input[type='file']").show();
+                            jQuery(btnContainer).find(".qq-upload-button-tools").hide();
+                            jQuery(btnContainer).find(".qq-upload-button-tools a").unbind("click")
+                        });
+                        jQuery(btnContainer).find(".btn-file").hide();
+                        jQuery(btnContainer).css("background", "white")
+                        jQuery(btnContainer).animate({
+                            width: "175px"
+                        }, 200, function () {
+                            jQuery(btnContainer).find(".qq-upload-button-tools").show();
+                            jQuery(btnContainer).find("input[type='file']").hide();
+                            jQuery(btnContainer).find(".qq-upload-button-tools a").unbind("click").bind("click", function () {
+                                image.guillotine(this.id);
+                                jQuery(image).trigger(this.id);
+                                return false;
                             });
-                            fineUploader.fineUploader("uploadStoredFiles");
-                            var reader = new FileReader();
-                            reader.onload = function (e) {
-                                image.attr("src", e.target.result);
-                            };
-                            reader.readAsDataURL(file);
-                        }
-                    }
-                },
-                onComplete: function (id, name, responseJSON, xhr) {
-                    jQuery(button).removeClass("upload-progress");
-                    if (autoUpload) {
-                        if (respSize != undefined && respSize.length > 0 && xhr.response != undefined) {
-                            jQuery(imageSelector).attr("src", JSON.parse(xhr.response)[respSize] + "?" + new Date().getTime());
-                        }
-                        if (refreshAjax != null) {
-                            triggerEvent(jQuery(refreshAjax).get(0), "click");
-                        }
-                    }
-                },
-                onError: function (id, name, reason, xhr) {
-                    jQuery(button).removeClass("upload-progress");
+                        });
+                    });
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        image.attr("src", e.target.result);
+                    };
+                    reader.readAsDataURL(file);
                 }
             }
+            return true;
+        }).on("complete", function (id, name, responseJSON, xhr) {
+            jQuery(button).removeClass("upload-progress");
+            if (autoUpload) {
+                if (respSize != undefined && respSize.length > 0 && xhr.response != undefined) {
+                    jQuery(imageSelector).attr("src", JSON.parse(xhr.response)[respSize] + "?" + new Date().getTime());
+                }
+                if (refreshAjax != null) {
+                    triggerEvent(jQuery(refreshAjax).get(0), "click");
+                }
+            }
+        }).on("error", function (id, name, reason, xhr) {
+            jQuery(button).removeClass("upload-progress");
         });
-    })
+    });
 }
 function initImportPage() {
     jQuery(".import-item").each(function (i, e) {

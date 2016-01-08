@@ -81,7 +81,7 @@ public interface ProductRepository extends AltIdRepository<ProductEntity> {
             "limit :l", nativeQuery = true)
     List<ProductEntity> searchProducts(@Param("q") String query, @Param("o") int offset, @Param("l") int limit);
 
-    @Query("from ProductEntity where was_checked=:checked and was_setup=true and (catalog=:catalog or :catalog is null)")
+    @Query("from ProductEntity where was_checked=:checked and was_setup=true and (catalog=:catalog or :catalog is null) order by date desc")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     List<ProductEntity> findAllUncheckedProducts(@Param("catalog") CatalogEntity catalog, @Param("checked") Boolean wasChecked);
 

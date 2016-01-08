@@ -18,8 +18,11 @@
                 <include>fonts/**/*.*</include>
                 <include>img/*.*</include>
                 <include>img/**/*.*</include>
+                <include>favicon/*.*</include>
+                <include>favicon/**/*.*</include>
                 <include>js/*.*</include>
                 <include>js/**/*.*</include>
+                <include>*.png</include>
                 <include>robots.txt</include>
                 <include>favicon.ico</include>
             </includes>
