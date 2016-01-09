@@ -64,6 +64,17 @@ public class PropertyValueEntity extends AltIdBaseEntity {
     @Enumerated(EnumType.STRING)
     private Tag tag;
 
+    @Column(name = "main_page")
+    private boolean mainPage = false;
+
+    public boolean isMainPage() {
+        return mainPage;
+    }
+
+    public void setMainPage(final boolean mainPage) {
+        this.mainPage = mainPage;
+    }
+
     public List<PropertyValueEntity> getChildren() {
         return children;
     }

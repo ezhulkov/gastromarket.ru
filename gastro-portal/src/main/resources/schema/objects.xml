@@ -1129,4 +1129,13 @@
         </sql>
     </changeSet>
 
+    <changeSet id="102" author="ezhulkov">
+        <addColumn tableName="property_value">
+            <column name="main_page" type="boolean" defaultValueBoolean="false"/>
+        </addColumn>
+        <sql>
+            update property_value set main_page=true where tag is not null;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

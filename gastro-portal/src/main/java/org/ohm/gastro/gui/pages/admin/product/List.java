@@ -85,8 +85,7 @@ public class List extends BaseComponent {
     public String getEvents() {
         return getProductService().findAllTags(oneProduct).stream()
                 .map(TagEntity::getValue)
-                .filter(t -> t != null && t.getProperty() != null)
-                .filter(t -> "Событие".equals(t.getProperty().getName()))
+                .filter(t -> t != null && t.getTag() == Tag.EVENT)
                 .map(AltIdBaseEntity::getName)
                 .distinct()
                 .sorted((String::compareTo))

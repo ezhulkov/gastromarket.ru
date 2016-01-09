@@ -3,6 +3,7 @@ package org.ohm.gastro.gui.pages.admin.property;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.corelib.components.Checkbox;
 import org.apache.tapestry5.corelib.components.Select;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.ohm.gastro.domain.PropertyEntity.Type;
@@ -34,6 +35,9 @@ public class Value extends EditObjectPage<PropertyValueEntity> {
 
     @Component(id = "tag", parameters = {"value=object?.tag"})
     private Select tagField;
+
+    @Component(id = "main", parameters = {"value=object?.mainPage"})
+    private Checkbox mainField;
 
     @Component(id = "propertyValues", parameters = {"model=valueModel", "encoder=valueModel", "value=propertyValue"})
     private Select propsField;

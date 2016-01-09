@@ -46,12 +46,12 @@ public class Index extends BaseComponent {
 
     @Cached
     public List<PropertyValueEntity> getCategoryValues() {
-        return getPropertyService().findAllValues(Tag.ROOT);
+        return getPropertyService().findAllValues(Tag.ROOT).stream().filter(PropertyValueEntity::isMainPage).collect(Collectors.toList());
     }
 
     @Cached
     public List<PropertyValueEntity> getEventValues() {
-        return getPropertyService().findAllValues(Tag.EVENT);
+        return getPropertyService().findAllValues(Tag.EVENT).stream().filter(PropertyValueEntity::isMainPage).collect(Collectors.toList());
     }
 
     public boolean isShowCategory() {
