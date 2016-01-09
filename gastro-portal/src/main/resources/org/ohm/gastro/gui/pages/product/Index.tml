@@ -78,17 +78,19 @@
         </div>
     </section>
 
-    <section>
-        <div class="title">
-            <h1><span>Похожие блюда</span></h1>
-        </div>
-        <div id="product-items" class="grid-block products">
-            <t:loop source="recommendedProducts" value="oneProduct">
-                <t:product product="oneProduct" class="fixed"/>
-            </t:loop>
-        </div>
-        <t:productModalTemplate/>
-    </section>
+    <t:if test="recommendedProducts">
+        <section>
+            <div class="title">
+                <h1><span>Похожие блюда</span></h1>
+            </div>
+            <div id="product-items" class="grid-block products">
+                <t:loop source="recommendedProducts" value="oneProduct">
+                    <t:product product="oneProduct" class="fixed"/>
+                </t:loop>
+            </div>
+            <t:productModalTemplate/>
+        </section>
+    </t:if>
 
     <script>
         jQuery(document).ready(function () {

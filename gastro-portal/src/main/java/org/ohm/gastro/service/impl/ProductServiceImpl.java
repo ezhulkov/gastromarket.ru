@@ -5,7 +5,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -16,6 +16,7 @@ import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.ProductEntity.Unit;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
+import org.ohm.gastro.domain.PropertyValueEntity.Tag;
 import org.ohm.gastro.domain.PurchaseEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.reps.PriceModifierRepository;
@@ -53,6 +54,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -316,14 +318,19 @@ public class ProductServiceImpl implements ProductService, Logging {
     @Override
     public List<ProductEntity> findRecommendedProducts(final Long pid, final int count) {
         final ProductEntity product = productRepository.findOne(pid);
-        final List<ProductEntity> products = product.getValues().stream()
-                .filter(t -> t.getValue() != null)
+        List<TagEntity> tags = tagRepository.findAllByProduct(product);
+        final Function<Tag, List<Long>> f = tag -> tags.stream()
+                .filter(t -> t != null && t.getValue() != null)
                 .flatMap(t -> t.getValue().isRootValue() ? Stream.of(t.getValue()) : t.getValue().getParents().stream()).distinct()
-                .flatMap(t -> productRepository.findAllByRootValueAndCatalog(t, null, true, false, new PageRequest(0, 50)).getContent().stream()).distinct()
-                .filter(t -> !t.equals(product))
+                .filter(t -> t != null && t.getTag() == tag)
+                .flatMap(t -> productRepository.findAllIdsByValue(t).stream())
+                .distinct()
                 .collect(Collectors.toList());
-        Collections.shuffle(products);
-        return products.stream().limit(count).collect(Collectors.toList());
+        final List<Long> events = f.apply(Tag.EVENT);
+        final List<Long> categories = f.apply(Tag.ROOT);
+        final List<Long> pids = CollectionUtils.intersection(events, categories).stream().filter(t -> !t.equals(pid)).collect(Collectors.toList());
+        Collections.shuffle(pids);
+        return productRepository.findAll(pids.stream().limit(count).collect(Collectors.toList()));
     }
 
     @Override

@@ -30,6 +30,16 @@ public interface ProductRepository extends AltIdRepository<ProductEntity> {
                                                      @Param("hidden") Boolean hidden,
                                                      Pageable page);
 
+    @Query("select distinct pr.id from ProductEntity pr " +
+            "   left join pr.values tags " +
+            "   left join tags.value v1 " +
+            "   left join v1.parents v2 " +
+            "where (v1=:value or v2=:value or :value is null) and " +
+            "   pr.hidden=false and " +
+            "   pr.wasSetup=true")
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    List<Long> findAllIdsByValue(@Param("value") PropertyValueEntity value);
+
     @Query("select count(distinct pr) from ProductEntity pr " +
             "   join pr.catalog c " +
             "   left join pr.values tags " +
