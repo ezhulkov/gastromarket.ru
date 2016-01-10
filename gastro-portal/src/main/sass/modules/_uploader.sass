@@ -7,8 +7,19 @@
   img
     display: block
     width: 100%
+  .uploader-progress
+    position: absolute
+    top: 0
+    left: 0
+    height: 20px
+    width: 0
+    z-index: 100
+    background: $redTextColor
+    opacity: 0.8
   &.upload-button, &.upload-msg-icon
     border: none
+    .uploader-progress
+      display: none
   &.AVATAR, &.CATALOG
     width: 270px
     height: 270px
@@ -30,10 +41,14 @@
       display: none
   &.upload-msg-icon
     height: 36px
+    .uploader-progress
+      display: none
     .uploader-button-container
       top: -8px
       right: -10px
   &.upload-button
+    .uploader-progress
+      display: none
     .btn-file
       width: 100%
   .uploader-button-container.upload-progress

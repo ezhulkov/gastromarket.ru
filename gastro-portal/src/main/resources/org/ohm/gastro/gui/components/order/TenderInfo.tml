@@ -6,11 +6,11 @@
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 fluid-xs-block">
                 <t:if test="order.totalPrice">
-                    <span class="price">
+                    <span class="price  bold">
                         ${order.totalPrice}&nbsp;<span class="rub"/>
                     </span>
                     <t:parameter name="else">
-                        <span class="open-price lh30">Открытый бюджет</span>
+                        <span class="price">Открытый бюджет</span>
                     </t:parameter>
                 </t:if>
             </div>

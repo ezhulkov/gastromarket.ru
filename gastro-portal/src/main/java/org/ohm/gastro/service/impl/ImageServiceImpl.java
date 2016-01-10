@@ -214,11 +214,15 @@ public class ImageServiceImpl implements ImageService {
     public static BufferedImage crop(BufferedImage image, final float scale, final int x, final int y, final int width, final int height) {
         final int croppedWidth = (int) (width / scale);
         final int croppedHeight = (int) (height / scale);
+        final int croppedX = -(int) Math.floor((x < 0 ? x / 2 : x) / scale);
+        final int croppedY = -(int) Math.floor((y < 0 ? y / 2 : y) / scale);
         final BufferedImage result = new BufferedImage(croppedWidth, croppedHeight, image.getType());
         final Graphics2D g = result.createGraphics();
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.drawImage(image, -(int) Math.floor(x / scale), -(int) Math.floor(y / scale), image.getWidth(), image.getHeight(), null);
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, croppedWidth, croppedHeight);
+        g.drawImage(image, croppedX, croppedY, image.getWidth(), image.getHeight(), null);
         g.dispose();
         return result;
     }

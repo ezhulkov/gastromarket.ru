@@ -290,7 +290,7 @@ function initProductCatalog(ajaxContainer) {
     });
     jQuery(window).scroll(function () {
         if (!isMobile()) {
-            if (scrollMutex && jQuery(window).scrollTop() + jQuery(window).height() > jQuery(document).height() - 50) {
+            if (scrollMutex && jQuery(window).scrollTop() + jQuery(window).height() > jQuery(document).height() - 300) {
                 scrollMutex = false;
                 triggerEvent(jQuery('a[id^=fetchProductsAjaxLink]').get(0), 'click');
             }
@@ -350,6 +350,7 @@ function showModalResult(block) {
 function initFineUploader(el) {
     jQuery(el).each(function (i, e) {
         var button = jQuery(".uploader-button-container", e);
+        var progress = jQuery(".uploader-progress", e);
         var fileType = jQuery(e).attr("data-type") || "";
         var respSize = jQuery(e).attr("data-size") || "";
         var objectId = jQuery(e).attr("data-objectid") || "";
@@ -420,6 +421,7 @@ function initFineUploader(el) {
             }
             return true;
         }).on("complete", function (id, name, responseJSON, xhr) {
+            jQuery(progress).css("width", "0%");
             jQuery(button).removeClass("upload-progress");
             if (autoUpload) {
                 if (respSize != undefined && respSize.length > 0 && xhr.response != undefined) {
@@ -430,7 +432,10 @@ function initFineUploader(el) {
                 }
             }
         }).on("error", function (id, name, reason, xhr) {
+            jQuery(progress).css("width", "0%");
             jQuery(button).removeClass("upload-progress");
+        }).on("totalProgress", function (e, uploadedBytes, totalBytes) {
+            jQuery(progress).css("width", uploadedBytes * 100 / totalBytes + "%");
         });
     });
 }

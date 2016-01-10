@@ -8,4 +8,5 @@
         <img id="image-${type}-${objectId}" src="${imageUrl}"/>
     </t:if>
     <div class="uploader-button-container"></div>
+    <div class="uploader-progress"></div>
 </div>

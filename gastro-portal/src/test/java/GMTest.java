@@ -60,19 +60,20 @@ public class GMTest {
     @Test
     @Ignore
     public void testScalr() throws IOException {
-        final BufferedImage image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("7.jpg"));
+        final BufferedImage image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("4.jpg"));
 //        /upload?file_type=PHOTO&object_id=3634&target_context=&s=1.6427380441522244&a=0&x=215&y=188&w=140&h=101
 //        /upload?file_type=PHOTO&object_id=3641&target_context=&s=0.7384024541896362&a=0&x=187&y=255&w=140&h=101
-//        ImageIO.write(ImageServiceImpl.resizeImage(image, 374, 270, "0.6712749583542147", "0", "170", "221", "140", "101"), "jpeg", new File("/Users/ezhulkov/Desktop/s/1.jpeg"));
+//        0.6272572549271057&a=0&x=-47&y=-86&w=270&h=270
+        ImageIO.write(ImageServiceImpl.resizeImage(image, 270, 270, "0.6272572549271057", "0", "-47", "-86", "270", "270"), "jpeg", new File("/Users/ezhulkov/Desktop/s/1.jpeg"));
 //        ImageIO.write(ImageServiceImpl.resizeImage(image, 500, 500, "0.9205419161676651", "90", "97", "250", "210", "210"), "jpeg", new File("/Users/ezhulkov/Desktop/s/2.jpeg"));
 //        ImageIO.write(ImageServiceImpl.resizeImage(image, 100, 100, "0.9205419161676651", "90", "97", "250", "210", "210"), "jpeg", new File("/Users/ezhulkov/Desktop/s/3.jpeg"));
 //        ImageIO.write(ImageServiceImpl.resizeImage(image, 500, 334, "1.0", "180", "0", "0", "500", "334"), "jpeg", new File("/Users/ezhulkov/Desktop/s/r180.jpeg"));
 //        ImageIO.write(ImageServiceImpl.resizeImage(image, 500, 334, "0.668", "270", "0", "0", "500", "334"), "jpeg", new File("/Users/ezhulkov/Desktop/s/r270.jpeg"));
 //        ImageIO.write(ImageServiceImpl.resizeImage(image, 500, 334, "1.0", "360", "0", "0", "500", "334"), "jpeg", new File("/Users/ezhulkov/Desktop/s/r360.jpeg"));
-        ImageIO.write(ImageServiceImpl.resizeImage(image, 140, 101, null, null, null, null, null, null), "jpeg", new File("/Users/ezhulkov/Desktop/s/1.jpeg"));
-        ImageIO.write(ImageServiceImpl.resizeImage(image, 374, 270, null, null, null, null, null, null), "jpeg", new File("/Users/ezhulkov/Desktop/s/2.jpeg"));
-        ImageIO.write(ImageServiceImpl.resizeImage(image, 560, 404, null, null, null, null, null, null), "jpeg", new File("/Users/ezhulkov/Desktop/s/3.jpeg"));
-        ImageIO.write(ImageServiceImpl.resizeImage(image, 1000, 720, null, null, null, null, null, null), "jpeg", new File("/Users/ezhulkov/Desktop/s/4.jpeg"));
+//        ImageIO.write(ImageServiceImpl.resizeImage(image, 270, 270, null, null, null, null, null, null), "jpeg", new File("/Users/ezhulkov/Desktop/s/1.jpeg"));
+//        ImageIO.write(ImageServiceImpl.resizeImage(image, 374, 270, null, null, null, null, null, null), "jpeg", new File("/Users/ezhulkov/Desktop/s/2.jpeg"));
+//        ImageIO.write(ImageServiceImpl.resizeImage(image, 560, 404, null, null, null, null, null, null), "jpeg", new File("/Users/ezhulkov/Desktop/s/3.jpeg"));
+//        ImageIO.write(ImageServiceImpl.resizeImage(image, 1000, 720, null, null, null, null, null, null), "jpeg", new File("/Users/ezhulkov/Desktop/s/4.jpeg"));
 //        ImageIO.write(resizeImage(image, 100, 100), "jpeg", new File("/Users/ezhulkov/Desktop/s/1.jpeg"));
 //        ImageIO.write(resizeImage(image, 400, 300), "jpeg", new File("/Users/ezhulkov/Desktop/s/2.jpeg"));
 //        ImageIO.write(resizeImage(image, 300, 400), "jpeg", new File("/Users/ezhulkov/Desktop/s/3.jpeg"));
