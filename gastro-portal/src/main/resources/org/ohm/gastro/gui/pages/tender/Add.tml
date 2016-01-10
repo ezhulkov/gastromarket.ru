@@ -104,7 +104,7 @@
                         <ul>
                             <t:loop source="samples" value="oneSample">
                                 <li>
-                                    <t:pagelink page="tender/index" t:context="oneSample.id" class="name">
+                                    <t:pagelink page="tender/index" t:context="oneSample.id" class="name" target="_blank">
                                         ${oneSample.name}
                                     </t:pagelink>
                                     ${oneSample.comment}

@@ -424,8 +424,8 @@ function initFineUploader(el) {
             jQuery(progress).css("width", "0%");
             jQuery(button).removeClass("upload-progress");
             if (autoUpload) {
-                if (respSize != undefined && respSize.length > 0 && xhr.response != undefined) {
-                    jQuery(imageSelector).attr("src", JSON.parse(xhr.response)[respSize] + "?" + new Date().getTime());
+                if (respSize != undefined && respSize.length > 0 && xhr != undefined && xhr[respSize] != null) {
+                    jQuery(imageSelector).attr("src", xhr[respSize] + "?" + new Date().getTime());
                 }
                 if (refreshAjax != null) {
                     triggerEvent(jQuery(refreshAjax).get(0), "click");

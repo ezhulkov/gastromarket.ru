@@ -1,7 +1,9 @@
 package org.ohm.gastro.gui.components;
 
 import com.google.common.collect.Range;
+import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.annotations.Parameter;
+import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentableEntity;
 import org.ohm.gastro.domain.CommentableEntity.Type;
@@ -14,6 +16,10 @@ public class Ratings extends BaseComponent {
 
     @Parameter(required = true, allowNull = false)
     private CommentableEntity entity;
+
+    @Property
+    @Parameter(defaultPrefix = BindingConstants.LITERAL, value = "false")
+    private boolean showCert;
 
     public CatalogEntity getCatalog() {
         return entity.getCommentableType() == Type.CATALOG ? (CatalogEntity) entity : null;

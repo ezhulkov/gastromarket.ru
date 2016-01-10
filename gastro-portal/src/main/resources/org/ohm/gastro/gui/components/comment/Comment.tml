@@ -15,11 +15,9 @@
                 </a>
             </div>
             <t:if test="comment.author.cook">
-                <t:ratings entity="comment.author.firstCatalog.get()"/>
-                <t:if test="comment.author.catalogCert2">
-                    <div class="cert2">Проверенный кулинар - была контрольная закупка</div>
-                </t:if>
+                <t:ratings entity="comment.author.firstCatalog.get()" showCert="true"/>
             </t:if>
+            <hr/>
             <t:if test="comment.budget">
                 <div class="f20px">Предложение стоимости: ${comment.budget} <span class="rub"/></div>
             </t:if>
