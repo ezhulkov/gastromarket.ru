@@ -29,17 +29,20 @@ public class ApplicationFilter extends BaseApplicationFilter {
                                     final HttpServletResponse httpServletResponse,
                                     final FilterChain filterChain) throws ServletException, IOException {
 
-        boolean needToLog = !isStaticResource(httpServletRequest);
+
+        final boolean needToLog = !isStaticResource(httpServletRequest);
+        final StringBuilder logStr = new StringBuilder();
+        final String userAgent = (ObjectUtils.defaultIfNull(httpServletRequest.getHeader("User-Agent"), "-")).toLowerCase();
+        final boolean bot = userAgent.contains("bot") || userAgent.contains("crawler") || userAgent.contains("apachebench");
 
         Slf4JStopWatch stopWatch = null;
 
         if (needToLog) {
             final String servletPath = httpServletRequest.getServletPath();
-            final String userAgent = (ObjectUtils.defaultIfNull(httpServletRequest.getHeader("User-Agent"), "-")).toLowerCase();
             final Long opNumber = opCounter.incrementAndGet();
             final String referer = httpServletRequest.getHeader("Referer");
             final String sid = httpServletRequest.getSession(false) == null ? "-" : httpServletRequest.getSession(false).getId();
-            final String uid = userAgent.contains("bot") || userAgent.contains("crawler") ? "BOT" :
+            final String uid = bot ? "BOT" :
                     SecurityContextHolder.getContext().getAuthentication() == null ?
                             "-" :
                             SecurityContextHolder.getContext().getAuthentication().getName();
@@ -49,12 +52,16 @@ public class ApplicationFilter extends BaseApplicationFilter {
             MDC.put("referer", referer == null || referer.startsWith("https://gastromarket") || referer.startsWith("http://localhost") ? "" : referer);
             MDC.put("uid", uid);
             MDC.put("op", "op" + Long.toString(opNumber));
-            StringBuilder logStr = new StringBuilder(httpServletRequest.getMethod());
+
+            logStr.append(httpServletRequest.getMethod());
             logStr.append(" to ").append(servletPath);
             if (httpServletRequest.getQueryString() != null) {
-                logStr.append('?').append(httpServletRequest.getQueryString());
+                logStr.append("?").append(httpServletRequest.getQueryString());
             }
-            Logging.logger.info(logStr.toString());
+            if (!bot) {
+                Logging.logger.info(logStr.toString());
+            }
+
             if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserEntity) {
                 ApplicationContextHolder.getBean(MailService.class).cancelAllTasks((UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
             }
@@ -68,7 +75,11 @@ public class ApplicationFilter extends BaseApplicationFilter {
         //Do filter
         filterChain.doFilter(httpServletRequest, httpServletResponse);
 
-        if (needToLog) {
+        if (httpServletResponse.getStatus() == 500 && bot) {
+            Logging.logger.info("Query was {}", logStr.toString());
+        }
+
+        if (needToLog && !bot) {
             Logging.logger.debug("Request processing time (ms): " + stopWatch.getElapsedTime());
             stopWatch.stop();
         }
