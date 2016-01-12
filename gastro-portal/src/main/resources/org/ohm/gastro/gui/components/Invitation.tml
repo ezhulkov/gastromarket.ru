@@ -50,33 +50,38 @@
                             <div class="row">
                                 <p class="modal-text">Если вы кулинар и хотите подключиться к ГастроМаркет, полноценно использовать все возможности сайта и продавать приготовленную вами еду, то оставьте заявку на подключение и мы обязательно с вами свяжемся.</p>
                             </div>
-                            <t:form t:zone="applicationZone" t:id="applicationAjaxForm" class="form edit" t:clientValidation="none" role="form">
+                            <t:form t:zone="applicationZone" t:id="applicationAjaxForm" class="form edit" t:clientValidation="BLUR" role="form">
                                 <t:errors/>
                                 <div class="col-xs-12">
                                     <div class="form-group">
-                                        <t:label for="eMail">Адрес почты:</t:label>
+                                        <t:label for="eMail">Адрес почты: *</t:label>
                                         <input t:type="TextField" id="eMail" t:id="eMail" t:value="eMail" t:validate="required,email,maxlength=64" class="form-control"/>
                                     </div>
                                 </div>
                                 <div class="col-xs-12">
                                     <div class="form-group">
-                                        <t:label for="fullName">Полное имя:</t:label>
+                                        <t:label for="fullName">Полное имя: *</t:label>
                                         <input t:type="TextField" id="fullName" t:id="fullName" t:value="fullName" t:validate="required,maxlength=64" class="form-control"/>
                                     </div>
                                 </div>
                                 <div class="col-xs-12">
                                     <div class="form-group">
-                                        <t:label for="sourceInfo">Откуда вы узнали о ГастроМаркет?</t:label>
-                                        <input t:type="TextField" id="sourceInfo" t:id="sourceInfo" t:value="sourceInfo" class="form-control"/>
+                                        <t:label for="sourceInfo">Откуда вы узнали о ГастроМаркет? *</t:label>
+                                        <input t:type="TextField" id="sourceInfo" t:id="sourceInfo" t:value="sourceInfo" t:validate="required" class="form-control"/>
                                     </div>
                                 </div>
                                 <div class="col-xs-12">
                                     <div class="form-group">
-                                        <t:label for="about">Расскажите о себе:</t:label>
+                                        <t:label for="about">Расскажите о себе: *</t:label>
                                         <textarea t:type="TextArea" t:id="about" t:value="about" t:validate="required" rows="5" class="form-control"/>
                                     </div>
                                 </div>
                                 <div class="col-xs-12">
+                                    <div class="form-group label-tip">
+                                        * - обязательные для заполнения поля
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 gap">
                                     <div class="form-buttons" xml:space="preserve">
                                         <input class="btn btn-red" type="submit" value="Оставить заявку на подключение"/>
                                     </div>

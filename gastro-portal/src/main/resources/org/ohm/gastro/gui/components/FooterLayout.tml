@@ -43,7 +43,7 @@
                         </t:unless>
                         <li><a href="#feedback" class="application-link" data-toggle="modal" data-target="#feedback">Оставить отзыв</a></li>
                         <li><a href="/bonus" class="hidden-xs">Пригласить друга</a></li>
-                        <li><a href="/tender/list/NEW/true">Разместить заявку</a></li>
+                        <li><a href="/tender/add">Разместить заявку</a></li>
                     </ul>
                 </div>
             </div>

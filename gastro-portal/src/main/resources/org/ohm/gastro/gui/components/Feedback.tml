@@ -25,12 +25,12 @@
                         <p class="modal-text">Если у Вас возникли вопросы, пожелания или жалобы по работе нашего проекта, напишите нам, пожалуйста, на адрес
                             <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет отзыв" class="red-text">contacts@gastromarket.ru</a> или оставьте комментарий ниже</p>
                     </div>
-                    <t:form t:zone="feedbackZone" t:id="feedbackAjaxForm" class="form edit" t:clientValidation="none" role="form">
+                    <t:form t:zone="feedbackZone" t:id="feedbackAjaxForm" class="form edit" t:clientValidation="BLUR" role="form">
                         <t:errors/>
                         <div class="col-xs-12">
                             <div class="form-group">
-                                <t:label for="eMail">Адрес почты:</t:label>
-                                <input t:type="TextField" id="eMail" t:id="eMail" t:value="eMail" t:validate="email,maxlength=64" class="form-control"/>
+                                <t:label for="eMail">Адрес почты: *</t:label>
+                                <input t:type="TextField" id="eMail" t:id="eMail" t:value="eMail" t:validate="required,email,maxlength=64" class="form-control"/>
                             </div>
                         </div>
                         <div class="col-xs-12">
@@ -41,11 +41,16 @@
                         </div>
                         <div class="col-xs-12">
                             <div class="form-group">
-                                <t:label for="comment">Комментарий:</t:label>
-                                <textarea t:type="TextArea" t:id="comment" t:value="comment" rows="5" class="form-control"/>
+                                <t:label for="comment">Комментарий: *</t:label>
+                                <textarea t:type="TextArea" t:id="comment" t:value="comment" t:validate="required" rows="5" class="form-control"/>
                             </div>
                         </div>
                         <div class="col-xs-12">
+                            <div class="form-group label-tip">
+                                * - обязательные для заполнения поля
+                            </div>
+                        </div>
+                        <div class="col-xs-12 gap">
                             <div class="form-buttons" xml:space="preserve">
                                <input class="btn btn-red" type="submit" value="Послать отзыв"/>
                            </div>

@@ -1,5 +1,5 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="photo-inject">
-    <div class="col-xs-12 gap2">
+    <div class="col-xs-12 gap2 hidden-xs">
         Чтобы прикрепить фото, нажмите "Добавить фотографию":
     </div>
     <div class="clearfix"></div>

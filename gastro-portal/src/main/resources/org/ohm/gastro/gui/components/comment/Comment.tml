@@ -74,7 +74,7 @@
                                                     </div>
                                                     <div class="col-xs-12">
                                                         <div class="form-group">
-                                                            <t:label for="fullName">Ваше имя:*</t:label>
+                                                            <t:label for="fullName">Ваше имя: *</t:label>
                                                             <input t:id="fullName" class="form-control" t:validate="required"/>
                                                         </div>
                                                     </div>
