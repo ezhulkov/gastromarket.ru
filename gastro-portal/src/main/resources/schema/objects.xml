@@ -1138,4 +1138,16 @@
         </sql>
     </changeSet>
 
+    <changeSet id="103" author="ezhulkov">
+        <addColumn tableName="catalog">
+            <column name="region" type="text"/>
+        </addColumn>
+        <createIndex tableName="catalog" indexName="catalog_region_idx">
+            <column name="region"/>
+        </createIndex>
+        <sql>
+            update catalog set region='DEFAULT';
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

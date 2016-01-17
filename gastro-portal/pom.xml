@@ -340,6 +340,10 @@
             <artifactId>raven-logback</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.maxmind.geoip</groupId>
+            <artifactId>geoip-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>net.coobird</groupId>
             <artifactId>thumbnailator</artifactId>
         </dependency>

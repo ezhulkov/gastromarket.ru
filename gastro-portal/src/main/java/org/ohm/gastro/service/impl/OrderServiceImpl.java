@@ -382,7 +382,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                             this::orderRateReminder,
                             "ORDER_RATE_REMINDER");
             triggerLauncher(allOrders,
-                            t -> t.getStatus() != Status.CLOSED && t.getCatalog() != null && t.getDueDate() != null && t.getDueDate().before(new Date()),
+                            t -> t.getStatus() != Status.CLOSED && t.getStatus() != Status.CANCELLED && t.getCatalog() != null && t.getDueDate() != null && t.getDueDate().before(new Date()),
                             t -> Stream.of(t.getDueDateAsJoda().plusDays(1), t.getDueDateAsJoda().plusDays(2), t.getDueDateAsJoda().plusDays(3)),
                             this::orderCloseReminder,
                             "ORDER_CLOSE_REMINDER");

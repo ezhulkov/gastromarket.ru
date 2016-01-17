@@ -70,7 +70,11 @@
     </context-param>
     <context-param>
         <param-name>staticResourceUrls</param-name>
-        <param-value>/favicon,/assets,/modules,/fonts,/css,/img,/favicon.ico,/js,/robots.txt,/chat</param-value>
+        <param-value>/favicon,/assets,/modules,/fonts,/css,/img,/favicon.ico,/js,/robots.txt,/chat,/tmp</param-value>
+    </context-param>
+    <context-param>
+        <param-name>geoIpFile</param-name>
+        <param-value>/etc/gastro/GeoLiteCity.dat</param-value>
     </context-param>
 
     <servlet>
@@ -93,6 +97,10 @@
     <filter>
         <filter-name>applicationFilter</filter-name>
         <filter-class>org.ohm.gastro.filter.ApplicationFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>regionFilter</filter-name>
+        <filter-class>org.ohm.gastro.filter.RegionFilter</filter-class>
     </filter>
     <filter>
         <filter-name>openSessionInViewFilter</filter-name>
@@ -133,6 +141,10 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>regionFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     <filter-mapping>

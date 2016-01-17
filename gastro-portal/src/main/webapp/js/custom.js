@@ -48,6 +48,10 @@ Event.observe(document, Tapestry.ZONE_UPDATED_EVENT, function () {
 });
 jQuery(document).ready(function () {
     jQuery("body").addClass(isMobile() ? "mobile" : "desktop");
+    jQuery("#regionSelect").change(function () {
+        jQuery.cookie("region", jQuery(this).val(), {expires: 365, path: "/"});
+        location.reload();
+    });
     initLoginModal();
     initControls();
     initSmoothScroll();

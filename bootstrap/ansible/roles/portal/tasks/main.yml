@@ -2,9 +2,13 @@
   - name: make sure that nessesary directories exists
     file: path={{ item }} state=directory mode=0777 group=root owner=root
     with_items:
+      - "/etc/gastro"
       - "/var/log/gastro"
       - "/var/lib/gastro/media"
       - "/var/lib/gastro/sitemap"
+
+  - name: upload GeoLiteCity.dat
+    copy: src=GeoLiteCity.dat dest=/etc/gastro/GeoLiteCity.dat owner=tomcat7 group=tomcat7 mode=0644
 
   - name: upload application
     copy: src=../../gastro-portal/target/gastromarket.war dest=/tmp/ROOT.war owner=tomcat7 group=tomcat7 mode=0644

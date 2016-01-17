@@ -1,6 +1,6 @@
 <configuration>
 
-    <property name="PATTERN" value="[%d{HH:mm:ss.SSS}][%X{ip}][%X{referer}][%X{uid}] - %msg%n"/>
+    <property name="PATTERN" value="[%d{HH:mm:ss.SSS}][%X{ip}][%X{originRegion}/%X{gastroRegion}][%X{referer}][%X{uid}] - %msg%n"/>
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>

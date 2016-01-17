@@ -99,6 +99,9 @@ public class CatalogEntity extends SitemapBaseEntity implements CommentableEntit
     @Column(name = "avatar_url_small")
     private String avatarUrlSmall = "/img/avatar-stub-23x23.png";
 
+    @Enumerated(EnumType.STRING)
+    private Region region = Region.DEFAULT;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private UserEntity user;
@@ -363,6 +366,14 @@ public class CatalogEntity extends SitemapBaseEntity implements CommentableEntit
 
     public void setContractSigned(Boolean contractSigned) {
         this.contractSigned = contractSigned;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(final Region region) {
+        this.region = region;
     }
 
 }
