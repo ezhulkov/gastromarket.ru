@@ -12,11 +12,12 @@
                     </button>
                 </t:if>
                 <div class="navbar-brand"><a class="logo" href="/"><img src="/img/logotype1-small.png" srcset="/img/logotype1.png 2x" alt="logo"/></a></div>
+                <div class="navbar-brand hidden-lg hidden-md hidden-sm header-geo"><a href="#geo" data-toggle="modal" data-target="#geo">${currentRegionPrintable}</a></div>
             </div>
             <t:if test="header">
                 <div class="collapse navbar-collapse no-transition bs-navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
-                        <li>
+                        <li class="hidden-xs">
                             <a href="#geo" data-toggle="modal" data-target="#geo">${currentRegionPrintable}</a>
                         </li>
                         <li class="hidden-sm hidden-xs">

@@ -139,4 +139,8 @@ public class Index extends AbstractCatalogPage {
         return isCatalogOwner() || !getProducts().isEmpty();
     }
 
+    public String getRegionPrintable() {
+        return getMessages().get("Region." + catalog.getRegion());
+    }
+
 }

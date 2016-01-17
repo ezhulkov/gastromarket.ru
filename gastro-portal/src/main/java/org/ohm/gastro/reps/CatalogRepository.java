@@ -1,6 +1,7 @@
 package org.ohm.gastro.reps;
 
 import org.ohm.gastro.domain.CatalogEntity;
+import org.ohm.gastro.domain.Region;
 import org.ohm.gastro.domain.UserEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
@@ -18,10 +19,10 @@ public interface CatalogRepository extends AltIdRepository<CatalogEntity> {
     List<CatalogEntity> findAllByUser(UserEntity user);
 
     @Query("select distinct c from CatalogEntity c join c.user u " +
-            "where c.wizardStep=4 and u.status='ENABLED'" +
+            "where c.wizardStep=4 and u.status='ENABLED' and c.region=:region " +
             "order by c.rating desc,c.id asc")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    List<CatalogEntity> findAllActive();
+    List<CatalogEntity> findAllActive(@Param("region") Region region);
 
     @Query("select count(*) from CatalogEntity where rating>:rating")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})

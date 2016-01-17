@@ -14,6 +14,7 @@ import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.UserEntity;
+import org.ohm.gastro.filter.RegionFilter;
 import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.CommentRepository;
 import org.ohm.gastro.reps.LogRepository;
@@ -171,7 +172,7 @@ public class RatingServiceImpl implements RatingService, Logging {
             catalog.setProductBadge(productBadgeSet.rangeContaining(productsCount).lowerEndpoint());
             catalogRepository.save(catalog);
 
-            final List<CatalogEntity> catalogs = catalogRepository.findAllActive();
+            final List<CatalogEntity> catalogs = catalogRepository.findAllActive(RegionFilter.getCurrentRegion());
             int pos = 1;
             for (CatalogEntity oneCatalog : catalogs) {
                 final Range<Integer> rankRange = rankBadgeSet.rangeContaining(pos++);

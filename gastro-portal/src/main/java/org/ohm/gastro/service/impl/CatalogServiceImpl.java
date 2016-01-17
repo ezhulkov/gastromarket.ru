@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.UserEntity;
+import org.ohm.gastro.filter.RegionFilter;
 import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.service.CatalogService;
@@ -49,7 +50,7 @@ public class CatalogServiceImpl implements CatalogService, Logging {
 
     @Override
     public List<CatalogEntity> findAllActiveCatalogs() {
-        return catalogRepository.findAllActive();
+        return catalogRepository.findAllActive(RegionFilter.getCurrentRegion());
     }
 
     @Override

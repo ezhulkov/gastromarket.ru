@@ -19,6 +19,7 @@ import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.PropertyValueEntity.Tag;
 import org.ohm.gastro.domain.PurchaseEntity;
 import org.ohm.gastro.domain.TagEntity;
+import org.ohm.gastro.filter.RegionFilter;
 import org.ohm.gastro.reps.PriceModifierRepository;
 import org.ohm.gastro.reps.ProductRepository;
 import org.ohm.gastro.reps.PropertyRepository;
@@ -234,7 +235,7 @@ public class ProductServiceImpl implements ProductService, Logging {
 
     @Override
     public List<ProductEntity> findPromotedProducts() {
-        return productRepository.findAllPromotedProducts();
+        return productRepository.findAllPromotedProducts(RegionFilter.getCurrentRegion());
     }
 
     @Override

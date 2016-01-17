@@ -3,6 +3,7 @@ package org.ohm.gastro.reps;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
+import org.ohm.gastro.domain.Region;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -59,9 +60,9 @@ public interface ProductRepository extends AltIdRepository<ProductEntity> {
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     int findCountInCatalog(@Param("catalog") CatalogEntity catalog, @Param("wasSetup") Boolean wasSetup);
 
-    @Query("from ProductEntity where promoted=true")
+    @Query("select p from ProductEntity p join p.catalog c where p.promoted=true and c.region=:region")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    List<ProductEntity> findAllPromotedProducts();
+    List<ProductEntity> findAllPromotedProducts(@Param("region") Region region);
 
     @Query("from ProductEntity where wasSetup=:wasSetup and catalog=:catalog order by id desc")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})

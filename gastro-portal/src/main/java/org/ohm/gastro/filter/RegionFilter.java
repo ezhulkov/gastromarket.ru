@@ -71,4 +71,9 @@ public class RegionFilter extends BaseApplicationFilter {
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 
+    public static Region getCurrentRegion() {
+        final Region boundRegion = REGION_THREAD_LOCAL.get();
+        return boundRegion == null ? Region.DEFAULT : boundRegion;
+    }
+
 }

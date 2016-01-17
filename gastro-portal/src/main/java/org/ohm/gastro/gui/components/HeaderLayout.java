@@ -89,8 +89,7 @@ public class HeaderLayout extends BaseComponent {
     }
 
     private Region getCurrentRegion() {
-        final Region boundRegion = RegionFilter.REGION_THREAD_LOCAL.get();
-        return boundRegion == null ? Region.DEFAULT : boundRegion;
+        return RegionFilter.getCurrentRegion();
     }
 
 }
