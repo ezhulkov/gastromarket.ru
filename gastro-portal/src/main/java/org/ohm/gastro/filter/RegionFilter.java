@@ -56,7 +56,6 @@ public class RegionFilter extends BaseApplicationFilter {
             final Optional<String> cookieOpt = Arrays.stream(httpServletRequest.getCookies())
                     .filter(t -> t != null && t.getName().equals("region") && t.getValue() != null)
                     .map(t -> Throwables.propagate(() -> URLDecoder.decode(t.getValue(), Charsets.UTF_8.name())))
-                    .map(t -> Region.valueOfSafe(t).getRegion())
                     .findFirst();
             final Optional<String> ipOpt = Optional.ofNullable(qsIp == null ? httpServletRequest.getHeader("X-Real-IP") : qsIp);
             final String regionStr = qsOpt.orElseGet(() -> cookieOpt.orElseGet(() -> ipOpt.map(ip -> lookupService.getLocation(ip).city).orElse(Region.DEFAULT.getRegion())));
