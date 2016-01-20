@@ -71,11 +71,6 @@ public class HeaderLayout extends BaseComponent {
         return getDeclInfo("bonus", bonuses);
     }
 
-    @Cached
-    public String getCurrentRegionPrintable() {
-        return getMessages().get("Region." + getCurrentRegion());
-    }
-
     public String getRegionPrintable() {
         return getMessages().get("Region." + region);
     }
@@ -85,11 +80,7 @@ public class HeaderLayout extends BaseComponent {
     }
 
     public boolean isCurrent() {
-        return getCurrentRegion() == region;
-    }
-
-    private Region getCurrentRegion() {
-        return RegionFilter.getCurrentRegion();
+        return RegionFilter.getCurrentRegion() == region;
     }
 
 }

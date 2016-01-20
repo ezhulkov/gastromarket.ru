@@ -13,7 +13,7 @@
                     <t:block t:id="tenderInfoBlock">
                         <t:form t:id="tenderInfoForm" t:zone="tenderInfoZone" t:clientValidation="none" t:autofocus="false" class="form tender-form" rel="nofollow" role="form">
                             <div class="caption">Описание заявки</div>
-                            <div class="modal-text">более 200 независимых кулинаров Москвы готовы сделать для вас кулинарный шедевр</div>
+                            <div class="modal-text">более 200 независимых кулинаров готовы сделать для вас кулинарный шедевр</div>
                             <t:if test="error">
                                 <div class="error">
                                     Пожалуйста, заполните обязательные поля

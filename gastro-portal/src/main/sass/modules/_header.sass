@@ -6,16 +6,6 @@
   margin-bottom: 0
   background: white
   border-bottom: 1px solid #eee
-  .header-geo
-    padding-top: 20px !important
-    padding-left: 0
-    padding-right: 0
-    max-width: 100px
-    overflow: hidden
-    white-space: nowrap
-    text-overflow: ellipsis
-    a
-      color: $navLinkColor !important
   .navbar-right .dropdown-menu
     right: 0
     top: 40px
@@ -29,11 +19,18 @@
     height: 60px
     padding-top: 10px
     padding-bottom: 10px
+    +mobile-media
+      float: none
+      white-space: nowrap
+      .header-geo a
+        color: $navLinkColor
+        margin-left: 10px
   .navbar-collapse
+    margin-top: 1px
     border: none
   .navbar-toggle, .navbar-toggle:hover
     margin-top: 7px
-    background-color: transparent
+    background-color: white
     border: none
     .icon-bar
       margin-top: 6px

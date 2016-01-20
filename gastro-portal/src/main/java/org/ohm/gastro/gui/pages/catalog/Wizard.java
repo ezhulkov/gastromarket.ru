@@ -122,7 +122,7 @@ public class Wizard extends AbstractCatalogPage {
     }
 
     public java.util.List<ProductEntity> getProducts() {
-        return getProductService().findProductsForFrontend(null, catalog, null, null, null, null, null, 0, 100);
+        return getProductService().findProductsForFrontend(null, catalog, null, null, null, null, null, null, 0, 100);
     }
 
     public Block onActionFromReorderAjaxForm() {

@@ -5,6 +5,7 @@ import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Checkbox;
 import org.apache.tapestry5.corelib.components.PasswordField;
+import org.apache.tapestry5.corelib.components.Select;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.AbstractServiceCallback;
@@ -22,6 +23,9 @@ public class Index extends EditObjectPage<UserEntity> {
 
     @Component(id = "fullName", parameters = {"value=object?.fullName", "validate=maxlength=64"})
     private TextField fNameField;
+
+    @Component(id = "region", parameters = {"value=object?.region", "validate=required"})
+    private Select region;
 
     @Component(id = "mobilePhone", parameters = {"value=object?.mobilePhone"})
     private TextField mobileField;

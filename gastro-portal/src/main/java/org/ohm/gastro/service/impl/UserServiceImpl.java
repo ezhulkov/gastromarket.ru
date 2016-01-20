@@ -9,9 +9,11 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.LogEntity;
+import org.ohm.gastro.domain.Region;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.domain.UserEntity.Status;
 import org.ohm.gastro.domain.UserEntity.Type;
+import org.ohm.gastro.filter.RegionFilter;
 import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.UserRepository;
 import org.ohm.gastro.service.BillService;
@@ -125,13 +127,15 @@ public class UserServiceImpl implements UserService, Logging {
     }
 
     @Override
-    public UserEntity createUser(final UserEntity user, final String password, String catalogName, final boolean sendEmail) throws UserExistsException, EmptyPasswordException {
+    public UserEntity createUser(final UserEntity user, final String password, String catalogName, Region region, final boolean sendEmail) throws UserExistsException, EmptyPasswordException {
         if (StringUtils.isEmpty(password)) throw new EmptyPasswordException();
         if (userRepository.findByEmail(user.getEmail()) != null) throw new UserExistsException();
+        user.setRegion(region);
         if (Type.COOK.equals(user.getType())) {
             userRepository.save(user);
             CatalogEntity catalog = new CatalogEntity();
             catalog.setUser(user);
+            catalog.setRegion(region);
             catalog.setName(StringUtils.isEmpty(catalogName) ? user.getFullName() + " - страница кулинара" : catalogName);
             catalogService.saveWithAltId(catalog, catalogRepository);
             user.getCatalogs().add(catalog);
@@ -188,9 +192,10 @@ public class UserServiceImpl implements UserService, Logging {
     }
 
     @Override
-    public void processApplicationRequest(String eMail, String fullName, String about, String sourceInfo) {
+    public void processApplicationRequest(String eMail, Region region, String fullName, String about, String sourceInfo) {
 
         logger.info("Application received");
+        logger.info("region: {}", region);
         logger.info("email: {}", eMail);
         logger.info("fullName: {}", fullName);
         logger.info("about: {}", about);
@@ -199,6 +204,7 @@ public class UserServiceImpl implements UserService, Logging {
         final Map<String, Object> params = new HashMap<String, Object>() {
             {
                 put("cookname", defaultIfNull(fullName, ""));
+                put("region", defaultIfNull(region, ""));
                 put("email", defaultIfNull(eMail, ""));
                 put("sourceInfo", defaultIfNull(sourceInfo, ""));
                 put("about", defaultIfNull(about, ""));
@@ -234,8 +240,10 @@ public class UserServiceImpl implements UserService, Logging {
         UserEntity existingUser = userRepository.findByEmail(userProfile.getEmail());
         if (referrerUser != null) userProfile.setReferrer(userRepository.findOne(((UserEntity) referrerUser).getId()));
         if (existingUser == null) {
+            userProfile.setRegion(RegionFilter.getCurrentRegion());
             existingUser = userRepository.save(userProfile);
         } else {
+            existingUser.setRegion(RegionFilter.getCurrentRegion());
             if (StringUtils.isEmpty(existingUser.getFullName())) existingUser.setFullName(userProfile.getFullName());
             if (StringUtils.isNotEmpty(userProfile.getAvatarUrl())) existingUser.setAvatarUrl(userProfile.getAvatarUrl());
             if (StringUtils.isNotEmpty(userProfile.getAvatarUrlMedium())) existingUser.setAvatarUrlMedium(userProfile.getAvatarUrlMedium());
@@ -294,7 +302,7 @@ public class UserServiceImpl implements UserService, Logging {
                 userEntity.setFullName(user.getName());
                 userEntity.setSourceUrl(user.getSource().toLowerCase());
                 try {
-                    createUser(userEntity, user.getPassword(), user.getCatalog(), false);
+                    createUser(userEntity, user.getPassword(), user.getCatalog(), RegionFilter.getCurrentRegion(), false);
                 } catch (Exception e) {
                     logger.error("", e);
                 }

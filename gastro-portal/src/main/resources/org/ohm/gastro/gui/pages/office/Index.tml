@@ -22,6 +22,15 @@
                                 <input t:id="fullName" class="form-control" type="text" placeholder="Полное имя"/>
                             </div>
                         </div>
+                        <t:unless test="cook">
+                            <div class="form-group">
+                                <t:label class="col-sm-3 control-label" for="region">Мой регион:</t:label>
+
+                                <div class="col-sm-9">
+                                    <input t:id="region" class="form-control"/>
+                                </div>
+                            </div>
+                        </t:unless>
                         <div class="form-group">
                             <t:label class="col-sm-3 control-label" for="mobilePhone">Контактный телефон:</t:label>
 

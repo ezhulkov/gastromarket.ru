@@ -1,7 +1,7 @@
 <t:form xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" t:id="tenderForm"
         t:autofocus="false" t:clientValidation="none" class="form tender" role="form">
     <div class="caption">Разместите заявку сейчас</div>
-    <div class="modal-text">более 200 независимых кулинаров Москвы готовы сделать для вас кулинарный шедевр</div>
+    <div class="modal-text">более 200 независимых кулинаров готовы сделать для вас кулинарный шедевр</div>
     <div class="col-xs-12 gap">
         <div class="form-group">
             <input t:id="name" type="text" class="form-control name" placeholder="Что вы хотите заказать?"/>

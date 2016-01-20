@@ -1,5 +1,6 @@
 package org.ohm.gastro.service;
 
+import org.ohm.gastro.domain.Region;
 import org.ohm.gastro.domain.UserEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,7 +23,7 @@ public interface UserService extends UserDetailsService, ImageUploaderService {
 
     UserEntity saveUser(UserEntity user, String password) throws EmptyPasswordException;
 
-    UserEntity createUser(UserEntity user, String password, String catalogName, boolean sendEmail) throws UserExistsException, EmptyPasswordException;
+    UserEntity createUser(UserEntity user, String password, String catalogName, Region region, boolean sendEmail) throws UserExistsException, EmptyPasswordException;
 
     UserEntity findUser(Long id);
 
@@ -30,7 +31,7 @@ public interface UserService extends UserDetailsService, ImageUploaderService {
 
     void resetPassword(String eMail);
 
-    void processApplicationRequest(String eMail, String fullName, String about, String sourceInfo);
+    void processApplicationRequest(String eMail, Region region, String fullName, String about, String sourceInfo);
 
     void processFeedbackRequest(String eMail, String fullName, String comment);
 

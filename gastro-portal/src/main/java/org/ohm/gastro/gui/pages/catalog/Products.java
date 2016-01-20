@@ -128,6 +128,7 @@ public class Products extends BaseComponent {
                 getProductService().findProductsForFrontend(propertyValue, catalog,
                                                             isCatalogOwner() ? null : true,
                                                             isCatalogOwner() ? null : false,
+                                                            null,
                                                             OrderType.POSITION, null,
                                                             propertyValue.getId().toString(), fetchFrom, fetchTo);
     }

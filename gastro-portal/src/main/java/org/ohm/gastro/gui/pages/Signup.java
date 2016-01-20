@@ -4,6 +4,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.domain.UserEntity.Type;
+import org.ohm.gastro.filter.RegionFilter;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.service.EmptyPasswordException;
 import org.ohm.gastro.service.UserExistsException;
@@ -95,7 +96,7 @@ public class Signup extends BaseComponent {
         user.setFullName(fullName);
         user.setType(Type.USER);
         user.setReferrer(referrer);
-        user = userService.createUser(user, password, null, true);
+        user = userService.createUser(user, password, null, RegionFilter.getCurrentRegion(), true);
         userService.manuallyLogin(user);
     }
 

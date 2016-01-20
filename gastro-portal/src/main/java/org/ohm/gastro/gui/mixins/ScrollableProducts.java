@@ -10,6 +10,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
+import org.ohm.gastro.filter.RegionFilter;
 import org.ohm.gastro.service.ProductService;
 import org.ohm.gastro.service.ProductService.OrderType;
 
@@ -61,6 +62,7 @@ public abstract class ScrollableProducts extends BaseComponent {
                                                            catalog,
                                                            true,
                                                            false,
+                                                           RegionFilter.getCurrentRegion(),
                                                            OrderType.NONE,
                                                            null,
                                                            null,

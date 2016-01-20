@@ -60,6 +60,12 @@
                                 </div>
                                 <div class="col-xs-12">
                                     <div class="form-group">
+                                        <t:label for="region">Регион: *</t:label>
+                                        <input t:type="Select" id="region" t:id="region" t:value="region" t:validate="required" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="form-group">
                                         <t:label for="fullName">Полное имя: *</t:label>
                                         <input t:type="TextField" id="fullName" t:id="fullName" t:value="fullName" t:validate="required,maxlength=64" class="form-control"/>
                                     </div>

@@ -7,6 +7,7 @@ import org.ohm.gastro.misc.Throwables;
 import org.ohm.gastro.trait.Logging;
 import org.slf4j.MDC;
 
+import javax.annotation.Nonnull;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -71,6 +72,7 @@ public class RegionFilter extends BaseApplicationFilter {
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 
+    @Nonnull
     public static Region getCurrentRegion() {
         final Region boundRegion = REGION_THREAD_LOCAL.get();
         return boundRegion == null ? Region.DEFAULT : boundRegion;

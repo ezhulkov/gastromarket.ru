@@ -6,6 +6,7 @@ import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.PurchaseEntity;
+import org.ohm.gastro.domain.Region;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.reps.ProductRepository;
 import org.ohm.gastro.service.social.MediaElement;
@@ -32,9 +33,11 @@ public interface ProductService extends ImageUploaderService, AltIdService<Produ
 
     List<ProductEntity> findAllRawProducts(@Nonnull CatalogEntity catalog, final int from, final int to);
 
+    int findAllCategoryProductsCount(@Nullable CatalogEntity catalog, @Nullable PropertyValueEntity category, @Nonnull Region region);
+
     int findAllCategoryProductsCount(@Nullable CatalogEntity catalog, @Nullable PropertyValueEntity category);
 
-    int findAllProductsCountCached(final CatalogEntity catalog, @Nonnull PropertyValueEntity category);
+    int findAllProductsCountCached(final CatalogEntity catalog, @Nonnull PropertyValueEntity category, Region region);
 
     PriceModifierEntity findPriceModifier(Long id);
 
@@ -45,7 +48,8 @@ public interface ProductService extends ImageUploaderService, AltIdService<Produ
     void hideProduct(Long id);
 
     List<ProductEntity> findProductsForFrontend(final PropertyValueEntity property, final CatalogEntity catalog, final Boolean wasSetup,
-                                                final Boolean hidden, final OrderType orderType, final Direction direction, String positionType, final int from, final int to);
+                                                final Boolean hidden, final Region region, final OrderType orderType,
+                                                final Direction direction, String positionType, final int from, final int to);
 
     int findProductsForFrontendCount(final CatalogEntity catalog);
 

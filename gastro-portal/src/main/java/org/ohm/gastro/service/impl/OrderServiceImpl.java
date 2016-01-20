@@ -9,7 +9,9 @@ import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.OrderProductEntity;
+import org.ohm.gastro.domain.Region;
 import org.ohm.gastro.domain.UserEntity;
+import org.ohm.gastro.filter.RegionFilter;
 import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.OrderProductRepository;
 import org.ohm.gastro.reps.OrderRepository;
@@ -167,7 +169,10 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
 
     @Override
     public List<OrderEntity> findAllTenders() {
-        return orderRepository.findAllByType(OrderEntity.Type.PUBLIC).stream().filter(t -> t.isWasSetup()).collect(Collectors.toList());
+        return orderRepository.findAllByType(OrderEntity.Type.PUBLIC).stream()
+                .filter(OrderEntity::isWasSetup)
+                .filter(t -> t.getCustomer().getRegion() == RegionFilter.getCurrentRegion())
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -191,7 +196,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                 put("date", ObjectUtils.defaultIfNull(tender.getDueDateAsString(), "-"));
                 put("address", tender.getOrderUrl());
                 put("tender", tender);
-                put("recipients", getRecipients());
+                put("recipients", getRecipients(ObjectUtils.defaultIfNull(caller.getRegion(), Region.DEFAULT)));
             }
         };
         mailService.sendAdminMessage(MailService.NEW_TENDER_ADMIN, params);
@@ -228,10 +233,11 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     @Override
     public void sendTenderAnnonce(OrderEntity tender) {
         if (tender.isAnnonceSent()) return;
+        final Region region = ObjectUtils.defaultIfNull(tender.getCustomer().getRegion(), Region.DEFAULT);
         tender.setWasSetup(true);
         tender.setAnnonceSent(true);
         orderRepository.save(tender);
-        final List<UserEntity> rcpt = getRecipients();
+        final List<UserEntity> rcpt = getRecipients(region);
         final Map<String, Object> params = new HashMap<String, Object>() {
             {
                 put("username", tender.getCustomer().getFullName());
@@ -261,9 +267,13 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
         });
     }
 
-    private List<UserEntity> getRecipients() {
-        return catalogRepository.findAll().stream().map(CatalogEntity::getUser).distinct().filter(UserEntity::isSubscribeEmail).collect(Collectors.toList());
-//        return Lists.newArrayList(userRepository.findOne(1l));
+    private List<UserEntity> getRecipients(Region region) {
+        return catalogRepository.findAll().stream()
+                .filter(t -> t.getRegion() == region)
+                .map(CatalogEntity::getUser)
+                .distinct()
+                .filter(UserEntity::isSubscribeEmail)
+                .collect(Collectors.toList());
     }
 
     @Override

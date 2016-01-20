@@ -40,6 +40,9 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails, Comme
         ENABLED, DISABLED
     }
 
+    @Enumerated(EnumType.STRING)
+    private Region region = Region.DEFAULT;
+
     @Column
     private boolean anonymous = false;
 
@@ -333,6 +336,14 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails, Comme
 
     public boolean getCatalogCert2() {
         return getFirstCatalog().map(CatalogEntity::getCert2).orElse(false);
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
     }
 
     @Override
