@@ -4,6 +4,7 @@ import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.PasswordField;
+import org.apache.tapestry5.corelib.components.Select;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.UserEntity;
@@ -36,6 +37,9 @@ public class Index extends EditObjectPage<UserEntity> {
 
     @Component(id = "email", parameters = {"value=object?.email", "validate=maxlength=64,required,email"})
     private TextField emailField;
+
+    @Component(id = "region", parameters = {"value=object?.region", "validate=required"})
+    private Select emailField;
 
     @Component(id = "password", parameters = {"value=newPassword", "validate=maxlength=64"})
     private PasswordField pwdField;

@@ -129,7 +129,7 @@ public class UserServiceImpl implements UserService, Logging {
     @Override
     public UserEntity createUser(final UserEntity user, final String password, String catalogName, Region region, final boolean sendEmail) throws UserExistsException, EmptyPasswordException {
         if (StringUtils.isEmpty(password)) throw new EmptyPasswordException();
-        if (userRepository.findByEmail(user.getEmail()) != null) throw new UserExistsException();
+        if (userRepository.findByEmail(user.getEmail()) != null && user.getType() != Type.COOK) throw new UserExistsException();
         user.setRegion(region);
         if (Type.COOK.equals(user.getType())) {
             userRepository.save(user);
