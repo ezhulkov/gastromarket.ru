@@ -4,6 +4,7 @@ import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.corelib.components.Select;
 import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -32,6 +33,9 @@ public abstract class AbstractCatalogPage extends BaseComponent {
 
     @Component(id = "desc", parameters = {"value=catalog.description", "validate=maxlength=4096,required"})
     private TextArea descField;
+
+    @Component(id = "region", parameters = {"value=catalog.region", "validate=required"})
+    private Select regionField;
 
     @Component(id = "delivery", parameters = {"value=catalog.delivery", "validate=maxlength=4096,required"})
     private TextArea deliveryField;

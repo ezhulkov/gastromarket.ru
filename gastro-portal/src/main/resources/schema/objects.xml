@@ -1150,4 +1150,13 @@
         </sql>
     </changeSet>
 
+    <changeSet id="104" author="ezhulkov">
+        <addColumn tableName="users">
+            <column name="region" type="text"/>
+        </addColumn>
+        <sql>
+            update users set region='DEFAULT';
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

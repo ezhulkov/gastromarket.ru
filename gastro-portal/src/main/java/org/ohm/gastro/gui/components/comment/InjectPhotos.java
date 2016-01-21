@@ -60,7 +60,7 @@ public class InjectPhotos extends BaseComponent {
     @Cached
     public GenericSelectModel<ProductEntity> getProductsModel() {
         return new GenericSelectModel<>(getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream()
-                                                .flatMap(t -> getProductService().findProductsForFrontend(null, t, true, false, null, null, null, 0, Integer.MAX_VALUE).stream())
+                                                .flatMap(t -> getProductService().findProductsForFrontend(null, t, true, false, null, null, null, null, 0, Integer.MAX_VALUE).stream())
                                                 .collect(Collectors.toList()),
                                         ProductEntity.class,
                                         "name", "id", getAccess());

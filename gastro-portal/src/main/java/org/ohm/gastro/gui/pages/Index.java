@@ -8,6 +8,7 @@ import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.PropertyValueEntity.Tag;
+import org.ohm.gastro.filter.RegionFilter;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.List;
@@ -55,7 +56,7 @@ public class Index extends BaseComponent {
     }
 
     public boolean isShowCategory() {
-        return getProductService().findAllProductsCountCached(null, onePropertyValue) > 0;
+        return getProductService().findAllProductsCountCached(null, onePropertyValue, RegionFilter.getCurrentRegion()) > 0;
     }
 
 }

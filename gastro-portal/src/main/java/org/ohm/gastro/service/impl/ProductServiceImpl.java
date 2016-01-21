@@ -18,7 +18,9 @@ import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.PropertyValueEntity.Tag;
 import org.ohm.gastro.domain.PurchaseEntity;
+import org.ohm.gastro.domain.Region;
 import org.ohm.gastro.domain.TagEntity;
+import org.ohm.gastro.filter.RegionFilter;
 import org.ohm.gastro.reps.PriceModifierRepository;
 import org.ohm.gastro.reps.ProductRepository;
 import org.ohm.gastro.reps.PropertyRepository;
@@ -81,7 +83,7 @@ public class ProductServiceImpl implements ProductService, Logging {
             .build(new CacheLoader<CatalogCategoryPair, Integer>() {
                 @Override
                 public Integer load(final CatalogCategoryPair cat) throws Exception {
-                    return findAllCategoryProductsCount(cat.catalog, cat.category);
+                    return findAllCategoryProductsCount(cat.catalog, cat.category, cat.region);
                 }
             });
 
@@ -117,8 +119,8 @@ public class ProductServiceImpl implements ProductService, Logging {
     @Override
     public List<ProductEntity> searchProducts(String query, final int from, final int to) {
         if (StringUtils.isEmpty(query)) return Collections.emptyList();
-        query = query.replaceAll("\\s", "|");
-        return productRepository.searchProducts(query.toLowerCase(), from, to);
+        query = Arrays.stream(query.split("\\s")).map(String::trim).filter(StringUtils::isNoneEmpty).collect(Collectors.joining("|"));
+        return productRepository.searchProducts(RegionFilter.getCurrentRegion().name(), query.toLowerCase(), from, to);
     }
 
     @Override
@@ -234,7 +236,7 @@ public class ProductServiceImpl implements ProductService, Logging {
 
     @Override
     public List<ProductEntity> findPromotedProducts() {
-        return productRepository.findAllPromotedProducts();
+        return productRepository.findAllPromotedProducts(RegionFilter.getCurrentRegion());
     }
 
     @Override
@@ -252,14 +254,19 @@ public class ProductServiceImpl implements ProductService, Logging {
         final int count = to - from;
         if (count == 0) return Lists.newArrayList();
         final int page = from / count;
-        return productRepository.findAllByWasSetupAndCatalog(false, catalog, new PageRequest(page, count));
+        return productRepository.findAllByWasSetupAndCatalog(false, catalog, null, new PageRequest(page, count));
+    }
+
+    @Override
+    public int findAllCategoryProductsCount(@Nullable CatalogEntity catalog, @Nullable PropertyValueEntity category, @Nonnull Region region) {
+        return category == null || category.getId() == null ?
+                productRepository.findCountInCatalog(catalog, false) :
+                productRepository.findCountByRootValueAndCatalog(category, catalog, null, region, false);
     }
 
     @Override
     public int findAllCategoryProductsCount(@Nullable CatalogEntity catalog, @Nullable PropertyValueEntity category) {
-        return category == null || category.getId() == null ?
-                productRepository.findCountInCatalog(catalog, false) :
-                productRepository.findCountByRootValueAndCatalog(category, catalog, null, false);
+        return findAllCategoryProductsCount(catalog, category, RegionFilter.getCurrentRegion());
     }
 
     @Override
@@ -297,14 +304,19 @@ public class ProductServiceImpl implements ProductService, Logging {
 
     @Override
     public List<ProductEntity> findProductsForFrontend(PropertyValueEntity propertyValue, CatalogEntity catalog, Boolean wasSetup,
-                                                       Boolean hidden, OrderType orderType, Direction direction, String positionType, int from, int to) {
+                                                       Boolean hidden, Region region, OrderType orderType, Direction direction, String positionType, int from, int to) {
         final int count = to - from;
         if (count == 0) return Lists.newArrayList();
         final int page = from / count;
         final Sort sort = orderType == OrderType.POSITION || orderType == OrderType.NONE || orderType == null ?
                 new Sort(Direction.DESC, "date") :
                 new Sort(direction, orderType.name().toLowerCase());
-        final List<ProductEntity> products = productRepository.findAllByRootValueAndCatalog(propertyValue, catalog, wasSetup, hidden, new PageRequest(page, count, sort)).getContent();
+        final List<ProductEntity> products = productRepository.findAllByRootValueAndCatalog(propertyValue,
+                                                                                            catalog,
+                                                                                            wasSetup,
+                                                                                            hidden,
+                                                                                            region,
+                                                                                            new PageRequest(page, count, sort)).getContent();
         return orderType == OrderType.POSITION ?
                 products.stream().sorted(((o1, o2) -> ObjectUtils.compare(o1.getPositionOfType(positionType), o2.getPositionOfType(positionType)))).collect(Collectors.toList()) :
                 products;
@@ -323,7 +335,7 @@ public class ProductServiceImpl implements ProductService, Logging {
                 .filter(t -> t != null && t.getValue() != null)
                 .flatMap(t -> t.getValue().isRootValue() ? Stream.of(t.getValue()) : t.getValue().getParents().stream()).distinct()
                 .filter(t -> t != null && t.getTag() == tag)
-                .flatMap(t -> productRepository.findAllIdsByValue(t).stream())
+                .flatMap(t -> productRepository.findAllIdsByValue(t, RegionFilter.getCurrentRegion()).stream())
                 .distinct()
                 .collect(Collectors.toList());
         final List<Long> events = f.apply(Tag.EVENT);
@@ -388,9 +400,9 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
-    public int findAllProductsCountCached(final CatalogEntity catalog, @Nonnull final PropertyValueEntity category) {
+    public int findAllProductsCountCached(final CatalogEntity catalog, @Nonnull final PropertyValueEntity category, @Nonnull Region region) {
         try {
-            return cachedCategoriesProducts.get(new CatalogCategoryPair(catalog, category));
+            return cachedCategoriesProducts.get(new CatalogCategoryPair(catalog, category, region));
         } catch (ExecutionException e) {
             logger.error("", e);
         }
@@ -401,10 +413,12 @@ public class ProductServiceImpl implements ProductService, Logging {
 
         private final CatalogEntity catalog;
         private final PropertyValueEntity category;
+        private final Region region;
 
-        public CatalogCategoryPair(final CatalogEntity catalog, final PropertyValueEntity category) {
+        public CatalogCategoryPair(final CatalogEntity catalog, final PropertyValueEntity category, Region region) {
             this.catalog = catalog;
             this.category = category;
+            this.region = region;
         }
     }
 

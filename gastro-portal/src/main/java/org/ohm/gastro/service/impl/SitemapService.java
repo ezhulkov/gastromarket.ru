@@ -4,6 +4,7 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.ohm.gastro.domain.OrderEntity.Type;
 import org.ohm.gastro.domain.ProductEntity;
+import org.ohm.gastro.filter.RegionFilter;
 import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.OfferRepository;
 import org.ohm.gastro.reps.OrderRepository;
@@ -83,7 +84,7 @@ public class SitemapService implements Runnable, Logging {
         ) {
             logger.info("Building sitemap");
             final Map<String, Object> params = new HashMap<>();
-            params.put("catalogs", catalogRepository.findAllActive());
+            params.put("catalogs", catalogRepository.findAllActive(RegionFilter.getCurrentRegion()));
             params.put("tenders", orderRepository.findAllByType(Type.PUBLIC));
             params.put("products", productRepository.findAll().stream().filter(ProductEntity::isWasSetup).collect(Collectors.toList()));
             params.put("offers", offerRepository.findAll());

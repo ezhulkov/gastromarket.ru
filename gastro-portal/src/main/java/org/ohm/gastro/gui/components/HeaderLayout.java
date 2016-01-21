@@ -8,7 +8,9 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
+import org.ohm.gastro.domain.Region;
 import org.ohm.gastro.domain.UserEntity;
+import org.ohm.gastro.filter.RegionFilter;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.Cart;
 import org.ohm.gastro.gui.pages.office.Orders;
@@ -24,6 +26,9 @@ public class HeaderLayout extends BaseComponent {
     @Property
     @Parameter(name = "header", required = true)
     private boolean header;
+
+    @Property
+    private Region region;
 
     @Inject
     @Property
@@ -64,6 +69,18 @@ public class HeaderLayout extends BaseComponent {
     public String getBonusesMessage() {
         final int bonuses = getBonuses();
         return getDeclInfo("bonus", bonuses);
+    }
+
+    public String getRegionPrintable() {
+        return getMessages().get("Region." + region);
+    }
+
+    public Region[] getRegions() {
+        return Region.values();
+    }
+
+    public boolean isCurrent() {
+        return RegionFilter.getCurrentRegion() == region;
     }
 
 }

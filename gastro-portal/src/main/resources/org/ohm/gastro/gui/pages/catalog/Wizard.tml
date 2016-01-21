@@ -9,7 +9,7 @@
             </t:unless>
             <t:if test="lastStep">
                 <div class="title">
-                    <h2><span>Всё готово!</span></h2>
+                    <h1><span>Всё готово!</span></h1>
                     <t:pagelink page="catalog/index" context="catalog.altId">Перейти на страницу<span/></t:pagelink>
                 </div>
             </t:if>
@@ -66,6 +66,12 @@
                                     Представьтесь, пожалуйста, как Вас зовут?
                                 </div>
                                 <input t:id="fullName" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <t:label for="region">Регион:</t:label>
+                                <input t:id="region" class="form-control"/>
                             </div>
                         </div>
                         <div class="col-xs-12">
@@ -181,7 +187,7 @@
     <t:block id="step3">
         <div class="container flexible hidden-xs">
             <div class="links-set">
-                <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>
+                <a class="product-edit-link" data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>&nbsp;
                 <t:pagelink page="office/import" class="product-edit-link" context="catalog.altId">Импортировать<span/></t:pagelink>
             </div>
             <t:productEdit catalog="catalog" edit="false" productsBlock="productsBlock"/>
@@ -205,9 +211,9 @@
         <div class="container">
             <form class="form form-horizontal edit wizard" role="form">
                 <div class="form-buttons" xml:space="preserve">
-                            <t:actionlink rel="nofollow" t:id="goPrev2" class="btn btn-red pull-left">&lt; Назад</t:actionlink>
-                            <t:actionlink rel="nofollow" t:id="goNext" class="btn btn-red pull-right">Завершить настройку &gt;</t:actionlink>
-                        </div>
+                    <t:actionlink rel="nofollow" t:id="goPrev2" class="btn btn-red pull-left">&lt; Назад</t:actionlink>
+                    <t:actionlink rel="nofollow" t:id="goNext" class="btn btn-red pull-right">Завершить настройку &gt;</t:actionlink>
+                </div>
             </form>
             <script>
                 jQuery(document).ready(function () {

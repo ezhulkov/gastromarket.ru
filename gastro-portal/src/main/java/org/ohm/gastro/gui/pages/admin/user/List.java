@@ -5,8 +5,10 @@ import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Checkbox;
 import org.apache.tapestry5.corelib.components.PasswordField;
+import org.apache.tapestry5.corelib.components.Select;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.ohm.gastro.domain.Region;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.domain.UserEntity.Type;
 import org.ohm.gastro.gui.AbstractServiceCallback;
@@ -43,8 +45,14 @@ public class List extends EditObjectPage<UserEntity> {
     @Property
     private String catalogName;
 
+    @Property
+    private Region region;
+
     @Component(id = "email", parameters = {"value=object?.email", "validate=maxlength=64,required,email"})
     private TextField emailField;
+
+    @Component(id = "region", parameters = {"value=region", "validate=required"})
+    private Select regionField;
 
     @Component(id = "fullName", parameters = {"value=object?.fullName", "validate=maxlength=64"})
     private TextField fnField;
@@ -74,7 +82,7 @@ public class List extends EditObjectPage<UserEntity> {
             public Class<? extends BaseComponent> addObject(UserEntity user) {
                 try {
                     user.setType(Type.COOK);
-                    getUserService().createUser(user, newPassword, catalogName, sendEmail);
+                    getUserService().createUser(user, newPassword, catalogName, region, sendEmail);
                 } catch (UserExistsException e) {
                     getEditObject().getForm().recordError(emailField, getMessages().get("error.user.exists"));
                 } catch (EmptyPasswordException e) {

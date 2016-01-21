@@ -3,7 +3,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top header">
 
         <div class="container">
-            <div class="navbar-header qlean-header show_for_guest align_center">
+            <div class="navbar-header">
                 <t:if test="header">
                     <button type="button" class="navbar-toggle collapsed" data-target=".bs-navbar-collapse" data-toggle="collapse">
                         <span class="icon-bar"></span>
@@ -11,15 +11,20 @@
                         <span class="icon-bar"></span>
                     </button>
                 </t:if>
-                <div class="navbar-brand"><a class="logo" href="/"><img src="/img/logotype1-small.png" srcset="/img/logotype1.png 2x" alt="logo"/></a></div>
+                <div class="navbar-brand">
+                    <a class="logo" href="/"><img src="/img/logotype1-small.png" srcset="/img/logotype1.png 2x" alt="logo"/></a>
+                    <span class="hidden-lg hidden-md hidden-sm header-geo">
+                        <a href="#geo" data-toggle="modal" data-target="#geo">${currentRegionPrintable}</a>
+                    </span>
+                </div>
             </div>
             <t:if test="header">
                 <div class="collapse navbar-collapse no-transition bs-navbar-collapse">
-                    <ul class="nav navbar-nav navbar-left hidden-md hidden-sm hidden-xs">
-                        <li>
-                            <a href="#geo" data-toggle="modal" data-target="#geo">Москва</a>
+                    <ul class="nav navbar-nav navbar-left">
+                        <li class="hidden-xs">
+                            <a href="#geo" data-toggle="modal" data-target="#geo">${currentRegionPrintable}</a>
                         </li>
-                        <li>
+                        <li class="hidden-sm hidden-xs">
                             <t:pagelink page="about">О проекте</t:pagelink>
                         </li>
                     </ul>
@@ -133,10 +138,23 @@
                 <div class="modal-body form">
                     <div class="col-xs-12">
                         <p class="modal-text">
-                            Пока ГастроМаркет работает только в Москве и Подмосковье. Но скоро мы запустимся и в других городах.
+                            Ваш город:
                         </p>
+                        <ul class="region" id="regionSelect">
+                            <t:loop source="regions" value="region">
+                                <li class="${current}">
+                                    <t:if test="current">
+                                        <span>${regionPrintable}</span>
+                                        <t:parameter name="else">
+                                            <a href="#" data-region="${region.region}"><span>${regionPrintable}</span></a>
+                                        </t:parameter>
+                                    </t:if>
+                                </li>
+                            </t:loop>
+                        </ul>
+                        <hr/>
                         <p class="modal-text">
-                            Следите за новостями в социальных сетях!
+                            Мы подключаем и другие города, следите за новостями в социальных сетях!
                         </p>
                         <ul class="social big">
                             <li><a href="https://instagram.com/gastromarket.ru" title="instagram.com" class="in">instagram.com</a></li>

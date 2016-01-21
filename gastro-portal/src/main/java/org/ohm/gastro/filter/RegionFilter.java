@@ -7,6 +7,7 @@ import org.ohm.gastro.misc.Throwables;
 import org.ohm.gastro.trait.Logging;
 import org.slf4j.MDC;
 
+import javax.annotation.Nonnull;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -56,7 +57,6 @@ public class RegionFilter extends BaseApplicationFilter {
             final Optional<String> cookieOpt = Arrays.stream(httpServletRequest.getCookies())
                     .filter(t -> t != null && t.getName().equals("region") && t.getValue() != null)
                     .map(t -> Throwables.propagate(() -> URLDecoder.decode(t.getValue(), Charsets.UTF_8.name())))
-                    .map(t -> Region.valueOfSafe(t).getRegion())
                     .findFirst();
             final Optional<String> ipOpt = Optional.ofNullable(qsIp == null ? httpServletRequest.getHeader("X-Real-IP") : qsIp);
             final String regionStr = qsOpt.orElseGet(() -> cookieOpt.orElseGet(() -> ipOpt.map(ip -> lookupService.getLocation(ip).city).orElse(Region.DEFAULT.getRegion())));
@@ -70,6 +70,12 @@ public class RegionFilter extends BaseApplicationFilter {
             REGION_THREAD_LOCAL.set(region);
         }
         filterChain.doFilter(httpServletRequest, httpServletResponse);
+    }
+
+    @Nonnull
+    public static Region getCurrentRegion() {
+        final Region boundRegion = REGION_THREAD_LOCAL.get();
+        return boundRegion == null ? Region.DEFAULT : boundRegion;
     }
 
 }

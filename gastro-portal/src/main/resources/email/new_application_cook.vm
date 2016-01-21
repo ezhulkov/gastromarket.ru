@@ -3,7 +3,7 @@
 #set($params = "ql=${quicklogin}&utm_source=internal&utm_medium=mail&utm_campaign=gm")
 #parse("email/header.vm")
 <p>
-    Спасибо за оставленную заявку, мы свяжемся с Вами в течение дня по указанному адресу $email.<br/>
+    Спасибо за оставленную заявку, мы свяжемся с вами в течение дня по указанному адресу $email.<br/>
 </p>
 <p>
     В случае возникновения вопросов, пишите на <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет заявка" class="red-link">contacts@gastromarket.ru</a>.

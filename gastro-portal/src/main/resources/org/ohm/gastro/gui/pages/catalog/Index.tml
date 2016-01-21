@@ -44,6 +44,12 @@
                                             </div>
                                             <div class="col-xs-12">
                                                 <div class="form-group">
+                                                    <t:label for="region">Регион:</t:label>
+                                                    <input t:id="region" class="form-control"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
                                                     <t:label for="desc">${descLabel}:</t:label>
                                                     <div class="label-tip">
                                                         ${descText}<br/>
@@ -128,6 +134,12 @@
                     <div class="description">
                         <t:outputraw value="catalog.descriptionRaw"/>
                     </div>
+                    <t:if test="catalog.deliveryRaw">
+                        <div class="description gap">
+                            <h3>Регион</h3>
+                            <div>${regionPrintable}</div>
+                        </div>
+                    </t:if>
                     <t:if test="catalog.deliveryRaw">
                         <div class="description gap">
                             <h3>Условия доставки</h3>

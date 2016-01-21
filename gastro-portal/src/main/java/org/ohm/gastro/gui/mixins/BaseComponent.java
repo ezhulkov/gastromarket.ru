@@ -24,6 +24,7 @@ import org.ohm.gastro.domain.PropertyEntity.Type;
 import org.ohm.gastro.domain.PurchaseEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.ohm.gastro.domain.UserEntity;
+import org.ohm.gastro.filter.RegionFilter;
 import org.ohm.gastro.filter.SocialFilter;
 import org.ohm.gastro.gui.dto.ShoppingCart;
 import org.ohm.gastro.service.BillService;
@@ -369,6 +370,11 @@ public abstract class BaseComponent {
 
     public boolean isProduction() {
         return Boolean.parseBoolean(properties.getProperty("production", "false"));
+    }
+
+    @Cached
+    public String getCurrentRegionPrintable() {
+        return getMessages().get("Region." + RegionFilter.getCurrentRegion());
     }
 
 }

@@ -6,6 +6,8 @@
 </p>
 <p>
     eMail: ${email}<br/>
+    Регион: ${region}<br/>
+    Имя: ${cookname}<br/>
     Откуда узнал: ${sourceInfo}<br/>
     О кулинаре: ${about}
 </p>

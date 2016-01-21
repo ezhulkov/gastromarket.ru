@@ -6,9 +6,11 @@ import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.PropertyValueEntity.Tag;
+import org.ohm.gastro.filter.RegionFilter;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 14.02.15.
@@ -39,12 +41,12 @@ public class Filter extends BaseComponent {
 
     @Cached
     public java.util.List<PropertyValueEntity> getCategoryValues() {
-        return getPropertyService().findAllValues(Tag.ROOT);
+        return getPropertyService().findAllValues(Tag.ROOT).stream().filter(PropertyValueEntity::isMainPage).collect(Collectors.toList());
     }
 
     @Cached
     public java.util.List<PropertyValueEntity> getEventValues() {
-        return getPropertyService().findAllValues(Tag.EVENT);
+        return getPropertyService().findAllValues(Tag.EVENT).stream().filter(PropertyValueEntity::isMainPage).collect(Collectors.toList());
     }
 
     public String getCategoryPropertyName() {
@@ -60,11 +62,11 @@ public class Filter extends BaseComponent {
     }
 
     public boolean isShowCategory() {
-        return getProductService().findAllProductsCountCached(catalog, oneValue) > 0;
+        return getProductService().findAllProductsCountCached(catalog, oneValue, catalog == null ? RegionFilter.getCurrentRegion() : null) > 0;
     }
 
     public boolean isShowSubCategory() {
-        return getProductService().findAllProductsCountCached(catalog, oneChildValue) > 0;
+        return getProductService().findAllProductsCountCached(catalog, oneChildValue, catalog == null ? RegionFilter.getCurrentRegion() : null) > 0;
     }
 
 }
