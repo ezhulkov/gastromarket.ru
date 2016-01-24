@@ -115,9 +115,9 @@ public class UserServiceImpl implements UserService, Logging {
     public UserEntity saveUser(final UserEntity user, final String password) throws EmptyPasswordException {
         if (StringUtils.isNotEmpty(password)) user.setPassword(passwordEncoder.encode(password));
         if (user.getType() == Type.COOK) {
-            //send to mailchimp
             mailService.syncChimpList(user, ImmutableMap.of(
                     MailService.MC_FNAME, user.getFullName() == null ? "" : user.getFullName().split("\\s")[0],
+                    MailService.MC_REGION, user.getCatalogs().size() == 0 ? "" : ObjectUtils.defaultIfNull(user.getCatalogs().get(0).getRegion(), Region.DEFAULT).name(),
                     MailService.MC_CATALOG, user.getCatalogs().size() == 0 ? "" : user.getCatalogs().get(0).getFullUrl(),
                     MailService.MC_SOURCE, user.getSourceUrl() == null ? "" : user.getSourceUrl(),
                     MailService.MC_PASSWORD, password == null ? "" : password

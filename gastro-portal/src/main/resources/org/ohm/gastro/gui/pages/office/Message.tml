@@ -3,7 +3,7 @@
     <section>
         <div class="title fixed">
             <div class="container">
-                <h1>${opponentName}${opponentName}${opponentName}${opponentName}</h1>
+                <h1>${opponentName}</h1>
             </div>
         </div>
         <div class="container messages">

@@ -3,7 +3,9 @@ package org.ohm.gastro.service.impl;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.ObjectUtils;
 import org.ohm.gastro.domain.CatalogEntity;
+import org.ohm.gastro.domain.Region;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.filter.RegionFilter;
 import org.ohm.gastro.reps.CatalogRepository;
@@ -71,6 +73,7 @@ public class CatalogServiceImpl implements CatalogService, Logging {
         final UserEntity user = catalog.getUser();
         mailService.syncChimpList(user, ImmutableMap.of(
                 MailService.MC_FILLED, Boolean.valueOf(catalog.isWasSetup()).toString(),
+                MailService.MC_REGION, ObjectUtils.defaultIfNull(catalog.getRegion(), Region.DEFAULT).name(),
                 MailService.MC_CATALOG, catalog.getFullUrl()
         ));
     }
