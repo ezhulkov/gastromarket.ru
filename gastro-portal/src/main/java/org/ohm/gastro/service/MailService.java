@@ -46,6 +46,7 @@ public interface MailService {
     String USER_UNSUBSCRIBED = "user_unsubscribed";
 
     String MC_FILLED = "FILLED";
+    String MC_REGION = "REGION";
     String MC_CATALOG = "CATALOG";
     String MC_FNAME = "FNAME";
     String MC_SOURCE = "SOURCE";
