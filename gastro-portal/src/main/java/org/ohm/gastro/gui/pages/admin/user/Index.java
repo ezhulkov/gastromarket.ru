@@ -39,7 +39,7 @@ public class Index extends EditObjectPage<UserEntity> {
     private TextField emailField;
 
     @Component(id = "region", parameters = {"value=object?.region", "validate=required"})
-    private Select emailField;
+    private Select regionField;
 
     @Component(id = "password", parameters = {"value=newPassword", "validate=maxlength=64"})
     private PasswordField pwdField;
