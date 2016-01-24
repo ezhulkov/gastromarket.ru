@@ -39,7 +39,7 @@ public interface UserService extends UserDetailsService, ImageUploaderService {
 
     void afterSuccessfulLogin(@Nonnull UserDetails user);
 
-    void importUsers(String csvUsers);
+    void importUsers(String csvUsers, final Region region, boolean sendEmail);
 
     void deleteUser(Long id);
 

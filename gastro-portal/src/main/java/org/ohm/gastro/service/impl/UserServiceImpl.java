@@ -129,7 +129,7 @@ public class UserServiceImpl implements UserService, Logging {
     @Override
     public UserEntity createUser(final UserEntity user, final String password, String catalogName, Region region, final boolean sendEmail) throws UserExistsException, EmptyPasswordException {
         if (StringUtils.isEmpty(password)) throw new EmptyPasswordException();
-        if (userRepository.findByEmail(user.getEmail()) != null && user.getType() != Type.COOK) throw new UserExistsException();
+        if (userRepository.findByEmail(user.getEmail()) != null) throw new UserExistsException();
         user.setRegion(region);
         if (Type.COOK.equals(user.getType())) {
             userRepository.save(user);
@@ -279,7 +279,7 @@ public class UserServiceImpl implements UserService, Logging {
     }
 
     @Override
-    public void importUsers(String csvUsers) {
+    public void importUsers(String csvUsers, final Region region, final boolean sendEmail) {
         final CsvToBean csv = new CsvToBean() {
             @Override
             protected Object convertValue(String value, PropertyDescriptor prop) throws InstantiationException, IllegalAccessException {
@@ -298,11 +298,12 @@ public class UserServiceImpl implements UserService, Logging {
                 final UserEntity userEntity = new UserEntity();
                 userEntity.setStatus(Status.ENABLED);
                 userEntity.setType(Type.COOK);
+                userEntity.setRegion(region);
                 userEntity.setEmail(user.getEmail().toLowerCase());
                 userEntity.setFullName(user.getName());
                 userEntity.setSourceUrl(user.getSource().toLowerCase());
                 try {
-                    createUser(userEntity, user.getPassword(), user.getCatalog(), RegionFilter.getCurrentRegion(), false);
+                    createUser(userEntity, user.getPassword(), user.getCatalog(), region, sendEmail);
                 } catch (Exception e) {
                     logger.error("", e);
                 }

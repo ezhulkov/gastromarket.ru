@@ -11,6 +11,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.Region;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.domain.UserEntity.Type;
+import org.ohm.gastro.filter.RegionFilter;
 import org.ohm.gastro.gui.AbstractServiceCallback;
 import org.ohm.gastro.gui.ServiceCallback;
 import org.ohm.gastro.gui.mixins.BaseComponent;
@@ -108,7 +109,11 @@ public class List extends EditObjectPage<UserEntity> {
     }
 
     public void onSubmitFromImportCsvForm() {
-        getUserService().importUsers(csvUsers);
+        getUserService().importUsers(csvUsers, region, sendEmail);
+    }
+
+    public void onPrepare() {
+        region = RegionFilter.getCurrentRegion();
     }
 
 }

@@ -136,6 +136,18 @@
                         <t:errors/>
                         <div class="form-group">
                             <div class="col-sm-12">
+                                <t:label for="region2">Регион:</t:label>
+                                <input t:id="region2" t:value="region" t:type="select" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <t:label for="sendEmail2">Посылать eMail:</t:label>
+                                <input t:id="sendEmail2" t:value="sendEmail" t:type="checkbox" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
                                 <textarea t:type="textarea" t:id="csvUsers" t:value="csvUsers" rows="20" class="form-control"/>
                             </div>
                         </div>
