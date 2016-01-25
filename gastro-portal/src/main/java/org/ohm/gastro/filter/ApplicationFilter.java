@@ -33,7 +33,7 @@ public class ApplicationFilter extends BaseApplicationFilter {
         final boolean needToLog = !isStaticResource(httpServletRequest);
         final StringBuilder logStr = new StringBuilder();
         final String userAgent = (ObjectUtils.defaultIfNull(httpServletRequest.getHeader("User-Agent"), "-")).toLowerCase();
-        final boolean bot = userAgent.contains("bot") || userAgent.contains("crawler") || userAgent.contains("apachebench");
+        final boolean bot = userAgent.contains("bot") || userAgent.contains("crawler") || userAgent.contains("apachebench") || userAgent.contains("slurp");
 
         Slf4JStopWatch stopWatch = null;
 
