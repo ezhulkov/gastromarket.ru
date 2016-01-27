@@ -41,6 +41,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -126,14 +127,14 @@ public class ProductServiceImpl implements ProductService, Logging {
     @Override
     public List<ProductEntity> searchProducts(String query, final int from, final int to) {
         if (StringUtils.isEmpty(query)) return Collections.emptyList();
-//        final List<Long> pIds = new JdbcTemplate(sphinxSource)
-//                .query(
-//                        String.format(SPHINX_SEARCH, query, RegionFilter.getCurrentRegion()),
-//                        (rs, rowNum) -> rs.getLong(1)
-//                );
-//        return productRepository.findAll(pIds);
-        query = Arrays.stream(query.split("\\s")).map(String::trim).filter(StringUtils::isNoneEmpty).collect(Collectors.joining("|"));
-        return productRepository.searchProducts(RegionFilter.getCurrentRegion().name(), query.toLowerCase(), from, to);
+        final List<Long> pIds = new JdbcTemplate(sphinxSource)
+                .query(
+                        String.format(SPHINX_SEARCH, query, RegionFilter.getCurrentRegion()),
+                        (rs, rowNum) -> rs.getLong(1)
+                );
+        return productRepository.findAll(pIds);
+//        query = Arrays.stream(query.split("\\s")).map(String::trim).filter(StringUtils::isNoneEmpty).collect(Collectors.joining("|"));
+//        return productRepository.searchProducts(RegionFilter.getCurrentRegion().name(), query.toLowerCase(), from, to);
     }
 
     @Override
