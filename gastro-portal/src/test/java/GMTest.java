@@ -6,6 +6,12 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
@@ -17,6 +23,42 @@ import java.util.stream.Collectors;
  * Created by ezhulkov on 18.07.15.
  */
 public class GMTest {
+
+    @Test
+    @Ignore
+    public void testSphinx() throws SQLException {
+        Connection con = null;
+        String driver = "com.mysql.jdbc.Driver";
+        String user = "root";
+        String pass = "";
+        ResultSet rs = null;
+        ResultSetMetaData rsmd = null;
+
+        try {
+            Class.forName(driver);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        con = DriverManager.getConnection("jdbc:mysql://192.168.50.5:9306/data?characterEncoding=utf8&maxAllowedPacket=512000&relaxAutoCommit=true", user, pass);
+        con.setAutoCommit(false);
+
+        Statement s = con.createStatement();
+        rs = s.executeQuery("select id,weight() from gastro_index where match('свадебный торт') and region='DEFAULT'");
+
+        rsmd = rs.getMetaData();
+        int cc = rsmd.getColumnCount();
+        for (int i = 1; i <= cc; i++)
+            System.out.println(rsmd.getColumnName(i));
+
+        while (rs.next()) {
+            System.out.println("Id: " + rs.getInt(1) + ", Weight: " + rs.getInt(2));
+        }
+
+        rs.close();
+        con.close();
+
+    }
 
     @Test
     @Ignore

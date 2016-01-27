@@ -52,6 +52,13 @@
         <property name="validationQuery" value="select 1"/>
         <property name="validationQueryTimeout" value="30"/>
     </bean>
+    <bean id="sphinxSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:9306/data?characterEncoding=utf8&amp;maxAllowedPacket=512000&amp;relaxAutoCommit=true"/>
+        <property name="username" value="root"/>
+        <property name="password" value=""/>
+        <property name="defaultAutoCommit" value="false"/>
+    </bean>
     <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>

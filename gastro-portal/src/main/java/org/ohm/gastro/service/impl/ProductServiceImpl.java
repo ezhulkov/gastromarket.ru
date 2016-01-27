@@ -37,14 +37,17 @@ import org.ohm.gastro.service.RatingTarget;
 import org.ohm.gastro.service.social.MediaElement;
 import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.sql.DataSource;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -71,6 +74,9 @@ import static org.scribe.utils.Preconditions.checkNotNull;
 @ImageUploader(FileType.PRODUCT)
 public class ProductServiceImpl implements ProductService, Logging {
 
+    private final static String SPHINX_SEARCH = "select id from gastro_index where match('%s') and region='%s'";
+
+    private final DataSource sphinxSource;
     private final ProductRepository productRepository;
     private final PropertyRepository propertyRepository;
     private final PropertyValueRepository propertyValueRepository;
@@ -88,13 +94,15 @@ public class ProductServiceImpl implements ProductService, Logging {
             });
 
     @Autowired
-    public ProductServiceImpl(final ProductRepository productRepository,
+    public ProductServiceImpl(@Qualifier("sphinxSource") final DataSource sphinxSource,
+                              final ProductRepository productRepository,
                               final PropertyRepository propertyRepository,
                               final PropertyValueRepository propertyValueRepository,
                               final TagRepository tagRepository,
                               final PropertyService propertyService,
                               final ImageService imageService,
                               final PriceModifierRepository priceModifierRepository) {
+        this.sphinxSource = sphinxSource;
         this.productRepository = productRepository;
         this.propertyRepository = propertyRepository;
         this.propertyValueRepository = propertyValueRepository;
@@ -119,8 +127,12 @@ public class ProductServiceImpl implements ProductService, Logging {
     @Override
     public List<ProductEntity> searchProducts(String query, final int from, final int to) {
         if (StringUtils.isEmpty(query)) return Collections.emptyList();
-        query = Arrays.stream(query.split("\\s")).map(String::trim).filter(StringUtils::isNoneEmpty).collect(Collectors.joining("|"));
-        return productRepository.searchProducts(RegionFilter.getCurrentRegion().name(), query.toLowerCase(), from, to);
+        final List<Long> pIds = new JdbcTemplate(sphinxSource)
+                .query(
+                        String.format(SPHINX_SEARCH, query, RegionFilter.getCurrentRegion()),
+                        (rs, rowNum) -> rs.getLong(1)
+                );
+        return productRepository.findAll(pIds);
     }
 
     @Override
