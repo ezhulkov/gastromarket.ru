@@ -34,7 +34,10 @@ public class PropertyEntity extends AbstractBaseEntity {
     private Type type = Type.LIST;
 
     @Column
-    private Boolean mandatory = false;
+    private boolean mandatory = false;
+
+    @Column
+    private boolean hidden = false;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "property")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -44,6 +47,14 @@ public class PropertyEntity extends AbstractBaseEntity {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<TagEntity> products = Lists.newArrayList();
 
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
+
     public List<TagEntity> getProducts() {
         return products;
     }
@@ -52,11 +63,11 @@ public class PropertyEntity extends AbstractBaseEntity {
         this.products = products;
     }
 
-    public Boolean getMandatory() {
+    public boolean isMandatory() {
         return mandatory;
     }
 
-    public void setMandatory(final Boolean mandatory) {
+    public void setMandatory(final boolean mandatory) {
         this.mandatory = mandatory;
     }
 

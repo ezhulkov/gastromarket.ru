@@ -40,6 +40,9 @@ public class Index extends EditObjectPage<PropertyEntity> {
     @Component(id = "mandatory", parameters = {"value=object?.mandatory"})
     private Checkbox mandatoryField;
 
+    @Component(id = "hidden", parameters = {"value=object?.hidden"})
+    private Checkbox hidden;
+
     @Component(id = "propertyValue", parameters = {"value=propertyValue?.name", "validate=maxlength=64,required"})
     private TextField propValueField;
 

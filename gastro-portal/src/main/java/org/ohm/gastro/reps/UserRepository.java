@@ -3,6 +3,7 @@ package org.ohm.gastro.reps;
 import org.ohm.gastro.domain.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.QueryHints;
+import org.springframework.data.repository.query.Param;
 
 import javax.persistence.QueryHint;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    UserEntity findByEmail(String email);
+    UserEntity findByEmailLikeIgnoreCase(@Param("email") String email);
 
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     List<UserEntity> findAllByReferrer(UserEntity referrer);

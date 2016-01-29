@@ -129,8 +129,10 @@ public class UserServiceImpl implements UserService, Logging {
     @Override
     public UserEntity createUser(final UserEntity user, final String password, String catalogName, Region region, final boolean sendEmail) throws UserExistsException, EmptyPasswordException {
         if (StringUtils.isEmpty(password)) throw new EmptyPasswordException();
-        if (userRepository.findByEmail(user.getEmail()) != null) throw new UserExistsException();
+        if (StringUtils.isEmpty(user.getEmail())) throw new UserExistsException();
+        if (userRepository.findByEmailLikeIgnoreCase(user.getEmail()) != null) throw new UserExistsException();
         user.setRegion(region);
+        user.setEmail(user.getEmail().toLowerCase());
         if (Type.COOK.equals(user.getType())) {
             userRepository.save(user);
             CatalogEntity catalog = new CatalogEntity();
@@ -172,7 +174,7 @@ public class UserServiceImpl implements UserService, Logging {
     @Override
     public void resetPassword(String eMail) {
         //Generate
-        UserEntity user = userRepository.findByEmail(eMail);
+        UserEntity user = userRepository.findByEmailLikeIgnoreCase(eMail);
         if (user != null) {
             final byte[] buffer = new byte[5];
             random.nextBytes(buffer);
@@ -187,7 +189,7 @@ public class UserServiceImpl implements UserService, Logging {
                     put("password", password);
                 }
             };
-            mailService.sendMailMessage(eMail, MailService.CHANGE_PASSWD, params);
+            mailService.sendMailMessage(user.getEmail(), MailService.CHANGE_PASSWD, params);
         }
     }
 
@@ -237,10 +239,11 @@ public class UserServiceImpl implements UserService, Logging {
 
     @Override
     public void signupSocial(UserEntity userProfile, final Object referrerUser) {
-        UserEntity existingUser = userRepository.findByEmail(userProfile.getEmail());
+        UserEntity existingUser = userRepository.findByEmailLikeIgnoreCase(userProfile.getEmail());
         if (referrerUser != null) userProfile.setReferrer(userRepository.findOne(((UserEntity) referrerUser).getId()));
         if (existingUser == null) {
             userProfile.setRegion(RegionFilter.getCurrentRegion());
+            userProfile.setEmail(userProfile.getEmail().toLowerCase());
             existingUser = userRepository.save(userProfile);
         } else {
             existingUser.setRegion(RegionFilter.getCurrentRegion());
@@ -266,7 +269,7 @@ public class UserServiceImpl implements UserService, Logging {
     public void afterSuccessfulLogin(@Nonnull @RatingTarget final UserDetails userDetails) {
 
         if (userDetails instanceof UserEntity) {
-            UserEntity user = userRepository.findByEmail(((UserEntity) userDetails).getEmail());
+            UserEntity user = userRepository.findByEmailLikeIgnoreCase(((UserEntity) userDetails).getEmail());
             logger.info("User {} successfully logged in", user);
             user.setLoginDate(new Date());
             saveUser(user);
@@ -294,7 +297,7 @@ public class UserServiceImpl implements UserService, Logging {
         List<UserImportDto> result = csv.parse(strat, new StringReader(csvUsers));
         final int created = result.stream().mapToInt(user -> {
             logger.info("Importing user {}", user);
-            if (userRepository.findByEmail(user.getEmail()) == null) {
+            if (userRepository.findByEmailLikeIgnoreCase(user.getEmail()) == null) {
                 final UserEntity userEntity = new UserEntity();
                 userEntity.setStatus(Status.ENABLED);
                 userEntity.setType(Type.COOK);
@@ -316,7 +319,7 @@ public class UserServiceImpl implements UserService, Logging {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        final UserEntity user = userRepository.findByEmail(email);
+        final UserEntity user = userRepository.findByEmailLikeIgnoreCase(email);
         if (user == null) throw new UsernameNotFoundException(email + " not found");
         return user;
     }
@@ -346,7 +349,7 @@ public class UserServiceImpl implements UserService, Logging {
 
     @Override
     public UserEntity findUser(String email) {
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmailLikeIgnoreCase(email);
     }
 
 }

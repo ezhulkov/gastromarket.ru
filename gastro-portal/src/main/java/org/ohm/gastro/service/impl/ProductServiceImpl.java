@@ -74,7 +74,7 @@ import static org.scribe.utils.Preconditions.checkNotNull;
 @ImageUploader(FileType.PRODUCT)
 public class ProductServiceImpl implements ProductService, Logging {
 
-    private final static String SPHINX_SEARCH = "select id from gastro_index where match('%s') and region='%s'";
+    private final static String SPHINX_SEARCH = "select id from gastro_index where match('%s') and region='%s' limit 100";
 
     private final DataSource sphinxSource;
     private final ProductRepository productRepository;

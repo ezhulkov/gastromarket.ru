@@ -255,7 +255,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
         mailService.sendMailMessage(tender.getCustomer(), MailService.NEW_TENDER_CUSTOMER, params);
         executorService.execute(() -> {
             try {
-                logger.info("Sending to {} cooks", rcpt.size());
+                logger.info("Sending to {} cooks, region {}", rcpt.size(), region);
                 rcpt.forEach(cook -> {
                     params.put("username", cook.getFullName());
                     params.put("email", cook.getEmail());
