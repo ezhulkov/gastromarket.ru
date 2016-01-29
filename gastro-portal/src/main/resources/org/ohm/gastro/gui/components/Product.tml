@@ -53,16 +53,18 @@
                     </div>
                 </t:if>
             </div>
-            <div class="basket-block">
-                <div class="price pull-left">
-                    ${product.price} <span class="rub"/>
+            <t:if test="product.catalog.directOrder">
+                <div class="basket-block">
+                    <div class="price pull-left">
+                        ${product.price} <span class="rub"/>
 
-                    <div class="unit">${productUnit}</div>
+                        <div class="unit">${productUnit}</div>
+                    </div>
+                    <div class="basket-add pull-right">
+                        <t:order.add entity="product" priceModifiers="priceModifiers"/>
+                    </div>
                 </div>
-                <div class="basket-add pull-right">
-                    <t:order.add entity="product" priceModifiers="priceModifiers"/>
-                </div>
-            </div>
+            </t:if>
             <div class="modal-data hidden">
                 <t:actionlink rel="nofollow" class="recommended-link" t:id="ajaxLinkRecommended" t:context="[product.id,6]" t:zone="recommendedProductsZone"/>
                 <div class="pname"><a href="/product/${product.altId}">${product.name}</a></div>
@@ -84,16 +86,18 @@
                         <t:outputraw value="product.descriptionRaw"/>
                     </t:if>
                 </div>
-                <div class="basket-block">
-                    <div class="price pull-left">
-                        ${product.price} <span class="rub"/>
+                <t:if test="product.catalog.directOrder">
+                    <div class="basket-block">
+                        <div class="price pull-left">
+                            ${product.price} <span class="rub"/>
 
-                        <div class="unit">${productUnit}</div>
+                            <div class="unit">${productUnit}</div>
+                        </div>
+                        <div class="pull-right">
+                            <t:order.add entity="product"/>
+                        </div>
                     </div>
-                    <div class="pull-right">
-                        <t:order.add entity="product"/>
-                    </div>
-                </div>
+                </t:if>
                 <div class="cook">
                     <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="product.catalog.altId">
                         <span><img class="avatar-small" src="${product.catalog.avatarUrlMedium}"/></span>${product.catalog.name}

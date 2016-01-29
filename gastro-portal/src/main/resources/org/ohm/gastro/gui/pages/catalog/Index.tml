@@ -97,7 +97,16 @@
                                             <div class="col-xs-12">
                                                 <div class="form-group">
                                                     <t:label for="prepayment">Предоплата, %:</t:label>
-                                                    <input t:id="prepayment" class="form-control" tabindex="4"/>
+                                                    <input t:id="prepayment" class="form-control"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <t:label for="directOrder">Возможность принимать прямые заказы:</t:label>
+                                                    <div class="label-tip">
+                                                       Если это поле не установлено, то покупатели не смогут добавлять блюда в корзину и выполнять прямые заказы.
+                                                    </div>
+                                                    <input t:id="directOrder" class="form-control"/>
                                                 </div>
                                             </div>
                                             <div class="col-xs-12">

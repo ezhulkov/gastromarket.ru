@@ -1183,4 +1183,13 @@
                 onDelete="CASCADE"/>
     </changeSet>
 
+    <changeSet id="107" author="ezhulkov">
+        <addColumn tableName="catalog">
+            <column name="direct_order" type="java.sql.Types.BOOLEAN"/>
+        </addColumn>
+        <sql>
+            update catalog set direct_order=true;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

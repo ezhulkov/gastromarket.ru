@@ -87,6 +87,9 @@ public class CatalogEntity extends SitemapBaseEntity implements CommentableEntit
     @Column(name = "contract_signed")
     private Boolean contractSigned = false;
 
+    @Column(name = "direct_order")
+    private boolean directOrder = true;
+
     @Column
     private Date date = new Date(System.currentTimeMillis());
 
@@ -376,4 +379,11 @@ public class CatalogEntity extends SitemapBaseEntity implements CommentableEntit
         this.region = region;
     }
 
+    public boolean isDirectOrder() {
+        return directOrder;
+    }
+
+    public void setDirectOrder(boolean directOrder) {
+        this.directOrder = directOrder;
+    }
 }

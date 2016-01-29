@@ -23,16 +23,18 @@
                     <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="product.catalog.altId">
                         <span><img class="avatar-small" src="${product.catalog.avatarUrlMedium}"/></span>${product.catalog.name}
                     </t:pageLink>
-                    <div class="basket-block">
-                        <div class="price pull-left">
-                            ${product.price} <span class="rub"/>
+                    <t:if test="product.catalog.directOrder">
+                        <div class="basket-block">
+                            <div class="price pull-left">
+                                ${product.price} <span class="rub"/>
 
-                            <div class="unit">${productUnit}</div>
+                                <div class="unit">${productUnit}</div>
+                            </div>
+                            <div class="pull-right">
+                                <t:order.add entity="product" priceModifiers="priceModifiers"/>
+                            </div>
                         </div>
-                        <div class="pull-right">
-                            <t:order.add entity="product" priceModifiers="priceModifiers"/>
-                        </div>
-                    </div>
+                    </t:if>
                     <t:if test="priceModifiers">
                         <div class="price-modifier">
                             <t:loop source="priceModifiers" value="priceModifier">

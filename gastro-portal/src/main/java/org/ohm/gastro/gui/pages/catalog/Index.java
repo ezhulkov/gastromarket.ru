@@ -2,7 +2,9 @@ package org.ohm.gastro.gui.pages.catalog;
 
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
+import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.corelib.components.Checkbox;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.CommentEntity;
@@ -37,6 +39,9 @@ public class Index extends AbstractCatalogPage {
     @Inject
     @Property
     private Block catalogFormBlock;
+
+    @Component(id = "directOrder", parameters = {"value=catalog.directOrder"})
+    private Checkbox directOrder;
 
     public Object onActivate() {
         return onActivate(null);
