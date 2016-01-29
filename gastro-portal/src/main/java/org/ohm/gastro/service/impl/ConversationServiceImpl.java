@@ -190,8 +190,8 @@ public class ConversationServiceImpl implements ConversationService {
                     put("author", author.getFirstCatalog().orElse(null));
                 }
             };
-            mailService.sendMailMessage(tender.getCustomer(), MailService.ORDER_COMMENT, params);
-            mailService.sendAdminMessage(MailService.ORDER_COMMENT_ADMIN, params);
+            mailService.sendMailMessage(tender.getCustomer(), MailService.MailType.ORDER_COMMENT, params);
+            mailService.sendAdminMessage(MailService.MailType.ORDER_COMMENT_ADMIN, params);
         } else {
             commentRepository.save(reply);
         }
@@ -218,7 +218,7 @@ public class ConversationServiceImpl implements ConversationService {
                     put("catalog", catalog);
                 }
             };
-            mailService.sendMailMessage(catalog.getUser(), MailService.CATALOG_RATE, params);
+            mailService.sendMailMessage(catalog.getUser(), MailService.MailType.CATALOG_RATE, params);
         } else if (entity.getCommentableType() == CommentableEntity.Type.USER && origId == null) {
             UserEntity user = (UserEntity) entity;
             final Map<String, Object> params = new HashMap<String, Object>() {
@@ -229,13 +229,13 @@ public class ConversationServiceImpl implements ConversationService {
                     put("user", user);
                 }
             };
-            mailService.sendMailMessage(user, MailService.USER_RATE, params);
+            mailService.sendMailMessage(user, MailService.MailType.USER_RATE, params);
         } else if (entity.getCommentableType() == Type.CONVERSATION) {
             final ConversationEntity conversation = (ConversationEntity) entity;
             final UserEntity opponent = conversation.getOpponent(author).get();
             conversation.setLastActionDate(new Date());
             conversationRepository.save(conversation);
-            mailService.scheduleSend(opponent, MailService.NEW_MESSAGE, t -> {
+            mailService.scheduleSend(opponent, MailService.MailType.NEW_MESSAGE, t -> {
                 final Map<String, Object> params = new HashMap<String, Object>() {
                     {
                         put("username", opponent.getFullName());
@@ -244,7 +244,7 @@ public class ConversationServiceImpl implements ConversationService {
                         put("authorName", author.getFirstCatalog().map(AltIdBaseEntity::getName).orElseGet(author::getFullName));
                     }
                 };
-                mailService.sendMailMessage(opponent, MailService.NEW_MESSAGE, params);
+                mailService.sendMailMessage(opponent, MailService.MailType.NEW_MESSAGE, params);
             }, 5, TimeUnit.MINUTES);
 
         }

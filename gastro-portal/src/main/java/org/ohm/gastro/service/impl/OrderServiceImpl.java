@@ -129,11 +129,11 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                         put("order", order);
                     }
                 };
-                mailService.sendAdminMessage(MailService.NEW_ORDER_ADMIN, params);
+                mailService.sendAdminMessage(MailService.MailType.NEW_ORDER_ADMIN, params);
                 params.put("username", order.getCatalog().getUser().getFullName());
-                mailService.sendMailMessage(order.getCatalog().getUser(), MailService.NEW_ORDER_COOK, params);
+                mailService.sendMailMessage(order.getCatalog().getUser(), MailService.MailType.NEW_ORDER_COOK, params);
                 params.put("username", order.getCustomer().getFullName());
-                mailService.sendMailMessage(order.getCustomer(), MailService.NEW_ORDER_CUSTOMER, params);
+                mailService.sendMailMessage(order.getCustomer(), MailService.MailType.NEW_ORDER_CUSTOMER, params);
             } catch (MailException e) {
                 logger.error("", e);
             }
@@ -199,7 +199,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                 put("recipients", getRecipients(ObjectUtils.defaultIfNull(caller.getRegion(), Region.DEFAULT)));
             }
         };
-        mailService.sendAdminMessage(MailService.NEW_TENDER_ADMIN, params);
+        mailService.sendAdminMessage(MailService.MailType.NEW_TENDER_ADMIN, params);
         return tender;
     }
 
@@ -220,10 +220,10 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                 }
             };
             params.put("username", catalog.getUser().getFullName());
-            mailService.sendMailMessage(catalog.getUser(), MailService.TENDER_ATTACHED_COOK, params);
+            mailService.sendMailMessage(catalog.getUser(), MailService.MailType.TENDER_ATTACHED_COOK, params);
             params.put("username", order.getCustomer().getFullName());
-            mailService.sendMailMessage(order.getCustomer(), MailService.TENDER_ATTACHED_CUSTOMER, params);
-            mailService.sendAdminMessage(MailService.TENDER_ATTACHED_ADMIN, params);
+            mailService.sendMailMessage(order.getCustomer(), MailService.MailType.TENDER_ATTACHED_CUSTOMER, params);
+            mailService.sendAdminMessage(MailService.MailType.TENDER_ATTACHED_ADMIN, params);
         } catch (MailException e) {
             logger.error("", e);
         }
@@ -252,14 +252,14 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
             }
         };
         params.put("username", tender.getCustomer().getFullName());
-        mailService.sendMailMessage(tender.getCustomer(), MailService.NEW_TENDER_CUSTOMER, params);
+        mailService.sendMailMessage(tender.getCustomer(), MailService.MailType.NEW_TENDER_CUSTOMER, params);
         executorService.execute(() -> {
             try {
                 logger.info("Sending to {} cooks, region {}", rcpt.size(), region);
                 rcpt.forEach(cook -> {
                     params.put("username", cook.getFullName());
                     params.put("email", cook.getEmail());
-                    mailService.sendMailMessage(cook, MailService.NEW_TENDER_COOK, params);
+                    mailService.sendMailMessage(cook, MailService.MailType.NEW_TENDER_COOK, params);
                 });
             } catch (MailException e) {
                 logger.error("", e);
@@ -268,8 +268,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     }
 
     private List<UserEntity> getRecipients(Region region) {
-        return catalogRepository.findAll().stream()
-                .filter(t -> t.getRegion() == region)
+        return catalogRepository.findAllActive(region).stream()
                 .map(CatalogEntity::getUser)
                 .distinct()
                 .filter(UserEntity::isSubscribeEmail)
@@ -348,15 +347,15 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                 ratingService.registerEvent(Type.BONUS, referrer, null, referralBonus);
             }
             params.put("username", customer.getFullName());
-            mailService.sendMailMessage(customer, MailService.CLOSE_ORDER_CUSTOMER, params);
+            mailService.sendMailMessage(customer, MailService.MailType.CLOSE_ORDER_CUSTOMER, params);
             params.put("username", order.getCatalog().getUser().getFullName());
-            mailService.sendMailMessage(order.getCatalog().getUser(), MailService.CLOSE_ORDER_COOK, params);
-            mailService.sendAdminMessage(MailService.CLOSE_ORDER_ADMIN, params);
+            mailService.sendMailMessage(order.getCatalog().getUser(), MailService.MailType.CLOSE_ORDER_COOK, params);
+            mailService.sendAdminMessage(MailService.MailType.CLOSE_ORDER_ADMIN, params);
         } else {
             params.put("username", customer.getFullName());
-            mailService.sendMailMessage(customer, MailService.EDIT_ORDER, params);
+            mailService.sendMailMessage(customer, MailService.MailType.EDIT_ORDER, params);
             params.put("username", order.getCatalog().getUser().getFullName());
-            mailService.sendMailMessage(order.getCatalog().getUser(), MailService.EDIT_ORDER, params);
+            mailService.sendMailMessage(order.getCatalog().getUser(), MailService.MailType.EDIT_ORDER, params);
         }
         orderRepository.save(order);
     }
@@ -422,7 +421,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                 put("tender", localTender);
             }
         };
-        mailService.sendMailMessage(localTender.getCustomer(), MailService.TENDER_EXPIRED_SURVEY, params);
+        mailService.sendMailMessage(localTender.getCustomer(), MailService.MailType.TENDER_EXPIRED_SURVEY, params);
     }
 
     private void triggerOrderReadyReminder(final OrderEntity tender) {
@@ -435,7 +434,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
             }
         };
         params.put("username", localTender.getCatalog().getUser().getFullName());
-        mailService.sendMailMessage(localTender.getCatalog().getUser(), MailService.ORDER_READY_REMINDER, params);
+        mailService.sendMailMessage(localTender.getCatalog().getUser(), MailService.MailType.ORDER_READY_REMINDER, params);
     }
 
     private void orderRateReminder(final OrderEntity tender) {
@@ -449,12 +448,12 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
         if (!tender.isCookRate()) {
             params.put("username", localTender.getCatalog().getUser().getFullName());
             params.put("cook", true);
-            mailService.sendMailMessage(localTender.getCatalog().getUser(), MailService.ORDER_RATE_REMINDER, params);
+            mailService.sendMailMessage(localTender.getCatalog().getUser(), MailService.MailType.ORDER_RATE_REMINDER, params);
         }
         if (!tender.isClientRate()) {
             params.put("username", localTender.getCustomer().getFullName());
             params.put("cook", false);
-            mailService.sendMailMessage(localTender.getCustomer(), MailService.ORDER_RATE_REMINDER, params);
+            mailService.sendMailMessage(localTender.getCustomer(), MailService.MailType.ORDER_RATE_REMINDER, params);
         }
     }
 
@@ -469,7 +468,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                 put("replies", replies);
             }
         };
-        mailService.sendMailMessage(localTender.getCustomer(), MailService.TENDER_REMINDER, params);
+        mailService.sendMailMessage(localTender.getCustomer(), MailService.MailType.TENDER_REMINDER, params);
     }
 
     private void orderCloseReminder(final OrderEntity order) {
@@ -480,7 +479,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                 put("order", localOrder);
             }
         };
-        mailService.sendMailMessage(localOrder.getCatalog().getUser(), MailService.ORDER_CLOSE_REMINDER, params);
+        mailService.sendMailMessage(localOrder.getCatalog().getUser(), MailService.MailType.ORDER_CLOSE_REMINDER, params);
     }
 
 }

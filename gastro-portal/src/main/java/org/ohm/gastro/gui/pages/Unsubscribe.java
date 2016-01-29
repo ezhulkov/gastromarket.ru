@@ -50,7 +50,7 @@ public class Unsubscribe extends BaseComponent {
                     put("many", many);
                 }
             };
-            getMailService().sendAdminMessage(MailService.USER_UNSUBSCRIBED, params);
+            getMailService().sendAdminMessage(MailService.MailType.USER_UNSUBSCRIBED, params);
             recipient.setSubscribeEmail(false);
             getUserService().saveUser(recipient);
             return getPageLinkSource().createPageRenderLinkWithContext(UnsubscribeRes.class, recipient.getEmail());

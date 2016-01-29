@@ -38,13 +38,6 @@
                                 <input t:id="mobilePhone" class="form-control mobile-phone" placeholder="+7 xxx xxx-xx-xx"/>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <t:label class="col-sm-3 control-label" for="subscribe">eMail оповещения:</t:label>
-
-                            <div class="col-sm-9">
-                                <input t:id="subscribe" class="form-control" style="margin-top:0;"/>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-sm-3"/>
 
@@ -66,6 +59,46 @@
                                 <input t:id="password2" class="form-control"/>
                             </div>
                         </div>
+                        <t:if test="cook">
+                            <div class="row">
+                                <div class="col-sm-3"/>
+
+                                <div class="col-sm-8 text-left">
+                                    <h3>Настройки eMail уведомлений:</h3>
+                                </div>
+                            </div>
+                            <t:zone t:id="subscriptionZone" class="notification-config">
+                                <t:delegate to="subscriptionBlock"/>
+                            </t:zone>
+                            <t:block t:id="subscriptionBlock">
+                                <div class="form-group all">
+                                    <t:label class="col-sm-3 control-label" for="password2">Все уведомления:</t:label>
+                                    <div class="col-sm-9">
+                                        <t:if test="authenticatedUser.subscribeEmail">
+                                            <t:actionlink t:id="unsubscribe" t:zone="subscriptionZone">Отписаться от eMail уведомлений</t:actionlink>
+                                            <hr/>
+                                            <ul class="nopad no-bullets">
+                                                <t:loop source="notificationConfigs" value="notificationConfig" formState="NONE">
+                                                    <li>
+                                                        <t:if test="notificationEnabled">
+                                                            <input checked="checked" type="checkbox" id="${notificationConfig}" name="NOTIF-${notificationConfig}"/>
+                                                            <t:parameter name="else">
+                                                                <input type="checkbox" id="${notificationConfig}" name="NOTIF-${notificationConfig}"/>
+                                                            </t:parameter>
+                                                        </t:if>
+                                                        &nbsp;
+                                                        <label for="${notificationConfig}">${notificationConfigPrintable}</label>
+                                                    </li>
+                                                </t:loop>
+                                            </ul>
+                                        </t:if>
+                                        <t:unless test="authenticatedUser.subscribeEmail">
+                                            <t:actionlink t:id="subscribe" t:zone="subscriptionZone">Вернуть подписку на eMail уведомления</t:actionlink>
+                                        </t:unless>
+                                    </div>
+                                </div>
+                            </t:block>
+                        </t:if>
                     </div>
                     <div class="col-sm-2">
                         <t:uploadfile type="AVATAR" imageUrl="${avatarUrl}" withTools="true" imageHeight="270" imageWidth="270"/>

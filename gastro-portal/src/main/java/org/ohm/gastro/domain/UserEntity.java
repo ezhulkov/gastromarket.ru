@@ -98,6 +98,10 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails, Comme
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<CatalogEntity> catalogs = Lists.newArrayList();
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private List<NotificationConfigEntity> notificationConfigs = Lists.newArrayList();
+
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private UserEntity referrer;
@@ -344,6 +348,14 @@ public class UserEntity extends AbstractBaseEntity implements UserDetails, Comme
 
     public void setRegion(Region region) {
         this.region = region;
+    }
+
+    public List<NotificationConfigEntity> getNotificationConfigs() {
+        return notificationConfigs;
+    }
+
+    public void setNotificationConfigs(List<NotificationConfigEntity> notificationConfigs) {
+        this.notificationConfigs = notificationConfigs;
     }
 
     @Override

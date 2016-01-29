@@ -114,7 +114,7 @@ public class BillServiceImpl implements BillService, Logging {
                         put("catalog", bill.getCatalog());
                     }
                 };
-                mailService.sendAdminMessage(MailService.NEW_BILL_ADMIN, params);
+                mailService.sendAdminMessage(MailService.MailType.NEW_BILL_ADMIN, params);
             } catch (MailException e) {
                 logger.error("", e);
             }

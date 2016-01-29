@@ -1168,4 +1168,19 @@
         </sql>
     </changeSet>
 
+    <changeSet id="106" author="ezhulkov">
+        <createTable tableName="notification_config">
+            <column name="id" type="java.sql.Types.BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="enabled" type="java.sql.Types.BOOLEAN"/>
+            <column name="mail_type" type="text"/>
+            <column name="user_id" type="java.sql.Types.BIGINT"/>
+        </createTable>
+        <addUniqueConstraint tableName="notification_config" columnNames="user_id,mail_type"/>
+        <addForeignKeyConstraint baseTableName="notification_config" baseColumnNames="user_id"
+                constraintName="notification_config_user_fk" referencedTableName="users" referencedColumnNames="id"
+                onDelete="CASCADE"/>
+    </changeSet>
+
 </databaseChangeLog>

@@ -1,20 +1,27 @@
 package org.ohm.gastro.gui.pages.office;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.corelib.components.Checkbox;
 import org.apache.tapestry5.corelib.components.PasswordField;
 import org.apache.tapestry5.corelib.components.Select;
 import org.apache.tapestry5.corelib.components.TextField;
+import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.AbstractServiceCallback;
 import org.ohm.gastro.gui.ServiceCallback;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.EditObjectPage;
 import org.ohm.gastro.service.EmptyPasswordException;
+import org.ohm.gastro.service.MailService;
+import org.ohm.gastro.service.MailService.MailType;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 24.08.14.
@@ -30,9 +37,6 @@ public class Index extends EditObjectPage<UserEntity> {
     @Component(id = "mobilePhone", parameters = {"value=object?.mobilePhone"})
     private TextField mobileField;
 
-    @Component(id = "subscribe", parameters = {"value=object?.subscribeEmail"})
-    private Checkbox subscribeField;
-
     @Component(id = "password1", parameters = {"value=newPassword1", "validate=maxlength=64"})
     private PasswordField p1Field;
 
@@ -47,6 +51,13 @@ public class Index extends EditObjectPage<UserEntity> {
 
     @Property
     private UserEntity child;
+
+    @Property
+    private MailService.MailType notificationConfig;
+
+    @Inject
+    @Property
+    private Block subscriptionBlock;
 
     @Override
     public ServiceCallback<UserEntity> getServiceCallback() {
@@ -68,6 +79,14 @@ public class Index extends EditObjectPage<UserEntity> {
                 } catch (EmptyPasswordException e) {
                     getEditObject().getForm().recordError(p1Field, getMessages().get("error.password.empty"));
                 }
+                if (isCook()) {
+                    final List<MailType> enabledConfigs = getRequest().getParameterNames().stream()
+                            .filter(t -> t.startsWith("NOTIF"))
+                            .map(t -> MailType.valueOf(t.substring(6)))
+                            .collect(Collectors.toList());
+                    final Collection<MailType> disabledConfigs = CollectionUtils.disjunction(getNotificationConfigs(), enabledConfigs);
+                    getUserService().toggleSubscription(user, disabledConfigs);
+                }
                 return Index.class;
             }
 
@@ -80,6 +99,28 @@ public class Index extends EditObjectPage<UserEntity> {
 
     public List<UserEntity> getChildrenUsers() {
         return getUserService().findAllChildren(getAuthenticatedUser());
+    }
+
+    public List<MailService.MailType> getNotificationConfigs() {
+        return Arrays.stream(MailService.MailType.values()).filter(MailType::isConfigurable).collect(Collectors.toList());
+    }
+
+    public String getNotificationConfigPrintable() {
+        return getMessages().get("MailType." + notificationConfig.name());
+    }
+
+    public boolean isNotificationEnabled() {
+        return getMailService().isNotificationEnabled(getAuthenticatedUser(), notificationConfig);
+    }
+
+    public Block onActionFromSubscribe() {
+        getUserService().toggleSubscription(getAuthenticatedUser());
+        return subscriptionBlock;
+    }
+
+    public Block onActionFromUnsubscribe() {
+        getUserService().toggleSubscription(getAuthenticatedUser());
+        return subscriptionBlock;
     }
 
 }

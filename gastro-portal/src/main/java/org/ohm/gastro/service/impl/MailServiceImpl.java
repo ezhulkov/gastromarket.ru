@@ -8,8 +8,9 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
+import org.ohm.gastro.domain.NotificationConfigEntity;
 import org.ohm.gastro.domain.UserEntity;
-import org.ohm.gastro.reps.UserRepository;
+import org.ohm.gastro.reps.NotificationConfigRepository;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.trait.Logging;
 import org.ohm.gastro.util.CommonsUtils;
@@ -81,15 +82,17 @@ public class MailServiceImpl implements MailService, Logging {
     private final VelocityEngine velocityEngine;
     private final String defaultFrom;
     private final ExecutorService executorService;
+    private final NotificationConfigRepository notificationConfigRepository;
     private final JavaMailSenderImpl mailSender;
     private final boolean production;
     private final Map<String, ScheduledFuture> scheduledFutures = new ConcurrentHashMap<>();
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
 
     @Autowired
-    public MailServiceImpl(final UserRepository userRepository,
-                           @Value("${mail.from:ГастроМаркет <contacts@gastromarket.ru>}") String defaultFrom,
-                           @Value("${production}") boolean production) throws Exception {
+    public MailServiceImpl(@Value("${mail.from:ГастроМаркет <contacts@gastromarket.ru>}") String defaultFrom,
+                           @Value("${production}") boolean production,
+                           final NotificationConfigRepository notificationConfigRepository) throws Exception {
+        this.notificationConfigRepository = notificationConfigRepository;
         final Properties properties = new Properties();
         properties.setProperty("input.encoding", "UTF-8");
         properties.setProperty("resource.loader", "class");
@@ -115,14 +118,18 @@ public class MailServiceImpl implements MailService, Logging {
     }
 
     @Override
-    public void sendMailMessage(final UserEntity recipient, final String templateKey, final Map<String, Object> params) throws MailException {
-        if (recipient.isSubscribeEmail()) sendMailMessage(recipient.getEmail(), templateKey, params);
+    public void sendMailMessage(final UserEntity recipient, final MailType mailType, final Map<String, Object> params) throws MailException {
+        if (!isNotificationEnabled(recipient, mailType)) {
+            logger.info("Skipping email to " + recipient);
+            return;
+        }
+        sendMailMessage(recipient.getEmail(), mailType, params);
     }
 
     @Override
-    public void sendMailMessage(final String recipient, final String templateKey, final Map<String, Object> params) {
+    public void sendMailMessage(final String recipient, final MailType mailType, final Map<String, Object> params) {
 
-        logger.info("Sending email to " + recipient + " using template " + templateKey);
+        logger.info("Sending email to " + recipient + " using template " + mailType);
 
         if (!production) return;
 
@@ -132,7 +139,7 @@ public class MailServiceImpl implements MailService, Logging {
         try (
                 final StringWriter stringWriter = new StringWriter()
         ) {
-            velocityEngine.mergeTemplate(String.format(TEMPLATE_PATH, templateKey), "UTF-8", new VelocityContext(new HashMap<>(params)), stringWriter);
+            velocityEngine.mergeTemplate(String.format(TEMPLATE_PATH, mailType.getTemplate()), "UTF-8", new VelocityContext(new HashMap<>(params)), stringWriter);
             final String messageBody = stringWriter.toString();
             final String title = getTitle(messageBody);
 
@@ -163,8 +170,8 @@ public class MailServiceImpl implements MailService, Logging {
     }
 
     @Override
-    public void sendAdminMessage(final String templateKey, final Map<String, Object> params) throws MailException {
-        sendMailMessage("contacts@gastromarket.ru", templateKey, params);
+    public void sendAdminMessage(final MailType mailType, final Map<String, Object> params) throws MailException {
+        sendMailMessage("contacts@gastromarket.ru", mailType, params);
     }
 
     @Override
@@ -195,10 +202,10 @@ public class MailServiceImpl implements MailService, Logging {
     }
 
     @Override
-    public void scheduleSend(final UserEntity user, final String key, final Consumer<String> routine, final long time, final TimeUnit timeUnit) {
-        logger.info("Scheduling task for {}, key {}", user, key);
-        if (user == null || key == null) return;
-        final String operationKey = String.format("%s%s", user.getId(), key);
+    public void scheduleSend(final UserEntity user, final MailType mailType, final Consumer<String> routine, final long time, final TimeUnit timeUnit) {
+        logger.info("Scheduling task for {}, key {}", user, mailType);
+        if (!isNotificationEnabled(user, mailType)) return;
+        final String operationKey = String.format("%s%s", user.getId(), mailType.getTemplate());
         synchronized (scheduledFutures) {
             final ScheduledFuture scheduledFuture = scheduledFutures.remove(operationKey);
             if (scheduledFuture != null) scheduledFuture.cancel(true);
@@ -217,9 +224,16 @@ public class MailServiceImpl implements MailService, Logging {
 
     @Override
     public void cancelAllTasks(final UserEntity user) {
-        if (scheduledFutures.remove(String.format("%s%s", user.getId(), NEW_MESSAGE)) != null) {
+        if (scheduledFutures.remove(String.format("%s%s", user.getId(), MailType.NEW_MESSAGE)) != null) {
             logger.info("Cancelling new_message scheduled tasks for {}", user);
         }
+    }
+
+    @Override
+    public boolean isNotificationEnabled(UserEntity user, MailType mailType) {
+        if (user == null || mailType == null || !user.isSubscribeEmail()) return false;
+        final NotificationConfigEntity config = notificationConfigRepository.findByUserAndMailType(user, mailType);
+        return config == null || config.isEnabled();
     }
 
     private void syncMailChimp(String mcSyncEndpoint, StringEntity entity) {

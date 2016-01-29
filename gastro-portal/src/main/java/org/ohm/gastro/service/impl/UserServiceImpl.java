@@ -9,12 +9,14 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.LogEntity;
+import org.ohm.gastro.domain.NotificationConfigEntity;
 import org.ohm.gastro.domain.Region;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.domain.UserEntity.Status;
 import org.ohm.gastro.domain.UserEntity.Type;
 import org.ohm.gastro.filter.RegionFilter;
 import org.ohm.gastro.reps.CatalogRepository;
+import org.ohm.gastro.reps.NotificationConfigRepository;
 import org.ohm.gastro.reps.UserRepository;
 import org.ohm.gastro.service.BillService;
 import org.ohm.gastro.service.CatalogService;
@@ -23,6 +25,7 @@ import org.ohm.gastro.service.ImageService.FileType;
 import org.ohm.gastro.service.ImageService.ImageSize;
 import org.ohm.gastro.service.ImageUploader;
 import org.ohm.gastro.service.MailService;
+import org.ohm.gastro.service.MailService.MailType;
 import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingService;
 import org.ohm.gastro.service.RatingTarget;
@@ -42,6 +45,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Nonnull;
 import java.beans.PropertyDescriptor;
 import java.io.StringReader;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -60,6 +64,7 @@ import static org.scribe.utils.Preconditions.checkNotNull;
 public class UserServiceImpl implements UserService, Logging {
 
     private final UserRepository userRepository;
+    private final NotificationConfigRepository notificationConfigRepository;
     private final PasswordEncoder passwordEncoder;
     private final RatingService ratingService;
     private final CatalogRepository catalogRepository;
@@ -71,11 +76,13 @@ public class UserServiceImpl implements UserService, Logging {
 
     @Autowired
     public UserServiceImpl(final UserRepository userRepository,
+                           final NotificationConfigRepository notificationConfigRepository,
                            final PasswordEncoder passwordEncoder,
                            final RatingService ratingService,
                            final CatalogRepository catalogRepository,
                            final MailService mailService,
                            final BillService billService) {
+        this.notificationConfigRepository = notificationConfigRepository;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.ratingService = ratingService;
@@ -109,6 +116,27 @@ public class UserServiceImpl implements UserService, Logging {
     @Override
     public UserEntity saveUser(final UserEntity user) {
         return userRepository.save(user);
+    }
+
+    @Override
+    public void toggleSubscription(UserEntity user) {
+        notificationConfigRepository.deleteByUser(user);
+        user.setSubscribeEmail(!user.isSubscribeEmail());
+        saveUser(user);
+    }
+
+    @Override
+    public void toggleSubscription(final UserEntity user, final Collection<MailType> disabledConfigs) {
+        notificationConfigRepository.deleteByUser(user);
+        user.getNotificationConfigs().clear();
+        userRepository.saveAndFlush(user);
+        disabledConfigs.stream().distinct().map(t -> {
+            final NotificationConfigEntity config = new NotificationConfigEntity();
+            config.setEnabled(false);
+            config.setUser(user);
+            config.setMailType(t);
+            return config;
+        }).forEach(notificationConfigRepository::saveAndFlush);
     }
 
     @Override
@@ -149,7 +177,7 @@ public class UserServiceImpl implements UserService, Logging {
                     put("password", password);
                 }
             };
-            if (sendEmail) mailService.sendMailMessage(user, MailService.NEW_CATALOG, params);
+            if (sendEmail) mailService.sendMailMessage(user, MailService.MailType.NEW_CATALOG, params);
         } else if (Type.USER.equals(user.getType())) {
             user.setBonus(100);
             final Map<String, Object> params = new HashMap<String, Object>() {
@@ -159,7 +187,7 @@ public class UserServiceImpl implements UserService, Logging {
                     put("password", password);
                 }
             };
-            if (sendEmail) mailService.sendMailMessage(user, MailService.NEW_USER, params);
+            if (sendEmail) mailService.sendMailMessage(user, MailService.MailType.NEW_USER, params);
         }
         user.setLoginDate(new Date());
         saveUser(user, password);
@@ -189,7 +217,7 @@ public class UserServiceImpl implements UserService, Logging {
                     put("password", password);
                 }
             };
-            mailService.sendMailMessage(user.getEmail(), MailService.CHANGE_PASSWD, params);
+            mailService.sendMailMessage(user.getEmail(), MailService.MailType.CHANGE_PASSWD, params);
         }
     }
 
@@ -213,8 +241,8 @@ public class UserServiceImpl implements UserService, Logging {
                 put("username", defaultIfNull(fullName, ""));
             }
         };
-        mailService.sendAdminMessage(MailService.NEW_APPLICATION, params);
-        mailService.sendMailMessage(eMail, MailService.NEW_APPLICATION_COOK, params);
+        mailService.sendAdminMessage(MailService.MailType.NEW_APPLICATION, params);
+        mailService.sendMailMessage(eMail, MailService.MailType.NEW_APPLICATION_COOK, params);
 
     }
 
@@ -233,7 +261,7 @@ public class UserServiceImpl implements UserService, Logging {
                 put("comment", defaultIfNull(comment, ""));
             }
         };
-        mailService.sendAdminMessage(MailService.FEEDBACK, params);
+        mailService.sendAdminMessage(MailService.MailType.FEEDBACK, params);
 
     }
 
