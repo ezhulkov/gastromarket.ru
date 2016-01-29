@@ -2,12 +2,12 @@ package org.ohm.gastro.gui.pages.product;
 
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.ProductEntity;
-import org.ohm.gastro.gui.mixins.ScrollableProducts;
+import org.ohm.gastro.gui.mixins.BaseComponent;
 
 /**
  * Created by ezhulkov on 31.08.14.
  */
-public class Search extends ScrollableProducts {
+public class Search extends BaseComponent {
 
     @Property
     private String searchString;
@@ -16,12 +16,10 @@ public class Search extends ScrollableProducts {
     private ProductEntity oneProduct;
 
     public boolean onActivate() {
-        initScrollableContext(null, null, null, null);
         return true;
     }
 
     public boolean onActivate(String searchString) {
-        initScrollableContext(null, null, null, null);
         this.searchString = searchString;
         return true;
     }
@@ -30,9 +28,8 @@ public class Search extends ScrollableProducts {
         return searchString;
     }
 
-    @Override
     public java.util.List<ProductEntity> getProducts() {
-        return getProductService().searchProducts(searchString, from, to);
+        return getProductService().searchProducts(searchString, 0, 100);
     }
 
 }

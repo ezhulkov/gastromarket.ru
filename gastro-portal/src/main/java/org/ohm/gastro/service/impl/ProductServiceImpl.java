@@ -133,8 +133,6 @@ public class ProductServiceImpl implements ProductService, Logging {
                         (rs, rowNum) -> rs.getLong(1)
                 );
         return productRepository.findAll(pIds);
-//        query = Arrays.stream(query.split("\\s")).map(String::trim).filter(StringUtils::isNoneEmpty).collect(Collectors.joining("|"));
-//        return productRepository.searchProducts(RegionFilter.getCurrentRegion().name(), query.toLowerCase(), from, to);
     }
 
     @Override
