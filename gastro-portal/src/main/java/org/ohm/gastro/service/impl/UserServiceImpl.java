@@ -158,6 +158,10 @@ public class UserServiceImpl implements UserService, Logging {
     public UserEntity createUser(final UserEntity user, final String password, String catalogName, Region region, final boolean sendEmail) throws UserExistsException, EmptyPasswordException {
         if (StringUtils.isEmpty(password)) throw new EmptyPasswordException();
         if (StringUtils.isEmpty(user.getEmail())) throw new UserExistsException();
+        if (user.isCook() && user.getEmail() != null) {
+            final UserEntity existingUser = userRepository.findByEmailLikeIgnoreCase(user.getEmail());
+            if (existingUser != null && existingUser.isUser()) userRepository.delete(existingUser);
+        }
         if (userRepository.findByEmailLikeIgnoreCase(user.getEmail()) != null) throw new UserExistsException();
         user.setRegion(region);
         user.setEmail(user.getEmail().toLowerCase());

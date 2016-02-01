@@ -53,6 +53,7 @@
 
     <script src="/js/jquery-2.1.4.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+
     <script src="/js/jquery.guillotine.min.js"></script>
     <script src="/js/chosen.jquery.min.js"></script>
     <script src="/js/jquery.cookie.js"></script>
@@ -66,8 +67,7 @@
     <script src="/js/reconnecting-websocket.min.js"></script>
     <script src="/js/jquery.hanselsrevenge.js"></script>
     <script src="https://cdn.ravenjs.com/1.3.0/ember,jquery,native/raven.min.js"></script>
-    <script type="text/javascript" src="//vk.com/js/api/openapi.js?116"></script>
-
+    <script src="//vk.com/js/api/openapi.js?116" type="text/javascript"></script>
     <script src="/js/custom.js?v=1.16"></script>
 
     <script type="text/template" id="qq-template">
@@ -88,10 +88,12 @@
     </script>
     <script type="text/javascript">
       VK.init({apiId: 4721365, onlyWidgets: true});
-      <t:if test="production">
-        Raven.config('https://82ada64290eb4c16bfaf541b5fd62fd7@app.getsentry.com/61493').install();
-      </t:if>
     </script>
+    <t:if test="production">
+        <script type="text/javascript">
+            Raven.config('https://82ada64290eb4c16bfaf541b5fd62fd7@app.getsentry.com/61493').install();
+        </script>
+    </t:if>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="/css/chosen.min.css" rel="stylesheet"/>
@@ -127,15 +129,15 @@
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter29411415 = new Ya.Metrika({ id:29411415, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="https://mc.yandex.ru/watch/29411415" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-61403003-1', 'auto');
-  ga('send', 'pageview');
-</script>
-<script type="text/javascript">(window.Image ? (new Image()) : document.createElement('img')).src = location.protocol + '//vk.com/rtrg?r=a38cGqQjFDUMxJxvd/NYws1R94aYSKGm5/qsEdNrqtSbnoKmSHat5G6hQqEg5em4trtcBRZYRmurw1TbgD1GS4ncJ6vJEK8228OSIWzj6XtCBr8NBk0ECbhj2kn3GCPimicVgwVeD6gRgIEeXbxanctK9HilMP8Kduv7qDkqJnM-';</script>
+<!--<script>-->
+  <!--(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){-->
+  <!--(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),-->
+  <!--m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)-->
+  <!--})(window,document,'script','//www.google-analytics.com/analytics.js','ga');-->
+  <!--ga('create', 'UA-61403003-1', 'auto');-->
+  <!--ga('send', 'pageview');-->
+<!--</script>-->
+<!--<script type="text/javascript">(window.Image ? (new Image()) : document.createElement('img')).src = location.protocol + '//vk.com/rtrg?r=a38cGqQjFDUMxJxvd/NYws1R94aYSKGm5/qsEdNrqtSbnoKmSHat5G6hQqEg5em4trtcBRZYRmurw1TbgD1GS4ncJ6vJEK8228OSIWzj6XtCBr8NBk0ECbhj2kn3GCPimicVgwVeD6gRgIEeXbxanctK9HilMP8Kduv7qDkqJnM-';</script>-->
 <!--/noindex-->
 </body>
 </html>
