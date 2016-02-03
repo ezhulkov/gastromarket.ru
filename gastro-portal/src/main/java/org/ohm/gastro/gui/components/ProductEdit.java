@@ -121,12 +121,18 @@ public class ProductEdit extends BaseComponent {
 
     @Cached
     public List<PropertyEntity> getMandatoryProperties() {
-        return getPropertyService().findAllProperties(true).stream().filter(t -> !t.isHidden()).sorted((o1, o2) -> o1.getType().compareTo(o2.getType())).collect(Collectors.toList());
+        return getPropertyService().findAllProperties(true).stream()
+                .filter(t -> isAdmin() || !t.isHidden())
+                .sorted((o1, o2) -> o1.getType().compareTo(o2.getType()))
+                .collect(Collectors.toList());
     }
 
     @Cached
     public List<PropertyEntity> getOptionalProperties() {
-        return getPropertyService().findAllProperties(false).stream().filter(t -> !t.isHidden()).sorted((o1, o2) -> o1.getType().compareTo(o2.getType())).collect(Collectors.toList());
+        return getPropertyService().findAllProperties(false).stream()
+                .filter(t -> isAdmin() || !t.isHidden())
+                .sorted((o1, o2) -> o1.getType().compareTo(o2.getType()))
+                .collect(Collectors.toList());
     }
 
     public String getProductEditZone() {

@@ -2,6 +2,7 @@ package org.ohm.gastro.reps;
 
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
+import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.TagEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -26,6 +27,9 @@ public interface TagRepository extends JpaRepository<TagEntity, Long> {
     List<TagEntity> findAllByProduct(ProductEntity product);
 
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    List<TagEntity> findAllByProductAndProperty(ProductEntity product, PropertyEntity oneProperty);
+    List<TagEntity> findAllByProductAndProperty(ProductEntity product, PropertyEntity property);
+
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    List<TagEntity> findAllByProductAndValue(ProductEntity product, PropertyValueEntity value);
 
 }

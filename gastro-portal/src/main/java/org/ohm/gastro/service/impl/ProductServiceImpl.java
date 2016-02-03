@@ -195,8 +195,8 @@ public class ProductServiceImpl implements ProductService, Logging {
     }
 
     @Override
-    public void saveProduct(ProductEntity product, List<PropertyValueEntity> newValues) {
-        final List<TagEntity> tags = newValues.stream()
+    public void saveProduct(ProductEntity product, List<PropertyValueEntity> addValues, List<PropertyValueEntity> delValues) {
+        final List<TagEntity> tags = addValues.stream()
                 .map(t -> {
                     final PropertyEntity property = propertyService.findProperty(t.getProperty().getId());
                     final TagEntity tag = new TagEntity();
@@ -206,6 +206,10 @@ public class ProductServiceImpl implements ProductService, Logging {
                     return tag;
                 }).collect(Collectors.toList());
         tagRepository.save(tags);
+        final List<TagEntity> tagsToDelete = delValues.stream()
+                .flatMap(v -> tagRepository.findAllByProductAndValue(product, v).stream())
+                .collect(Collectors.toList());
+        tagRepository.delete(tagsToDelete);
     }
 
     private List<Long> getPropertyValueIds(final String valueId, final String propId) {

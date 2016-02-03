@@ -136,15 +136,20 @@ public class List extends BaseComponent {
 
     public void onSubmitFromProductForm() {
         final java.util.List<ProductEntity> products = getObjects("PR-", id -> getProductService().findProduct(id));
-        final java.util.List<PropertyValueEntity> categories = getObjects("CA-", id -> getPropertyService().findPropertyValue(id));
-        final java.util.List<PropertyValueEntity> events = getObjects("EV-", id -> getPropertyService().findPropertyValue(id));
+        final java.util.List<PropertyValueEntity> addCategories = getObjects("CA-ADD-", id -> getPropertyService().findPropertyValue(id));
+        final java.util.List<PropertyValueEntity> addEvents = getObjects("EV-ADD-", id -> getPropertyService().findPropertyValue(id));
+        final java.util.List<PropertyValueEntity> delCategories = getObjects("CA-DEL-", id -> getPropertyService().findPropertyValue(id));
+        final java.util.List<PropertyValueEntity> delEvents = getObjects("EV-DEL-", id -> getPropertyService().findPropertyValue(id));
         products.stream().forEach(product -> {
             final java.util.List<TagEntity> allTags = getProductService().findAllTags(product);
-            final java.util.List<PropertyValueEntity> newValues = Stream.of(categories, events)
+            final java.util.List<PropertyValueEntity> addValues = Stream.of(addCategories, addEvents)
                     .flatMap(Collection::stream)
                     .filter(v -> allTags.stream().noneMatch(t -> v.equals(t.getValue())))
                     .collect(Collectors.toList());
-            getProductService().saveProduct(product, newValues);
+            final java.util.List<PropertyValueEntity> delValues = Stream.of(delCategories, delEvents)
+                    .flatMap(Collection::stream)
+                    .collect(Collectors.toList());
+            getProductService().saveProduct(product, addValues, delValues);
         });
     }
 
