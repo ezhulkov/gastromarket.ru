@@ -16,19 +16,19 @@
 
     <t:form t:id="productForm" class="form">
         <div class="links-set" xml:space="preserve">
-            <a data-toggle="modal" data-target="#categories-minus" href="#categories">Убрать свойства</a>&nbsp;
-            <a data-toggle="modal" data-target="#categories-plus" href="#categories">Добавить свойства</a>
+            <a data-toggle="modal" data-target="#categories" href="#categories">Свойства</a>&nbsp;
         </div>
-        <div class="modal fade" id="categories-minus" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade" id="categories" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <div class="title">
-                            <h1><span>Убрать свойства</span></h1>
+                            <h1><span>Свойства</span></h1>
                         </div>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
                     </div>
                     <div class="modal-body">
+                        <h2>Удалить свойства</h2>
                         <div class="row">
                             <div class="col-xs-6">
                                 <ul class="no-bullets">
@@ -53,25 +53,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <input type="submit" class="btn btn-red" value="Убрать свойства"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="categories-plus" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <div class="title">
-                            <h1><span>Добавить свойства</span></h1>
-                        </div>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
-                    </div>
-                    <div class="modal-body">
+                        <h2>Добавить свойства</h2>
                         <div class="row">
                             <div class="col-xs-6">
                                 <ul class="no-bullets">
@@ -98,7 +80,7 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-                                <input type="submit" class="btn btn-red" value="Добавить свойства"/>
+                                <input type="submit" class="btn btn-red" value="Изменить свойства"/>
                             </div>
                         </div>
                     </div>

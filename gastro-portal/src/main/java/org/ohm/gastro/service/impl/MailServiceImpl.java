@@ -203,9 +203,9 @@ public class MailServiceImpl implements MailService, Logging {
 
     @Override
     public void scheduleSend(final UserEntity user, final MailType mailType, final Consumer<String> routine, final long time, final TimeUnit timeUnit) {
-        logger.info("Scheduling task for {}, key {}", user, mailType);
         if (!isNotificationEnabled(user, mailType)) return;
-        final String operationKey = String.format("%s%s", user.getId(), mailType.getTemplate());
+        logger.info("Scheduling task for {}, key {}", user, mailType);
+        final String operationKey = String.format("%s%s", user.getId(), mailType);
         synchronized (scheduledFutures) {
             final ScheduledFuture scheduledFuture = scheduledFutures.remove(operationKey);
             if (scheduledFuture != null) scheduledFuture.cancel(true);
