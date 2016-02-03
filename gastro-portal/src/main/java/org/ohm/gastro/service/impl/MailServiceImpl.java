@@ -134,7 +134,7 @@ public class MailServiceImpl implements MailService, Logging {
         if (!production) return;
 
         params.put("unsubscribe", CommonsUtils.generateSecuredEmail(recipient));
-        params.put("quicklogin", CommonsUtils.generateSecuredEmail(recipient, TimeUnit.HOURS.toMillis(6)));
+        params.put("quicklogin", CommonsUtils.generateSecuredEmail(recipient, TimeUnit.HOURS.toMillis(24)));
 
         try (
                 final StringWriter stringWriter = new StringWriter()
