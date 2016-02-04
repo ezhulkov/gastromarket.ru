@@ -7,6 +7,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.ConversationEntity;
+import org.ohm.gastro.domain.MessageDTO;
 import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
  */
 public class Message extends BaseComponent {
 
-    private final static int PAGE_SIZE = 10;
+    private final static int PAGE_SIZE = 40;
 
     @Property
     private ConversationEntity conversation;
@@ -112,7 +113,15 @@ public class Message extends BaseComponent {
         getConversationService().placeComment(conversation, newComment, getAuthenticatedUser());
         newComments.add(newComment);
         final UserEntity opponent = conversation.getOpponent(getAuthenticatedUser()).get();
-        MessageNotifierServlet.sendUnreadCount(opponent.getEmail(), getConversationService().getUnreadMessagesCount(opponent));
+        final MessageDTO message = new MessageDTO();
+        message.setConversationId(conversation.getId());
+        message.setAvatar(newComment.getAuthor().getAvatarUrl());
+        message.setName(newComment.getAuthor().getLinkName());
+        message.setUrl(newComment.getAuthor().getLinkUrl());
+        message.setDate(newComment.getDatePrintable());
+        message.setUnreadCount(getConversationService().getUnreadMessagesCount(opponent));
+        message.setText(text);
+        MessageNotifierServlet.sendUnreadMessage(opponent, message);
         return newMessageBlock;
     }
 

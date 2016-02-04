@@ -1,35 +1,37 @@
-<t:loop xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" source="comments" value="comment">
-    <div class="row message ${unread}">
-        <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs text-right pic">
-            <a href="${comment.author?.linkUrl}">
-                <img src="${comment.author?.linkAvatar}"/>
-            </a>
-        </div>
-        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 name nopad">
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+    <t:loop source="comments" value="comment">
+        <div class="row message ${unread}">
+            <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs text-right pic">
                 <a href="${comment.author?.linkUrl}">
-                    ${comment.author?.linkName}
+                    <img src="${comment.author?.linkAvatar}"/>
                 </a>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 date delete-${commentOwner} nopad">
-                <div>
-                    ${comment.datePrintable}
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 name nopad">
+                    <a href="${comment.author?.linkUrl}">
+                        ${comment.author?.linkName}
+                    </a>
                 </div>
-                <t:if test="commentOwner">
-                    <t:actionlink class="delete" t:zone="newMessagesZone" t:id="deleteComment" t:context="comment.id">удалить</t:actionlink>
-                </t:if>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 text">
-                <t:outputraw value="comment.textRaw"/>
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 nopad">
-                <t:photos comment="comment"/>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 date delete-${commentOwner} nopad">
+                    <div>
+                        ${comment.datePrintable}
+                    </div>
+                    <t:if test="commentOwner">
+                        <t:actionlink class="delete" t:zone="newMessagesZone" t:id="deleteComment" t:context="comment.id">удалить</t:actionlink>
+                    </t:if>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 text">
+                    <t:outputraw value="comment.textRaw"/>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 nopad">
+                    <t:photos comment="comment"/>
+                </div>
             </div>
         </div>
-    </div>
-    <t:parameter name="empty">
-        <t:if test="showEmpty">
-            <div class="empty">Нет сообщений</div>
-        </t:if>
-    </t:parameter>
-</t:loop>
+        <t:parameter name="empty">
+            <t:if test="showEmpty">
+                <div class="empty">Нет сообщений</div>
+            </t:if>
+        </t:parameter>
+    </t:loop>
+</div>

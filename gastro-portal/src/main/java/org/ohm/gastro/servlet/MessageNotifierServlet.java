@@ -1,10 +1,12 @@
 package org.ohm.gastro.servlet;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
 import org.apache.catalina.websocket.MessageInbound;
 import org.apache.catalina.websocket.StreamInbound;
 import org.apache.catalina.websocket.WebSocketServlet;
 import org.apache.catalina.websocket.WsOutbound;
+import org.ohm.gastro.domain.MessageDTO;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.service.UserService;
@@ -24,7 +26,7 @@ import java.util.Optional;
  */
 public class MessageNotifierServlet extends WebSocketServlet implements Logging {
 
-    private static Map<String, Optional<MessageNotifierInbound>> peerList = Maps.newHashMap();
+    private final static Map<String, Optional<MessageNotifierInbound>> peerList = Maps.newHashMap();
 
     @Override
     protected StreamInbound createWebSocketInbound(final String s) {
@@ -32,10 +34,10 @@ public class MessageNotifierServlet extends WebSocketServlet implements Logging 
         return new MessageNotifierInbound(userService);
     }
 
-    public static void sendUnreadCount(String email, int count) {
-        peerList.getOrDefault(email, Optional.empty()).ifPresent(peer -> {
-            logger.info("Sending unread message count {} to peer {}", count, peer);
-            peer.sendMessage(count);
+    public static void sendUnreadMessage(UserEntity opponent, MessageDTO message) {
+        peerList.getOrDefault(opponent.getEmail(), Optional.empty()).ifPresent(peer -> {
+            logger.info("Sending unread message to peer {}", peer);
+            peer.sendMessage(message);
         });
     }
 
@@ -80,9 +82,9 @@ public class MessageNotifierServlet extends WebSocketServlet implements Logging 
             logger.error("Accepting text message - should not happen");
         }
 
-        public void sendMessage(int count) {
+        public void sendMessage(MessageDTO message) {
             try {
-                peer.writeTextMessage(CharBuffer.wrap(String.format("{\"unread\":\"%s\"}", count)));
+                peer.writeTextMessage(CharBuffer.wrap(new ObjectMapper().writeValueAsString(message)));
             } catch (IOException e) {
                 logger.error("", e);
             }

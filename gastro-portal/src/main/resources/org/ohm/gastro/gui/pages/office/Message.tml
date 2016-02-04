@@ -6,14 +6,32 @@
                 <h1>${opponentName}</h1>
             </div>
         </div>
-        <div class="container messages">
+        <div id="conversation-${conversation.id}" class="container messages message-page">
             <t:zone t:id="messagesFetchZone" class="gap">
                 <t:delegate to="messagesFetchBlock"/>
             </t:zone>
             <t:zone t:id="allMessagesZone">
                 <t:delegate to="messagesBlock"/>
             </t:zone>
+            <div id="opponentMessages"></div>
             <t:zone t:id="newMessagesZone"/>
+            <div id="message-template" class="row message unread hidden">
+                <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs text-right pic">
+                    <a href="">
+                        <img src=""/>
+                    </a>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 name nopad">
+                        <a href=""/>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 date delete-false nopad">
+                        <div></div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 text"></div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 nopad"></div>
+                </div>
+            </div>
         </div>
     </section>
 

@@ -16,6 +16,7 @@ public class AppModule {
         configuration.add("/img/.*");
         configuration.add("/favicon/.*");
         configuration.add("/fonts/.*");
+        configuration.add("/sound/.*");
         configuration.add("/social/*");
         configuration.add("/upload/*");
         configuration.add("/payment/*");

@@ -425,6 +425,7 @@ function initFineUploader(el) {
             }
             return true;
         }).on("complete", function (id, name, responseJSON, xhr) {
+            console.log("refresh")
             jQuery(progress).css("width", "0%");
             jQuery(button).removeClass("upload-progress");
             if (autoUpload) {
@@ -614,14 +615,45 @@ function getUrlVars() {
     return vars;
 }
 function onLogin() {
-    connectWebSocket("wss://gastromarket.ru/chat");
-    //connectWebSocket("ws://localhost:8080/chat");
+    //connectWebSocket("wss://gastromarket.ru/chat");
+    connectWebSocket("ws://localhost:8080/chat");
 }
 function connectWebSocket(url) {
     var ws = new ReconnectingWebSocket(url, null, {debug: false, reconnectInterval: 3000, maxReconnectAttempts: 10});
     ws.onmessage = function (message) {
-        var unread = JSON.parse(message.data)["unread"];
-        if (unread != undefined)jQuery("#unread-messages").text("+" + unread);
+        var snd = new Audio("/sound/message.mp3");
+        var json = JSON.parse(message.data);
+        var unread = json["unreadCount"];
+        var text = json["text"];
+        var date = json["date"];
+        var name = json["name"];
+        var url = json["url"];
+        var avatar = json["avatar"];
+        var conversation = json["conversationId"];
+        if (unread != undefined) jQuery("#unread-messages").text("+" + unread);
+        if (conversation != null && text != null) {
+            var conv = jQuery("#conversation-" + conversation);
+            if (conv != undefined) {
+                if (conv.hasClass("message-row")) {
+                    conv.find(".comment").addClass("unread");
+                    conv.find(".comment .text").text(text);
+                    conv.find(".comment .date").text(date);
+                }
+                if (conv.hasClass("message-page")) {
+                    var tpl = jQuery("#message-template").clone();
+                    jQuery(".pic a", tpl).attr("href", url);
+                    jQuery(".pic img", tpl).attr("src", avatar);
+                    jQuery(".name a", tpl).attr("href", url);
+                    jQuery(".name a", tpl).text(name);
+                    jQuery(".date div", tpl).text(date);
+                    jQuery(".text", tpl).text(text);
+                    jQuery("#opponentMessages").append(tpl);
+                    tpl.removeClass("hidden");
+                    jQuery("html, body").scrollTop(jQuery(document).height());
+                }
+            }
+        }
+        if (snd != undefined) snd.play();
     };
 }
 String.prototype.format = function () {

@@ -11,6 +11,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
     <http pattern="/module/**" security="none"/>
     <http pattern="/assets/**" security="none"/>
     <http pattern="/css/**" security="none"/>
+    <http pattern="/sound/**" security="none"/>
     <http pattern="/js/**" security="none"/>
     <http pattern="/img/**" security="none"/>
 

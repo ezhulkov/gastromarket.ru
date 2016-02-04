@@ -7,7 +7,7 @@
             </div>
         </div>
         <t:loop source="conversations" value="conversation">
-            <section class="zebra-row">
+            <section class="zebra-row message-row" id="conversation-${conversation.id}">
                 <div class="container">
                     <div class="row comment message ${unread}">
                         <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-0 col-sm-3 col-xs-12 hidden-xs text-right pic">
