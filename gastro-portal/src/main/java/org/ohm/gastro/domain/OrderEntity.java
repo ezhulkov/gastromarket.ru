@@ -96,6 +96,9 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
         PUBLIC, PRIVATE
     }
 
+    @Enumerated(EnumType.STRING)
+    private Region region = Region.DEFAULT;
+
     @Column
     @Enumerated(EnumType.STRING)
     private Type type = Type.PRIVATE;
@@ -469,4 +472,11 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
         return (int) Math.ceil(total * 3 / 100);
     }
 
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
 }

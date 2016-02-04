@@ -1192,4 +1192,13 @@
         </sql>
     </changeSet>
 
+    <changeSet id="108" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="region" type="text"/>
+        </addColumn>
+        <sql>
+            update orders set region='DEFAULT';
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

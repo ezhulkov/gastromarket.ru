@@ -108,6 +108,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
             order.setComment(preOrder.getComment());
             order.setProducts(preOrder.getProducts());
             order.setStatus(Status.CONFIRMED);
+            order.setRegion(RegionFilter.getCurrentRegion());
             order.setWasSetup(true);
             order.setType(OrderEntity.Type.PRIVATE);
             order.setCatalog(preOrder.getCatalog());
@@ -126,6 +127,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                         put("cook", order.getCatalog());
                         put("total", order.getTotalPrice());
                         put("address", order.getOrderUrl());
+                        put("region", order.getRegion());
                         put("order", order);
                     }
                 };
@@ -171,7 +173,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     public List<OrderEntity> findAllTenders() {
         return orderRepository.findAllByType(OrderEntity.Type.PUBLIC).stream()
                 .filter(OrderEntity::isWasSetup)
-                .filter(t -> t.getCustomer().getRegion() == RegionFilter.getCurrentRegion())
+                .filter(t -> t.getRegion() == RegionFilter.getCurrentRegion())
                 .collect(Collectors.toList());
     }
 
@@ -181,6 +183,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
         tender.setType(OrderEntity.Type.PUBLIC);
         tender.setStatus(Status.NEW);
         tender.setWasSetup(false);
+        tender.setRegion(RegionFilter.getCurrentRegion());
         tender.setCustomer(caller);
         orderRepository.save(tender);
         tender.setOrderNumber(Long.toString(tender.getId()));
@@ -194,9 +197,10 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                 put("comment", ObjectUtils.defaultIfNull(tender.getComment(), "-"));
                 put("total", ObjectUtils.defaultIfNull(tender.getTotalPrice(), "-"));
                 put("date", ObjectUtils.defaultIfNull(tender.getDueDateAsString(), "-"));
+                put("region", tender.getRegion());
                 put("address", tender.getOrderUrl());
                 put("tender", tender);
-                put("recipients", getRecipients(ObjectUtils.defaultIfNull(caller.getRegion(), Region.DEFAULT)));
+                put("recipients", getRecipients(ObjectUtils.defaultIfNull(tender.getRegion(), Region.DEFAULT)));
             }
         };
         mailService.sendAdminMessage(MailService.MailType.NEW_TENDER_ADMIN, params);
@@ -233,7 +237,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     @Override
     public void sendTenderAnnonce(OrderEntity tender) {
         if (tender.isAnnonceSent()) return;
-        final Region region = ObjectUtils.defaultIfNull(tender.getCustomer().getRegion(), Region.DEFAULT);
+        final Region region = ObjectUtils.defaultIfNull(tender.getRegion(), Region.DEFAULT);
         tender.setWasSetup(true);
         tender.setAnnonceSent(true);
         orderRepository.save(tender);
