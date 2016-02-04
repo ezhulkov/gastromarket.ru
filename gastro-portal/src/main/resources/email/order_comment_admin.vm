@@ -3,7 +3,7 @@
 #parse("email/header.vm")
 <p>
     Новый комментарий к заявке <a href="${address}">"${order.name}"</a>
-    от кулинара <a href="${catalog?.fullUrl}?${params}">"${catalog?.name}"</a>
+    от кулинара <a href="${catalog.fullUrl}?${params}">"${catalog.name}"</a>
 </p>
 <p>
     <i style="margin-left: 10px;">&mdash; ${text}</i>
