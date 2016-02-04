@@ -615,8 +615,8 @@ function getUrlVars() {
     return vars;
 }
 function onLogin() {
-    //connectWebSocket("wss://gastromarket.ru/chat");
-    connectWebSocket("ws://localhost:8080/chat");
+    connectWebSocket("wss://gastromarket.ru/chat");
+    //connectWebSocket("ws://localhost:8080/chat");
 }
 function connectWebSocket(url) {
     var ws = new ReconnectingWebSocket(url, null, {debug: false, reconnectInterval: 3000, maxReconnectAttempts: 10});
