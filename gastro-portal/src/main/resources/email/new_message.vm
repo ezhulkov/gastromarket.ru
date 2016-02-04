@@ -5,4 +5,10 @@
 <p>
     У вас новое личное сообщение от ${authorName}
 </p>
+<p>
+    <i style="margin-left: 10px;">&mdash; ${text}</i>
+</p>
+<p>
+    Вы можете ответить, перейдя по адресу: <a href="${address}?${params}">${address}</a>
+</p>
 #parse("email/footer.vm")

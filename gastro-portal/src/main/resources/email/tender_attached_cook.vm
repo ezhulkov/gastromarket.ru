@@ -15,6 +15,6 @@
     Причина выбора: ${tender.attachReason}
 </p>
 <p>
-    Вы можете обсудить детали заказа и управляеть его статусом по адресу: <a href="${address}?${params}">${address}</a>
+    Вы можете обсудить детали заказа и управлять его статусом по адресу: <a href="${address}?${params}">${address}</a>
 </p>
 #parse("email/footer.vm")

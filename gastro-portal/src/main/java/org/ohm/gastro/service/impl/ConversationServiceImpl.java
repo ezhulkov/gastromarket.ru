@@ -187,7 +187,7 @@ public class ConversationServiceImpl implements ConversationService {
                     put("address", tender.getOrderUrl());
                     put("text", reply.getText());
                     put("order", tender);
-                    put("author", author.getFirstCatalog().orElse(null));
+                    put("catalog", author.getFirstCatalog().orElse(null));
                 }
             };
             mailService.sendMailMessage(tender.getCustomer(), MailService.MailType.ORDER_COMMENT, params);
@@ -240,6 +240,7 @@ public class ConversationServiceImpl implements ConversationService {
                     {
                         put("username", opponent.getFullName());
                         put("address", conversation.getFullUrl());
+                        put("text", comment.getText());
                         put("conversation", conversation);
                         put("authorName", author.getFirstCatalog().map(AltIdBaseEntity::getName).orElseGet(author::getFullName));
                     }

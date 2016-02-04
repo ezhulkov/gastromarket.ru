@@ -329,9 +329,15 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
 
         final Map<String, Object> params = new HashMap<String, Object>() {
             {
-                put("ordernumber", order.getOrderNumber());
                 put("status", status);
+                put("products", order.getProducts());
+                put("ordernumber", order.getOrderNumber());
+                put("customer", order.getCustomer());
+                put("comment", ObjectUtils.defaultIfNull(order.getComment(), "-"));
+                put("cook", order.getCatalog());
+                put("total", order.getTotalPrice());
                 put("address", order.getOrderUrl());
+                put("region", order.getRegion());
                 put("order", order);
             }
         };

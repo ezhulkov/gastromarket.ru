@@ -2,10 +2,10 @@
 #set($toadmin = true)
 #parse("email/header.vm")
 <p>
-    Новый отклик к заявке <a href="https://gastromarket.ru/tender/${order.id}">${order.id}</a>.
+    Новый комментарий к заявке <a href="${address}">"${order.name}"</a>
+    от кулинара <a href="${catalog?.fullUrl}?${params}">"${catalog?.name}"</a>
 </p>
 <p>
-    ${author.name}<br/>
-    ${text}
+    <i style="margin-left: 10px;">&mdash; ${text}</i>
 </p>
 #parse("email/footer.vm")

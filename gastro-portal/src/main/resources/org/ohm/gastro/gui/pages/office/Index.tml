@@ -38,6 +38,15 @@
                                 <input t:id="mobilePhone" class="form-control mobile-phone" placeholder="+7 xxx xxx-xx-xx"/>
                             </div>
                         </div>
+                        <t:if test="user">
+                            <div class="form-group">
+                                <t:label class="col-sm-3 control-label" for="deliveryAddress">Адрес доставки:</t:label>
+
+                                <div class="col-sm-9">
+                                    <input t:id="deliveryAddress" class="form-control" type="text" placeholder="Адрес доставки"/>
+                                </div>
+                            </div>
+                        </t:if>
                         <div class="row">
                             <div class="col-sm-3"/>
 

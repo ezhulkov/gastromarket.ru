@@ -4,4 +4,14 @@
 <p>
     Клиент выбрал исполителя для заявки <a href="https://gastromarket.ru/tender/${tender.id}">${tender.id}</a>.
 </p>
+<p>
+    Заявка: ${tender.name}<br/>
+    Имя заказчика: ${customer.fullName}<br/>
+    Контактный телефон: $customer.mobilePhone<br/>
+    Регион: ${tender.region}<br/>
+    Бюджет: ${tender.totalPrice} руб.<br/>
+    Дата исполнения: ${tender.dueDateAsString}<br/>
+    Комментарий: ${tender.comment}<br/>
+    Причина выбора: ${tender.attachReason}
+</p>
 #parse("email/footer.vm")

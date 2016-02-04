@@ -8,6 +8,7 @@
     eMail: ${customer.email}<br/>
     Имя: ${customer.fullName}<br/>
     Бюджет: ${total} руб<br/>
+    Регион: ${region}<br/>
     Дата исполнения: ${date}<br/>
     Комментарий: ${comment}<br/>
     Заявка лежит по адресу: <a href="${address}">${address}</a><br/>
