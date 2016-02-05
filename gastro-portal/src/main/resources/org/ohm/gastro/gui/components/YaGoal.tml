@@ -1,5 +1,5 @@
-<script>
-    window.onload = function () {
+<script type="text/javascript">
+    window.addEventListener('load', function () {
         yaCounter29411415.reachGoal('${goal}');
-    }
+    });
 </script>

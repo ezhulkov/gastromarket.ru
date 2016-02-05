@@ -285,21 +285,23 @@ function initProductCatalog(ajaxContainer) {
     };
     layoutFunction(jQuery("#product-items"));
     initBasket();
-    var scrollMutex = true;
-    Event.observe(ajaxContainer.get(0), Tapestry.ZONE_UPDATED_EVENT, function () {
-        layoutFunction(jQuery("#product-items"));
-        setTimeout(function () {
-            scrollMutex = true;
-        }, 500);
-    });
-    jQuery(window).scroll(function () {
-        if (!isMobile()) {
-            if (scrollMutex && jQuery(window).scrollTop() + jQuery(window).height() > jQuery(document).height() - 300) {
-                scrollMutex = false;
-                triggerEvent(jQuery('a[id^=fetchProductsAjaxLink]').get(0), 'click');
+    if (ajaxContainer != undefined) {
+        var scrollMutex = true;
+        Event.observe(ajaxContainer.get(0), Tapestry.ZONE_UPDATED_EVENT, function () {
+            layoutFunction(jQuery("#product-items"));
+            setTimeout(function () {
+                scrollMutex = true;
+            }, 500);
+        });
+        jQuery(window).scroll(function () {
+            if (!isMobile()) {
+                if (scrollMutex && jQuery(window).scrollTop() + jQuery(window).height() > jQuery(document).height() - 300) {
+                    scrollMutex = false;
+                    triggerEvent(jQuery('a[id^=fetchProductsAjaxLink]').get(0), 'click');
+                }
             }
-        }
-    });
+        });
+    }
     if (jQuery.cookie("tenderadv.shown") == undefined) {
         setTimeout(function () {
             jQuery("#tender-adv").modal("show");

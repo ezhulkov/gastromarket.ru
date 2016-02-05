@@ -182,7 +182,6 @@
                             </div>
                         </div>
                     </t:form>
-                    <t:yagoalsubmit target="signupAjaxForm" goal="SIGNUP"/>
                 </t:block>
                 <div class="row">
                     <p class="modal-text f14px">

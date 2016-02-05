@@ -21,7 +21,7 @@
     </section>
 
     <script>
-        jQuery(initProductCatalog(jQuery("#productsZone")));
+        jQuery(initProductCatalog());
     </script>
 
 </t:layout>

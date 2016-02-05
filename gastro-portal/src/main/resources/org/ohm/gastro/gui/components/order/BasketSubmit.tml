@@ -110,7 +110,6 @@
                 </t:parameter>
             </t:if>
         </t:form>
-        <t:yagoalsubmit target="orderForm" goal="ORDER_PLACED"/>
         <t:parameter name="else">
             <div class="action-link">
                 <a href="#cart_login" data-toggle="modal" class="login-link round-link" data-target="#cart_login">Оформить заказ <span/></a>

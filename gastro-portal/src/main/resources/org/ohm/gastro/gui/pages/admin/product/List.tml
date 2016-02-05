@@ -19,7 +19,7 @@
             <a data-toggle="modal" data-target="#categories" href="#categories">Свойства</a>&nbsp;
         </div>
         <div class="modal fade" id="categories" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog image-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <div class="title">
@@ -28,9 +28,16 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
                     </div>
                     <div class="modal-body">
-                        <h2>Удалить свойства</h2>
                         <div class="row">
                             <div class="col-xs-6">
+                                <h3>Удалить свойства</h3>
+                            </div>
+                            <div class="col-xs-6">
+                                <h3>Добавить свойства</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
                                 <ul class="no-bullets">
                                     <t:loop source="categoryValues" value="value" formState="NONE">
                                         <li>
@@ -41,7 +48,7 @@
                                     </t:loop>
                                 </ul>
                             </div>
-                            <div class="col-xs-6">
+                            <div class="col-xs-3">
                                 <ul class="no-bullets">
                                     <t:loop source="eventValues" value="value" formState="NONE">
                                         <li>
@@ -52,10 +59,7 @@
                                     </t:loop>
                                 </ul>
                             </div>
-                        </div>
-                        <h2>Добавить свойства</h2>
-                        <div class="row">
-                            <div class="col-xs-6">
+                            <div class="col-xs-3">
                                 <ul class="no-bullets">
                                     <t:loop source="categoryValues" value="value" formState="NONE">
                                         <li>
@@ -66,7 +70,7 @@
                                     </t:loop>
                                 </ul>
                             </div>
-                            <div class="col-xs-6">
+                            <div class="col-xs-3">
                                 <ul class="no-bullets">
                                     <t:loop source="eventValues" value="value" formState="NONE">
                                         <li>
@@ -78,10 +82,8 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <input type="submit" class="btn btn-red" value="Изменить свойства"/>
-                            </div>
+                        <div class="form-buttons" xml:space="preserve">
+                            <input type="submit" class="btn btn-red" value="Изменить свойства"/>
                         </div>
                     </div>
                 </div>

@@ -51,24 +51,24 @@
     <meta name="msapplication-wide310x150logo" content="wide.png"/>
     <meta name="msapplication-square310x310logo" content="large.png"/>
 
-    <script src="/js/jquery-2.1.4.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 
-    <script src="/js/jquery.guillotine.min.js"></script>
-    <script src="/js/chosen.jquery.min.js"></script>
-    <script src="/js/jquery.cookie.js"></script>
-    <script src="/js/jquery.fine-uploader.min.js"></script>
-    <script src="/js/jquery.freetile.min.js"></script>
-    <script src="/js/autosize.min.js"></script>
-    <script src="/js/jquery-ui.min.js"></script>
-    <script src="/js/bootstrap-datepicker.min.js"></script>
-    <script src="/js/bootstrap-datepicker.ru.min.js" charset="UTF-8"></script>
-    <script src="/js/intlTelInput.min.js"></script>
-    <script src="/js/reconnecting-websocket.min.js"></script>
-    <script src="/js/jquery.hanselsrevenge.js"></script>
-    <script src="https://cdn.ravenjs.com/1.3.0/ember,jquery,native/raven.min.js"></script>
-    <script src="//vk.com/js/api/openapi.js?116" type="text/javascript"></script>
-    <script src="/js/custom.js?v=1.16"></script>
+    <script type="text/javascript" src="/js/jquery.guillotine.min.js"></script>
+    <script type="text/javascript" src="/js/chosen.jquery.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/js/jquery.fine-uploader.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.freetile.min.js"></script>
+    <script type="text/javascript" src="/js/autosize.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-datepicker.ru.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="/js/intlTelInput.min.js"></script>
+    <script type="text/javascript" src="/js/reconnecting-websocket.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.hanselsrevenge.js"></script>
+    <script type="text/javascript" src="https://cdn.ravenjs.com/1.3.0/ember,jquery,native/raven.min.js"></script>
+    <script type="text/javascript" src="//vk.com/js/api/openapi.js?116"></script>
+    <script type="text/javascript" src="/js/custom.js?v=1.16"></script>
 
     <script type="text/template" id="qq-template">
         <div class="qq-uploader-selector qq-uploader">
@@ -126,6 +126,9 @@
 <t:if test="footer">
     <t:footerlayout/>
 </t:if>
+<t:yagoalsubmit target="signupAjaxForm" goal="SIGNUP"/>
+<t:yagoalsubmit target="orderForm" goal="ORDER_PLACED"/>
+<t:yagoalsubmit target="attachTenderAjaxForm" goal="TENDER_ATTACH"/>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter29411415 = new Ya.Metrika({ id:29411415, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="https://mc.yandex.ru/watch/29411415" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->

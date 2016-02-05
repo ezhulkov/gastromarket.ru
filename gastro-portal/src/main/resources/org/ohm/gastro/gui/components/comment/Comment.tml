@@ -101,7 +101,6 @@
                                                     </div>
                                                     </div>
                                                 </t:form>
-                                                <t:yagoalsubmit target="attachTenderAjaxForm" goal="TENDER_ATTACH"/>
                                             </div>
                                         </div>
                                     </div>

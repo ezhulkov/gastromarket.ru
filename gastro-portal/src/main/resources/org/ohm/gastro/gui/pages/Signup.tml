@@ -42,7 +42,6 @@
                             <input class="btn btn-red" type="submit" value="Зарегистрироваться"/>
                         </div>
                     </t:form>
-                    <t:yagoalsubmit target="signupAjaxForm" goal="SIGNUP"/>
                     <div class="row">
                         <p class="modal-text f14px">
                             * - контактный телефон не является обязательным полем.
