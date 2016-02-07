@@ -1,6 +1,7 @@
 package org.ohm.gastro.domain;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Cache;
@@ -20,8 +21,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 24.08.14.
@@ -123,6 +127,9 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
 
     @Column(name = "views_count")
     private Integer viewsCount = 0;
+
+    @Column(name = "views_cook")
+    private String cookViews;
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -402,6 +409,10 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
         this.attachTime = attachTime;
     }
 
+    public String getAttachTimePrintable() {
+        return CommonsUtils.GUI_DATE.get().format(new Date(attachTime.getTime()));
+    }
+
     public CommentableEntity.Type getCommentableType() {
         return CommentableEntity.Type.ORDER;
     }
@@ -479,4 +490,25 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
     public void setRegion(Region region) {
         this.region = region;
     }
+
+    public String getCookViews() {
+        return cookViews;
+    }
+
+    public void setCookViews(final String cookViews) {
+        this.cookViews = cookViews;
+    }
+
+    public Set<Long> getCookViewsAsSet() {
+        return cookViews == null ? Sets.newHashSet() : Arrays.stream(cookViews.split(";")).map(t -> Long.parseLong(t)).collect(Collectors.toSet());
+    }
+
+    public boolean addCookViewEvent(Long id) {
+        if (id == null) return false;
+        final Set<Long> seen = getCookViewsAsSet();
+        final boolean result = seen.add(id);
+        setCookViews(seen.stream().map(t -> t.toString()).collect(Collectors.joining(";")));
+        return result;
+    }
+
 }

@@ -63,7 +63,7 @@
                                                         <li>
                                                             Каталог не заполнен
                                                             <div class="label-tip">
-                                                                Необходимо завершить все шаги настройки каталога и добавить хотя бы одно блюдо.
+                                                                Необходимо завершить все шаги настройки каталога и добавить минимум 5 блюд.
                                                             </div>
                                                         </li>
                                                     </t:unless>
@@ -110,7 +110,7 @@
                     </t:parameter>
                 </t:if>
                 <t:parameter name="else">
-                    <div class="gap2 text-center">
+                    <div class="text-center">
                         <a href="#tender_login" data-toggle="modal"
                            data-target="#tender_login"
                            class="btn btn-red btn-lg"

@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -59,6 +60,11 @@ public class CatalogServiceImpl implements CatalogService, Logging {
     public List<CatalogEntity> findAllCatalogs(UserEntity user) {
         if (user == null) return Lists.newArrayList();
         return catalogRepository.findAllByUser(user);
+    }
+
+    @Override
+    public List<CatalogEntity> findAllCatalogs(final Collection<Long> ids) {
+        return catalogRepository.findAll(ids);
     }
 
     @Override

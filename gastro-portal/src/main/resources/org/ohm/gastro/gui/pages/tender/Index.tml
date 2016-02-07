@@ -8,20 +8,103 @@
             <t:order.filter status="order.metaStatus" privateOrders="false" frontend="true"/>
         </div>
         <div class="container orders">
-            <t:zone t:id="orderZone">
-                <t:delegate to="orderBlock"/>
-            </t:zone>
-            <t:block t:id="orderBlock">
-                <div class="row">
-                    <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
-                        <t:order.order order="order" replies="true" type="FULL" orderPage="true" privateOrders="false" reloadPage="true" frontend="true"/>
-                    </div>
+            <div class="row">
+                <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
+                    <t:order.order order="order" replies="true" type="FULL" orderPage="true" privateOrders="false" reloadPage="true" frontend="true"/>
                 </div>
-            </t:block>
+            </div>
         </div>
     </section>
 
-    <t:order.replies order="order" frontend="true" reply="true"/>
+    <t:if test="order.tenderActive">
+        <t:if test="order.cookViewsAsSet">
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12 f20px">
+                            Заявку просмотрели кулинары:
+                            <ul class="cooks-viewed">
+                                <t:loop source="cooksViewed" value="oneCook" formState="NONE">
+                                    <li>
+                                        <t:pagelink page="catalog/index" context="oneCook.altId">
+                                            <img src="${oneCook.avatarUrlMedium}" data-placement="bottom" data-content="${oneCook.name}" data-toggle="popover" data-trigger="hover"/>
+                                        </t:pagelink>
+                                    </li>
+                                </t:loop>
+                            </ul>
+                            <hr/>
+                            <br/>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </t:if>
+    </t:if>
+
+    <t:if test="order.tenderAttached">
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-offset-0 col-sm-3 col-xs-12 f20px">
+                        Выбранный исполнитель заявки:
+                    </div>
+                </div>
+                <div class="row comment">
+                    <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-0 col-sm-3 col-xs-12 fluid-xs-block pic">
+                        <a href="${order.catalog.fullUrl}">
+                            <img src="${order.catalog.avatarUrl}"/>
+                        </a>
+                    </div>
+                    <div class="col-lg-7 col-lg-offset-0 col-md-7 col-md-offset-0 col-sm-8 col-sm-offset-0 col-xs-12">
+                        <div class="date">
+                            Дата закрытия ${order.attachTimePrintable}
+                        </div>
+                        <div class="name">
+                            <a href="${order.catalog.fullUrl}">
+                                ${order.catalog.name}
+                            </a>
+                        </div>
+                        <t:ratings entity="order.catalog" showCert="true"/>
+                        <hr/>
+                        <t:if test="order.totalPrice">
+                            <div class="f20px">Итоговая стоимости: ${order.totalPrice} <span class="rub"/></div>
+                        </t:if>
+                        <div class="text">
+                            <div class="f20px">Предложение кулинара:</div>
+                            <t:outputraw value="cookReply"/>
+                            <div class="f20px">Причина выбора:</div>
+                            <t:outputraw value="order.attachReason"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-offset-0 col-sm-3 col-xs-12">
+                        <hr/>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </t:if>
+
+    <section>
+        <t:zone t:id="repliesZone">
+            <t:unless test="showReplies">
+                <t:if test="order.tenderAttached">
+                    <div class="links-set gap2">
+                        <t:actionlink rel="nofollow" t:id="showRepliesAjaxLink" t:context="order.id" t:zone="repliesZone">Показать все отклики</t:actionlink>
+                    </div>
+                </t:if>
+            </t:unless>
+            <t:if test="showReplies">
+                <t:if test="order.tenderAttached">
+                    <div class="links-set gap2">
+                        <t:actionlink rel="nofollow" t:id="hideRepliesAjaxLink" t:context="order.id" t:zone="repliesZone">Скрыть все отклики</t:actionlink>
+                    </div>
+                </t:if>
+                <t:order.replies order="order" frontend="true" reply="true"/>
+            </t:if>
+        </t:zone>
+    </section>
 
     <t:unless test="authenticated">
         <t:loginUserModal modalId="tender_login">

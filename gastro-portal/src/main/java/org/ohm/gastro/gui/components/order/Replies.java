@@ -50,7 +50,7 @@ public class Replies extends AbstractOrder {
                 .map(t -> getCatalogService().findAllCatalogs(t).stream())
                 .orElseGet(Stream::empty)
                 .filter(CatalogEntity::isWasSetup)
-                .filter(t -> getProductService().findProductsForFrontendCount(t) > 0)
+                .filter(t -> getProductService().findProductsForFrontendCount(t) >= 5)
                 .findFirst()
                 .isPresent();
     }

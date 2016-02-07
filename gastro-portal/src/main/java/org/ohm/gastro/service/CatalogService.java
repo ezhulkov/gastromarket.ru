@@ -4,6 +4,7 @@ import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.reps.CatalogRepository;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -18,6 +19,8 @@ public interface CatalogService extends ImageUploaderService, AltIdService<Catal
     List<CatalogEntity> findAllActiveCatalogs();
 
     List<CatalogEntity> findAllCatalogs(UserEntity user);
+
+    List<CatalogEntity> findAllCatalogs(Collection<Long> ids);
 
     void deleteCatalog(Long id);
 

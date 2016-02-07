@@ -1201,4 +1201,10 @@
         </sql>
     </changeSet>
 
+    <changeSet id="109" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="views_cook" type="text"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

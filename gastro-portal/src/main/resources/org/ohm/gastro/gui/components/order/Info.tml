@@ -37,6 +37,7 @@
                 Отзывы +${clientPosRating}/-${clientNegRating}<br/>
                 ${order.customer.mobilePhone}<br/>
                 ${order.customer.deliveryAddress}<br/>
+                ${order.customer.eMail}<br/>
                 <i>Контакты не отображаются в публичном доступе.</i>
             </div>
         </div>
