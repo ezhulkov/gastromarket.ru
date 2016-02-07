@@ -271,7 +271,7 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
     }
 
     public String getDatePrintable() {
-        return CommonsUtils.GUI_DATE.get().format(new Date(date.getTime()));
+        return date == null ? "" : CommonsUtils.GUI_DATE.get().format(new Date(date.getTime()));
     }
 
     public Integer getTotalPrice() {
@@ -410,7 +410,7 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
     }
 
     public String getAttachTimePrintable() {
-        return CommonsUtils.GUI_DATE.get().format(new Date(attachTime.getTime()));
+        return attachTime == null ? "" : CommonsUtils.GUI_DATE.get().format(new Date(attachTime.getTime()));
     }
 
     public CommentableEntity.Type getCommentableType() {

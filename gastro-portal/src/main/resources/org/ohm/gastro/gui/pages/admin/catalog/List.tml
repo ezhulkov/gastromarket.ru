@@ -2,8 +2,8 @@
 
     <t:grid source="catalogs" row="oneCatalog"
             add="user,bills,del"
-            include="name,rating,level"
-            reorder="name,user,bills,rating,level,del"
+            include="name"
+            reorder="name,user,bills,del"
             t:mixins="GridSortingDisabled" class="table table-hover">
         <t:parameter name="nameHeader">
             Название

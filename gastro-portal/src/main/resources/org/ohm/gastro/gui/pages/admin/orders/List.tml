@@ -3,9 +3,7 @@
     <t:grid source="orders" row="oneOrder"
             add="customer,catalog"
             reorder="orderNumber,customer,catalog,status"
-            exclude="id,altId,name,lastModified,totalPrice,lastModifiedPrintable,annonceSent,comment,usedBonuses,date,personCount,promoCode,datePrintable,
-            dueDate,dueDateAsString,attachReason,triggerTime,viewsCount,commentRaw,metaStatusString,orderUrl,order,attachTime,wasSetup,
-            referrerBonus,metaStatus,locationUrl,bonus,commentableType,tenderExpired,tender,type,tenderAttached,orderClosed,tenderActive"
+            include="orderNumber,status"
             t:mixins="GridSortingDisabled" class="table table-hover">
 
         <t:parameter name="orderNumberCell">
