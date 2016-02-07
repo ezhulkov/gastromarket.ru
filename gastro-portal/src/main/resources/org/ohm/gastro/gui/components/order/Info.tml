@@ -35,9 +35,9 @@
                 <t:pagelink page="user/index" t:context="order.customer.id">${order.customer.fullName}</t:pagelink>
                 <br/>
                 Отзывы +${clientPosRating}/-${clientNegRating}<br/>
-                ${order.customer.mobilePhone}<br/>
-                ${order.customer.deliveryAddress}<br/>
-                ${order.customer.eMail}<br/>
+                <t:if test="order.customer.mobilePhone">${order.customer.mobilePhone}<br/></t:if>
+                <t:if test="order.customer.deliveryAddress">${order.customer.deliveryAddress}<br/></t:if>
+                <t:if test="order.customer.eMail">${order.customer.eMail}<br/></t:if>
                 <i>Контакты не отображаются в публичном доступе.</i>
             </div>
         </div>
