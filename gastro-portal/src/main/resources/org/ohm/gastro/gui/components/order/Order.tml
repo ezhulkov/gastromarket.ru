@@ -3,89 +3,57 @@
         <t:delegate to="currentOrderBlock"/>
     </t:zone>
     <t:block t:id="orderMainBlock">
-        <t:order.catalogBlock order="order"
-                              frontend="frontend"
-                              orderBlock="orderMainBlock"
-                              catalog="catalog"
-                              orderShowCatalogZoneId="orderShowCatalogZoneId"
-                              privateOrders="privateOrders"/>
-        <t:order.tenderInfo order="order" frontend="frontend"/>
+        <t:order.orderHeader order="order" frontend="frontend"/>
         <t:order.items order="order" catalog="catalog" items="items" orderShowCatalogZoneId="orderShowCatalogZoneId" orderBlock="orderMainBlock"/>
-        <t:order.price items="items" catalog="catalog" order="order" frontend="frontend"/>
         <t:order.basketSubmit items="items" order="order" catalog="catalog" type="prop:type"/>
-        <t:if test="full">
-            <t:order.info order="order" catalog="catalog" orderPage="orderPage" frontend="frontend"/>
+        <t:order.info order="order" catalog="catalog" orderPage="orderPage" frontend="frontend"/>
+        <t:if test="order.tender">
             <div class="action-link">
-                <t:delegate to="orderAdditionalBlock"/>
-            </div>
-            <t:block t:id="catalogAttachedBlock">
-                <a href="#tender_closed_${order.id}" data-toggle="modal" data-target="#tender_closed_${order.id}" class="round-link">Заявка закрыта</a>
-                <div class="modal fade" id="tender_closed_${order.id}" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <div class="title">
-                                    <h1><span>Заявка закрыта</span></h1>
-                                </div>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
-                            </div>
-                            <div class="modal-body">
-                                <p class="modal-text">
-                                    Заказчик выбрал исполнителем кулинара<br/>
-                                    <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="order.catalog?.altId">
-                                        <span><img src="${order.catalog.avatarUrlMedium}" class="avatar-small"/></span>${order.catalog?.name}
-                                    </t:pageLink>
-                                </p>
-                                <t:if test="order.attachReason">
-                                    <p class="modal-text gap2">
-                                        Причина выбора:<br/>
-                                        <i>"${order.attachReason}"</i>
-                                    </p>
-                                </t:if>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </t:block>
-            <t:block t:id="clientEditBlock">
-                <t:if test="orderPage">
-                    <t:if test="canEdit">
-                        <t:actionlink rel="nofollow" class="edit-link" t:id="editTender" t:context="order.id" t:zone="${editZoneId}">Редактировать</t:actionlink>
-                    </t:if>
-                    <script>
-                        jQuery("body").removeClass("modal-open");
-                    </script>
-                </t:if>
-            </t:block>
-            <t:block t:id="clientRateCook">
-                <t:if test="orderPage">
-                    <t:unless test="frontend">
-                        <t:unless test="order.clientRate">
-                            <a href="#cook_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#cook_rate_${order.id}">Оценить кулинара</a>
-                            <t:comment.editmodal entity="order?.catalog" order="order" modalId="cook_rate_${order.id}" title="Оценить кулинара"/>
-                        </t:unless>
-                    </t:unless>
-                </t:if>
-            </t:block>
-            <t:block t:id="cookRateClient">
-                <t:if test="orderPage">
-                    <t:unless test="frontend">
-                        <t:unless test="order.cookRate">
-                            <a href="#client_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#client_rate_${order.id}">Оценить заказчика</a>
-                            <t:comment.editmodal entity="order?.customer" order="order" modalId="client_rate_${order.id}" title="Оценить заказчика"/>
-                        </t:unless>
-                    </t:unless>
-                </t:if>
-            </t:block>
-            <t:block t:id="tenderReplyBlock">
-                <t:unless test="replies">
+                <t:delegate to="tenderAdditionalBlock"/>
+                <t:block t:id="catalogAttachedBlock">
+                    <t:pagelink page="tender/index" t:context="order.id" class="round-link" anchor="attached">Исполнитель выбран</t:pagelink>
+                </t:block>
+                <t:block t:id="expiredBlock">
+                    <t:pagelink page="tender/index" t:context="order.id" class="round-link">Заявка просрочена</t:pagelink>
+                </t:block>
+                <t:block t:id="tenderReplyBlock">
                     <t:pagelink page="tender/index" t:context="order.id" class="round-link" anchor="reply">Откликнуться<span/></t:pagelink>
-                </t:unless>
-            </t:block>
-            <t:block t:id="expiredBlock">
-                <a href="#tender_exprired_${order.id}" data-toggle="modal" data-target="#tender_exprired_${order.id}" class="round-link">Заявка просрочена</a>
-            </t:block>
+                </t:block>
+            </div>
         </t:if>
+
+        <!--<t:block t:id="clientEditBlock">-->
+        <!--<t:if test="orderPage">-->
+        <!--<t:if test="canEdit">-->
+        <!--<t:actionlink rel="nofollow" class="round-link" t:id="editTender" t:context="order.id" t:zone="${editZoneId}">Редактировать</t:actionlink>-->
+        <!--</t:if>-->
+        <!--<script>-->
+        <!--jQuery("body").removeClass("modal-open");-->
+        <!--</script>-->
+        <!--</t:if>-->
+        <!--</t:block>-->
+        <!--<t:block t:id="clientRateCook">-->
+        <!--<t:if test="orderPage">-->
+        <!--<t:unless test="frontend">-->
+        <!--<t:unless test="order.clientRate">-->
+        <!--<a href="#cook_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#cook_rate_${order.id}">Оценить кулинара</a>-->
+        <!--<t:comment.editmodal entity="order?.catalog" order="order" modalId="cook_rate_${order.id}" title="Оценить кулинара"/>-->
+        <!--</t:unless>-->
+        <!--</t:unless>-->
+        <!--</t:if>-->
+        <!--</t:block>-->
+        <!--<t:block t:id="cookRateClient">-->
+        <!--<t:if test="orderPage">-->
+        <!--<t:unless test="frontend">-->
+        <!--<t:unless test="order.cookRate">-->
+        <!--<a href="#client_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#client_rate_${order.id}">Оценить заказчика</a>-->
+        <!--<t:comment.editmodal entity="order?.customer" order="order" modalId="client_rate_${order.id}" title="Оценить заказчика"/>-->
+        <!--</t:unless>-->
+        <!--</t:unless>-->
+        <!--</t:if>-->
+        <!--</t:block>-->
+
+
     </t:block>
     <t:block t:id="deniedOrderBlock">
         <div class="row">
@@ -95,11 +63,11 @@
         </div>
     </t:block>
     <t:zone t:id="editZone" id="${editZoneId}"/>
-    <t:block t:id="editOrderBlock">
-        <t:order.edit modalId="order-${order.id}" order="order" orderBlock="orderMainBlock" orderZoneId="${orderShowCatalogZoneId}" reloadPage="reloadPage" tender="order?.tender"/>
-        <script>
-            var pe = jQuery("#order-${order.id}");
-            pe.modal('show');
-        </script>
-    </t:block>
+    <!--<t:block t:id="editOrderBlock">-->
+    <!--<t:order.edit modalId="order-${order.id}" order="order" orderBlock="orderMainBlock" orderZoneId="${orderShowCatalogZoneId}" reloadPage="reloadPage" tender="order?.tender"/>-->
+    <!--<script>-->
+    <!--var pe = jQuery("#order-${order.id}");-->
+    <!--pe.modal('show');-->
+    <!--</script>-->
+    <!--</t:block>-->
 </div>

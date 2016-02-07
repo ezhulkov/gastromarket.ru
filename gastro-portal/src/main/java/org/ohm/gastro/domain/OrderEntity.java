@@ -472,7 +472,7 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
     }
 
     public final boolean isCanEdit(final UserEntity user) {
-        return user != null && user.isAdmin() || isOrderOwner(user) && getStatus().getLevel() <= Status.ACTIVE.getLevel();
+        return user != null && (user.isAdmin() || isOrderOwner(user));
     }
 
     public final boolean isOrderOwner(final UserEntity user) {

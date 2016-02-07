@@ -28,27 +28,27 @@ public class Order extends AbstractOrder {
     @Inject
     private Block deniedOrderBlock;
 
-    @Inject
-    private Block clientEditBlock;
+//    @Inject
+//    private Block clientEditBlock;
 
     @Inject
     private Block expiredBlock;
 
-    @Inject
-    private Block clientRateCook;
+//    @Inject
+//    private Block clientRateCook;
 
     @Inject
     private Block tenderReplyBlock;
 
-    @Inject
-    private Block cookRateClient;
+//    @Inject
+//    private Block cookRateClient;
 
     @Inject
     private Block catalogAttachedBlock;
 
-    @Inject
-    @Property
-    private Block editOrderBlock;
+//    @Inject
+//    @Property
+//    private Block editOrderBlock;
 
     @Inject
     @Property
@@ -62,14 +62,10 @@ public class Order extends AbstractOrder {
         if (order != null) catalog = order.getCatalog();
     }
 
-    public Block onActionFromEditTender(Long tid) {
-        this.order = getOrderService().findOrder(tid);
-        return editOrderBlock;
-    }
-
-    public boolean isFull() {
-        return type == Type.FULL || type == Type.MAIN_PAGE;
-    }
+//    public Block onActionFromEditTender(Long tid) {
+//        this.order = getOrderService().findOrder(tid);
+//        return editOrderBlock;
+//    }
 
     public String getOrderShowCatalogZoneId() {
         return String.format("orderShowCatalogZoneId%s", order == null ? catalog.getId() : order.getId());
@@ -79,20 +75,11 @@ public class Order extends AbstractOrder {
         return isCook() ? order.getStatus().getCookGraph() : order.getStatus().getClientGraph();
     }
 
-    public Block getOrderAdditionalBlock() {
-        if (order == null) return null;
+    public Block getTenderAdditionalBlock() {
+        if (order == null || !order.isTender()) return null;
         if (order.isTenderExpired() && order.getCatalog() == null) return expiredBlock;
-        if (frontend) {
-            if (order.isCanEdit(getAuthenticatedUserSafe())) return clientEditBlock;
-            return isCanReplyTender() ? tenderReplyBlock : catalogAttachedBlock;
-        }
-        if (!isCook()) {
-            if (order.getMetaStatus() == Status.CLOSED) return clientRateCook;
-            if (order.isCanEdit(getAuthenticatedUserSafe())) return clientEditBlock;
-        } else {
-            if (order.getMetaStatus() == Status.CLOSED) return cookRateClient;
-        }
-        return null;
+        if (order.getCatalog() != null) return catalogAttachedBlock;
+        return tenderReplyBlock;
     }
 
     public boolean isCanReplyTender() {

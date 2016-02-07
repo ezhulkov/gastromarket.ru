@@ -94,4 +94,18 @@ public abstract class AbstractOrder extends BaseComponent {
         return type == Type.MAIN_PAGE;
     }
 
+    public String getOrderUrl() {
+        return frontend ? "tender/index" : "office/order";
+    }
+
+    public Object[] getOrderContext() {
+        return (frontend || order.isTender()) ?
+                new Object[]{false, order.getId(), false} :
+                new Object[]{true, order.getId(), false};
+    }
+
+    public boolean isFull() {
+        return type == Type.FULL || type == Type.MAIN_PAGE;
+    }
+
 }

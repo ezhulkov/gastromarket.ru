@@ -1,0 +1,35 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="row tender-info">
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 lh30">
+        <t:pagelink page="${orderUrl}" t:context="orderContext" class="f30px black-text">
+            <t:if test="order.tender">
+                ${order.name}
+                <t:parameter name="else">
+                    Заказ №${order.orderNumber}
+                </t:parameter>
+            </t:if>
+        </t:pagelink>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 fluid-xs-block">
+        <t:if test="order.totalPrice">
+            <span class="price  bold">
+                ${order.totalPrice}&nbsp;<span class="rub"/>
+            </span>
+            <t:parameter name="else">
+                <span class="price">Открытый бюджет</span>
+            </t:parameter>
+        </t:if>
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        <t:pageLink class="pic-holder catalog-link" page="user/index" t:context="order.customer.id">
+            <span><img src="${order.customer.avatarUrlMedium}" class="avatar-small"/></span>${order.customer.fullName}
+        </t:pageLink>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 fluid-xs-block tender-views">
+        ${order.datePrintable}
+        <t:if test="order.tender">
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="glyphicon glyphicon glyphicon-eye-open" aria-hidden="true"></span> ${order.viewsCount}&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> ${comments.size()}
+        </t:if>
+    </div>
+</div>

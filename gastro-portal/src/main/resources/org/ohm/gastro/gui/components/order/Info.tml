@@ -1,5 +1,5 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="row">
-    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <t:if test="order.tender">
             <span class="f20px">Комментарии к заявке:</span><br/>
             <t:parameter name="else">
@@ -11,20 +11,20 @@
         </t:if>
     </div>
     <t:if test="order.dueDateAsString">
-        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <span class="f20px">Дата исполнения:</span><br/>
             <div>${order.dueDateAsString}</div>
         </div>
     </t:if>
     <t:if test="order.personCount">
-        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <span class="f20px">Количество персон:</span><br/>
             <div>${order.personCount}</div>
         </div>
     </t:if>
     <t:if test="contactsAllowed">
         <t:if test="order.promoCode">
-            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <span class="f20px">Промо-код:</span><br/>
                 <div>${order.promoCode}</div>
             </div>
@@ -42,7 +42,7 @@
             </div>
         </div>
     </t:if>
-    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <t:photos order="order"/>
     </div>
 </div>
