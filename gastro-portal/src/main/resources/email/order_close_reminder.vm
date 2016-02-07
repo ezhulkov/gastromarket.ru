@@ -4,7 +4,7 @@
 
 #parse("email/header.vm")
 <p>
-    Мы хотели напомнить, что истекло время исполнения <a href="${address}?${params}" style="color: red;">${order.orderId}</a>.<br/>
+    Мы хотели напомнить, что истекло время исполнения <a href="${address}?${params}" style="color: red;">${order.orderNumber}</a>.<br/>
     Пожалуйста, не забудьте закрыть заказ в своем личном кабинете.
 </p>
 

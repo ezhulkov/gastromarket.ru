@@ -55,7 +55,7 @@
                             <img src="/img/chef-128x128.png" srcset="/img/chef-256x256.png 2x" alt="тендер" title="конкурс"/>
                         </p>
                         <p class="modal-text">
-                            Более 200 домашних кулинаров и кондитеров смогут откликнуться на неё и вам останется только выбрать лучшего исполнителя.
+                            Лучшие домашние кулинары и кондитеры смогут откликнуться на неё и вам останется только выбрать подходящее предложение.
                         </p>
                         <div class="form-buttons" xml:space="preserve">
                            <t:pagelink page="tender/add" class="btn btn-red btn-lg">Оставить заявку</t:pagelink>
