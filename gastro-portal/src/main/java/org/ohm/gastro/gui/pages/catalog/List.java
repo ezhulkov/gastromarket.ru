@@ -25,7 +25,10 @@ public class List extends BaseComponent {
 
     @Cached
     public java.util.List<CatalogEntity> getCatalogs() {
-        return getCatalogService().findAllActiveCatalogs().stream().filter(t -> getProductService().findProductsForFrontendCount(t) > 0).collect(Collectors.toList());
+        return getCatalogService().findAllActiveCatalogs().stream()
+                .filter(t -> Boolean.TRUE.equals(t.getContractSigned()))
+                .filter(t -> getProductService().findProductsForFrontendCount(t) > 0)
+                .collect(Collectors.toList());
     }
 
     public String getRootProperties() {
