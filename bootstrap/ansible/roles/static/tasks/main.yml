@@ -1,0 +1,9 @@
+---
+  - name: upload static
+    copy: src=../../gastro-portal/target/static.tar.gz dest=/tmp/static.tar.gz owner=nginx group=nginx mode=0644
+
+  - name: untar static
+    unarchive: src=/tmp/static.tar.gz dest=/ copy=false
+
+  - name: restart nginx
+    service: name=nginx state=restarted

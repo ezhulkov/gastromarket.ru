@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12 info">
-                    <h1 id="main-title">Ищете угощения для праздника?</h1>
+                    <h1 id="main-title">Ищете угощения для любимых?</h1>
 
                     <h2 id="main-text">
                         Лучшие домашние кондитеры и кулинары готовы сделать блюдо по индивидуальному заказу. <br/>
@@ -12,7 +12,7 @@
                     </h2>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cta">
-                    <t:pagelink page="tender/add" class="btn btn-red">Разместить заявку</t:pagelink>
+                    <t:pagelink page="tender/add" class="btn btn-red btn-white-border">Разместить заявку</t:pagelink>
                 </div>
             </div>
         </div>

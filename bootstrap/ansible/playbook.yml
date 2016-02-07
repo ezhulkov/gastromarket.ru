@@ -1,6 +1,3 @@
 ---
-  - hosts: portal
-    gather_facts: false
-    sudo: yes
-    roles:
-      - portal
+- include: playbook-portal.yml
+- include: playbook-static.yml

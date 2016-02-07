@@ -165,6 +165,9 @@
                 <div class="empty">Нет данных</div>
             </t:parameter>
         </t:grid>
+        <div class="links-set" xml:space="preserve">
+            <a data-toggle="modal" data-target="#categories" href="#categories">Свойства</a>&nbsp;
+        </div>
     </t:form>
 
     <t:zone t:id="editZone"/>

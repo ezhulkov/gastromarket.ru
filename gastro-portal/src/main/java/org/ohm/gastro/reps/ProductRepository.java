@@ -64,7 +64,7 @@ public interface ProductRepository extends AltIdRepository<ProductEntity> {
 
     @Query("select count(distinct pr) from ProductEntity pr " +
             "   join pr.catalog c " +
-            "where c=:catalog and " +
+            "where c=:catalog and pr.hidden=false and " +
             "   (pr.wasSetup=:wasSetup or :wasSetup is null)")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     int findCountInCatalog(@Param("catalog") CatalogEntity catalog, @Param("wasSetup") Boolean wasSetup);
