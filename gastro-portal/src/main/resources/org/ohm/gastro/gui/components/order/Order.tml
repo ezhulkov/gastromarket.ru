@@ -2,9 +2,9 @@
 
     <div class="order-show-catalog ${type.name().toLowerCase()}">
         <t:order.orderHeader order="order" catalog="catalog" frontend="frontend"/>
-        <t:order.items order="order" catalog="catalog" items="items" orderShowCatalogZoneId="orderShowCatalogZoneId"/>
+        <t:order.items order="order" catalog="catalog" items="items"/>
+        <t:order.info order="order" catalog="catalog" orderPage="orderPage" frontend="frontend"/>
         <t:order.basketSubmit items="items" order="order" catalog="catalog" type="prop:type"/>
-        <!--<t:order.info order="order" catalog="catalog" orderPage="orderPage" frontend="frontend"/>-->
         <t:if test="order?.tender">
             <div class="action-link">
                 <t:delegate to="tenderAdditionalBlock"/>

@@ -14,10 +14,10 @@ public class Info extends AbstractOrder {
     }
 
     public String getPrepaymentText() {
-        if (catalog.getPrepayment() != null) {
+        if (getCatalog().getPrepayment() != null) {
             final float total = getTotal();
-            final float prepayment = catalog.getPrepayment();
-            return getMessages().format("prepayment.text", catalog.getPrepayment(), (int) Math.ceil(prepayment * total / 100));
+            final float prepayment = getCatalog().getPrepayment();
+            return getMessages().format("prepayment.text2", getCatalog().getPrepayment(), (int) Math.ceil(prepayment * total / 100));
         }
         return null;
     }

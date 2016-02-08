@@ -30,10 +30,6 @@ public abstract class AbstractOrder extends BaseComponent {
     protected Block orderBlock;
 
     @Property
-    @Parameter
-    protected String orderShowCatalogZoneId;
-
-    @Property
     @Parameter(value = "false")
     protected boolean frontend;
 

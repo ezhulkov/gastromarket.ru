@@ -17,7 +17,7 @@
                     <div class="number">
                         <t:pagelink page="office/order" t:context="[privateOrders,order.id]">№ ${order.orderNumber}</t:pagelink>
                     </div>
-                    <t:order.statuschange order="order" catalog="catalog" orderShowCatalogZoneId="orderShowCatalogZoneId" orderBlock="orderBlock"/>
+                    <t:order.statuschange order="order" catalog="catalog" orderBlock="orderBlock"/>
                 </t:if>
             </div>
         </div>

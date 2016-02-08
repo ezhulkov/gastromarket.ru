@@ -60,10 +60,6 @@ public class Order extends AbstractOrder {
 //        return editOrderBlock;
 //    }
 
-    public String getOrderShowCatalogZoneId() {
-        return String.format("orderShowCatalogZoneId%s", order == null ? catalog.getId() : order.getId());
-    }
-
     public Status[] getStatuses() {
         return isCook() ? order.getStatus().getCookGraph() : order.getStatus().getClientGraph();
     }

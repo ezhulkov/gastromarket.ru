@@ -6,7 +6,6 @@
                     ${order.name}
                     <t:parameter name="else">
                         Заказ №${order.orderNumber}
-
                     </t:parameter>
                 </t:if>
             </t:pagelink>
@@ -40,9 +39,14 @@
                 <span><img src="${order.customer.avatarUrlMedium}" class="avatar-small"/></span>${order.customer.fullName}
             </t:pageLink>
             <t:parameter name="else">
-                <t:pageLink class="pic-holder catalog-link" page="user/index" t:context="authenticatedUser.id">
-                    <span><img src="${authenticatedUser.avatarUrlMedium}" class="avatar-small"/></span>${authenticatedUser.fullName}
-                </t:pageLink>
+                <t:if test="authenticated">
+                    <t:pageLink class="pic-holder catalog-link" page="user/index" t:context="authenticatedUser.id">
+                        <span><img src="${authenticatedUser.avatarUrlMedium}" class="avatar-small"/></span>${authenticatedUser.fullName}
+                    </t:pageLink>
+                    <t:parameter name="else">
+                        <br/>
+                    </t:parameter>
+                </t:if>
             </t:parameter>
         </t:if>
     </div>
