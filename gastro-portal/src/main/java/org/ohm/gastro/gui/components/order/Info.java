@@ -13,4 +13,13 @@ public class Info extends AbstractOrder {
         return getConversationService().findAllComments(order.getCustomer()).stream().filter(t -> t.getRating() < 0).count();
     }
 
+    public String getPrepaymentText() {
+        if (catalog.getPrepayment() != null) {
+            final float total = getTotal();
+            final float prepayment = catalog.getPrepayment();
+            return getMessages().format("prepayment.text", catalog.getPrepayment(), (int) Math.ceil(prepayment * total / 100));
+        }
+        return null;
+    }
+
 }

@@ -1,13 +1,11 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="order-show-catalog ${type.name().toLowerCase()}">
-    <t:zone t:id="orderShowCatalogZone" id="${orderShowCatalogZoneId}">
-        <t:delegate to="currentOrderBlock"/>
-    </t:zone>
-    <t:block t:id="orderMainBlock">
-        <t:order.orderHeader order="order" frontend="frontend"/>
-        <t:order.items order="order" catalog="catalog" items="items" orderShowCatalogZoneId="orderShowCatalogZoneId" orderBlock="orderMainBlock"/>
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <div class="order-show-catalog ${type.name().toLowerCase()}">
+        <t:order.orderHeader order="order" catalog="catalog" frontend="frontend"/>
+        <t:order.items order="order" catalog="catalog" items="items" orderShowCatalogZoneId="orderShowCatalogZoneId"/>
         <t:order.basketSubmit items="items" order="order" catalog="catalog" type="prop:type"/>
-        <t:order.info order="order" catalog="catalog" orderPage="orderPage" frontend="frontend"/>
-        <t:if test="order.tender">
+        <!--<t:order.info order="order" catalog="catalog" orderPage="orderPage" frontend="frontend"/>-->
+        <t:if test="order?.tender">
             <div class="action-link">
                 <t:delegate to="tenderAdditionalBlock"/>
                 <t:block t:id="catalogAttachedBlock">
@@ -21,7 +19,6 @@
                 </t:block>
             </div>
         </t:if>
-
         <!--<t:block t:id="clientEditBlock">-->
         <!--<t:if test="orderPage">-->
         <!--<t:if test="canEdit">-->
@@ -52,17 +49,14 @@
         <!--</t:unless>-->
         <!--</t:if>-->
         <!--</t:block>-->
+    </div>
 
+    <t:if test="order">
+        <t:order.cooksviewed order="order" orderPage="orderPage"/>
+        <t:order.executor order="order" orderPage="orderPage"/>
+    </t:if>
 
-    </t:block>
-    <t:block t:id="deniedOrderBlock">
-        <div class="row">
-            <p class="modal-text">
-                Код 403 - доступ запрещен
-            </p>
-        </div>
-    </t:block>
-    <t:zone t:id="editZone" id="${editZoneId}"/>
+    <!--<t:zone t:id="editZone" id="${editZoneId}"/>-->
     <!--<t:block t:id="editOrderBlock">-->
     <!--<t:order.edit modalId="order-${order.id}" order="order" orderBlock="orderMainBlock" orderZoneId="${orderShowCatalogZoneId}" reloadPage="reloadPage" tender="order?.tender"/>-->
     <!--<script>-->

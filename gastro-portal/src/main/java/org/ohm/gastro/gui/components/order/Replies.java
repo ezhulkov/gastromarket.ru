@@ -2,8 +2,10 @@ package org.ohm.gastro.gui.components.order;
 
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
+import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
@@ -26,6 +28,16 @@ public class Replies extends AbstractOrder {
     @Property
     @Parameter
     protected boolean reply;
+
+    @Property
+    private boolean showReplies;
+
+    @InjectComponent
+    private Zone repliesZone;
+
+    public void beginRender() {
+        showReplies = !order.isTenderAttached();
+    }
 
     @Cached
     public java.util.List<CommentEntity> getComments() {
@@ -80,6 +92,18 @@ public class Replies extends AbstractOrder {
                 .orElseGet(Stream::empty)
                 .filter(t -> !t.getContractSigned())
                 .count() == 0;
+    }
+
+    public Block onActionFromShowRepliesAjaxLink(Long oid) {
+        this.order = getOrderService().findOrder(oid);
+        this.showReplies = true;
+        return repliesZone.getBody();
+    }
+
+    public Block onActionFromHideRepliesAjaxLink(Long oid) {
+        this.order = getOrderService().findOrder(oid);
+        this.showReplies = false;
+        return repliesZone.getBody();
     }
 
 }

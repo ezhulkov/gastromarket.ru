@@ -25,9 +25,6 @@ public class Order extends AbstractOrder {
     @Property
     private boolean replies;
 
-    @Inject
-    private Block deniedOrderBlock;
-
 //    @Inject
 //    private Block clientEditBlock;
 
@@ -49,10 +46,6 @@ public class Order extends AbstractOrder {
 //    @Inject
 //    @Property
 //    private Block editOrderBlock;
-
-    @Inject
-    @Property
-    protected Block orderMainBlock;
 
     public java.util.List<OrderProductEntity> getItems() {
         return order == null ? getShoppingCart().getItems(catalog) : getOrderService().findAllItems(order);
@@ -87,16 +80,6 @@ public class Order extends AbstractOrder {
                 order.getType() == OrderEntity.Type.PUBLIC &&
                 order.getStatus() == Status.NEW &&
                 order.getCatalog() == null;
-    }
-
-    public Block getCurrentOrderBlock() {
-        if (order != null && order.getType() == OrderEntity.Type.PUBLIC) return orderMainBlock;
-        if (type == Type.BASKET || type == Type.SHORT || type == Type.MAIN_PAGE) return orderMainBlock;
-        if (isAuthenticated()) {
-            return order == null || order.isAccessAllowed(getAuthenticatedUser()) ? orderMainBlock : deniedOrderBlock;
-        } else {
-            return deniedOrderBlock;
-        }
     }
 
     public String getEditZoneId() {

@@ -1,0 +1,17 @@
+<t:if xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" test="order.tenderActive">
+    <t:if test="orderPage">
+        <t:if test="order.cookViewsAsSet">
+            <div class="f20px">Заявку просмотрели кулинары:</div>
+            <ul class="cooks-viewed">
+                <t:loop source="cooksViewed" value="oneCook" formState="NONE">
+                    <li>
+                        <t:pagelink page="catalog/index" context="oneCook.altId" target="_blank">
+                            <img src="${oneCook.avatarUrlMedium}" data-placement="bottom" data-content="${oneCook.name}" data-toggle="popover" data-trigger="hover"/>
+                        </t:pagelink>
+                    </li>
+                </t:loop>
+            </ul>
+            <hr/>
+        </t:if>
+    </t:if>
+</t:if>

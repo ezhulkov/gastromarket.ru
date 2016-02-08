@@ -1,16 +1,6 @@
 @import "../include/var"
 @import "tools"
 
-=border-class($border:#aaa, $background:#fff, $shadow: #ddd)
-  -webkit-box-shadow: 0 0 6px 2px $shadow
-  -moz-box-shadow: 0 0 6px 2px $shadow
-  box-shadow: 0 0 6px 2px $shadow
-  background-color: $background
-  border: 1px solid $border
-
-.border-shadow
-  +border-class
-
 .grid-block
   width: 100%
   margin: 0 auto 10px auto

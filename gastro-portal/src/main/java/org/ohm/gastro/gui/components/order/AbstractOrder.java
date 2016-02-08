@@ -6,9 +6,12 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
+import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.OrderProductEntity;
 import org.ohm.gastro.gui.components.order.Order.Type;
 import org.ohm.gastro.gui.mixins.BaseComponent;
+
+import java.util.function.Supplier;
 
 /**
  * Created by ezhulkov on 31.07.15.
@@ -95,17 +98,28 @@ public abstract class AbstractOrder extends BaseComponent {
     }
 
     public String getOrderUrl() {
-        return frontend ? "tender/index" : "office/order";
+        return getOrderUrlData(() -> "office/orders",
+                               () -> "tender/index",
+                               () -> "office/order",
+                               () -> "office/order");
     }
 
     public Object[] getOrderContext() {
-        return (frontend || order.isTender()) ?
-                new Object[]{false, order.getId(), false} :
-                new Object[]{true, order.getId(), false};
+        return getOrderUrlData(() -> new Object[]{true, Status.NEW},
+                               () -> new Object[]{order.getId()},
+                               () -> new Object[]{false, order.getId(), false},
+                               () -> new Object[]{true, order.getId(), false});
     }
 
     public boolean isFull() {
         return type == Type.FULL || type == Type.MAIN_PAGE;
+    }
+
+    private <T> T getOrderUrlData(Supplier<T> cart, Supplier<T> tenderFrontend, Supplier<T> tenderBackend, Supplier<T> orderBackend) {
+        if (order == null) return cart.get();
+        if (frontend) return tenderFrontend.get();
+        if (order.isTender()) return tenderBackend.get();
+        return orderBackend.get();
     }
 
 }

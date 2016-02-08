@@ -11,4 +11,8 @@ public class OrderHeader extends AbstractOrder {
         return getConversationService().findAllComments(order);
     }
 
+    public int getBasketTotal() {
+        return getShoppingCart().getCatalogPrice(catalog);
+    }
+
 }
