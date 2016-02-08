@@ -3,9 +3,9 @@
     <section>
         <div class="container">
             <div class="title">
-                <h1><span>Заявка</span></h1>
+                <h1><span>${order.name}</span></h1>
             </div>
-            <t:order.filter status="order.metaStatus" privateOrders="false" frontend="true"/>
+            <!--<t:order.filter status="order.metaStatus" privateOrders="false" frontend="true"/>-->
         </div>
         <div class="container orders">
             <div class="row">

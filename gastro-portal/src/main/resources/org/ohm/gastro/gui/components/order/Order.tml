@@ -1,5 +1,13 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
+    <t:if test="orderPage">
+        <div class="links-set" style="margin-top: 0; margin-bottom: 7px;">
+            <a data-toggle="modal" data-target="#catalog-edit" href="javascript:history.back()" class="back"><span/> Все заявки</a>&nbsp;
+            <a data-toggle="modal" data-target="#pr-new" href="#pr-new" class="hidden-xs">Редактировать заявку</a>&nbsp;
+            <a data-toggle="modal" data-target="#of-new" href="#of-new" class="hidden-xs">Отменить заявку</a>
+        </div>
+    </t:if>
+
     <div class="order-show-catalog ${type.name().toLowerCase()}">
         <t:order.orderHeader order="order" catalog="catalog" frontend="frontend"/>
         <t:order.items order="order" catalog="catalog" items="items"/>
