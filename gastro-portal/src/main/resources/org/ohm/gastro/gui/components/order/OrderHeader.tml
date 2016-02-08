@@ -6,6 +6,7 @@
                     ${order.name}
                     <t:parameter name="else">
                         Заказ №${order.orderNumber}
+
                     </t:parameter>
                 </t:if>
             </t:pagelink>
