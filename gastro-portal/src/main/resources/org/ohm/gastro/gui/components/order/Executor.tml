@@ -1,7 +1,7 @@
 <t:if xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" test="order.tenderAttached">
     <t:if test="order.tender">
         <t:if test="orderPage">
-            <div id="attached" class="border-shadow order-show-catalog">
+            <div class="border-shadow order-show-catalog">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 f20px black-text">
                         Выбранный исполнитель заявки:

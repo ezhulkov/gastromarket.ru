@@ -1,154 +1,156 @@
-<section xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" id="reply" class="replies">
-    <t:zone t:id="repliesZone">
-        <t:unless test="showReplies">
-            <t:if test="order.tenderAttached">
-                <div class="links-set gap2">
-                    <t:actionlink rel="nofollow" t:id="showRepliesAjaxLink" t:context="order.id" t:zone="repliesZone">Показать все отклики</t:actionlink>
-                </div>
-            </t:if>
-        </t:unless>
-        <t:if test="showReplies">
-            <t:if test="order.tenderAttached">
-                <div class="links-set gap2">
-                    <t:actionlink rel="nofollow" t:id="hideRepliesAjaxLink" t:context="order.id" t:zone="repliesZone">Скрыть все отклики</t:actionlink>
-                </div>
-            </t:if>
-            <t:if test="order.tenderActive">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
-                            <div class="attention">
-                                Все зарегистрированные кулинары, у которых заполнен каталог, могут оставить отклик к заявке.<br/>
-                                Автору заявки достаточно просто выбрать лучшего кулинара и нажать ссылку "выбрать исполнителя". <br/>
-                                После этого заявка перейдет в статус заказа и кулинар начнёт её исполнение.
+<t:if xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" test="order?.tender">
+    <section id="reply" class="replies">
+        <t:zone t:id="repliesZone">
+            <t:unless test="showReplies">
+                <t:if test="order.tenderAttached">
+                    <div class="links-set gap2">
+                        <t:actionlink rel="nofollow" t:id="showRepliesAjaxLink" t:context="order.id" t:zone="repliesZone">Показать все отклики</t:actionlink>
+                    </div>
+                </t:if>
+            </t:unless>
+            <t:if test="showReplies">
+                <t:if test="order.tenderAttached">
+                    <div class="links-set gap2">
+                        <t:actionlink rel="nofollow" t:id="hideRepliesAjaxLink" t:context="order.id" t:zone="repliesZone">Скрыть все отклики</t:actionlink>
+                    </div>
+                </t:if>
+                <t:if test="order.tenderActive">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
+                                <div class="attention">
+                                    Все зарегистрированные кулинары, у которых заполнен каталог, могут оставить отклик к заявке.<br/>
+                                    Автору заявки достаточно просто выбрать лучшего кулинара и нажать ссылку "выбрать исполнителя". <br/>
+                                    После этого заявка перейдет в статус заказа и кулинар начнёт её исполнение.
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="container">
-                    <t:if test="authenticated">
-                        <t:if test="commentAllowed">
-                            <div class="gap3 text-center">
-                                <a href="#tender_reply"
-                                   data-toggle="modal"
-                                   data-target="#tender_reply"
-                                   onclick="yaCounter29411415.reachGoal('REPLY_CLICK'); return true;"
-                                   class="btn btn-red btn-lg">
-                                    Откликнуться на заявку
-                                </a>
-                            </div>
-                            <t:comment.replymodal entity="order" modalId="tender_reply"/>
-                            <t:parameter name="else">
-                                <t:unless test="user">
-                                    <div class="gap3 text-center">
-                                        <a href="#tender_reply_denied" data-toggle="modal" data-target="#tender_reply_denied"
-                                           onclick="yaCounter29411415.reachGoal('REPLY_CLICK'); return true;"
-                                           class="btn btn-red btn-lg">
-                                            Откликнуться на заявку
-                                        </a>
-                                    </div>
-                                    <div class="modal fade" id="tender_reply_denied" tabindex="-1" role="dialog" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <div class="title">
-                                                        <h1><span>Отклик</span></h1>
+                    <div class="container">
+                        <t:if test="authenticated">
+                            <t:if test="commentAllowed">
+                                <div class="gap3 text-center">
+                                    <a href="#tender_reply"
+                                       data-toggle="modal"
+                                       data-target="#tender_reply"
+                                       onclick="yaCounter29411415.reachGoal('REPLY_CLICK'); return true;"
+                                       class="btn btn-red btn-lg">
+                                        Откликнуться на заявку
+                                    </a>
+                                </div>
+                                <t:comment.replymodal entity="order" modalId="tender_reply"/>
+                                <t:parameter name="else">
+                                    <t:unless test="user">
+                                        <div class="gap3 text-center">
+                                            <a href="#tender_reply_denied" data-toggle="modal" data-target="#tender_reply_denied"
+                                               onclick="yaCounter29411415.reachGoal('REPLY_CLICK'); return true;"
+                                               class="btn btn-red btn-lg">
+                                                Откликнуться на заявку
+                                            </a>
+                                        </div>
+                                        <div class="modal fade" id="tender_reply_denied" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <div class="title">
+                                                            <h1><span>Отклик</span></h1>
+                                                        </div>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
                                                     </div>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="row">
-                                                        <p class="modal-text red-text">
-                                                            <b>К сожалению, вы не можете оставлять отклики к этой заявке.</b>
-                                                        </p>
-                                                        <p class="modal-text text-left">
-                                                            Пожалуйста, обратите внимание на необходимые требования:
-                                                        </p>
-                                                        <ul class="reply-denied">
-                                                            <t:unless test="cook">
-                                                                <li>
-                                                                    Вы не кулинар на сайте
-                                                                    <div class="label-tip">
-                                                                        Возможно, надо зайти другим пользователем или оставить заявку на подключение.
-                                                                    </div>
-                                                                </li>
-                                                            </t:unless>
-                                                            <t:unless test="catalogReady">
-                                                                <li>
-                                                                    Каталог не заполнен
-                                                                    <div class="label-tip">
-                                                                        Необходимо завершить все шаги настройки каталога и добавить минимум 5 блюд.
-                                                                    </div>
-                                                                </li>
-                                                            </t:unless>
-                                                            <t:unless test="doesNotHaveReply">
-                                                                <li>
-                                                                    У вас уже есть отклик к этой заявке
-                                                                    <div class="label-tip">
-                                                                        К заявке можно оставлять только один отклик. Если хотите обсуждать детали - это можно делать в личных сообщениях.
-                                                                    </div>
-                                                                </li>
-                                                            </t:unless>
-                                                            <t:unless test="hasOrderSlots">
-                                                                <li>
-                                                                    Рейтинг не позволяет откликнуться
-                                                                    <div class="label-tip">
-                                                                        Чем выше рейтинг, тем больше активных заказов вы можете иметь. Доведите до конца существующие заказы и сможете откликаться на заявки.
-                                                                    </div>
-                                                                </li>
-                                                            </t:unless>
-                                                            <t:unless test="contractSigned">
-                                                                <li>
-                                                                    Не подписан договор с ГастроМаркет.
-                                                                    <t:pagelink page="office/contract" class="red-text">Перейти на страницу соглашения с договором</t:pagelink>
-                                                                </li>
-                                                            </t:unless>
-                                                            <t:unless test="allPaid">
-                                                                <li>
-                                                                    Есть
-                                                                    <t:pagelink page="office/bills/list">неоплаченные счета</t:pagelink>
-                                                                    <div class="label-tip">
-                                                                        В списке выставленных счетов есть неоплаченные счета. Оплатите их на
-                                                                        <t:pagelink class="f12px" page="office/bills/list">странице счетов</t:pagelink>
-                                                                        и сможете откликаться на заявки.
-                                                                    </div>
-                                                                </li>
-                                                            </t:unless>
-                                                        </ul>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <p class="modal-text red-text">
+                                                                <b>К сожалению, вы не можете оставлять отклики к этой заявке.</b>
+                                                            </p>
+                                                            <p class="modal-text text-left">
+                                                                Пожалуйста, обратите внимание на необходимые требования:
+                                                            </p>
+                                                            <ul class="reply-denied">
+                                                                <t:unless test="cook">
+                                                                    <li>
+                                                                        Вы не кулинар на сайте
+                                                                        <div class="label-tip">
+                                                                            Возможно, надо зайти другим пользователем или оставить заявку на подключение.
+                                                                        </div>
+                                                                    </li>
+                                                                </t:unless>
+                                                                <t:unless test="catalogReady">
+                                                                    <li>
+                                                                        Каталог не заполнен
+                                                                        <div class="label-tip">
+                                                                            Необходимо завершить все шаги настройки каталога и добавить минимум 5 блюд.
+                                                                        </div>
+                                                                    </li>
+                                                                </t:unless>
+                                                                <t:unless test="doesNotHaveReply">
+                                                                    <li>
+                                                                        У вас уже есть отклик к этой заявке
+                                                                        <div class="label-tip">
+                                                                            К заявке можно оставлять только один отклик. Если хотите обсуждать детали - это можно делать в личных сообщениях.
+                                                                        </div>
+                                                                    </li>
+                                                                </t:unless>
+                                                                <t:unless test="hasOrderSlots">
+                                                                    <li>
+                                                                        Рейтинг не позволяет откликнуться
+                                                                        <div class="label-tip">
+                                                                            Чем выше рейтинг, тем больше активных заказов вы можете иметь. Доведите до конца существующие заказы и сможете откликаться на заявки.
+                                                                        </div>
+                                                                    </li>
+                                                                </t:unless>
+                                                                <t:unless test="contractSigned">
+                                                                    <li>
+                                                                        Не подписан договор с ГастроМаркет.
+                                                                        <t:pagelink page="office/contract" class="red-text">Перейти на страницу соглашения с договором</t:pagelink>
+                                                                    </li>
+                                                                </t:unless>
+                                                                <t:unless test="allPaid">
+                                                                    <li>
+                                                                        Есть
+                                                                        <t:pagelink page="office/bills/list">неоплаченные счета</t:pagelink>
+                                                                        <div class="label-tip">
+                                                                            В списке выставленных счетов есть неоплаченные счета. Оплатите их на
+                                                                            <t:pagelink class="f12px" page="office/bills/list">странице счетов</t:pagelink>
+                                                                            и сможете откликаться на заявки.
+                                                                        </div>
+                                                                    </li>
+                                                                </t:unless>
+                                                            </ul>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </t:unless>
+                                    </t:unless>
+                                </t:parameter>
+                            </t:if>
+                            <t:parameter name="else">
+                                <div class="text-center">
+                                    <a href="#tender_login" data-toggle="modal"
+                                       data-target="#tender_login"
+                                       class="btn btn-red btn-lg"
+                                       onclick="yaCounter29411415.reachGoal('REPLY_CLICK'); return true;">
+                                        Откликнуться на заявку
+                                    </a>
+                                </div>
                             </t:parameter>
                         </t:if>
-                        <t:parameter name="else">
-                            <div class="text-center">
-                                <a href="#tender_login" data-toggle="modal"
-                                   data-target="#tender_login"
-                                   class="btn btn-red btn-lg"
-                                   onclick="yaCounter29411415.reachGoal('REPLY_CLICK'); return true;">
-                                    Откликнуться на заявку
-                                </a>
-                            </div>
-                        </t:parameter>
-                    </t:if>
-                </div>
-            </t:if>
-
-            <t:zone t:id="replyZone" class="gap3">
-                <t:delegate to="replyBlock"/>
-            </t:zone>
-            <t:block t:id="replyBlock">
-                <t:if test="comments">
-                    <t:comment.list entity="order" reply="reply" replyBlock="replyBlock"/>
+                    </div>
                 </t:if>
-                <script>
-                    jQuery("#tender_reply").modal("hide");
-                    jQuery("body").removeClass("modal-open");
-                </script>
-            </t:block>
-        </t:if>
-    </t:zone>
-</section>
+
+                <t:zone t:id="replyZone" class="gap3">
+                    <t:delegate to="replyBlock"/>
+                </t:zone>
+                <t:block t:id="replyBlock">
+                    <t:if test="comments">
+                        <t:comment.list entity="order" reply="reply" replyBlock="replyBlock"/>
+                    </t:if>
+                    <script>
+                        jQuery("#tender_reply").modal("hide");
+                        jQuery("body").removeClass("modal-open");
+                    </script>
+                </t:block>
+            </t:if>
+        </t:zone>
+    </section>
+</t:if>

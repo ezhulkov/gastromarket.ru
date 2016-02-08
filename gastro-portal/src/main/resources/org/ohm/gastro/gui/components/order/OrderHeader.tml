@@ -23,7 +23,12 @@
                     ${order.totalPrice}&nbsp;<span class="rub"/>
                 </span>
                 <t:parameter name="else">
-                    <span class="price">Открытый бюджет</span>
+                    <t:if test="order.tender">
+                        <span class="price">Открытый бюджет</span>
+                        <t:parameter name="else">
+                            <span class="price">-</span>
+                        </t:parameter>
+                    </t:if>
                 </t:parameter>
             </t:if>
             <t:parameter name="else">

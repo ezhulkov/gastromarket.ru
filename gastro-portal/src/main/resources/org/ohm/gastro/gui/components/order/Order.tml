@@ -9,7 +9,7 @@
             <div class="action-link">
                 <t:delegate to="tenderAdditionalBlock"/>
                 <t:block t:id="catalogAttachedBlock">
-                    <t:pagelink page="tender/index" t:context="order.id" class="round-link" anchor="attached">Исполнитель выбран</t:pagelink>
+                    <t:pagelink id="attached" page="tender/index" t:context="order.id" class="round-link" anchor="attached">Исполнитель выбран</t:pagelink>
                 </t:block>
                 <t:block t:id="expiredBlock">
                     <t:pagelink page="tender/index" t:context="order.id" class="round-link">Заявка просрочена</t:pagelink>
@@ -51,7 +51,7 @@
         <!--</t:block>-->
     </div>
 
-    <t:if test="order">
+    <t:if test="order?.tender">
         <t:order.cooksviewed order="order" orderPage="orderPage"/>
         <t:order.executor order="order" orderPage="orderPage"/>
     </t:if>
