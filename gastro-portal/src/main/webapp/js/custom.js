@@ -78,19 +78,6 @@ function initControls() {
     initFineUploader(jQuery("div.upload-file"));
     initSortable();
     initModalStack();
-    initBreadCrumbs();
-}
-function initBreadCrumbs() {
-    var breadCrumbSelector = ".breadcrumbs";
-    jQuery(breadCrumbSelector).ready(function () {
-        jQuery.fn.hanselsRevenge({
-            inheritLandingCrumbs: false,
-            breadCrumbSelector: breadCrumbSelector,
-            maxDepth: 3,
-            debug: true,
-            cookieOptions: {path: "/"}
-        })
-    });
 }
 function initDatePicker() {
     jQuery('.date-picker').datepicker({

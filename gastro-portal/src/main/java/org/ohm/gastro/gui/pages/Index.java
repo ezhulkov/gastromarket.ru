@@ -9,7 +9,6 @@ import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.domain.PropertyValueEntity.Tag;
 import org.ohm.gastro.filter.RegionFilter;
-import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +16,7 @@ import java.util.stream.Collectors;
 /**
  * Created by ezhulkov on 23.08.14.
  */
-public class Index extends BaseComponent {
+public class Index extends AbstractPage {
 
     @Property
     private CatalogEntity oneCook;
@@ -59,4 +58,8 @@ public class Index extends BaseComponent {
         return getProductService().findAllProductsCountCached(null, onePropertyValue, RegionFilter.getCurrentRegion()) > 0;
     }
 
+    @Override
+    public String getTitle() {
+        return getMessages().get("page.title");
+    }
 }

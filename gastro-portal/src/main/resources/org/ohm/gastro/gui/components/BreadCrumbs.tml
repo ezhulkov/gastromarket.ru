@@ -1,6 +1,11 @@
-<section>
+<section xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
     <div class="container">
         <ul class="row breadcrumbs">
+            <t:loop source="breadcrumbsList.breadcrumbs" value="breadcrumb">
+                <li>
+                    <a href="${url}">${breadcrumb.title}</a>
+                </li>
+            </t:loop>
         </ul>
     </div>
 </section>

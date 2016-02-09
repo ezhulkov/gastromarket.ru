@@ -62,9 +62,9 @@ public final class ShoppingCart {
     }
 
     public void addItem(OrderProductEntity item) {
-        final OrderProductEntity purchaseItem = findPurchaseItem(item.getEntity().getType(),
-                                                                 item.getEntity().getId(),
-                                                                 item.getModifier() == null ? null : item.getModifier().getId())
+        findPurchaseItem(item.getEntity().getType(),
+                         item.getEntity().getId(),
+                         item.getModifier() == null ? null : item.getModifier().getId())
                 .map(t -> {
                     t.setCount(t.getCount() + 1);
                     return t;
