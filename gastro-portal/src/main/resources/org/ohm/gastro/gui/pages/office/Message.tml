@@ -1,4 +1,4 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" footer="false" title="Сообщение"  forceShow="false">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" footer="false" forceShow="false">
 
     <section>
         <div class="title fixed">

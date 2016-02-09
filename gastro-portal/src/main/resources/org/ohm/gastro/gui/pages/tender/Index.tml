@@ -1,4 +1,4 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" keywords="keywords" title="${order?.name}" >
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" keywords="keywords">
 
     <section>
         <div class="container">
