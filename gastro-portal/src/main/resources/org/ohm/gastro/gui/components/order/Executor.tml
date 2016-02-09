@@ -1,41 +1,39 @@
 <t:if xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" test="order.tenderAttached">
     <t:if test="order.tender">
-        <t:if test="orderPage">
-            <div class="border-shadow order-show-catalog">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 f20px black-text">
-                        Выбранный исполнитель заявки:
-                    </div>
+        <div class="order-show-catalog ${additionalClass}">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 f20px black-text">
+                    Выбранный исполнитель заявки:
                 </div>
-                <div class="row comment">
-                    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12 fluid-xs-block pic">
+            </div>
+            <div class="row comment">
+                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12 fluid-xs-block pic">
+                    <a href="${order.catalog.fullUrl}">
+                        <img src="${order.catalog.avatarUrl}"/>
+                    </a>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+                    <div class="date">
+                        Дата закрытия ${order.attachTimePrintable}
+                    </div>
+                    <div class="name">
                         <a href="${order.catalog.fullUrl}">
-                            <img src="${order.catalog.avatarUrl}"/>
+                            ${order.catalog.name}
                         </a>
                     </div>
-                    <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
-                        <div class="date">
-                            Дата закрытия ${order.attachTimePrintable}
-                        </div>
-                        <div class="name">
-                            <a href="${order.catalog.fullUrl}">
-                                ${order.catalog.name}
-                            </a>
-                        </div>
-                        <t:ratings entity="order.catalog" showCert="true"/>
-                        <hr/>
-                        <t:if test="order.totalPrice">
-                            <div class="f20px">Итоговая стоимость: ${order.totalPrice} <span class="rub"/></div>
-                        </t:if>
-                        <div class="text">
-                            <div class="f20px">Предложение кулинара:</div>
-                            <t:outputraw value="cookReply"/>
-                            <div class="f20px">Причина выбора:</div>
-                            <t:outputraw value="order.attachReason"/>
-                        </div>
+                    <t:ratings entity="order.catalog" showCert="true"/>
+                    <hr/>
+                    <t:if test="order.totalPrice">
+                        <div class="f20px">Итоговая стоимость: ${order.totalPrice} <span class="rub"/></div>
+                    </t:if>
+                    <div class="text">
+                        <div class="f20px">Предложение кулинара:</div>
+                        <t:outputraw value="cookReply"/>
+                        <div class="f20px">Причина выбора:</div>
+                        <t:outputraw value="order.attachReason"/>
                     </div>
                 </div>
             </div>
-        </t:if>
+        </div>
     </t:if>
 </t:if>

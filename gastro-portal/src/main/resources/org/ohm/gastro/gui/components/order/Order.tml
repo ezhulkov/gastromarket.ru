@@ -17,7 +17,10 @@
             <div class="action-link">
                 <t:delegate to="tenderAdditionalBlock"/>
                 <t:block t:id="catalogAttachedBlock">
-                    <t:pagelink id="attached" page="tender/index" t:context="order.id" class="round-link" anchor="attached">Исполнитель выбран</t:pagelink>
+                    <a data-toggle="modal" data-target="#tender-attached-${order.id}" href="#tender-attached-${order.id}" class="round-link">Исполнитель выбран</a>
+                    <t:modal modalId="tender-attached-${order.id}" caption="Исполнитель выбран" additionalClass="modal-md">
+                        <t:order.executor order="order"/>
+                    </t:modal>
                 </t:block>
                 <t:block t:id="expiredBlock">
                     <t:pagelink page="tender/index" t:context="order.id" class="round-link">Заявка просрочена</t:pagelink>
@@ -60,8 +63,10 @@
     </div>
 
     <t:if test="order?.tender">
-        <t:order.cooksviewed order="order" orderPage="orderPage"/>
-        <t:order.executor order="order" orderPage="orderPage"/>
+        <t:if test="orderPage">
+            <t:order.cooksviewed order="order"/>
+            <t:order.executor order="order" additionalClass="border-shadow"/>
+        </t:if>
     </t:if>
 
     <!--<t:zone t:id="editZone" id="${editZoneId}"/>-->
