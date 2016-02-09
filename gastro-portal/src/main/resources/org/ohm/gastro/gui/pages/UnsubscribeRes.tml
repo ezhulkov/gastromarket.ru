@@ -3,12 +3,12 @@
     <section>
         <div class="container">
             <div class="title">
-                <h1><span>Отмена оповещений</span></h1>
+                <h1><span>Отписаться от рассылки</span></h1>
             </div>
             <div class="row">
                 <p class="modal-text">Вы только что отменили eMail оповещения для адреса ${email}, мы больше не будем вас беспокоить.</p>
                 <p class="modal-text">Настройки оповещений можно вернуть на странице
-                    <t:pagelink page="office/index">своего профиля</t:pagelink>
+                    <t:pagelink page="office/index" context="['UPDATE','0']">своего профиля</t:pagelink>
                                       .
                 </p>
                 <p class="modal-text gap">

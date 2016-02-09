@@ -2,7 +2,6 @@ package org.ohm.gastro.gui.pages;
 
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.UserEntity;
-import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.util.CommonsUtils;
 
@@ -12,7 +11,7 @@ import java.util.Map;
 /**
  * Created by ezhulkov on 23.08.14.
  */
-public class Unsubscribe extends BaseComponent {
+public class Unsubscribe extends AbstractPage {
 
     @Property
     private String reason;
