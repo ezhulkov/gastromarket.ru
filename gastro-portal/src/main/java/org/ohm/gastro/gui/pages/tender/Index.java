@@ -1,17 +1,19 @@
 package org.ohm.gastro.gui.pages.tender;
 
+import com.google.common.collect.Lists;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Cookies;
 import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.AbstractBaseEntity;
 import org.ohm.gastro.domain.OrderEntity;
-import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.dto.Breadcrumb;
+import org.ohm.gastro.gui.pages.AbstractPage;
 
 /**
  * Created by ezhulkov on 24.08.14.
  */
-public class Index extends BaseComponent {
+public class Index extends AbstractPage {
 
     @Property
     private OrderEntity order;
@@ -47,6 +49,19 @@ public class Index extends BaseComponent {
 
     public String getKeywords() {
         return getMessages().format("page.keywords.tender", order.getName());
+    }
+
+    @Override
+    public String getTitle() {
+        return order == null ? "" : order.getName();
+    }
+
+    @Override
+    public java.util.List<Breadcrumb> getBreadcrumbsContext() {
+        return Lists.newArrayList(mainPage,
+                                  Breadcrumb.of(getMessages().get(List.class.getName()), List.class),
+                                  Breadcrumb.of(getTitle(), this.getClass())
+        );
     }
 
 }

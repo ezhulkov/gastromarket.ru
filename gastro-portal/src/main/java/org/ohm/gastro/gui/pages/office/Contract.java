@@ -1,11 +1,11 @@
 package org.ohm.gastro.gui.pages.office;
 
-import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.pages.AbstractPage;
 
 /**
  * Created by ezhulkov on 24.08.14.
  */
-public class Contract extends BaseComponent {
+public class Contract extends AbstractPage {
 
     public Class onActionFromAccept() {
         getAuthenticatedUser().getFirstCatalog().ifPresent(t -> {

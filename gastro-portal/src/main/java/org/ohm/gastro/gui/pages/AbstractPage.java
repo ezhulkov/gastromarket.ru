@@ -14,8 +14,7 @@ import java.util.List;
  */
 public abstract class AbstractPage extends BaseComponent {
 
-    private final Breadcrumb mainPage = Breadcrumb.of(getMessages().get(Index.class.getName()), Index.class);
-    private final Breadcrumb currentPage = Breadcrumb.of(getMessages().get(this.getClass().getName()), this.getClass());
+    protected final Breadcrumb mainPage = Breadcrumb.of(getMessages().get(Index.class.getName()), Index.class);
 
     @SessionState
     private BreadcrumbsList breadcrumbsList;
@@ -30,7 +29,7 @@ public abstract class AbstractPage extends BaseComponent {
     }
 
     public List<Breadcrumb> getBreadcrumbsContext() {
-        return Lists.newArrayList(mainPage, currentPage);
+        return Lists.newArrayList(mainPage, Breadcrumb.of(getTitle(), this.getClass()));
     }
 
     public String getTitle() {

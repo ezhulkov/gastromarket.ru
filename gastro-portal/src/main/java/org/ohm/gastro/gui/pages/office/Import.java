@@ -9,7 +9,7 @@ import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
-import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.pages.AbstractPage;
 import org.ohm.gastro.service.MediaImportService;
 import org.ohm.gastro.service.SocialSource;
 import org.ohm.gastro.service.social.MediaAlbum;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 /**
  * Created by ezhulkov on 24.08.14.
  */
-public class Import extends BaseComponent {
+public class Import extends AbstractPage {
 
     @Property
     private String pageName;

@@ -4,12 +4,12 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.UserEntity;
-import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.pages.AbstractPage;
 
 /**
  * Created by ezhulkov on 31.08.14.
  */
-public class Index extends BaseComponent {
+public class Index extends AbstractPage {
 
     @Property
     private UserEntity customer;
@@ -30,6 +30,11 @@ public class Index extends BaseComponent {
 
     public Long onPassivate() {
         return customer == null ? null : customer.getId();
+    }
+
+    @Override
+    public String getTitle() {
+        return customer == null ? "" : customer.getFullName();
     }
 
 }

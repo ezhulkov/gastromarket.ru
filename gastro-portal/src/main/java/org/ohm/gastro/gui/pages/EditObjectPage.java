@@ -7,9 +7,8 @@ import org.ohm.gastro.domain.BaseEntity;
 import org.ohm.gastro.gui.ServiceCallback;
 import org.ohm.gastro.gui.components.EditObject;
 import org.ohm.gastro.gui.components.EditObject.FormEvent;
-import org.ohm.gastro.gui.mixins.BaseComponent;
 
-public abstract class EditObjectPage<T extends BaseEntity> extends BaseComponent {
+public abstract class EditObjectPage<T extends BaseEntity> extends AbstractPage {
 
     private FormEvent formEvent = null;
     private String objectId;

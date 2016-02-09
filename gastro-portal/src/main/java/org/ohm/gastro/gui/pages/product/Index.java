@@ -1,12 +1,14 @@
 package org.ohm.gastro.gui.pages.product;
 
+import com.google.common.collect.Lists;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.TagEntity;
-import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.dto.Breadcrumb;
+import org.ohm.gastro.gui.pages.AbstractPage;
 
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -14,7 +16,7 @@ import java.util.stream.Collectors;
 /**
  * Created by ezhulkov on 31.08.14.
  */
-public class Index extends BaseComponent {
+public class Index extends AbstractPage {
 
     @Property
     private ProductEntity product;
@@ -71,6 +73,19 @@ public class Index extends BaseComponent {
                                             .filter(Objects::nonNull)
                                             .map(String::toLowerCase)
                                             .collect(Collectors.joining(", ")));
+    }
+
+    @Override
+    public String getTitle() {
+        return product == null ? "" : product.getName();
+    }
+
+    @Override
+    public java.util.List<Breadcrumb> getBreadcrumbsContext() {
+        return Lists.newArrayList(mainPage,
+                                  Breadcrumb.of(getMessages().get(List.class.getName()), List.class),
+                                  Breadcrumb.of(getTitle(), this.getClass())
+        );
     }
 
 }

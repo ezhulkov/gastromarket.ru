@@ -10,14 +10,14 @@ import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.PhotoEntity;
-import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.pages.AbstractPage;
 
 import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 24.08.14.
  */
-public class Add extends BaseComponent {
+public class Add extends AbstractPage {
 
     @Persist
     @Property

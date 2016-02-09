@@ -10,12 +10,12 @@ import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
-import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.pages.AbstractPage;
 
 /**
  * Created by ezhulkov on 31.08.14.
  */
-public abstract class AbstractCatalogPage extends BaseComponent {
+public abstract class AbstractCatalogPage extends AbstractPage {
 
     @Property
     protected ProductEntity oneProduct;

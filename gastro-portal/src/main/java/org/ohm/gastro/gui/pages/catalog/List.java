@@ -6,14 +6,14 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
-import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.pages.AbstractPage;
 
 import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 31.08.14.
  */
-public class List extends BaseComponent {
+public class List extends AbstractPage {
 
     @Property
     private CatalogEntity oneCatalog;

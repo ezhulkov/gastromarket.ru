@@ -42,6 +42,7 @@ public class List extends ScrollableProducts {
                 eventPropertyValue == null ? null : eventPropertyValue.getAltId()};
     }
 
+    @Override
     public String getTitle() {
         final PropertyValueEntity value = ObjectUtils.defaultIfNull(categoryPropertyValue, eventPropertyValue);
         return value == null ?
