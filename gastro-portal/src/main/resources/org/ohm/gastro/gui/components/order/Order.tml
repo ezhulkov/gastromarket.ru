@@ -2,7 +2,6 @@
 
     <t:if test="orderPage">
         <div class="links-set" style="margin-top: 0; margin-bottom: 7px;">
-            <a data-toggle="modal" data-target="#catalog-edit" href="javascript:history.back()" class="back"><span/> Все заявки</a>&nbsp;
             <a data-toggle="modal" data-target="#pr-new" href="#pr-new" class="hidden-xs">Редактировать заявку</a>&nbsp;
             <a data-toggle="modal" data-target="#of-new" href="#of-new" class="hidden-xs">Отменить заявку</a>
         </div>
@@ -70,7 +69,7 @@
     <t:if test="order?.tender">
         <t:if test="orderPage">
             <t:order.cooksviewed order="order"/>
-            <t:order.executor order="order" additionalClass="border-shadow"/>
+            <t:order.executor order="order" additionalClass="border-shadow pink"/>
         </t:if>
     </t:if>
 
