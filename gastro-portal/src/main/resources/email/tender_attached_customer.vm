@@ -9,8 +9,6 @@
     Заявка: ${tender.name}<br/>
     Исполнитель: <a href="https://gastromarket.ru/catalog/${catalog.altId}?${params}">${catalog.name}</a><br/>
     Бюджет: ${tender.totalPrice} руб.<br/>
-    Дата исполнения: ${tender.dueDateAsString}<br/>
-    Комментарий: ${tender.comment}<br/>
     Причина выбора: ${tender.attachReason}
 </p>
 <p>
