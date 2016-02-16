@@ -9,27 +9,51 @@
             <t:order.items order="order" catalog="catalog" items="items" orderShowCatalogZoneId="${orderShowCatalogZoneId}" orderBlock="orderMainBlock"/>
             <t:order.info order="order" catalog="catalog" orderPage="orderPage" frontend="frontend"/>
             <t:order.basketSubmit items="items" order="order" catalog="catalog" type="prop:type"/>
-            <t:unless test="orderPage">
+            <div class="action-link">
                 <t:delegate to="orderActionLinkBlock"/>
                 <t:block t:id="catalogAttachedLinkBlock">
-                    <div class="action-link">
-                        <a data-toggle="modal" data-target="#tender-attached-${order.id}" href="#tender-attached-${order.id}" class="round-link">Исполнитель выбран</a>
-                        <t:modal modalId="tender-attached-${order.id}" caption="Исполнитель выбран" additionalClass="modal-md">
-                            <t:order.executor order="order"/>
+                    <a data-toggle="modal" data-target="#tender-attached-${order.id}" href="#tender-attached-${order.id}" class="round-link">Исполнитель выбран</a>
+                    <t:modal modalId="tender-attached-${order.id}" caption="Исполнитель выбран" additionalClass="modal-md">
+                        <t:order.executor order="order"/>
+                    </t:modal>
+                </t:block>
+                <t:block t:id="orderCancelledLinkBlock">
+                    <a data-toggle="modal" data-target="#order-cancelled-${order.id}" href="#order-cancelled-${order.id}" class="round-link">Заказ отменен</a>
+                    <t:modal modalId="order-cancelled-${order.id}" caption="Заказ отменен">
+                        <t:if test="order.cancelReason">
+                            <div class="order-show-catalog">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 f20px black-text">
+                                        Причина отмены:
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        ${order.cancelReason}
+                                    </div>
+                                </div>
+                            </div>
+                        </t:if>
+                    </t:modal>
+                </t:block>
+                <t:block t:id="orderClosedLinkBlock">
+                    <t:unless test="orderPage">
+                        <a data-toggle="modal" data-target="#order-closed-${order.id}" href="#order-closed-${order.id}" class="round-link">Заказ выполнен</a>
+                        <t:modal modalId="order-closed-${order.id}" caption="Заказ выполнен">
                         </t:modal>
-                    </div>
+                    </t:unless>
                 </t:block>
                 <t:block t:id="tenderReplyLinkBlock">
-                    <div class="action-link">
+                    <t:unless test="orderPage">
                         <t:pagelink page="tender/index" t:context="order.id" class="round-link" anchor="reply">Откликнуться<span/></t:pagelink>
-                    </div>
+                    </t:unless>
                 </t:block>
                 <t:block t:id="editOrderLinkBlock">
-                    <div class="action-link">
+                    <t:unless test="orderPage">
                         <t:pagelink page="${orderUrl}" t:context="orderContext" class="round-link">Редактировать<span/></t:pagelink>
-                    </div>
+                    </t:unless>
                 </t:block>
-            </t:unless>
+            </div>
 
             <t:if test="orderPage">
                 <t:delegate to="orderEditBlock"/>
@@ -42,13 +66,13 @@
                         </t:if>
                         <t:if test="order.orderAttached">
                             &nbsp;
-                            <a data-toggle="modal" data-target="#of-new" href="#of-new">Завершить выполнение заказа</a>
+                            <a href="${ratePage}">Завершить выполнение заказа<span/></a>
                         </t:if>
                     </div>
                     <t:modal modalId="cancel_order_${order.id}" caption="Отмена заказа">
                         <t:form t:id="cancelTenderAjaxForm" t:context="[order.id]" class="form" style="padding-top:0;" clientValidation="none" autofocus="false" role="form">
                             <p class="modal-text">
-                                Вы хотите отмениь заказ. Пожалуйста, расскажите нам причину?<br/>
+                                Вы хотите отменить заказ. Пожалуйста, расскажите нам причину?<br/>
                                 Эта информация позволит нам улучшить сервис и работу кулинаров.
                             </p>
                             <div class="col-xs-12">

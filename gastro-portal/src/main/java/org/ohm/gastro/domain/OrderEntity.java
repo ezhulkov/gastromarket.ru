@@ -16,6 +16,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -176,6 +177,16 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
 
     @Column(name = "client_rate")
     private boolean clientRate = false;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_comment_id")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private CommentEntity clientComment;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cook_comment_id")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private CommentEntity cookComment;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "order")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -434,6 +445,22 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
 
     public void setCancelReason(String cancelReason) {
         this.cancelReason = cancelReason;
+    }
+
+    public CommentEntity getClientComment() {
+        return clientComment;
+    }
+
+    public void setClientComment(CommentEntity clientComment) {
+        this.clientComment = clientComment;
+    }
+
+    public CommentEntity getCookComment() {
+        return cookComment;
+    }
+
+    public void setCookComment(CommentEntity cookComment) {
+        this.cookComment = cookComment;
     }
 
     //Helpers

@@ -1213,4 +1213,13 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="111" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="client_comment_id" type="java.sql.Types.BIGINT"/>
+            <column name="cook_comment_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="orders" baseColumnNames="client_comment_id" constraintName="orders_client_rate_fk" referencedTableName="comment" referencedColumnNames="id" onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="orders" baseColumnNames="cook_comment_id" constraintName="orders_cook_rate_fk" referencedTableName="comment" referencedColumnNames="id" onDelete="CASCADE"/>
+    </changeSet>
+
 </databaseChangeLog>

@@ -1,0 +1,11 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <section class="s600px">
+        <div class="container">
+            <div class="title">
+                <h1><span>Закрытие заказа</span></h1>
+            </div>
+        </div>
+    </section>
+
+</t:layout>
