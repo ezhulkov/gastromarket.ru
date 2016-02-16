@@ -2,14 +2,14 @@
     <section id="reply" class="replies">
         <t:zone t:id="repliesZone">
             <t:unless test="showReplies">
-                <t:if test="order.tenderAttached">
+                <t:if test="order.orderAttached">
                     <div class="links-set gap2">
                         <t:actionlink rel="nofollow" t:id="showRepliesAjaxLink" t:context="order.id" t:zone="repliesZone">Показать все отклики</t:actionlink>
                     </div>
                 </t:if>
             </t:unless>
             <t:if test="showReplies">
-                <t:if test="order.tenderAttached">
+                <t:if test="order.orderAttached">
                     <div class="links-set gap2">
                         <t:actionlink rel="nofollow" t:id="hideRepliesAjaxLink" t:context="order.id" t:zone="repliesZone">Скрыть все отклики</t:actionlink>
                     </div>

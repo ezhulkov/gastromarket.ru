@@ -36,7 +36,7 @@ public class Replies extends AbstractOrder {
     private Zone repliesZone;
 
     public void beginRender() {
-        showReplies = !order.isTenderAttached();
+        showReplies = !order.isOrderAttached();
     }
 
     @Cached

@@ -18,6 +18,4 @@
         </div>
     </section>
 
-    <t:order.edit ordersBlock="ordersBlock" edit="false" extOrder="tender" tender="true"/>
-
 </t:layout>

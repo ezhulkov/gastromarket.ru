@@ -1,65 +1,115 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-    <div class="order-show-catalog ${type.name().toLowerCase()}">
-        <t:order.orderHeader order="order" catalog="catalog" frontend="frontend"/>
-        <t:order.items order="order" catalog="catalog" items="items"/>
-        <t:order.info order="order" catalog="catalog" orderPage="orderPage" frontend="frontend"/>
-        <t:order.basketSubmit items="items" order="order" catalog="catalog" type="prop:type"/>
-        <t:if test="order?.tender">
+    <t:zone t:id="orderShowCatalogZone" id="${orderShowCatalogZoneId}">
+        <t:delegate to="orderMainBlock"/>
+    </t:zone>
+    <t:block t:id="orderMainBlock">
+        <div class="order-show-catalog ${type.name().toLowerCase()}">
+            <t:order.orderHeader order="order" catalog="catalog" frontend="frontend"/>
+            <t:order.items order="order" catalog="catalog" items="items" orderShowCatalogZoneId="${orderShowCatalogZoneId}" orderBlock="orderMainBlock"/>
+            <t:order.info order="order" catalog="catalog" orderPage="orderPage" frontend="frontend"/>
+            <t:order.basketSubmit items="items" order="order" catalog="catalog" type="prop:type"/>
             <t:unless test="orderPage">
-                <div class="action-link">
-                    <t:delegate to="tenderAdditionalBlock"/>
-                    <t:block t:id="catalogAttachedBlock">
+                <t:delegate to="orderActionLinkBlock"/>
+                <t:block t:id="catalogAttachedLinkBlock">
+                    <div class="action-link">
                         <a data-toggle="modal" data-target="#tender-attached-${order.id}" href="#tender-attached-${order.id}" class="round-link">Исполнитель выбран</a>
                         <t:modal modalId="tender-attached-${order.id}" caption="Исполнитель выбран" additionalClass="modal-md">
                             <t:order.executor order="order"/>
                         </t:modal>
-                    </t:block>
-                    <t:block t:id="tenderReplyBlock">
+                    </div>
+                </t:block>
+                <t:block t:id="tenderReplyLinkBlock">
+                    <div class="action-link">
                         <t:pagelink page="tender/index" t:context="order.id" class="round-link" anchor="reply">Откликнуться<span/></t:pagelink>
-                    </t:block>
-                </div>
+                    </div>
+                </t:block>
+                <t:block t:id="editOrderLinkBlock">
+                    <div class="action-link">
+                        <t:pagelink page="${orderUrl}" t:context="orderContext" class="round-link">Редактировать<span/></t:pagelink>
+                    </div>
+                </t:block>
             </t:unless>
-        </t:if>
 
-        <t:if test="orderPage">
-            <div class="links-set gap2" style="margin-bottom: 0">
-                <a data-toggle="modal" data-target="#pr-new" href="#pr-new" class="hidden-xs">Редактировать заявку</a>&nbsp;
-                <a data-toggle="modal" data-target="#of-new" href="#of-new" class="hidden-xs">Отменить заявку</a>
-            </div>
-        </t:if>
+            <t:if test="orderPage">
+                <t:delegate to="orderEditBlock"/>
+                <t:block t:id="editBlock">
+                    <div class="links-set gap2" style="margin-bottom: 0">
+                        <a data-toggle="modal" data-target="#cancel_order_${order.id}" href="#of-new">Отменить заказ</a>
+                        <t:if test="orderOwner">
+                            &nbsp;
+                            <t:actionlink rel="nofollow" t:id="editOrder" t:context="order.id" t:zone="${editZoneId}">Редактировать заказ</t:actionlink>
+                        </t:if>
+                        <t:if test="order.orderAttached">
+                            &nbsp;
+                            <a data-toggle="modal" data-target="#of-new" href="#of-new">Завершить выполнение заказа</a>
+                        </t:if>
+                    </div>
+                    <t:modal modalId="cancel_order_${order.id}" caption="Отмена заказа">
+                        <t:form t:id="cancelTenderAjaxForm" t:context="[order.id]" class="form" style="padding-top:0;" clientValidation="none" autofocus="false" role="form">
+                            <p class="modal-text">
+                                Вы хотите отмениь заказ. Пожалуйста, расскажите нам причину?<br/>
+                                Эта информация позволит нам улучшить сервис и работу кулинаров.
+                            </p>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <textarea t:type="TextArea" t:id="cancelReason" t:value="order.cancelReason" rows="5" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 gap">
+                                <div class="form-buttons" xml:space="preserve">
+                                    <input class="btn btn-red" type="submit" value="Отменить заказ"/>
+                                </div>
+                            </div>
+                        </t:form>
+                    </t:modal>
+                </t:block>
+                <t:if test="orderOwner">
+                    <t:zone t:id="editZone" id="${editZoneId}"/>
+                    <t:block t:id="editOrderBlock">
+                        <t:order.edit modalId="order-${order.id}" order="order"/>
+                        <script>
+                            var pe = jQuery("#order-${order.id}");
+                            pe.modal('show');
+                        </script>
+                    </t:block>
+                </t:if>
+            </t:if>
 
-        <!--<t:block t:id="clientEditBlock">-->
-        <!--<t:if test="orderPage">-->
-        <!--<t:if test="canEdit">-->
-        <!--<t:actionlink rel="nofollow" class="round-link" t:id="editTender" t:context="order.id" t:zone="${editZoneId}">Редактировать</t:actionlink>-->
-        <!--</t:if>-->
-        <!--<script>-->
-        <!--jQuery("body").removeClass("modal-open");-->
-        <!--</script>-->
-        <!--</t:if>-->
-        <!--</t:block>-->
-        <!--<t:block t:id="clientRateCook">-->
-        <!--<t:if test="orderPage">-->
-        <!--<t:unless test="frontend">-->
-        <!--<t:unless test="order.clientRate">-->
-        <!--<a href="#cook_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#cook_rate_${order.id}">Оценить кулинара</a>-->
-        <!--<t:comment.editmodal entity="order?.catalog" order="order" modalId="cook_rate_${order.id}" title="Оценить кулинара"/>-->
-        <!--</t:unless>-->
-        <!--</t:unless>-->
-        <!--</t:if>-->
-        <!--</t:block>-->
-        <!--<t:block t:id="cookRateClient">-->
-        <!--<t:if test="orderPage">-->
-        <!--<t:unless test="frontend">-->
-        <!--<t:unless test="order.cookRate">-->
-        <!--<a href="#client_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#client_rate_${order.id}">Оценить заказчика</a>-->
-        <!--<t:comment.editmodal entity="order?.customer" order="order" modalId="client_rate_${order.id}" title="Оценить заказчика"/>-->
-        <!--</t:unless>-->
-        <!--</t:unless>-->
-        <!--</t:if>-->
-        <!--</t:block>-->
-    </div>
+            <!--<t:block t:id="clientEditBlock">-->
+            <!--<t:if test="orderPage">-->
+            <!--<t:if test="canEdit">-->
+            <!--<t:actionlink rel="nofollow" class="round-link" t:id="editTender" t:context="order.id" t:zone="${editZoneId}">Редактировать</t:actionlink>-->
+            <!--</t:if>-->
+            <!--<script>-->
+            <!--jQuery("body").removeClass("modal-open");-->
+            <!--</script>-->
+            <!--</t:if>-->
+            <!--</t:block>-->
+
+            <!--<t:block t:id="clientRateCook">-->
+            <!--<t:if test="orderPage">-->
+            <!--<t:unless test="frontend">-->
+            <!--<t:unless test="order.clientRate">-->
+            <!--<a href="#cook_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#cook_rate_${order.id}">Оценить кулинара</a>-->
+            <!--<t:comment.editmodal entity="order?.catalog" order="order" modalId="cook_rate_${order.id}" title="Оценить кулинара"/>-->
+            <!--</t:unless>-->
+            <!--</t:unless>-->
+            <!--</t:if>-->
+            <!--</t:block>-->
+
+            <!--<t:block t:id="cookRateClient">-->
+            <!--<t:if test="orderPage">-->
+            <!--<t:unless test="frontend">-->
+            <!--<t:unless test="order.cookRate">-->
+            <!--<a href="#client_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#client_rate_${order.id}">Оценить заказчика</a>-->
+            <!--<t:comment.editmodal entity="order?.customer" order="order" modalId="client_rate_${order.id}" title="Оценить заказчика"/>-->
+            <!--</t:unless>-->
+            <!--</t:unless>-->
+            <!--</t:if>-->
+            <!--</t:block>-->
+        </div>
+    </t:block>
 
     <t:if test="order?.tender">
         <t:if test="orderPage">
@@ -68,12 +118,4 @@
         </t:if>
     </t:if>
 
-    <!--<t:zone t:id="editZone" id="${editZoneId}"/>-->
-    <!--<t:block t:id="editOrderBlock">-->
-    <!--<t:order.edit modalId="order-${order.id}" order="order" orderBlock="orderMainBlock" orderZoneId="${orderShowCatalogZoneId}" reloadPage="reloadPage" tender="order?.tender"/>-->
-    <!--<script>-->
-    <!--var pe = jQuery("#order-${order.id}");-->
-    <!--pe.modal('show');-->
-    <!--</script>-->
-    <!--</t:block>-->
 </div>

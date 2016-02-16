@@ -10,6 +10,7 @@ import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.PhotoEntity;
+import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.pages.AbstractPage;
 
 import java.util.stream.Collectors;
@@ -26,6 +27,10 @@ public class Add extends AbstractPage {
     @Property
     private OrderEntity oneSample;
 
+    @Property
+    @Persist
+    private String mobile;
+
     @Component(id = "tenderInfoForm")
     private Form tenderInfoForm;
 
@@ -35,14 +40,14 @@ public class Add extends AbstractPage {
     @Component(id = "comment", parameters = {"value=tender.comment", "validate=required"})
     private TextArea comment;
 
+    @Component(id = "mobile", parameters = {"value=mobile", "validate=required"})
+    private TextField mobileField;
+
     @Component(id = "dueDate", parameters = {"value=tender.dueDateAsString", "validate=required"})
     private TextField dueDate;
 
     @Component(id = "budget", parameters = {"value=tender.totalPrice"})
     private TextField budget;
-
-    @Component(id = "promoCode", parameters = {"value=tender.promoCode"})
-    private TextField promoCode;
 
     @Inject
     @Property
@@ -64,16 +69,21 @@ public class Add extends AbstractPage {
 
     public void onPrepareFromTenderInfoForm() {
         if (tender == null) tender = new OrderEntity();
+        if (mobile == null) mobile = getAuthenticatedUserOpt().map(UserEntity::getMobilePhone).orElse(null);
     }
 
     public Object onSubmitFromTenderInfoForm() {
-        if (tenderInfoForm.getHasErrors()) {
+        if (tenderInfoForm.getHasErrors() || mobile == null || tender.getDueDate() == null) {
             error = true;
             return tenderInfoBlock;
         }
         if (!isAuthenticated()) {
             needLogin = true;
             return tenderInfoBlock;
+        }
+        if (!mobile.equals(getAuthenticatedUser().getMobilePhone())) {
+            getAuthenticatedUser().setMobilePhone(mobile);
+            getUserService().saveUser(getAuthenticatedUser());
         }
         final OrderEntity tender = getOrderService().placeTender(this.tender, getAuthenticatedUser());
         java.util.List<PhotoEntity> photos = getTenderPhotos();

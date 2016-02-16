@@ -23,7 +23,7 @@
                         x ${item.count}
                         <t:if test="canEdit">
                             &nbsp;&nbsp;
-                            <t:actionlink rel="nofollow" t:id="deleteItem" class="delete" t:context="deleteContext">удалить</t:actionlink>
+                            <t:actionlink rel="nofollow" t:id="deleteItem" class="delete" t:zone="${orderShowCatalogZoneId}" t:context="deleteContext">удалить</t:actionlink>
                         </t:if>
                     </div>
                 </div>

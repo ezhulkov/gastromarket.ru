@@ -34,6 +34,10 @@ public abstract class AbstractOrder extends BaseComponent {
     protected boolean frontend;
 
     @Property
+    @Parameter
+    protected String orderShowCatalogZoneId;
+
+    @Property
     @Parameter(value = "false")
     protected boolean orderPage;
 
@@ -75,6 +79,10 @@ public abstract class AbstractOrder extends BaseComponent {
 
     public boolean isOrderOwner() {
         return order == null || order.isOrderOwner(getAuthenticatedUserSafe());
+    }
+
+    public boolean isOrderExecutor() {
+        return order != null && order.isOrderExecutor(getAuthenticatedUserSafe());
     }
 
     public boolean isContactsAllowed() {

@@ -28,6 +28,7 @@ public interface MailService {
         NEW_TENDER_COOK("new_tender_cook", true),
         NEW_TENDER_CUSTOMER("new_tender_customer"),
         TENDER_ATTACHED_COOK("tender_attached_cook", true),
+        TENDER_ATTACHED_ALL_COOKS("tender_attached_all_cooks", true),
         TENDER_ATTACHED_CUSTOMER("tender_attached_customer"),
         TENDER_ATTACHED_ADMIN("tender_attached_admin"),
         NEW_ORDER_ADMIN("new_order_admin"),
@@ -45,7 +46,10 @@ public interface MailService {
         ORDER_READY_REMINDER("order_ready_reminder"),
         ORDER_CLOSE_REMINDER("order_close_reminder"),
         TENDER_EXPIRED_SURVEY("tender_expired_survey"),
-        USER_UNSUBSCRIBED("user_unsubscribed");
+        USER_UNSUBSCRIBED("user_unsubscribed"),
+        CANCEL_ORDER_CUSTOMER("cancel_order_customer"),
+        CANCEL_ORDER_ADMIN("cancel_order_admin"),
+        CANCEL_ORDER_COOK("cancel_order_cook", true);
 
         private final String template;
         private final boolean configurable;
@@ -91,6 +95,6 @@ public interface MailService {
 
     void cancelAllTasks(UserEntity user);
 
-    boolean isNotificationEnabled(UserEntity user,MailType mailType);
+    boolean isNotificationEnabled(UserEntity user, MailType mailType);
 
 }

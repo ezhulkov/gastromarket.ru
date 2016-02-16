@@ -1,0 +1,14 @@
+#set($subject = "Выбор исполнителя")
+#set($link = "${address}")
+#set($params = "ql=${quicklogin}&utm_source=internal&utm_medium=mail&utm_campaign=tender&utm_content=${tender.id}")
+#parse("email/header.vm")
+<p>
+    Заказчик выбрал исполнителя <a href="https://gastromarket.ru/tender/${tender.id}?${params}">заявки</a>.
+</p>
+<p>
+    Исполнитель: ${tender.catalog.name}<br/>
+    Заявка: ${tender.name}<br/>
+    Имя заказчика: ${customer.fullName}<br/>
+    Причина выбора: ${tender.attachReason}
+</p>
+#parse("email/footer.vm")

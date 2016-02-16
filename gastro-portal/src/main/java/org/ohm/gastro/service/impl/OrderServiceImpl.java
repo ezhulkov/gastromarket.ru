@@ -18,6 +18,7 @@ import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.reps.UserRepository;
 import org.ohm.gastro.service.ConversationService;
 import org.ohm.gastro.service.MailService;
+import org.ohm.gastro.service.MailService.MailType;
 import org.ohm.gastro.service.OrderService;
 import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingService;
@@ -170,6 +171,28 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     }
 
     @Override
+    public void cancelOrder(OrderEntity order) {
+        order.setStatus(Status.CANCELLED);
+        logger.info("Cancelling order {}, reason {}", order, order.getCancelReason());
+        final Map<String, Object> params = new HashMap<String, Object>() {
+            {
+                put("order", order);
+                put("address", order.getOrderUrl());
+                put("customer", order.getCustomer());
+                put("ordername", ObjectUtils.defaultIfNull(order.getName(), "№" + order.getOrderNumber()));
+                put("reason", ObjectUtils.defaultIfNull(order.getCancelReason(), "-"));
+            }
+        };
+        mailService.sendAdminMessage(MailType.CANCEL_ORDER_ADMIN, params);
+        params.put("username", order.getCustomer().getFullName());
+        mailService.sendMailMessage(order.getCustomer(), MailType.CANCEL_ORDER_CUSTOMER, params);
+        conversationService.findAllComments(order).forEach(t -> {
+            params.put("username", t.getAuthor().getFullName());
+            mailService.sendMailMessage(t.getAuthor(), MailType.CANCEL_ORDER_COOK, params);
+        });
+    }
+
+    @Override
     public List<OrderEntity> findAllTenders() {
         return orderRepository.findAllByType(OrderEntity.Type.PUBLIC).stream()
                 .filter(OrderEntity::isWasSetup)
@@ -225,6 +248,10 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
             };
             params.put("username", catalog.getUser().getFullName());
             mailService.sendMailMessage(catalog.getUser(), MailService.MailType.TENDER_ATTACHED_COOK, params);
+            conversationService.findAllComments(order).stream().filter(t -> !catalog.getUser().equals(t.getAuthor())).forEach(t -> {
+                params.put("username", t.getAuthor().getFullName());
+                mailService.sendMailMessage(t.getAuthor(), MailType.TENDER_ATTACHED_ALL_COOKS, params);
+            });
             params.put("username", order.getCustomer().getFullName());
             mailService.sendMailMessage(order.getCustomer(), MailService.MailType.TENDER_ATTACHED_CUSTOMER, params);
             mailService.sendAdminMessage(MailService.MailType.TENDER_ATTACHED_ADMIN, params);

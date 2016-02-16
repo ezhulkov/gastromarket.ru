@@ -47,4 +47,6 @@ public interface OrderService {
 
     List<OrderEntity> findAllOrdersWithMetaStatus(final CatalogEntity catalog, final Status status);
 
+    void cancelOrder(OrderEntity order);
+
 }

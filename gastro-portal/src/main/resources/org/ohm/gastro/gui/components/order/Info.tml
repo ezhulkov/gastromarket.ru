@@ -25,23 +25,25 @@
         </t:if>
     </t:if>
     <t:if test="contactsAllowed">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <span class="f20px">Исполнитель заказа:</span>
-            <div>
-                <t:pagelink page="catalog/index" context="catalog.altId">${catalog.name}</t:pagelink>
-            </div>
-            <t:if test="catalog.prepayment">
-                <div>
-                    ${prepaymentText}
-                </div>
-            </t:if>
-            <t:if test="catalog.basketMin">
-                <div>
-                    ${catalog.basketMin} <span class="rub"/> - минимальный заказ
-                </div>
-            </t:if>
-        </div>
         <t:if test="order">
+            <t:if test="order.catalog">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span class="f20px">Исполнитель заказа:</span>
+                    <div>
+                        <t:pagelink page="catalog/index" context="catalog.altId">${catalog.name}</t:pagelink>
+                    </div>
+                    <t:if test="catalog.prepayment">
+                        <div>
+                            ${prepaymentText}
+                        </div>
+                    </t:if>
+                    <t:if test="catalog.basketMin">
+                        <div>
+                            ${catalog.basketMin} <span class="rub"/> - минимальный заказ
+                        </div>
+                    </t:if>
+                </div>
+            </t:if>
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                 <span class="f20px">Контакты:</span><br/>
                 <div>

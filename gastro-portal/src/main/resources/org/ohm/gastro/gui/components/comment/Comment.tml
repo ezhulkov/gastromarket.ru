@@ -37,78 +37,67 @@
                 <div class="reply-block gap">
                     <t:if test="authenticated">
                         <t:if test="orderOwner">
-                            <t:if test="order.tenderAttached">
+                            <t:if test="order.orderAttached">
                                 <t:if test="attachedCatalog">
                                     <t:pagelink page="office/message" t:context="['NEW',comment.author.id]" class="btn btn-white btn-xs">обсудить детали<span/></t:pagelink>
                                 </t:if>
                             </t:if>
-                            <t:unless test="order.tenderAttached">
+                            <t:unless test="order.orderAttached">
                                 <t:pagelink page="office/message" t:context="['NEW',comment.author.id]" class="btn btn-white btn-xs">обсудить детали<span/></t:pagelink>
                                 <a href="#choose_cook" data-toggle="modal" class="btn btn-white btn-xs" data-target="#choose_cook_${comment.id}">выбрать исполнителя</a>
-                                <div class="modal fade" id="choose_cook_${comment.id}" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <div class="title">
-                                                    <h1><span>Выбрать исполнителя</span></h1>
-                                                </div>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <t:form t:id="attachTenderAjaxForm" t:context="[comment.author.id,order.id,comment.id]" class="form" style="padding-top:0;" clientValidation="BLUR" autofocus="false" role="form">
-                                                    <p class="modal-text">
-                                                        Вы выбираете исполнителем кулинара<br/>
-                                                        <a class="pic-holder catalog-link" href="${comment.author?.linkUrl}">
-                                                            <span><img src="${comment.author?.linkAvatar}" class="avatar-small"/></span>${comment.author?.linkName}
-                                                        </a>
-                                                    </p>
-                                                    <p class="modal-text">
-                                                        Пожалуйста, расскажите нам, почему вы выбрали именно его?<br/>
-                                                        Эта информация позволит нам улучшить сервис.
-                                                    </p>
-                                                    <div class="col-xs-12">
-                                                        <div class="form-group">
-                                                            <t:label for="attachReason">Причина выбора:</t:label>
-                                                            <textarea t:type="TextArea" t:id="attachReason" t:value="attachReason" t:validate="required" rows="5" class="form-control"/>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12">
-                                                        <div class="form-group">
-                                                            <t:label for="fullName">Ваше имя: *</t:label>
-                                                            <input t:id="fullName" class="form-control" t:validate="required"/>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12">
-                                                        <div class="form-group">
-                                                            <t:label for="deliveryAddress">Адрес доставки:*</t:label>
-                                                            <input t:id="deliveryAddress" class="form-control" rows="5" t:validate="required"/>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12">
-                                                        <div class="form-group">
-                                                            <t:label for="mobilePhone">Контактный телефон:*</t:label>
-                                                            <input t:id="mobilePhone" class="form-control mobile-phone" placeholder="+7 xxx xxx-xx-xx" t:validate="required"/>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12">
-                                                        <div class="form-group label-tip">
-                                                            * - персональные данные обязательны для заполнения и скрыты для посетителей и кулинаров. <br/> Только выбранный вами кулинар получит к ним доступ
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12 gap">
-                                                        <div class="form-buttons" xml:space="preserve">
-                                                        <input class="btn btn-red" type="submit" value="Выбрать"/>
-                                                    </div>
-                                                    </div>
-                                                </t:form>
+                                <t:modal modalId="choose_cook_${comment.id}" caption="Выбрать исполнителя">
+                                    <t:form t:id="attachTenderAjaxForm" t:context="[comment.author.id,order.id,comment.id]" class="form" style="padding-top:0;" clientValidation="BLUR" autofocus="false" role="form">
+                                        <p class="modal-text">
+                                            Вы выбираете исполнителем кулинара<br/>
+                                            <a class="pic-holder catalog-link" href="${comment.author?.linkUrl}">
+                                                <span><img src="${comment.author?.linkAvatar}" class="avatar-small"/></span>${comment.author?.linkName}
+                                            </a>
+                                        </p>
+                                        <p class="modal-text">
+                                            Пожалуйста, расскажите нам, почему вы выбрали именно его?<br/>
+                                            Эта информация позволит нам улучшить сервис.
+                                        </p>
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <t:label for="attachReason">Причина выбора:</t:label>
+                                                <textarea t:type="TextArea" t:id="attachReason" t:value="attachReason" t:validate="required" rows="5" class="form-control"/>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <t:label for="fullName">Ваше имя: *</t:label>
+                                                <input t:id="fullName" class="form-control" t:validate="required"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <t:label for="deliveryAddress">Адрес доставки:*</t:label>
+                                                <input t:id="deliveryAddress" class="form-control" rows="5" t:validate="required"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <t:label for="mobilePhone">Контактный телефон:*</t:label>
+                                                <input t:id="mobilePhone" class="form-control mobile-phone" placeholder="+7 xxx xxx-xx-xx" t:validate="required"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <div class="form-group label-tip">
+                                                * - персональные данные обязательны для заполнения и скрыты для посетителей и кулинаров.
+                                                <br/> Только выбранный вами кулинар получит к ним доступ
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 gap">
+                                            <div class="form-buttons" xml:space="preserve">
+                                                <input class="btn btn-red" type="submit" value="Выбрать"/>
+                                            </div>
+                                        </div>
+                                    </t:form>
+                                </t:modal>
                             </t:unless>
                         </t:if>
                         <t:parameter name="else">
-                            <t:unless test="order.tenderAttached">
+                            <t:unless test="order.orderAttached">
                                 <a href="#tender_login" data-toggle="modal" class="btn btn-white btn-xs" data-target="#tender_login">обсудить детали</a>
                                 <a href="#tender_login" data-toggle="modal" class="btn btn-white btn-xs" data-target="#tender_login">выбрать исполнителя</a>
                             </t:unless>

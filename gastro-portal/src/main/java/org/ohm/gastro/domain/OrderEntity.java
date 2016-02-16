@@ -113,6 +113,9 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
     @Column(name = "attach_reason")
     private String attachReason;
 
+    @Column(name = "cancel_reason")
+    private String cancelReason;
+
     @Column
     private String comment;
 
@@ -425,6 +428,14 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
         this.closedDate = closedDate;
     }
 
+    public String getCancelReason() {
+        return cancelReason;
+    }
+
+    public void setCancelReason(String cancelReason) {
+        this.cancelReason = cancelReason;
+    }
+
     //Helpers
 
     public DateTime getClosedDateAsJoda() {
@@ -456,15 +467,15 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
     }
 
     public final boolean isTenderActive() {
-        return isTender() && !isTenderExpired() && !isTenderAttached();
+        return isTender() && !isTenderExpired() && !isOrderAttached();
     }
 
-    public final boolean isTenderAttached() {
+    public final boolean isOrderAttached() {
         return getCatalog() != null;
     }
 
     public final boolean isTenderExpired() {
-        return !isTenderAttached() && dueDate != null && LocalDateTime.fromDateFields(dueDate).toDateTime().withTimeAtStartOfDay().plusDays(1).isBeforeNow();
+        return !isOrderAttached() && dueDate != null && LocalDateTime.fromDateFields(dueDate).toDateTime().withTimeAtStartOfDay().plusDays(1).isBeforeNow();
     }
 
     public final boolean isOrderClosed() {
@@ -477,6 +488,10 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
 
     public final boolean isOrderOwner(final UserEntity user) {
         return user != null && getCustomer().equals(user);
+    }
+
+    public final boolean isOrderExecutor(final UserEntity user) {
+        return user != null && getCatalog() != null && user.isCook() && user.getFirstCatalog().filter(t -> t.equals(getCatalog())).isPresent();
     }
 
     public static int getBonus(int total) {

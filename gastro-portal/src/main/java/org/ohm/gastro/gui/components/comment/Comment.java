@@ -88,7 +88,7 @@ public class Comment extends BaseComponent {
     }
 
     public boolean isAttachedCatalog() {
-        return getOrder().isTenderAttached() && getOrder().getCatalog().equals(comment.getAuthor().getFirstCatalog().orElse(null));
+        return getOrder().isOrderAttached() && getOrder().getCatalog().equals(comment.getAuthor().getFirstCatalog().orElse(null));
     }
 
 }
