@@ -30,9 +30,6 @@ public class Order extends AbstractOrder {
     @Property
     private String cancelReason;
 
-//    @Inject
-//    private Block clientRateCook;
-
     @Inject
     private Block tenderReplyLinkBlock;
 
@@ -41,9 +38,6 @@ public class Order extends AbstractOrder {
 
     @Inject
     private Block editBlock;
-
-//    @Inject
-//    private Block cookRateClient;
 
     @Inject
     @Property
@@ -86,16 +80,14 @@ public class Order extends AbstractOrder {
         if (order == null || order.getId() == null) return null;
         if (order.getStatus() == Status.CANCELLED) return orderCancelledLinkBlock;
         if (order.getStatus() == Status.CLOSED) return orderClosedLinkBlock;
-        if (isOrderOwner() || isOrderExecutor()) return editOrderLinkBlock;
-        if (order.getCatalog() != null) {
-            return catalogAttachedLinkBlock;
-        }
+        if (isAdmin() || isOrderOwner() || isOrderExecutor()) return editOrderLinkBlock;
+        if (order.getCatalog() != null) return catalogAttachedLinkBlock;
         return tenderReplyLinkBlock;
     }
 
     public Block getOrderEditBlock() {
         if (order.getStatus() == Status.CANCELLED || order.getId() == null) return null;
-        if (!isOrderOwner() && !isOrderExecutor()) return null;
+        if (!isAdmin() && !isOrderOwner() && !isOrderExecutor()) return null;
         return editBlock;
     }
 

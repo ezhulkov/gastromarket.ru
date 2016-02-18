@@ -39,7 +39,8 @@
                 <t:block t:id="orderClosedLinkBlock">
                     <t:unless test="orderPage">
                         <a data-toggle="modal" data-target="#order-closed-${order.id}" href="#order-closed-${order.id}" class="round-link">Заказ выполнен</a>
-                        <t:modal modalId="order-closed-${order.id}" caption="Заказ выполнен">
+                        <t:modal modalId="order-closed-${order.id}" caption="Заказ выполнен" additionalClass="modal-md">
+                            <t:order.executor order="order"/>
                         </t:modal>
                     </t:unless>
                 </t:block>
