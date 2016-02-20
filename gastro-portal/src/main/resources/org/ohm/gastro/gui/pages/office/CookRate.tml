@@ -5,6 +5,68 @@
             <div class="title">
                 <h1><span>Закрытие заказа</span></h1>
             </div>
+            <t:form t:id="rateForm" class="form rate-form" rel="nofollow" role="form" t:clientValidation="none" t:autofocus="false">
+                <div class="row">
+                    <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 col-xs-offset-0 col-xs-12">
+                        <div class="f20px">Заказ:&nbsp;
+                            <t:if test="order.tender">${order.name}</t:if>
+                            <t:unless test="order.tender">№${order.orderNumber}</t:unless>
+                        </div>
+                    </div>
+                </div>
+                <div class="gap2"></div>
+                <t:if test="error">
+                    <div class="error">
+                        Пожалуйста, заполните обязательные поля
+                    </div>
+                </t:if>
+                <div class="row">
+                    <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 col-xs-offset-0 col-xs-12">
+                        <div class="form-group">
+                            <t:label for="totalPrice">Финальная стоимость заказа, руб:</t:label>
+                            <input t:type="textfield" t:id="totalPrice" t:value="totalPrice" t:validate="required" type="number" class="form-control f20px h45px"/>
+                        </div>
+                        <div class="form-group">
+                            <t:label for="rate">Отзыв о работе кулинара:</t:label>
+                            <div>
+                                <t:radiogroup t:id="opinion" value="opinion" validate="required">
+                                    <t:radio t:id="like"/>
+                                    &nbsp;
+                                    <t:label for="like">Мне всё понравилась</t:label>
+                                    <br/>
+                                    <t:radio t:id="dislike"/>
+                                    &nbsp;
+                                    <t:label for="dislike">Нет, было плохо</t:label>
+                                </t:radiogroup>
+                            </div>
+                            <input t:type="textarea" t:id="rate" t:value="rate" rows="5" t:validate="required" class="form-control"/>
+                        </div>
+                        <t:comment.injectPhotos order="order"/>
+                        <div class="clearfix"></div>
+                        <hr/>
+                        <div class="form-group">
+                            <t:label for="gmComment">Комментарии о работе ГастроМаркет:</t:label>
+                            <div>
+                                <t:radiogroup t:id="gmRecommend" value="gmRecommend">
+                                    <t:radio t:id="like2"/>
+                                    &nbsp;
+                                    <t:label for="like2">Буду рекомендовать сервис друзьям</t:label>
+                                    <br/>
+                                    <t:radio t:id="dislike2"/>
+                                    &nbsp;
+                                    <t:label for="dislike2">Не буду рекомендовать</t:label>
+                                </t:radiogroup>
+                            </div>
+                            <input t:type="textarea" t:id="gmComment" t:value="gmComment" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 gap">
+                        <div class="form-buttons" xml:space="preserve">
+                            <input class="btn btn-red" type="submit" value="Оставить отзыв и закрыть заказ"/>
+                        </div>
+                    </div>
+                </div>
+            </t:form>
         </div>
     </section>
 

@@ -12,6 +12,7 @@
     Дата исполнения: ${date}<br/>
     Заявка: ${tender.name}<br/>
     Комментарий: ${comment}<br/>
+    Промо код: ${tender.promoCode}<br/>
     Заявка лежит по адресу: <a href="${address}">${address}</a><br/>
     Количество получателей: ${recipients.size()}<br/>
 </p>

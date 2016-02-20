@@ -50,13 +50,16 @@ public class Edit extends BaseComponent {
     public void onPrepareFromEditForm(Long cid, CommentableEntity.Type entityType, Long entityId) {
         injectPhotos.getSubmittedPhotos().clear();
         if (cid == null && entityType != null) {
+            final CommentableEntity entity = getConversationService().getEntity(entityType, entityId);
             comment = new CommentEntity();
-            comment.setEntity(getConversationService().getEntity(entityType, entityId));
+            comment.setEntity(entity);
             comment.setAuthor(getAuthenticatedUser());
+            if (order != null) budget = order.getTotalPrice() == null ? "" : order.getTotalPrice().toString();
         } else {
             comment = getConversationService().findComment(cid);
             budget = comment.getBudget() == null ? "" : comment.getBudget().toString();
         }
+
     }
 
     public void onSuccessFromEditForm(Long cid, CommentableEntity.Type entityType, Long entityId, Long oId) throws FileUploadException {

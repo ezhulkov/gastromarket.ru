@@ -100,39 +100,6 @@
                     </t:block>
                 </t:if>
             </t:if>
-
-            <!--<t:block t:id="clientEditBlock">-->
-            <!--<t:if test="orderPage">-->
-            <!--<t:if test="canEdit">-->
-            <!--<t:actionlink rel="nofollow" class="round-link" t:id="editTender" t:context="order.id" t:zone="${editZoneId}">Редактировать</t:actionlink>-->
-            <!--</t:if>-->
-            <!--<script>-->
-            <!--jQuery("body").removeClass("modal-open");-->
-            <!--</script>-->
-            <!--</t:if>-->
-            <!--</t:block>-->
-
-            <!--<t:block t:id="clientRateCook">-->
-            <!--<t:if test="orderPage">-->
-            <!--<t:unless test="frontend">-->
-            <!--<t:unless test="order.clientRate">-->
-            <!--<a href="#cook_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#cook_rate_${order.id}">Оценить кулинара</a>-->
-            <!--<t:comment.editmodal entity="order?.catalog" order="order" modalId="cook_rate_${order.id}" title="Оценить кулинара"/>-->
-            <!--</t:unless>-->
-            <!--</t:unless>-->
-            <!--</t:if>-->
-            <!--</t:block>-->
-
-            <!--<t:block t:id="cookRateClient">-->
-            <!--<t:if test="orderPage">-->
-            <!--<t:unless test="frontend">-->
-            <!--<t:unless test="order.cookRate">-->
-            <!--<a href="#client_rate_${order.id}" class="round-link" data-toggle="modal" data-target="#client_rate_${order.id}">Оценить заказчика</a>-->
-            <!--<t:comment.editmodal entity="order?.customer" order="order" modalId="client_rate_${order.id}" title="Оценить заказчика"/>-->
-            <!--</t:unless>-->
-            <!--</t:unless>-->
-            <!--</t:if>-->
-            <!--</t:block>-->
         </div>
     </t:block>
 

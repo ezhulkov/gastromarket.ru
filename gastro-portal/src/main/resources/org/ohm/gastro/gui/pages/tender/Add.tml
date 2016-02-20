@@ -11,7 +11,7 @@
                         <t:delegate to="tenderInfoBlock"/>
                     </t:zone>
                     <t:block t:id="tenderInfoBlock">
-                        <t:form t:id="tenderInfoForm" t:zone="tenderInfoZone" t:clientValidation="none" t:autofocus="false" class="form tender-form" rel="nofollow" role="form">
+                        <t:form t:id="tenderInfoForm" t:zone="tenderInfoZone" t:clientValidation="none" t:autofocus="false" class="form rate-form" rel="nofollow" role="form">
                             <div class="caption">Описание заявки</div>
                             <div class="modal-text">лучшие кулинары готовы сделать для вас кулинарный шедевр</div>
                             <t:if test="error">
