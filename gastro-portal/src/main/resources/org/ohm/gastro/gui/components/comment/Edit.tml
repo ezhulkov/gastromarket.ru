@@ -23,8 +23,11 @@
     <t:if test="openBudget">
         <div class="col-xs-12">
             <div class="form-group">
-                <t:label for="budget">Ваше предложение стоимости, руб:</t:label>
-                <input t:type="textfield" t:id="budget" t:value="comment.budget" t:validate="required" type="number" class="form-control"/>
+                <t:label for="budget">Ваше предложение стоимости, руб: *</t:label>
+                <div class="label-tip">
+                    Предложение стоимости можно скорректировать после обсуждения
+                </div>
+                <input t:type="textfield" t:id="budget" t:value="budget" t:validate="required" type="number" class="form-control"/>
             </div>
         </div>
     </t:if>

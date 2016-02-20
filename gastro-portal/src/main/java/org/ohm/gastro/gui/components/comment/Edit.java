@@ -1,6 +1,7 @@
 package org.ohm.gastro.gui.components.comment;
 
 import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Parameter;
@@ -43,6 +44,9 @@ public class Edit extends BaseComponent {
     @InjectComponent
     private InjectPhotos injectPhotos;
 
+    @Property
+    private String budget;
+
     public void onPrepareFromEditForm(Long cid, CommentableEntity.Type entityType, Long entityId) {
         injectPhotos.getSubmittedPhotos().clear();
         if (cid == null && entityType != null) {
@@ -51,6 +55,7 @@ public class Edit extends BaseComponent {
             comment.setAuthor(getAuthenticatedUser());
         } else {
             comment = getConversationService().findComment(cid);
+            budget = comment.getBudget() == null ? "" : comment.getBudget().toString();
         }
     }
 
@@ -63,6 +68,14 @@ public class Edit extends BaseComponent {
                 if (isCook()) order.setCookRate(true);
                 else if (isUser()) order.setClientRate(true);
                 getOrderService().saveOrder(order);
+            }
+            try {
+                if (StringUtils.isNotEmpty(budget)) {
+                    final int b = Integer.parseInt(budget);
+                    if (b > 0) comment.setBudget(b);
+                }
+            } catch (NumberFormatException e) {
+                logger.error("", e);
             }
             getConversationService().placeComment(comment.getEntity(), comment, getAuthenticatedUser());
         }
