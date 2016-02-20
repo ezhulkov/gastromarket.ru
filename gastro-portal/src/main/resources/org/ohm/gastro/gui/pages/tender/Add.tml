@@ -16,7 +16,7 @@
                             <div class="modal-text">лучшие кулинары готовы сделать для вас кулинарный шедевр</div>
                             <t:if test="error">
                                 <div class="error">
-                                    Пожалуйста, заполните обязательные поля
+                                    Пожалуйста, заполните обязательные поля и исправьте ошибки
                                 </div>
                                 <t:errors/>
                             </t:if>
@@ -34,7 +34,7 @@
                             </div>
                             <div class="col-xs-12">
                                 <div class="form-group">
-                                    <input t:id="budget" type="number" class="form-control price" placeholder="Бюджет заявки"
+                                    <input t:id="budget" class="form-control price" placeholder="Бюджет заявки"
                                            data-toggle="popover" data-container="body" data-content="Сколько вы готовы потратить на исполнение заявки. Если не указать бюджет, то кулинары сами предложат свою цену." data-trigger="focus" data-placement="right"/>
                                 </div>
                             </div>
@@ -45,7 +45,12 @@
                             </div>
                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                                 <div class="form-group">
-                                    <input t:id="mobile" class="form-control mobile-phone" placeholder="Контактный телефон"/>
+                                    <input t:id="mobile" class="form-control mobile-phone" placeholder="Контактный телефон +7 xxx xxx-xx-xx"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <input t:id="promoCode" class="form-control" placeholder="Промо код"/>
                                 </div>
                             </div>
                             <div class="text-left">

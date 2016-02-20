@@ -6,13 +6,8 @@
     На сайте ГастроМаркет появилась новая заявка от заказчика ${customer.fullName}
 </p>
 <p>
-    <b>${name}</b><br/>
-    Бюджет:
-    #if(${total})
-        $total руб.
-    #else
-        Открытый
-    #end<br/>
+    <b>${tender.name}</b><br/>
+    Бюджет: #if(${total}) ${total} руб. #else Открытый#end<br/>
     Дата исполнения: $date<br/>
     Комментарий: $comment<br/>
 </p>

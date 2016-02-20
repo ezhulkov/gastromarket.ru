@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.pages.tender;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Persist;
@@ -46,8 +47,14 @@ public class Add extends AbstractPage {
     @Component(id = "dueDate", parameters = {"value=tender.dueDateAsString", "validate=required"})
     private TextField dueDate;
 
-    @Component(id = "budget", parameters = {"value=tender.totalPrice"})
-    private TextField budget;
+    @Component(id = "promoCode", parameters = {"value=tender.promoCode"})
+    private TextField promoCode;
+
+    @Component(id = "budget", parameters = {"value=budget", "validate=regexp"})
+    private TextField budgetField;
+
+    @Property
+    private String budget;
 
     @Inject
     @Property
@@ -85,10 +92,18 @@ public class Add extends AbstractPage {
             getAuthenticatedUser().setMobilePhone(mobile);
             getUserService().saveUser(getAuthenticatedUser());
         }
-        final OrderEntity tender = getOrderService().placeTender(this.tender, getAuthenticatedUser());
+        tender.setTotalPrice(null);
+        if (StringUtils.isNotEmpty(budget)) {
+            budget = budget.replaceAll("\\.", "").replaceAll(",", "");
+            if (StringUtils.isNotEmpty(budget)) {
+                final int i = Integer.parseInt(budget);
+                if (i > 0) tender.setTotalPrice(i);
+            }
+        }
+        final OrderEntity newTender = getOrderService().placeTender(this.tender, getAuthenticatedUser());
         java.util.List<PhotoEntity> photos = getTenderPhotos();
         photos = photos.stream().peek(t -> t.setId(null)).collect(Collectors.toList());
-        getPhotoService().attachPhotos(tender, photos);
+        getPhotoService().attachPhotos(newTender, photos);
         return getPageLinkSource().createPageRenderLink(AddResults.class);
     }
 

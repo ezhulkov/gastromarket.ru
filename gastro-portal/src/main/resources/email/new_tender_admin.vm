@@ -10,9 +10,12 @@
     Бюджет: ${total} руб<br/>
     Регион: ${region}<br/>
     Дата исполнения: ${date}<br/>
+    Заявка: ${tender.name}<br/>
     Комментарий: ${comment}<br/>
     Заявка лежит по адресу: <a href="${address}">${address}</a><br/>
     Количество получателей: ${recipients.size()}<br/>
+</p>
+<p>
     Подтверждение отправки: <a href="https://gastromarket.ru/tender/sendannonce/${tender.id}">https://gastromarket.ru/tender/sendannonce/${tender.id}</a>
 </p>
 #parse("email/footer.vm")
