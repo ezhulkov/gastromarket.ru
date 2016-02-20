@@ -53,32 +53,37 @@
                                                 <span><img src="${comment.author?.linkAvatar}" class="avatar-small"/></span>${comment.author?.linkName}
                                             </a>
                                         </p>
-                                        <p class="modal-text">
-                                            Пожалуйста, расскажите нам, почему вы выбрали именно его?<br/>
-                                            Эта информация позволит нам улучшить сервис.
-                                        </p>
                                         <div class="col-xs-12">
                                             <div class="form-group">
-                                                <t:label for="attachReason">Причина выбора:</t:label>
-                                                <textarea t:type="TextArea" t:id="attachReason" t:value="attachReason" t:validate="required" rows="5" class="form-control"/>
+                                                <t:label for="totalPrice">Финальная стоимость заказа, руб:</t:label>
+                                                <input t:type="TextField" t:id="totalPrice" t:value="totalPrice" class="form-control" t:validate="required"/>
                                             </div>
                                         </div>
                                         <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <t:label for="attachReason">Причина выбора:</t:label>
+                                                <textarea t:type="TextArea" t:id="attachReason" t:value="attachReason" t:validate="required" rows="2" class="form-control"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <hr/>
+                                        </div>
+                                        <div class="col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <t:label for="fullName">Ваше имя: *</t:label>
                                                 <input t:id="fullName" class="form-control" t:validate="required"/>
                                             </div>
                                         </div>
-                                        <div class="col-xs-12">
+                                        <div class="col-sm-6 col-xs-12">
                                             <div class="form-group">
-                                                <t:label for="deliveryAddress">Адрес доставки:*</t:label>
-                                                <input t:id="deliveryAddress" class="form-control" rows="5" t:validate="required"/>
+                                                <t:label for="mobilePhone">Контактный телефон:*</t:label>
+                                                <input t:id="mobilePhone" class="form-control mobile-phone" placeholder="+7 xxx xxx-xx-xx" t:validate="required"/>
                                             </div>
                                         </div>
                                         <div class="col-xs-12">
                                             <div class="form-group">
-                                                <t:label for="mobilePhone">Контактный телефон:*</t:label>
-                                                <input t:id="mobilePhone" class="form-control mobile-phone" placeholder="+7 xxx xxx-xx-xx" t:validate="required"/>
+                                                <t:label for="deliveryAddress">Адрес доставки:*</t:label>
+                                                <input t:id="deliveryAddress" rows="2" class="form-control" t:validate="required"/>
                                             </div>
                                         </div>
                                         <div class="col-xs-12">

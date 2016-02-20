@@ -57,10 +57,12 @@
                 </div>
             </div>
             <t:if test="order.promoCode">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <span class="f20px">Промо-код:</span><br/>
-                    <div>${order.promoCode}</div>
-                </div>
+                <t:if test="orderOwner">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <span class="f20px">Промо-код:</span><br/>
+                        <div>${order.promoCode}</div>
+                    </div>
+                </t:if>
             </t:if>
         </t:if>
     </t:if>
