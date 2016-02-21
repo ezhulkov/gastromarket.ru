@@ -1,10 +1,10 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" pageClass="main-page" breadcrumbs="false">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" pageClass="main-page" breadcrumbs="false" breadCrumbTitle="Главная">
 
     <section class="main-header" id="main-header">
         <div class="container">
             <div class="row">
                 <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12 info">
-                    <h1 id="main-title">Лучший подарок мужчине - торт!</h1>
+                    <h1 id="main-title">Самое время заказать мужчине торт!</h1>
 
                     <h2 id="main-text">
                         Лучшие домашние кондитеры и кулинары готовы сделать блюдо по индивидуальному заказу. <br/>
