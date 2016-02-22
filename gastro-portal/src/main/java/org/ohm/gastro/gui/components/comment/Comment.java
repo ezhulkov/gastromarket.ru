@@ -92,7 +92,7 @@ public class Comment extends BaseComponent {
     }
 
     public OrderEntity getOrder() {
-        return (OrderEntity) entity;
+        return entity instanceof OrderEntity ? (OrderEntity) entity : null;
     }
 
     public boolean isAttachedCatalog() {

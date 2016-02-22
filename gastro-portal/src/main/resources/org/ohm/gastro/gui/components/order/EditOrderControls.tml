@@ -5,20 +5,20 @@
             <div class="links-set gap2" style="margin-bottom: 0">
                 <a data-toggle="modal" data-target="#cancel_order_${order.id}" href="#of-new">Отменить заказ</a>
                 <t:modal modalId="cancel_order_${order.id}" caption="Отмена заказа">
-                    <t:form t:id="cancelTenderAjaxForm" t:context="[order.id]" class="form" style="padding-top:0;" clientValidation="none" autofocus="false" role="form">
+                    <t:form t:id="cancelTenderAjaxForm" t:context="[order.id]" class="form" style="padding-top:0;" clientValidation="BLUR" autofocus="false" role="form">
                         <p class="modal-text">
                             Вы хотите отменить заказ. Пожалуйста, расскажите нам причину?<br/>
                             Эта информация позволит нам улучшить сервис и работу кулинаров.
                         </p>
                         <div class="col-xs-12">
                             <div class="form-group">
-                                <textarea t:type="TextArea" t:id="cancelReason" t:value="order.cancelReason" rows="5" class="form-control"/>
+                                <textarea t:type="TextArea" t:id="cancelReason" t:value="order.cancelReason" t:validate="required" rows="5" class="form-control"/>
                             </div>
                         </div>
                         <div class="col-xs-12 gap">
                             <div class="form-buttons" xml:space="preserve">
-                                                            <input class="btn btn-red" type="submit" value="Отменить заказ"/>
-                                                        </div>
+                                <input class="btn btn-red" type="submit" value="Отменить заказ"/>
+                            </div>
                         </div>
                     </t:form>
                 </t:modal>
@@ -35,13 +35,13 @@
             </div>
         </t:block>
         <t:modal modalId="close_order_${order.id}" caption="Завершение заказа">
-            <t:form t:id="closeTenderAjaxForm" t:context="[order.id]" class="form" style="padding-top:0;" clientValidation="none" autofocus="false" role="form">
+            <t:form t:id="closeTenderAjaxForm" t:context="[order.id]" class="form" style="padding-top:0;" clientValidation="BLUR" autofocus="false" role="form">
                 <p class="modal-text">
                     Завершить выполнение заказа ${order.orderName}?
                 </p>
                 <div class="col-xs-12">
                     <div class="form-group">
-                        <t:label for="totalPrice">Финальная стоимость заказа, руб:</t:label>
+                        <t:label for="totalPrice">Подтвердите финальную стоимость заказа, руб:</t:label>
                         <input t:type="TextField" t:id="totalPrice" t:value="totalPrice" class="form-control f20px h45px" t:validate="required"/>
                     </div>
                 </div>

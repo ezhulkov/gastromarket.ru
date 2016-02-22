@@ -62,11 +62,11 @@ public class CookRate extends AbstractPage {
         final int tp = Integer.parseInt(totalPrice);
         if (tp > 0) {
             getConversationService().rateCook(order, tp, rate, opinion, gmComment, gmRecommend, getAuthenticatedUser());
+            return CookRateResults.class;
         } else {
             error = true;
             return null;
         }
-        return CookRateResults.class;
     }
 
     public boolean getLike() {

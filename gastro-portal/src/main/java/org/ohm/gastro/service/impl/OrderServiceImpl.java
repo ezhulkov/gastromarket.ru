@@ -184,7 +184,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                 put("reason", ObjectUtils.defaultIfNull(order.getCancelReason(), "-"));
             }
         };
-        ratingService.registerEvent(Type.ORDER_CANCELLED, order.getCatalog().getUser(), order.getCatalog(), null);
+        if (order.getCatalog() != null) ratingService.registerEvent(Type.ORDER_CANCELLED, order.getCatalog().getUser(), order.getCatalog(), null);
         mailService.sendAdminMessage(MailType.CANCEL_ORDER_ADMIN, params);
         params.put("username", order.getCustomer().getFullName());
         mailService.sendMailMessage(order.getCustomer(), MailType.CANCEL_ORDER_CUSTOMER, params);

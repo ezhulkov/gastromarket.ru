@@ -13,9 +13,9 @@
                         <div class="grey-text f16px">${customer.loginDatePrintable}</div>
                     </div>
                 </div>
-                <div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">
-                    <t:ratings entity="customer"/>
-                </div>
+                <!--<div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">-->
+                <!--<t:ratings entity="customer"/>-->
+                <!--</div>-->
             </div>
         </div>
     </section>

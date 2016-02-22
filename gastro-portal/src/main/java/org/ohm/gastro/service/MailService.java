@@ -17,7 +17,7 @@ public interface MailService {
 
         NEW_BILL_ADMIN("new_bill_admin"),
         CATALOG_RATE("catalog_rate", true),
-        CATALOG_RATE_ADMIN("catalog_rate_admin", true),
+        CATALOG_RATE_ADMIN("catalog_rate_admin"),
         USER_RATE("user_rate"),
         CHANGE_PASSWD("change_passwd"),
         NEW_CATALOG("new_catalog"),
