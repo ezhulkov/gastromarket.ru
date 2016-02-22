@@ -49,4 +49,6 @@ public interface ConversationService {
 
     int findAllCommentsCount(CommentableEntity entity);
 
+    void saveComment(CommentEntity comment);
+
 }

@@ -1222,4 +1222,10 @@
         <addForeignKeyConstraint baseTableName="orders" baseColumnNames="cook_comment_id" constraintName="orders_cook_rate_fk" referencedTableName="comment" referencedColumnNames="id" onDelete="CASCADE"/>
     </changeSet>
 
+    <changeSet id="112" author="ezhulkov">
+        <addColumn tableName="comment">
+            <column name="reply_expiration_hours" type="java.sql.Types.INTEGER"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

@@ -9,15 +9,10 @@
             </t:if>
         </p>
         <p class="modal-text">
-            <t:if test="cook">
-                Пожалуйста, перейдите на
-                <t:pagelink page="office/clientrate" t:context="[orderWithNoReply.id]">страницу закрытия заказа</t:pagelink>
-                и оставьте отзыв.
-            </t:if>
             <t:unless test="cook">
                 Пожалуйста, перейдите на
                 <t:pagelink page="office/cookrate" t:context="[orderWithNoReply.id]">страницу закрытия заказа</t:pagelink>
-                и оставьте отзыв.
+                и оставьте отзыв о работе кулинара.
             </t:unless>
         </p>
     </t:modal>

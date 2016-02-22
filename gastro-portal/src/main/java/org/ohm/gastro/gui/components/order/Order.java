@@ -7,8 +7,6 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.OrderProductEntity;
-import org.ohm.gastro.gui.pages.office.ClientRate;
-import org.ohm.gastro.gui.pages.office.CookRate;
 
 /**
  * Created by ezhulkov on 31.07.15.
@@ -108,12 +106,6 @@ public class Order extends AbstractOrder {
 
     public void onSubmitFromCancelTenderAjaxForm() {
         getOrderService().cancelOrder(order);
-    }
-
-    public String getRatePage() {
-        if (order.getCustomer().equals(getAuthenticatedUser())) return getPageLinkSource().createPageRenderLinkWithContext(CookRate.class, order.getId()).getBasePath();
-        if (order.getCatalog().getUser().equals(getAuthenticatedUser())) return getPageLinkSource().createPageRenderLinkWithContext(ClientRate.class, order.getId()).getBasePath();
-        return null;
     }
 
 }

@@ -164,6 +164,11 @@ public class ConversationServiceImpl implements ConversationService {
     }
 
     @Override
+    public void saveComment(final CommentEntity comment) {
+        commentRepository.save(comment);
+    }
+
+    @Override
     public CommentEntity findComment(final Long cId) {
         return commentRepository.findOne(cId);
     }
@@ -186,6 +191,7 @@ public class ConversationServiceImpl implements ConversationService {
                     put("username", tender.getCustomer().getFullName());
                     put("address", tender.getOrderUrl());
                     put("text", reply.getText());
+                    put("time", reply.getReplyExpirationHours());
                     put("order", tender);
                     put("catalog", author.getFirstCatalog().orElse(null));
                 }

@@ -38,7 +38,14 @@
                                         Откликнуться на заявку
                                     </a>
                                 </div>
-                                <t:comment.replymodal entity="order" modalId="tender_reply"/>
+                                <t:modal modalId="tender_reply" caption="Откликнуться на заявку" additionalClass="modal-md">
+                                    <div class="modal-text">
+                                        Оставлять свои прямые контакты в отклике запрещено правилами сайта.
+                                        Комментарии с таким содержанием будут модерированы или удалены.
+                                        Пожалуйста, для обсуждения заказа используйте личные сообщения.
+                                    </div>
+                                    <t:comment.reply order="order" btnTitle="Откликнуться"/>
+                                </t:modal>
                                 <t:parameter name="else">
                                     <t:unless test="user">
                                         <div class="gap3 text-center">

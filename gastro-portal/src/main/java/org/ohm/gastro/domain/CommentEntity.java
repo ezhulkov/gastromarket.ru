@@ -7,6 +7,7 @@ import org.hibernate.annotations.AnyMetaDef;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.MetaValue;
+import org.joda.time.DateTime;
 import org.ohm.gastro.util.CommonsUtils;
 
 import javax.persistence.CascadeType;
@@ -30,6 +31,9 @@ public class CommentEntity extends AbstractBaseEntity {
 
     @Column
     private Integer budget;
+
+    @Column(name = "reply_expiration_hours")
+    private Integer replyExpirationHours;
 
     @Column
     private Integer rating;
@@ -130,6 +134,26 @@ public class CommentEntity extends AbstractBaseEntity {
 
     public String getDatePrintable() {
         return CommonsUtils.GUI_DATE_LONG.get().format(date);
+    }
+
+    public Integer getReplyExpirationHours() {
+        return replyExpirationHours;
+    }
+
+    public void setReplyExpirationHours(final Integer replyExpirationHours) {
+        this.replyExpirationHours = replyExpirationHours;
+    }
+
+    public long getReplyTimeLeft() {
+        return replyExpirationHours == null ? Long.MAX_VALUE : new DateTime(date).plusHours(replyExpirationHours).getMillis() - System.currentTimeMillis();
+    }
+
+    public String getReplyTimeLeftPrintable() {
+        return CommonsUtils.GUI_HOURS.get().format(getReplyTimeLeft());
+    }
+
+    public boolean isReplyExpired() {
+        return replyExpirationHours != null && getReplyTimeLeft() < 0;
     }
 
 }

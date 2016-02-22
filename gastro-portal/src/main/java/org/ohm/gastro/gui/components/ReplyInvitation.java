@@ -4,6 +4,7 @@ import org.apache.tapestry5.annotations.Cached;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.pages.office.CookRate;
 import org.ohm.gastro.gui.pages.office.Order;
 import org.ohm.gastro.gui.pages.office.Orders;
 
@@ -18,12 +19,11 @@ public class ReplyInvitation extends BaseComponent {
     public OrderEntity getOrderWithNoReply() {
         if (!isAuthenticated() ||
                 getComponentResources().getPage() instanceof Order ||
+                getComponentResources().getPage() instanceof CookRate ||
                 getComponentResources().getPage() instanceof Orders ||
                 getRequest().getParameter("ql") != null) return null;
-        final Stream<OrderEntity> closedOrders = isCook() ?
-                getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream().flatMap(t -> getOrderService().findAllOrders(t, Status.CLOSED).stream()) :
-                getOrderService().findAllOrders(getAuthenticatedUser(), null).stream().filter(t -> t.getStatus() == Status.CLOSED);
-        return closedOrders.filter(t -> isCook() ? !t.isCookRate() : !t.isClientRate()).findFirst().orElse(null);
+        final Stream<OrderEntity> closedOrders = getOrderService().findAllOrders(getAuthenticatedUser(), null).stream().filter(t -> t.getStatus() == Status.CLOSED);
+        return closedOrders.filter(t -> !t.isClientRate()).findFirst().orElse(null);
     }
 
 }

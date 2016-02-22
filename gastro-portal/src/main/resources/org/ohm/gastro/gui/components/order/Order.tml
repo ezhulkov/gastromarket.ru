@@ -67,7 +67,7 @@
                         </t:if>
                         <t:if test="order.orderAttached">
                             &nbsp;
-                            <a href="${ratePage}">Завершить выполнение заказа<span/></a>
+                            <t:pagelink page="office/cookrate" t:context="order.id">Завершить выполнение заказа<span/></t:pagelink>
                         </t:if>
                     </div>
                     <t:modal modalId="cancel_order_${order.id}" caption="Отмена заказа">

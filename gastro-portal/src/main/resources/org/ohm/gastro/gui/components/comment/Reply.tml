@@ -1,0 +1,39 @@
+<t:form xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+        t:context="formContext"
+        t:clientValidation="BLUR"
+        enctype="multipart/form-data"
+        class="form comment-edit"
+        role="form">
+    <div class="col-xs-12">
+        <div class="form-group">
+            <textarea t:type="TextArea" t:id="text" t:value="comment.text" t:validate="required" rows="5" class="form-control"/>
+        </div>
+    </div>
+    <t:unless test="order.totalPrice">
+        <div class="col-xs-12">
+            <div class="form-group">
+                <t:label for="budget">Предложение стоимости, руб:</t:label>
+                <div class="label-tip">
+                    Итоговая стоимость вашего предложение; можно скорректировать после обсуждения
+                </div>
+                <input t:type="textfield" t:id="budget" t:value="budget" t:validate="required" type="number" class="form-control f20px h45px"/>
+            </div>
+        </div>
+    </t:unless>
+    <div class="col-xs-12">
+        <div class="form-group">
+            <t:label for="replyTime">Предложение действительно в течение, часов:</t:label>
+            <div class="label-tip">
+                Можете указать количество часов, в течение которых ваше предложение будет действительно
+            </div>
+            <input t:type="textfield" t:id="replyTime" t:value="replyTime" type="number" class="form-control"/>
+        </div>
+    </div>
+    <t:comment.injectPhotos comment="comment"/>
+    <div class="col-xs-12 gap">
+        <div class="form-buttons" xml:space="preserve">
+            <input class="btn btn-red" type="submit" value="${btnTitle}"/>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</t:form>
