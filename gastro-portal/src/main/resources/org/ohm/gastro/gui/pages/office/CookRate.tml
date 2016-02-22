@@ -3,15 +3,12 @@
     <section class="s600px">
         <div class="container">
             <div class="title">
-                <h1><span>Закрытие заказа</span></h1>
+                <h1><span>Отзыв о работе кулинара</span></h1>
             </div>
             <t:form t:id="rateForm" class="form rate-form" rel="nofollow" role="form" t:clientValidation="none" t:autofocus="false">
                 <div class="row">
                     <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 col-xs-offset-0 col-xs-12">
-                        <div class="f20px">Заказ:&nbsp;
-                            <t:if test="order.tender">${order.name}</t:if>
-                            <t:unless test="order.tender">№${order.orderNumber}</t:unless>
-                        </div>
+                        <div class="f20px">Заказ:&nbsp;${order.orderName}</div>
                     </div>
                 </div>
                 <div class="gap2"></div>

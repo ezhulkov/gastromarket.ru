@@ -153,7 +153,7 @@ public class CommentEntity extends AbstractBaseEntity {
     }
 
     public boolean isReplyExpired() {
-        return replyExpirationHours != null && getReplyTimeLeft() < 0;
+        return !((OrderEntity) entity).isOrderAttached() && replyExpirationHours != null && getReplyTimeLeft() < 0;
     }
 
 }

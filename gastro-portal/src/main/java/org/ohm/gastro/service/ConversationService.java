@@ -51,4 +51,6 @@ public interface ConversationService {
 
     void saveComment(CommentEntity comment);
 
+    void rateCook(OrderEntity order, final int totalPrice, String rate, Boolean opinion, String gmComment, Boolean gmRecommend, UserEntity caller);
+
 }

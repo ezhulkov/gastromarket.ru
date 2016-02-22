@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.pages.office;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Property;
@@ -53,11 +54,19 @@ public class CookRate extends AbstractPage {
         totalPrice = ObjectUtils.defaultIfNull(order.getTotalPrice(), 0).toString();
     }
 
-    public void onSubmit() {
-        if (rateForm.getHasErrors()) {
+    public Object onSubmit() {
+        if (StringUtils.isEmpty(totalPrice) || rateForm.getHasErrors()) {
             error = true;
-            return;
+            return null;
         }
+        final int tp = Integer.parseInt(totalPrice);
+        if (tp > 0) {
+            getConversationService().rateCook(order, tp, rate, opinion, gmComment, gmRecommend, getAuthenticatedUser());
+        } else {
+            error = true;
+            return null;
+        }
+        return CookRateResults.class;
     }
 
     public boolean getLike() {

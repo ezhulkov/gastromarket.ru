@@ -38,7 +38,7 @@
                                         Откликнуться на заявку
                                     </a>
                                 </div>
-                                <t:modal modalId="tender_reply" caption="Откликнуться на заявку" additionalClass="modal-md">
+                                <t:modal modalId="tender_reply" caption="Откликнуться на заявку">
                                     <div class="modal-text">
                                         Оставлять свои прямые контакты в отклике запрещено правилами сайта.
                                         Комментарии с таким содержанием будут модерированы или удалены.

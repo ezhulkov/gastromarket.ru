@@ -49,4 +49,6 @@ public interface OrderService {
 
     void cancelOrder(OrderEntity order);
 
+    void closeOrder(OrderEntity order, int totalPrice, String survey, UserEntity caller);
+
 }

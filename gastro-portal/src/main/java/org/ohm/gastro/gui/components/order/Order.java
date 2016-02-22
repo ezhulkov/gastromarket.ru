@@ -25,68 +25,26 @@ public class Order extends AbstractOrder {
     @Property
     private boolean replies;
 
-    @Property
-    private String cancelReason;
-
-    @Inject
-    private Block tenderReplyLinkBlock;
-
-    @Inject
-    private Block editOrderBlock;
-
-    @Inject
-    private Block editBlock;
-
     @Inject
     @Property
     protected Block orderMainBlock;
-
-    @Inject
-    private Block catalogAttachedLinkBlock;
-
-    @Inject
-    private Block editOrderLinkBlock;
-
-    @Inject
-    private Block orderCancelledLinkBlock;
-
-    @Inject
-    private Block orderClosedLinkBlock;
 
     public java.util.List<OrderProductEntity> getItems() {
         return order == null ? getShoppingCart().getItems(catalog) : getOrderService().findAllItems(order);
     }
 
     public void beginRender() {
-        if (order != null) catalog = order.getCatalog();
+        if (order != null) {
+            catalog = order.getCatalog();
+        }
     }
 
     public String getOrderShowCatalogZoneId() {
         return String.format("orderShowCatalogZoneId%s", order == null ? catalog.getId() : order.getId());
     }
 
-    public Block onActionFromEditOrder(Long tid) {
-        this.order = getOrderService().findOrder(tid);
-        return editOrderBlock;
-    }
-
     public Status[] getStatuses() {
         return isCook() ? order.getStatus().getCookGraph() : order.getStatus().getClientGraph();
-    }
-
-    public Block getOrderActionLinkBlock() {
-        if (order == null || order.getId() == null) return null;
-        if (order.getStatus() == Status.CANCELLED) return orderCancelledLinkBlock;
-        if (order.getStatus() == Status.CLOSED) return orderClosedLinkBlock;
-        if (isAdmin() || isOrderOwner() || isOrderExecutor()) return editOrderLinkBlock;
-        if (order.getCatalog() != null) return catalogAttachedLinkBlock;
-        return tenderReplyLinkBlock;
-    }
-
-    public Block getOrderEditBlock() {
-        if (order.getStatus() == Status.CANCELLED || order.getId() == null) return null;
-        if (!isAdmin() && !isOrderOwner() && !isOrderExecutor()) return null;
-        return editBlock;
     }
 
     public boolean isCanReplyTender() {
@@ -94,18 +52,6 @@ public class Order extends AbstractOrder {
                 order.getType() == OrderEntity.Type.PUBLIC &&
                 order.getStatus() == Status.NEW &&
                 order.getCatalog() == null;
-    }
-
-    public String getEditZoneId() {
-        return order == null ? "editZoneNew" : "editZone" + order.getId();
-    }
-
-    public void onPrepareFromCancelTenderAjaxForm(Long id) {
-        this.order = getOrderService().findOrder(id);
-    }
-
-    public void onSubmitFromCancelTenderAjaxForm() {
-        getOrderService().cancelOrder(order);
     }
 
 }
