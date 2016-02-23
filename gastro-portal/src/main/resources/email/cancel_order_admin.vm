@@ -3,9 +3,9 @@
 #set($toadmin = true)
 #parse("email/header.vm")
 <p>
-    Заказ ${ordername} отменен.
+    Заказ $ordername отменен.
 </p>
 <p>
-    Причина отмены: <br/>${reason}<br/>
+    Причина отмены: <br/>$reason<br/>
 </p>
 #parse("email/footer.vm")
