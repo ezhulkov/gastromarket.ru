@@ -102,10 +102,10 @@ public abstract class AbstractOrder extends BaseComponent {
     }
 
     public String getOrderUrl() {
-        return getOrderUrlData(() -> "office/orders",
+        return getOrderUrlData(() -> "office/order/list",
                                () -> "tender/index",
-                               () -> "office/order",
-                               () -> "office/order");
+                               () -> "office/order/index",
+                               () -> "office/order/index");
     }
 
     public Object[] getOrderContext() {

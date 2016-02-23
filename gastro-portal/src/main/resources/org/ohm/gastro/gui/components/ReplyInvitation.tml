@@ -11,7 +11,7 @@
         <p class="modal-text">
             <t:unless test="cook">
                 Пожалуйста, перейдите на
-                <t:pagelink page="office/cookrate" t:context="[orderWithNoReply.id]">страницу закрытия заказа</t:pagelink>
+                <t:pagelink page="office/order/rate" t:context="[orderWithNoReply.id]">страницу закрытия заказа</t:pagelink>
                 и оставьте отзыв о работе кулинара.
             </t:unless>
         </p>

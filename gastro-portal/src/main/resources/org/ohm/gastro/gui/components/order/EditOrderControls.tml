@@ -29,35 +29,15 @@
                 <t:if test="order.orderAttached">
                     &nbsp;
                     <t:if test="cook">
-                        <a data-toggle="modal" data-target="#close_order_${order.id}" href="#of-new">Завершить выполнение заказа</a>
+                        <t:pagelink page="office/order/close" t:context="order.id">Завершить выполнение заказа<span/></t:pagelink>
                     </t:if>
+                </t:if>
+                <t:if test="needRate">
+                    &nbsp;
+                    <t:pagelink page="office/order/rate" t:context="order.id">Оценить работу кулинара<span/></t:pagelink>
                 </t:if>
             </div>
         </t:block>
-        <t:modal modalId="close_order_${order.id}" caption="Завершение заказа">
-            <t:form t:id="closeTenderAjaxForm" t:context="[order.id]" class="form" style="padding-top:0;" clientValidation="BLUR" autofocus="false" role="form">
-                <p class="modal-text">
-                    Завершить выполнение заказа ${order.orderName}?
-                </p>
-                <div class="col-xs-12">
-                    <div class="form-group">
-                        <t:label for="totalPrice">Подтвердите финальную стоимость заказа, руб:</t:label>
-                        <input t:type="TextField" t:id="totalPrice" t:value="totalPrice" class="form-control f20px h45px" t:validate="required"/>
-                    </div>
-                </div>
-                <div class="col-xs-12">
-                    <div class="form-group">
-                        <t:label for="survey">Возможно, у вас есть идеи и предложения по развитию ГастроМаркет:</t:label>
-                        <textarea t:type="TextArea" t:id="survey" t:value="survey" rows="3" class="form-control"/>
-                    </div>
-                </div>
-                <div class="col-xs-12 gap">
-                    <div class="form-buttons" xml:space="preserve">
-                    <input class="btn btn-red" type="submit" value="Завершить заказ"/>
-                </div>
-                </div>
-            </t:form>
-        </t:modal>
         <t:if test="orderOwner">
             <t:zone t:id="editZone" id="${editZoneId}"/>
             <t:block t:id="editOrderBlock">

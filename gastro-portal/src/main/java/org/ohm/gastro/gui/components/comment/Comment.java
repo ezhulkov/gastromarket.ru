@@ -14,7 +14,7 @@ import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.CommentableEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
-import org.ohm.gastro.gui.pages.office.Order;
+import org.ohm.gastro.gui.pages.office.order.Index;
 
 /**
  * Created by ezhulkov on 14.02.15.
@@ -87,7 +87,7 @@ public class Comment extends BaseComponent {
             tender.setAttachReason(attachReason);
             tender.setTotalPrice(tp);
             getOrderService().attachTender(catalog, tender, getAuthenticatedUser());
-            return getPageLinkSource().createPageRenderLinkWithContext(Order.class, true, tender.getId(), false);
+            return getPageLinkSource().createPageRenderLinkWithContext(Index.class, true, tender.getId(), false);
         }).orElse(null);
     }
 

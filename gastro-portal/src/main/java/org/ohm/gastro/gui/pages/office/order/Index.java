@@ -1,4 +1,4 @@
-package org.ohm.gastro.gui.pages.office;
+package org.ohm.gastro.gui.pages.office.order;
 
 import com.google.common.collect.Lists;
 import org.apache.tapestry5.Block;
@@ -11,7 +11,7 @@ import org.ohm.gastro.gui.pages.AbstractPage;
 /**
  * Created by ezhulkov on 24.08.14.
  */
-public class Order extends AbstractPage {
+public class Index extends AbstractPage {
 
     @Property
     private OrderEntity order;
@@ -49,7 +49,7 @@ public class Order extends AbstractPage {
     @Override
     public java.util.List<Breadcrumb> getBreadcrumbsContext() {
         return Lists.newArrayList(mainPage,
-                                  Breadcrumb.of(getMessages().get(Orders.class.getName()), Orders.class),
+                                  Breadcrumb.of(getMessages().get(List.class.getName()), List.class),
                                   Breadcrumb.of(getTitle(), this.getClass())
         );
     }

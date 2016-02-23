@@ -6,7 +6,12 @@
                 <h1><span>Отзыв о работе кулинара</span></h1>
             </div>
             <div class="row">
-                <p class="modal-text">Спасибо за ваш заказ и отзыв о кулинаре!</p>
+                <div class="empty">
+                    Спасибо за ваш заказ и отзыв о кулинаре!
+                    Перейти на
+                    <t:pagelink page="index">главную страницу</t:pagelink>
+                    .
+                </div>
             </div>
         </div>
     </section>

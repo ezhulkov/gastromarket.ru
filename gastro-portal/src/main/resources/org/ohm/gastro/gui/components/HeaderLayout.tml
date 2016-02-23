@@ -50,7 +50,7 @@
                                     <t:pagelink page="office/messages">Сообщения</t:pagelink>
                                 </li>
                                 <li>
-                                    <t:pagelink page="office/orders">Заказы</t:pagelink>
+                                    <t:pagelink page="office/order/list">Заказы</t:pagelink>
                                 </li>
                             </t:unless>
                         </t:if>

@@ -3,7 +3,7 @@
     <section class="s600px">
         <div class="container">
             <div class="title">
-                <h1><span>Отзыв о работе кулинара</span></h1>
+                <h1><span>Завершение заказа</span></h1>
             </div>
             <t:form t:id="rateForm" class="form rate-form" rel="nofollow" role="form" t:clientValidation="none" t:autofocus="false">
                 <div class="row">
@@ -24,7 +24,7 @@
                             <input t:type="textfield" t:id="totalPrice" t:value="totalPrice" t:validate="required" type="number" class="form-control f20px h45px"/>
                         </div>
                         <div class="form-group">
-                            <t:label for="rate">Отзыв о работе кулинара:</t:label>
+                            <t:label for="comment">Отзыв о покупателе:</t:label>
                             <div>
                                 <t:radiogroup t:id="opinion" value="opinion" validate="required">
                                     <t:radio t:id="like"/>
@@ -33,33 +33,22 @@
                                     <br/>
                                     <t:radio t:id="dislike"/>
                                     &nbsp;
-                                    <t:label for="dislike">Нужны доработки</t:label>
+                                    <t:label for="dislike">Были проблемы с покупателем</t:label>
                                 </t:radiogroup>
                             </div>
-                            <input t:type="textarea" t:id="rate" t:value="rate" rows="5" t:validate="required" class="form-control"/>
+                            <input t:type="textarea" t:id="comment" t:value="comment" rows="5" t:validate="required" class="form-control"/>
                         </div>
                         <t:comment.injectPhotos order="order"/>
                         <div class="clearfix"></div>
                         <hr/>
                         <div class="form-group">
-                            <t:label for="gmComment">Комментарии о работе ГастроМаркет:</t:label>
-                            <div>
-                                <t:radiogroup t:id="gmRecommend" value="gmRecommend">
-                                    <t:radio t:id="like2"/>
-                                    &nbsp;
-                                    <t:label for="like2">Буду рекомендовать сервис друзьям</t:label>
-                                    <br/>
-                                    <t:radio t:id="dislike2"/>
-                                    &nbsp;
-                                    <t:label for="dislike2">Не буду рекомендовать</t:label>
-                                </t:radiogroup>
-                            </div>
-                            <input t:type="textarea" t:id="gmComment" t:value="gmComment" class="form-control"/>
+                            <t:label for="gmComment">Возможно, у вас есть идеи и предложения по развитию ГастроМаркет:</t:label>
+                            <input t:type="textarea" t:id="gmComment" t:value="gmComment" rows="5" class="form-control"/>
                         </div>
                     </div>
                     <div class="col-xs-12 gap">
                         <div class="form-buttons" xml:space="preserve">
-                            <input class="btn btn-red" type="submit" value="Оставить отзыв и закрыть заказ"/>
+                            <input class="btn btn-red" type="submit" value="Завершить заказ"/>
                         </div>
                     </div>
                 </div>

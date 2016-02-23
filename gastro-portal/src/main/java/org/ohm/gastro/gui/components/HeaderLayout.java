@@ -13,7 +13,7 @@ import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.filter.RegionFilter;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.Cart;
-import org.ohm.gastro.gui.pages.office.Orders;
+import org.ohm.gastro.gui.pages.office.order.List;
 
 /**
  * Created by ezhulkov on 23.08.14.
@@ -58,7 +58,7 @@ public class HeaderLayout extends BaseComponent {
 
     public Link getCartLink() {
         return isAuthenticated() ?
-                getPageLinkSource().createPageRenderLinkWithContext(Orders.class, true, Status.NEW) :
+                getPageLinkSource().createPageRenderLinkWithContext(List.class, true, Status.NEW) :
                 getPageLinkSource().createPageRenderLink(Cart.class);
     }
 
