@@ -59,7 +59,7 @@
                     </div>
                     <div class="col-xs-12 gap">
                         <div class="form-buttons" xml:space="preserve">
-                            <input class="btn btn-red" type="submit" value="Оставить отзыв и закрыть заказ"/>
+                            <input class="btn btn-red btn-lg" type="submit" value="Оставить отзыв и закрыть заказ"/>
                         </div>
                     </div>
                 </div>
