@@ -10,16 +10,7 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 import org.ohm.gastro.util.CommonsUtils;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Date;
@@ -480,6 +471,10 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
 
     public final boolean isOrderClosed() {
         return getStatus().getLevel() >= Status.CLOSED.getLevel();
+    }
+
+    public final boolean isOrderClosedAndRated() {
+        return isOrderClosed() && isClientRate();
     }
 
     public final boolean isCanEdit(final UserEntity user) {
