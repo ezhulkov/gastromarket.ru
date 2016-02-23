@@ -11,7 +11,7 @@
     Регион: ${tender.region}<br/>
     Бюджет: ${tender.totalPrice} руб.<br/>
     Дата исполнения: ${tender.dueDateAsString}<br/>
-    Комментарий: ${tender.comment}<br/>
+    Исполнитель: ${tender.catalog.name}<br/>
     Причина выбора: ${tender.attachReason}
 </p>
 #parse("email/footer.vm")

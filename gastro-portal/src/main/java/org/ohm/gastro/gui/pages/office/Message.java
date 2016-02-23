@@ -10,7 +10,7 @@ import org.ohm.gastro.domain.ConversationEntity;
 import org.ohm.gastro.domain.MessageDTO;
 import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.UserEntity;
-import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.pages.AbstractPage;
 import org.ohm.gastro.servlet.MessageNotifierServlet;
 
 import java.util.Date;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 /**
  * Created by ezhulkov on 24.08.14.
  */
-public class Message extends BaseComponent {
+public class Message extends AbstractPage {
 
     private final static int PAGE_SIZE = 40;
 

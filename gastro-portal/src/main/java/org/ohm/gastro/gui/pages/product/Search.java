@@ -2,12 +2,12 @@ package org.ohm.gastro.gui.pages.product;
 
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.ProductEntity;
-import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.pages.AbstractPage;
 
 /**
  * Created by ezhulkov on 31.08.14.
  */
-public class Search extends BaseComponent {
+public class Search extends AbstractPage {
 
     @Property
     private String searchString;
@@ -30,6 +30,11 @@ public class Search extends BaseComponent {
 
     public java.util.List<ProductEntity> getProducts() {
         return getProductService().searchProducts(searchString, 0, 100);
+    }
+
+    @Override
+    public String getTitle() {
+        return searchString;
     }
 
 }

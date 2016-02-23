@@ -1,37 +1,18 @@
-<t:form xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" t:id="editForm" enctype="multipart/form-data" context="editFormContext" class="form comment-edit" t:clientValidation="BLUR" role="form">
-    <t:if test="showRate">
-        <div class="form-group">
-            <t:radiogroup t:id="opinion" value="comment.opinion">
-                <div class="col-sm-6 fluid-sm-block">
-                    <t:label for="like">Мне всё понравилась</t:label>
-                    &nbsp;
-                    <t:radio t:id="like"/>
-                </div>
-                <div class="col-sm-6 text-left">
-                    <t:label for="dislike">Нет, было плохо</t:label>
-                    &nbsp;
-                    <t:radio t:id="dislike"/>
-                </div>
-            </t:radiogroup>
-        </div>
-    </t:if>
+<t:form xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+        t:context="formContext"
+        t:clientValidation="BLUR"
+        enctype="multipart/form-data"
+        class="form comment-edit"
+        role="form">
     <div class="col-xs-12">
         <div class="form-group">
             <textarea t:type="TextArea" t:id="text" t:value="comment.text" t:validate="required" rows="5" class="form-control"/>
         </div>
     </div>
-    <t:if test="openBudget">
-        <div class="col-xs-12">
-            <div class="form-group">
-                <t:label for="budget">Ваше предложение стоимости, руб:</t:label>
-                <input t:type="textfield" t:id="budget" t:value="comment.budget" t:validate="required" type="number" class="form-control"/>
-            </div>
-        </div>
-    </t:if>
     <t:comment.injectPhotos comment="comment"/>
     <div class="col-xs-12 gap">
         <div class="form-buttons" xml:space="preserve">
-            <input class="btn btn-red" type="submit" value="${btnTitle}"/>
+            <input class="btn btn-red" type="submit" value="Сохранить"/>
         </div>
     </div>
     <div class="clearfix"></div>

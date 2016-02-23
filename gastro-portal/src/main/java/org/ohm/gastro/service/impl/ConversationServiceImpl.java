@@ -19,8 +19,10 @@ import org.ohm.gastro.reps.PhotoRepository;
 import org.ohm.gastro.reps.UserRepository;
 import org.ohm.gastro.service.ConversationService;
 import org.ohm.gastro.service.MailService;
+import org.ohm.gastro.service.MailService.MailType;
 import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingTarget;
+import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -40,7 +42,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 @Transactional
-public class ConversationServiceImpl implements ConversationService {
+public class ConversationServiceImpl implements ConversationService, Logging {
 
     private final PhotoRepository photoRepository;
     private final ConversationRepository conversationRepository;
@@ -164,6 +166,35 @@ public class ConversationServiceImpl implements ConversationService {
     }
 
     @Override
+    public void saveComment(final CommentEntity comment) {
+        commentRepository.save(comment);
+    }
+
+    @Override
+    public void rateCook(final OrderEntity order, final int totalPrice, final String rate, final Boolean opinion, final String gmComment, final Boolean gmRecommend, final UserEntity caller) {
+        if (totalPrice != order.getTotalPrice()) {
+            logger.info("Price changed by client. Was {}, become {}", order.getTotalPrice(), totalPrice);
+            order.setTotalPrice(totalPrice);
+        }
+        order.setClientRate(true);
+        orderRepository.save(order);
+        final CommentEntity comment = new CommentEntity();
+        comment.setText(rate);
+        comment.setRating(opinion == Boolean.TRUE ? 1 : -1);
+        placeComment(order.getCatalog(), comment, caller);
+        final Map<String, Object> params = new HashMap<String, Object>() {
+            {
+                put("text", comment.getText());
+                put("order", order);
+                put("catalog", order.getCatalog());
+                put("gmcomment", gmComment);
+                put("gmrecommend", gmRecommend);
+            }
+        };
+        mailService.sendAdminMessage(MailType.CATALOG_RATE_ADMIN, params);
+    }
+
+    @Override
     public CommentEntity findComment(final Long cId) {
         return commentRepository.findOne(cId);
     }
@@ -186,6 +217,7 @@ public class ConversationServiceImpl implements ConversationService {
                     put("username", tender.getCustomer().getFullName());
                     put("address", tender.getOrderUrl());
                     put("text", reply.getText());
+                    put("time", reply.getReplyExpirationHours());
                     put("order", tender);
                     put("catalog", author.getFirstCatalog().orElse(null));
                 }

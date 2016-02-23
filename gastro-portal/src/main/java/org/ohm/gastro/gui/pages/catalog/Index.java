@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.pages.catalog;
 
+import com.google.common.collect.Lists;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
@@ -12,6 +13,7 @@ import org.ohm.gastro.domain.OfferEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
+import org.ohm.gastro.gui.dto.Breadcrumb;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -62,7 +64,7 @@ public class Index extends AbstractCatalogPage {
     public boolean isCommentAllowed() {
         return getAuthenticatedUserOpt()
                 .filter(t -> t.isUser() || t.isAdmin())
-                .map(t -> getOrderService().findAllOrders(t, catalog).size())
+                .map(t -> getOrderService().findAllOrders(t).size())
                 .orElse(0) > 0;
     }
 
@@ -146,6 +148,19 @@ public class Index extends AbstractCatalogPage {
 
     public String getRegionPrintable() {
         return getMessages().get("Region." + catalog.getRegion());
+    }
+
+    @Override
+    public String getTitle() {
+        return catalog == null ? "" : catalog.getName();
+    }
+
+    @Override
+    public java.util.List<Breadcrumb> getBreadcrumbsContext() {
+        return Lists.newArrayList(mainPage,
+                                  Breadcrumb.of(getMessages().get(List.class.getName()), List.class),
+                                  Breadcrumb.of(getTitle(), this.getClass())
+        );
     }
 
 }

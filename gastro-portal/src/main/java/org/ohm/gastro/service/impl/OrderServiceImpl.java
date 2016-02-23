@@ -18,6 +18,7 @@ import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.reps.UserRepository;
 import org.ohm.gastro.service.ConversationService;
 import org.ohm.gastro.service.MailService;
+import org.ohm.gastro.service.MailService.MailType;
 import org.ohm.gastro.service.OrderService;
 import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingService;
@@ -150,7 +151,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     }
 
     @Override
-    public List<OrderEntity> findAllOrders(final UserEntity customer, final CatalogEntity catalog) {
+    public List<OrderEntity> findAllOrders(final UserEntity customer) {
         return orderRepository.findAllByCustomer(customer);
     }
 
@@ -167,6 +168,40 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     @Override
     public List<OrderEntity> findAllOrdersWithMetaStatus(final CatalogEntity catalog, final Status status) {
         return orderRepository.findAllByCatalog(catalog).stream().filter(t -> t.getMetaStatus() == status).collect(Collectors.toList());
+    }
+
+    @Override
+    public void cancelOrder(OrderEntity order) {
+        order.setClosedDate(new Date());
+        order.setStatus(Status.CANCELLED);
+        logger.info("Cancelling order {}, reason {}", order, order.getCancelReason());
+        final Map<String, Object> params = new HashMap<String, Object>() {
+            {
+                put("order", order);
+                put("address", order.getOrderUrl());
+                put("customer", order.getCustomer());
+                put("ordername", ObjectUtils.defaultIfNull(order.getName(), "№" + order.getOrderNumber()));
+                put("reason", ObjectUtils.defaultIfNull(order.getCancelReason(), "-"));
+            }
+        };
+        if (order.getCatalog() != null) ratingService.registerEvent(Type.ORDER_CANCELLED, order.getCatalog().getUser(), order.getCatalog(), null);
+        mailService.sendAdminMessage(MailType.CANCEL_ORDER_ADMIN, params);
+        params.put("username", order.getCustomer().getFullName());
+        mailService.sendMailMessage(order.getCustomer(), MailType.CANCEL_ORDER_CUSTOMER, params);
+        conversationService.findAllComments(order).forEach(t -> {
+            params.put("username", t.getAuthor().getFullName());
+            mailService.sendMailMessage(t.getAuthor(), MailType.CANCEL_ORDER_COOK, params);
+        });
+    }
+
+    @Override
+    public void closeOrder(final OrderEntity order, final int totalPrice, final String survey, final UserEntity caller) {
+        logger.info("Closing order {}, survey {}", order, survey);
+        if (totalPrice != order.getTotalPrice()) {
+            logger.info("Price changed. Was {}, become {}", order.getTotalPrice(), totalPrice);
+            order.setTotalPrice(totalPrice);
+        }
+        changeStatusInternal(order, Status.CLOSED, order.getCatalog(), caller, survey);
     }
 
     @Override
@@ -193,7 +228,6 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
             {
                 put("username", tender.getCustomer().getFullName());
                 put("customer", tender.getCustomer());
-                put("name", ObjectUtils.defaultIfNull(tender.getName(), "-"));
                 put("comment", ObjectUtils.defaultIfNull(tender.getComment(), "-"));
                 put("total", ObjectUtils.defaultIfNull(tender.getTotalPrice(), "-"));
                 put("date", ObjectUtils.defaultIfNull(tender.getDueDateAsString(), "-"));
@@ -225,6 +259,10 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
             };
             params.put("username", catalog.getUser().getFullName());
             mailService.sendMailMessage(catalog.getUser(), MailService.MailType.TENDER_ATTACHED_COOK, params);
+            conversationService.findAllComments(order).stream().filter(t -> !catalog.getUser().equals(t.getAuthor())).forEach(t -> {
+                params.put("username", t.getAuthor().getFullName());
+                mailService.sendMailMessage(t.getAuthor(), MailType.TENDER_ATTACHED_ALL_COOKS, params);
+            });
             params.put("username", order.getCustomer().getFullName());
             mailService.sendMailMessage(order.getCustomer(), MailService.MailType.TENDER_ATTACHED_CUSTOMER, params);
             mailService.sendAdminMessage(MailService.MailType.TENDER_ATTACHED_ADMIN, params);
@@ -247,7 +285,6 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                 put("username", tender.getCustomer().getFullName());
                 put("customer", tender.getCustomer());
                 put("total", tender.getTotalPrice());
-                put("name", ObjectUtils.defaultIfNull(tender.getName(), ""));
                 put("comment", ObjectUtils.defaultIfNull(tender.getComment(), "-"));
                 put("date", ObjectUtils.defaultIfNull(tender.getDueDateAsString(), "-"));
                 put("address", tender.getOrderUrl());
@@ -322,52 +359,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     @Override
     @RatingModifier
     public void changeStatus(final OrderEntity order, final Status status, @RatingTarget final CatalogEntity catalog, final UserEntity caller) {
-        if (order == null || !order.isAccessAllowed(caller)) return;
-        final UserEntity customer = order.getCustomer();
-        final UserEntity referrer = customer.getReferrer();
-        order.setStatus(status);
-
-        final Map<String, Object> params = new HashMap<String, Object>() {
-            {
-                put("status", status);
-                put("products", order.getProducts());
-                put("ordernumber", order.getOrderNumber());
-                put("customer", order.getCustomer());
-                put("comment", ObjectUtils.defaultIfNull(order.getComment(), "-"));
-                put("cook", order.getCatalog());
-                put("total", order.getTotalPrice());
-                put("address", order.getOrderUrl());
-                put("region", order.getRegion());
-                put("order", order);
-            }
-        };
-        if (status == Status.CLOSED) {
-            order.setClosedDate(new Date());
-            ratingService.registerEvent(Type.ORDER_DONE, catalog.getUser(), catalog, order.getTotalPrice());
-            final int bonus = order.getBonus();
-            customer.giveBonus(bonus);
-            logger.info("Crediting {} with {} bonuses, total {}", customer, bonus, customer.getBonus());
-            userRepository.save(customer);
-            ratingService.registerEvent(Type.BONUS, customer, null, bonus);
-            if (referrer != null) {
-                final int referralBonus = order.getReferrerBonus();
-                referrer.giveBonus(referralBonus);
-                logger.info("Crediting {} with {} bonuses, total {}", referrer, referralBonus, referrer.getBonus());
-                userRepository.save(referrer);
-                ratingService.registerEvent(Type.BONUS, referrer, null, referralBonus);
-            }
-            params.put("username", customer.getFullName());
-            mailService.sendMailMessage(customer, MailService.MailType.CLOSE_ORDER_CUSTOMER, params);
-            params.put("username", order.getCatalog().getUser().getFullName());
-            mailService.sendMailMessage(order.getCatalog().getUser(), MailService.MailType.CLOSE_ORDER_COOK, params);
-            mailService.sendAdminMessage(MailService.MailType.CLOSE_ORDER_ADMIN, params);
-        } else {
-            params.put("username", customer.getFullName());
-            mailService.sendMailMessage(customer, MailService.MailType.EDIT_ORDER, params);
-            params.put("username", order.getCatalog().getUser().getFullName());
-            mailService.sendMailMessage(order.getCatalog().getUser(), MailService.MailType.EDIT_ORDER, params);
-        }
-        orderRepository.save(order);
+        changeStatusInternal(order, status, catalog, caller, "");
     }
 
     @Override
@@ -490,6 +482,56 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
             }
         };
         mailService.sendMailMessage(localOrder.getCatalog().getUser(), MailService.MailType.ORDER_CLOSE_REMINDER, params);
+    }
+
+    private void changeStatusInternal(final OrderEntity order, final Status status, @RatingTarget final CatalogEntity catalog, final UserEntity caller, final String survey) {
+        if (order == null || !order.isAccessAllowed(caller)) return;
+        final UserEntity customer = order.getCustomer();
+        final UserEntity referrer = customer.getReferrer();
+        order.setStatus(status);
+
+        final Map<String, Object> params = new HashMap<String, Object>() {
+            {
+                put("status", status);
+                put("products", order.getProducts());
+                put("ordernumber", order.getOrderNumber());
+                put("customer", order.getCustomer());
+                put("comment", ObjectUtils.defaultIfNull(order.getComment(), "-"));
+                put("cook", order.getCatalog());
+                put("total", order.getTotalPrice());
+                put("address", order.getOrderUrl());
+                put("region", order.getRegion());
+                put("order", order);
+                put("survey", survey);
+            }
+        };
+        if (status == Status.CLOSED) {
+            order.setClosedDate(new Date());
+            ratingService.registerEvent(Type.ORDER_DONE, catalog.getUser(), catalog, order.getTotalPrice());
+            final int bonus = order.getBonus();
+            customer.giveBonus(bonus);
+            logger.info("Crediting {} with {} bonuses, total {}", customer, bonus, customer.getBonus());
+            userRepository.save(customer);
+            ratingService.registerEvent(Type.BONUS, customer, null, bonus);
+            if (referrer != null) {
+                final int referralBonus = order.getReferrerBonus();
+                referrer.giveBonus(referralBonus);
+                logger.info("Crediting {} with {} bonuses, total {}", referrer, referralBonus, referrer.getBonus());
+                userRepository.save(referrer);
+                ratingService.registerEvent(Type.BONUS, referrer, null, referralBonus);
+            }
+            params.put("username", customer.getFullName());
+            mailService.sendMailMessage(customer, MailService.MailType.CLOSE_ORDER_CUSTOMER, params);
+            params.put("username", order.getCatalog().getUser().getFullName());
+            mailService.sendMailMessage(order.getCatalog().getUser(), MailService.MailType.CLOSE_ORDER_COOK, params);
+            mailService.sendAdminMessage(MailService.MailType.CLOSE_ORDER_ADMIN, params);
+        } else {
+            params.put("username", customer.getFullName());
+            mailService.sendMailMessage(customer, MailService.MailType.EDIT_ORDER, params);
+            params.put("username", order.getCatalog().getUser().getFullName());
+            mailService.sendMailMessage(order.getCatalog().getUser(), MailService.MailType.EDIT_ORDER, params);
+        }
+        orderRepository.save(order);
     }
 
 }

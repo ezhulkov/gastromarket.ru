@@ -5,7 +5,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
-import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.pages.AbstractPage;
 import org.ohm.gastro.gui.pages.catalog.Wizard;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by ezhulkov on 24.08.14.
  */
-public class ImportResults extends BaseComponent {
+public class ImportResults extends AbstractPage {
 
     @Property
     private CatalogEntity catalog;

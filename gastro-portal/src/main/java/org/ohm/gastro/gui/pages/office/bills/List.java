@@ -1,11 +1,13 @@
 package org.ohm.gastro.gui.pages.office.bills;
 
+import com.google.common.collect.Lists;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.BillEntity;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
-import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.dto.Breadcrumb;
+import org.ohm.gastro.gui.pages.AbstractPage;
 
 import java.text.NumberFormat;
 import java.util.stream.Collectors;
@@ -14,7 +16,7 @@ import java.util.stream.Stream;
 /**
  * Created by ezhulkov on 24.08.14.
  */
-public class List extends BaseComponent {
+public class List extends AbstractPage {
 
     @Property
     private BillEntity bill;
@@ -71,6 +73,15 @@ public class List extends BaseComponent {
 
     public String getOrderStatus() {
         return getMessages().get(order.getStatus().name());
+    }
+
+    @Override
+    public java.util.List<Breadcrumb> getBreadcrumbsContext() {
+        return Lists.newArrayList(
+                mainPage,
+                Breadcrumb.of(catalog.getName(), org.ohm.gastro.gui.pages.catalog.Index.class, catalog.getAltId()),
+                Breadcrumb.of(getTitle(), List.class, catalog.getId())
+        );
     }
 
 }

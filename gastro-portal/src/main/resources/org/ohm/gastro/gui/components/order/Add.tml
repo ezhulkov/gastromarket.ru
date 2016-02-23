@@ -17,10 +17,10 @@
                         <div class="gap2"></div>
                         <div class="price-modifier">
                             <div class="row">
-                                <div class="col-md-7 col-sm-12">
+                                <div class="col-md-6 col-sm-12">
                                     ${entity.name}
                                 </div>
-                                <div class="col-md-3 col-sm-10">
+                                <div class="col-md-4 col-sm-10">
                                     ${entity.price}&nbsp;<span class="rub"/>
                                     <t:if test="productUnit">&nbsp;<span class="unit">${productUnit}</span></t:if>
                                 </div>
@@ -32,10 +32,10 @@
                             </div>
                             <t:loop source="priceModifiers" value="priceModifier" formState="NONE">
                                 <div class="row">
-                                    <div class="col-md-7 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
                                         ${priceModifier.description}
                                     </div>
-                                    <div class="col-md-3 col-sm-10">
+                                    <div class="col-md-4 col-sm-10">
                                         <span class="sign">${priceModifier.signPrintable}</span>${priceModifier.price}&nbsp;<span class="rub"/> = ${modifiedPrice}&nbsp;<span class="rub"/>
                                         <t:if test="productUnit">&nbsp;<span class="unit">${productUnit}</span></t:if>
                                     </div>

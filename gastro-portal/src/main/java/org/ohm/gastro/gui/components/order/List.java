@@ -50,7 +50,7 @@ public class List extends BaseComponent {
                         .flatMap(t -> getOrderService().findAllOrders(t).stream())
                         .collect(Collectors.toList());
             } else {
-                orders = getOrderService().findAllOrders(getAuthenticatedUser(), null);
+                orders = getOrderService().findAllOrders(getAuthenticatedUser());
             }
             return orders.stream().filter(t -> t.getMetaStatus() == status).sorted((o1, o2) -> o2.getDate().compareTo(o1.getDate())).collect(Collectors.toList());
         } else {

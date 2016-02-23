@@ -1,0 +1,68 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="row tender-info">
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 lh30">
+        <t:if test="order">
+            <t:pagelink page="${orderUrl}" t:context="orderContext" class="f30px black-text">
+                <t:if test="order.tender">
+                    ${order.name}
+                    <t:parameter name="else">
+                        Заказ №${order.orderNumber}
+                    </t:parameter>
+                </t:if>
+            </t:pagelink>
+            <t:parameter name="else">
+                <t:pagelink page="${orderUrl}" t:context="orderContext" class="f30px black-text">
+                    Новый заказ, кулинар "${catalog?.name}"
+                </t:pagelink>
+            </t:parameter>
+        </t:if>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 fluid-xs-block">
+        <t:if test="order">
+            <t:if test="order.totalPrice">
+                <span class="price bold">
+                    ${order.totalPrice}&nbsp;<span class="rub"/>
+                </span>
+                <t:parameter name="else">
+                    <t:if test="order.tender">
+                        <span class="price">Открытый бюджет</span>
+                        <t:parameter name="else">
+                            <span class="price">-</span>
+                        </t:parameter>
+                    </t:if>
+                </t:parameter>
+            </t:if>
+            <t:parameter name="else">
+                <span class="price  bold">
+                    ${basketTotal}&nbsp;<span class="rub"/>
+                </span>
+            </t:parameter>
+        </t:if>
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        <t:if test="order">
+            <t:pageLink class="pic-holder catalog-link" page="user/index" t:context="order.customer.id">
+                <span><img src="${order.customer.avatarUrlMedium}" class="avatar-small"/></span>${order.customer.fullName}
+            </t:pageLink>
+            <t:parameter name="else">
+                <t:if test="authenticated">
+                    <t:pageLink class="pic-holder catalog-link" page="user/index" t:context="authenticatedUser.id">
+                        <span><img src="${authenticatedUser.avatarUrlMedium}" class="avatar-small"/></span>${authenticatedUser.fullName}
+                    </t:pageLink>
+                    <t:parameter name="else">
+                        <br/>
+                    </t:parameter>
+                </t:if>
+            </t:parameter>
+        </t:if>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 fluid-xs-block tender-views">
+        <t:if test="order">
+            ${order.datePrintable}
+            <t:if test="order.tender">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="glyphicon glyphicon glyphicon-eye-open" aria-hidden="true"></span> ${order.viewsCount}&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> ${comments.size()}
+            </t:if>
+        </t:if>
+    </div>
+</div>

@@ -13,7 +13,9 @@ import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.filter.RegionFilter;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.Cart;
-import org.ohm.gastro.gui.pages.office.Orders;
+import org.ohm.gastro.gui.pages.office.order.List;
+
+import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 23.08.14.
@@ -48,6 +50,15 @@ public class HeaderLayout extends BaseComponent {
         return getConversationService().getUnreadMessagesCount(getAuthenticatedUser());
     }
 
+    @Cached
+    public long getActiveOrdersCount() {
+        if (!isAuthenticated()) return 0;
+        return (isCook() ?
+                getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream().flatMap(c -> getOrderService().findAllOrders(c).stream()).collect(Collectors.toList()) :
+                getOrderService().findAllOrders(getAuthenticatedUser())).stream().
+                filter(o -> !o.isOrderClosed()).count();
+    }
+
     public java.util.List getCatalogs() {
         return getCatalogService().findAllCatalogs(getAuthenticatedUserOpt().orElse(null));
     }
@@ -58,7 +69,7 @@ public class HeaderLayout extends BaseComponent {
 
     public Link getCartLink() {
         return isAuthenticated() ?
-                getPageLinkSource().createPageRenderLinkWithContext(Orders.class, true, Status.NEW) :
+                getPageLinkSource().createPageRenderLinkWithContext(List.class, true, Status.NEW) :
                 getPageLinkSource().createPageRenderLink(Cart.class);
     }
 

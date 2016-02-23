@@ -10,16 +10,7 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 import org.ohm.gastro.util.CommonsUtils;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Date;
@@ -112,6 +103,9 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
 
     @Column(name = "attach_reason")
     private String attachReason;
+
+    @Column(name = "cancel_reason")
+    private String cancelReason;
 
     @Column
     private String comment;
@@ -425,6 +419,14 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
         this.closedDate = closedDate;
     }
 
+    public String getCancelReason() {
+        return cancelReason;
+    }
+
+    public void setCancelReason(String cancelReason) {
+        this.cancelReason = cancelReason;
+    }
+
     //Helpers
 
     public DateTime getClosedDateAsJoda() {
@@ -456,27 +458,39 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
     }
 
     public final boolean isTenderActive() {
-        return isTender() && !isTenderExpired() && !isTenderAttached();
+        return isTender() && !isTenderExpired() && !isOrderAttached();
     }
 
-    public final boolean isTenderAttached() {
+    public final boolean isOrderAttached() {
         return getCatalog() != null;
     }
 
     public final boolean isTenderExpired() {
-        return !isTenderAttached() && dueDate != null && LocalDateTime.fromDateFields(dueDate).toDateTime().withTimeAtStartOfDay().plusDays(1).isBeforeNow();
+        return !isOrderAttached() && dueDate != null && LocalDateTime.fromDateFields(dueDate).toDateTime().withTimeAtStartOfDay().plusDays(1).isBeforeNow();
     }
 
     public final boolean isOrderClosed() {
         return getStatus().getLevel() >= Status.CLOSED.getLevel();
     }
 
+    public final boolean isOrderClosedAndRated() {
+        return isOrderClosed() && isClientRate();
+    }
+
     public final boolean isCanEdit(final UserEntity user) {
-        return user != null && user.isAdmin() || isOrderOwner(user) && getStatus().getLevel() <= Status.ACTIVE.getLevel();
+        return user != null && (user.isAdmin() || isOrderOwner(user));
     }
 
     public final boolean isOrderOwner(final UserEntity user) {
         return user != null && getCustomer().equals(user);
+    }
+
+    public final boolean isOrderExecutor(final UserEntity user) {
+        return user != null && getCatalog() != null && user.isCook() && user.getFirstCatalog().filter(t -> t.equals(getCatalog())).isPresent();
+    }
+
+    public final String getOrderName() {
+        return isTender() ? getName() : "№" + getOrderNumber();
     }
 
     public static int getBonus(int total) {

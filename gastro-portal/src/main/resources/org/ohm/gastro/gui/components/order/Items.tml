@@ -3,8 +3,8 @@
         <t:loop source="items" index="index" value="item" formState="NONE">
             <div class="row zebra-row order-item ${rowClass}">
                 <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                    <div class="index">${itemIndex}</div>
                     <div class="name">
+                        <span class="f20px">${itemIndex}</span>&nbsp;
                         <a href="${itemPage}" target="_blank">${item.entity.name}</a>
                         <t:if test="item.modifier">
                             <div class="modifier-name">(${item.modifier.description})</div>
@@ -12,7 +12,7 @@
                     </div>
                 </div>
                 <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-                    <div class="item-price">
+                    <div class="item-price pull-right-lg pull-right-md pull-left-sm pull-left-xs">
                         <t:if test="item.modifier">
                             <span class="sign">${item.modifier.signPrintable}</span>${item.modifier.price}&nbsp;<span class="rub"/> = ${item.price}&nbsp;<span class="rub"/>
                             <t:parameter name="else">

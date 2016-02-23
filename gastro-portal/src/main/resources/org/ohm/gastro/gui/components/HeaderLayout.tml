@@ -34,6 +34,11 @@
                                 <t:pagelink page="tender/add" class="red-text">Разместить заявку</t:pagelink>
                             </li>
                         </t:unless>
+                        <t:unless test="authenticated">
+                            <li>
+                                <t:pagelink page="cart">Корзина</t:pagelink>
+                            </li>
+                        </t:unless>
                         <t:if test="authenticated">
                             <li class="hidden-sm">
                                 <t:pagelink page="office/messages">Сообщения
@@ -45,7 +50,9 @@
                                     <t:pagelink page="office/messages">Сообщения</t:pagelink>
                                 </li>
                                 <li>
-                                    <t:pagelink page="office/orders">Заказы</t:pagelink>
+                                    <t:pagelink page="office/order/list">Заказы
+                                        <t:if test="activeOrdersCount"><span class="red-text">+${activeOrdersCount}</span></t:if>
+                                    </t:pagelink>
                                 </li>
                             </t:unless>
                         </t:if>
@@ -126,46 +133,34 @@
         </div>
     </div>
 
-    <div class="modal fade" id="geo" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="title">
-                        <h1><span>География проекта</span></h1>
-                    </div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
-                </div>
-                <div class="modal-body form">
-                    <div class="col-xs-12">
-                        <p class="modal-text">
-                            Ваш город:
-                        </p>
-                        <ul class="region" id="regionSelect">
-                            <t:loop source="regions" value="region">
-                                <li class="${current}">
-                                    <t:if test="current">
-                                        <span>${regionPrintable}</span>
-                                        <t:parameter name="else">
-                                            <a href="#" data-region="${region.region}"><span>${regionPrintable}</span></a>
-                                        </t:parameter>
-                                    </t:if>
-                                </li>
-                            </t:loop>
-                        </ul>
-                        <hr/>
-                        <p class="modal-text">
-                            Мы подключаем и другие города, следите за новостями в социальных сетях!
-                        </p>
-                        <ul class="social big">
-                            <li><a href="https://instagram.com/gastromarket.ru" title="instagram.com" class="in">instagram.com</a></li>
-                            <li><a href="http://vk.com/gastromarket" title="vk.com" class="vk">vk.com</a></li>
-                            <li><a href="https://www.facebook.com/gastromarket.ru" title="facebook.com" class="fb">facebook.com</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+    <t:modal modalId="geo" caption="География проекта">
+        <div class="col-xs-12">
+            <p class="modal-text">
+                Ваш город:
+            </p>
+            <ul class="region" id="regionSelect">
+                <t:loop source="regions" value="region">
+                    <li class="${current}">
+                        <t:if test="current">
+                            <span>${regionPrintable}</span>
+                            <t:parameter name="else">
+                                <a href="#" data-region="${region.region}"><span>${regionPrintable}</span></a>
+                            </t:parameter>
+                        </t:if>
+                    </li>
+                </t:loop>
+            </ul>
+            <hr/>
+            <p class="modal-text">
+                Мы подключаем и другие города, следите за новостями в социальных сетях!
+            </p>
+            <ul class="social big">
+                <li><a href="https://instagram.com/gastromarket.ru" title="instagram.com" class="in">instagram.com</a></li>
+                <li><a href="http://vk.com/gastromarket" title="vk.com" class="vk">vk.com</a></li>
+                <li><a href="https://www.facebook.com/gastromarket.ru" title="facebook.com" class="fb">facebook.com</a></li>
+            </ul>
         </div>
-    </div>
+    </t:modal>
 
     <t:zone t:id="orderShowZone"/>
 

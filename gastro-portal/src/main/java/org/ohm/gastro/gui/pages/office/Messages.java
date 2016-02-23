@@ -3,7 +3,7 @@ package org.ohm.gastro.gui.pages.office;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.ConversationEntity;
-import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.pages.AbstractPage;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 /**
  * Created by ezhulkov on 24.08.14.
  */
-public class Messages extends BaseComponent {
+public class Messages extends AbstractPage {
 
     @Property
     private ConversationEntity conversation;

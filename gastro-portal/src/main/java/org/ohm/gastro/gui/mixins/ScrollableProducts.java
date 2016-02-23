@@ -11,10 +11,11 @@ import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
 import org.ohm.gastro.filter.RegionFilter;
+import org.ohm.gastro.gui.pages.AbstractPage;
 import org.ohm.gastro.service.ProductService;
 import org.ohm.gastro.service.ProductService.OrderType;
 
-public abstract class ScrollableProducts extends BaseComponent {
+public abstract class ScrollableProducts extends AbstractPage {
 
     @Property
     protected PropertyValueEntity categoryPropertyValue = null;

@@ -6,7 +6,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.ohm.gastro.domain.OrderEntity;
-import org.ohm.gastro.gui.pages.office.Order;
+import org.ohm.gastro.gui.pages.office.order.Index;
 
 import java.io.IOException;
 
@@ -55,7 +55,7 @@ public class BasketSubmit extends AbstractOrder {
         if (order == null) {
             final OrderEntity order = getOrderService().placeOrder(preOrder);
             getShoppingCart().removeItems(items);
-            final Link link = getPageLinkSource().createPageRenderLinkWithContext(Order.class, true, order.getId(), true);
+            final Link link = getPageLinkSource().createPageRenderLinkWithContext(Index.class, true, order.getId(), true);
             getResponse().sendRedirect(link);
         } else {
             getOrderService().saveOrder(order, getAuthenticatedUser());

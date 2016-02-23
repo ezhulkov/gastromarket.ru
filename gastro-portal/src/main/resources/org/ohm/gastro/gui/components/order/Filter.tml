@@ -2,17 +2,17 @@
     <t:unless test="frontend">
         <t:unless test="cook">
             <li id="new-tenders">
-                <t:pagelink page="office/orders" t:context="['false','NEW']">Мои заявки</t:pagelink>
+                <t:pagelink page="office/order/list" t:context="['false','NEW']">Мои активные заявки</t:pagelink>
             </li>
             <li id="new-orders">
-                <t:pagelink page="office/orders" t:context="['true','NEW']">Корзина</t:pagelink>
+                <t:pagelink page="office/order/list" t:context="['true','NEW']">Корзина</t:pagelink>
             </li>
         </t:unless>
         <li id="active-orders">
-            <t:pagelink page="office/orders" t:context="['true','ACTIVE']">Выполняются</t:pagelink>
+            <t:pagelink page="office/order/list" t:context="['true','ACTIVE']">Выполняются</t:pagelink>
         </li>
         <li id="closed-orders">
-            <t:pagelink page="office/orders" t:context="['true','CLOSED']">Закрытые</t:pagelink>
+            <t:pagelink page="office/order/list" t:context="['true','CLOSED']">Закрытые</t:pagelink>
         </li>
     </t:unless>
     <t:if test="frontend">

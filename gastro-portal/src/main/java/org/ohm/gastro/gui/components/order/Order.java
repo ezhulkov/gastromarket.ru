@@ -26,31 +26,6 @@ public class Order extends AbstractOrder {
     private boolean replies;
 
     @Inject
-    private Block deniedOrderBlock;
-
-    @Inject
-    private Block clientEditBlock;
-
-    @Inject
-    private Block expiredBlock;
-
-    @Inject
-    private Block clientRateCook;
-
-    @Inject
-    private Block tenderReplyBlock;
-
-    @Inject
-    private Block cookRateClient;
-
-    @Inject
-    private Block catalogAttachedBlock;
-
-    @Inject
-    @Property
-    private Block editOrderBlock;
-
-    @Inject
     @Property
     protected Block orderMainBlock;
 
@@ -59,16 +34,9 @@ public class Order extends AbstractOrder {
     }
 
     public void beginRender() {
-        if (order != null) catalog = order.getCatalog();
-    }
-
-    public Block onActionFromEditTender(Long tid) {
-        this.order = getOrderService().findOrder(tid);
-        return editOrderBlock;
-    }
-
-    public boolean isFull() {
-        return type == Type.FULL || type == Type.MAIN_PAGE;
+        if (order != null) {
+            catalog = order.getCatalog();
+        }
     }
 
     public String getOrderShowCatalogZoneId() {
@@ -79,41 +47,11 @@ public class Order extends AbstractOrder {
         return isCook() ? order.getStatus().getCookGraph() : order.getStatus().getClientGraph();
     }
 
-    public Block getOrderAdditionalBlock() {
-        if (order == null) return null;
-        if (order.isTenderExpired() && order.getCatalog() == null) return expiredBlock;
-        if (frontend) {
-            if (order.isCanEdit(getAuthenticatedUserSafe())) return clientEditBlock;
-            return isCanReplyTender() ? tenderReplyBlock : catalogAttachedBlock;
-        }
-        if (!isCook()) {
-            if (order.getMetaStatus() == Status.CLOSED) return clientRateCook;
-            if (order.isCanEdit(getAuthenticatedUserSafe())) return clientEditBlock;
-        } else {
-            if (order.getMetaStatus() == Status.CLOSED) return cookRateClient;
-        }
-        return null;
-    }
-
     public boolean isCanReplyTender() {
         return order != null &&
                 order.getType() == OrderEntity.Type.PUBLIC &&
                 order.getStatus() == Status.NEW &&
                 order.getCatalog() == null;
-    }
-
-    public Block getCurrentOrderBlock() {
-        if (order != null && order.getType() == OrderEntity.Type.PUBLIC) return orderMainBlock;
-        if (type == Type.BASKET || type == Type.SHORT || type == Type.MAIN_PAGE) return orderMainBlock;
-        if (isAuthenticated()) {
-            return order == null || order.isAccessAllowed(getAuthenticatedUser()) ? orderMainBlock : deniedOrderBlock;
-        } else {
-            return deniedOrderBlock;
-        }
-    }
-
-    public String getEditZoneId() {
-        return order == null ? "editZoneNew" : "editZone" + order.getId();
     }
 
 }

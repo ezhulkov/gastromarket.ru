@@ -1,5 +1,6 @@
 package org.ohm.gastro.gui.pages.tender;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Persist;
@@ -10,14 +11,15 @@ import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.PhotoEntity;
-import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.domain.UserEntity;
+import org.ohm.gastro.gui.pages.AbstractPage;
 
 import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 24.08.14.
  */
-public class Add extends BaseComponent {
+public class Add extends AbstractPage {
 
     @Persist
     @Property
@@ -25,6 +27,10 @@ public class Add extends BaseComponent {
 
     @Property
     private OrderEntity oneSample;
+
+    @Property
+    @Persist
+    private String mobile;
 
     @Component(id = "tenderInfoForm")
     private Form tenderInfoForm;
@@ -35,14 +41,20 @@ public class Add extends BaseComponent {
     @Component(id = "comment", parameters = {"value=tender.comment", "validate=required"})
     private TextArea comment;
 
+    @Component(id = "mobile", parameters = {"value=mobile", "validate=required"})
+    private TextField mobileField;
+
     @Component(id = "dueDate", parameters = {"value=tender.dueDateAsString", "validate=required"})
     private TextField dueDate;
 
-    @Component(id = "budget", parameters = {"value=tender.totalPrice"})
-    private TextField budget;
-
     @Component(id = "promoCode", parameters = {"value=tender.promoCode"})
     private TextField promoCode;
+
+    @Component(id = "budget", parameters = {"value=budget", "validate=regexp"})
+    private TextField budgetField;
+
+    @Property
+    private String budget;
 
     @Inject
     @Property
@@ -64,10 +76,11 @@ public class Add extends BaseComponent {
 
     public void onPrepareFromTenderInfoForm() {
         if (tender == null) tender = new OrderEntity();
+        if (mobile == null) mobile = getAuthenticatedUserOpt().map(UserEntity::getMobilePhone).orElse(null);
     }
 
     public Object onSubmitFromTenderInfoForm() {
-        if (tenderInfoForm.getHasErrors()) {
+        if (tenderInfoForm.getHasErrors() || mobile == null || tender.getDueDate() == null) {
             error = true;
             return tenderInfoBlock;
         }
@@ -75,10 +88,22 @@ public class Add extends BaseComponent {
             needLogin = true;
             return tenderInfoBlock;
         }
-        final OrderEntity tender = getOrderService().placeTender(this.tender, getAuthenticatedUser());
+        if (!mobile.equals(getAuthenticatedUser().getMobilePhone())) {
+            getAuthenticatedUser().setMobilePhone(mobile);
+            getUserService().saveUser(getAuthenticatedUser());
+        }
+        tender.setTotalPrice(null);
+        if (StringUtils.isNotEmpty(budget)) {
+            budget = budget.replaceAll("\\.", "").replaceAll(",", "");
+            if (StringUtils.isNotEmpty(budget)) {
+                final int i = Integer.parseInt(budget);
+                if (i > 0) tender.setTotalPrice(i);
+            }
+        }
+        final OrderEntity newTender = getOrderService().placeTender(this.tender, getAuthenticatedUser());
         java.util.List<PhotoEntity> photos = getTenderPhotos();
         photos = photos.stream().peek(t -> t.setId(null)).collect(Collectors.toList());
-        getPhotoService().attachPhotos(tender, photos);
+        getPhotoService().attachPhotos(newTender, photos);
         return getPageLinkSource().createPageRenderLink(AddResults.class);
     }
 

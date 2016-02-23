@@ -17,7 +17,7 @@ public interface OrderService {
 
     List<OrderEntity> findAllOrders();
 
-    List<OrderEntity> findAllOrders(UserEntity customer, CatalogEntity catalog);
+    List<OrderEntity> findAllOrders(UserEntity customer);
 
     List<OrderEntity> findAllOrders(CatalogEntity catalog);
 
@@ -46,5 +46,9 @@ public interface OrderService {
     void sendTenderAnnonce(OrderEntity order);
 
     List<OrderEntity> findAllOrdersWithMetaStatus(final CatalogEntity catalog, final Status status);
+
+    void cancelOrder(OrderEntity order);
+
+    void closeOrder(OrderEntity order, int totalPrice, String survey, UserEntity caller);
 
 }

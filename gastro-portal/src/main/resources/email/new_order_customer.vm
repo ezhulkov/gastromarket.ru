@@ -20,7 +20,7 @@
         </li>
     #end
 </ol>
-Комментарий к заказу: <br/>${comment}<br/>
+Комментарий к заказу: ${comment}<br/>
 <b>Общая стоимость заказа: ${total} руб.</b>
 </p>
 #parse("email/footer.vm")

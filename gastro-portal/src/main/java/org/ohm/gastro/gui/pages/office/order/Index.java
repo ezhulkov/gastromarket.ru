@@ -1,15 +1,17 @@
-package org.ohm.gastro.gui.pages.office;
+package org.ohm.gastro.gui.pages.office.order;
 
+import com.google.common.collect.Lists;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.OrderEntity;
-import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.dto.Breadcrumb;
+import org.ohm.gastro.gui.pages.AbstractPage;
 
 /**
  * Created by ezhulkov on 24.08.14.
  */
-public class Order extends BaseComponent {
+public class Index extends AbstractPage {
 
     @Property
     private OrderEntity order;
@@ -37,6 +39,19 @@ public class Order extends BaseComponent {
 
     public Object[] onPassivate() {
         return newOrder ? new Object[]{privateOrders, order.getId(), newOrder} : new Object[]{privateOrders, order.getId()};
+    }
+
+    @Override
+    public String getTitle() {
+        return order == null ? "" : order.isTender() ? order.getName() : order.getOrderNumber();
+    }
+
+    @Override
+    public java.util.List<Breadcrumb> getBreadcrumbsContext() {
+        return Lists.newArrayList(mainPage,
+                                  Breadcrumb.of(getMessages().get(List.class.getName()), List.class),
+                                  Breadcrumb.of(getTitle(), this.getClass())
+        );
     }
 
 }

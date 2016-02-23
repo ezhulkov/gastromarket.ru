@@ -7,6 +7,4 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
  */
 public class Agreement extends BaseComponent {
 
-
-
 }

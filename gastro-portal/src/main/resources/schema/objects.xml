@@ -1207,4 +1207,16 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="110" author="ezhulkov">
+        <addColumn tableName="orders">
+            <column name="cancel_reason" type="text"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="111" author="ezhulkov">
+        <addColumn tableName="comment">
+            <column name="reply_expiration_hours" type="java.sql.Types.INTEGER"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

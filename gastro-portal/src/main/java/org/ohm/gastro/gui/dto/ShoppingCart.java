@@ -62,9 +62,9 @@ public final class ShoppingCart {
     }
 
     public void addItem(OrderProductEntity item) {
-        final OrderProductEntity purchaseItem = findPurchaseItem(item.getEntity().getType(),
-                                                                 item.getEntity().getId(),
-                                                                 item.getModifier() == null ? null : item.getModifier().getId())
+        findPurchaseItem(item.getEntity().getType(),
+                         item.getEntity().getId(),
+                         item.getModifier() == null ? null : item.getModifier().getId())
                 .map(t -> {
                     t.setCount(t.getCount() + 1);
                     return t;
@@ -111,7 +111,7 @@ public final class ShoppingCart {
     }
 
     public Integer getCatalogPrice(CatalogEntity catalog) {
-        return getItems(catalog).stream().collect(Collectors.summingInt(SUM_COUNTER));
+        return catalog == null ? 0 : getItems(catalog).stream().collect(Collectors.summingInt(SUM_COUNTER));
     }
 
     public List<OrderProductEntity> getItems(CatalogEntity catalog) {

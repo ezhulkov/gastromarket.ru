@@ -22,13 +22,6 @@
     <b>Общая стоимость заказа: ${total} руб.</b>
 </p>
 <p>
-    Пожалуйста, перейдите по ссылке <a href="$address?${params}">$address</a> и оставьте отзыв о покупателе.<br/>
-</p>
-<p>
-    Также мы просим потратить 2 минуты и ответить на несколько вопросов о работе ГастроМаркет, вопросы находятся по ссылке
-    <a href="https://docs.google.com/forms/d/1vXydSF5numE8y6JtojF5_JRgrMxaNh5eLSyLZ2Km-bA/viewform?usp=send_form">https://docs.google.com/forms/d/1vXydSF5numE8y6JtojF5_JRgrMxaNh5eLSyLZ2Km-bA/viewform?usp=send_form</a>
-</p>
-<p>
-    Спасибо!
+    Спасибо за то, что вы с нами!
 </p>
 #parse("email/footer.vm")

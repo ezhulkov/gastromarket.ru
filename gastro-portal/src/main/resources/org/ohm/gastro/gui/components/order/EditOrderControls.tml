@@ -1,0 +1,51 @@
+<t:if xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" test="orderPage">
+    <t:if test="showControls">
+        <div class="links-set gap2" style="margin-bottom: 0">
+            <t:unless test="order.orderClosed">
+                <a data-toggle="modal" data-target="#cancel_order_${order.id}" href="#of-new">Отменить заказ</a>
+                <t:modal modalId="cancel_order_${order.id}" caption="Отмена заказа">
+                    <t:form t:id="cancelTenderAjaxForm" t:context="[order.id]" class="form" style="padding-top:0;" clientValidation="BLUR" autofocus="false" role="form">
+                        <p class="modal-text">
+                            Вы хотите отменить заказ. Пожалуйста, расскажите нам причину?<br/>
+                            Эта информация позволит нам улучшить сервис и работу кулинаров.
+                        </p>
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <textarea t:type="TextArea" t:id="cancelReason" t:value="order.cancelReason" t:validate="required" rows="5" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 gap">
+                            <div class="form-buttons" xml:space="preserve">
+                                <input class="btn btn-red" type="submit" value="Отменить заказ"/>
+                            </div>
+                        </div>
+                    </t:form>
+                </t:modal>
+                <t:if test="orderOwner">
+                    &nbsp;
+                    <t:actionlink rel="nofollow" t:id="editOrder" t:context="order.id" t:zone="${editZoneId}">Редактировать заказ</t:actionlink>
+                </t:if>
+                <t:if test="order.orderAttached">
+                    &nbsp;
+                    <t:if test="cook">
+                        <t:pagelink page="office/order/close" t:context="order.id">Завершить выполнение заказа<span/></t:pagelink>
+                    </t:if>
+                </t:if>
+            </t:unless>
+            <t:if test="needRate">
+                &nbsp;
+                <t:pagelink page="office/order/rate" t:context="order.id">Оценить работу кулинара<span/></t:pagelink>
+            </t:if>
+        </div>
+        <t:if test="orderOwner">
+            <t:zone t:id="editZone" id="${editZoneId}"/>
+            <t:block t:id="editOrderBlock">
+                <t:order.edit modalId="order-${order.id}" order="order"/>
+                <script>
+                    var pe = jQuery("#order-${order.id}");
+                    pe.modal('show');
+                </script>
+            </t:block>
+        </t:if>
+    </t:if>
+</t:if>

@@ -11,8 +11,9 @@ import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyValueEntity;
+import org.ohm.gastro.gui.dto.Breadcrumb;
 import org.ohm.gastro.gui.dto.NewProducts;
-import org.ohm.gastro.gui.mixins.BaseComponent;
+import org.ohm.gastro.gui.pages.AbstractPage;
 import org.ohm.gastro.service.ProductService.OrderType;
 
 import java.util.stream.Collectors;
@@ -21,7 +22,7 @@ import java.util.stream.Stream;
 /**
  * Created by ezhulkov on 31.08.14.
  */
-public class Products extends BaseComponent {
+public class Products extends AbstractPage {
 
     private final static int PAGE_SIZE = 28;
 
@@ -183,6 +184,16 @@ public class Products extends BaseComponent {
 
     private PropertyValueEntity getValue() {
         return ObjectUtils.defaultIfNull(categoryPropertyValue, eventPropertyValue);
+    }
+
+    @Override
+    public java.util.List<Breadcrumb> getBreadcrumbsContext() {
+        return Lists.newArrayList(
+                mainPage,
+                Breadcrumb.of(getMessages().get(List.class.getName()), List.class),
+                Breadcrumb.of(catalog.getName(), Index.class, catalog.getAltId()),
+                Breadcrumb.of(getMessages().get(Products.class.getName()), Products.class, catalog.getAltId())
+        );
     }
 
 }

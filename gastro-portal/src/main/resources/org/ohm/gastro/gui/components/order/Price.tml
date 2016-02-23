@@ -1,7 +1,7 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="row total">
     <t:if test="order?.tender">
         <t:unless test="frontend">
-            <t:if test="order?.tenderAttached">
+            <t:if test="order?.orderAttached">
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                     <span class="f20px">Бюджет заявки:</span><br/>
                 </div>

@@ -8,4 +8,9 @@
 <p>
     <i style="margin-left: 10px;">&mdash; ${text}</i>
 </p>
+#if($time)
+<p>
+    Предложение кулинара действительно в течение $time часов.
+</p>
+#end
 #parse("email/footer.vm")

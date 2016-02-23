@@ -5,7 +5,6 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.domain.UserEntity.Type;
 import org.ohm.gastro.filter.RegionFilter;
-import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.service.EmptyPasswordException;
 import org.ohm.gastro.service.UserExistsException;
 import org.ohm.gastro.service.UserService;
@@ -20,7 +19,7 @@ import java.io.IOException;
 /**
  * Created by ezhulkov on 24.08.14.
  */
-public class Signup extends BaseComponent {
+public class Signup extends AbstractPage {
 
     @Inject
     private DaoAuthenticationProvider authenticationProvider;

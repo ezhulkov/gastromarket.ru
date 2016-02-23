@@ -1,4 +1,4 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" title="Заявки">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
     <section class="s600px">
         <div class="container orders">
@@ -17,7 +17,5 @@
             </t:block>
         </div>
     </section>
-
-    <t:order.edit ordersBlock="ordersBlock" edit="false" extOrder="tender" tender="true"/>
 
 </t:layout>
