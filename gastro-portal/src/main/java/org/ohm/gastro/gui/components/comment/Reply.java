@@ -15,7 +15,7 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 public class Reply extends BaseComponent {
 
     @Property
-    @Parameter(allowNull = false, required = false)
+    @Parameter(allowNull = true, required = false)
     private CommentEntity comment;
 
     @Property

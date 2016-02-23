@@ -121,12 +121,14 @@
             </t:if>
         </div>
     </div>
-    <t:modal modalId="moderate-${comment.id}" caption="Редактировать отклик">
-        <t:if test="order">
-            <t:comment.reply comment="comment" btnTitle="Сохранить"/>
-            <t:parameter name="else">
-                <t:comment.edit comment="comment"/>
-            </t:parameter>
-        </t:if>
-    </t:modal>
+    <t:if test="authenticated">
+        <t:modal modalId="moderate-${comment.id}" caption="Редактировать отклик">
+            <t:if test="order">
+                <t:comment.reply comment="comment" btnTitle="Сохранить"/>
+                <t:parameter name="else">
+                    <t:comment.edit comment="comment"/>
+                </t:parameter>
+            </t:if>
+        </t:modal>
+    </t:if>
 </div>

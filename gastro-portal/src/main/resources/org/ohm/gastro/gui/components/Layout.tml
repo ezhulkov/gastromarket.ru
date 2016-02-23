@@ -120,7 +120,7 @@
 <t:yagoalsubmit target="signupAjaxForm" goal="SIGNUP"/>
 <t:yagoalsubmit target="orderForm" goal="ORDER_PLACED"/>
 <t:yagoalsubmit target="attachTenderAjaxForm" goal="TENDER_ATTACH"/>
-<script id="qq-template">
+<script id="qq-template" type="text/template">
     <div class="qq-uploader-selector qq-uploader">
        <div class="qq-upload-button-selector">
            <div class="btn btn-white btn-file">Выберите файл (меньше 10МБ)</div>

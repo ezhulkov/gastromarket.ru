@@ -180,7 +180,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                 put("order", order);
                 put("address", order.getOrderUrl());
                 put("customer", order.getCustomer());
-                put("ordername", ObjectUtils.defaultIfNull(order.getName(), "№" + order.getOrderNumber()));
+                put("ordername", order.getOrderName());
                 put("reason", ObjectUtils.defaultIfNull(order.getCancelReason(), "-"));
             }
         };
@@ -192,6 +192,10 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
             params.put("username", t.getAuthor().getFullName());
             mailService.sendMailMessage(t.getAuthor(), MailType.CANCEL_ORDER_COOK, params);
         });
+        if (order.getCatalog() != null) {
+            params.put("username", order.getCatalog().getUser().getFullName());
+            mailService.sendMailMessage(order.getCatalog().getUser(), MailType.CANCEL_ORDER_COOK, params);
+        }
     }
 
     @Override

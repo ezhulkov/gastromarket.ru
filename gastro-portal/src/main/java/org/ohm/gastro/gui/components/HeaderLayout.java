@@ -55,8 +55,10 @@ public class HeaderLayout extends BaseComponent {
         if (!isAuthenticated()) return 0;
         return (isCook() ?
                 getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream().flatMap(c -> getOrderService().findAllOrders(c).stream()).collect(Collectors.toList()) :
-                getOrderService().findAllOrders(getAuthenticatedUser())).stream().
-                filter(o -> !o.isOrderClosed()).count();
+                getOrderService().findAllOrders(getAuthenticatedUser()))
+                .stream()
+                .filter(o -> o.getMetaStatus() == Status.ACTIVE)
+                .count();
     }
 
     public java.util.List getCatalogs() {
