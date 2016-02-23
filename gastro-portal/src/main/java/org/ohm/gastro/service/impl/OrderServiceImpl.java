@@ -151,7 +151,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     }
 
     @Override
-    public List<OrderEntity> findAllOrders(final UserEntity customer, final CatalogEntity catalog) {
+    public List<OrderEntity> findAllOrders(final UserEntity customer) {
         return orderRepository.findAllByCustomer(customer);
     }
 

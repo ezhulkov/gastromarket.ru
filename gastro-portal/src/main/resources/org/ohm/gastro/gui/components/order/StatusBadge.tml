@@ -26,10 +26,12 @@
         </t:modal>
     </t:block>
     <t:block t:id="orderClosedLinkBlock">
-        <a data-toggle="modal" data-target="#order-closed-${order.id}" href="#order-closed-${order.id}" class="round-link">Заказ выполнен</a>
-        <t:modal modalId="order-closed-${order.id}" caption="Заказ выполнен" additionalClass="modal-md">
-            <t:order.executor order="order"/>
-        </t:modal>
+        <t:if test="showClosed">
+            <a data-toggle="modal" data-target="#order-closed-${order.id}" href="#order-closed-${order.id}" class="round-link">Заказ выполнен</a>
+            <t:modal modalId="order-closed-${order.id}" caption="Заказ выполнен" additionalClass="modal-md">
+                <t:order.executor order="order"/>
+            </t:modal>
+        </t:if>
     </t:block>
     <t:block t:id="tenderReplyLinkBlock">
         <t:unless test="orderPage">

@@ -50,7 +50,9 @@
                                     <t:pagelink page="office/messages">Сообщения</t:pagelink>
                                 </li>
                                 <li>
-                                    <t:pagelink page="office/order/list">Заказы</t:pagelink>
+                                    <t:pagelink page="office/order/list">Заказы
+                                        <t:if test="activeOrdersCount"><span class="red-text">+${activeOrdersCount}</span></t:if>
+                                    </t:pagelink>
                                 </li>
                             </t:unless>
                         </t:if>

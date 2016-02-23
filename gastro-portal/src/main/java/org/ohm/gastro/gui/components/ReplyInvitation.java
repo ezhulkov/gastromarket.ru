@@ -22,7 +22,7 @@ public class ReplyInvitation extends BaseComponent {
                 getComponentResources().getPage() instanceof Rate ||
                 getComponentResources().getPage() instanceof List ||
                 getRequest().getParameter("ql") != null) return null;
-        final Stream<OrderEntity> closedOrders = getOrderService().findAllOrders(getAuthenticatedUser(), null).stream().filter(t -> t.getStatus() == Status.CLOSED);
+        final Stream<OrderEntity> closedOrders = getOrderService().findAllOrders(getAuthenticatedUser()).stream().filter(t -> t.getStatus() == Status.CLOSED);
         return closedOrders.filter(t -> !t.isClientRate()).findFirst().orElse(null);
     }
 

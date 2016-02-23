@@ -64,7 +64,7 @@ public class Index extends AbstractCatalogPage {
     public boolean isCommentAllowed() {
         return getAuthenticatedUserOpt()
                 .filter(t -> t.isUser() || t.isAdmin())
-                .map(t -> getOrderService().findAllOrders(t, catalog).size())
+                .map(t -> getOrderService().findAllOrders(t).size())
                 .orElse(0) > 0;
     }
 

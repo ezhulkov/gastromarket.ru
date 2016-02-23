@@ -10,16 +10,7 @@ import org.ohm.gastro.domain.OrderEntity.Status;
 public class EditOrderControls extends AbstractOrder {
 
     @Inject
-    private Block editBlock;
-
-    @Inject
     private Block editOrderBlock;
-
-    public Block getOrderEditBlock() {
-        if (order.getStatus() == Status.CANCELLED || order.getId() == null) return null;
-        if (!isAdmin() && !isOrderOwner() && !isOrderExecutor()) return null;
-        return editBlock;
-    }
 
     public void onPrepareFromCancelTenderAjaxForm(Long id) {
         this.order = getOrderService().findOrder(id);
@@ -40,6 +31,13 @@ public class EditOrderControls extends AbstractOrder {
 
     public boolean isNeedRate() {
         return order.getCustomer().equals(getAuthenticatedUserSafe()) && order.getStatus() == Status.CLOSED && !order.isClientRate();
+    }
+
+    public boolean isShowControls() {
+        if (order.getStatus() == Status.CANCELLED || order.getId() == null) return false;
+        if (order.isOrderClosedAndRated()) return false;
+        if (!isAdmin() && !isOrderOwner() && !isOrderExecutor()) return false;
+        return true;
     }
 
 }

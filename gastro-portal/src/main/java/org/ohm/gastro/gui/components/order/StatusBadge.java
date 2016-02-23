@@ -33,4 +33,8 @@ public class StatusBadge extends AbstractOrder {
         return tenderReplyLinkBlock;
     }
 
+    public boolean isShowClosed() {
+        return !orderPage || !order.getCustomer().equals(getAuthenticatedUser()) || order.isOrderClosedAndRated();
+    }
+
 }

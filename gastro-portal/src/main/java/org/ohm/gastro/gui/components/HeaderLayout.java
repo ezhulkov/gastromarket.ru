@@ -15,6 +15,8 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.Cart;
 import org.ohm.gastro.gui.pages.office.order.List;
 
+import java.util.stream.Collectors;
+
 /**
  * Created by ezhulkov on 23.08.14.
  */
@@ -46,6 +48,15 @@ public class HeaderLayout extends BaseComponent {
     @Cached
     public int getUnreadMessagesCount() {
         return getConversationService().getUnreadMessagesCount(getAuthenticatedUser());
+    }
+
+    @Cached
+    public long getActiveOrdersCount() {
+        if (!isAuthenticated()) return 0;
+        return (isCook() ?
+                getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream().flatMap(c -> getOrderService().findAllOrders(c).stream()).collect(Collectors.toList()) :
+                getOrderService().findAllOrders(getAuthenticatedUser())).stream().
+                filter(o -> !o.isOrderClosed()).count();
     }
 
     public java.util.List getCatalogs() {

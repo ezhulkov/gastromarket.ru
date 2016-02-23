@@ -26,7 +26,7 @@
                         <div class="form-group">
                             <t:label for="comment">Отзыв о покупателе:</t:label>
                             <div>
-                                <t:radiogroup t:id="opinion" value="opinion" validate="required">
+                                <t:radiogroup t:id="opinion" value="opinion">
                                     <t:radio t:id="like"/>
                                     &nbsp;
                                     <t:label for="like">Мне всё понравилась</t:label>
@@ -36,7 +36,7 @@
                                     <t:label for="dislike">Были проблемы с покупателем</t:label>
                                 </t:radiogroup>
                             </div>
-                            <input t:type="textarea" t:id="comment" t:value="comment" rows="5" t:validate="required" class="form-control"/>
+                            <input t:type="textarea" t:id="comment" t:value="comment" rows="5" class="form-control"/>
                         </div>
                         <t:comment.injectPhotos order="order"/>
                         <div class="clearfix"></div>

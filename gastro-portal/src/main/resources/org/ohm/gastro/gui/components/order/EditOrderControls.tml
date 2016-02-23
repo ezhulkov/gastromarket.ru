@@ -1,8 +1,7 @@
 <t:if xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" test="orderPage">
-    <t:unless test="order.orderClosed">
-        <t:delegate to="orderEditBlock"/>
-        <t:block t:id="editBlock">
-            <div class="links-set gap2" style="margin-bottom: 0">
+    <t:if test="showControls">
+        <div class="links-set gap2" style="margin-bottom: 0">
+            <t:unless test="order.orderClosed">
                 <a data-toggle="modal" data-target="#cancel_order_${order.id}" href="#of-new">Отменить заказ</a>
                 <t:modal modalId="cancel_order_${order.id}" caption="Отмена заказа">
                     <t:form t:id="cancelTenderAjaxForm" t:context="[order.id]" class="form" style="padding-top:0;" clientValidation="BLUR" autofocus="false" role="form">
@@ -32,12 +31,12 @@
                         <t:pagelink page="office/order/close" t:context="order.id">Завершить выполнение заказа<span/></t:pagelink>
                     </t:if>
                 </t:if>
-                <t:if test="needRate">
-                    &nbsp;
-                    <t:pagelink page="office/order/rate" t:context="order.id">Оценить работу кулинара<span/></t:pagelink>
-                </t:if>
-            </div>
-        </t:block>
+            </t:unless>
+            <t:if test="needRate">
+                &nbsp;
+                <t:pagelink page="office/order/rate" t:context="order.id">Оценить работу кулинара<span/></t:pagelink>
+            </t:if>
+        </div>
         <t:if test="orderOwner">
             <t:zone t:id="editZone" id="${editZoneId}"/>
             <t:block t:id="editOrderBlock">
@@ -48,5 +47,5 @@
                 </script>
             </t:block>
         </t:if>
-    </t:unless>
+    </t:if>
 </t:if>
