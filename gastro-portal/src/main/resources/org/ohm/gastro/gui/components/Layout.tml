@@ -85,6 +85,22 @@
             Raven.config('https://82ada64290eb4c16bfaf541b5fd62fd7@app.getsentry.com/61493').install();
         </script>
     </t:if>
+    <script id="qq-template" type="text/template">
+        <div class="qq-uploader-selector qq-uploader">
+           <div class="qq-upload-button-selector">
+               <div class="btn btn-white btn-file">Выберите файл (меньше 10МБ)</div>
+               <div class="qq-upload-list-selector hidden"><div class="qq-edit-filename-selector hidden"/></div>
+               <div class="qq-upload-button-tools">
+                   <a href="#" id="rotateLeft" title="Налево"><span class="glyphicon glyphicon-repeat flipped" aria-hidden="true"></span></a>
+                   <a href="#" id="zoomOut" title="Уменьшить"><span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span></a>
+                   <a href="#" id="fit" title="По размеру"><span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span></a>
+                   <a href="#" id="zoomIn" title="Увеличить"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a>
+                   <a href="#" id="rotateRight" title="Направо"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></a>
+                   <a href="#" id="upload" title="Загрузить"><span class="glyphicon glyphicon-ok upload" aria-hidden="true"></span></a>
+               </div>
+           </div>
+        </div>
+    </script>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="/css/chosen.min.css" rel="stylesheet"/>
@@ -120,22 +136,7 @@
 <t:yagoalsubmit target="signupAjaxForm" goal="SIGNUP"/>
 <t:yagoalsubmit target="orderForm" goal="ORDER_PLACED"/>
 <t:yagoalsubmit target="attachTenderAjaxForm" goal="TENDER_ATTACH"/>
-<script id="qq-template" type="text/template">
-    <div class="qq-uploader-selector qq-uploader">
-       <div class="qq-upload-button-selector">
-           <div class="btn btn-white btn-file">Выберите файл (меньше 10МБ)</div>
-           <div class="qq-upload-list-selector hidden"><div class="qq-edit-filename-selector hidden"/></div>
-           <div class="qq-upload-button-tools">
-               <a href="#" id="rotateLeft" title="Налево"><span class="glyphicon glyphicon-repeat flipped" aria-hidden="true"></span></a>
-               <a href="#" id="zoomOut" title="Уменьшить"><span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span></a>
-               <a href="#" id="fit" title="По размеру"><span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span></a>
-               <a href="#" id="zoomIn" title="Увеличить"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a>
-               <a href="#" id="rotateRight" title="Направо"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></a>
-               <a href="#" id="upload" title="Загрузить"><span class="glyphicon glyphicon-ok upload" aria-hidden="true"></span></a>
-           </div>
-       </div>
-    </div>
-</script>
+
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter29411415 = new Ya.Metrika({ id:29411415, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="https://mc.yandex.ru/watch/29411415" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
