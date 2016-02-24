@@ -25,7 +25,7 @@ public class SearchSection extends BaseComponent {
         if (StringUtils.isNotEmpty(searchString)) {
             return getPageLinkSource().createPageRenderLinkWithContext(Search.class, processSearchString(searchString));
         } else {
-            return this;
+            return null;
         }
     }
 

@@ -16,4 +16,8 @@ public class List extends BaseComponent {
         return getOrderService().findAllOrders();
     }
 
+    public String getMetaStatus() {
+        return getMessages().get(oneOrder.getMetaStatus().name());
+    }
+
 }

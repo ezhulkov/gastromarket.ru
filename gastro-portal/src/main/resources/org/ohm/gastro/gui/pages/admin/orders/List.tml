@@ -1,21 +1,34 @@
 <t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
     <t:grid source="orders" row="oneOrder"
-            add="customer,catalog"
-            reorder="orderNumber,customer,catalog,status"
-            include="orderNumber,status"
+            add="catalog"
+            reorder="datePrintable,orderNumber,catalog,status"
+            include="datePrintable,orderNumber,status"
             t:mixins="GridSortingDisabled" class="table table-hover">
-
+        <t:parameter name="datePrintableHeader">Дата</t:parameter>
+        <t:parameter name="orderNumberHeader">Детали</t:parameter>
+        <t:parameter name="catalogHeader">Исполнитель</t:parameter>
+        <t:parameter name="statusHeader">Статус</t:parameter>
         <t:parameter name="orderNumberCell">
-            <t:pagelink page="office/order" t:context="[oneOrder.order,oneOrder.id,false]">${oneOrder.datePrintable} &nbsp; №${oneOrder.orderNumber} </t:pagelink>
-        </t:parameter>
-        <t:parameter name="customerCell">
-            <t:pagelink page="user/index" t:context="oneOrder.customer.id">${oneOrder.customer.fullName}</t:pagelink>
+            <t:pagelink page="office/order/index" t:context="[oneOrder.order,oneOrder.id,false]"><b>${oneOrder.orderName}</b></t:pagelink>
+            <br/>
+            <div class="f14px">
+                ${oneOrder.customer.fullName}<br/>
+                ${oneOrder.customer.email}<br/>
+                ${oneOrder.customer.mobilePhone}<br/>
+                <t:if test="oneOrder.promoCode"><b>Промо-код: ${oneOrder.promoCode}</b></t:if>
+            </div>
         </t:parameter>
         <t:parameter name="catalogCell">
             <t:if test="oneOrder.catalog">
                 <t:pagelink page="catalog/index" t:context="oneOrder.catalog.altId">${oneOrder.catalog.name}</t:pagelink>
+                <t:parameter name="else">
+                    -
+                </t:parameter>
             </t:if>
+        </t:parameter>
+        <t:parameter name="statusCell">
+            <span class="order-status ${oneOrder.status}">${metaStatus}</span>
         </t:parameter>
     </t:grid>
 
