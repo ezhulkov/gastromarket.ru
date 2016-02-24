@@ -2,9 +2,10 @@
 #set($toadmin = true)
 #parse("email/header.vm")
 <p>
-    Каталог ${catalog.name} оценили.
+    Каталог <a href="${address}">${catalog.name} оценили.</a>
 </p>
 <p>
+    Оценка: ${text}<br/>
     Советы ГастроМаркету: ${gmcomment}<br/>
     Будут рекомендовать: ${gmrecommend}<br/>
 </p>

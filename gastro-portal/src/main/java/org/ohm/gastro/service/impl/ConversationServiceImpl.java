@@ -187,6 +187,7 @@ public class ConversationServiceImpl implements ConversationService, Logging {
                 put("text", comment.getText());
                 put("order", order);
                 put("catalog", order.getCatalog());
+                put("address", order.getCatalog().getFullUrl());
                 put("gmcomment", gmComment);
                 put("gmrecommend", gmRecommend);
             }
