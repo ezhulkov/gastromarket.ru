@@ -126,42 +126,37 @@ public class CommonsUtils implements Logging {
     public static final ThreadLocal<DateFormat> ORDER_DATE = new ThreadLocal<DateFormat>() {
         @Override
         protected DateFormat initialValue() {
-            return setTimeZone(new SimpleDateFormat("ddMMyy"));
+            return new SimpleDateFormat("ddMMyy");
         }
     };
 
     public static final ThreadLocal<DateFormat> GUI_DATE = new ThreadLocal<DateFormat>() {
         @Override
         protected DateFormat initialValue() {
-            return setTimeZone(new SimpleDateFormat("dd/MM/yyyy"));
+            return new SimpleDateFormat("dd/MM/yyyy");
         }
     };
 
     public static final ThreadLocal<DateFormat> SITEMAP_DATE = new ThreadLocal<DateFormat>() {
         @Override
         protected DateFormat initialValue() {
-            return setTimeZone(new SimpleDateFormat("yyyy-MM-dd"));
+            return new SimpleDateFormat("yyyy-MM-dd");
         }
     };
 
     public static final ThreadLocal<DateFormat> GUI_DATE_LONG = new ThreadLocal<DateFormat>() {
         @Override
         protected DateFormat initialValue() {
-            return setTimeZone(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"));
+            return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         }
     };
 
     public static final ThreadLocal<DateFormat> GUI_HOURS = new ThreadLocal<DateFormat>() {
         @Override
         protected DateFormat initialValue() {
-            return setTimeZone(new SimpleDateFormat("HH:mm:ss"));
+            return new SimpleDateFormat("HH:mm:ss");
         }
     };
-
-    private static DateFormat setTimeZone(DateFormat df) {
-        df.setTimeZone(java.util.TimeZone.getTimeZone("MSK"));
-        return df;
-    }
 
     public static <T> T coalesceLazy(final T value, final Supplier<? extends T>... suppliers) {
         if (value != null) {

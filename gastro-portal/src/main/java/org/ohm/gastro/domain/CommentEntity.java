@@ -18,6 +18,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -149,7 +151,9 @@ public class CommentEntity extends AbstractBaseEntity {
     }
 
     public String getReplyTimeLeftPrintable() {
-        return CommonsUtils.GUI_HOURS.get().format(getReplyTimeLeft());
+        final DateFormat df = new SimpleDateFormat("HH:mm:ss");
+        df.setTimeZone(java.util.TimeZone.getTimeZone("MSK"));
+        return df.format(getReplyTimeLeft());
     }
 
     public boolean isReplyExpired() {
