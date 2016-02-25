@@ -50,8 +50,11 @@
     color: $blackTextColor
     a
       font-size: initial
-  &.expired-true *
-    color: $greyTextColor
+  &.expired-true
+    & *
+      color: #bbb
+    & img
+      opacity: 0.3
 
 .comment-edit
   overflow: visible

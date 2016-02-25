@@ -392,7 +392,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                             this::triggerTenderExpiredSurvey,
                             "TENDER_EXPIRED_SURVEY");
             triggerLauncher(allOrders,
-                            t -> t.getStatus() == Status.CLOSED && (!t.isClientRate() || !t.isCookRate()),
+                            t -> t.getStatus() == Status.CLOSED && (!t.isClientRate()),
                             t -> Stream.of(t.getClosedDateAsJoda().plusDays(1)),
                             this::orderRateReminder,
                             "ORDER_RATE_REMINDER");

@@ -38,7 +38,7 @@
                                         Откликнуться на заявку
                                     </a>
                                 </div>
-                                <t:modal modalId="tender_reply" caption="Откликнуться на заявку" additionalClass="modal-md">
+                                <t:modal modalId="tender_reply" caption="Откликнуться на заявку" additionalClass="modal-md" lock="true">
                                     <div class="modal-text">
                                         Оставлять свои прямые контакты в отклике запрещено правилами сайта.
                                         Комментарии с таким содержанием будут модерированы или удалены.
@@ -55,79 +55,67 @@
                                                 Откликнуться на заявку
                                             </a>
                                         </div>
-                                        <div class="modal fade" id="tender_reply_denied" tabindex="-1" role="dialog" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <div class="title">
-                                                            <h1><span>Отклик</span></h1>
-                                                        </div>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="row">
-                                                            <p class="modal-text red-text">
-                                                                <b>К сожалению, вы не можете оставлять отклики к этой заявке.</b>
-                                                            </p>
-                                                            <p class="modal-text text-left">
-                                                                Пожалуйста, обратите внимание на необходимые требования:
-                                                            </p>
-                                                            <ul class="reply-denied">
-                                                                <t:unless test="cook">
-                                                                    <li>
-                                                                        Вы не кулинар на сайте
-                                                                        <div class="label-tip">
-                                                                            Возможно, надо зайти другим пользователем или оставить заявку на подключение.
-                                                                        </div>
-                                                                    </li>
-                                                                </t:unless>
-                                                                <t:unless test="catalogReady">
-                                                                    <li>
-                                                                        Каталог не заполнен
-                                                                        <div class="label-tip">
-                                                                            Необходимо завершить все шаги настройки каталога и добавить минимум 5 блюд.
-                                                                        </div>
-                                                                    </li>
-                                                                </t:unless>
-                                                                <t:unless test="doesNotHaveReply">
-                                                                    <li>
-                                                                        У вас уже есть отклик к этой заявке
-                                                                        <div class="label-tip">
-                                                                            К заявке можно оставлять только один отклик. Если хотите обсуждать детали - это можно делать в личных сообщениях.
-                                                                        </div>
-                                                                    </li>
-                                                                </t:unless>
-                                                                <t:unless test="hasOrderSlots">
-                                                                    <li>
-                                                                        Рейтинг не позволяет откликнуться
-                                                                        <div class="label-tip">
-                                                                            Чем выше рейтинг, тем больше активных заказов вы можете иметь. Доведите до конца существующие заказы и сможете откликаться на заявки.
-                                                                        </div>
-                                                                    </li>
-                                                                </t:unless>
-                                                                <t:unless test="contractSigned">
-                                                                    <li>
-                                                                        Не подписан договор с ГастроМаркет.
-                                                                        <t:pagelink page="office/contract" class="red-text">Перейти на страницу соглашения с договором</t:pagelink>
-                                                                    </li>
-                                                                </t:unless>
-                                                                <t:unless test="allPaid">
-                                                                    <li>
-                                                                        Есть
-                                                                        <t:pagelink page="office/bills/list">неоплаченные счета</t:pagelink>
-                                                                        <div class="label-tip">
-                                                                            В списке выставленных счетов есть неоплаченные счета. Оплатите их на
-                                                                            <t:pagelink class="f12px" page="office/bills/list">странице счетов</t:pagelink>
-                                                                            и сможете откликаться на заявки.
-                                                                        </div>
-                                                                    </li>
-                                                                </t:unless>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                        <t:modal modalId="tender_reply_denied" caption="Откликнуться на заявку" additionalClass="modal-md">
+                                            <div class="row">
+                                                <p class="modal-text red-text">
+                                                    <b>К сожалению, вы не можете оставлять отклики к этой заявке.</b>
+                                                </p>
+                                                <p class="modal-text text-left">
+                                                    Пожалуйста, обратите внимание на необходимые требования:
+                                                </p>
+                                                <ul class="reply-denied">
+                                                    <t:unless test="cook">
+                                                        <li>
+                                                            Вы не кулинар на сайте
+                                                            <div class="label-tip">
+                                                                Возможно, надо зайти другим пользователем или оставить заявку на подключение.
+                                                            </div>
+                                                        </li>
+                                                    </t:unless>
+                                                    <t:unless test="catalogReady">
+                                                        <li>
+                                                            Каталог не заполнен
+                                                            <div class="label-tip">
+                                                                Необходимо завершить все шаги настройки каталога и добавить минимум 5 блюд.
+                                                            </div>
+                                                        </li>
+                                                    </t:unless>
+                                                    <t:unless test="doesNotHaveReply">
+                                                        <li>
+                                                            У вас уже есть отклик к этой заявке
+                                                            <div class="label-tip">
+                                                                К заявке можно оставлять только один отклик. Если хотите обсуждать детали - это можно делать в личных сообщениях.
+                                                            </div>
+                                                        </li>
+                                                    </t:unless>
+                                                    <t:unless test="hasOrderSlots">
+                                                        <li>
+                                                            Рейтинг не позволяет откликнуться
+                                                            <div class="label-tip">
+                                                                Чем выше рейтинг, тем больше активных заказов вы можете иметь. Доведите до конца существующие заказы и сможете откликаться на заявки.
+                                                            </div>
+                                                        </li>
+                                                    </t:unless>
+                                                    <t:unless test="contractSigned">
+                                                        <li>
+                                                            Не подписан договор с ГастроМаркет.
+                                                            <t:pagelink page="office/contract" class="red-text">Перейти на страницу соглашения с договором</t:pagelink>
+                                                        </li>
+                                                    </t:unless>
+                                                    <t:unless test="allPaid">
+                                                        <li>
+                                                            Есть
+                                                            <t:pagelink page="office/bills/list">неоплаченные счета</t:pagelink>
+                                                            <div class="label-tip">
+                                                                В списке выставленных счетов есть неоплаченные счета. Оплатите их на
+                                                                <t:pagelink class="f12px" page="office/bills/list">странице счетов</t:pagelink>
+                                                                и сможете откликаться на заявки.
+                                                            </div>
+                                                        </li>
+                                                    </t:unless>
+                                                </ul>
                                             </div>
-                                        </div>
+                                        </t:modal>
                                     </t:unless>
                                 </t:parameter>
                             </t:if>

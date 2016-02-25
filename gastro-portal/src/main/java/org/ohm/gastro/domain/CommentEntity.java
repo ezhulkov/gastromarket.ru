@@ -18,10 +18,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Entity
 @Table(name = "comment")
@@ -151,9 +150,10 @@ public class CommentEntity extends AbstractBaseEntity {
     }
 
     public String getReplyTimeLeftPrintable() {
-        final DateFormat df = new SimpleDateFormat("HH:mm:ss");
-        df.setTimeZone(java.util.TimeZone.getTimeZone("MSK"));
-        return df.format(getReplyTimeLeft());
+        final long timeLeft = getReplyTimeLeft();
+        return String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(timeLeft),
+                             TimeUnit.MILLISECONDS.toMinutes(timeLeft) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(timeLeft)),
+                             TimeUnit.MILLISECONDS.toSeconds(timeLeft) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeLeft)));
     }
 
     public boolean isReplyExpired() {

@@ -22,4 +22,15 @@ public class Modal extends BaseComponent {
     @Parameter(name = "additionalClass", allowNull = false, required = false, defaultPrefix = BindingConstants.LITERAL)
     private String additionalClass;
 
+    @Parameter(defaultPrefix = BindingConstants.LITERAL)
+    private boolean lock;
+
+    public String getKeyboard() {
+        return Boolean.toString(!lock);
+    }
+
+    public String getBackdrop() {
+        return lock ? "static" : "";
+    }
+
 }

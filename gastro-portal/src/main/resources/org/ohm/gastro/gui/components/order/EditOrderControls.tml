@@ -3,7 +3,7 @@
         <div class="links-set gap2" style="margin-bottom: 0">
             <t:unless test="order.orderClosed">
                 <a data-toggle="modal" data-target="#cancel_order_${order.id}" href="#of-new">Отменить заказ</a>
-                <t:modal modalId="cancel_order_${order.id}" caption="Отмена заказа">
+                <t:modal modalId="cancel_order_${order.id}" caption="Отмена заказа" lock="true">
                     <t:form t:id="cancelTenderAjaxForm" t:context="[order.id]" class="form" style="padding-top:0;" clientValidation="BLUR" autofocus="false" role="form">
                         <p class="modal-text">
                             Вы хотите отменить заказ. Пожалуйста, расскажите нам причину?<br/>

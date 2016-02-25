@@ -1,4 +1,4 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="modal fade" id="${modalId}" tabindex="-1" role="dialog" aria-hidden="true">
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" data-backdrop="${backdrop}" data-keyboard="${keyboard}" class="modal fade" id="${modalId}" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog ${additionalClass}">
         <div class="modal-content">
             <div class="modal-header">
