@@ -1,4 +1,4 @@
-<t:modal xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" modalId="${modalId}" caption="Редактировать заказ" lock="true" additionalClass="order-create">
+<t:modal xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" modalId="${modalId}" caption="Редактировать заказ" lock="true" additionalClass="order-create modal-md">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <t:form t:id="descAjaxForm" t:context="[order.id]" enctype="multipart/form-data" t:autofocus="true" t:clientValidation="BLUR" class="form nopad" role="form">
             <t:errors/>

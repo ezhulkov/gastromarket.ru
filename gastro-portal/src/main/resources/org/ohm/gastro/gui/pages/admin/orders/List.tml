@@ -25,7 +25,7 @@
             <t:if test="oneOrder.catalog">
                 <t:pagelink page="catalog/index" t:context="oneOrder.catalog.altId">${oneOrder.catalog.name}</t:pagelink>
                 <t:parameter name="else">
-                    -
+                    &mdash;
                 </t:parameter>
             </t:if>
         </t:parameter>

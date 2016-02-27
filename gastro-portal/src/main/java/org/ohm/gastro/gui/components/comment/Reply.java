@@ -65,12 +65,13 @@ public class Reply extends BaseComponent {
         } catch (NumberFormatException e) {
             logger.error("", e);
         }
-        if (comment.getId() == null) {
-            getConversationService().placeTenderReply(order, comment, getAuthenticatedUser());
-        } else {
-            getConversationService().saveComment(comment);
-        }
+
+        final boolean newComment = comment.getId() == null;
+        getConversationService().saveComment(comment);
         getPhotoService().attachPhotos(comment, injectPhotos.getSubmittedPhotos());
+        if (newComment) {
+            getConversationService().placeTenderReply(order, comment, getAuthenticatedUser());
+        }
     }
 
     public Object[] getFormContext() {

@@ -238,6 +238,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                 put("region", tender.getRegion());
                 put("address", tender.getOrderUrl());
                 put("tender", tender);
+                put("photos", tender.getPhotos());
                 put("recipients", getRecipients(ObjectUtils.defaultIfNull(tender.getRegion(), Region.DEFAULT)));
             }
         };
@@ -294,6 +295,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                 put("address", tender.getOrderUrl());
                 put("tender", tender);
                 put("cooks", rcpt);
+                put("photos", tender.getPhotos());
             }
         };
         params.put("username", tender.getCustomer().getFullName());

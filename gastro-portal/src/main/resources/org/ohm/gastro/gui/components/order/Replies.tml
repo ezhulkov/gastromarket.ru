@@ -29,7 +29,7 @@
                     <div class="container">
                         <t:if test="authenticated">
                             <t:if test="commentAllowed">
-                                <div class="gap3 text-center">
+                                <div class="gap text-center">
                                     <a href="#tender_reply"
                                        data-toggle="modal"
                                        data-target="#tender_reply"
@@ -48,7 +48,7 @@
                                 </t:modal>
                                 <t:parameter name="else">
                                     <t:unless test="user">
-                                        <div class="gap3 text-center">
+                                        <div class="gap text-center">
                                             <a href="#tender_reply_denied" data-toggle="modal" data-target="#tender_reply_denied"
                                                onclick="yaCounter29411415.reachGoal('REPLY_CLICK'); return true;"
                                                class="btn btn-red btn-lg">

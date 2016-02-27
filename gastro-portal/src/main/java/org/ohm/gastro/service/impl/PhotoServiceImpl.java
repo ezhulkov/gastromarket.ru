@@ -80,11 +80,13 @@ public class PhotoServiceImpl implements PhotoService {
     @Override
     public void attachPhotos(final CommentEntity comment, final List<PhotoEntity> submittedPhotos) {
         attachPhotos(comment, null, null, submittedPhotos);
+        comment.setPhotos(submittedPhotos);
     }
 
     @Override
     public void attachPhotos(final OrderEntity order, final List<PhotoEntity> submittedPhotos) {
         attachPhotos(null, order, null, submittedPhotos);
+        order.setPhotos(submittedPhotos);
     }
 
     @Override

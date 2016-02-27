@@ -1,3 +1,7 @@
+#if ( !$btn_title )
+    #set ( $btn_title = "Перейти на ГастроМаркет" )
+#end
+
 </div>
 
 </td>
@@ -18,10 +22,10 @@
                 <tbody>
                 <tr>
                     <td align="center" valign="middle" style="font-family:Arial;font-size:16px;padding:14px">
-                        #if(${link})
-                            <a title="Перейти на ГастроМаркет" href="${link}?${params}" style="font-weight:normal;letter-spacing:normal;line-height:100%;text-align:center;text-decoration:none;color:#ffffff;word-wrap:break-word" target="_blank">Перейти на ГастроМаркет</a>
+                        #if($link)
+                            <a title="Перейти на ГастроМаркет" href="$link?$params" style="font-weight:normal;letter-spacing:normal;line-height:100%;text-align:center;text-decoration:none;color:#ffffff;word-wrap:break-word" target="_blank">${btn_title}</a>
                         #else
-                            <a title="Перейти на ГастроМаркет" href="https://gastromarket.ru?${params}" style="font-weight:normal;letter-spacing:normal;line-height:100%;text-align:center;text-decoration:none;color:#ffffff;word-wrap:break-word" target="_blank">Перейти на ГастроМаркет</a>
+                            <a title="Перейти на ГастроМаркет" href="https://gastromarket.ru?${params}" style="font-weight:normal;letter-spacing:normal;line-height:100%;text-align:center;text-decoration:none;color:#ffffff;word-wrap:break-word" target="_blank">${btn_title}</a>
                         #end
                     </td>
                 </tr>

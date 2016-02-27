@@ -1,14 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraph.org/schema/">
+<html>
 <head>
 
-    <meta property="og:title" content="123"/>
-    <meta property="fb:page_id" content="43929265776"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-    <!-- NAME: 1 COLUMN -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>123</title>
 
     <style type="text/css">
         body, #bodyTable, #bodyCell {
@@ -498,318 +493,9 @@
             }
 
         }</style>
-    <script type="text/javascript">
-        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-    <script type="text/javascript">
-        try {
-            var _gaq = _gaq || [];
-            _gaq.push(["_setAccount", "UA-329148-88"]);
-            _gaq.push(["_setDomainName", ".campaign-archive.com"]);
-            _gaq.push(["_trackPageview"]);
-            _gaq.push(["_setAllowLinker", true]);
-        } catch (err) {
-            console.log(err);
-        }</script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-    <link rel="stylesheet" href="http://us11.campaign-archive1.com/css/archivebar-desktop.css" mc:nocompile>
-    <script type="text/javascript" src="http://us11.campaign-archive1.com/js/archivebar-desktop-plugins.js" mc:nocompile></script>
-    <script src="http://downloads.mailchimp.com/ZeroClipboard.min.js" mc:nocompile></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            ZeroClipboard.setDefaults({moviePath: "//downloads.mailchimp.com/ZeroClipboard.07.13.swf", trustedDomains: ['us11.campaign-archive1.com']});
-            var clip = new ZeroClipboard($('#copyURL'));
-            clip.setHandCursor(true);
-            clip.on('complete', function (client, args) {
-                alert('Copied "' + args.text + '" to your clipboard.');
-            });
-            clip.on('mouseover', function (client) {
-                $('#copyURL').addClass('hover');
-            });
-            clip.on('mouseout', function (client) {
-                $('#copyURL').removeClass('hover');
-            });
 
-            $('li.more > a').click(function () {
-                var toToggle = $($(this).attr('href'));
-                if (toToggle.is(':visible')) {
-                    toToggle.slideUp('fast');
-                    $(this).removeClass('is-active');
-                    if ($('#awesomebar').find('.is-active').length < 1) {
-                        $('#awesomebar').removeClass('sub-active');
-                    }
-                } else {
-                    toToggle.slideDown('fast');
-                    $(this).addClass('is-active');
-                    $('#awesomebar').addClass('sub-active');
-                }
-                return false;
-            });
-
-        });
-    </script>
-    <script src="http://us11.campaign-archive1.com/js/mailchimp/fancyzoom.mc.js"></script>
-    <script type="text/javascript">
-        function incrementFacebookLikeCount() {
-            var current = parseInt($('#campaign-fb-like-btn span').html());
-            $('#campaign-fb-like-btn span').fadeOut().html(++current).fadeIn();
-        }
-
-        function getUrlParams(str) {
-            var vars = {}, hash;
-            if (!str) return vars;
-            var hashes = str.slice(str.indexOf('?') + 1).split('&');
-            for (var i = 0; i < hashes.length; i++) {
-                hash = hashes[i].split('=');
-                vars[hash[0]] = hash[1];
-            }
-            return vars;
-        }
-
-        function setupSocialSharingStuffs() {
-            var numSocialElems = $('a[rel=socialproxy]').length;
-            var numSocialInitialized = 0;
-            var urlParams = getUrlParams(window.document.location.href);
-            var paramsToCopy = {'e': true, 'eo': true};
-            $('a[rel=socialproxy]').each(function () {
-                var href = $(this).attr('href');
-                var newHref = decodeURIComponent(href.match(/socialproxy=(.*)/)[1]);
-                // for facebook insanity to work well, it needs to all be run against just campaign-archive
-                newHref = newHref.replace(/campaign-archive(\d)/gi, 'campaign-archive');
-                var newHrefParams = getUrlParams(newHref);
-                for (var param in urlParams) {
-                    if ((param in paramsToCopy) && !(param in newHrefParams)) {
-                        newHref += '&' + param + '=' + urlParams[param];
-                    }
-                }
-                $(this).attr('href', newHref);
-                if (href.indexOf('facebook-comment') !== -1) {
-                    $(this).fancyZoom({"zoom_id": "social-proxy", "width": 620, "height": 450, "iframe_height": 450});
-                } else {
-                    $(this).fancyZoom({"zoom_id": "social-proxy", "width": 500, "height": 200, "iframe_height": 500});
-                }
-                numSocialInitialized++;
-            });
-        }
-        if (window.top != window.self) {
-            $(function () {
-                var iframeOffset = $("#archive", window.parent.document).offset();
-                $("a").each(function () {
-                    var link = $(this);
-                    var href = link.attr("href");
-                    if (href && href[0] == "#") {
-                        var name = href.substring(1);
-                        $(this).click(function () {
-                            var nameElement = $("[name='" + name + "']");
-                            var idElement = $("#" + name);
-                            var element = null;
-                            if (nameElement.length > 0) {
-                                element = nameElement;
-                            } else if (idElement.length > 0) {
-                                element = idElement;
-                            }
-
-                            if (element) {
-                                var offset = element.offset();
-                                var height = element.height();
-                                //3 is totally arbitrary, but seems to work best.
-                                window.parent.scrollTo(offset.left, (offset.top + iframeOffset.top - (height * 3)));
-                            }
-
-                            return false;
-                        });
-                    }
-                });
-            });
-        }
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            setupSocialSharingStuffs();
-        });
-    </script>
 </head>
-<body id="archivebody" leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="margin: 0;padding: 0;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #F2F2F2;height: 100% !important;width: 100% !important;">
-<div id="awesomewrap">
-    <div id="awesomeshare">
-        <div id="zclipwrap"><label for="shortURL">Short URL</label>
-            <span id="copyURL" data-clipboard-target="shortURL"> <input id="shortURL" name="shorturl" style="margin-top:6px;" type="text" value="http://eepurl.com/bRsh95" class="av-text"> <span>Copy</span> </span>
-            <div id="zero_clipboard"></div>
-        </div>
-        <ul id="awesomesocial">
-            <li class="fbk">
-                <a class="fbk-like" id="campaign-fb-like-btn" rel="socialproxy" href="http://us11.campaign-archive.com/social-proxy/facebook-like?u=0c64b8e5768b31c44d23f6f25&amp;id=bcf67750b7&amp;url=http%3A%2F%2Fus11.campaign-archive.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7&amp;title=123&amp;e=" title="Like 123 on Facebook">Facebook
-                    <b>0 <i>likes</i></b></a></li>
-            <li class="twt"><a title="Share on Twitter" target="_blank" href="http://twitter.com/share?url=http%3A%2F%2Feepurl.com%2FbRsh95">Twitter <b>0 <i>tweets</i></b></a></li>
-            <li class="ggl">
-                <a title="+1 on Google Plus" id="campaign-gpo-btn" href="http://us11.campaign-archive.com/social-proxy/google-plus-one?u=0c64b8e5768b31c44d23f6f25&amp;id=bcf67750b7&amp;url=http%3A%2F%2Fus11.campaign-archive.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7&amp;title=123&amp;e=" class="twitter-share-button" rel="socialproxy">Google +1</a>
-            </li>
-        </ul>
-    </div>
-    <ul id="awesomebar">
-        <li><a href="http://eepurl.com/bJ8mgj" title="Subscribe to List" target="_blank">Subscribe</a></li>
-        <li id="toggleshare" class="more"><a href="#awesomeshare">Share</a></li>
-        <li><a href="http://us11.campaign-archive2.com/home/?u=0c64b8e5768b31c44d23f6f25&amp;id=d11d89e276" title="View Past Issues" target="_blank">Past Issues</a></li>
-        <li class="float-r">
-            <a class="rss" target="_blank" href="http://us11.campaign-archive2.com/feed?u=0c64b8e5768b31c44d23f6f25&amp;id=d11d89e276" title="subscribe to the email archive feed">RSS</a>
-        </li>
-        <li class="float-r more"><a href="#translate">Translate</a>
-            <ul id="translate">
-                <li>
-                    <a rel="nofollow" title="English" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|en&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">English</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="العربية" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|ar&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">العربية</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Afrikaans" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|af&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Afrikaans</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="беларуская мова" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|be&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">беларуская мова</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="български" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|bg&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">български</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="català" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|ca&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">català</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="中文（简体）" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|zh-CN&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">中文（简体）</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="中文（繁體）" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|zh-TW&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">中文（繁體）</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Hrvatski" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|hr&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Hrvatski</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Česky" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|cs&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Česky</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Dansk" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|da&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Dansk</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="eesti&nbsp;keel" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|et&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">eesti&nbsp;keel</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Nederlands" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|nl&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Nederlands</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Suomi" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|fi&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Suomi</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Français" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|fr&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Français</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Deutsch" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|de&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Deutsch</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Ελληνική" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|el&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Ελληνική</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="हिन्दी" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|hi&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">हिन्दी</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Magyar" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|hu&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Magyar</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Gaeilge" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|ga&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Gaeilge</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Indonesia" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|id&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Indonesia</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="íslenska" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|is&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">íslenska</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Italiano" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|it&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Italiano</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="日本語" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|ja&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">日本語</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="ភាសាខ្មែរ" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|km&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">ភាសាខ្មែរ</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="한국어" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|ko&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">한국어</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="македонски&nbsp;јазик" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|mk&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">македонски&nbsp;јазик</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="بهاس ملايو" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|ms&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">بهاس ملايو</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Malti" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|mt&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Malti</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Norsk" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|no&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Norsk</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Polski" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|pl&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Polski</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Português" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|pt&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Português</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Português&nbsp;-&nbsp;Portugal" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|pt-PT&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Português&nbsp;-&nbsp;Portugal</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Română" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|ro&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Română</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Русский" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|ru&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Русский</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Español" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|es&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Español</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Kiswahili" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|sw&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Kiswahili</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Svenska" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|sv&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Svenska</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="עברית" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|iw&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">עברית</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Lietuvių" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|lt&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Lietuvių</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="latviešu" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|lv&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">latviešu</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="slovenčina" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|sk&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">slovenčina</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="slovenščina" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|sl&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">slovenščina</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="српски" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|sr&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">српски</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="தமிழ்" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|ta&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">தமிழ்</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="ภาษาไทย" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|th&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">ภาษาไทย</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Türkçe" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|tr&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Türkçe</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Filipino" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|tl&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Filipino</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="украї́нська" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|uk&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">украї́нська</a>
-                </li>
-                <li>
-                    <a rel="nofollow" title="Tiếng&nbsp;Việt" href="http://translate.google.com/translate?hl=auto&amp;langpair=auto|vi&amp;u=http%3A%2F%2Fus11.campaign-archive1.com%2F%3Fu%3D0c64b8e5768b31c44d23f6f25%26id%3Dbcf67750b7%26e%3D">Tiếng&nbsp;Việt</a>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</div>
+<body>
 
 <center>
     <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;margin: 0;padding: 0;background-color: #F2F2F2;height: 100% !important;width: 100% !important;">
@@ -948,323 +634,110 @@
                                                             <td valign="top" class="mcnTextContent" style="padding-top: 9px;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #606060;font-family: Helvetica;font-size: 15px;line-height: 150%;text-align: left;">
 
                                                                 <h1 style="margin: 0;padding: 0;display: block;font-family: Helvetica;font-size: 40px;font-style: normal;font-weight: bold;line-height: 125%;letter-spacing: -1px;text-align: left;color: #333333 !important;">
-                                                                    <span style="font-size:16px"><span style="line-height:1.6em">&lt;&lt;First Name&gt;&gt;, здравствуйте!</span></span></h1>
+                                                                    <span style="font-size:16px"><span style="line-height:1.6em">&lt;&lt;Ксения&gt;&gt;, здравствуйте!</span></span>
+                                                                </h1>
 
-                                                                <p style="margin: 1em 0;padding: 0;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #606060;font-family: Helvetica;font-size: 15px;line-height: 150%;text-align: left;">Служба Яндекс.Рефераты предназначена для студентов и школьников, дизайнеров и журналистов, создателей научных заявок и отчетов — для всех, кто относится к тексту, как к количеству знаков.<br>
-                                                                                                                                                                                                                                                        Нажав на кнопку «Написать реферат»,<br>
-                                                                    <br>
-                                                                                                                                                                                                                                                        Вы лично создаете уникальный текст, причем именно от вашего нажатия на кнопку зависит, какой именно текст получится — таким образом, авторские права на реферат принадлежат только вам.
+                                                                <p>
+                                                                    Новый комментарий к вашей заявке <a href="${address}?${params}">"Торт в свежих соплях"</a>
+                                                                    от кулинара <a href="${catalog.fullUrl}?${params}">"Днище баное"</a>
+                                                                </p>
+                                                                <p>
+                                                                    <i style="margin-left: 10px;">&mdash; Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Cras ultricies ligula sed magna dictum porta. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Cras ultricies ligula sed magna dictum porta. Nulla porttitor accumsan tincidunt. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Cras ultricies ligula sed magna dictum porta.</i>
                                                                 </p>
 
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
+                                                                <a href=""><img src="https://gastromarket.ru/media/PHOTO_128474_SIZE1.jpg" width="137px" height="98px"/></a>
+                                                                <a href=""><img src="https://gastromarket.ru/media/PHOTO_128472_SIZE1.jpg" width="137px" height="98px"/></a>
+                                                                <a href=""><img src="https://gastromarket.ru/media/PHOTO_128473_SIZE1.jpg" width="137px" height="98px"/></a>
+                                                                <a href=""><img src="https://gastromarket.ru/media/PHOTO_128471_SIZE1.jpg" width="137px" height="98px"/></a>
 
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnBoxedTextBlock" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                            <!--[if gte mso 9]>
-                                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="100%">
-                                            <![endif]-->
-                                            <tbody class="mcnBoxedTextBlockOuter">
-                                            <tr>
-                                                <td valign="top" class="mcnBoxedTextBlockInner" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                <p>
+                                                                    <span style="font-size: 24px;">Предложение стоимости: 5000 рублей</span>
+                                                                    <br/>
+                                                                    <span style="font-size: 12px;"><i>предложение действительно в течение 10 часов</i></span>
+                                                                </p>
 
-                                                    <!--[if gte mso 9]>
-                                                    <td align="center" valign="top" ">
-                                                    <![endif]-->
-                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class="mcnBoxedTextContentContainer">
-                                                        <tbody>
-                                                        <tr>
+                                                                <p>
+                                                                    Если вам понравилось предложение, нажмите на кнопку ниже и выберите исполнителя заявки.
+                                                                </p>
 
-                                                            <td style="padding-left: 18px;padding-right: 18px;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-
-                                                                <table border="0" cellpadding="18" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width: 100% !important;border: 1px solid #0A0A0A;background-color: #EAEAFF;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
                                                                     <tbody>
                                                                     <tr>
-                                                                        <td valign="top" class="mcnTextContent" style="color: #1A1717;font-family: Helvetica;font-size: 16px;font-weight: normal;line-height: 100%;text-align: center;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                                                            Разместить заявку на ГастроМаркет
+                                                                        <td style="padding-top:0;padding-right:18px;padding-bottom:0;padding-left:18px" valign="top" align="center">
+                                                                            <table border="0" cellpadding="0" cellspacing="0" style="border-collapse:separate!important;border:2px none #707070;border-radius:6px;background-color:#e70500">
+                                                                                <tbody>
+                                                                                <tr>
+                                                                                    <td align="center" valign="middle" style="font-family:Arial;font-size:16px;padding:14px">
+                                                                                        <a title="Перейти на ГастроМаркет" href="${link}?${params}" style="font-weight:normal;letter-spacing:normal;line-height:100%;text-align:center;text-decoration:none;color:#ffffff;word-wrap:break-word" target="_blank">Выбрать исполнителя заявки</a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                </tbody>
+                                                                            </table>
                                                                         </td>
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <!--[if gte mso 9]>
-                                                    </td>
-                                                    <![endif]-->
 
-                                                    <!--[if gte mso 9]>
-                                                    </tr>
-                                                    </table>
-                                                    <![endif]-->
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                            <tbody class="mcnImageBlockOuter">
-                                            <tr>
-                                                <td valign="top" style="padding: 0px;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class="mcnImageBlockInner">
-                                                    <table align="left" width="100%" border="0" cellpadding="0" cellspacing="0" class="mcnImageContentContainer" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                                        <tbody>
-                                                        <tr>
-                                                            <td class="mcnImageContent" valign="top" style="padding-right: 0px;padding-left: 0px;padding-top: 0;padding-bottom: 0;text-align: center;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                <!--<table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class="mcnBoxedTextContentContainer">-->
+                                                                <!--<tbody>-->
+                                                                <!--<tr>-->
+                                                                <!--<td class="mcnImageContent" valign="top" style="height: 30px;"/>-->
+                                                                <!--</tr>-->
+                                                                <!--<tr>-->
+                                                                <!--<td style="padding-left: 18px;padding-right: 18px;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">-->
+                                                                <!--<table border="0" cellpadding="18" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width: 100% !important;border: 1px solid #0A0A0A;background-color: #EAEAFF;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">-->
+                                                                <!--<tbody>-->
+                                                                <!--<tr>-->
+                                                                <!--<td valign="top" class="mcnTextContent" style="color: #1A1717;font-family: Helvetica;font-size: 16px;font-weight: normal;line-height: 100%;text-align: center;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">-->
+                                                                <!--Разместить заявку на ГастроМаркет-->
+                                                                <!--</td>-->
+                                                                <!--</tr>-->
+                                                                <!--</tbody>-->
+                                                                <!--</table>-->
+                                                                <!--</td>-->
+                                                                <!--</tr>-->
+                                                                <!--<tr>-->
+                                                                <!--<td class="mcnImageContent" valign="top" style="padding-right: 0px;padding-left: 0px;padding-top: 0;padding-bottom: 0;text-align: center;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">-->
+                                                                <!--<img align="center" alt="" src="https://gallery.mailchimp.com/0c64b8e5768b31c44d23f6f25/images/b57dbffe-15f9-4776-a8fd-6c96f3c742fd.png" width="32" style="max-width: 32px;padding-bottom: 0;display: inline !important;vertical-align: bottom;border: 0;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;" class="mcnImage">-->
+                                                                <!--</td>-->
+                                                                <!--</tr>-->
+                                                                <!--<tr>-->
+                                                                <!--<td style="padding-left: 18px;padding-right: 18px;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">-->
+                                                                <!--<table border="0" cellpadding="18" cellspacing="0" width="100%" style="min-width: 100% !important;border: 1px solid #0A0A0A; background-color: #EAEAFF;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">-->
+                                                                <!--<tbody>-->
+                                                                <!--<tr>-->
+                                                                <!--<td valign="top" class="mcnTextContent" style="color: #1A1717;font-family: Helvetica;font-size: 16px;font-weight: normal;line-height: 100%;text-align: center;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">-->
+                                                                <!--Получить отклик кулинара-->
+                                                                <!--</td>-->
+                                                                <!--</tr>-->
+                                                                <!--</tbody>-->
+                                                                <!--</table>-->
+                                                                <!--</td>-->
+                                                                <!--</tr>-->
+                                                                <!--<tr>-->
+                                                                <!--<td class="mcnImageContent" valign="top" style="padding-right: 0px;padding-left: 0px;padding-top: 0;padding-bottom: 0;text-align: center;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">-->
+                                                                <!--<img align="center" alt="" src="https://gallery.mailchimp.com/0c64b8e5768b31c44d23f6f25/images/b57dbffe-15f9-4776-a8fd-6c96f3c742fd.png" width="32" style="max-width: 32px;padding-bottom: 0;display: inline !important;vertical-align: bottom;border: 0;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;" class="mcnImage">-->
+                                                                <!--</td>-->
+                                                                <!--</tr>-->
+                                                                <!--<tr>-->
+                                                                <!--<td style="padding-left: 18px;padding-right: 18px;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">-->
+                                                                <!--<table border="0" cellpadding="18" cellspacing="0" width="100%" style="min-width: 100% !important;border: 1px solid #0A0A0A; background-color: #EEEEEE;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">-->
+                                                                <!--<tbody>-->
+                                                                <!--<tr>-->
+                                                                <!--<td valign="top" class="mcnTextContent" style="color: #999999;font-family: Helvetica;font-size: 16px;font-weight: normal;line-height: 100%;text-align: center;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">-->
+                                                                <!--Выбрать исполнителя заявки-->
+                                                                <!--</td>-->
+                                                                <!--</tr>-->
+                                                                <!--</tbody>-->
+                                                                <!--</table>-->
+                                                                <!--</td>-->
+                                                                <!--</tr>-->
+                                                                <!--<tr>-->
+                                                                <!--<td class="mcnImageContent" valign="top" style="height: 30px;"/>-->
+                                                                <!--</tr>-->
+                                                                <!--</tbody>-->
+                                                                <!--</table>-->
 
-
-                                                                <img align="center" alt="" src="https://gallery.mailchimp.com/0c64b8e5768b31c44d23f6f25/images/b57dbffe-15f9-4776-a8fd-6c96f3c742fd.png" width="32" style="max-width: 32px;padding-bottom: 0;display: inline !important;vertical-align: bottom;border: 0;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;" class="mcnImage">
-
-
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnBoxedTextBlock" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                            <!--[if gte mso 9]>
-                                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="100%">
-                                            <![endif]-->
-                                            <tbody class="mcnBoxedTextBlockOuter">
-                                            <tr>
-                                                <td valign="top" class="mcnBoxedTextBlockInner" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-
-                                                    <!--[if gte mso 9]>
-                                                    <td align="center" valign="top" ">
-                                                    <![endif]-->
-                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class="mcnBoxedTextContentContainer">
-                                                        <tbody>
-                                                        <tr>
-
-                                                            <td style="padding-left: 18px;padding-right: 18px;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-
-                                                                <table border="0" cellpadding="18" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width: 100% !important;border: 1px solid #0A0A0A;background-color: #EEEEEE;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                                                    <tbody>
-                                                                    <tr>
-                                                                        <td valign="top" class="mcnTextContent" style="color: #999999;font-family: Helvetica;font-size: 16px;font-weight: normal;line-height: 100%;text-align: center;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                                                            Получить отклики кулинаров
-                                                                        </td>
-                                                                    </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <!--[if gte mso 9]>
-                                                    </td>
-                                                    <![endif]-->
-
-                                                    <!--[if gte mso 9]>
-                                                    </tr>
-                                                    </table>
-                                                    <![endif]-->
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                            <tbody class="mcnImageBlockOuter">
-                                            <tr>
-                                                <td valign="top" style="padding: 0px;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class="mcnImageBlockInner">
-                                                    <table align="left" width="100%" border="0" cellpadding="0" cellspacing="0" class="mcnImageContentContainer" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                                        <tbody>
-                                                        <tr>
-                                                            <td class="mcnImageContent" valign="top" style="padding-right: 0px;padding-left: 0px;padding-top: 0;padding-bottom: 0;text-align: center;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-
-
-                                                                <img align="center" alt="" src="https://gallery.mailchimp.com/0c64b8e5768b31c44d23f6f25/images/b57dbffe-15f9-4776-a8fd-6c96f3c742fd.png" width="32" style="max-width: 32px;padding-bottom: 0;display: inline !important;vertical-align: bottom;border: 0;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;" class="mcnImage">
-
-
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnBoxedTextBlock" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                            <!--[if gte mso 9]>
-                                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="100%">
-                                            <![endif]-->
-                                            <tbody class="mcnBoxedTextBlockOuter">
-                                            <tr>
-                                                <td valign="top" class="mcnBoxedTextBlockInner" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-
-                                                    <!--[if gte mso 9]>
-                                                    <td align="center" valign="top" ">
-                                                    <![endif]-->
-                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class="mcnBoxedTextContentContainer">
-                                                        <tbody>
-                                                        <tr>
-
-                                                            <td style="padding-left: 18px;padding-right: 18px;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-
-                                                                <table border="0" cellpadding="18" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width: 100% !important;border: 1px solid #0A0A0A;background-color: #EEEEEE;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                                                    <tbody>
-                                                                    <tr>
-                                                                        <td valign="top" class="mcnTextContent" style="color: #999999;font-family: Helvetica;font-size: 16px;font-weight: normal;line-height: 100%;text-align: center;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">Выбрать исполнителя заявки</td>
-                                                                    </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <!--[if gte mso 9]>
-                                                    </td>
-                                                    <![endif]-->
-
-                                                    <!--[if gte mso 9]>
-                                                    </tr>
-                                                    </table>
-                                                    <![endif]-->
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                            <tbody class="mcnImageBlockOuter">
-                                            <tr>
-                                                <td valign="top" style="padding: 0px;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class="mcnImageBlockInner">
-                                                    <table align="left" width="100%" border="0" cellpadding="0" cellspacing="0" class="mcnImageContentContainer" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                                        <tbody>
-                                                        <tr>
-                                                            <td class="mcnImageContent" valign="top" style="padding-right: 0px;padding-left: 0px;padding-top: 0;padding-bottom: 0;text-align: center;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-
-
-                                                                <img align="center" alt="" src="https://gallery.mailchimp.com/0c64b8e5768b31c44d23f6f25/images/b57dbffe-15f9-4776-a8fd-6c96f3c742fd.png" width="32" style="max-width: 32px;padding-bottom: 0;display: inline !important;vertical-align: bottom;border: 0;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;" class="mcnImage">
-
-
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnBoxedTextBlock" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                            <!--[if gte mso 9]>
-                                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="100%">
-                                            <![endif]-->
-                                            <tbody class="mcnBoxedTextBlockOuter">
-                                            <tr>
-                                                <td valign="top" class="mcnBoxedTextBlockInner" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-
-                                                    <!--[if gte mso 9]>
-                                                    <td align="center" valign="top" ">
-                                                    <![endif]-->
-                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class="mcnBoxedTextContentContainer">
-                                                        <tbody>
-                                                        <tr>
-
-                                                            <td style="padding-left: 18px;padding-right: 18px;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-
-                                                                <table border="0" cellpadding="18" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width: 100% !important;border: 1px solid #0A0A0A;background-color: #EEEEEE;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                                                    <tbody>
-                                                                    <tr>
-                                                                        <td valign="top" class="mcnTextContent" style="color: #999999;font-family: Helvetica;font-size: 16px;font-weight: normal;line-height: 100%;text-align: center;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">Получить выполненную заявку</td>
-                                                                    </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <!--[if gte mso 9]>
-                                                    </td>
-                                                    <![endif]-->
-
-                                                    <!--[if gte mso 9]>
-                                                    </tr>
-                                                    </table>
-                                                    <![endif]-->
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                            <tbody class="mcnImageBlockOuter">
-                                            <tr>
-                                                <td valign="top" style="padding: 0px;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class="mcnImageBlockInner">
-                                                    <table align="left" width="100%" border="0" cellpadding="0" cellspacing="0" class="mcnImageContentContainer" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                                        <tbody>
-                                                        <tr>
-                                                            <td class="mcnImageContent" valign="top" style="padding-right: 0px;padding-left: 0px;padding-top: 0;padding-bottom: 0;text-align: center;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-
-
-                                                                <img align="center" alt="" src="https://gallery.mailchimp.com/0c64b8e5768b31c44d23f6f25/images/b57dbffe-15f9-4776-a8fd-6c96f3c742fd.png" width="32" style="max-width: 32px;padding-bottom: 0;display: inline !important;vertical-align: bottom;border: 0;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;" class="mcnImage">
-
-
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnBoxedTextBlock" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                            <!--[if gte mso 9]>
-                                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="100%">
-                                            <![endif]-->
-                                            <tbody class="mcnBoxedTextBlockOuter">
-                                            <tr>
-                                                <td valign="top" class="mcnBoxedTextBlockInner" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-
-                                                    <!--[if gte mso 9]>
-                                                    <td align="center" valign="top" ">
-                                                    <![endif]-->
-                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class="mcnBoxedTextContentContainer">
-                                                        <tbody>
-                                                        <tr>
-
-                                                            <td style="padding-left: 18px;padding-right: 18px;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-
-                                                                <table border="0" cellpadding="18" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width: 100% !important;border: 1px solid #0A0A0A;background-color: #EEEEEE;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                                                    <tbody>
-                                                                    <tr>
-                                                                        <td valign="top" class="mcnTextContent" style="color: #999999;font-family: Helvetica;font-size: 16px;font-weight: normal;line-height: 100%;text-align: center;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">Оценить работу кулинара</td>
-                                                                    </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <!--[if gte mso 9]>
-                                                    </td>
-                                                    <![endif]-->
-
-                                                    <!--[if gte mso 9]>
-                                                    </tr>
-                                                    </table>
-                                                    <![endif]-->
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                            <tbody class="mcnTextBlockOuter">
-                                            <tr>
-                                                <td valign="top" class="mcnTextBlockInner" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-
-                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class="mcnTextContentContainer">
-                                                        <tbody>
-                                                        <tr>
-
-                                                            <td valign="top" class="mcnTextContent" style="padding-top: 9px;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #606060;font-family: Helvetica;font-size: 15px;line-height: 150%;text-align: left;">
-
-                                                                This is a text block. You can use it to add text to your template.
                                                             </td>
                                                         </tr>
                                                         </tbody>
@@ -1274,23 +747,8 @@
                                             </tr>
                                             </tbody>
                                         </table>
-                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnButtonBlock" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                            <tbody class="mcnButtonBlockOuter">
-                                            <tr>
-                                                <td style="padding-top: 0;padding-right: 18px;padding-bottom: 18px;padding-left: 18px;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" valign="top" align="center" class="mcnButtonBlockInner">
-                                                    <table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;border: 2px none #707070;border-radius: 6px;background-color: #E70500;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                                        <tbody>
-                                                        <tr>
-                                                            <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial;font-size: 16px;padding: 14px;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                                                <a class="mcnButton " title="Перейти на ГастроМаркет" href="http://gastromarket.ru?utm_source=internal&amp;utm_medium=mailchimo&amp;utm_campaign=gm" target="_blank" style="font-weight: normal;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;word-wrap: break-word;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">Перейти на ГастроМаркет</a>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+
+
                                         <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnDividerBlock" style="min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                                             <tbody class="mcnDividerBlockOuter">
                                             <tr>
@@ -1584,22 +1042,5 @@
     </table>
 </center>
 
-<div id="global-zeroclipboard-html-bridge" class="global-zeroclipboard-container" data-clipboard-ready="true" style="position: absolute; left: -9999px; top: -9999px; width: 15px; height: 15px; z-index: 9999;">
-    <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="global-zeroclipboard-flash-bridge" width="100%" height="100%">
-        <param name="movie" value="//downloads.mailchimp.com/ZeroClipboard.07.13.swf?nocache=1456414148667">
-        <param name="allowScriptAccess" value="sameDomain">
-        <param name="scale" value="exactfit">
-        <param name="loop" value="false">
-        <param name="menu" value="false">
-        <param name="quality" value="best">
-        <param name="bgcolor" value="#ffffff">
-        <param name="wmode" value="transparent">
-        <param name="flashvars" value="trustedDomain=us11.campaign-archive1.com">
-        <embed src="//downloads.mailchimp.com/ZeroClipboard.07.13.swf?nocache=1456414148668" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="100%" height="100%" name="global-zeroclipboard-flash-bridge" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" wmode="transparent" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="trustedDomain=us11.campaign-archive1.com" scale="exactfit">
-    </object>
-</div>
-<div id="social-proxy" style="display:none;">
-    <div id="social-proxy_content"></div>
-    <a href="#" title="Close" id="social-proxy_close" style="display: none;">Close</a></div>
-</body>
+
 </html>

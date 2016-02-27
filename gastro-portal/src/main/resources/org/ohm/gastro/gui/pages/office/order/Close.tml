@@ -38,7 +38,7 @@
                             </div>
                             <input t:type="textarea" t:id="comment" t:value="comment" rows="5" class="form-control"/>
                         </div>
-                        <t:comment.injectPhotos order="order"/>
+                        <t:comment.injectPhotos/>
                         <div class="clearfix"></div>
                         <hr/>
                         <div class="form-group">

@@ -125,10 +125,11 @@ public class InjectPhotos extends BaseComponent {
         } else if (order != null) {
             if (order.getId() == null) return Lists.newArrayList();
             return getPhotoService().findAllPhotos(order);
-        } else {
+        } else if (offer != null) {
             if (offer.getId() == null) return Lists.newArrayList();
             return getPhotoService().findAllPhotos(offer);
         }
+        return Lists.newArrayList();
     }
 
     public PhotoEntity.Type getType() {

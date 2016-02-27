@@ -11,12 +11,15 @@
     Комментарий: $comment<br/>
 </p>
 <p>
+    #foreach( $photo in $photos )
+    <a href="${address}?${params}"><img src="https://gastromarket.ru/${photo.avatarUrlSmall}" width="137px" height="98px"/></a>
+    #end
+</p>
+<p>
     Вы можете уточнить детали заявки и оставить отклик по адресу: <a href="${address}?${params}">${address}</a>
 </p>
 <p>
     Адрес почты для входа: <b>$email</b><br/>
-</p>
-<p>
     Также мы хотим напомнить, что оставлять свои прямые контакты в отклике или обсуждениях запрещено правилами сайта. Комментарии с таким содержанием будут модерированы или удалены. Спасибо за понимание!
 </p>
 #parse("email/footer.vm")

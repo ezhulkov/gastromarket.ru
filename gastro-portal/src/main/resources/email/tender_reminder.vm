@@ -17,8 +17,8 @@
     <a href="${reply.author.linkUrl}?${params}"><img src="https://gastromarket.ru/${reply.author.linkAvatar}" title="${reply.author.linkName}" style="float: left; width: 100px; height: 100px;"/></a>
     <div style="margin-left: 120px; font-size: 20px;"><a href="${reply.author.linkUrl}?${params}" style="color: black;">${reply.author.linkName}</a></div>
     <div style="margin-left: 120px; margin-top: 3px;">
-        Рейтинг кулинара: <span style="color: darkred;">${reply.author.catalogRating}</span>
-        #if(${reply.author.catalogCert2})<br/><span style="color: darkred;">Надежный кулинар - проведена контрольная закупка</span>#end
+        Рейтинг кулинара: <span>${reply.author.catalogRating}</span>
+        #if(${reply.author.catalogCert2})<br/><span>Надежный кулинар - проведена контрольная закупка</span>#end
     </div>
     <div style="margin-left: 120px; margin-top: 10px;">${reply.text}</div>
 </div>

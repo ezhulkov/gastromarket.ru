@@ -100,10 +100,12 @@ public class Add extends AbstractPage {
                 if (i > 0) tender.setTotalPrice(i);
             }
         }
-        final OrderEntity newTender = getOrderService().placeTender(this.tender, getAuthenticatedUser());
+        tender.setCustomer(getAuthenticatedUser());
+        final OrderEntity newTender = getOrderService().saveOrder(tender);
         java.util.List<PhotoEntity> photos = getTenderPhotos();
         photos = photos.stream().peek(t -> t.setId(null)).collect(Collectors.toList());
         getPhotoService().attachPhotos(newTender, photos);
+        getOrderService().placeTender(newTender, getAuthenticatedUser());
         return getPageLinkSource().createPageRenderLink(AddResults.class);
     }
 

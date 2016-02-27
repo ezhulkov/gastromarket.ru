@@ -208,26 +208,24 @@ public class ConversationServiceImpl implements ConversationService, Logging {
     @Override
     public void placeTenderReply(final OrderEntity tender, final CommentEntity reply, final UserEntity author) {
         if (StringUtils.isEmpty(reply.getText())) return;
-        if (reply.getId() == null) {
-            reply.setEntity(tender);
-            reply.setDate(new Date());
-            reply.setAuthor(author);
-            commentRepository.save(reply);
-            final Map<String, Object> params = new HashMap<String, Object>() {
-                {
-                    put("username", tender.getCustomer().getFullName());
-                    put("address", tender.getOrderUrl());
-                    put("text", reply.getText());
-                    put("time", reply.getReplyExpirationHours());
-                    put("order", tender);
-                    put("catalog", author.getFirstCatalog().orElse(null));
-                }
-            };
-            mailService.sendMailMessage(tender.getCustomer(), MailService.MailType.ORDER_COMMENT, params);
-            mailService.sendAdminMessage(MailService.MailType.ORDER_COMMENT_ADMIN, params);
-        } else {
-            commentRepository.save(reply);
-        }
+        reply.setEntity(tender);
+        reply.setDate(new Date());
+        reply.setAuthor(author);
+        commentRepository.save(reply);
+        final Map<String, Object> params = new HashMap<String, Object>() {
+            {
+                put("username", tender.getCustomer().getFullName());
+                put("address", tender.getOrderUrl());
+                put("text", reply.getText());
+                put("time", reply.getReplyExpirationHours());
+                put("price", reply.getBudget());
+                put("photos", reply.getPhotos());
+                put("order", tender);
+                put("catalog", author.getFirstCatalog().orElse(null));
+            }
+        };
+        mailService.sendMailMessage(tender.getCustomer(), MailService.MailType.ORDER_COMMENT, params);
+        mailService.sendAdminMessage(MailService.MailType.ORDER_COMMENT_ADMIN, params);
     }
 
     @Override
