@@ -1,4 +1,4 @@
-#set($subject = "Новое предложение от кулинара '${catalog.name}'")
+#set($subject = "Предложение от кулинара '${catalog.name}'")
 #set($link = "${address}")
 #set($toadmin = true)
 #set($btn_title = "Выбрать исполнителя заявки")
