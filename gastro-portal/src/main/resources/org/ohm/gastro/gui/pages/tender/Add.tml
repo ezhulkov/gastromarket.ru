@@ -127,5 +127,6 @@
     <t:lasttenderssection additionalClass="hidden-xs white-section"/>
 
     <t:yagoal goal="TENDER_EDIT"/>
+    <t:fbgoal goal="InitiateCheckout"/>
 
 </t:layout>

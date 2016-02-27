@@ -27,6 +27,8 @@
                                     <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет заказы" class="red-text">contacts@gastromarket.ru</a>.
                                 </p>
                             </div>
+                            <t:yagoal goal="TENDER_ATTACH"/>
+                            <t:fbgoal goal="Purchase"/>
                         </t:if>
                         <t:order.order order="order" type="FULL" orderPage="true" privateOrders="privateOrders" replies="true"/>
                     </div>

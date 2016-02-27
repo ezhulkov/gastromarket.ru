@@ -20,6 +20,8 @@
         </div>
     </section>
 
+    <t:fbgoal goal="Search"/>
+
     <script>
         jQuery(initProductCatalog());
     </script>

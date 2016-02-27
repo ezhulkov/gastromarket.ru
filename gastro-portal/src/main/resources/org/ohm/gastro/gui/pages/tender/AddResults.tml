@@ -26,5 +26,6 @@
     </section>
 
     <t:yagoal goal="TENDER_PLACED"/>
+    <t:fbgoal goal="Lead"/>
 
 </t:layout>

@@ -1,10 +1,12 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="action-link">
     <t:delegate to="orderActionLinkBlock"/>
     <t:block t:id="catalogAttachedLinkBlock">
-        <a data-toggle="modal" data-target="#tender-attached-${order.id}" href="#tender-attached-${order.id}" class="round-link">Исполнитель выбран</a>
-        <t:modal modalId="tender-attached-${order.id}" caption="Исполнитель выбран" additionalClass="modal-md">
-            <t:order.executor order="order"/>
-        </t:modal>
+        <t:unless test="orderPage">
+            <a data-toggle="modal" data-target="#tender-attached-${order.id}" href="#tender-attached-${order.id}" class="round-link">Исполнитель выбран</a>
+            <t:modal modalId="tender-attached-${order.id}" caption="Исполнитель выбран" additionalClass="modal-md">
+                <t:order.executor order="order"/>
+            </t:modal>
+        </t:unless>
     </t:block>
     <t:block t:id="orderCancelledLinkBlock">
         <a data-toggle="modal" data-target="#order-cancelled-${order.id}" href="#order-cancelled-${order.id}" class="round-link">Заказ отменен</a>
