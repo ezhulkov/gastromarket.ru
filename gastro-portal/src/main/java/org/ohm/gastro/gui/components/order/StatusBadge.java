@@ -28,8 +28,8 @@ public class StatusBadge extends AbstractOrder {
         if (order == null || order.getId() == null) return null;
         if (order.getStatus() == Status.CANCELLED) return orderCancelledLinkBlock;
         if (order.getStatus() == Status.CLOSED) return orderClosedLinkBlock;
-        if (isAdmin() || isOrderOwner() || isOrderExecutor()) return editOrderLinkBlock;
         if (order.getCatalog() != null) return catalogAttachedLinkBlock;
+        if (isAdmin() || isOrderOwner() || isOrderExecutor()) return editOrderLinkBlock;
         return tenderReplyLinkBlock;
     }
 

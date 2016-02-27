@@ -30,7 +30,7 @@ public class Modal extends BaseComponent {
     }
 
     public String getBackdrop() {
-        return lock ? "static" : "";
+        return lock ? "static" : "true";
     }
 
 }
