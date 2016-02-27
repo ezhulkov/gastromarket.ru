@@ -22,7 +22,7 @@
         <div style="font-size: 24px;">Предложение стоимости: ${price} руб.</div>
     #end
     #if($time)
-        <div style="font-size: 12px;"><i>предложение действительно в течение ${time} часов</i></div>
+        <div style="font-size: 12px;"><i>предложение кулинара действительно в течение ${time} часов</i></div>
     #end
 </p>
 <p>

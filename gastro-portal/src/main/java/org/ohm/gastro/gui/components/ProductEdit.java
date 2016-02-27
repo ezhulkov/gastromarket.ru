@@ -252,4 +252,8 @@ public class ProductEdit extends BaseComponent {
         return closeImmediately && reloadPage ? Index.class : null;
     }
 
+    public String getCaption() {
+        return editProduct ? "Редактировать" : "Новое блюдо";
+    }
+
 }

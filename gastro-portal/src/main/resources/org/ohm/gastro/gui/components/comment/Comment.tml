@@ -35,7 +35,7 @@
                     <t:unless test="comment.replyExpired">
                         <t:if test="reply">
                             <t:if test="comment.replyExpirationHours">
-                                <div class="f20px">Предложение действительно в течение: ${comment.replyTimeLeftPrintable}</div>
+                                <div class="f20px">Предложение кулинара действительно в течение ${comment.replyTimeLeftPrintable} часов</div>
                             </t:if>
                             <div class="reply-block gap">
                                 <t:if test="authenticated">
