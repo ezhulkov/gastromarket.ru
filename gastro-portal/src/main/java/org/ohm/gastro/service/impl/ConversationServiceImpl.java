@@ -171,7 +171,7 @@ public class ConversationServiceImpl implements ConversationService, Logging {
     }
 
     @Override
-    public void rateCook(final OrderEntity order, final int totalPrice, final String rate, final Boolean opinion, final String gmComment, final Boolean gmRecommend, final UserEntity caller) {
+    public CommentEntity rateCook(final OrderEntity order, final int totalPrice, final String text, final Boolean like, final String gmComment, final Boolean gmRecommend, final UserEntity caller) {
         if (totalPrice != order.getTotalPrice()) {
             logger.info("Price changed by client. Was {}, become {}", order.getTotalPrice(), totalPrice);
             order.setTotalPrice(totalPrice);
@@ -179,8 +179,8 @@ public class ConversationServiceImpl implements ConversationService, Logging {
         order.setClientRate(true);
         orderRepository.save(order);
         final CommentEntity comment = new CommentEntity();
-        comment.setText(rate);
-        comment.setRating(opinion == Boolean.TRUE ? 1 : -1);
+        comment.setText(text);
+        comment.setRating(like == Boolean.TRUE ? 1 : -1);
         placeComment(order.getCatalog(), comment, caller);
         final Map<String, Object> params = new HashMap<String, Object>() {
             {
@@ -193,6 +193,18 @@ public class ConversationServiceImpl implements ConversationService, Logging {
             }
         };
         mailService.sendAdminMessage(MailType.CATALOG_RATE_ADMIN, params);
+        return comment;
+    }
+
+    @Override
+    public CommentEntity rateClient(final OrderEntity order, final int totalPrice, final String text, final Boolean like, final UserEntity caller) {
+        order.setCookRate(true);
+        orderRepository.save(order);
+        final CommentEntity comment = new CommentEntity();
+        comment.setText(text);
+        comment.setRating(like == Boolean.TRUE ? 1 : -1);
+        placeComment(order.getCustomer(), comment, caller);
+        return comment;
     }
 
     @Override
