@@ -9,12 +9,14 @@ import org.ohm.gastro.domain.LogEntity.Type;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.OrderProductEntity;
+import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.Region;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.filter.RegionFilter;
 import org.ohm.gastro.reps.CatalogRepository;
 import org.ohm.gastro.reps.OrderProductRepository;
 import org.ohm.gastro.reps.OrderRepository;
+import org.ohm.gastro.reps.PhotoRepository;
 import org.ohm.gastro.reps.UserRepository;
 import org.ohm.gastro.service.ConversationService;
 import org.ohm.gastro.service.MailService;
@@ -60,6 +62,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     private final CatalogRepository catalogRepository;
     private final MailService mailService;
     private final UserRepository userRepository;
+    private final PhotoRepository photoRepository;
     private final RatingService ratingService;
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
@@ -74,6 +77,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                             final CatalogRepository catalogRepository,
                             final MailService mailService,
                             final UserRepository userRepository,
+                            final PhotoRepository photoRepository,
                             final RatingService ratingService,
                             final TransactionTemplate transactionTemplate,
                             final ConversationService conversationService) {
@@ -82,6 +86,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
         this.catalogRepository = catalogRepository;
         this.mailService = mailService;
         this.userRepository = userRepository;
+        this.photoRepository = photoRepository;
         this.ratingService = ratingService;
         this.transactionTemplate = transactionTemplate;
         this.conversationService = conversationService;
@@ -285,6 +290,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
         tender.setAnnonceSent(true);
         orderRepository.save(tender);
         final List<UserEntity> rcpt = getRecipients(region);
+        final List<PhotoEntity> photos = photoRepository.findAllByOrder(tender);
         final Map<String, Object> params = new HashMap<String, Object>() {
             {
                 put("username", tender.getCustomer().getFullName());
@@ -295,7 +301,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                 put("address", tender.getOrderUrl());
                 put("tender", tender);
                 put("cooks", rcpt);
-                put("photos", tender.getPhotos());
+                put("photos", photos);
             }
         };
         params.put("username", tender.getCustomer().getFullName());
