@@ -231,7 +231,7 @@ public class MailServiceImpl implements MailService, Logging {
 
     @Override
     public boolean isNotificationEnabled(UserEntity user, MailType mailType) {
-        if (user == null || mailType == null || !user.isSubscribeEmail()) return false;
+        if (user == null || mailType == null || !user.isSubscribeEmail() || "cook@cook.com".equals(user.getEmail())) return false;
         if (user.getId() == null) return true;
         final NotificationConfigEntity config = notificationConfigRepository.findByUserAndMailType(user, mailType);
         return config == null || config.isEnabled();
