@@ -123,6 +123,10 @@
         <filter-class>org.ohm.gastro.filter.UploadFilter</filter-class>
     </filter>
     <filter>
+        <filter-name>messageFilter</filter-name>
+        <filter-class>org.ohm.gastro.filter.MessageFilter</filter-class>
+    </filter>
+    <filter>
         <filter-name>paymentFilter</filter-name>
         <filter-class>org.ohm.gastro.filter.PaymentFilter</filter-class>
     </filter>
@@ -166,6 +170,10 @@
     <filter-mapping>
         <filter-name>uploadFilter</filter-name>
         <url-pattern>/upload/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>messageFilter</filter-name>
+        <url-pattern>/message/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>app</filter-name>

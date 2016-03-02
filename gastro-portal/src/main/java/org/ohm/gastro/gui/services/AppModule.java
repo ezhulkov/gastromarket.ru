@@ -23,7 +23,8 @@ public class AppModule {
         configuration.add("/social/*");
         configuration.add("/upload/*");
         configuration.add("/payment/*");
-        configuration.add("/chat");
+        configuration.add("/chat/*");
+        configuration.add("/message/*");
         configuration.add("/favicon.ico");
         configuration.add("/robots.txt");
         configuration.add("/sitemap.xml");
