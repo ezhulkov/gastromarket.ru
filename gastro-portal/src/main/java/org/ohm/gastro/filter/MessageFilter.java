@@ -1,10 +1,11 @@
 package org.ohm.gastro.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.io.IOUtils;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.ConversationEntity;
 import org.ohm.gastro.domain.UserEntity;
+import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.service.ConversationService;
 import org.ohm.gastro.service.UserService;
 import org.ohm.gastro.service.impl.ApplicationContextHolder;
@@ -18,7 +19,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static org.apache.commons.lang3.ObjectUtils.defaultIfNull;
 
 /**
  * Created by ezhulkov on 23.08.14.
@@ -43,18 +47,41 @@ public class MessageFilter extends BaseApplicationFilter {
         final boolean needToLog = !isStaticResource(httpServletRequest);
         try {
             if (needToLog) {
-                if (httpServletRequest.getMethod().equals("GET")) {
-                    final Long cid = Long.parseLong(httpServletRequest.getParameter("cid"));
-                    final Integer from = Integer.parseInt(ObjectUtils.defaultIfNull(httpServletRequest.getParameter("from"), "0"));
-                    final Integer to = Integer.parseInt(ObjectUtils.defaultIfNull(httpServletRequest.getParameter("to"), "50"));
-                    final ConversationEntity conversation = conversationService.find(cid);
-                    if (conversation == null) {
-                        httpServletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                        return;
+                final Optional<UserEntity> authenticatedUserOpt = BaseComponent.getAuthenticatedUser(userService);
+                if (authenticatedUserOpt.isPresent()) {
+                    final UserEntity user = authenticatedUserOpt.get();
+                    if (httpServletRequest.getMethod().equals("GET")) {
+                        final Long cid = Long.parseLong(httpServletRequest.getParameter("cid"));
+                        final Integer from = Integer.parseInt(defaultIfNull(httpServletRequest.getParameter("from"), "0"));
+                        final Integer to = Integer.parseInt(defaultIfNull(httpServletRequest.getParameter("to"), "50"));
+                        final ConversationEntity conversation = conversationService.find(cid);
+                        if (conversation == null) {
+                            httpServletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                            return;
+                        }
+                        final Converstation response = new Converstation(conversationService.findAllComments(conversation, from, to), conversation);
+                        final byte[] bytes = objectMapper.writeValueAsBytes(response);
+                        write(httpServletResponse, bytes);
+                    } else if (httpServletRequest.getMethod().equals("POST")) {
+                        final Long oid = Long.parseLong(httpServletRequest.getParameter("oid"));
+                        final String type = httpServletRequest.getParameter("type");
+                        final String text = IOUtils.toString(httpServletRequest.getInputStream());
+                        final ConversationEntity conversation = conversationService.findOrCreateConversation(user, userService.findUser(oid));
+                        if (conversation == null) {
+                            httpServletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                            return;
+                        }
+                        if ("text".equals(type)) {
+                            final CommentEntity comment = new CommentEntity();
+                            comment.setText(text);
+                            conversationService.placeComment(conversation, comment, user);
+                        }
+                        final Converstation response = new Converstation(null, conversation);
+                        final byte[] bytes = objectMapper.writeValueAsBytes(response);
+                        write(httpServletResponse, bytes);
                     }
-                    final Converstation response = new Converstation(conversationService.findAllComments(conversation, from, to), conversation);
-                    final byte[] bytes = objectMapper.writeValueAsBytes(response);
-                    write(httpServletResponse, bytes);
+                } else {
+                    httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 }
             }
         } catch (Exception e) {
@@ -80,12 +107,8 @@ public class MessageFilter extends BaseApplicationFilter {
         private final ConversationEntity conversation;
 
         public Converstation(List<CommentEntity> messages, ConversationEntity conversation) {
-            this.messages = messages.stream().map(Message::new).collect(Collectors.toList());
+            this.messages = messages == null ? null : messages.stream().map(Message::new).collect(Collectors.toList());
             this.conversation = conversation;
-        }
-
-        public List<Message> getMessages() {
-            return messages;
         }
 
         public Long getId() {
@@ -110,6 +133,10 @@ public class MessageFilter extends BaseApplicationFilter {
 
         public Date getLastActionDate() {
             return conversation.getLastActionDate();
+        }
+
+        public List<Message> getMessages() {
+            return messages;
         }
 
     }
