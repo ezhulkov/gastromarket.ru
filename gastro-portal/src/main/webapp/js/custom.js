@@ -37,6 +37,7 @@ jQuery.noConflict();
     var app = angular.module('gastroApp', []);
     app.controller('messageCtrl', ['$http', '$scope', function ($http, $scope) {
         $scope.message = {};
+        $scope.text = '';
         $scope.messages = [];
         $scope.init = function (cid) {
             $scope.cid = cid;
@@ -44,6 +45,14 @@ jQuery.noConflict();
                 $scope.messages = data.messages;
             });
         };
+        $scope.submit = function () {
+            if ($scope.text) {
+                $http.post('/message?type=text&cid=' + cid, $scope.text).success(function (data) {
+                    $scope.messages.push(data.messages);
+                });
+                $scope.text = '';
+            }
+        }
     }]);
 
 })();

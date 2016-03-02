@@ -1,6 +1,7 @@
 package org.ohm.gastro.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Lists;
 import org.apache.commons.io.IOUtils;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.ConversationEntity;
@@ -75,10 +76,10 @@ public class MessageFilter extends BaseApplicationFilter {
                             final CommentEntity comment = new CommentEntity();
                             comment.setText(text);
                             conversationService.placeComment(conversation, comment, user);
+                            final Converstation response = new Converstation(Lists.newArrayList(comment), conversation);
+                            final byte[] bytes = objectMapper.writeValueAsBytes(response);
+                            write(httpServletResponse, bytes);
                         }
-                        final Converstation response = new Converstation(null, conversation);
-                        final byte[] bytes = objectMapper.writeValueAsBytes(response);
-                        write(httpServletResponse, bytes);
                     }
                 } else {
                     httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);

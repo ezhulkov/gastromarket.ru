@@ -7,7 +7,7 @@
             </div>
         </div>
         <div id="conversation-${conversation.id}" class="container messages message-page"
-             ng-controller="messageCtrl as message" ng-init="init(${conversation.id})">
+             ng-controller="messageCtrl" ng-init="init(${conversation?.id})">
             <div ng-repeat="message in messages | orderBy:'date'">
                 <div class="row message">
                     <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs text-right pic">
@@ -32,6 +32,10 @@
                     </div>
                 </div>
             </div>
+            <form name="form" ng-submit="submit()">
+                <input type="text" ng-model="text"/>
+                <input type="submit"/>
+            </form>
         </div>
     </section>
 
