@@ -73,8 +73,9 @@
     <script type="text/javascript" src="/js/bootstrap-datepicker.ru.min.js" charset="UTF-8"></script>
     <script type="text/javascript" src="/js/intlTelInput.min.js"></script>
     <script type="text/javascript" src="/js/reconnecting-websocket.min.js"></script>
+    <script type="text/javascript" src="/js/angular.min.js"></script>
     <script type="text/javascript" src="https://cdn.ravenjs.com/1.3.0/ember,jquery,native/raven.min.js"></script>
-    <script type="text/javascript" src="//vk.com/js/api/openapi.js?116"></script>
+    <script type="text/javascript" src="https://vk.com/js/api/openapi.js?116"></script>
     <script type="text/javascript" src="/js/custom.js?v=1.16"></script>
 
     <script type="text/javascript">
@@ -115,7 +116,7 @@
     <![endif]-->
 
 </head>
-<body class="page ${pageClass}">
+<body class="page ${pageClass}" ng-app="gastroApp">
 <!--noindex-->
 <div id="fb-root"></div>
 <t:headerlayout header="header"/>

@@ -1,0 +1,38 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" footer="false" forceShow="false" breadcrumbs="false">
+
+    <section>
+        <div class="title fixed">
+            <div class="container">
+                <h1>${opponentName}</h1>
+            </div>
+        </div>
+        <div id="conversation-${conversation.id}" class="container messages message-page"
+             ng-controller="messageCtrl as message" ng-init="init(${conversation.id})">
+            <div ng-repeat="message in messages | orderBy:'date'">
+                <div class="row message">
+                    <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs text-right pic">
+                        <a href="{{message.author.url}}">
+                            <img ng-src="{{message.author.avatar}}"/>
+                        </a>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 name nopad">
+                            <a href="{{message.author.url}}">
+                                {{message.author.name}}
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 date nopad">
+                            <div>
+                                {{message.datePrintable}}
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 text">
+                            {{message.text}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</t:layout>

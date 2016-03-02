@@ -165,6 +165,10 @@ public class MessageFilter extends BaseApplicationFilter {
             return comment.getDate();
         }
 
+        public String getDatePrintable() {
+            return comment.getDatePrintable();
+        }
+
     }
 
     private class User {
@@ -182,7 +186,7 @@ public class MessageFilter extends BaseApplicationFilter {
             return user.getLinkName();
         }
 
-        public String getPhoto() {
+        public String getAvatar() {
             return user.getLinkAvatar();
         }
 

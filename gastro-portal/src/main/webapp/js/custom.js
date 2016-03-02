@@ -34,6 +34,18 @@ jQuery.noConflict();
             return originalHide(element);
         }
     });
+    var app = angular.module('gastroApp', []);
+    app.controller('messageCtrl', ['$http', '$scope', function ($http, $scope) {
+        $scope.message = {};
+        $scope.messages = [];
+        $scope.init = function (cid) {
+            $scope.cid = cid;
+            $http.get("/message?cid=" + cid).success(function (data) {
+                $scope.messages = data.messages;
+            });
+        };
+    }]);
+
 })();
 (function (d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
