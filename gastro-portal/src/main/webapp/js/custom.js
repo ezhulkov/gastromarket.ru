@@ -40,12 +40,20 @@ jQuery.noConflict();
             return $sce.trustAsHtml(val);
         };
     });
-    app.controller('headerCtrl', ['$http', '$scope', '$timeout', function ($http, $scope, $timeout) {
+    app.factory('wsMessage', [function () {
+        //var wsUrl = "wss://gastromarket.ru/chat";
+        var wsUrl = "ws://localhost:8080/chat";
+        var ws = new ReconnectingWebSocket(wsUrl, null, {debug: false, reconnectInterval: 3000, maxReconnectAttempts: 10});
+        return function () {
+            return ws;
+        }
+    }]);
+    app.controller('headerCtrl', ['$http', '$scope', '$timeout', 'wsMessage', function ($http, $scope, $timeout, wsMessage) {
         $http.get("/message?type=unread").success(function (data) {
             if (data.unread != 0) $scope.unread = "+" + data.unread;
         });
     }]);
-    app.controller('messageCtrl', ['$http', '$scope', '$timeout', function ($http, $scope, $timeout) {
+    app.controller('messageCtrl', ['$http', '$scope', '$timeout', 'wsMessage', function ($http, $scope, $timeout, wsMessage) {
         $scope.message = {};
         $scope.text = '';
         $scope.messages = [];
