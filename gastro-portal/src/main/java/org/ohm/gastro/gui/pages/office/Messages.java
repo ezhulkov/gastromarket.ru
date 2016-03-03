@@ -34,6 +34,10 @@ public class Messages extends AbstractPage {
         return getAuthenticatedUserOpt().map(conversation::getOpponentName).orElse(null);
     }
 
+    public Long getOpponentId() {
+        return getAuthenticatedUserOpt().map(conversation::getOpponentId).orElse(null);
+    }
+
     public CommentEntity getLastComment() {
         return getConversationService().findLastComment(conversation).orElse(null);
     }

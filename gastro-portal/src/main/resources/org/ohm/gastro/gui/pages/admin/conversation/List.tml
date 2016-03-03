@@ -9,10 +9,10 @@
             <t:pagelink t:page="office/message" t:context="oneConversation.id">${oneConversation.lastActionDatePrintable}</t:pagelink>
         </t:parameter>
         <t:parameter name="senderCell">
-            <a href="${oneConversation.sender.linkUrl}">${oneConversation.sender.linkName}</a>
+            <a href="${oneConversation.author.linkUrl}">${oneConversation.author.linkName}</a>
         </t:parameter>
         <t:parameter name="recipientCell">
-            <a href="${oneConversation.recipient.linkUrl}">${oneConversation.recipient.linkName}</a>
+            <a href="${oneConversation.opponent.linkUrl}">${oneConversation.opponent.linkName}</a>
         </t:parameter>
     </t:grid>
 

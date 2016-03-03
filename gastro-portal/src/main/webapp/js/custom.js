@@ -35,24 +35,47 @@ jQuery.noConflict();
         }
     });
     var app = angular.module('gastroApp', []);
-    app.controller('messageCtrl', ['$http', '$scope', function ($http, $scope) {
+    app.filter('raw', function ($sce) {
+        return function (val) {
+            return $sce.trustAsHtml(val);
+        };
+    });
+    app.controller('messageCtrl', ['$http', '$scope', '$timeout', function ($http, $scope, $timeout) {
         $scope.message = {};
         $scope.text = '';
         $scope.messages = [];
-        $scope.init = function (cid) {
-            $scope.cid = cid;
-            $http.get("/message?cid=" + cid).success(function (data) {
+        $scope.init = function (oid) {
+            $scope.oid = oid;
+            $http.get("/message?oid=" + oid).success(function (data) {
                 $scope.messages = data.messages;
             });
+            $scope.submit = function () {
+                if ($scope.text) {
+                    $http.post('/message?type=text&oid=' + $scope.oid, $scope.text).success(function (data) {
+                        $scope.messages.push(data.messages[0]);
+                    });
+                    $scope.text = "";
+                }
+            };
         };
-        $scope.submit = function () {
-            if ($scope.text) {
-                $http.post('/message?type=text&cid=' + cid, $scope.text).success(function (data) {
-                    $scope.messages.push(data.messages);
+        $scope.$watchCollection("messages", function () {
+            $timeout(function () {
+                jQuery("#text-input").css("height", "");
+                jQuery("html, body").scrollTop(jQuery(document).height());
+                jQuery(jQuery("#text-input")).focus()
+                    .each(function () {
+                        autosize(this);
+                    })
+                    .on("autosize:resized", function () {
+                        jQuery("html, body").scrollTop(jQuery(document).height());
+                    });
+                jQuery(document).keydown(function (e) {
+                    if ((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey) {
+                        $scope.submit();
+                    }
                 });
-                $scope.text = '';
-            }
-        }
+            }, 0);
+        });
     }]);
 
 })();
@@ -227,19 +250,16 @@ function showProductModal(pid) {
     //Download recommended
     triggerEvent(jQuery(".recommended-link", productMain).get(0), 'click');
 }
-
 function productLeftScroll(pid) {
     var productMain = jQuery("div[data-productid='" + pid + "']:first");
     pid = productMain.prev().attr("data-productid");
     if (pid != undefined) showProductModal(pid);
 }
-
 function productRightScroll(pid) {
     var productMain = jQuery("div[data-productid='" + pid + "']:first");
     var pid2 = productMain.next().attr("data-productid");
     if (pid2 != undefined) showProductModal(pid2);
 }
-
 function initProductInCatalog(items) {
     jQuery(items).find("a.deleteConfirm").click(function (event) {
         var productMain = jQuery(this).closest(".product-item");
@@ -259,7 +279,6 @@ function initProductInCatalog(items) {
             jQuery(this).find("img").css("opacity", "0.9");
         });
 }
-
 function initProductCatalogFixed() {
     var newItems = jQuery("div.product-item.fixed");
     initProductInCatalog(newItems);
@@ -317,7 +336,6 @@ function initProductCatalog(ajaxContainer) {
         }, 10000);
     }
 }
-
 function initBasket() {
     Event.observe(jQuery("div[id^='orderShowZone']").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
         if (jQuery(event.target).attr("id").startsWith("orderShowZone")) {

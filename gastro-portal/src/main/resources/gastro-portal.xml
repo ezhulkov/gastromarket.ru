@@ -85,8 +85,8 @@
                 <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
                 <prop key="hibernate.cache.provider_configuration_file_resource_path">ehcache.xml</prop>
                 <prop key="net.sf.ehcache.configurationResourceName">/ehcache.xml</prop>
-                <prop key="hibernate.cache.use_second_level_cache">true</prop>
-                <prop key="hibernate.cache.use_query_cache">true</prop>
+                <prop key="hibernate.cache.use_second_level_cache">${db.cache}</prop>
+                <prop key="hibernate.cache.use_query_cache">${db.cache}</prop>
                 <prop key="hibernate.generate_statistics">true</prop>
                 <prop key="hibernate.cache.use_structured_entries">true</prop>
             </props>

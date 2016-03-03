@@ -1,7 +1,6 @@
 package org.ohm.gastro.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.Lists;
 import org.apache.commons.io.IOUtils;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.ConversationEntity;
@@ -51,32 +50,34 @@ public class MessageFilter extends BaseApplicationFilter {
                 final Optional<UserEntity> authenticatedUserOpt = BaseComponent.getAuthenticatedUser(userService);
                 if (authenticatedUserOpt.isPresent()) {
                     final UserEntity user = authenticatedUserOpt.get();
+                    final Long oid = Long.parseLong(httpServletRequest.getParameter("oid"));
+                    final UserEntity opponent = userService.findUser(oid);
+                    if (opponent == null) {
+                        httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                        return;
+                    }
                     if (httpServletRequest.getMethod().equals("GET")) {
-                        final Long cid = Long.parseLong(httpServletRequest.getParameter("cid"));
                         final Integer from = Integer.parseInt(defaultIfNull(httpServletRequest.getParameter("from"), "0"));
                         final Integer to = Integer.parseInt(defaultIfNull(httpServletRequest.getParameter("to"), "50"));
-                        final ConversationEntity conversation = conversationService.find(cid);
+                        final ConversationEntity conversation = conversationService.findConversation(user, opponent);
                         if (conversation == null) {
-                            httpServletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                            httpServletResponse.setStatus(HttpServletResponse.SC_NO_CONTENT);
                             return;
                         }
-                        final Converstation response = new Converstation(conversationService.findAllComments(conversation, from, to), conversation);
+                        final Converstation response = new Converstation(conversationService.findAllComments(conversation, from, to), conversation, user);
                         final byte[] bytes = objectMapper.writeValueAsBytes(response);
                         write(httpServletResponse, bytes);
+                        conversation.setLastSeenDate(new Date());
+                        conversationService.save(conversation);
                     } else if (httpServletRequest.getMethod().equals("POST")) {
-                        final Long oid = Long.parseLong(httpServletRequest.getParameter("oid"));
                         final String type = httpServletRequest.getParameter("type");
                         final String text = IOUtils.toString(httpServletRequest.getInputStream());
-                        final ConversationEntity conversation = conversationService.findOrCreateConversation(user, userService.findUser(oid));
-                        if (conversation == null) {
-                            httpServletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                            return;
-                        }
+                        final ConversationEntity conversation = conversationService.findOrCreateConversation(user, opponent);
                         if ("text".equals(type)) {
                             final CommentEntity comment = new CommentEntity();
                             comment.setText(text);
                             conversationService.placeComment(conversation, comment, user);
-                            final Converstation response = new Converstation(Lists.newArrayList(comment), conversation);
+                            final Converstation response = new Converstation(conversationService.findAllComments(conversation, 0, 50), conversation, user);
                             final byte[] bytes = objectMapper.writeValueAsBytes(response);
                             write(httpServletResponse, bytes);
                         }
@@ -106,22 +107,20 @@ public class MessageFilter extends BaseApplicationFilter {
 
         private final List<Message> messages;
         private final ConversationEntity conversation;
+        private final UserEntity author;
 
-        public Converstation(List<CommentEntity> messages, ConversationEntity conversation) {
-            this.messages = messages == null ? null : messages.stream().map(Message::new).collect(Collectors.toList());
+        public Converstation(List<CommentEntity> messages, ConversationEntity conversation, UserEntity author) {
+            this.messages = messages == null ? null : messages.stream().map(t -> new Message(t, author)).collect(Collectors.toList());
             this.conversation = conversation;
+            this.author = author;
         }
 
         public Long getId() {
             return conversation.getId();
         }
 
-        public User getSender() {
-            return new User(conversation.getSender());
-        }
-
-        public User getRecipient() {
-            return new User(conversation.getRecipient());
+        public User getOpponent() {
+            return new User(conversation.getOpponent(author).get());
         }
 
         public Date getLastSeenDate() {
@@ -145,9 +144,11 @@ public class MessageFilter extends BaseApplicationFilter {
     private class Message {
 
         private final CommentEntity comment;
+        private final UserEntity author;
 
-        public Message(CommentEntity comment) {
+        public Message(CommentEntity comment, UserEntity author) {
             this.comment = comment;
+            this.author = author;
         }
 
         public Long getId() {
@@ -155,7 +156,7 @@ public class MessageFilter extends BaseApplicationFilter {
         }
 
         public String getText() {
-            return comment.getText();
+            return comment.getTextRaw();
         }
 
         public User getAuthor() {
@@ -168,6 +169,11 @@ public class MessageFilter extends BaseApplicationFilter {
 
         public String getDatePrintable() {
             return comment.getDatePrintable();
+        }
+
+        public String getRead() {
+            final Date lastSeenDate = ((ConversationEntity) comment.getEntity()).getLastSeenDate();
+            return lastSeenDate == null || !comment.getAuthor().equals(author) && lastSeenDate.before(comment.getDate()) ? "unread" : "read";
         }
 
     }

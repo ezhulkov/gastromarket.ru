@@ -1,6 +1,7 @@
 package org.ohm.gastro.service.impl;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.ohm.gastro.domain.AltIdBaseEntity;
 import org.ohm.gastro.domain.CatalogEntity;
@@ -117,17 +118,18 @@ public class ConversationServiceImpl implements ConversationService, Logging {
     }
 
     @Override
-    public ConversationEntity findOrCreateConversation(final UserEntity sender, final UserEntity opponent) {
-        ConversationEntity conversation = conversationRepository.findAllConversations(sender).stream()
-                .filter(t -> t.getSender().equals(opponent) || t.getRecipient().equals(opponent))
-                .findFirst()
-                .orElse(null);
+    public ConversationEntity findConversation(final UserEntity author, final UserEntity opponent) {
+        return conversationRepository.findConversation(author, opponent);
+    }
+
+    @Override
+    public ConversationEntity findOrCreateConversation(final UserEntity author, final UserEntity opponent) {
+        ConversationEntity conversation = findConversation(author, opponent);
         if (conversation == null) {
             conversation = new ConversationEntity();
             conversation.setDate(new Date());
-            conversation.setLastSeenDate(new Date());
-            conversation.setSender(sender);
-            conversation.setRecipient(opponent);
+            conversation.setAuthor(author);
+            conversation.setOpponent(opponent);
             conversationRepository.save(conversation);
         }
         return conversation;
@@ -137,7 +139,7 @@ public class ConversationServiceImpl implements ConversationService, Logging {
     public int getUnreadMessagesCount(final UserEntity user) {
         return conversationRepository.findAllConversations(user).stream()
                 .mapToInt(t -> (int) commentRepository.findAllByEntityOrderByDateAsc(t).stream()
-                        .filter(m -> !m.getAuthor().equals(user) && m.getDate().after(t.getLastSeenDate()))
+                        .filter(m -> t.getLastSeenDate() == null || !m.getAuthor().equals(user) && m.getDate().after(t.getLastSeenDate()))
                         .count())
                 .sum();
     }
@@ -250,6 +252,7 @@ public class ConversationServiceImpl implements ConversationService, Logging {
             comment.setDate(new Date());
             comment.setEntity(entity);
         }
+        if (comment.getText() != null) comment.setText(StringEscapeUtils.escapeHtml(comment.getText()));
         commentRepository.save(comment);
         if (entity.getCommentableType() == CommentableEntity.Type.CATALOG && origId == null) {
             CatalogEntity catalog = (CatalogEntity) entity;

@@ -23,11 +23,11 @@ public class ConversationEntity extends AbstractBaseEntity implements Commentabl
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false, targetEntity = UserEntity.class)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private UserEntity sender;
+    private UserEntity author;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false, targetEntity = UserEntity.class)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private UserEntity recipient;
+    private UserEntity opponent;
 
     @Column(name = "last_seen")
     private Date lastSeenDate = new Date();
@@ -54,20 +54,20 @@ public class ConversationEntity extends AbstractBaseEntity implements Commentabl
         this.date = date;
     }
 
-    public UserEntity getSender() {
-        return sender;
+    public UserEntity getAuthor() {
+        return author;
     }
 
-    public void setSender(final UserEntity sender) {
-        this.sender = sender;
+    public void setAuthor(final UserEntity author) {
+        this.author = author;
     }
 
-    public UserEntity getRecipient() {
-        return recipient;
+    public UserEntity getOpponent() {
+        return opponent;
     }
 
-    public void setRecipient(final UserEntity recipient) {
-        this.recipient = recipient;
+    public void setOpponent(final UserEntity opponent) {
+        this.opponent = opponent;
     }
 
     public Date getLastSeenDate() {
@@ -84,7 +84,7 @@ public class ConversationEntity extends AbstractBaseEntity implements Commentabl
     }
 
     public Optional<UserEntity> getOpponent(UserEntity user) {
-        return Optional.ofNullable(sender.equals(user) ? recipient : recipient.equals(user) ? sender : null);
+        return Optional.ofNullable(author.equals(user) ? opponent : opponent.equals(user) ? author : null);
     }
 
     public String getOpponentLink(final UserEntity user) {
@@ -93,6 +93,10 @@ public class ConversationEntity extends AbstractBaseEntity implements Commentabl
 
     public String getOpponentName(final UserEntity user) {
         return getOpponent(user).map(UserEntity::getLinkName).orElse(null);
+    }
+
+    public Long getOpponentId(final UserEntity user) {
+        return getOpponent(user).map(UserEntity::getId).orElse(null);
     }
 
     public String getOpponentAvatar(final UserEntity user) {

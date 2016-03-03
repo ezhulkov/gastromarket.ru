@@ -1219,4 +1219,9 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="112" author="ezhulkov">
+        <renameColumn tableName="conversation" oldColumnName="sender_id" newColumnName="author_id"/>
+        <renameColumn tableName="conversation" oldColumnName="recipient_id" newColumnName="opponent_id"/>
+    </changeSet>
+
 </databaseChangeLog>

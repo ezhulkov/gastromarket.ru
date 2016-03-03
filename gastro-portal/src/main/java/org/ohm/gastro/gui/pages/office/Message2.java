@@ -2,6 +2,7 @@ package org.ohm.gastro.gui.pages.office;
 
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.ConversationEntity;
+import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.pages.AbstractPage;
 
 /**
@@ -12,18 +13,18 @@ public class Message2 extends AbstractPage {
     private final static int PAGE_SIZE = 40;
 
     @Property
+    private UserEntity opponent;
+
+    @Property
     private ConversationEntity conversation;
 
     public void onActivate(Long id) {
-        conversation = getConversationService().find(id);
+        opponent = getUserService().findUser(id);
+        conversation = getConversationService().findConversation(getAuthenticatedUser(), opponent);
     }
 
     public Long onPassivate() {
-        return conversation == null ? null : conversation.getId();
-    }
-
-    public String getOpponentName() {
-        return conversation.getOpponentName(getAuthenticatedUser());
+        return opponent == null ? null : opponent.getId();
     }
 
 }

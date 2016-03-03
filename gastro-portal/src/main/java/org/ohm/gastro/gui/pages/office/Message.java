@@ -78,7 +78,6 @@ public class Message extends AbstractPage {
         lastSeen = lastComment.map(t -> t.getAuthor().equals(getAuthenticatedUser()) ? new Date() : conversation.getLastSeenDate()).orElseGet(() -> new Date());
         if (!isAdmin()) {
             lastComment.filter(t -> !t.getAuthor().equals(getAuthenticatedUser())).ifPresent(t -> {
-                conversation.setLastSeenDate(t.getDate());
                 getConversationService().save(conversation);
             });
         }

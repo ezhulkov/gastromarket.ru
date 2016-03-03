@@ -39,7 +39,9 @@ public interface ConversationService {
 
     void deleteComment(Long cId);
 
-    ConversationEntity findOrCreateConversation(final UserEntity sender, UserEntity opponent);
+    ConversationEntity findConversation(final UserEntity author, UserEntity opponent);
+
+    ConversationEntity findOrCreateConversation(final UserEntity author, UserEntity opponent);
 
     int getUnreadMessagesCount(UserEntity user);
 
