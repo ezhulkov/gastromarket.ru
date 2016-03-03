@@ -40,9 +40,8 @@
                             </li>
                         </t:unless>
                         <t:if test="authenticated">
-                            <li class="hidden-sm">
-                                <t:pagelink page="office/messages">Сообщения
-                                    <span id="unread-messages" class="red-text"><t:if test="unreadMessagesCount">+${unreadMessagesCount}</t:if></span>
+                            <li class="hidden-sm" ng-controller="headerCtrl">
+                                <t:pagelink page="office/messages">Сообщения <span id="unread-messages" class="red-text ng-cloak">{{unread}}</span>
                                 </t:pagelink>
                             </li>
                             <t:unless test="admin">

@@ -46,11 +46,6 @@ public class HeaderLayout extends BaseComponent {
     }
 
     @Cached
-    public int getUnreadMessagesCount() {
-        return getConversationService().getUnreadMessagesCount(getAuthenticatedUser());
-    }
-
-    @Cached
     public long getActiveOrdersCount() {
         if (!isAuthenticated()) return 0;
         return (isCook() ?

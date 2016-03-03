@@ -40,13 +40,18 @@ jQuery.noConflict();
             return $sce.trustAsHtml(val);
         };
     });
+    app.controller('headerCtrl', ['$http', '$scope', '$timeout', function ($http, $scope, $timeout) {
+        $http.get("/message?type=unread").success(function (data) {
+            if (data.unread != 0) $scope.unread = "+" + data.unread;
+        });
+    }]);
     app.controller('messageCtrl', ['$http', '$scope', '$timeout', function ($http, $scope, $timeout) {
         $scope.message = {};
         $scope.text = '';
         $scope.messages = [];
         $scope.init = function (oid) {
             $scope.oid = oid;
-            $http.get("/message?oid=" + oid).success(function (data) {
+            $http.get("/message?type=list&oid=" + oid).success(function (data) {
                 $scope.messages = data.messages;
             });
             $scope.submit = function () {
