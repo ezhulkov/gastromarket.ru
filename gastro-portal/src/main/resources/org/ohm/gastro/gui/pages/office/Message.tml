@@ -1,90 +1,68 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" footer="false" forceShow="false" breadcrumbs="false">
+    <div ng-controller="messageCtrl" ng-init="init(${author.id},${opponent.id})">
 
-    <section>
-        <div class="title fixed">
-            <div class="container">
-                <h1>${opponentName}</h1>
-            </div>
-        </div>
-        <div id="conversation-${conversation.id}" class="container messages message-page">
-            <t:zone t:id="messagesFetchZone" class="gap">
-                <t:delegate to="messagesFetchBlock"/>
-            </t:zone>
-            <t:zone t:id="allMessagesZone">
-                <t:delegate to="messagesBlock"/>
-            </t:zone>
-            <div id="opponentMessages"></div>
-            <t:zone t:id="newMessagesZone"/>
-            <div id="message-template" class="row message unread hidden">
-                <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs text-right pic">
-                    <a href="">
-                        <img src=""/>
-                    </a>
-                </div>
-                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 name nopad">
-                        <a href=""/>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 date delete-false nopad">
-                        <div></div>
-                    </div>
-                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 text"></div>
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 nopad"></div>
+        <section>
+            <div class="title fixed">
+                <div class="container">
+                    <h1>${opponent.linkName}</h1>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section>
-        <div class="container post">
-            <div class="row">
-                <div class="row">
-                    <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-offset-0 col-xs-12 hr"></div>
-                </div>
-                <t:form t:id="postForm" t:context="conversation.id" t:zone="newMessagesZone" class="form postform" t:clientValidation="none" role="form">
-                    <div class="col-lg-offset-2 col-lg-1 col-lg-offset-2 col-md-31 col-sm-offset-2 col-sm-1 col-xs-2">
-                        <t:actionlink t:id="uploadPhotoAjaxLink" id="uploadPhotoAjaxLink" t:zone="newMessagesZone" t:context="conversation.id" class="hidden"/>
-                        <t:uploadfile type="PHOTO" inputType="msg-icon" refreshAjax="#uploadPhotoAjaxLink" targetContext="${conversation.id}" withTools="false"/>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-10">
-                        <div class="form-group">
-                            <t:textarea t:value="text" t:id="text" rows="1" class="form-control text" tabindex="0" style="max-height: 74px" placeholder="Ваше сообщение"/>
-                            <div class="label-tip hidden-xs">
-                                ctrl+enter отправка сообщения
+            <div class="container messages message-page">
+                <div ng-repeat="message in messages | orderBy:'date'" class="ng-cloak">
+                    <div class="row message {{message.read}}">
+                        <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs text-right pic">
+                            <a href="{{message.author.url}}">
+                                <img ng-src="{{message.author.avatar}}"/>
+                            </a>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 name nopad">
+                                <a href="{{message.author.url}}">
+                                    {{message.author.name}}
+                                </a>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 date nopad">
+                                <div>
+                                    {{message.datePrintable}}
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 text" ng-bind-html="message.text | raw">
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                        <div class="form-buttons" xml:space="preserve">
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container post">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-offset-0 col-xs-12 hr"></div>
+                    </div>
+                    <form id="form" class="form postform" role="form" ng-submit="submit()">
+                        <div class="col-lg-offset-2 col-lg-1 col-lg-offset-2 col-md-31 col-sm-offset-2 col-sm-1 col-xs-2">
+                            <!--<t:actionlink t:id="uploadPhotoAjaxLink" id="uploadPhotoAjaxLink" t:zone="newMessagesZone" t:context="conversation.id" class="hidden"/>-->
+                            <!--<t:uploadfile type="PHOTO" inputType="msg-icon" refreshAjax="#uploadPhotoAjaxLink" targetContext="${conversation.id}" withTools="false"/>-->
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-10">
+                            <div class="form-group">
+                                <textarea id="text-input" ng-model="text" rows="1" class="form-control text" tabindex="0" style="max-height: 74px" placeholder="Ваше сообщение"/>
+                                <div class="label-tip hidden-xs">
+                                    ctrl+enter отправка сообщения
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                            <div class="form-buttons" xml:space="preserve">
                             <input class="btn btn-white submit" type="submit" value="Отправить"/>
                         </div>
-                    </div>
-                </t:form>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <t:block t:id="messagesFetchBlock">
-        <t:if test="showFetch">
-            <div class="text-center">
-                <t:actionlink class="round-link" rel="nofollow" t:id="fetchMessagesAjaxLink" t:context="[fetchFrom,fetchTo]" t:zone="${messagesZoneId}">предыдущие сообщения</t:actionlink>
-            </div>
-        </t:if>
-    </t:block>
-
-    <t:block t:id="messagesBlock">
-        <t:zone t:id="messagesZone" id="${messagesZoneId}"/>
-        <t:message.list comments="comments" lastSeen="lastSeen"/>
-        <script>initMessages();</script>
-    </t:block>
-
-    <t:block t:id="newMessageBlock">
-        <t:message.list showEmpty="false" comments="newComments"/>
-        <script>initMessages();</script>
-    </t:block>
-
-    <script>
-        initMessagePage();
-    </script>
+    </div>
 
 </t:layout>

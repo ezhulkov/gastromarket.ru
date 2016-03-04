@@ -210,6 +210,15 @@ public class ConversationServiceImpl implements ConversationService, Logging {
     }
 
     @Override
+    public void setLastSeenDate(ConversationEntity conversation, UserEntity user) {
+        final Optional<CommentEntity> lastComment = findLastComment(conversation);
+        if (!lastComment.filter(t -> t.getAuthor().equals(user)).isPresent()) {
+            conversation.setLastSeenDate(new Date());
+            conversationRepository.save(conversation);
+        }
+    }
+
+    @Override
     public CommentEntity findComment(final Long cId) {
         return commentRepository.findOne(cId);
     }

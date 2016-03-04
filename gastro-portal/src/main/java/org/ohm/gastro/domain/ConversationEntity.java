@@ -84,7 +84,7 @@ public class ConversationEntity extends AbstractBaseEntity implements Commentabl
     }
 
     public Optional<UserEntity> getOpponent(UserEntity user) {
-        return Optional.ofNullable(author.equals(user) ? opponent : opponent.equals(user) ? author : null);
+        return Optional.ofNullable(author.equals(user) ? opponent : author);
     }
 
     public String getOpponentLink(final UserEntity user) {

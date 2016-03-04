@@ -4,7 +4,6 @@ import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.ConversationEntity;
 import org.ohm.gastro.domain.UserEntity;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,12 +14,14 @@ public class ConversationDTO {
 
     private final List<MessageDTO> messages;
     private final ConversationEntity conversation;
-    private final UserEntity author;
+    private final UserEntity user;
+    private final int totalUnread;
 
-    public ConversationDTO(List<CommentEntity> messages, ConversationEntity conversation, UserEntity author) {
-        this.messages = messages == null ? null : messages.stream().map(t -> new MessageDTO(t, author)).collect(Collectors.toList());
+    public ConversationDTO(List<CommentEntity> messages, ConversationEntity conversation, UserEntity user, int totalUnread) {
+        this.totalUnread = totalUnread;
+        this.messages = messages == null ? null : messages.stream().map(t -> new MessageDTO(t, user)).collect(Collectors.toList());
         this.conversation = conversation;
-        this.author = author;
+        this.user = user;
     }
 
     public Long getId() {
@@ -28,23 +29,15 @@ public class ConversationDTO {
     }
 
     public UserDTO getOpponent() {
-        return new UserDTO(conversation.getOpponent(author).get());
-    }
-
-    public Date getLastSeenDate() {
-        return conversation.getLastSeenDate();
-    }
-
-    public Date getDate() {
-        return conversation.getDate();
-    }
-
-    public Date getLastActionDate() {
-        return conversation.getLastActionDate();
+        return new UserDTO(conversation.getOpponent(user).get());
     }
 
     public List<MessageDTO> getMessages() {
         return messages;
+    }
+
+    public int getTotalUnread() {
+        return totalUnread;
     }
 
 }

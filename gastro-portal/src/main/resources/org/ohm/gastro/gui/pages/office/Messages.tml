@@ -24,7 +24,7 @@
                                     ${opponentName}
                                 </a>
                             </div>
-                            <t:pagelink page="office/message2" t:context="opponentId">
+                            <t:pagelink page="office/message" t:context="context">
                                 <div class="text">
                                     <t:if test="lastComment">
                                         <t:outputraw value="lastComment.textRaw"/>

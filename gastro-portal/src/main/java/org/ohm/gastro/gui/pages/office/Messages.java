@@ -34,10 +34,6 @@ public class Messages extends AbstractPage {
         return getAuthenticatedUserOpt().map(conversation::getOpponentName).orElse(null);
     }
 
-    public Long getOpponentId() {
-        return getAuthenticatedUserOpt().map(conversation::getOpponentId).orElse(null);
-    }
-
     public CommentEntity getLastComment() {
         return getConversationService().findLastComment(conversation).orElse(null);
     }
@@ -47,6 +43,10 @@ public class Messages extends AbstractPage {
                 .map(t -> !t.getAuthor().equals(getAuthenticatedUser()) && conversation.getLastSeenDate().before(t.getDate()))
                 .map(t -> t ? "unread" : "")
                 .orElse("");
+    }
+
+    public Object[] getContext() {
+        return new Object[]{conversation.getAuthor().getId(), conversation.getOpponent().getId()};
     }
 
 }

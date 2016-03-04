@@ -57,4 +57,6 @@ public interface ConversationService {
 
     CommentEntity rateClient(OrderEntity order, final int totalPrice, String comment, Boolean like, UserEntity caller);
 
+    void setLastSeenDate(ConversationEntity conversation, UserEntity user);
+
 }

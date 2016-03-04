@@ -34,6 +34,7 @@ jQuery.noConflict();
             return originalHide(element);
         }
     });
+
     var app = angular.module('gastroApp', []);
     app.filter('raw', function ($sce) {
         return function (val) {
@@ -44,27 +45,44 @@ jQuery.noConflict();
         //var wsUrl = "wss://gastromarket.ru/chat";
         var wsUrl = "ws://localhost:8080/chat";
         var ws = new ReconnectingWebSocket(wsUrl, null, {debug: false, reconnectInterval: 3000, maxReconnectAttempts: 10});
-        return function () {
-            return ws;
+        var callbacks = [];
+        ws.onmessage = function (message) {
+            var json = JSON.parse(message.data);
+            for (var i = 0; i < callbacks.length; i++) {
+                callbacks[i](json);
+            }
+        };
+        return {
+            onMessage: function (f) {
+                callbacks.push(f);
+            }
         }
     }]);
     app.controller('headerCtrl', ['$http', '$scope', '$timeout', 'wsMessage', function ($http, $scope, $timeout, wsMessage) {
+        var snd = new Audio("/sound/message.mp3");
         $http.get("/message?type=unread").success(function (data) {
             if (data.unread != 0) $scope.unread = "+" + data.unread;
+        });
+        wsMessage.onMessage(function (data) {
+            if (snd != undefined) snd.play();
+            $scope.$apply(function () {
+                if (data.totalUnread != 0) $scope.unread = "+" + data.totalUnread;
+            });
         });
     }]);
     app.controller('messageCtrl', ['$http', '$scope', '$timeout', 'wsMessage', function ($http, $scope, $timeout, wsMessage) {
         $scope.message = {};
         $scope.text = '';
         $scope.messages = [];
-        $scope.init = function (oid) {
+        $scope.init = function (aid, oid) {
+            $scope.aid = aid;
             $scope.oid = oid;
-            $http.get("/message?type=list&oid=" + oid).success(function (data) {
+            $http.get("/message?type=list&aid=" + aid + "&oid=" + oid).success(function (data) {
                 $scope.messages = data.messages;
             });
             $scope.submit = function () {
                 if ($scope.text) {
-                    $http.post('/message?type=text&oid=' + $scope.oid, $scope.text).success(function (data) {
+                    $http.post('/message?type=text&aid=' + $scope.aid + "&oid=" + $scope.oid, $scope.text).success(function (data) {
                         $scope.messages.push(data.messages[0]);
                     });
                     $scope.text = "";
@@ -88,6 +106,11 @@ jQuery.noConflict();
                     }
                 });
             }, 0);
+        });
+        wsMessage.onMessage(function (message) {
+            $scope.$apply(function () {
+                $scope.messages.push(message.messages[0]);
+            });
         });
     }]);
 
@@ -656,7 +679,7 @@ function getUrlVars() {
     return vars;
 }
 function onLogin() {
-    connectWebSocket("wss://gastromarket.ru/chat");
+    //connectWebSocket("wss://gastromarket.ru/chat");
     //connectWebSocket("ws://localhost:8080/chat");
 }
 function connectWebSocket(url) {

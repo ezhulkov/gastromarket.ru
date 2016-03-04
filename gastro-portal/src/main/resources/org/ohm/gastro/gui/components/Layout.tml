@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd" ng-app="gastroApp">
 <head>
 
     <!-- Facebook Pixel Code -->
@@ -116,7 +116,7 @@
     <![endif]-->
 
 </head>
-<body class="page ${pageClass}" ng-app="gastroApp">
+<body class="page ${pageClass}">
 <!--noindex-->
 <div id="fb-root"></div>
 <t:headerlayout header="header"/>

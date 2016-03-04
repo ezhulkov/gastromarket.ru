@@ -1,6 +1,7 @@
 package org.ohm.gastro.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.io.IOUtils;
 import org.ohm.gastro.domain.CommentEntity;
@@ -11,6 +12,7 @@ import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.service.ConversationService;
 import org.ohm.gastro.service.UserService;
 import org.ohm.gastro.service.impl.ApplicationContextHolder;
+import org.ohm.gastro.servlet.MessageNotifierServlet;
 import org.ohm.gastro.trait.Logging;
 
 import javax.servlet.FilterChain;
@@ -45,60 +47,60 @@ public class MessageFilter extends BaseApplicationFilter {
     protected void doFilterInternal(final HttpServletRequest httpServletRequest,
                                     final HttpServletResponse httpServletResponse,
                                     final FilterChain filterChain) throws ServletException, IOException {
-        final boolean needToLog = !isStaticResource(httpServletRequest);
         try {
-            if (needToLog) {
-                final Optional<UserEntity> authenticatedUserOpt = BaseComponent.getAuthenticatedUser(userService);
-                if (authenticatedUserOpt.isPresent()) {
-                    final UserEntity user = authenticatedUserOpt.get();
-                    final String type = httpServletRequest.getParameter("type");
-                    if (httpServletRequest.getMethod().equals("GET")) {
-                        if ("unread".equals(type)) {
-                            final HashMap<String, Integer> response = Maps.newHashMap();
-                            response.put("unread", conversationService.getUnreadMessagesCount(user));
-                            final byte[] bytes = objectMapper.writeValueAsBytes(response);
-                            write(httpServletResponse, bytes);
-                        } else {
-                            final Long oid = Long.parseLong(httpServletRequest.getParameter("oid"));
-                            final Integer from = Integer.parseInt(defaultIfNull(httpServletRequest.getParameter("from"), "0"));
-                            final Integer to = Integer.parseInt(defaultIfNull(httpServletRequest.getParameter("to"), "50"));
-                            final UserEntity opponent = userService.findUser(oid);
-                            if (opponent == null) {
-                                httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                                return;
-                            }
-                            final ConversationEntity conversation = conversationService.findConversation(user, opponent);
-                            if (conversation == null) {
-                                httpServletResponse.setStatus(HttpServletResponse.SC_NO_CONTENT);
-                                return;
-                            }
-                            final ConversationDTO response = new ConversationDTO(conversationService.findAllComments(conversation, from, to), conversation, user);
-                            final byte[] bytes = objectMapper.writeValueAsBytes(response);
-                            write(httpServletResponse, bytes);
-                            conversation.setLastSeenDate(new Date());
-                            conversationService.save(conversation);
-                        }
-                    } else if (httpServletRequest.getMethod().equals("POST")) {
+            final Optional<UserEntity> authenticatedUserOpt = BaseComponent.getAuthenticatedUser(userService);
+            if (authenticatedUserOpt.isPresent()) {
+                final String type = httpServletRequest.getParameter("type");
+                final UserEntity user = BaseComponent.getAuthenticatedUser(userService).get();
+                if (httpServletRequest.getMethod().equals("GET")) {
+                    if ("unread".equals(type)) {
+                        final HashMap<String, Integer> response = Maps.newHashMap();
+                        response.put("unread", conversationService.getUnreadMessagesCount(user));
+                        final byte[] bytes = objectMapper.writeValueAsBytes(response);
+                        write(httpServletResponse, bytes);
+                    } else {
+                        final Long aid = Long.parseLong(httpServletRequest.getParameter("aid"));
                         final Long oid = Long.parseLong(httpServletRequest.getParameter("oid"));
-                        final String text = IOUtils.toString(httpServletRequest.getInputStream());
-                        final UserEntity opponent = userService.findUser(oid);
-                        if (opponent == null) {
-                            httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                        final Integer from = Integer.parseInt(defaultIfNull(httpServletRequest.getParameter("from"), "0"));
+                        final Integer to = Integer.parseInt(defaultIfNull(httpServletRequest.getParameter("to"), "50"));
+                        final ConversationEntity conversation = conversationService.findConversation(userService.findUser(aid), userService.findUser(oid));
+                        if (conversation == null) {
+                            httpServletResponse.setStatus(HttpServletResponse.SC_NO_CONTENT);
                             return;
                         }
-                        final ConversationEntity conversation = conversationService.findOrCreateConversation(user, opponent);
-                        if ("text".equals(type)) {
-                            final CommentEntity comment = new CommentEntity();
-                            comment.setText(text);
-                            conversationService.placeComment(conversation, comment, user);
-                            final ConversationDTO response = new ConversationDTO(conversationService.findAllComments(conversation, 0, 50), conversation, user);
-                            final byte[] bytes = objectMapper.writeValueAsBytes(response);
-                            write(httpServletResponse, bytes);
-                        }
+                        final ConversationDTO response = new ConversationDTO(conversationService.findAllComments(conversation, from, to),
+                                                                             conversation,
+                                                                             user,
+                                                                             conversationService.getUnreadMessagesCount(user));
+                        write(httpServletResponse, objectMapper.writeValueAsBytes(response));
+                        conversationService.setLastSeenDate(conversation, user);
                     }
-                } else {
-                    httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                } else if (httpServletRequest.getMethod().equals("POST")) {
+                    final Long aid = Long.parseLong(httpServletRequest.getParameter("aid"));
+                    final Long oid = Long.parseLong(httpServletRequest.getParameter("oid"));
+                    final String text = IOUtils.toString(httpServletRequest.getInputStream());
+                    final ConversationEntity conversation = conversationService.findOrCreateConversation(userService.findUser(aid), userService.findUser(oid));
+                    if ("text".equals(type)) {
+                        final CommentEntity comment = new CommentEntity();
+                        comment.setText(text);
+                        conversationService.placeComment(conversation, comment, user);
+                        final ConversationDTO response = new ConversationDTO(conversationService.findAllComments(conversation, 0, 50),
+                                                                             conversation,
+                                                                             user,
+                                                                             conversationService.getUnreadMessagesCount(user));
+                        write(httpServletResponse, objectMapper.writeValueAsBytes(response));
+                        final UserEntity opUser = conversation.getOpponent(user).get();
+                        final ConversationDTO opponentNotify = new ConversationDTO(Lists.newArrayList(comment),
+                                                                                   conversation,
+                                                                                   opUser,
+                                                                                   conversationService.getUnreadMessagesCount(opUser));
+                        conversation.setLastActionDate(new Date());
+                        conversationService.save(conversation);
+                        MessageNotifierServlet.sendUnreadMessage(opUser, opponentNotify);
+                    }
                 }
+            } else {
+                httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
             }
         } catch (Exception e) {
             Logging.logger.error("", e);

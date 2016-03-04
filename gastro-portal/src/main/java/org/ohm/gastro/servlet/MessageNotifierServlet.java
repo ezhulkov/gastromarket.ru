@@ -6,8 +6,8 @@ import org.apache.catalina.websocket.MessageInbound;
 import org.apache.catalina.websocket.StreamInbound;
 import org.apache.catalina.websocket.WebSocketServlet;
 import org.apache.catalina.websocket.WsOutbound;
-import org.ohm.gastro.domain.MessageDTO;
 import org.ohm.gastro.domain.UserEntity;
+import org.ohm.gastro.dto.ConversationDTO;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.service.UserService;
 import org.ohm.gastro.service.impl.ApplicationContextHolder;
@@ -34,7 +34,7 @@ public class MessageNotifierServlet extends WebSocketServlet implements Logging 
         return new MessageNotifierInbound(userService);
     }
 
-    public static void sendUnreadMessage(UserEntity opponent, MessageDTO message) {
+    public static void sendUnreadMessage(UserEntity opponent, ConversationDTO message) {
         peerList.getOrDefault(opponent.getEmail(), Optional.empty()).ifPresent(peer -> {
             logger.info("Sending unread message to peer {}", peer);
             peer.sendMessage(message);
@@ -82,7 +82,7 @@ public class MessageNotifierServlet extends WebSocketServlet implements Logging 
             logger.error("Accepting text message - should not happen");
         }
 
-        public void sendMessage(MessageDTO message) {
+        public void sendMessage(ConversationDTO message) {
             try {
                 peer.writeTextMessage(CharBuffer.wrap(new ObjectMapper().writeValueAsString(message)));
             } catch (IOException e) {

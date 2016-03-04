@@ -12,11 +12,11 @@ import java.util.Date;
 public class MessageDTO {
 
     private final CommentEntity comment;
-    private final UserEntity author;
+    private final UserEntity user;
 
-    public MessageDTO(CommentEntity comment, UserEntity author) {
+    public MessageDTO(CommentEntity comment, UserEntity user) {
         this.comment = comment;
-        this.author = author;
+        this.user = user;
     }
 
     public Long getId() {
@@ -41,7 +41,7 @@ public class MessageDTO {
 
     public String getRead() {
         final Date lastSeenDate = ((ConversationEntity) comment.getEntity()).getLastSeenDate();
-        return lastSeenDate == null || !comment.getAuthor().equals(author) && lastSeenDate.before(comment.getDate()) ? "unread" : "read";
+        return lastSeenDate == null || !comment.getAuthor().equals(user) && lastSeenDate.before(comment.getDate()) ? "unread" : "read";
     }
 
 }
