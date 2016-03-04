@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -94,9 +93,9 @@ public class MessageFilter extends BaseApplicationFilter {
                                                                                    conversation,
                                                                                    opUser,
                                                                                    conversationService.getUnreadMessagesCount(opUser));
-                        conversation.setLastActionDate(new Date());
-                        conversationService.save(conversation);
                         MessageNotifierServlet.sendUnreadMessage(opUser, opponentNotify);
+                        conversationService.setLastSeenDate(conversation, user);
+//                        conversationService.setLastSeenDate(conversation, opUser);
                     }
                 }
             } else {

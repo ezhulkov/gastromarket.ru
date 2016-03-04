@@ -173,10 +173,4 @@
         <t:loginUserModal/>
     </t:unless>
 
-    <t:if test="authenticated">
-        <script>
-            onLogin()
-        </script>
-    </t:if>
-
 </div>

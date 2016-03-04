@@ -2,6 +2,7 @@ package org.ohm.gastro.reps;
 
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.CommentableEntity;
+import org.ohm.gastro.domain.ConversationEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +11,7 @@ import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.query.Param;
 
 import javax.persistence.QueryHint;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,6 +37,10 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
 
     @Query("select count(*) from CommentEntity where entity=:entity")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    int findAllCountByEntity(@Param("entity") CommentableEntity entity);
+    int countAllByEntity(@Param("entity") CommentableEntity entity);
+
+    @Query("select count(c) from CommentEntity c where c.date>:date and c.entity=:conversation")
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    int countUnreadMessages(@Param("conversation") ConversationEntity conversation, @Param("date") Date lastSeenDate);
 
 }

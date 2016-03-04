@@ -56,18 +56,18 @@ public interface ProductRepository extends AltIdRepository<ProductEntity> {
             "   (pr.wasSetup=true or :wasSetup is null) and " +
             "   (c.region=:region or :region is null)")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    int findCountByRootValueAndCatalog(@Param("value") PropertyValueEntity value,
-                                       @Param("catalog") CatalogEntity catalog,
-                                       @Param("wasSetup") Boolean wasSetup,
-                                       @Param("region") Region region,
-                                       @Param("hidden") Boolean hidden);
+    int countByRootValueAndCatalog(@Param("value") PropertyValueEntity value,
+                                   @Param("catalog") CatalogEntity catalog,
+                                   @Param("wasSetup") Boolean wasSetup,
+                                   @Param("region") Region region,
+                                   @Param("hidden") Boolean hidden);
 
     @Query("select count(distinct pr) from ProductEntity pr " +
             "   join pr.catalog c " +
             "where c=:catalog and pr.hidden=false and " +
             "   (pr.wasSetup=:wasSetup or :wasSetup is null)")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    int findCountInCatalog(@Param("catalog") CatalogEntity catalog, @Param("wasSetup") Boolean wasSetup);
+    int countInCatalog(@Param("catalog") CatalogEntity catalog, @Param("wasSetup") Boolean wasSetup);
 
     @Query("select p from ProductEntity p " +
             "   join p.catalog c " +

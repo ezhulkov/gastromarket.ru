@@ -14,22 +14,16 @@ public class ConversationDTO {
 
     private final List<MessageDTO> messages;
     private final ConversationEntity conversation;
-    private final UserEntity user;
     private final int totalUnread;
 
     public ConversationDTO(List<CommentEntity> messages, ConversationEntity conversation, UserEntity user, int totalUnread) {
         this.totalUnread = totalUnread;
         this.messages = messages == null ? null : messages.stream().map(t -> new MessageDTO(t, user)).collect(Collectors.toList());
         this.conversation = conversation;
-        this.user = user;
     }
 
     public Long getId() {
         return conversation.getId();
-    }
-
-    public UserDTO getOpponent() {
-        return new UserDTO(conversation.getOpponent(user).get());
     }
 
     public List<MessageDTO> getMessages() {
@@ -38,6 +32,14 @@ public class ConversationDTO {
 
     public int getTotalUnread() {
         return totalUnread;
+    }
+
+    public UserDTO getAuthor() {
+        return new UserDTO(conversation.getAuthor());
+    }
+
+    public UserDTO getOpponent() {
+        return new UserDTO(conversation.getOpponent());
     }
 
 }

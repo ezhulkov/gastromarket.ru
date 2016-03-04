@@ -276,8 +276,8 @@ public class ProductServiceImpl implements ProductService, Logging {
     @Override
     public int findAllCategoryProductsCount(@Nullable CatalogEntity catalog, @Nullable PropertyValueEntity category, @Nonnull Region region) {
         return category == null || category.getId() == null ?
-                productRepository.findCountInCatalog(catalog, false) :
-                productRepository.findCountByRootValueAndCatalog(category, catalog, null, region, false);
+                productRepository.countInCatalog(catalog, false) :
+                productRepository.countByRootValueAndCatalog(category, catalog, null, region, false);
     }
 
     @Override
@@ -340,7 +340,7 @@ public class ProductServiceImpl implements ProductService, Logging {
 
     @Override
     public int findProductsForFrontendCount(final CatalogEntity catalog) {
-        return productRepository.findCountInCatalog(catalog, true);
+        return productRepository.countInCatalog(catalog, true);
     }
 
     @Override

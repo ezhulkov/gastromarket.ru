@@ -138,9 +138,7 @@ public class ConversationServiceImpl implements ConversationService, Logging {
     @Override
     public int getUnreadMessagesCount(final UserEntity user) {
         return conversationRepository.findAllConversations(user).stream()
-                .mapToInt(t -> (int) commentRepository.findAllByEntityOrderByDateAsc(t).stream()
-                        .filter(m -> t.getLastSeenDate(m.getAuthor()).before(m.getDate()))
-                        .count())
+                .mapToInt(t -> commentRepository.countUnreadMessages(t, t.getLastSeenDate(user)))
                 .sum();
     }
 
@@ -164,7 +162,7 @@ public class ConversationServiceImpl implements ConversationService, Logging {
 
     @Override
     public int findAllCommentsCount(CommentableEntity entity) {
-        return commentRepository.findAllCountByEntity(entity);
+        return commentRepository.countAllByEntity(entity);
     }
 
     @Override
@@ -212,8 +210,10 @@ public class ConversationServiceImpl implements ConversationService, Logging {
     @Override
     public void setLastSeenDate(ConversationEntity conversation, UserEntity user) {
         if (conversation.getAuthor().equals(user)) {
+            conversation.setLastActionDate(new Date());
             conversation.setAuthorLastSeenDate(new Date());
         } else if (conversation.getOpponent().equals(user)) {
+            conversation.setLastActionDate(new Date());
             conversation.setOpponentLastSeenDate(new Date());
         }
         conversationRepository.save(conversation);
@@ -289,7 +289,7 @@ public class ConversationServiceImpl implements ConversationService, Logging {
         } else if (entity.getCommentableType() == Type.CONVERSATION) {
             final ConversationEntity conversation = (ConversationEntity) entity;
             final UserEntity opponent = conversation.getOpponent(author).get();
-            conversation.setLastActionDate(new Date());
+            setLastSeenDate(conversation, author);
             conversationRepository.save(conversation);
             mailService.scheduleSend(opponent, MailService.MailType.NEW_MESSAGE, t -> {
                 final Map<String, Object> params = new HashMap<String, Object>() {
