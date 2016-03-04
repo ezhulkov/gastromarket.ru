@@ -6,7 +6,7 @@
             exclude="id,date,lastSeenDate,lastActionDate,commentableType,fullUrl"
             t:mixins="GridSortingDisabled" class="table table-hover">
         <t:parameter name="lastActionDatePrintableCell">
-            <t:pagelink t:page="office/message" t:context="oneConversation.id">${oneConversation.lastActionDatePrintable}</t:pagelink>
+            <t:pagelink t:page="office/message" t:context="context">${oneConversation.lastActionDatePrintable}</t:pagelink>
         </t:parameter>
         <t:parameter name="senderCell">
             <a href="${oneConversation.author.linkUrl}">${oneConversation.author.linkName}</a>

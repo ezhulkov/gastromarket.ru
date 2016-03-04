@@ -70,6 +70,20 @@ jQuery.noConflict();
             });
         });
     }]);
+    app.controller('messagesCtrl', ['$http', '$scope', '$timeout', 'wsMessage', function ($http, $scope, $timeout, wsMessage) {
+        $scope.init = function (aid, oid) {
+            $scope.aid = aid;
+            $scope.oid = oid;
+        };
+        wsMessage.onMessage(function (data) {
+            if (data.author.id == $scope.aid && data.opponent.id == $scope.oid) {
+                var msg = jQuery("#message-{0}-{1}".format($scope.aid, $scope.oid));
+                jQuery(".comment", msg).removeClass("read").addClass("unread");
+                jQuery(".date", msg).html(data.messages[0].datePrintable);
+                jQuery(".text", msg).html(data.messages[0].text);
+            }
+        });
+    }]);
     app.controller('messageCtrl', ['$http', '$scope', '$timeout', 'wsMessage', function ($http, $scope, $timeout, wsMessage) {
         $scope.message = {};
         $scope.text = '';

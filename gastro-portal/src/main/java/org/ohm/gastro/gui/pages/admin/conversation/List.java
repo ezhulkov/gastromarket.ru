@@ -18,4 +18,8 @@ public class List extends BaseComponent {
         return getConversationService().findAllConversations();
     }
 
+    public Object[] getContext() {
+        return new Object[]{oneConversation.getAuthor().getId(), oneConversation.getOpponent().getId()};
+    }
+
 }
