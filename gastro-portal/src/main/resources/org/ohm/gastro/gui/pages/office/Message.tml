@@ -8,6 +8,9 @@
                 </div>
             </div>
             <div class="container messages message-page">
+                <div class="links-set">
+                    <a ng-show="needMore()" ng-click="loadMore()">предыдущие сообщения</a>
+                </div>
                 <div ng-repeat="message in messages | orderBy:'date'" class="ng-cloak">
                     <div class="row message {{message.read}}">
                         <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs text-right pic">

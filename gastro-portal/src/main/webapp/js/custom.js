@@ -96,12 +96,21 @@ jQuery.noConflict();
             });
             $scope.submit = function () {
                 if ($scope.text) {
-                    $http.post('/message?type=text&aid=' + $scope.aid + "&oid=" + $scope.oid, $scope.text).success(function (data) {
+                    $http.post("/message?type=text&aid={0}&oid={1}".format($scope.aid, $scope.oid), $scope.text).success(function (data) {
                         $scope.messages.push(data.messages[0]);
                     });
                     $scope.text = "";
                 }
             };
+        };
+        $scope.needMore = function () {
+            return true;
+        }
+        $scope.loadMore = function () {
+            $http.get("/message?type=list&aid={0}&oid={1}&from={2}&to={3}".format($scope.aid, $scope.oid, $scope.messages.length, $scope.messages.length + 5))
+                .success(function (data) {
+                    $scope.messages = data.messages.concat($scope.messages);
+                });
         };
         $scope.$watchCollection("messages", function () {
             $timeout(function () {

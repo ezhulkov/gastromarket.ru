@@ -61,7 +61,7 @@ public class MessageFilter extends BaseApplicationFilter {
                         final Long aid = Long.parseLong(httpServletRequest.getParameter("aid"));
                         final Long oid = Long.parseLong(httpServletRequest.getParameter("oid"));
                         final Integer from = Integer.parseInt(defaultIfNull(httpServletRequest.getParameter("from"), "0"));
-                        final Integer to = Integer.parseInt(defaultIfNull(httpServletRequest.getParameter("to"), "50"));
+                        final Integer to = Integer.parseInt(defaultIfNull(httpServletRequest.getParameter("to"), "5"));
                         final ConversationEntity conversation = conversationService.findConversation(userService.findUser(aid), userService.findUser(oid));
                         if (conversation == null) {
                             httpServletResponse.setStatus(HttpServletResponse.SC_NO_CONTENT);
