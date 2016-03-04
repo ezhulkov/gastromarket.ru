@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.ohm.gastro.util.CommonsUtils;
 
+import javax.annotation.Nonnull;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,8 +30,11 @@ public class ConversationEntity extends AbstractBaseEntity implements Commentabl
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private UserEntity opponent;
 
-    @Column(name = "last_seen")
-    private Date lastSeenDate = new Date();
+    @Column(name = "author_last_seen")
+    private Date authorLastSeenDate;
+
+    @Column(name = "opponent_last_seen")
+    private Date opponentLastSeenDate;
 
     @Column
     private Date date = new Date();
@@ -70,12 +74,20 @@ public class ConversationEntity extends AbstractBaseEntity implements Commentabl
         this.opponent = opponent;
     }
 
-    public Date getLastSeenDate() {
-        return lastSeenDate;
+    public Date getAuthorLastSeenDate() {
+        return authorLastSeenDate;
     }
 
-    public void setLastSeenDate(final Date lastSeenDate) {
-        this.lastSeenDate = lastSeenDate;
+    public void setAuthorLastSeenDate(Date authorLastSeenDate) {
+        this.authorLastSeenDate = authorLastSeenDate;
+    }
+
+    public Date getOpponentLastSeenDate() {
+        return opponentLastSeenDate;
+    }
+
+    public void setOpponentLastSeenDate(Date opponentLastSeenDate) {
+        this.opponentLastSeenDate = opponentLastSeenDate;
     }
 
     @Override
@@ -109,6 +121,19 @@ public class ConversationEntity extends AbstractBaseEntity implements Commentabl
 
     public String getLastActionDatePrintable() {
         return lastActionDate == null ? "" : CommonsUtils.GUI_DATE_LONG.get().format(lastActionDate);
+    }
+
+    @Nonnull
+    public Date getLastSeenDate(UserEntity user) {
+        final Date result;
+        if (author.equals(user)) {
+            result = authorLastSeenDate;
+        } else if (opponent.equals(user)) {
+            result = opponentLastSeenDate;
+        } else {
+            result = null;
+        }
+        return result == null ? new Date() : result;
     }
 
 }

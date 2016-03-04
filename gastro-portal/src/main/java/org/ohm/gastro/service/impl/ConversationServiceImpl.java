@@ -139,7 +139,7 @@ public class ConversationServiceImpl implements ConversationService, Logging {
     public int getUnreadMessagesCount(final UserEntity user) {
         return conversationRepository.findAllConversations(user).stream()
                 .mapToInt(t -> (int) commentRepository.findAllByEntityOrderByDateAsc(t).stream()
-                        .filter(m -> t.getLastSeenDate() == null || !m.getAuthor().equals(user) && m.getDate().after(t.getLastSeenDate()))
+                        .filter(m -> t.getLastSeenDate(m.getAuthor()).before(m.getDate()))
                         .count())
                 .sum();
     }
@@ -211,11 +211,12 @@ public class ConversationServiceImpl implements ConversationService, Logging {
 
     @Override
     public void setLastSeenDate(ConversationEntity conversation, UserEntity user) {
-        final Optional<CommentEntity> lastComment = findLastComment(conversation);
-        if (!lastComment.filter(t -> t.getAuthor().equals(user)).isPresent()) {
-            conversation.setLastSeenDate(new Date());
-            conversationRepository.save(conversation);
+        if (conversation.getAuthor().equals(user)) {
+            conversation.setAuthorLastSeenDate(new Date());
+        } else if (conversation.getOpponent().equals(user)) {
+            conversation.setOpponentLastSeenDate(new Date());
         }
+        conversationRepository.save(conversation);
     }
 
     @Override

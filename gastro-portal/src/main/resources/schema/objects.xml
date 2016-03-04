@@ -1224,4 +1224,12 @@
         <renameColumn tableName="conversation" oldColumnName="recipient_id" newColumnName="opponent_id"/>
     </changeSet>
 
+    <changeSet id="113" author="ezhulkov">
+        <addColumn tableName="conversation">
+            <column name="author_last_seen" type="java.sql.types.TIMESTAMP"/>
+            <column name="opponent_last_seen" type="java.sql.types.TIMESTAMP"/>
+        </addColumn>
+        <dropColumn tableName="conversation" columnName="last_seen"/>
+    </changeSet>
+
 </databaseChangeLog>

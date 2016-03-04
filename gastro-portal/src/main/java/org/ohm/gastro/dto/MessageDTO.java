@@ -40,8 +40,8 @@ public class MessageDTO {
     }
 
     public String getRead() {
-        final Date lastSeenDate = ((ConversationEntity) comment.getEntity()).getLastSeenDate();
-        return lastSeenDate == null || !comment.getAuthor().equals(user) && lastSeenDate.before(comment.getDate()) ? "unread" : "read";
+        final Date lastSeenDate = ((ConversationEntity) comment.getEntity()).getLastSeenDate(user);
+        return lastSeenDate.before(comment.getDate()) ? "unread" : "read";
     }
 
 }

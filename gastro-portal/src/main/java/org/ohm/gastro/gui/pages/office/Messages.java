@@ -39,10 +39,11 @@ public class Messages extends AbstractPage {
     }
 
     public String getUnread() {
-        return getConversationService().findLastComment(conversation)
-                .map(t -> !t.getAuthor().equals(getAuthenticatedUser()) && conversation.getLastSeenDate().before(t.getDate()))
-                .map(t -> t ? "unread" : "")
-                .orElse("");
+        return "read";
+//        return getConversationService().findLastComment(conversation)
+//                .map(t -> !t.getAuthor().equals(getAuthenticatedUser()) && conversation.getLastSeenDate().before(t.getDate()))
+//                .map(t -> t ? "unread" : "")
+//                .orElse("");
     }
 
     public Object[] getContext() {
