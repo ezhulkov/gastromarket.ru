@@ -14,17 +14,11 @@ public class Message extends AbstractPage {
     private final static int PAGE_SIZE = 40;
 
     @Property
-    private UserEntity opponent;
-
-    @Property
-    private UserEntity author;
-
-    @Property
     private ConversationEntity conversation;
 
     public Object onActivate(Long aid, Long oid) {
-        author = getUserService().findUser(aid);
-        opponent = getUserService().findUser(oid);
+        final UserEntity author = getUserService().findUser(aid);
+        final UserEntity opponent = getUserService().findUser(oid);
         conversation = getConversationService().findConversation(author, opponent);
         if (!isAdmin()) {
             if (!getAuthenticatedUser().equals(author) && !getAuthenticatedUser().equals(opponent)) return new HttpError(403, "Access denied.");
@@ -33,7 +27,11 @@ public class Message extends AbstractPage {
     }
 
     public Object[] onPassivate() {
-        return opponent == null || author == null ? null : new Object[]{author.getId(), opponent.getId()};
+        return conversation == null ? null : new Object[]{conversation.getAuthor().getId(), conversation.getOpponent().getId()};
+    }
+
+    public UserEntity getOpponent() {
+        return conversation.getOpponent(getAuthenticatedUser()).get();
     }
 
 }

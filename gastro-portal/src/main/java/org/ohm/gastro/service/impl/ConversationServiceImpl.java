@@ -136,7 +136,7 @@ public class ConversationServiceImpl implements ConversationService, Logging {
     }
 
     @Override
-    public int getUnreadMessagesCount(final UserEntity user) {
+    public int countUnreadMessages(final UserEntity user) {
         return conversationRepository.findAllConversations(user).stream()
                 .mapToInt(t -> commentRepository.countUnreadMessages(t, t.getLastSeenDate(user)))
                 .sum();
@@ -161,7 +161,7 @@ public class ConversationServiceImpl implements ConversationService, Logging {
     }
 
     @Override
-    public int findAllCommentsCount(CommentableEntity entity) {
+    public int countMessages(CommentableEntity entity) {
         return commentRepository.countAllByEntity(entity);
     }
 

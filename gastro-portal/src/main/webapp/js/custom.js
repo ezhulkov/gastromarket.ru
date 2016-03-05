@@ -88,53 +88,62 @@ jQuery.noConflict();
         $scope.message = {};
         $scope.text = '';
         $scope.messages = [];
+        $scope.scrollUp = false;
         $scope.init = function (aid, oid) {
             $scope.aid = aid;
             $scope.oid = oid;
             $http.get("/message?type=list&aid=" + aid + "&oid=" + oid).success(function (data) {
                 $scope.messages = data.messages;
+                $scope.messagesCount = data.messagesCount;
             });
             $scope.submit = function () {
                 if ($scope.text) {
                     $http.post("/message?type=text&aid={0}&oid={1}".format($scope.aid, $scope.oid), $scope.text).success(function (data) {
                         $scope.messages.push(data.messages[0]);
+                        $scope.text = "";
+                        jQuery("#text-input").css("height", "");
+                        jQuery(".messages").css("padding-bottom", (isMobile() ? 120 : 100) + "px");
                     });
-                    $scope.text = "";
                 }
             };
         };
         $scope.needMore = function () {
-            return true;
-        }
+            return $scope.messages != undefined && $scope.messagesCount != undefined && $scope.messagesCount > $scope.messages.length;
+        };
         $scope.loadMore = function () {
-            $http.get("/message?type=list&aid={0}&oid={1}&from={2}&to={3}".format($scope.aid, $scope.oid, $scope.messages.length, $scope.messages.length + 5))
+            $http.get("/message?type=list&aid={0}&oid={1}&from={2}&to={3}".format($scope.aid, $scope.oid, $scope.messages.length, $scope.messages.length + 20))
                 .success(function (data) {
+                    $scope.scrollUp = true;
                     $scope.messages = data.messages.concat($scope.messages);
                 });
         };
         $scope.$watchCollection("messages", function () {
             $timeout(function () {
-                jQuery("html, body").scrollTop(jQuery(document).height());
-                jQuery("#text-input")
-                    .css("height", "")
-                    .focus()
-                    .each(function () {
-                        autosize(this);
-                    })
-                    .on("autosize:resized", function () {
-                        jQuery("html, body").scrollTop(jQuery(document).height());
-                    });
-                jQuery(document).keydown(function (e) {
-                    if ((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey) {
-                        $scope.submit();
-                    }
-                });
+                if (!$scope.scrollUp) {
+                    jQuery("html, body").scrollTop(jQuery(document).height());
+                    $scope.scrollUp = false;
+                }
             }, 0);
         });
         wsMessage.onMessage(function (data) {
             $scope.$apply(function () {
                 if (data.author.id == $scope.aid && data.opponent.id == $scope.oid) $scope.messages.push(data.messages[0]);
             });
+        });
+        jQuery("#text-input")
+            .focus()
+            .each(function () {
+                autosize(this);
+            })
+            .on("autosize:resized", function () {
+                jQuery(".messages").css("padding-bottom", ((isMobile() ? 100 : 80) + jQuery(this).height()) + "px");
+                jQuery("html, body").scrollTop(jQuery(document).height());
+            });
+        jQuery(document).keydown(function (e) {
+            if ((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey) {
+                $scope.submit();
+            }
+            e.stopPropagation();
         });
     }]);
 

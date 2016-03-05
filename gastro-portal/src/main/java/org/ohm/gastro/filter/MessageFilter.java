@@ -31,6 +31,7 @@ import static org.apache.commons.lang3.ObjectUtils.defaultIfNull;
  */
 public class MessageFilter extends BaseApplicationFilter {
 
+    private final static int PAGE_SIZE = 20;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private UserService userService;
     private ConversationService conversationService;
@@ -54,14 +55,14 @@ public class MessageFilter extends BaseApplicationFilter {
                 if (httpServletRequest.getMethod().equals("GET")) {
                     if ("unread".equals(type)) {
                         final HashMap<String, Integer> response = Maps.newHashMap();
-                        response.put("unread", conversationService.getUnreadMessagesCount(user));
+                        response.put("unread", conversationService.countUnreadMessages(user));
                         final byte[] bytes = objectMapper.writeValueAsBytes(response);
                         write(httpServletResponse, bytes);
                     } else {
                         final Long aid = Long.parseLong(httpServletRequest.getParameter("aid"));
                         final Long oid = Long.parseLong(httpServletRequest.getParameter("oid"));
                         final Integer from = Integer.parseInt(defaultIfNull(httpServletRequest.getParameter("from"), "0"));
-                        final Integer to = Integer.parseInt(defaultIfNull(httpServletRequest.getParameter("to"), "5"));
+                        final Integer to = Integer.parseInt(defaultIfNull(httpServletRequest.getParameter("to"), Integer.toString(PAGE_SIZE)));
                         final ConversationEntity conversation = conversationService.findConversation(userService.findUser(aid), userService.findUser(oid));
                         if (conversation == null) {
                             httpServletResponse.setStatus(HttpServletResponse.SC_NO_CONTENT);
@@ -70,7 +71,8 @@ public class MessageFilter extends BaseApplicationFilter {
                         final ConversationDTO response = new ConversationDTO(conversationService.findAllComments(conversation, from, to),
                                                                              conversation,
                                                                              user,
-                                                                             conversationService.getUnreadMessagesCount(user));
+                                                                             conversationService.countUnreadMessages(user),
+                                                                             conversationService.countMessages(conversation));
                         write(httpServletResponse, objectMapper.writeValueAsBytes(response));
                         conversationService.setLastSeenDate(conversation, user);
                     }
@@ -83,19 +85,20 @@ public class MessageFilter extends BaseApplicationFilter {
                         final CommentEntity comment = new CommentEntity();
                         comment.setText(text);
                         conversationService.placeComment(conversation, comment, user);
-                        final ConversationDTO response = new ConversationDTO(conversationService.findAllComments(conversation, 0, 50),
+                        final ConversationDTO response = new ConversationDTO(conversationService.findAllComments(conversation, 0, PAGE_SIZE),
                                                                              conversation,
                                                                              user,
-                                                                             conversationService.getUnreadMessagesCount(user));
+                                                                             conversationService.countUnreadMessages(user),
+                                                                             conversationService.countMessages(conversation));
                         write(httpServletResponse, objectMapper.writeValueAsBytes(response));
                         final UserEntity opUser = conversation.getOpponent(user).get();
                         final ConversationDTO opponentNotify = new ConversationDTO(Lists.newArrayList(comment),
                                                                                    conversation,
                                                                                    opUser,
-                                                                                   conversationService.getUnreadMessagesCount(opUser));
+                                                                                   conversationService.countUnreadMessages(opUser),
+                                                                                   conversationService.countMessages(conversation));
                         MessageNotifierServlet.sendUnreadMessage(opUser, opponentNotify);
                         conversationService.setLastSeenDate(conversation, user);
-//                        conversationService.setLastSeenDate(conversation, opUser);
                     }
                 }
             } else {

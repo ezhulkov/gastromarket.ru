@@ -1,5 +1,5 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" footer="false" forceShow="false" breadcrumbs="false">
-    <div ng-controller="messageCtrl" ng-init="init(${author.id},${opponent.id})">
+    <div ng-controller="messageCtrl" ng-init="init(${conversation.author.id},${conversation.opponent.id})">
 
         <section>
             <div class="title fixed">
@@ -8,7 +8,7 @@
                 </div>
             </div>
             <div class="container messages message-page">
-                <div class="links-set">
+                <div class="links-set ng-cloak">
                     <a ng-show="needMore()" ng-click="loadMore()">предыдущие сообщения</a>
                 </div>
                 <div ng-repeat="message in messages | orderBy:'date'" class="ng-cloak">

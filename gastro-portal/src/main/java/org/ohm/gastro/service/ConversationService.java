@@ -43,13 +43,13 @@ public interface ConversationService {
 
     ConversationEntity findOrCreateConversation(final UserEntity author, UserEntity opponent);
 
-    int getUnreadMessagesCount(UserEntity user);
+    int countUnreadMessages(UserEntity user);
 
     Optional<CommentEntity> findLastComment(ConversationEntity conversation);
 
     PhotoEntity addPhotoComment(ConversationEntity conversation, UserEntity user);
 
-    int findAllCommentsCount(CommentableEntity entity);
+    int countMessages(CommentableEntity entity);
 
     void saveComment(CommentEntity comment);
 
