@@ -447,7 +447,7 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
     }
 
     public final boolean isTender() {
-        return type == Type.PUBLIC;
+        return getType() == Type.PUBLIC;
     }
 
     public final boolean isOrder() {
