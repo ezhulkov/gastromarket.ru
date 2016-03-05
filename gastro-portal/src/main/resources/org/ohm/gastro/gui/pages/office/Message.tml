@@ -44,6 +44,13 @@
 
         <section>
             <div class="container post">
+                <t:if test="commonOrder">
+                    <div class="row">
+                        <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-offset-0 col-xs-12">
+                            <t:if test="commonOrder.tender">Общая заявка "${commonOrder.orderName}"</t:if>
+                        </div>
+                    </div>
+                </t:if>
                 <div class="row">
                     <div class="row">
                         <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-offset-0 col-xs-12 hr"></div>

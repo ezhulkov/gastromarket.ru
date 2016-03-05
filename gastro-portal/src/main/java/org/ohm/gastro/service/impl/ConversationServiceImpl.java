@@ -230,6 +230,11 @@ public class ConversationServiceImpl implements ConversationService, Logging {
     }
 
     @Override
+    public List<CommentEntity> findAllCommentsByAuthor(final UserEntity author) {
+        return commentRepository.findAllByAuthor(author);
+    }
+
+    @Override
     public void placeTenderReply(final OrderEntity tender, final CommentEntity reply, final UserEntity author) {
         if (StringUtils.isEmpty(reply.getText())) return;
         reply.setEntity(tender);

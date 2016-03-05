@@ -214,6 +214,17 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     }
 
     @Override
+    public OrderEntity findCommonOrder(final UserEntity author, final UserEntity opponent) {
+        final UserEntity cook = author.isCook() ? author : opponent.isCook() ? opponent : null;
+        if (cook == null) return null;
+        final List<OrderEntity> replies = conversationService.findAllCommentsByAuthor(cook).stream()
+                .filter(t -> t.getEntity() instanceof OrderEntity)
+                .map(t -> (OrderEntity) t.getEntity())
+                .collect(Collectors.toList());
+        return replies.stream().filter(t -> t.getCustomer().equals(author) || t.getCustomer().equals(opponent)).findFirst().orElse(null);
+    }
+
+    @Override
     public List<OrderEntity> findAllTenders() {
         return orderRepository.findAllByType(OrderEntity.Type.PUBLIC).stream()
                 .filter(OrderEntity::isWasSetup)

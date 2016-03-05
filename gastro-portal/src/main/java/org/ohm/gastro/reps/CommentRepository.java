@@ -23,6 +23,10 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     List<CommentEntity> findAllByEntityOrderByDateAsc(@Param("entity") CommentableEntity entity);
 
+    @Query("from CommentEntity where author=:author")
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    List<CommentEntity> findAllByAuthor(@Param("author") UserEntity author);
+
     @Query("from CommentEntity where entity=:entity order by date desc")
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     List<CommentEntity> findAllByEntityOrderByDateDesc(@Param("entity") CommentableEntity entity);

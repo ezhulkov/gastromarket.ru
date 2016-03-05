@@ -51,4 +51,6 @@ public interface OrderService {
 
     void closeOrder(OrderEntity order, int totalPrice, String survey, UserEntity caller);
 
+    OrderEntity findCommonOrder(UserEntity author, UserEntity opponent);
+
 }

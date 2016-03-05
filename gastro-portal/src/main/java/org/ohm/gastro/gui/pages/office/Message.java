@@ -1,8 +1,10 @@
 package org.ohm.gastro.gui.pages.office;
 
+import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.services.HttpError;
 import org.ohm.gastro.domain.ConversationEntity;
+import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.pages.AbstractPage;
 
@@ -32,6 +34,11 @@ public class Message extends AbstractPage {
 
     public UserEntity getOpponent() {
         return conversation.getOpponent(getAuthenticatedUser()).get();
+    }
+
+    @Cached
+    public OrderEntity getCommonOrder() {
+        return getOrderService().findCommonOrder(conversation.getAuthor(), conversation.getOpponent());
     }
 
 }

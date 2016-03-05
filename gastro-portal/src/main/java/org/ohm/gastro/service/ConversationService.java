@@ -29,6 +29,8 @@ public interface ConversationService {
 
     List<CommentEntity> findAllComments(CommentableEntity entity);
 
+    List<CommentEntity> findAllCommentsByAuthor(UserEntity author);
+
     List<CommentEntity> findAllComments(ConversationEntity conversation, int fetchFrom, int fetchTo);
 
     CommentEntity findComment(Long cId);
