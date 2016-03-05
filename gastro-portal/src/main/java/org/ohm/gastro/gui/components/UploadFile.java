@@ -41,8 +41,8 @@ public class UploadFile extends BaseComponent {
     private String additionalClass;
 
     @Property
-    @Parameter(name = "refreshAjax", defaultPrefix = BindingConstants.LITERAL, value = "")
-    private String refreshAjax;
+    @Parameter(name = "refreshCallback", defaultPrefix = BindingConstants.LITERAL, value = "")
+    private String refreshCallback;
 
     @Property
     @Parameter(name = "inputType", defaultPrefix = BindingConstants.LITERAL, value = "icon")

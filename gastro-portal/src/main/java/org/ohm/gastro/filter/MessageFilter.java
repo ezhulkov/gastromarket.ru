@@ -10,6 +10,7 @@ import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.dto.ConversationDTO;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.service.ConversationService;
+import org.ohm.gastro.service.PhotoService;
 import org.ohm.gastro.service.UserService;
 import org.ohm.gastro.service.impl.ApplicationContextHolder;
 import org.ohm.gastro.servlet.MessageNotifierServlet;
@@ -35,11 +36,13 @@ public class MessageFilter extends BaseApplicationFilter {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private UserService userService;
     private ConversationService conversationService;
+    private PhotoService photoService;
 
     @Override
     protected void initFilterBean() throws ServletException {
         conversationService = ApplicationContextHolder.getBean(ConversationService.class);
         userService = ApplicationContextHolder.getBean(UserService.class);
+        photoService = ApplicationContextHolder.getBean(PhotoService.class);
     }
 
 

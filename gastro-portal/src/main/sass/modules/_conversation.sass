@@ -33,22 +33,18 @@
           display: block
         div
           display: none
-    .delete
-      display: none
-    .date.delete
-      display: block
     .text
       padding: 0
+    .photo
+      width: 140px
+      height: 101px
+      border: 1px solid $greyTextColor
+      cursor: pointer
     &.unread
       .text
         background-color: #eaeaff
         margin: -2px -10px -3px -10px
         padding: 2px 10px 3px 10px
-    &:hover
-      .date.delete
-        display: none
-      .delete
-        display: block
 
 .post
   min-height: 100px

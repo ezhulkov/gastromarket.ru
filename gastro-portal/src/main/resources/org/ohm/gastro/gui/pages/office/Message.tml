@@ -1,5 +1,5 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" footer="false" forceShow="false" breadcrumbs="false">
-    <div ng-controller="messageCtrl" ng-init="init(${conversation.author.id},${conversation.opponent.id})">
+    <div id="conversation-block" ng-controller="messageCtrl" ng-init="init(${conversation.author.id},${conversation.opponent.id})">
 
         <section>
             <div class="title fixed">
@@ -29,11 +29,16 @@
                                     {{message.datePrintable}}
                                 </div>
                             </div>
-                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 text" ng-bind-html="message.text | raw">
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 text" ng-bind-html="message.text | raw" ng-hide="hasPhoto(message)"></div>
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 text" ng-show="hasPhoto(message)">
+                                <img alt="{{message.text}}" title="{{message.text}}" ng-src="{{message.photoSmall}}" class="photo" ng-click="zoomPhoto(message.photoBig)"/>
                             </div>
                         </div>
                     </div>
                 </div>
+                <t:modal modalId="bigPhoto" caption="Фотография" additionalClass="img-big-modal image-lg">
+                    <img class="img-big" ng-src="{{photoBig}}"/>
+                </t:modal>
             </div>
         </section>
 
@@ -45,8 +50,9 @@
                     </div>
                     <form id="form" class="form postform" role="form" ng-submit="submit()">
                         <div class="col-lg-offset-2 col-lg-1 col-lg-offset-2 col-md-31 col-sm-offset-2 col-sm-1 col-xs-2">
-                            <!--<t:actionlink t:id="uploadPhotoAjaxLink" id="uploadPhotoAjaxLink" t:zone="newMessagesZone" t:context="conversation.id" class="hidden"/>-->
-                            <!--<t:uploadfile type="PHOTO" inputType="msg-icon" refreshAjax="#uploadPhotoAjaxLink" targetContext="${conversation.id}" withTools="false"/>-->
+                            <t:uploadfile type="PHOTO" inputType="msg-icon"
+                                          targetContext="${conversation.author.id}_${conversation.opponent.id}" withTools="false"
+                                          refreshCallback="javascript:angular.element(document.getElementById('conversation-block')).scope().refreshMessages()"/>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-10">
                             <div class="form-group">

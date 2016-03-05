@@ -89,13 +89,11 @@ jQuery.noConflict();
         $scope.text = '';
         $scope.messages = [];
         $scope.scrollUp = false;
+        $scope.photoBig = "/img/product-stub-1000x720.png";
         $scope.init = function (aid, oid) {
             $scope.aid = aid;
             $scope.oid = oid;
-            $http.get("/message?type=list&aid=" + aid + "&oid=" + oid).success(function (data) {
-                $scope.messages = data.messages;
-                $scope.messagesCount = data.messagesCount;
-            });
+            $scope.refreshMessages();
             $scope.submit = function () {
                 if ($scope.text) {
                     $http.post("/message?type=text&aid={0}&oid={1}".format($scope.aid, $scope.oid), $scope.text).success(function (data) {
@@ -107,8 +105,21 @@ jQuery.noConflict();
                 }
             };
         };
+        $scope.refreshMessages = function () {
+            $http.get("/message?type=list&aid={0}&oid={1}".format($scope.aid, $scope.oid)).success(function (data) {
+                $scope.messages = data.messages;
+                $scope.messagesCount = data.messagesCount;
+            });
+        };
+        $scope.hasPhoto = function (message) {
+            return message.photoSmall != undefined;
+        };
         $scope.needMore = function () {
             return $scope.messages != undefined && $scope.messagesCount != undefined && $scope.messagesCount > $scope.messages.length;
+        };
+        $scope.zoomPhoto = function (url) {
+            $scope.photoBig = url;
+            jQuery("#bigPhoto").modal("show");
         };
         $scope.loadMore = function () {
             $http.get("/message?type=list&aid={0}&oid={1}&from={2}&to={3}".format($scope.aid, $scope.oid, $scope.messages.length, $scope.messages.length + 20))
@@ -459,7 +470,7 @@ function initFineUploader(el) {
         var imageSelector = jQuery(e).attr("data-image") || "";
         var imageWidth = parseInt(jQuery(e).attr("data-image-width") || "210");
         var imageHeight = parseInt(jQuery(e).attr("data-image-height") || "210");
-        var refreshAjax = jQuery(e).attr("data-refreshajax") || "";
+        var refreshCallback = jQuery(e).attr("data-refreshcallback") || "";
         var autoUpload = Boolean(jQuery(e).attr("data-autoupload") === "true");
         var fineUploaderUrl = '/upload?file_type=' + fileType + '&object_id=' + objectId + '&target_context=' + targetContext;
         var fineUploader = jQuery(button).fineUploader({
@@ -522,16 +533,13 @@ function initFineUploader(el) {
             }
             return true;
         }).on("complete", function (id, name, responseJSON, xhr) {
-            console.log("refresh")
             jQuery(progress).css("width", "0%");
             jQuery(button).removeClass("upload-progress");
             if (autoUpload) {
                 if (respSize != undefined && respSize.length > 0 && xhr != undefined && xhr[respSize] != null) {
                     jQuery(imageSelector).attr("src", xhr[respSize] + "?" + new Date().getTime());
                 }
-                if (refreshAjax != null) {
-                    triggerEvent(jQuery(refreshAjax).get(0), "click");
-                }
+                if (refreshCallback != null) eval(refreshCallback);
             }
         }).on("error", function (id, name, reason, xhr) {
             jQuery(progress).css("width", "0%");

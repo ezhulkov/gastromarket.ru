@@ -118,7 +118,10 @@ public class PhotoServiceImpl implements PhotoService {
     public String explicitlyGetObject(final FileType fileType, final String objectIdStr, final String targetContext, final UserEntity caller) {
         if (isNotEmpty(objectIdStr)) return objectIdStr;
         final UserEntity user = userRepository.findOne(caller.getId());
-        final ConversationEntity conversation = conversationService.find(Long.parseLong(targetContext));
+        final String[] split = targetContext.split("_");
+        final UserEntity author = userRepository.findOne(Long.parseLong(split[0]));
+        final UserEntity opponent = userRepository.findOne(Long.parseLong(split[1]));
+        final ConversationEntity conversation = conversationService.findOrCreateConversation(author, opponent);
         return conversationService.addPhotoComment(conversation, user).getId().toString();
     }
 
