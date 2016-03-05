@@ -218,10 +218,11 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
         final UserEntity cook = author.isCook() ? author : opponent.isCook() ? opponent : null;
         final UserEntity user = author.equals(cook) ? opponent : author;
         if (cook == null || user == null) return null;
-        final List<OrderEntity> replies = orderRepository.findAll(conversationService.findAllCommentsByAuthor(cook).stream()
-                                                                          .filter(t -> t.getEntity() instanceof OrderEntity)
-                                                                          .map(t -> t.getEntity().getId())
-                                                                          .collect(Collectors.toList()));
+        final List<OrderEntity> replies = conversationService.findAllCommentsByAuthor(cook).stream()
+                .filter(t -> t.getEntity() instanceof OrderEntity)
+                .map(t -> (OrderEntity) t.getEntity())
+                .filter(t -> !t.isOrderClosed())
+                .collect(Collectors.toList());
         return replies.stream()
                 .filter(t -> t.getCustomer().equals(user))
                 .sorted(((o1, o2) -> o1.getId().compareTo(o2.getId())))

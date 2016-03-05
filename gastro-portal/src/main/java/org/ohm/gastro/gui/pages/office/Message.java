@@ -41,4 +41,9 @@ public class Message extends AbstractPage {
         return getOrderService().findCommonOrder(conversation.getAuthor(), conversation.getOpponent());
     }
 
+    @Cached
+    public boolean isCustomer(){
+        return getCommonOrder().getCustomer().equals(getAuthenticatedUser());
+    }
+
 }

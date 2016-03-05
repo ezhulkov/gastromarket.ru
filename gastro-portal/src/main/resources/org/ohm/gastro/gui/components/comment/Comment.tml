@@ -42,11 +42,11 @@
                                     <t:if test="orderOwner">
                                         <t:if test="order.orderAttached">
                                             <t:if test="attachedCatalog">
-                                                <t:pagelink page="office/message" t:context="['NEW',comment.author.id]" class="round-link">обсудить детали</t:pagelink>
+                                                <t:pagelink page="office/message" t:context="[authenticatedUser.id,comment.author.id]" class="round-link">обсудить детали</t:pagelink>
                                             </t:if>
                                         </t:if>
                                         <t:unless test="order.orderAttached">
-                                            <t:pagelink page="office/message" t:context="['NEW',comment.author.id]" class="round-link">обсудить детали</t:pagelink>
+                                            <t:pagelink page="office/message" t:context="[authenticatedUser.id,comment.author.id]" class="round-link">обсудить детали</t:pagelink>
                                             <a href="#choose_cook" data-toggle="modal" class="round-link" data-target="#choose_cook_${comment.id}">выбрать исполнителя</a>
                                             <t:modal modalId="choose_cook_${comment.id}" caption="Выбрать исполнителя" lock="true">
                                                 <t:form t:id="attachTenderAjaxForm" t:context="[comment.author.id,order.id,comment.id]" class="form" style="padding-top:0;" clientValidation="BLUR" autofocus="false" role="form">
