@@ -47,11 +47,11 @@
                             <div class="col-lg-1 col-md-1 col-sm-0 col-xs-0"></div>
                             <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 nopad">
                                 <div class="common-order">
+                                    <t:if test="customer">
+                                        <a class="pull-right" href="">Выбрать исполнителем</a>
+                                    </t:if>
                                     Обсуждение заявки
                                     <t:pagelink page="tender/index" t:context="commonOrder.id">"${commonOrder.orderName}"</t:pagelink>
-                                    <!--<t:if test="customer">-->
-                                    <!--&nbsp;<a href="">Выбрать исполнителем</a>-->
-                                    <!--</t:if>-->
                                 </div>
                             </div>
                         </div>
