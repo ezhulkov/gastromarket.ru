@@ -3,10 +3,6 @@
 
 .messages
   min-height: 400px
-  +desktop-media
-    padding-bottom: 100px
-  +mobile-media
-    padding-bottom: 120px
   .links-set
     margin-top: 0
     margin-bottom: 10px
@@ -15,26 +11,12 @@
     .pic img
       width: 50px
       height: 50px
-      margin-top: 25px
     .name a
       color: $blackTextColor
       font-weight: bold
     .date
       color: gray
       font-size: 14px
-      min-height: 22px
-      &.delete-true
-        a
-          display: none
-        div
-          display: block
-      &.delete-true:hover
-        a
-          display: block
-        div
-          display: none
-    .text
-      padding: 0
     .photo
       width: 140px
       height: 101px
@@ -61,6 +43,7 @@
   .submit
     height: 34px
     padding: 4px 25px
+    width: 100%
   .text
     max-height: 80px
   .upload-photo
@@ -70,10 +53,9 @@
     background: url("../img/avatar-upload.png") no-repeat
     background-position-x: -8px
     background-position-y: -8px
-    &:hover
-      background: url("../img/avatar-upload-hover.png") no-repeat
-      background-position-x: -8px
-      background-position-y: -8px
-
-
-
+  .common-order
+    padding: 5px 15px
+    background: #eaeaff
+    border: 1px solid $deepRedTextColor
+    +mobile-media
+      margin: 0 15px 10px 15px

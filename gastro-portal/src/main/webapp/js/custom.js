@@ -100,10 +100,13 @@ jQuery.noConflict();
                         $scope.messages.push(data.messages[0]);
                         $scope.text = "";
                         jQuery("#text-input").css("height", "");
-                        jQuery(".messages").css("padding-bottom", (isMobile() ? 120 : 100) + "px");
+                        $scope.fitMessagesBlock();
                     });
                 }
             };
+        };
+        $scope.fitMessagesBlock = function () {
+            jQuery("#messages").css("padding-bottom", jQuery("#post").height() + "px");
         };
         $scope.refreshMessages = function () {
             $http.get("/message?type=list&aid={0}&oid={1}".format($scope.aid, $scope.oid)).success(function (data) {
@@ -147,7 +150,7 @@ jQuery.noConflict();
                 autosize(this);
             })
             .on("autosize:resized", function () {
-                jQuery(".messages").css("padding-bottom", ((isMobile() ? 100 : 80) + jQuery(this).height()) + "px");
+                $scope.fitMessagesBlock();
                 jQuery("html, body").scrollTop(jQuery(document).height());
             });
         jQuery(document).keydown(function (e) {
@@ -156,6 +159,7 @@ jQuery.noConflict();
             }
             e.stopPropagation();
         });
+        $scope.fitMessagesBlock();
     }]);
 
 })();
