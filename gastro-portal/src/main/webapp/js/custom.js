@@ -106,7 +106,7 @@ jQuery.noConflict();
             };
         };
         $scope.fitMessagesBlock = function () {
-            jQuery("#messages").css("padding-bottom", jQuery("#post").height() + "px");
+            jQuery("#messages").css("padding-bottom", (jQuery("#post").height() - 50) + "px");
         };
         $scope.refreshMessages = function () {
             $http.get("/message?type=list&aid={0}&oid={1}".format($scope.aid, $scope.oid)).success(function (data) {

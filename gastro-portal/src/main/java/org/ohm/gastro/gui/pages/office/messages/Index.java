@@ -29,4 +29,8 @@ public class Index extends AbstractPage {
         return new Object[]{author.getId(), opponent.getId()};
     }
 
+    public UserEntity getOpponentUser() {
+        return getAuthenticatedUser().equals(author) ? opponent : author;
+    }
+
 }

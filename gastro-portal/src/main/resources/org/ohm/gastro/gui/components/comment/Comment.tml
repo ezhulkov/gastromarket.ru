@@ -41,12 +41,8 @@
                                 <t:if test="authenticated">
                                     <t:if test="orderOwner">
                                         <t:unless test="order.orderAttached">
-                                            <a href="#comment_cook" data-toggle="modal" class="round-link" data-target="#comment_cook_${comment.id}">обсудить детали</a>
                                             <a href="#choose_cook" data-toggle="modal" class="round-link" data-target="#choose_cook_${comment.id}">выбрать исполнителя</a>
                                             <t:order.attach order="order" comment="comment"/>
-                                            <t:modal modalId="comment_cook_${comment.id}" caption="123" additionalClass="modal-lg" lock="true">
-                                                <t:message author="authenticatedUser" opponent="comment.author"/>
-                                            </t:modal>
                                         </t:unless>
                                     </t:if>
                                     <t:parameter name="else">
