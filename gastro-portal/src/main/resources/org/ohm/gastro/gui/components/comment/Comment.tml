@@ -41,6 +41,7 @@
                                 <t:if test="authenticated">
                                     <t:if test="orderOwner">
                                         <t:unless test="order.orderAttached">
+                                            <t:actionlink t:id="chatCook" t:zone="chatZone" t:context="comment.author.id" class="round-link">обсудить детали</t:actionlink>
                                             <a href="#choose_cook" data-toggle="modal" class="round-link" data-target="#choose_cook_${comment.id}">выбрать исполнителя</a>
                                             <t:order.attach order="order" comment="comment"/>
                                         </t:unless>

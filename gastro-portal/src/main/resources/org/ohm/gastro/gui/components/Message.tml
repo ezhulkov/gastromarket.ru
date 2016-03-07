@@ -1,4 +1,4 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" id="conversation-block" ng-controller="messageCtrl" ng-init="init(${author.id},${opponent.id})">
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" id="conversation-block" ng-controller="messageCtrl" ng-init="init(${author.id},${opponent.id},${modal})">
 
     <div id="messages" class="messages message-page ng-cloak">
         <div class="links-set ng-cloak">

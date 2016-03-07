@@ -90,9 +90,10 @@ jQuery.noConflict();
         $scope.messages = [];
         $scope.scrollUp = false;
         $scope.photoBig = "/img/product-stub-1000x720.png";
-        $scope.init = function (aid, oid) {
+        $scope.init = function (aid, oid, modal) {
             $scope.aid = aid;
             $scope.oid = oid;
+            $scope.modal = modal;
             $scope.refreshMessages();
             $scope.submit = function () {
                 if ($scope.text) {
@@ -104,9 +105,14 @@ jQuery.noConflict();
                     });
                 }
             };
+            $scope.fitMessagesBlock();
         };
         $scope.fitMessagesBlock = function () {
-            jQuery("#messages").css("padding-bottom", (jQuery("#post").height() - 50) + "px");
+            var messages = jQuery("#messages");
+            if ($scope.modal) {
+                messages.css("max-height", (jQuery(window).height() - 200) + "px");
+            }
+            messages.css("padding-bottom", (jQuery("#post").height() - 50) + "px");
         };
         $scope.refreshMessages = function () {
             $http.get("/message?type=list&aid={0}&oid={1}".format($scope.aid, $scope.oid)).success(function (data) {
@@ -134,7 +140,12 @@ jQuery.noConflict();
         $scope.$watchCollection("messages", function () {
             $timeout(function () {
                 if (!$scope.scrollUp) {
-                    jQuery("html, body").scrollTop(jQuery(document).height());
+                    if ($scope.modal) {
+                        console.log(jQuery(".message:last").offset().top);
+                        jQuery("#messages").scrollTop(jQuery(".message:last").offset().top);
+                    } else {
+                        jQuery("html, body").scrollTop(jQuery(document).height());
+                    }
                     $scope.scrollUp = false;
                 }
             }, 0);
@@ -159,7 +170,6 @@ jQuery.noConflict();
                 $scope.fitMessagesBlock();
                 jQuery("html, body").scrollTop(jQuery(document).height());
             });
-        $scope.fitMessagesBlock();
     }]);
 
 })();

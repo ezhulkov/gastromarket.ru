@@ -17,6 +17,10 @@ public class Message extends BaseComponent {
 
     @Parameter
     @Property
+    private boolean modal = false;
+
+    @Parameter
+    @Property
     private UserEntity author;
 
     @Parameter

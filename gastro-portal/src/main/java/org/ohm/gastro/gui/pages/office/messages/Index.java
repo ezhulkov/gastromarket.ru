@@ -33,4 +33,9 @@ public class Index extends AbstractPage {
         return getAuthenticatedUser().equals(author) ? opponent : author;
     }
 
+    @Override
+    public String getTitle() {
+        return getOpponentUser().getLinkName();
+    }
+
 }
