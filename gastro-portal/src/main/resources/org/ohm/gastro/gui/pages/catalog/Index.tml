@@ -4,10 +4,8 @@
         <div class="container">
             <div class="title">
                 <h1><span>${catalog.name}</span></h1>
-                <t:if test="authenticated">
-                    <t:unless test="cook">
-                        <t:pagelink page="office/message" t:context="['NEW',catalog.user.id]">Личное сообщение<span/></t:pagelink>
-                    </t:unless>
+                <t:if test="commonComments">
+                    <t:pagelink page="office/messages/index" t:context="context">Личное сообщение<span/></t:pagelink>
                 </t:if>
             </div>
             <t:if test="catalogOwner">
@@ -104,7 +102,7 @@
                                                 <div class="form-group">
                                                     <t:label for="directOrder">Возможность принимать прямые заказы:</t:label>
                                                     <div class="label-tip">
-                                                       Если это поле не установлено, то покупатели не смогут добавлять блюда в корзину и выполнять прямые заказы.
+                                                        Если это поле не установлено, то покупатели не смогут добавлять блюда в корзину и выполнять прямые заказы.
                                                     </div>
                                                     <input t:id="directOrder" class="form-control"/>
                                                 </div>

@@ -116,7 +116,7 @@ public class ConversationEntity extends AbstractBaseEntity implements Commentabl
     }
 
     public String getFullUrl() {
-        return "https://gastromarket.ru/office/message/" + getId();
+        return String.format("https://gastromarket.ru/office/messages/%s/%s", getAuthor().getId(), getOpponent().getId());
     }
 
     public String getLastActionDatePrintable() {

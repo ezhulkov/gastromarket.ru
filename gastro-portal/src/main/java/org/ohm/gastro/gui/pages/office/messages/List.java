@@ -1,22 +1,21 @@
-package org.ohm.gastro.gui.pages.office;
+package org.ohm.gastro.gui.pages.office.messages;
 
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.ConversationEntity;
 import org.ohm.gastro.gui.pages.AbstractPage;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 24.08.14.
  */
-public class Messages extends AbstractPage {
+public class List extends AbstractPage {
 
     @Property
     private ConversationEntity conversation;
 
-    public List<ConversationEntity> getConversations() {
+    public java.util.List<ConversationEntity> getConversations() {
         return getConversationService().findAllConversations(getAuthenticatedUserOpt().orElse(null)).stream()
                 .sorted((o1, o2) -> o2.getLastActionDate().compareTo(o1.getLastActionDate()))
                 .collect(Collectors.toList());

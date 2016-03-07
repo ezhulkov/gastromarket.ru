@@ -44,8 +44,4 @@ public class Comment extends BaseComponent {
         return entity instanceof OrderEntity ? (OrderEntity) entity : null;
     }
 
-    public boolean isAttachedCatalog() {
-        return getOrder().isOrderAttached() && getOrder().getCatalog().equals(comment.getAuthor().getFirstCatalog().orElse(null));
-    }
-
 }

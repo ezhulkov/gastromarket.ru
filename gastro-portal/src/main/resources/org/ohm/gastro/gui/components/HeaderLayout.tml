@@ -41,12 +41,12 @@
                         </t:unless>
                         <t:if test="authenticated">
                             <li class="hidden-sm" ng-controller="headerCtrl">
-                                <t:pagelink page="office/messages">Сообщения <span id="unread-messages" class="red-text ng-cloak">{{unread}}</span>
+                                <t:pagelink page="office/messages/list">Сообщения <span id="unread-messages" class="red-text ng-cloak">{{unread}}</span>
                                 </t:pagelink>
                             </li>
                             <t:unless test="admin">
                                 <li class="hidden-xs hidden-md hidden-lg">
-                                    <t:pagelink page="office/messages">Сообщения</t:pagelink>
+                                    <t:pagelink page="office/messages/list">Сообщения</t:pagelink>
                                 </li>
                                 <li>
                                     <t:pagelink page="office/order/list">Заказы

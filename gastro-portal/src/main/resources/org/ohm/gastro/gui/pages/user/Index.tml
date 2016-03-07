@@ -4,6 +4,9 @@
         <div class="container">
             <div class="title">
                 <h1><span>${customer.fullName}</span></h1>
+                <t:if test="commonComments">
+                    <t:pagelink page="office/messages/index" t:context="context">Личное сообщение<span/></t:pagelink>
+                </t:if>
             </div>
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pic-block user-pic">
@@ -13,9 +16,9 @@
                         <div class="grey-text f16px">${customer.loginDatePrintable}</div>
                     </div>
                 </div>
-                <!--<div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">-->
-                <!--<t:ratings entity="customer"/>-->
-                <!--</div>-->
+                <div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">
+                    <t:ratings entity="customer"/>
+                </div>
             </div>
         </div>
     </section>
