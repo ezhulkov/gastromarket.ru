@@ -144,6 +144,12 @@ jQuery.noConflict();
                 if (data.author.id == $scope.aid && data.opponent.id == $scope.oid) $scope.messages.push(data.messages[0]);
             });
         });
+        jQuery(document).keydown(function (e) {
+            if ((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey) {
+                $scope.submit();
+            }
+            e.stopPropagation();
+        });
         jQuery("#text-input")
             .focus()
             .each(function () {
@@ -153,12 +159,6 @@ jQuery.noConflict();
                 $scope.fitMessagesBlock();
                 jQuery("html, body").scrollTop(jQuery(document).height());
             });
-        jQuery(document).keydown(function (e) {
-            if ((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey) {
-                $scope.submit();
-            }
-            e.stopPropagation();
-        });
         $scope.fitMessagesBlock();
     }]);
 

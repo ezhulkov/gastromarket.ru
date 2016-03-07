@@ -1,0 +1,54 @@
+<t:modal xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+         modalId="choose_cook_${comment.id}"
+         caption="Выбрать исполнителя"
+         lock="true">
+    <t:form t:id="attachTenderAjaxForm" t:context="[comment.author.id,order.id,comment.id]" class="form" style="padding-top:0;" clientValidation="BLUR" autofocus="false" role="form">
+        <p class="modal-text hidden-xs">
+            Вы выбираете исполнителем кулинара<br/>
+            <a class="pic-holder catalog-link" href="${comment.author?.linkUrl}">
+                <span><img src="${comment.author?.linkAvatar}" class="avatar-small"/></span>${comment.author?.linkName}
+            </a>
+        </p>
+        <div class="col-xs-12">
+            <div class="form-group">
+                <t:label for="totalPrice">Подтвердите стоимость заказа, руб:</t:label>
+                <input t:type="TextField" t:id="totalPrice" t:value="totalPrice" class="form-control f20px h45px" t:validate="required"/>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                <t:label for="attachReason">Причина выбора кулинара:</t:label>
+                <textarea t:type="TextArea" t:id="attachReason" t:value="attachReason" t:validate="required" rows="2" class="form-control"/>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            <div class="form-group">
+                <t:label for="fullName">Ваше имя: *</t:label>
+                <input t:id="fullName" class="form-control" t:validate="required"/>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            <div class="form-group">
+                <t:label for="mobilePhone">Контактный телефон:*</t:label>
+                <input t:id="mobilePhone" class="form-control mobile-phone" placeholder="+7 xxx xxx-xx-xx" t:validate="required"/>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                <t:label for="deliveryAddress">Адрес доставки:*</t:label>
+                <input t:id="deliveryAddress" rows="2" class="form-control" t:validate="required"/>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group label-tip">
+                * - персональные данные обязательны для заполнения и скрыты для посетителей и кулинаров.
+                <br/> Только выбранный вами кулинар получит к ним доступ
+            </div>
+        </div>
+        <div class="col-xs-12 gap">
+            <div class="form-buttons" xml:space="preserve">
+                <input class="btn btn-red" type="submit" value="Выбрать"/>
+            </div>
+        </div>
+    </t:form>
+</t:modal>

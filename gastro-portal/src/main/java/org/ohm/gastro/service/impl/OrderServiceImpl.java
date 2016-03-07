@@ -214,19 +214,23 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     }
 
     @Override
-    public OrderEntity findCommonOrder(final UserEntity author, final UserEntity opponent) {
+    public List<OrderEntity> findCommonOrders(final List<CommentEntity> commonComments) {
+        return commonComments.stream()
+                .filter(t -> t.getEntity() instanceof OrderEntity)
+                .map(t -> (OrderEntity) t.getEntity())
+                .sorted(((o1, o2) -> o2.getDate().compareTo(o1.getDate())))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CommentEntity> findCommonComments(final UserEntity author, final UserEntity opponent) {
         final UserEntity cook = author.isCook() ? author : opponent.isCook() ? opponent : null;
         final UserEntity user = author.equals(cook) ? opponent : author;
         if (cook == null || user == null) return null;
-        final List<OrderEntity> replies = conversationService.findAllCommentsByAuthor(cook).stream()
-                .filter(t -> t.getEntity() instanceof OrderEntity)
-                .map(t -> (OrderEntity) t.getEntity())
-                .filter(t -> !t.isOrderClosed())
+        return conversationService.findAllCommentsByAuthor(cook).stream()
+                .filter(t -> t.getEntity() instanceof OrderEntity && ((OrderEntity) t.getEntity()).getCustomer().equals(user))
+                .sorted(((o1, o2) -> o2.getDate().compareTo(o1.getDate())))
                 .collect(Collectors.toList());
-        return replies.stream()
-                .filter(t -> t.getCustomer().equals(user))
-                .sorted(((o1, o2) -> o1.getId().compareTo(o2.getId())))
-                .findFirst().orElse(null);
     }
 
     @Override

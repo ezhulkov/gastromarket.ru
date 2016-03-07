@@ -42,20 +42,18 @@
                     <div class="col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12 hr"></div>
                 </div>
                 <t:if test="commonOrder">
-                    <t:if test="commonOrder.tender">
-                        <div class="row">
-                            <div class="col-lg-1 col-md-1 col-sm-0 col-xs-0"></div>
-                            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 nopad">
-                                <div class="common-order">
-                                    <t:if test="customer">
-                                        <a class="pull-right" href="">Выбрать исполнителем</a>
-                                    </t:if>
-                                    Обсуждение заявки
-                                    <t:pagelink page="tender/index" t:context="commonOrder.id">"${commonOrder.orderName}"</t:pagelink>
-                                </div>
+                    <div class="row">
+                        <div class="col-lg-1 col-md-1 col-sm-0 col-xs-0"></div>
+                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 nopad">
+                            <div class="common-order">
+                                <t:if test="showAttach">
+                                    <a data-target="#choose_cook_${commonComment.id}" href="#choose_cook" data-toggle="modal" class="attach">Выбрать исполнителем</a>
+                                </t:if>
+                                <span class="hidden-xs">Обсуждение заказа&nbsp;</span>
+                                <t:pagelink page="tender/index" t:context="commonOrder.id">"${commonOrder.orderName}"</t:pagelink>
                             </div>
                         </div>
-                    </t:if>
+                    </div>
                 </t:if>
                 <div class="row">
                     <form id="form" class="form postform" role="form" ng-submit="submit()">
@@ -81,6 +79,11 @@
                 </div>
             </div>
         </section>
+        <t:if test="commonOrder">
+            <t:if test="showAttach">
+                <t:order.attach order="commonOrder" comment="commonComment"/>
+            </t:if>
+        </t:if>
 
     </div>
 

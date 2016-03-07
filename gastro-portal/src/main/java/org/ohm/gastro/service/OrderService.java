@@ -1,6 +1,7 @@
 package org.ohm.gastro.service;
 
 import org.ohm.gastro.domain.CatalogEntity;
+import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.OrderProductEntity;
@@ -51,6 +52,8 @@ public interface OrderService {
 
     void closeOrder(OrderEntity order, int totalPrice, String survey, UserEntity caller);
 
-    OrderEntity findCommonOrder(UserEntity author, UserEntity opponent);
+    List<OrderEntity> findCommonOrders(List<CommentEntity> commonComments);
+
+    List<CommentEntity> findCommonComments(UserEntity author, UserEntity opponent);
 
 }
