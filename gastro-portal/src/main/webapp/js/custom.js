@@ -141,7 +141,6 @@ jQuery.noConflict();
             $timeout(function () {
                 if (!$scope.scrollUp) {
                     if ($scope.modal) {
-                        console.log(jQuery(".message:last").offset().top);
                         jQuery("#messages").scrollTop(jQuery(".message:last").offset().top);
                     } else {
                         jQuery("html, body").scrollTop(jQuery(document).height());

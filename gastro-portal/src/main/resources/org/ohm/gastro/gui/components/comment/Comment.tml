@@ -73,4 +73,15 @@
             </t:if>
         </t:modal>
     </t:if>
+    <t:block t:id="chatBlock">
+        <t:modal modalId="chat-cook" caption="${opponent.linkName}" additionalClass="modal-lg modal-message" lock="true">
+            <t:message author="authenticatedUser" opponent="opponent" modal="true"/>
+        </t:modal>
+        <script>
+            jQuery("#chat-cook").modal("show").on("shown.bs.modal", function () {
+                jQuery("#chat-cook").off("shown.bs.modal");
+                angular.bootstrap(jQuery("#conversation-block"), ['gastroApp']);
+            });
+        </script>
+    </t:block>
 </div>

@@ -3,7 +3,6 @@ package org.ohm.gastro.gui.components.comment;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.CommentableEntity;
@@ -42,10 +41,6 @@ public class List extends BaseComponent {
 
     @Property
     private String attachReason;
-
-    @Inject
-    @Property
-    private Block chatBlock;
 
     public String getAvatarUrl() {
         return isCookeReply() ?

@@ -4,6 +4,7 @@ import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.CommentableEntity;
 import org.ohm.gastro.domain.OrderEntity;
@@ -23,8 +24,8 @@ public class Comment extends BaseComponent {
     @Parameter
     private CommentableEntity entity;
 
-    @Parameter
-    private Block commentBlock;
+    @Inject
+    private Block chatBlock;
 
     @Property
     private UserEntity opponent;
@@ -54,7 +55,7 @@ public class Comment extends BaseComponent {
 
     public Block onActionFromChatCook(Long opponentId) {
         this.opponent = getUserService().findUser(opponentId);
-        return commentBlock;
+        return chatBlock;
     }
 
 }

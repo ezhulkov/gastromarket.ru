@@ -1,16 +1,11 @@
 <section xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="comments">
     <t:loop source="comments" value="comment">
         <section class="zebra-row">
-            <t:comment.comment comment="comment" entity="entity" reply="reply" commentBlock="chatBlock"/>
+            <t:comment.comment comment="comment" entity="entity" reply="reply"/>
         </section>
         <t:parameter name="empty">
             <div class="empty">Нет отзывов</div>
         </t:parameter>
     </t:loop>
     <t:zone t:id="chatZone"/>
-    <t:block t:id="chatBlock">
-        <t:modal modalId="chat_cook" caption="${comment.author.linkName}" additionalClass="modal-lg modal-message" lock="true">
-            <t:message author="authenticatedUser" opponent="comment.author" modal="true"/>
-        </t:modal>
-    </t:block>
 </section>
