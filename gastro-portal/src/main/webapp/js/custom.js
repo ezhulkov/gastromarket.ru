@@ -34,8 +34,31 @@ jQuery.noConflict();
             return originalHide(element);
         }
     });
-
-    var app = angular.module('gastroApp', []);
+})();
+(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "//connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.3&appId=325659080959378";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+Event.observe(document, Tapestry.ZONE_UPDATED_EVENT, function () {
+    initControls();
+});
+jQuery(document).ready(function () {
+    jQuery("body").addClass(isMobile() ? "mobile" : "desktop");
+    jQuery("#regionSelect a").on('click', function () {
+        jQuery.cookie("region", jQuery(this).attr("data-region"), {expires: 365, path: "/"});
+        location.reload();
+    });
+    initLoginModal();
+    initControls();
+    initSmoothScroll();
+    initMessages();
+});
+function initMessages() {
+    var app = angular.module("gastroApp", []);
     app.filter('raw', function ($sce) {
         return function (val) {
             return $sce.trustAsHtml(val);
@@ -77,7 +100,7 @@ jQuery.noConflict();
         };
         wsMessage.onMessage(function (data) {
             if (data.author.id == $scope.aid && data.opponent.id == $scope.oid) {
-                var msg = jQuery("#message-{0}-{1}".format($scope.aid, $scope.oid));
+                var msg = jQuery("#messages-block-{0}-{1}".format($scope.aid, $scope.oid));
                 jQuery(".comment", msg).removeClass("read").addClass("unread");
                 jQuery(".date", msg).html(data.messages[0].datePrintable);
                 jQuery(".text", msg).html(data.messages[0].text);
@@ -170,29 +193,8 @@ jQuery.noConflict();
                 jQuery("html, body").scrollTop(jQuery(document).height());
             });
     }]);
-
-})();
-(function (d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s);
-    js.id = id;
-    js.src = "//connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.3&appId=325659080959378";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-Event.observe(document, Tapestry.ZONE_UPDATED_EVENT, function () {
-    initControls();
-});
-jQuery(document).ready(function () {
-    jQuery("body").addClass(isMobile() ? "mobile" : "desktop");
-    jQuery("#regionSelect a").on('click', function () {
-        jQuery.cookie("region", jQuery(this).attr("data-region"), {expires: 365, path: "/"});
-        location.reload();
-    });
-    initLoginModal();
-    initControls();
-    initSmoothScroll();
-});
+    angular.bootstrap(jQuery("body"), ["gastroApp"]);
+}
 function initSmoothScroll() {
     jQuery('a.smooth-scroll').click(function () {
         if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
@@ -600,47 +602,6 @@ function addMoreProperties(el) {
     jQuery(newBlock).find(".chosen-container").remove();
     initPropEdit(newBlock);
     jQuery(newBlock).insertAfter(lastBlock);
-}
-function initMessages() {
-    jQuery(".messages .message .delete").on('click', function () {
-        jQuery(this).closest(".message").fadeOut(200);
-    });
-}
-function initMessagePage() {
-    var postInput = jQuery(".post .text");
-    var newMessagesZone = jQuery("#newMessagesZone");
-    jQuery(document).ready(function () {
-        initMessages();
-        jQuery("html, body").scrollTop(jQuery(document).height());
-    });
-    Event.observe(document, Tapestry.ZONE_UPDATED_EVENT, function (event) {
-        if (jQuery(event.target).attr("id").startsWith("messagesZone")) {
-            window.scrollBy(0, jQuery(event.target).height() + 15);
-        }
-    });
-    Event.observe(newMessagesZone.get(0), Tapestry.ZONE_UPDATED_EVENT, function () {
-        jQuery("html, body").scrollTop(jQuery(document).height());
-        jQuery(postInput).val("").focus();
-        jQuery(this).find(".message").last().find(".text").fadeOut(0, function () {
-            jQuery(this).fadeIn(700);
-        });
-    });
-    jQuery(postInput)
-        .focus()
-        .each(function () {
-            autosize(this);
-        })
-        .on("autosize:resized", function () {
-            jQuery(".messages").css("padding-bottom", (isMobile() ? 80 : 60) + jQuery(this).height());
-            jQuery("html, body").scrollTop(jQuery(document).height());
-        });
-    jQuery(document).keydown(function (e) {
-        if ((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey) {
-            e.preventDefault();
-            e.stopPropagation();
-            triggerEvent(jQuery("form.postform").find("input[type='submit']")[0], "click");
-        }
-    });
 }
 function initPropEdit(blocks) {
     jQuery(blocks).each(function (i, block) {

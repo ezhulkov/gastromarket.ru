@@ -80,7 +80,7 @@
         <script>
             jQuery("#chat-cook").modal("show").on("shown.bs.modal", function () {
                 jQuery("#chat-cook").off("shown.bs.modal");
-                angular.bootstrap(jQuery("#conversation-block"), ['gastroApp']);
+//                angular.bootstrap(jQuery("#conversation-block"), ['gastroApp']);
             });
         </script>
     </t:block>

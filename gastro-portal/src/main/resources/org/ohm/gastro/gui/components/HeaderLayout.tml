@@ -40,7 +40,7 @@
                             </li>
                         </t:unless>
                         <t:if test="authenticated">
-                            <li class="hidden-sm" ng-controller="headerCtrl">
+                            <li class="hidden-sm" id="messages-header" ng-controller="headerCtrl">
                                 <t:pagelink page="office/messages/list">Сообщения <span id="unread-messages" class="red-text ng-cloak">{{unread}}</span>
                                 </t:pagelink>
                             </li>
