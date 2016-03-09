@@ -1,6 +1,8 @@
 package org.ohm.gastro.service.impl;
 
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.ObjectUtils;
+import org.hibernate.Hibernate;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 import org.ohm.gastro.domain.CatalogEntity;
@@ -226,8 +228,12 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     public List<CommentEntity> findCommonComments(final UserEntity author, final UserEntity opponent) {
         final UserEntity cook = author.isCook() ? author : opponent.isCook() ? opponent : null;
         final UserEntity user = author.equals(cook) ? opponent : author;
-        if (cook == null || user == null) return null;
+        if (cook == null || user == null) return Lists.newArrayList();
         return conversationService.findAllCommentsByAuthor(cook).stream()
+                .map(t -> {
+                    Hibernate.initialize(t);
+                    return t;
+                })
                 .filter(t -> t.getEntity() instanceof OrderEntity && ((OrderEntity) t.getEntity()).getCustomer().equals(user))
                 .sorted(((o1, o2) -> o2.getDate().compareTo(o1.getDate())))
                 .collect(Collectors.toList());

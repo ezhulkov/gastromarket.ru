@@ -31,6 +31,8 @@ public class Attach extends AbstractOrder {
     @Property
     private String attachReason;
 
+    private OrderEntity tender;
+
     @Component(id = "fullName", parameters = {"value=authenticatedUser.fullName", "validate=required"})
     private TextField fullName;
 
@@ -42,9 +44,11 @@ public class Attach extends AbstractOrder {
 
     public void onPrepareFromAttachTenderAjaxForm(Long uid, Long oid, Long cid) {
         comment = getConversationService().findComment(cid);
+        tender = getOrderService().findOrder(oid);
+        catalog = getUserService().findUser(uid).getFirstCatalog().get();
         totalPrice = ObjectUtils.defaultIfNull(order.getTotalPrice() == null ?
                                                        comment.getBudget() :
-                                                       order.getTotalPrice(),
+                                                       tender.getTotalPrice(),
                                                0)
                 .toString();
     }
@@ -54,13 +58,10 @@ public class Attach extends AbstractOrder {
         final int tp = Integer.parseInt(totalPrice);
         if (tp <= 0) return null;
         if (attachTenderAjaxForm.getHasErrors()) return null;
-        return getUserService().findUser(uid).getFirstCatalog().map(catalog -> {
-            final OrderEntity tender = getOrderService().findOrder(oid);
-            tender.setAttachReason(attachReason);
-            tender.setTotalPrice(tp);
-            getOrderService().attachTender(catalog, tender, getAuthenticatedUser());
-            return getPageLinkSource().createPageRenderLinkWithContext(Index.class, true, tender.getId(), false);
-        }).orElse(null);
+        tender.setAttachReason(attachReason);
+        tender.setTotalPrice(tp);
+        getOrderService().attachTender(catalog, tender, getAuthenticatedUser());
+        return getPageLinkSource().createPageRenderLinkWithContext(Index.class, true, tender.getId(), false);
     }
 
 }
