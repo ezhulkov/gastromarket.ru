@@ -4,6 +4,7 @@ import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.CommentEntity;
+import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 /**
@@ -30,6 +31,12 @@ public class Edit extends BaseComponent {
 
     public Object[] getFormContext() {
         return new Object[]{comment == null ? null : comment.getId()};
+    }
+
+    public java.util.List<ProductEntity> getProducts() {
+        return getAuthenticatedUser().getFirstCatalog()
+                .map(c->getProductService().findProductsForFrontend(null, c, true, false, null, null, null, null, 0, Integer.MAX_VALUE))
+                .orElse(null);
     }
 
 }

@@ -144,4 +144,8 @@ public class Order extends AbstractPage {
         return getProductService().findProductsForFrontend(null, catalog, true, false, null, null, null, null, 0, 40);
     }
 
+    public java.util.List<ProductEntity> getAllProducts() {
+        return getProductService().findProductsForFrontend(null, catalog, true, false, null, null, null, null, 0, Integer.MAX_VALUE);
+    }
+
 }

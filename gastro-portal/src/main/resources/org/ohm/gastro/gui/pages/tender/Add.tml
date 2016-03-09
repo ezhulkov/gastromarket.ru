@@ -82,6 +82,7 @@
                                     </div>
                                 </div>
                             </t:unless>
+                            <div class="clearfix"></div>
                         </t:form>
                         <t:unless test="authenticated">
                             <t:loginUserModal modalId="order-login">

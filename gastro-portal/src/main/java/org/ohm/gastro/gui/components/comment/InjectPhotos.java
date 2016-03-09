@@ -20,7 +20,6 @@ import org.ohm.gastro.service.ImageService.FileType;
 
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 13.08.15.
@@ -36,6 +35,10 @@ public class InjectPhotos extends BaseComponent {
 
     @Parameter
     private OrderEntity order;
+
+    @Parameter
+    @Property
+    private List<ProductEntity> products;
 
     @Parameter
     @Property
@@ -57,13 +60,10 @@ public class InjectPhotos extends BaseComponent {
         return submittedPhotos;
     }
 
+
     @Cached
     public GenericSelectModel<ProductEntity> getProductsModel() {
-        return new GenericSelectModel<>(getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream()
-                                                .flatMap(t -> getProductService().findProductsForFrontend(null, t, true, false, null, null, null, null, 0, Integer.MAX_VALUE).stream())
-                                                .collect(Collectors.toList()),
-                                        ProductEntity.class,
-                                        "name", "id", getAccess());
+        return new GenericSelectModel<>(products, ProductEntity.class, "name", "id", getAccess());
     }
 
     public ValueEncoder<PhotoEntity> getFormInjectorEncoder() {

@@ -54,7 +54,7 @@
                                 </div>
                             </div>
                             <div class="text-left">
-                                <!--<t:comment.injectPhotos tender="true"/>-->
+                                <t:comment.injectPhotos tender="true" products="allProducts"/>
                             </div>
                             <div class="col-xs-12 gap">
                                 <div class="form-buttons">
@@ -75,6 +75,7 @@
                                     </div>
                                 </div>
                             </t:if>
+                            <div class="clearfix"></div>
                         </t:form>
                         <t:unless test="authenticated">
                             <t:loginUserModal modalId="order-login">

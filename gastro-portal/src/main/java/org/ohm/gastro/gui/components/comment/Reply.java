@@ -7,6 +7,7 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.OrderEntity;
+import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 /**
@@ -76,6 +77,12 @@ public class Reply extends BaseComponent {
 
     public Object[] getFormContext() {
         return new Object[]{comment == null ? null : comment.getId(), order == null ? null : order.getId()};
+    }
+
+    public java.util.List<ProductEntity> getProducts() {
+        return getAuthenticatedUser().getFirstCatalog()
+                .map(c -> getProductService().findProductsForFrontend(null, c, true, false, null, null, null, null, 0, Integer.MAX_VALUE))
+                .orElse(null);
     }
 
 }
