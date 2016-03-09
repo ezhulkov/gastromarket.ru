@@ -78,10 +78,19 @@
             <t:message author="authenticatedUser" opponent="opponent" modal="true"/>
         </t:modal>
         <script>
-            jQuery("#chat-cook").modal("show").on("shown.bs.modal", function () {
-                jQuery("#chat-cook").off("shown.bs.modal");
-//                angular.bootstrap(jQuery("#conversation-block"), ['gastroApp']);
-            });
+            jQuery("div[id^='choose_cook_']")
+                    .on("show.bs.modal", function () {
+                        jQuery("#chat-cook").modal('hide');
+                    });
+            jQuery("#chat-cook")
+                    .on("show.bs.modal", function () {
+                        jQuery("#chat-cook .modal-body").css("height", (jQuery(window).height() - 200) + "px");
+                    })
+                    .on("shown.bs.modal", function () {
+                        jQuery("#chat-cook").off("shown.bs.modal");
+                        angular.bootstrap(jQuery("#conversation-block"), ["gastroApp"]);
+                    });
+            jQuery("#chat-cook").modal("show");
         </script>
     </t:block>
 </div>

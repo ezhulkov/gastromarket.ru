@@ -121,7 +121,8 @@ function initMessages() {
             $scope.submit = function () {
                 if ($scope.text) {
                     $http.post("/message?type=text&aid={0}&oid={1}".format($scope.aid, $scope.oid), $scope.text).success(function (data) {
-                        $scope.messages.push(data.messages[0]);
+                        if ($scope.messages == undefined) $scope.messages = data.messages[0];
+                        else $scope.messages.push(data.messages[0]);
                         $scope.text = "";
                         jQuery("#text-input").css("height", "");
                         $scope.fitMessagesBlock();
@@ -131,11 +132,12 @@ function initMessages() {
             $scope.fitMessagesBlock();
         };
         $scope.fitMessagesBlock = function () {
-            var messages = jQuery("#messages");
             if ($scope.modal) {
-                messages.css("max-height", (jQuery(window).height() - 200) + "px");
+                jQuery("#chat-cook .modal-body").css("height", (jQuery(window).height() - 200) + "px");
+                jQuery("#messages").css("padding-bottom", (jQuery("#post").height() - 10) + "px");
+            } else {
+                jQuery("#messages").css("padding-bottom", (jQuery("#post").height() - 50) + "px");
             }
-            messages.css("padding-bottom", (jQuery("#post").height() - 50) + "px");
         };
         $scope.refreshMessages = function () {
             $http.get("/message?type=list&aid={0}&oid={1}".format($scope.aid, $scope.oid)).success(function (data) {
@@ -164,7 +166,8 @@ function initMessages() {
             $timeout(function () {
                 if (!$scope.scrollUp) {
                     if ($scope.modal) {
-                        jQuery("#messages").scrollTop(jQuery(".message:last").offset().top);
+                        var lastMessage = jQuery("#messages .message:last");
+                        if (lastMessage != undefined && lastMessage.offset() != undefined) jQuery("#chat-cook .modal-body").scrollTop(lastMessage.offset().top);
                     } else {
                         jQuery("html, body").scrollTop(jQuery(document).height());
                     }
@@ -193,7 +196,7 @@ function initMessages() {
                 jQuery("html, body").scrollTop(jQuery(document).height());
             });
     }]);
-    angular.bootstrap(jQuery("body"), ["gastroApp"]);
+    if (!window.location.pathname.startsWith("/tender/")) angular.bootstrap(jQuery("body"), ["gastroApp"]);
 }
 function initSmoothScroll() {
     jQuery('a.smooth-scroll').click(function () {
@@ -663,14 +666,6 @@ function showSubSelect(el) {
             });
         }
     }
-}
-function realTitleWidth(obj) {
-    var clone = obj.clone();
-    clone.css("visibility", "hidden");
-    jQuery('body').append(clone);
-    var width = clone.find("span").width();
-    clone.remove();
-    return width;
 }
 function triggerEvent(element, eventName) {
     if (element && eventName) {
