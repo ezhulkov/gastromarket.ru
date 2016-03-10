@@ -3,7 +3,7 @@
     <t:grid source="conversations" row="oneConversation"
             reorder="lastActionDatePrintable,sender,recipient"
             add="sender,recipient"
-            exclude="id,date,lastSeenDate,lastActionDate,commentableType,fullUrl"
+            include="lastActionDatePrintable"
             t:mixins="GridSortingDisabled" class="table table-hover">
         <t:parameter name="lastActionDatePrintableCell">
             <t:pagelink t:page="office/messages/index" t:context="context">${oneConversation.lastActionDatePrintable}</t:pagelink>
