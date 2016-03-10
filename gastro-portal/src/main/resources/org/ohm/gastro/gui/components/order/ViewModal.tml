@@ -3,14 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="title">
-                    <h1><span>
-                        <t:if test="newOrder">
-                            Новый заказ
-                            <t:parameter name="else">
-                                Изменение заказа
-                            </t:parameter>
-                        </t:if>
-                    </span></h1>
+                    <h1><span>Прямой заказ</span></h1>
                 </div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
             </div>
