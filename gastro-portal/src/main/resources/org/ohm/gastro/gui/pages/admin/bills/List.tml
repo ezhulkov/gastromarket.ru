@@ -1,0 +1,43 @@
+<t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <t:grid source="periods" row="onePeriod"
+            add="bills,total"
+            include="time"
+            t:mixins="GridSortingDisabled" class="bills-table table table-hover">
+        <t:parameter name="timeHeader">Период</t:parameter>
+        <t:parameter name="billsHeader">Счета</t:parameter>
+        <t:parameter name="totalHeader">Всего</t:parameter>
+        <t:parameter name="timeCell">
+            <t:outputraw value="timePrintable"/>
+        </t:parameter>
+        <t:parameter name="billsCell">
+            <t:if test="bills">
+                <ul>
+                    <t:loop source="bills" value="oneBill">
+                        <li class="bill">
+                            <span class="bill-status ${oneBill.status}">${status}</span>
+                            <t:pagelink page="office/bills/list" context="oneBill.catalog.id" class="fee">${oneBill.fee}<span class="rub"/></t:pagelink>
+                            <t:pagelink class="catalog" page="catalog/index" t:context="${oneBill.catalog.altId}">${oneBill.catalog.name}</t:pagelink>
+                        </li>
+                    </t:loop>
+                </ul>
+                <t:parameter name="else">
+                    &mdash;
+                </t:parameter>
+            </t:if>
+        </t:parameter>
+        <t:parameter name="totalCell">
+            <t:if test="bills">
+                <span class="f20px">${total}<span class="rub"/></span>
+                <t:parameter name="else">
+                    &mdash;
+                </t:parameter>
+            </t:if>
+        </t:parameter>
+    </t:grid>
+
+    <script>
+        activate_menu('#bills');
+    </script>
+
+</t:adminlayout>

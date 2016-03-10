@@ -11,6 +11,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
@@ -155,6 +156,13 @@ public class CommonsUtils implements Logging {
         @Override
         protected DateFormat initialValue() {
             return new SimpleDateFormat("HH:mm:ss");
+        }
+    };
+
+    public static final ThreadLocal<NumberFormat> GUI_CURRENCY = new ThreadLocal<NumberFormat>() {
+        @Override
+        public NumberFormat get() {
+            return NumberFormat.getCurrencyInstance();
         }
     };
 

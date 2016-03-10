@@ -4,6 +4,7 @@ import org.ohm.gastro.domain.BillEntity;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,6 +13,8 @@ import java.util.List;
 public interface BillService {
 
     List<BillEntity> findAllBills(CatalogEntity catalog);
+
+    List<BillEntity> findAllBills(Date period);
 
     List<BillEntity> findAllUnpaidBills(CatalogEntity catalog);
 
@@ -28,5 +31,7 @@ public interface BillService {
     boolean proceedPayment(Long billId);
 
     boolean checkPayment(Long billId, Float amount);
+
+    List<Date> findPeriods();
 
 }

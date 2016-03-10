@@ -11,10 +11,13 @@ import org.ohm.gastro.reps.OrderRepository;
 import org.ohm.gastro.service.BillService;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.trait.Logging;
+import org.ohm.gastro.util.CommonsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,17 +34,31 @@ public class BillServiceImpl implements BillService, Logging {
     private final BillRepository billRepository;
     private final OrderRepository orderRepository;
     private final MailService mailService;
+    private final Date firstPeriod;
 
     @Autowired
     public BillServiceImpl(final BillRepository billRepository, final OrderRepository orderRepository, final MailService mailService) {
         this.billRepository = billRepository;
         this.orderRepository = orderRepository;
         this.mailService = mailService;
+        Date localfirstPeriod;
+        try {
+            localfirstPeriod = CommonsUtils.GUI_DATE.get().parse("01/10/2015");
+        } catch (ParseException e) {
+            logger.error("", e);
+            localfirstPeriod = new Date();
+        }
+        firstPeriod = localfirstPeriod;
     }
 
     @Override
     public List<BillEntity> findAllBills(final CatalogEntity catalog) {
         return billRepository.findAllByCatalogOrderByBillNumber(catalog);
+    }
+
+    @Override
+    public List<BillEntity> findAllBills(Date period) {
+        return billRepository.findAllByDate(period, new DateTime(period).plusMonths(1).toDate());
     }
 
     @Override
@@ -98,6 +115,16 @@ public class BillServiceImpl implements BillService, Logging {
             return bill.getFee() == amount.intValue();
         }
         return false;
+    }
+
+    @Override
+    public List<Date> findPeriods() {
+        final DateTime from = new DateTime(firstPeriod);
+        final DateTime to = new DateTime();
+        final int months = Months.monthsBetween(from, to).getMonths();
+        return IntStream.range(0, months + 1)
+                .mapToObj(t -> from.plusMonths(months - t).dayOfMonth().roundFloorCopy().toDate())
+                .collect(Collectors.toList());
     }
 
     @Override
