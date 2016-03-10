@@ -21,24 +21,28 @@
         </t:loop>
     </t:if>
     <t:unless test="fromCart">
-        <t:loop source="orders" value="order" forState="NONE">
-            <div class="row">
-                <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
-                    <t:order.order order="order" type="FULL" privateOrders="privateOrders" frontend="frontend"/>
+        <t:grid t:source="orders" row="order" include="id" t:mixins="GridSortingDisabled" rowsPerPage="10" class="notable">
+            <t:parameter name="idHeader"></t:parameter>
+            <t:parameter name="idCell">
+                <div class="row">
+                    <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
+                        <t:order.order order="order" type="FULL" privateOrders="privateOrders" frontend="frontend"/>
+                    </div>
                 </div>
-            </div>
+            </t:parameter>
             <t:parameter name="empty">
                 <t:unless test="privateOrders">
                     <div class="row">
                         <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
                             <div class="empty">
                                 У вас нет активных заявок<br/>
-                                Но вы всегда можете <t:pagelink page="tender/add">разместить новую заявку</t:pagelink>
+                                Но вы всегда можете
+                                <t:pagelink page="tender/add">разместить новую заявку</t:pagelink>
                             </div>
                         </div>
                     </div>
                 </t:unless>
             </t:parameter>
-        </t:loop>
+        </t:grid>
     </t:unless>
 </section>
