@@ -41,7 +41,8 @@
                                 <t:if test="authenticated">
                                     <t:if test="orderOwner">
                                         <t:unless test="order.orderAttached">
-                                            <t:actionlink t:id="chatCook" t:zone="chatZone" t:context="comment.author.id" class="round-link">обсудить детали</t:actionlink>
+                                            <t:actionlink t:id="chatCook" t:zone="chatZone" t:context="comment.author.id" class="hidden round-link">обсудить детали</t:actionlink>
+                                            <a href="#chat_cook" data-toggle="modal" class="round-link" data-target="#chat_cook">обсудить детали</a>
                                             <a href="#choose_cook" data-toggle="modal" class="round-link" data-target="#choose_cook_${comment.id}">выбрать исполнителя</a>
                                             <t:order.attach order="order" comment="comment"/>
                                         </t:unless>
@@ -73,6 +74,11 @@
             </t:if>
         </t:modal>
     </t:if>
+
+    <t:modal caption="обсудить" modalId="chat_cook" lock="true">
+        <t:message modal="true" author="authenticatedUser" opponent="comment.author"/>
+    </t:modal>
+
     <t:block t:id="chatBlock">
         <t:modal modalId="chat-cook" caption="${opponent.linkName}" additionalClass="modal-lg modal-message" lock="true">
             <t:message author="authenticatedUser" opponent="opponent" modal="true"/>
@@ -88,7 +94,7 @@
                     })
                     .on("shown.bs.modal", function () {
                         jQuery("#chat-cook").off("shown.bs.modal");
-                        angular.bootstrap(jQuery("#conversation-block"), ["gastroApp"]);
+//                        angular.bootstrap(jQuery("#conversation-block"), ["gastroApp"]);
                     });
             jQuery("#chat-cook").modal("show");
         </script>
