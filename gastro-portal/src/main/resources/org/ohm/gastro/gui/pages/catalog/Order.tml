@@ -22,20 +22,17 @@
                             </t:if>
                             <div class="col-xs-12 gap">
                                 <div class="form-group">
-                                    <input t:id="name" type="text" class="form-control name" placeholder="Что вы хотите заказать?"
-                                           data-toggle="popover" data-container="body" data-content="Например, 'Торт на день рождения' или 'Набор капкейков для любимой'" data-trigger="focus" data-placement="right"/>
+                                    <input t:id="name" type="text" class="form-control name" placeholder="Что вы хотите заказать?"/>
                                 </div>
                             </div>
                             <div class="col-xs-12">
                                 <div class="form-group">
-                                    <textarea t:id="comment" rows="5" class="form-control" placeholder="Добавьте описание своего заказа"
-                                              data-toggle="popover" data-container="body" data-content="Расскажите подробнее о заказе. В качестве подсказки можете обратиться к примерам заказов, которые уже выполнены кулинаром." data-trigger="focus" data-placement="right"/>
+                                    <textarea t:id="comment" rows="5" class="form-control" placeholder="Комментарии к заказу"/>
                                 </div>
                             </div>
                             <div class="col-xs-12">
                                 <div class="form-group">
-                                    <input t:id="budget" class="form-control price" placeholder="Бюджет заказа"
-                                           data-toggle="popover" data-container="body" data-content="Сколько вы готовы потратить на исполнение заказа. Если не указать бюджет, то кулинар сам предложит цену." data-trigger="focus" data-placement="right"/>
+                                    <input t:id="budget" class="form-control price" placeholder="Бюджет заказа"/>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
