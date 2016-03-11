@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Component;
+import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Form;
@@ -11,10 +12,12 @@ import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.HttpError;
+import org.ohm.gastro.domain.AltIdBaseEntity;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.UserEntity;
+import org.ohm.gastro.gui.components.comment.InjectPhotos;
 import org.ohm.gastro.gui.dto.Breadcrumb;
 import org.ohm.gastro.gui.pages.AbstractPage;
 
@@ -61,7 +64,7 @@ public class Order extends AbstractPage {
     private TextField budgetField;
 
     @Property
-    private String budget;
+    private Integer budget;
 
     @Inject
     @Property
@@ -80,9 +83,21 @@ public class Order extends AbstractPage {
     @Property
     private CatalogEntity catalog;
 
+    @Property
+    private java.util.List<ProductEntity> cartProducts;
+
+    @InjectComponent
+    private InjectPhotos injectPhotos;
+
+    public String getBudgetTitle() {
+        int total = cartProducts.stream().mapToInt(ProductEntity::getPrice).sum();
+        return total == 0 ? getMessages().get("direct.budget") : getMessages().format("direct.budget.n", total);
+    }
+
     public Object onActivate(String altId) {
         this.catalog = getCatalogService().findCatalog(altId);
         if (catalog == null) return new HttpError(404, "Page not found.");
+        this.cartProducts = getShoppingCart().getItems(catalog).stream().map(t -> (ProductEntity) t.getEntity()).collect(Collectors.toList());
         return null;
     }
 
@@ -97,6 +112,7 @@ public class Order extends AbstractPage {
     public void onPrepareFromOrderInfoForm() {
         if (order == null) order = new OrderEntity();
         if (mobile == null) mobile = getAuthenticatedUserOpt().map(UserEntity::getMobilePhone).orElse(null);
+        order.setName(cartProducts.stream().findFirst().map(AltIdBaseEntity::getName).orElse(""));
     }
 
     public Object onSubmitFromOrderInfoForm() {

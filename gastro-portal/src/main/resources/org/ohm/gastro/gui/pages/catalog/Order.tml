@@ -32,7 +32,7 @@
                             </div>
                             <div class="col-xs-12">
                                 <div class="form-group">
-                                    <input t:id="budget" class="form-control price" placeholder="Бюджет заказа"/>
+                                    <input t:id="budget" class="form-control price" placeholder="${budgetTitle}"/>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
@@ -105,6 +105,9 @@
                                     </t:pagelink>
                                     ${oneSample.comment}
                                 </li>
+                                <t:parameter name="empty">
+                                    <p class="empty">У кулинара еще не было заказов</p>
+                                </t:parameter>
                             </t:loop>
                         </ul>
                     </t:block>
