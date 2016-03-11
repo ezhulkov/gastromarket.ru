@@ -74,9 +74,11 @@
         </t:modal>
     </t:if>
 
-    <t:modal caption="Личное сообщение" modalId="chat-cook" lock="true" additionalClass="modal-lg modal-message">
-        <t:message modal="true" author="authenticatedUser" opponent="comment.author"/>
-    </t:modal>
+    <t:if test="authenticated">
+        <t:modal caption="Личное сообщение" modalId="chat-cook" lock="true" additionalClass="modal-lg modal-message">
+            <t:message modal="true" author="authenticatedUser" opponent="comment.author"/>
+        </t:modal>
+    </t:if>
 
     <script>
         function initInplaceMessage(aid, oid) {
