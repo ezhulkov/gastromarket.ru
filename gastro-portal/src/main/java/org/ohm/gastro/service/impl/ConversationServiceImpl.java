@@ -260,7 +260,6 @@ public class ConversationServiceImpl implements ConversationService, Logging {
     @Override
     @RatingModifier
     public void placeComment(@RatingTarget final CommentableEntity entity, final CommentEntity comment, final UserEntity author) {
-        if (StringUtils.isEmpty(comment.getText()) || author == null) return;
         final Long origId = comment.getId();
         if (comment.getId() == null) {
             comment.setAuthor(author);
