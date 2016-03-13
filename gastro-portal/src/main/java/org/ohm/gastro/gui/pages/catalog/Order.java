@@ -12,14 +12,18 @@ import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.HttpError;
+import org.apache.tapestry5.services.Session;
 import org.ohm.gastro.domain.AltIdBaseEntity;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
+import org.ohm.gastro.domain.OrderEntity.Status;
+import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.components.comment.InjectPhotos;
 import org.ohm.gastro.gui.dto.Breadcrumb;
 import org.ohm.gastro.gui.pages.AbstractPage;
+import org.ohm.gastro.service.ImageService.FileType;
 
 import java.util.stream.Collectors;
 
@@ -64,7 +68,7 @@ public class Order extends AbstractPage {
     private TextField budgetField;
 
     @Property
-    private Integer budget;
+    private String budget;
 
     @Inject
     @Property
@@ -95,9 +99,13 @@ public class Order extends AbstractPage {
     }
 
     public Object onActivate(String altId) {
-        this.catalog = getCatalogService().findCatalog(altId);
+        catalog = getCatalogService().findCatalog(altId);
         if (catalog == null) return new HttpError(404, "Page not found.");
-        this.cartProducts = getShoppingCart().getItems(catalog).stream().map(t -> (ProductEntity) t.getEntity()).collect(Collectors.toList());
+        cartProducts = getShoppingCart().getItems(catalog).stream().map(t -> (ProductEntity) t.getEntity()).collect(Collectors.toList());
+        cartProducts.forEach(p -> {
+            final Session session = getRequest().getSession(false);
+            session.setAttribute(FileType.PRODUCT + "_" + p.getId(), "product");
+        });
         return null;
     }
 
@@ -128,22 +136,27 @@ public class Order extends AbstractPage {
             getAuthenticatedUser().setMobilePhone(mobile);
             getUserService().saveUser(getAuthenticatedUser());
         }
-//        tender.setTotalPrice(null);
-//        if (StringUtils.isNotEmpty(budget)) {
-//            budget = budget.replaceAll("\\.", "").replaceAll(",", "");
-//            if (StringUtils.isNotEmpty(budget)) {
-//                final int i = Integer.parseInt(budget);
-//                if (i > 0) tender.setTotalPrice(i);
-//            }
-//        }
-//        tender.setCustomer(getAuthenticatedUser());
-//        final OrderEntity newTender = getOrderService().saveOrder(tender);
-//        java.util.List<PhotoEntity> photos = getTenderPhotos();
-//        photos = photos.stream().peek(t -> t.setId(null)).collect(Collectors.toList());
-//        getPhotoService().attachPhotos(newTender, photos);
-//        getOrderService().placeTender(newTender, getAuthenticatedUser());
-//        return getPageLinkSource().createPageRenderLink(AddResults.class);
-        return null;
+        order.setTotalPrice(null);
+        if (StringUtils.isNotEmpty(budget)) {
+            budget = budget.replaceAll("\\.", "").replaceAll(",", "");
+            if (StringUtils.isNotEmpty(budget)) {
+                int i = 0;
+                try {
+                    i = Integer.parseInt(budget);
+                } catch (NumberFormatException e) {
+                    logger.error(budget + " " + e.getMessage());
+                }
+                if (i > 0) order.setTotalPrice(i);
+            }
+        }
+        order.setStatus(Status.NEW);
+        order.setCustomer(getAuthenticatedUser());
+        final OrderEntity newOrder = getOrderService().saveOrder(order);
+        java.util.List<PhotoEntity> photos = getTenderPhotos();
+        photos = photos.stream().peek(t -> t.setId(null)).collect(Collectors.toList());
+        getPhotoService().attachPhotos(newOrder, photos);
+        getOrderService().placeOrder(order);
+        return getPageLinkSource().createPageRenderLink(OrderResults.class);
     }
 
     @Override

@@ -44,7 +44,14 @@
         </script>
         <t:parameter name="addRow">
             <div class="col-xs-12">
-                <t:addrowlink class="add-photo">+ Добавить фотографию</t:addrowlink>
+                <t:addrowlink class="add-photo">
+                    <t:if test="caption">
+                        ${caption}
+                        <t:parameter name="else">
+                            + Добавить фотографию
+                        </t:parameter>
+                    </t:if>
+                </t:addrowlink>
             </div>
         </t:parameter>
     </t:ajaxformloop>

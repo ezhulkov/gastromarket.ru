@@ -27,7 +27,7 @@
                             </div>
                             <div class="col-xs-12">
                                 <div class="form-group">
-                                    <textarea t:id="comment" rows="5" class="form-control" placeholder="Комментарии к заказу"/>
+                                    <textarea t:id="comment" rows="5" class="form-control" placeholder="Дополнительные комментарии к заказу"/>
                                 </div>
                             </div>
                             <div class="col-xs-12">
@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                             <div class="text-left">
-                                <t:comment.injectPhotos tender="true" products="allProducts"/>
+                                <t:comment.injectPhotos directOrder="true" products="allProducts" caption="+ Выбрать примеры из каталога кулинара"/>
                             </div>
                             <div class="col-xs-12 gap">
                                 <div class="form-buttons">
@@ -140,7 +140,7 @@
         jQuery(document).ready(initProductCatalogFixed);
     </script>
 
-    <t:yagoal goal="TENDER_EDIT"/>
+    <t:yagoal goal="ORDER_EDIT"/>
     <t:fbgoal goal="InitiateCheckout"/>
 
 </t:layout>

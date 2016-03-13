@@ -75,13 +75,6 @@
                                     </div>
                                 </div>
                             </t:if>
-                            <t:unless test="authenticated">
-                                <div class="col-xs-12 red-text">
-                                    <div class="form-group">
-                                        при первой регистрации вы получите 100 <a href="#bonus" data-toggle="modal" data-target="#bonus" class="dotted-link">бонусных баллов</a> в подарок!
-                                    </div>
-                                </div>
-                            </t:unless>
                             <div class="clearfix"></div>
                         </t:form>
                         <t:unless test="authenticated">

@@ -1,6 +1,7 @@
 package org.ohm.gastro.gui.components.comment;
 
 import com.google.common.collect.Lists;
+import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.ValueEncoder;
 import org.apache.tapestry5.annotations.Cached;
 import org.apache.tapestry5.annotations.Component;
@@ -26,6 +27,8 @@ import java.util.Random;
  */
 public class InjectPhotos extends BaseComponent {
 
+    private static long counter = 0;
+
     @Property
     @Parameter
     private CommentEntity comment;
@@ -38,11 +41,19 @@ public class InjectPhotos extends BaseComponent {
 
     @Parameter
     @Property
-    private List<ProductEntity> products;
+    private List<ProductEntity> products = Lists.newArrayList();
 
     @Parameter
     @Property
     private boolean tender = false;
+
+    @Parameter
+    @Property
+    private boolean directOrder = false;
+
+    @Property
+    @Parameter(defaultPrefix = BindingConstants.LITERAL)
+    private String caption;
 
     @Component(id = "photoProduct", parameters = {"model=productsModel", "encoder=productsModel", "value=photo.product"})
     private Select productsField;
@@ -117,7 +128,7 @@ public class InjectPhotos extends BaseComponent {
 
     @SuppressWarnings("unchecked")
     public java.util.List<PhotoEntity> getPhotos() {
-        if (tender) {
+        if (tender || directOrder) {
             return getTenderPhotos();
         } else if (comment != null) {
             if (comment.getId() == null) return Lists.newArrayList();
