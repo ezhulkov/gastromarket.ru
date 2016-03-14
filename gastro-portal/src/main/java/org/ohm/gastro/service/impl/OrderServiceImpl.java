@@ -179,6 +179,25 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     }
 
     @Override
+    public void confirmOrder(OrderEntity order) {
+        order.setStatus(Status.ACTIVE);
+        logger.info("Confirming order {}, total price {}", order, order.getTotalPrice());
+        final Map<String, Object> params = new HashMap<String, Object>() {
+            {
+                put("order", order);
+                put("address", order.getOrderUrl());
+                put("customer", order.getCustomer());
+                put("ordername", order.getOrderName());
+            }
+        };
+        mailService.sendAdminMessage(MailType.CONFIRM_ORDER_ADMIN, params);
+        params.put("username", order.getCustomer().getFullName());
+        mailService.sendMailMessage(order.getCustomer(), MailType.CONFIRM_ORDER_CUSTOMER, params);
+        params.put("username", order.getCatalog().getUser().getFullName());
+        mailService.sendMailMessage(order.getCatalog().getUser(), MailType.CONFIRM_ORDER_COOK, params);
+    }
+
+    @Override
     public void cancelOrder(OrderEntity order) {
         order.setClosedDate(new Date());
         order.setStatus(Status.CANCELLED);

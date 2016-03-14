@@ -1,7 +1,6 @@
 package org.ohm.gastro.service.impl;
 
 import com.google.common.base.Charsets;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -26,7 +25,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import javax.annotation.PreDestroy;
-import java.io.File;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
@@ -133,7 +131,7 @@ public class MailServiceImpl implements MailService, Logging {
 
         logger.info("Sending email to " + recipient + " using template " + mailType);
 
-//        if (!production) return;
+        if (!production) return;
 
         params.put("unsubscribe", CommonsUtils.generateSecuredEmail(recipient));
         params.put("quicklogin", CommonsUtils.generateSecuredEmail(recipient, TimeUnit.HOURS.toMillis(24)));
@@ -145,7 +143,7 @@ public class MailServiceImpl implements MailService, Logging {
             final String messageBody = stringWriter.toString();
             final String title = getTitle(messageBody);
 
-            FileUtils.write(new File("/Users/ezhulkov/Desktop/" + mailType.getTemplate() + ".html"), messageBody);
+//            FileUtils.write(new File("/Users/ezhulkov/Desktop/" + mailType.getTemplate() + ".html"), messageBody);
 
             final MimeMessagePreparator preparator = mimeMessage -> {
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, false);
@@ -233,7 +231,7 @@ public class MailServiceImpl implements MailService, Logging {
 
     @Override
     public boolean isNotificationEnabled(UserEntity user, MailType mailType) {
-        if (user == null || mailType == null || !user.isSubscribeEmail() || "cook@cook.com".equals(user.getEmail())) return false;
+        if (user == null || mailType == null || !user.isSubscribeEmail()) return false;
         if (user.getId() == null) return true;
         final NotificationConfigEntity config = notificationConfigRepository.findByUserAndMailType(user, mailType);
         return config == null || config.isEnabled();

@@ -43,7 +43,7 @@ public class StatusBadge extends AbstractOrder {
     }
 
     public Object[] getContext() {
-        return new Object[]{getAuthenticatedUser().getId(), order.getCatalog().getUser().getId()};
+        return new Object[]{order.getCustomer().getId(), order.getCatalog().getUser().getId()};
     }
 
 }

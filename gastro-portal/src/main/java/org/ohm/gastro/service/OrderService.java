@@ -51,6 +51,8 @@ public interface OrderService {
 
     void cancelOrder(OrderEntity order);
 
+    void confirmOrder(OrderEntity order);
+
     void closeOrder(OrderEntity order, int totalPrice, String survey, UserEntity caller);
 
     List<OrderEntity> findCommonOrders(List<CommentEntity> commonComments);
