@@ -3,14 +3,7 @@
     <section class="s600px">
         <div class="container orders">
             <div class="title">
-                <h1><span>
-                    <t:if test="order.tender">
-                        ${order.name}
-                        <t:parameter name="else">
-                            Заказ №${order.orderNumber}
-                        </t:parameter>
-                    </t:if>
-                </span></h1>
+                <h1><span>${order.orderName}</span></h1>
             </div>
             <t:order.filter status="order.metaStatus" privateOrders="privateOrders"/>
             <t:zone t:id="orderZone">

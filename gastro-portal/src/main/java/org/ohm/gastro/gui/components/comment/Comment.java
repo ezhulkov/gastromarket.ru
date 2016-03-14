@@ -1,10 +1,8 @@
 package org.ohm.gastro.gui.components.comment;
 
 import org.apache.tapestry5.BindingConstants;
-import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.CommentableEntity;
 import org.ohm.gastro.domain.OrderEntity;
@@ -23,9 +21,6 @@ public class Comment extends BaseComponent {
     @Property
     @Parameter
     private CommentableEntity entity;
-
-    @Inject
-    private Block chatBlock;
 
     @Property
     private UserEntity opponent;
@@ -51,11 +46,6 @@ public class Comment extends BaseComponent {
 
     public OrderEntity getOrder() {
         return entity instanceof OrderEntity ? (OrderEntity) entity : null;
-    }
-
-    public Block onActionFromChatCook(Long opponentId) {
-        this.opponent = getUserService().findUser(opponentId);
-        return chatBlock;
     }
 
 }

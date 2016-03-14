@@ -1,5 +1,22 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="action-link">
     <t:delegate to="orderActionLinkBlock"/>
+    <t:block t:id="confirmationWaitBlock">
+        <t:unless test="orderPage">
+            <a data-toggle="modal" data-target="#order-confirmation-${order.id}" href="#order-confirmation-${order.id}" class="round-link">Ожидание подтверждения</a>
+            <t:modal modalId="order-confirmation-${order.id}" caption="Ожидание подтверждения" additionalClass="modal-md">
+                <div class="order-show-catalog">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            Кулинар получил прямой заказ и рассматривает возможность его выполнить.
+                            Вы можете связаться с кулинаром, написав ему
+                            <t:pagelink page="office/messages/index" t:context="context">личное сообщение</t:pagelink>
+                            .
+                        </div>
+                    </div>
+                </div>
+            </t:modal>
+        </t:unless>
+    </t:block>
     <t:block t:id="catalogAttachedLinkBlock">
         <t:unless test="orderPage">
             <a data-toggle="modal" data-target="#tender-attached-${order.id}" href="#tender-attached-${order.id}" class="round-link">Исполнитель выбран</a>

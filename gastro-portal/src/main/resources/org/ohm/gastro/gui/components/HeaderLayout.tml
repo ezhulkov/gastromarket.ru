@@ -34,11 +34,6 @@
                                 <t:pagelink page="tender/add" class="red-text">Разместить заявку</t:pagelink>
                             </li>
                         </t:unless>
-                        <t:unless test="authenticated">
-                            <li>
-                                <t:pagelink page="cart">Корзина</t:pagelink>
-                            </li>
-                        </t:unless>
                         <t:if test="authenticated">
                             <li class="hidden-sm" id="messages-header" ng-controller="headerCtrl">
                                 <t:pagelink page="office/messages/list">Сообщения <span id="unread-messages" class="red-text ng-cloak">{{unread}}</span>

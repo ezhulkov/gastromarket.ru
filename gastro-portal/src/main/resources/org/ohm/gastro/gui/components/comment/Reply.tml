@@ -30,7 +30,7 @@
                 <input t:type="textfield" t:id="replyTime" t:value="replyTime" type="number" class="form-control"/>
             </div>
         </div>
-        <t:comment.injectPhotos comment="comment"/>
+        <t:comment.injectPhotos comment="comment" products="products"/>
         <div class="col-xs-12 gap">
             <div class="form-buttons" xml:space="preserve">
             <input class="btn btn-red" type="submit" value="${btnTitle}"/>

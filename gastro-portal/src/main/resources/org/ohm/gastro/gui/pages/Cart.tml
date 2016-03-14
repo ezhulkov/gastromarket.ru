@@ -3,20 +3,15 @@
     <section>
         <div class="container">
             <div class="title">
-                <h1><span>Заказы</span></h1>
+                <h1><span>Прямые заказы</span></h1>
             </div>
             <div>
-                <t:order.list status="NEW" privateOrders="true"/>
+                <t:loop source="catalogs" value="catalog">
+                    <t:order.directorder catalog="catalog"/>
+                    <hr/>
+                </t:loop>
             </div>
         </div>
     </section>
-
-    <t:loginUserModal modalId="cart_login">
-        <t:parameter name="addText">
-            <div class="row">
-                <p class="modal-text red-text">Для оформления заказа и связи с кулинаром необходимо войти или зарегистрироваться.</p>
-            </div>
-        </t:parameter>
-    </t:loginUserModal>
 
 </t:layout>

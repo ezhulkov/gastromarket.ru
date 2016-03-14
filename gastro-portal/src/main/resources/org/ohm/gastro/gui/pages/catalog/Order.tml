@@ -1,0 +1,156 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" pageClass="tender-add">
+
+    <section class="tender">
+        <div class="container">
+            <div class="title">
+                <h1><span>Размещение заказа у ${catalog.name}</span></h1>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-7 col-sm-12 col-xs-12">
+                    <t:zone t:id="orderInfoZone">
+                        <t:delegate to="orderInfoBlock"/>
+                    </t:zone>
+                    <t:block t:id="orderInfoBlock">
+                        <t:form t:id="orderInfoForm" t:zone="orderInfoZone" t:clientValidation="none" t:autofocus="false" class="form tender-form" rel="nofollow" role="form">
+                            <div class="caption">Описание заказа</div>
+                            <div class="modal-text">после размещения заказа кулинар свяжется с вами для обсуждения</div>
+                            <t:if test="error">
+                                <div class="error">
+                                    Пожалуйста, заполните обязательные поля и исправьте ошибки
+                                </div>
+                                <t:errors/>
+                            </t:if>
+                            <div class="col-xs-12 gap">
+                                <div class="form-group">
+                                    <input t:id="name" type="text" class="form-control name" placeholder="Что вы хотите заказать?"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <textarea t:id="comment" rows="5" class="form-control" placeholder="Дополнительные комментарии к заказу"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <input t:id="budget" class="form-control price" placeholder="${budgetTitle}"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="form-group">
+                                    <input t:id="dueDate" type="text" class="form-control date-picker" placeholder="Дата исполнения"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                <div class="form-group">
+                                    <input t:id="mobile" class="form-control mobile-phone" placeholder="Контактный телефон +7 xxx xxx-xx-xx"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <input t:id="promoCode" class="form-control" placeholder="Промо код"/>
+                                </div>
+                            </div>
+                            <t:if test="authenticated">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <textarea t:id="address" rows="5" class="form-control" placeholder="Адрес доставки"/>
+                                    </div>
+                                </div>
+                            </t:if>
+                            <div class="text-left">
+                                <t:comment.injectPhotos t:id="injectPhotos"
+                                                        directOrder="true"
+                                                        products="allProducts"
+                                                        caption="+ Добавить фото или блюдо из каталога кулинара"/>
+                            </div>
+                            <div class="col-xs-12 gap">
+                                <div class="form-buttons">
+                                    <t:if test="authenticated">
+                                        <input class="btn btn-red btn-lg btn-block" type="submit" value="Разместите заказ"/>
+                                        <t:parameter name="else">
+                                            <input class="btn btn-red btn-lg btn-block" type="submit" value="Зарегистрируйтесь и разместите заказ"/>
+                                        </t:parameter>
+                                    </t:if>
+                                </div>
+                            </div>
+                            <t:if test="authenticated">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        Размещая заказ, вы соглашаетесь c условиями<br/>
+                                        <a href="/agreement" target="_tab" class="red-text">публичной оферты</a> и
+                                        <a href="/confident" target="_tab" class="red-text">политики конфиденциальности</a>
+                                    </div>
+                                </div>
+                            </t:if>
+                            <div class="clearfix"></div>
+                        </t:form>
+                        <t:unless test="authenticated">
+                            <t:loginUserModal modalId="order-login">
+                                <t:parameter name="addText">
+                                    <div class="row">
+                                        <p class="modal-text red-text">Для оформления заказа необходимо войти или зарегистрироваться.</p>
+                                    </div>
+                                </t:parameter>
+                            </t:loginUserModal>
+                            <t:if test="needLogin">
+                                <script>
+                                    jQuery("#order-login").modal('show');
+                                    initLoginModal();
+                                </script>
+                            </t:if>
+                        </t:unless>
+                    </t:block>
+                </div>
+                <div class="col-lg-6 col-md-5 hidden-sm hidden-xs">
+                    <t:zone t:id="sampleZone" class="sample-zone">
+                        <t:delegate to="samplesBlock"/>
+                    </t:zone>
+                    <t:block t:id="samplesBlock">
+                        <div class="caption">Примеры заказов у кулинара</div>
+                        <ul>
+                            <t:loop source="samples" value="oneSample">
+                                <li>
+                                    <t:pagelink page="tender/index" t:context="oneSample.id" class="name" target="_blank">
+                                        ${oneSample.name}
+                                    </t:pagelink>
+                                    ${oneSample.comment}
+                                </li>
+                                <t:parameter name="empty">
+                                    <p class="empty">У кулинара еще не было заказов</p>
+                                </t:parameter>
+                            </t:loop>
+                        </ul>
+                    </t:block>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="title">
+                <h1><span>Блюда кулинара</span></h1>
+                <t:pagelink page="catalog/products" t:context="catalog.altId">Показать все блюда<span/></t:pagelink>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container flexible">
+            <div class="grid-block products fixed">
+                <t:loop source="products" value="oneProduct">
+                    <t:product product="oneProduct" class="fixed" edit="false"/>
+                </t:loop>
+            </div>
+            <t:productModalTemplate/>
+        </div>
+    </section>
+
+    <script>
+        jQuery(document).ready(initProductCatalogFixed);
+    </script>
+
+    <t:yagoal goal="ORDER_EDIT"/>
+    <t:fbgoal goal="InitiateCheckout"/>
+
+</t:layout>

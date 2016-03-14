@@ -5,7 +5,7 @@
   - file: path="~/distr" state=directory mode=0755 group=root owner=root
   - get_url: url=http://nginx.org/download/nginx-1.8.0.tar.gz dest=~/distr/nginx-1.8.0.tar.gz
   - unarchive: src=~/distr/nginx-1.8.0.tar.gz dest=~/distr/ copy=false
-  - shell: cd ~/distr/nginx-1.6.2 &&
+  - shell: cd ~/distr/nginx-1.8.0 &&
             ./configure --prefix=/usr/local/nginx --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log \
             --http-log-path=/var/log/nginx/access.log --pid-path=/run/nginx.pid --lock-path=/run/lock/subsys/nginx --user=nginx --group=nginx --with-file-aio \
             --with-ipv6 --with-http_ssl_module --with-http_realip_module --with-http_addition_module --with-http_gunzip_module --with-http_gzip_static_module \

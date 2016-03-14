@@ -50,7 +50,10 @@ public interface MailService {
         USER_UNSUBSCRIBED("user_unsubscribed"),
         CANCEL_ORDER_CUSTOMER("cancel_order_customer"),
         CANCEL_ORDER_ADMIN("cancel_order_admin"),
-        CANCEL_ORDER_COOK("cancel_order_cook", true);
+        CANCEL_ORDER_COOK("cancel_order_cook", true),
+        CONFIRM_ORDER_CUSTOMER("confirm_order_customer"),
+        CONFIRM_ORDER_ADMIN("confirm_order_admin"),
+        CONFIRM_ORDER_COOK("confirm_order_cook", true);
 
         private final String template;
         private final boolean configurable;

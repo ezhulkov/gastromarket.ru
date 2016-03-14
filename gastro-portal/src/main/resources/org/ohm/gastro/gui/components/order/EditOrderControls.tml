@@ -28,9 +28,33 @@
                 <t:if test="order.orderAttached">
                     &nbsp;
                     <t:if test="cook">
-                        <t:pagelink page="office/order/close" t:context="order.id">Завершить выполнение заказа<span/></t:pagelink>
+                        <t:if test="orderConfirmed">
+                            <t:pagelink page="office/order/close" t:context="order.id">Завершить выполнение заказа<span/></t:pagelink>
+                        </t:if>
+                        <t:unless test="orderConfirmed">
+                            <a data-toggle="modal" data-target="#confirm_order_${order.id}" href="#of-confirm">Подтвердить заказ</a>
+                            <t:modal modalId="confirm_order_${order.id}" caption="Подтверждение заказа" lock="true">
+                                <t:form t:id="confirmOrderAjaxForm" t:context="[order.id]" class="form" style="padding-top:0;" clientValidation="BLUR" autofocus="false" role="form">
+                                    <p class="modal-text">
+                                        Вы подтверждаете выполнение заказа. <br/>Пожалуйста, укажите финальную стоимость заказа.
+                                    </p>
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <input t:type="textfield" t:id="totalPrice" t:value="totalPrice" t:validate="required" type="number" class="form-control f20px h45px"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 gap">
+                                        <div class="form-buttons" xml:space="preserve">
+                                            <input class="btn btn-red" type="submit" value="Подтвердить заказ"/>
+                                        </div>
+                                    </div>
+                                </t:form>
+                            </t:modal>
+                        </t:unless>
                     </t:if>
                 </t:if>
+                &nbsp;
+                <t:pagelink page="office/messages/index" t:context="context">Личное сообщение<span/></t:pagelink>
             </t:unless>
             <t:if test="needRate">
                 &nbsp;

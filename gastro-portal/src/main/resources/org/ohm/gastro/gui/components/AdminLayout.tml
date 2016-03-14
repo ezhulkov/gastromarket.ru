@@ -23,6 +23,9 @@
                 <li id="orders">
                     <t:pagelink page="admin/orders/list">Заказы</t:pagelink>
                 </li>
+                <li id="bills">
+                    <t:pagelink page="admin/bills/list">Счета</t:pagelink>
+                </li>
             </ul>
             <t:body/>
         </div>

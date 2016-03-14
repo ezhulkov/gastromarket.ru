@@ -11,9 +11,12 @@ import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OfferEntity;
+import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.gui.components.comment.InjectPhotos;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 import org.ohm.gastro.gui.pages.catalog.Offer;
+
+import java.util.List;
 
 /**
  * Created by ezhulkov on 31.08.14.
@@ -160,6 +163,10 @@ public class OfferEdit extends BaseComponent {
         if (closeImmediately && !editOffer) offer = null;
         if (closeImmediately) getAjaxResponseRenderer().addRender(getOfferEditZone(), editDescBlock);
         return closeImmediately && reloadPage ? Offer.class : null;
+    }
+
+    public List<ProductEntity> getProducts() {
+        return getProductService().findProductsForFrontend(null, catalog, true, false, null, null, null, null, 0, Integer.MAX_VALUE);
     }
 
 }

@@ -18,18 +18,29 @@
                         <t:uploadfile type="TENDER" responseSize="SIZE2" objectId="${photo.id}" inputType="button" imageSelector="#photo-${photo.id}"/>
                     </div>
                 </t:if>
+                <t:if test="directOrder">
+                    <div class="form-group">
+                        <t:uploadfile type="ORDER" responseSize="SIZE2" objectId="${photo.id}" inputType="button" imageSelector="#photo-${photo.id}"/>
+                    </div>
+                </t:if>
                 <t:unless test="tender">
-                    <div class="form-group">
-                        <t:uploadfile type="PHOTO" objectId="${photo.id}" inputType="button" imageSelector="#photo-${photo.id}" withTools="true" imageHeight="101" imageWidth="140"/>
-                    </div>
-                    <t:if test="cook">
+                    <t:unless test="directOrder">
                         <div class="form-group">
-                            <t:select t:id="photoProduct" class="form-control chosen-select" data-placeholder="или блюдо из своего каталога"/>
+                            <t:uploadfile type="PHOTO" objectId="${photo.id}" inputType="button" imageSelector="#photo-${photo.id}" withTools="true" imageHeight="101" imageWidth="140"/>
                         </div>
-                    </t:if>
+                    </t:unless>
+                </t:unless>
+                <t:if test="products">
                     <div class="form-group">
-                        <t:textfield t:id="photoText" class="form-control" placeholder="Текст к фотографии"/>
+                        <t:select t:id="photoProduct" class="form-control chosen-select" data-placeholder="или блюдо из каталога"/>
                     </div>
+                </t:if>
+                <t:unless test="directOrder">
+                    <t:unless test="tender">
+                        <div class="form-group">
+                            <t:textfield t:id="photoText" class="form-control" placeholder="Текст к фотографии"/>
+                        </div>
+                    </t:unless>
                 </t:unless>
             </div>
             <div class="hidden-lg hidden-md hidden-sm col-xs-12">
@@ -44,7 +55,14 @@
         </script>
         <t:parameter name="addRow">
             <div class="col-xs-12">
-                <t:addrowlink class="add-photo">+ Добавить фотографию</t:addrowlink>
+                <t:addrowlink class="add-photo">
+                    <t:if test="caption">
+                        ${caption}
+                        <t:parameter name="else">
+                            + Добавить фотографию
+                        </t:parameter>
+                    </t:if>
+                </t:addrowlink>
             </div>
         </t:parameter>
     </t:ajaxformloop>

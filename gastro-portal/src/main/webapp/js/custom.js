@@ -55,7 +55,6 @@ jQuery(document).ready(function () {
     initLoginModal();
     initControls();
     initSmoothScroll();
-    initMessages();
 });
 function initSmoothScroll() {
     jQuery('a.smooth-scroll').click(function () {

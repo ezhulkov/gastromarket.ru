@@ -1,12 +1,7 @@
 <t:if xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" test="orderWithNoReply">
     <t:modal modalId="order_reply_invitation" caption="Отзыв">
         <p class="modal-text">
-            <t:if test="orderWithNoReply.tender">
-                Заявка "${orderWithNoReply.name}" была выполнена, но вы пока не оставили отзыв о ней. Мы собираем отзывы о выполненых заказах, так как это позволяет строить репутацию кулинаров и покупателей.
-                <t:parameter name="else">
-                    Заказ №${orderWithNoReply.orderNumber} был выполнен, но вы пока не оставили отзыв к нему. Мы собираем отзывы о выполненых заказах, так как это позволяет строить репутацию кулинаров и покупателей.
-                </t:parameter>
-            </t:if>
+            Заказ "${orderWithNoReply.orderName}" был выполнен, но вы пока не оставили отзыв о работе кулинар. Мы собираем отзывы о выполненых заказах, так как это позволяет строить репутацию кулинаров и покупателей.
         </p>
         <p class="modal-text">
             <t:unless test="cook">

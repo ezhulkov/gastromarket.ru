@@ -17,7 +17,6 @@ import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.hibernate.Hibernate;
 import org.ohm.gastro.domain.OrderProductEntity;
 import org.ohm.gastro.domain.PhotoEntity;
-import org.ohm.gastro.domain.PriceModifierEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.PropertyEntity;
 import org.ohm.gastro.domain.PropertyEntity.Type;
@@ -311,17 +310,14 @@ public abstract class BaseComponent {
         return billService;
     }
 
-    public OrderProductEntity createPurchaseItem(PurchaseEntity.Type eType, Long eId, Long mid) {
+    public OrderProductEntity createPurchaseItem(PurchaseEntity.Type eType, Long eId) {
         final OrderProductEntity purchaseItem = new OrderProductEntity();
         final PurchaseEntity entity = eType == PurchaseEntity.Type.OFFER ? getOfferService().findOffer(eId) : getProductService().findProduct(eId);
-        final PriceModifierEntity modifier = mid == null ? null : getProductService().findPriceModifier(mid);
         Hibernate.initialize(entity);
         Hibernate.initialize(entity.getCatalog());
-        if (modifier != null) Hibernate.initialize(modifier);
         purchaseItem.setCount(1);
-        purchaseItem.setPrice(entity.getPrice() + (mid == null ? 0 : getProductService().findPriceModifier(mid).getPriceSigned()));
+        purchaseItem.setPrice(entity.getPrice());
         purchaseItem.setEntity(entity);
-        purchaseItem.setModifier(modifier);
         return purchaseItem;
     }
 
@@ -349,10 +345,25 @@ public abstract class BaseComponent {
         return getMessages().format(value + ".decl.*5-*0", count);
     }
 
+    public List<PhotoEntity> getOrderPhotos() {
+        final Session session = getRequest().getSession(false);
+        return session.getAttributeNames().stream()
+                .filter(t -> t.startsWith(FileType.PRODUCT.name()))
+                .filter(t -> session.getAttribute(t) != null)
+                .map(t -> {
+                    final PhotoEntity photo = new PhotoEntity();
+                    final String[] split = t.split("_");
+                    photo.setId(Long.parseLong(split[1]));
+                    photo.setProduct(getProductService().findProduct(Long.parseLong(split[1])));
+                    return photo;
+                }).collect(Collectors.toList());
+    }
+
     public List<PhotoEntity> getTenderPhotos() {
         final Session session = getRequest().getSession(false);
         return session.getAttributeNames().stream()
                 .filter(t -> t.startsWith(FileType.TENDER.name()))
+                .filter(t -> session.getAttribute(t) != null)
                 .map(t -> {
                     final Map<ImageSize, String> imageUrls = (Map<ImageSize, String>) session.getAttribute(t);
                     final PhotoEntity photo = new PhotoEntity();
@@ -366,6 +377,10 @@ public abstract class BaseComponent {
 
     public Optional<PhotoEntity> getTenderPhoto(Long id) {
         return getTenderPhotos().stream().filter(t -> id.equals(t.getId())).findFirst();
+    }
+
+    public Optional<PhotoEntity> getOrderPhoto(Long id) {
+        return getOrderPhotos().stream().filter(t -> id.equals(t.getId())).findFirst();
     }
 
     public boolean isProduction() {

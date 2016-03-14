@@ -2,8 +2,12 @@ package org.ohm.gastro.gui.services;
 
 import org.apache.tapestry5.ioc.Configuration;
 import org.apache.tapestry5.ioc.MappedConfiguration;
+import org.apache.tapestry5.ioc.OrderedConfiguration;
+import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.services.ApplicationStateContribution;
 import org.apache.tapestry5.services.ApplicationStatePersistenceStrategy;
+import org.apache.tapestry5.services.MarkupRenderer;
+import org.apache.tapestry5.services.MarkupRendererFilter;
 import org.ohm.gastro.gui.dto.BreadcrumbsList;
 import org.ohm.gastro.gui.dto.ShoppingCart;
 import org.ohm.gastro.gui.dto.TitleHolder;
@@ -38,6 +42,11 @@ public class AppModule {
 
     public void contributeApplicationStatePersistenceStrategySource(MappedConfiguration<String, ApplicationStatePersistenceStrategy> configuration) {
         configuration.addInstance("request", RequestApplicationStatePersistenceStrategy.class);
+    }
+
+    @Contribute(MarkupRenderer.class)
+    public static void deactiveDefaultCSS(OrderedConfiguration<MarkupRendererFilter> configuration) {
+        configuration.override("InjectDefaultStylesheet", null);
     }
 
 }

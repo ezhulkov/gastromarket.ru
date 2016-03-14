@@ -5,6 +5,7 @@ import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.OrderEntity.Status;
 import org.ohm.gastro.domain.OrderProductEntity;
+import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.UserEntity;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public interface OrderService {
 
-    OrderEntity placeOrder(OrderEntity preOrder);
+    OrderEntity placeOrder(OrderEntity preOrder, List<PhotoEntity> photos, UserEntity caller, CatalogEntity catalog);
 
     List<OrderEntity> findAllOrders();
 
@@ -49,6 +50,8 @@ public interface OrderService {
     List<OrderEntity> findAllOrdersWithMetaStatus(final CatalogEntity catalog, final Status status);
 
     void cancelOrder(OrderEntity order);
+
+    void confirmOrder(OrderEntity order);
 
     void closeOrder(OrderEntity order, int totalPrice, String survey, UserEntity caller);
 

@@ -119,6 +119,7 @@
       +border-class(rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.9), rgba(0, 0, 0, 0.4))
       text-align: center
       color: $blackTextColor
+      overflow: initial
       div.t-error
         display: none
       .name, .price
@@ -162,3 +163,27 @@
     background-color: green
   &.CANCELLED
     background-color: red
+
+.direct-order
+  .caption
+    font-size: 20px
+  .total
+    font-size: 20px
+  ul
+    list-style: none
+    padding: 0
+    li
+      vertical-align: top
+      display: inline-block
+      width: 140px
+      text-align: center
+      margin: 5px
+      img
+        width: 140px
+      .name
+        padding-top: 10px
+        width: 140px
+        overflow: hidden
+        text-overflow: ellipsis
+        line-height: normal
+        display: block

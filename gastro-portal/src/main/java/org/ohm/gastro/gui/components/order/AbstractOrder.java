@@ -61,8 +61,8 @@ public abstract class AbstractOrder extends BaseComponent {
         return type == Type.FULL;
     }
 
-    public int getTotal() {
-        return order == null ? getShoppingCart().getCatalogPrice(catalog) : order.getTotalPrice();
+    public Integer getTotal() {
+        return order.getTotalPrice();
     }
 
     public CatalogEntity getCatalog() {
@@ -79,6 +79,10 @@ public abstract class AbstractOrder extends BaseComponent {
 
     public boolean isOrderOwner() {
         return order == null || order.isOrderOwner(getAuthenticatedUserSafe()) || isAdmin();
+    }
+
+    public boolean isOrderConfirmed() {
+        return order.getType() == OrderEntity.Type.PRIVATE && order.getStatus().getLevel() > Status.NEW.getLevel();
     }
 
     public boolean isOrderExecutor() {

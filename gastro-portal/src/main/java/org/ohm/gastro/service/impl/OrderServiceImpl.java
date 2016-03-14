@@ -24,6 +24,7 @@ import org.ohm.gastro.service.ConversationService;
 import org.ohm.gastro.service.MailService;
 import org.ohm.gastro.service.MailService.MailType;
 import org.ohm.gastro.service.OrderService;
+import org.ohm.gastro.service.PhotoService;
 import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingService;
 import org.ohm.gastro.service.RatingTarget;
@@ -66,6 +67,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     private final UserRepository userRepository;
     private final PhotoRepository photoRepository;
     private final RatingService ratingService;
+    private final PhotoService photService;
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
     private final TransactionTemplate transactionTemplate;
@@ -81,6 +83,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                             final UserRepository userRepository,
                             final PhotoRepository photoRepository,
                             final RatingService ratingService,
+                            final PhotoService photService,
                             final TransactionTemplate transactionTemplate,
                             final ConversationService conversationService) {
         this.orderRepository = orderRepository;
@@ -90,6 +93,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
         this.userRepository = userRepository;
         this.photoRepository = photoRepository;
         this.ratingService = ratingService;
+        this.photService = photService;
         this.transactionTemplate = transactionTemplate;
         this.conversationService = conversationService;
     }
@@ -106,50 +110,47 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     }
 
     @Override
-    public OrderEntity placeOrder(final OrderEntity preOrder) {
-        if (!preOrder.getProducts().isEmpty()) {
-            final OrderEntity order = new OrderEntity();
-            order.setDate(new Date());
-            order.setCustomer(preOrder.getCustomer());
-            order.setDueDateAsString(preOrder.getDueDateAsString());
-            order.setPromoCode(preOrder.getPromoCode());
-            order.setComment(preOrder.getComment());
-            order.setProducts(preOrder.getProducts());
-            order.setStatus(Status.CONFIRMED);
-            order.setRegion(RegionFilter.getCurrentRegion());
-            order.setWasSetup(true);
-            order.setType(OrderEntity.Type.PRIVATE);
-            order.setCatalog(preOrder.getCatalog());
-            order.setTotalPrice(order.getProducts().stream().mapToInt(t -> t.getCount() * t.getPrice()).sum());
-            orderRepository.save(order);
-            order.getProducts().stream().forEach(p -> p.setOrder(order));
-            orderProductRepository.save(order.getProducts());
-            order.setOrderNumber(Long.toString(order.getId()));
-            try {
-                final Map<String, Object> params = new HashMap<String, Object>() {
-                    {
-                        put("products", order.getProducts());
-                        put("ordernumber", order.getOrderNumber());
-                        put("customer", order.getCustomer());
-                        put("comment", ObjectUtils.defaultIfNull(order.getComment(), "-"));
-                        put("cook", order.getCatalog());
-                        put("total", order.getTotalPrice());
-                        put("address", order.getOrderUrl());
-                        put("region", order.getRegion());
-                        put("order", order);
-                    }
-                };
-                mailService.sendAdminMessage(MailService.MailType.NEW_ORDER_ADMIN, params);
-                params.put("username", order.getCatalog().getUser().getFullName());
-                mailService.sendMailMessage(order.getCatalog().getUser(), MailService.MailType.NEW_ORDER_COOK, params);
-                params.put("username", order.getCustomer().getFullName());
-                mailService.sendMailMessage(order.getCustomer(), MailService.MailType.NEW_ORDER_CUSTOMER, params);
-            } catch (MailException e) {
-                logger.error("", e);
-            }
-            return order;
+    public OrderEntity placeOrder(OrderEntity order, List<PhotoEntity> photos, UserEntity caller, CatalogEntity catalog) {
+        order.setDate(new Date());
+        order.setCustomer(caller);
+        order.setStatus(Status.NEW);
+        order.setRegion(RegionFilter.getCurrentRegion());
+        order.setWasSetup(true);
+        order.setType(OrderEntity.Type.PRIVATE);
+        order.setCatalog(catalog);
+        order.getPhotos().clear();
+        orderRepository.save(order);
+        order.getProducts().stream().forEach(p -> p.setOrder(order));
+        orderProductRepository.save(order.getProducts());
+        order.setOrderNumber(Long.toString(order.getId()));
+        photos.forEach(p -> p.setId(null));
+        photService.attachPhotos(order, photos);
+        logger.info("New private order received {}, customer {}, catalog {}, photos {}", order, order.getCustomer(), order.getCatalog(), order.getPhotos());
+        try {
+            final Map<String, Object> params = new HashMap<String, Object>() {
+                {
+                    put("products", order.getProducts());
+                    put("ordernumber", order.getOrderNumber());
+                    put("customer", order.getCustomer());
+                    put("comment", ObjectUtils.defaultIfNull(order.getComment(), "-"));
+                    put("cook", order.getCatalog());
+                    put("total", order.getTotalPrice());
+                    put("address", order.getOrderUrl());
+                    put("region", order.getRegion());
+                    put("order", order);
+                    put("photos", photos);
+                    put("date", ObjectUtils.defaultIfNull(order.getDueDateAsString(), "-"));
+                }
+            };
+            mailService.sendAdminMessage(MailService.MailType.NEW_ORDER_ADMIN, params);
+            params.put("username", order.getCatalog().getUser().getFullName());
+            mailService.sendMailMessage(order.getCatalog().getUser(), MailService.MailType.NEW_ORDER_COOK, params);
+            params.put("username", order.getCustomer().getFullName());
+            mailService.sendMailMessage(order.getCustomer(), MailService.MailType.NEW_ORDER_CUSTOMER, params);
+        } catch (MailException e) {
+            logger.error("", e);
         }
-        return preOrder;
+        return order;
     }
 
     @Override
@@ -175,6 +176,25 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     @Override
     public List<OrderEntity> findAllOrdersWithMetaStatus(final CatalogEntity catalog, final Status status) {
         return orderRepository.findAllByCatalog(catalog).stream().filter(t -> t.getMetaStatus() == status).collect(Collectors.toList());
+    }
+
+    @Override
+    public void confirmOrder(OrderEntity order) {
+        order.setStatus(Status.ACTIVE);
+        logger.info("Confirming order {}, total price {}", order, order.getTotalPrice());
+        final Map<String, Object> params = new HashMap<String, Object>() {
+            {
+                put("order", order);
+                put("address", order.getOrderUrl());
+                put("customer", order.getCustomer());
+                put("ordername", order.getOrderName());
+            }
+        };
+        mailService.sendAdminMessage(MailType.CONFIRM_ORDER_ADMIN, params);
+        params.put("username", order.getCustomer().getFullName());
+        mailService.sendMailMessage(order.getCustomer(), MailType.CONFIRM_ORDER_CUSTOMER, params);
+        params.put("username", order.getCatalog().getUser().getFullName());
+        mailService.sendMailMessage(order.getCatalog().getUser(), MailType.CONFIRM_ORDER_COOK, params);
     }
 
     @Override
