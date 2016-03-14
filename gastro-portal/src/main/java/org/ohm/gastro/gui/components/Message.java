@@ -35,7 +35,7 @@ public class Message extends BaseComponent {
 
     public void beginRender() {
         final List<CommentEntity> commonComments = getOrderService().findCommonComments(author, opponent);
-        final List<OrderEntity> commonOrders = getOrderService().findCommonOrders(commonComments);
+        final List<OrderEntity> commonOrders = getOrderService().findCommonOrders(author, opponent);
         commonComment = commonComments.stream().reduce((o1, o2) -> o1).orElse(null);
         commonOrder = commonOrders.stream().reduce((o1, o2) -> o1).orElse(null);
     }

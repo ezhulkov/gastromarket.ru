@@ -6,7 +6,7 @@
             role="form">
         <div class="col-xs-12">
             <div class="form-group">
-                <t:label for="budget">Ваше предложение:</t:label>
+                <t:label for="text">Ваше предложение:</t:label>
                 <textarea t:type="TextArea" t:id="text" t:value="comment.text" t:validate="required" rows="5" class="form-control"/>
             </div>
         </div>

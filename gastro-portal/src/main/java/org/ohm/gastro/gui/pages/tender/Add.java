@@ -106,7 +106,7 @@ public class Add extends AbstractPage {
         photos = photos.stream().peek(t -> t.setId(null)).collect(Collectors.toList());
         getPhotoService().attachPhotos(newTender, photos);
         getOrderService().placeTender(newTender, getAuthenticatedUser());
-        return getPageLinkSource().createPageRenderLink(AddResults.class);
+        return getPageLinkSource().createPageRenderLinkWithContext(AddResults.class, newTender.getId());
     }
 
 }

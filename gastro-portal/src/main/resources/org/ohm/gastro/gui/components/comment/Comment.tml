@@ -41,14 +41,14 @@
                                 <t:if test="authenticated">
                                     <t:if test="orderOwner">
                                         <t:unless test="order.orderAttached">
-                                            <a href="#chat-cook" class="round-link" onclick="javascript:initInplaceMessage(${authenticatedUser.id},${comment.author.id})">обсудить детали</a>
+                                            <a href="#chat-cook" class="round-link" onclick="javascript:initInplaceMessage(${authenticatedUser.id},${comment.author.id})">личное сообщение</a>
                                             <a href="#choose_cook" data-toggle="modal" class="round-link" data-target="#choose_cook_${comment.id}">выбрать исполнителя</a>
                                             <t:order.attach order="order" comment="comment"/>
                                         </t:unless>
                                     </t:if>
                                     <t:parameter name="else">
                                         <t:unless test="order.orderAttached">
-                                            <a href="#tender_login" data-toggle="modal" class="round-link" data-target="#tender_login">обсудить детали</a>
+                                            <a href="#tender_login" data-toggle="modal" class="round-link" data-target="#tender_login">личное сообщение</a>
                                             <a href="#tender_login" data-toggle="modal" class="round-link" data-target="#tender_login">выбрать исполнителя</a>
                                         </t:unless>
                                     </t:parameter>

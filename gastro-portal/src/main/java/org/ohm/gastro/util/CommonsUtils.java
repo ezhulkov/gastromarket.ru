@@ -1,5 +1,6 @@
 package org.ohm.gastro.util;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.hibernate.Hibernate;
 import org.hibernate.proxy.HibernateProxy;
 import org.ohm.gastro.trait.Logging;
@@ -17,6 +18,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -173,6 +175,19 @@ public class CommonsUtils implements Logging {
         for (Supplier<? extends T> supplier : suppliers) {
             final T v = supplier.get();
             if (v != null) {
+                return v;
+            }
+        }
+        return null;
+    }
+
+    public static <T> List<T> coalesceEmptyLazy(final List<T> values, final Supplier<List<T>>... suppliers) {
+        if (CollectionUtils.isNotEmpty(values)) {
+            return values;
+        }
+        for (Supplier<List<T>> supplier : suppliers) {
+            final List<T> v = supplier.get();
+            if (CollectionUtils.isNotEmpty(v)) {
                 return v;
             }
         }

@@ -52,9 +52,9 @@
                             </t:modal>
                         </t:unless>
                     </t:if>
+                    &nbsp;
+                    <t:pagelink page="office/messages/index" t:context="context">Личное сообщение<span/></t:pagelink>
                 </t:if>
-                &nbsp;
-                <t:pagelink page="office/messages/index" t:context="context">Личное сообщение<span/></t:pagelink>
             </t:unless>
             <t:if test="needRate">
                 &nbsp;

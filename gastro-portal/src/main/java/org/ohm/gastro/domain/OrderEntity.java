@@ -343,6 +343,8 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
 
     public Status getMetaStatus() {
         switch (status) {
+            case NEW:
+                return Status.NEW;
             case CANCELLED:
             case CLOSED:
                 return Status.CLOSED;

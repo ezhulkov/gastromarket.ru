@@ -30,6 +30,12 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     List<OrderEntity> findAllByCatalog(@Param("catalog") CatalogEntity catalog);
 
+    @Query("select o from OrderEntity o join o.catalog c join c.user u " +
+            "where u=:cook and o.customer=:customer " +
+            "order by o.date desc")
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    List<OrderEntity> findAllByCookAndCustomer(@Param("cook") UserEntity cook, @Param("customer") UserEntity customer);
+
     @Query("from OrderEntity p " +
             "where p.catalog=:catalog and p.closedDate>=:from and p.closedDate<:to " +
             "order by date asc")

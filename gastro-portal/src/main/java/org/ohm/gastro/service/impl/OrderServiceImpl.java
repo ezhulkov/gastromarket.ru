@@ -29,6 +29,7 @@ import org.ohm.gastro.service.RatingModifier;
 import org.ohm.gastro.service.RatingService;
 import org.ohm.gastro.service.RatingTarget;
 import org.ohm.gastro.trait.Logging;
+import org.ohm.gastro.util.CommonsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -39,6 +40,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -235,12 +237,18 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
     }
 
     @Override
-    public List<OrderEntity> findCommonOrders(final List<CommentEntity> commonComments) {
-        return commonComments.stream()
-                .filter(t -> t.getEntity() instanceof OrderEntity)
-                .map(t -> (OrderEntity) t.getEntity())
-                .sorted(((o1, o2) -> o2.getDate().compareTo(o1.getDate())))
-                .collect(Collectors.toList());
+    public List<OrderEntity> findCommonOrders(final UserEntity author, final UserEntity opponent) {
+        final UserEntity cook = author.isCook() ? author : opponent.isCook() ? opponent : null;
+        final UserEntity user = author.equals(cook) ? opponent : author;
+        final List<OrderEntity> commonOrders = CommonsUtils.coalesceEmptyLazy(orderRepository.findAllByCookAndCustomer(cook, user).stream()
+                                                                                      .filter(t -> !t.isOrderClosedAndRated())
+                                                                                      .collect(Collectors.toList()),
+                                                                              () -> findCommonComments(author, opponent).stream()
+                                                                                      .filter(t -> t.getEntity() instanceof OrderEntity)
+                                                                                      .map(t -> (OrderEntity) t.getEntity())
+                                                                                      .collect(Collectors.toList()));
+        if (commonOrders != null) Collections.sort(commonOrders, (o1, o2) -> o2.getDate().compareTo(o1.getDate()));
+        return commonOrders == null ? Lists.newArrayList() : commonOrders;
     }
 
     @Override

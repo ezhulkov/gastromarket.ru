@@ -114,18 +114,19 @@
 .t-error-popup
   display: none !important
 
-.t-error
-  border: 1 ps solid $redTextColor !important
-  ul
-    list-style-type: none !important
-    margin-bottom: 3*$gap !important
-    padding: 0
-    li
-      text-align: center !important
-      font-size: 16px !important
-      font-weight: bold !important
-      margin: 0 !important
-      color: $redTextColor
+input.t-error, textarea.t-error
+  border: 2px solid $redTextColor !important
+
+.t-error ul
+  list-style-type: none !important
+  margin-bottom: 3*$gap !important
+  padding: 0
+  li
+    text-align: center !important
+    font-size: 16px !important
+    font-weight: bold !important
+    margin: 0 !important
+    color: $redTextColor
 
 div.t-error
   border: none !important
@@ -225,6 +226,8 @@ label.t-error
   display: block
 
 .t-data-grid
+  table
+    width: 100%
   .t-data-grid-pager
     margin-left: 20px
     margin-bottom: 20px

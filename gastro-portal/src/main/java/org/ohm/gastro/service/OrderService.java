@@ -55,7 +55,7 @@ public interface OrderService {
 
     void closeOrder(OrderEntity order, int totalPrice, String survey, UserEntity caller);
 
-    List<OrderEntity> findCommonOrders(List<CommentEntity> commonComments);
+    List<OrderEntity> findCommonOrders(UserEntity author, UserEntity opponent);
 
     List<CommentEntity> findCommonComments(UserEntity author, UserEntity opponent);
 
