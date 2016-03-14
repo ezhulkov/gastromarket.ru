@@ -3,6 +3,7 @@ package org.ohm.gastro.gui.components.order;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.OrderEntity.Status;
+import org.ohm.gastro.domain.OrderEntity.Type;
 
 /**
  * Created by ezhulkov on 31.07.15.
@@ -24,8 +25,12 @@ public class StatusBadge extends AbstractOrder {
     @Inject
     private Block tenderReplyLinkBlock;
 
+    @Inject
+    private Block confirmationWaitBlock;
+
     public Block getOrderActionLinkBlock() {
         if (order == null || order.getId() == null) return null;
+        if (order.getStatus() == Status.NEW && order.getType() == Type.PRIVATE) return confirmationWaitBlock;
         if (order.getStatus() == Status.CANCELLED) return orderCancelledLinkBlock;
         if (order.getStatus() == Status.CLOSED) return orderClosedLinkBlock;
         if (order.getCatalog() != null) return catalogAttachedLinkBlock;
@@ -35,6 +40,10 @@ public class StatusBadge extends AbstractOrder {
 
     public boolean isShowClosed() {
         return !orderPage || !order.getCustomer().equals(getAuthenticatedUserSafe()) || order.isOrderClosedAndRated();
+    }
+
+    public Object[] getContext() {
+        return new Object[]{getAuthenticatedUser().getId(), order.getCatalog().getUser().getId()};
     }
 
 }

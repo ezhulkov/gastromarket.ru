@@ -3,18 +3,17 @@
     <section class="tender s600px">
         <div class="container">
             <div class="title">
-                <h1><span>Спасибо за заявку!</span></h1>
+                <h1><span>Спасибо за заказ!</span></h1>
             </div>
             <div class="row">
                 <p class="modal-text">
-                    Ваша заявка уже находится на модерации, которая займёт не более одного часа. <br/>
-                    После модерации мы пришлём вам письмо и заявка попадёт в общий список, который доступен для всех кулинаров.
+                    Детали вашего заказа уже отправлены кулинару, ближайшее время он свяжется с вами и начнёт исполнение заказа.<br/>
+                    Вы можете связаться с кулинаров и написать ему
+                    <t:pagelink page="office/messages/index" t:context="context">личное сообщение</t:pagelink>
                 </p>
                 <p class="modal-text">
-                    Кулинары будут оставлять свои предложения, уведомления о которых будут приходить вам на eMail.<br/>
-                    Вам останется только выбрать лучшее предложение и выбрать исполнителя, указав при этом адрес и время доставки.
+                    Список своих активных заказов вы можете найти на <t:pagelink page="office/order/list" t:context="[true,'ACTIVE']">странице управления заказами</t:pagelink>.
                 </p>
-
                 <p class="modal-text">Есть вопросы? Пишите на <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет заказы" class="red-text">contacts@gastromarket.ru</a>.</p>
                 <div class="gap3 text-center">
                     <div class="col-xs-12">

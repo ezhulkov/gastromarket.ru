@@ -50,8 +50,18 @@
                                     <input t:id="promoCode" class="form-control" placeholder="Промо код"/>
                                 </div>
                             </div>
+                            <t:if test="authenticated">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <textarea t:id="address" rows="5" class="form-control" placeholder="Адрес доставки"/>
+                                    </div>
+                                </div>
+                            </t:if>
                             <div class="text-left">
-                                <t:comment.injectPhotos directOrder="true" products="allProducts" caption="+ Выбрать примеры из каталога кулинара"/>
+                                <t:comment.injectPhotos t:id="injectPhotos"
+                                                        directOrder="true"
+                                                        products="allProducts"
+                                                        caption="+ Добавить фото или блюдо из каталога кулинара"/>
                             </div>
                             <div class="col-xs-12 gap">
                                 <div class="form-buttons">

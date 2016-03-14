@@ -54,11 +54,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public abstract class BaseComponent {
-
-    private static long count = 0;
 
     protected final Logger logger = LoggerFactory.getLogger(BaseComponent.class);
 
@@ -348,33 +345,42 @@ public abstract class BaseComponent {
         return getMessages().format(value + ".decl.*5-*0", count);
     }
 
+    public List<PhotoEntity> getOrderPhotos() {
+        final Session session = getRequest().getSession(false);
+        return session.getAttributeNames().stream()
+                .filter(t -> t.startsWith(FileType.PRODUCT.name()))
+                .filter(t -> session.getAttribute(t) != null)
+                .map(t -> {
+                    final PhotoEntity photo = new PhotoEntity();
+                    final String[] split = t.split("_");
+                    photo.setId(Long.parseLong(split[1]));
+                    photo.setProduct(getProductService().findProduct(Long.parseLong(split[1])));
+                    return photo;
+                }).collect(Collectors.toList());
+    }
+
     public List<PhotoEntity> getTenderPhotos() {
         final Session session = getRequest().getSession(false);
-        final Stream<PhotoEntity> directPhotos = session.getAttributeNames().stream()
+        return session.getAttributeNames().stream()
                 .filter(t -> t.startsWith(FileType.TENDER.name()))
+                .filter(t -> session.getAttribute(t) != null)
                 .map(t -> {
                     final Map<ImageSize, String> imageUrls = (Map<ImageSize, String>) session.getAttribute(t);
                     final PhotoEntity photo = new PhotoEntity();
-                    photo.setId(++count);
+                    photo.setId(Long.parseLong(t.split("_")[1]));
                     photo.setAvatarUrlSmall(imageUrls.get(ImageSize.SIZE1));
                     photo.setAvatarUrl(imageUrls.get(ImageSize.SIZE2));
                     photo.setAvatarUrlBig(imageUrls.get(ImageSize.SIZE3));
                     return photo;
-                });
-        final Stream<PhotoEntity> productPhotos = session.getAttributeNames().stream()
-                .filter(t -> t.startsWith(FileType.PRODUCT.name()))
-                .map(t -> {
-                    final PhotoEntity photo = new PhotoEntity();
-                    final String[] split = t.split("_");
-                    photo.setId(++count);
-                    photo.setProduct(getProductService().findProduct(Long.parseLong(split[1])));
-                    return photo;
-                });
-        return Stream.concat(productPhotos, directPhotos).collect(Collectors.toList());
+                }).collect(Collectors.toList());
     }
 
     public Optional<PhotoEntity> getTenderPhoto(Long id) {
         return getTenderPhotos().stream().filter(t -> id.equals(t.getId())).findFirst();
+    }
+
+    public Optional<PhotoEntity> getOrderPhoto(Long id) {
+        return getOrderPhotos().stream().filter(t -> id.equals(t.getId())).findFirst();
     }
 
     public boolean isProduction() {

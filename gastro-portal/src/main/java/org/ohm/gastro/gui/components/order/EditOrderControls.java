@@ -40,4 +40,8 @@ public class EditOrderControls extends AbstractOrder {
         return true;
     }
 
+    public Object[] getContext() {
+        return new Object[]{order.getCustomer().getId(), order.getCatalog().getUser().getId()};
+    }
+
 }

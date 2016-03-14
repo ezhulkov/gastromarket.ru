@@ -16,8 +16,6 @@ import org.apache.tapestry5.services.Session;
 import org.ohm.gastro.domain.AltIdBaseEntity;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
-import org.ohm.gastro.domain.OrderEntity.Status;
-import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.components.comment.InjectPhotos;
@@ -52,11 +50,14 @@ public class Order extends AbstractPage {
     @Component(id = "name", parameters = {"value=order.name", "validate=required"})
     private TextField name;
 
-    @Component(id = "comment", parameters = {"value=order.comment", "validate=required"})
+    @Component(id = "comment", parameters = {"value=order.comment"})
     private TextArea comment;
 
     @Component(id = "mobile", parameters = {"value=mobile", "validate=required"})
     private TextField mobileField;
+
+    @Component(id = "address", parameters = {"value=authenticatedUser.deliveryAddress", "validate=required"})
+    private TextArea address;
 
     @Component(id = "dueDate", parameters = {"value=order.dueDateAsString", "validate=required"})
     private TextField dueDate;
@@ -101,11 +102,12 @@ public class Order extends AbstractPage {
     public Object onActivate(String altId) {
         catalog = getCatalogService().findCatalog(altId);
         if (catalog == null) return new HttpError(404, "Page not found.");
-        cartProducts = getShoppingCart().getItems(catalog).stream().map(t -> (ProductEntity) t.getEntity()).collect(Collectors.toList());
-        cartProducts.forEach(p -> {
-            final Session session = getRequest().getSession(false);
-            session.setAttribute(FileType.PRODUCT + "_" + p.getId(), "product");
-        });
+        cartProducts = getShoppingCart().getItems(catalog).stream()
+                .filter(t -> t.getEntity() instanceof ProductEntity)
+                .map(t -> (ProductEntity) t.getEntity())
+                .collect(Collectors.toList());
+        final Session session = getRequest().getSession(false);
+        cartProducts.forEach(p -> session.setAttribute(FileType.PRODUCT + "_" + p.getId(), 1));
         return null;
     }
 
@@ -118,7 +120,9 @@ public class Order extends AbstractPage {
     }
 
     public void onPrepareFromOrderInfoForm() {
-        if (order == null) order = new OrderEntity();
+        final Session session = getRequest().getSession(false);
+        injectPhotos.getSubmittedPhotos().forEach(p -> session.setAttribute(FileType.PRODUCT + "_" + p.getId(), 1));
+        if (order == null || order.getId() != null) order = new OrderEntity();
         if (mobile == null) mobile = getAuthenticatedUserOpt().map(UserEntity::getMobilePhone).orElse(null);
         order.setName(cartProducts.stream().findFirst().map(AltIdBaseEntity::getName).orElse(""));
     }
@@ -149,14 +153,8 @@ public class Order extends AbstractPage {
                 if (i > 0) order.setTotalPrice(i);
             }
         }
-        order.setStatus(Status.NEW);
-        order.setCustomer(getAuthenticatedUser());
-        final OrderEntity newOrder = getOrderService().saveOrder(order);
-        java.util.List<PhotoEntity> photos = getTenderPhotos();
-        photos = photos.stream().peek(t -> t.setId(null)).collect(Collectors.toList());
-        getPhotoService().attachPhotos(newOrder, photos);
-        getOrderService().placeOrder(order);
-        return getPageLinkSource().createPageRenderLink(OrderResults.class);
+        getOrderService().placeOrder(order, getOrderPhotos(), getAuthenticatedUser(), catalog);
+        return getPageLinkSource().createPageRenderLinkWithContext(OrderResults.class, order.getId());
     }
 
     @Override

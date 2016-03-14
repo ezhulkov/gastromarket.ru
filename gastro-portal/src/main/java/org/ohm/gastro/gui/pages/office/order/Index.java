@@ -43,7 +43,7 @@ public class Index extends AbstractPage {
 
     @Override
     public String getTitle() {
-        return order == null ? "" : order.isTender() ? order.getName() : order.getOrderNumber();
+        return order == null ? "" : order.getOrderName();
     }
 
     @Override

@@ -61,8 +61,8 @@ public abstract class AbstractOrder extends BaseComponent {
         return type == Type.FULL;
     }
 
-    public int getTotal() {
-        return order == null ? getShoppingCart().getCatalogPrice(catalog) : order.getTotalPrice();
+    public Integer getTotal() {
+        return order.getTotalPrice();
     }
 
     public CatalogEntity getCatalog() {

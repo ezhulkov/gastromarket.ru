@@ -86,7 +86,7 @@
                     <span class="price">${offer.price} <span class="rub"/></span>
                 </div>
                 <div class="col-lg-9 col-md-8 col-sm-9 col-xs-12">
-                    <t:order.add entity="offer"/>
+                    <!--<t:order.add entity="offer"/>-->
                 </div>
             </div>
         </t:if>

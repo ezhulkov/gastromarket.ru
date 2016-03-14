@@ -1,28 +1,23 @@
 #set($subject = "Новый заказ на ГастроМаркет")
 #set($toadmin = true)
+#set($params = "")
 #parse("email/header.vm")
 <p>
-    Мы получили новый заказ №${ordernumber}.
+    Новый заказ "${order.orderName}" от заказчика ${customer.fullName}
 </p>
 <p>
-    <b>Детали заказа:</b><br/>
-    <ol>
-        #foreach( $product in $products )
-            <li>
-                ${product.entity.name} x ${product.count} &mdash; ${product.price} руб.
-                #if( $product.modifier )
-                    <br/>
-                    <i>&mdash; ${product.modifier.description}</i>
-                #end
-            </li>
-        #end
-    </ol>
-    Промо код: ${order.promoCode}<br/>
-    Комментарий к заказу: ${comment}<br/>
-    <b>Общая стоимость заказа: ${total} руб.</b>
+    #if(${total}) Бюджет: ${total} руб. #else Открытый бюджет#end<br/>
+    Комментарий: $comment<br/>
+    Исполнитель: ${order.catalog.name}<br/>
 </p>
 <p>
-    eMail покупателя: $customer.email<br/>
-    Имя покупателя: $customer.fullName<br/>
+    Дата исполнения: $date<br/>
+    Телефон заказчика: $customer.mobilePhone<br/>
+    Адрес доставки: $customer.deliveryAddress<br/>
+</p>
+<p>
+    #foreach( $photo in $photos )
+    <a href="${address}?${params}"><img src="https://gastromarket.ru/${photo.avatarUrlSmall}" width="137px" height="98px"/></a>
+    #end
 </p>
 #parse("email/footer.vm")

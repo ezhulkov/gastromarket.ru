@@ -31,6 +31,7 @@
                         <t:pagelink page="office/order/close" t:context="order.id">Завершить выполнение заказа<span/></t:pagelink>
                     </t:if>
                 </t:if>
+                <t:pagelink page="office/messages/index" t:context="context">Личное сообщение<span/></t:pagelink>
             </t:unless>
             <t:if test="needRate">
                 &nbsp;
