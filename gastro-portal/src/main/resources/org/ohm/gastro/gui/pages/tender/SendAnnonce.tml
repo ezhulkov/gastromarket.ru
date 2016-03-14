@@ -7,7 +7,7 @@
             </div>
             <div class="row">
                 <p class="modal-text">
-                    Заказ: ${order.orderNumber}<br/>
+                    Заказ: ${order.orderName}<br/>
                     Отправлено: ${sent}
                 </p>
             </div>

@@ -130,7 +130,6 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
             final Map<String, Object> params = new HashMap<String, Object>() {
                 {
                     put("products", order.getProducts());
-                    put("ordernumber", order.getOrderNumber());
                     put("customer", order.getCustomer());
                     put("comment", ObjectUtils.defaultIfNull(order.getComment(), "-"));
                     put("cook", order.getCatalog());
@@ -505,11 +504,6 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
                 put("tender", localTender);
             }
         };
-        if (!tender.isCookRate()) {
-            params.put("username", localTender.getCatalog().getUser().getFullName());
-            params.put("cook", true);
-            mailService.sendMailMessage(localTender.getCatalog().getUser(), MailService.MailType.ORDER_RATE_REMINDER, params);
-        }
         if (!tender.isClientRate()) {
             params.put("username", localTender.getCustomer().getFullName());
             params.put("cook", false);
@@ -552,7 +546,6 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
             {
                 put("status", status);
                 put("products", order.getProducts());
-                put("ordernumber", order.getOrderNumber());
                 put("customer", order.getCustomer());
                 put("comment", ObjectUtils.defaultIfNull(order.getComment(), "-"));
                 put("cook", order.getCatalog());

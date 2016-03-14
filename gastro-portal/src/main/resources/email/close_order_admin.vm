@@ -2,23 +2,12 @@
 #set($toadmin = true)
 #parse("email/header.vm")
 <p>
-    Заказ №${ordernumber} закрыт.
+    Заказ "${order.orderName}" закрыт.
 </p>
 <p>
-    <b>Детали заказа:</b><br/>
-    <ol>
-        #foreach( $product in $products )
-            <li>
-                ${product.entity.name} x ${product.count} &mdash; ${product.price} руб.
-                #if( $product.modifier )
-                    <br/>
-                    <i>&mdash; ${product.modifier.description}</i>
-                #end
-            </li>
-        #end
-    </ol>
-    Комментарий к заказу: <br/>${comment}<br/>
-    <b>Общая стоимость заказа: ${total} руб.</b>
+    Заказчик: ${order.customer.fullName}<br/>
+    Кулинар: ${order.catalog.name}<br/>
+    Стоимость: ${order.totalPrice}<br/>
 </p>
 <p>
     Советы ГастроМаркету: ${survey}
