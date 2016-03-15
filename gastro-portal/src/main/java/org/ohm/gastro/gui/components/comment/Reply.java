@@ -7,6 +7,7 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.ohm.gastro.domain.CommentEntity;
 import org.ohm.gastro.domain.OrderEntity;
+import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
@@ -69,7 +70,9 @@ public class Reply extends BaseComponent {
 
         final boolean newComment = comment.getId() == null;
         getConversationService().saveComment(comment);
-        getPhotoService().attachPhotos(comment, injectPhotos.getSubmittedPhotos());
+        final java.util.List<PhotoEntity> photos = injectPhotos.getSubmittedPhotos();
+        injectPhotos.purgeSubmittedPhotos();
+        getPhotoService().attachPhotos(comment, photos);
         if (newComment) {
             getConversationService().placeTenderReply(order, comment, getAuthenticatedUser());
         }

@@ -36,7 +36,7 @@
                                     <t:label for="dislike">Нужны доработки</t:label>
                                 </t:radiogroup>
                             </div>
-                            <input t:type="textarea" t:id="text" t:value="text" rows="5" t:validate="required" class="form-control"/>
+                            <input t:type="textarea" t:id="text" t:value="text" rows="5" class="form-control"/>
                         </div>
                         <t:comment.injectPhotos/>
                         <div class="clearfix"></div>

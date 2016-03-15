@@ -17,7 +17,13 @@
 </p>
 <p>
     #foreach( $photo in $photos )
-    <a href="${address}?${params}"><img src="https://gastromarket.ru/${photo.avatarUrlSmall}" width="137px" height="98px"/></a>
+    <a href="${address}?${params}">
+        #if(${photo.product})
+            <img src="https://gastromarket.ru/${photo.product.avatarUrlSmall}" width="137px" height="98px"/>
+        #else
+            <img src="https://gastromarket.ru/${photo.avatarUrlSmall}" width="137px" height="98px"/>
+        #end
+    </a>
     #end
 </p>
 #parse("email/footer.vm")

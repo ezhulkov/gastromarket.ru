@@ -135,7 +135,9 @@ public class ImageServiceImpl implements ImageService {
                     return new Object[]{imageSize, imageDestinationUrl + imageName};
                 })).collect(Collectors.toMap(t -> (ImageSize) t[0], t -> (String) t[1]));
         Logging.logger.debug("Final image set {}", imageUrls);
-        imageUploaderServiceMap.getOrDefault(fileType, Optional.empty()).ifPresent(bean -> bean.processUploadedImages(fileType, objectId, imageUrls));
+        imageUploaderServiceMap
+                .getOrDefault(fileType, Optional.empty())
+                .ifPresent(bean -> bean.processUploadedImages(fileType, objectId, imageUrls));
         return imageUrls;
     }
 

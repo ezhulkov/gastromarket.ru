@@ -1,7 +1,9 @@
 package org.ohm.gastro.domain;
 
+import com.google.common.collect.Maps;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.ohm.gastro.service.ImageService.ImageSize;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.Map;
 
 /**
  * Created by ezhulkov on 27.08.14.
@@ -144,6 +147,14 @@ public class PhotoEntity extends AbstractBaseEntity {
 
     public String getLinkAvatarBig() {
         return product == null ? avatarUrlBig : product.getAvatarUrlBig();
+    }
+
+    public Map<ImageSize, String> getImagesSet() {
+        final Map<ImageSize, String> map = Maps.newHashMap();
+        map.put(ImageSize.SIZE1, getAvatarUrlSmall());
+        map.put(ImageSize.SIZE2, getAvatarUrl());
+        map.put(ImageSize.SIZE3, getAvatarUrlBig());
+        return map;
     }
 
 }

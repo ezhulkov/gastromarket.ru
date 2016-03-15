@@ -82,7 +82,7 @@ public abstract class AbstractOrder extends BaseComponent {
     }
 
     public boolean isOrderConfirmed() {
-        return order.getType() == OrderEntity.Type.PRIVATE && order.getStatus().getLevel() > Status.NEW.getLevel();
+        return order.getType() == OrderEntity.Type.PUBLIC || order.getStatus().getLevel() > Status.NEW.getLevel();
     }
 
     public boolean isOrderExecutor() {

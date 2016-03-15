@@ -241,7 +241,7 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
         final UserEntity cook = author.isCook() ? author : opponent.isCook() ? opponent : null;
         final UserEntity user = author.equals(cook) ? opponent : author;
         final List<OrderEntity> commonOrders = CommonsUtils.coalesceEmptyLazy(orderRepository.findAllByCookAndCustomer(cook, user).stream()
-                                                                                      .filter(t -> !t.isOrderClosedAndRated())
+                                                                                      .filter(t -> !t.isOrderClosed())
                                                                                       .collect(Collectors.toList()),
                                                                               () -> findCommonComments(author, opponent).stream()
                                                                                       .filter(t -> t.getEntity() instanceof OrderEntity)

@@ -75,7 +75,7 @@ public class Add extends AbstractPage {
     }
 
     public void onPrepareFromTenderInfoForm() {
-        if (tender == null) tender = new OrderEntity();
+        if (tender == null || tender.getId() != null) tender = new OrderEntity();
         if (mobile == null) mobile = getAuthenticatedUserOpt().map(UserEntity::getMobilePhone).orElse(null);
     }
 
@@ -106,6 +106,7 @@ public class Add extends AbstractPage {
         photos = photos.stream().peek(t -> t.setId(null)).collect(Collectors.toList());
         getPhotoService().attachPhotos(newTender, photos);
         getOrderService().placeTender(newTender, getAuthenticatedUser());
+        purgeTenderPhotos();
         return getPageLinkSource().createPageRenderLinkWithContext(AddResults.class, newTender.getId());
     }
 

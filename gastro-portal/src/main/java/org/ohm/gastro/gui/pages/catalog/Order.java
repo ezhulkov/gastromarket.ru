@@ -16,6 +16,7 @@ import org.apache.tapestry5.services.Session;
 import org.ohm.gastro.domain.AltIdBaseEntity;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
+import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.ProductEntity;
 import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.components.comment.InjectPhotos;
@@ -107,7 +108,7 @@ public class Order extends AbstractPage {
                 .map(t -> (ProductEntity) t.getEntity())
                 .collect(Collectors.toList());
         final Session session = getRequest().getSession(false);
-        cartProducts.forEach(p -> session.setAttribute(FileType.PRODUCT + "_" + p.getId(), 1));
+        cartProducts.forEach(p -> session.setAttribute(FileType.PRODUCT + "_" + p.getId(), p.getImagesSet()));
         return null;
     }
 
@@ -121,7 +122,10 @@ public class Order extends AbstractPage {
 
     public void onPrepareFromOrderInfoForm() {
         final Session session = getRequest().getSession(false);
-        injectPhotos.getSubmittedPhotos().forEach(p -> session.setAttribute(FileType.PRODUCT + "_" + p.getId(), 1));
+        injectPhotos.getSubmittedPhotos().forEach(p -> {
+            logger.info("!!! " + p.getProduct());
+            session.setAttribute(FileType.PRODUCT + "_" + p.getId(), p.getImagesSet());
+        });
         if (order == null || order.getId() != null) order = new OrderEntity();
         if (mobile == null) mobile = getAuthenticatedUserOpt().map(UserEntity::getMobilePhone).orElse(null);
         order.setName(cartProducts.stream().findFirst().map(AltIdBaseEntity::getName).orElse(""));
@@ -153,7 +157,13 @@ public class Order extends AbstractPage {
                 if (i > 0) order.setTotalPrice(i);
             }
         }
-        getOrderService().placeOrder(order, getOrderPhotos(), getAuthenticatedUser(), catalog);
+        final java.util.List<PhotoEntity> photos = injectPhotos.getSubmittedPhotos();
+        injectPhotos.purgeSubmittedPhotos();
+        purgeOrderPhotos();
+        getOrderService().placeOrder(order, photos, getAuthenticatedUser(), catalog);
+//        getOrderService().placeOrder(order, getOrderPhotos(), getAuthenticatedUser(), catalog);
+//        purgeOrderPhotos();
+//        injectPhotos.purgeSubmittedPhotos();
         return getPageLinkSource().createPageRenderLinkWithContext(OrderResults.class, order.getId());
     }
 

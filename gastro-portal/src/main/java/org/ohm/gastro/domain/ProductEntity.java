@@ -6,6 +6,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.ohm.gastro.service.ImageService.ImageSize;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -269,4 +270,14 @@ public class ProductEntity extends SitemapBaseEntity implements PurchaseEntity {
     public void setImportSourceUrl(final String importSourceUrl) {
         this.importSourceUrl = importSourceUrl;
     }
+
+    public Map<ImageSize, String> getImagesSet() {
+        final Map<ImageSize, String> map = Maps.newHashMap();
+        map.put(ImageSize.SIZE1, getAvatarUrlSmall());
+        map.put(ImageSize.SIZE2, getAvatarUrlMedium());
+        map.put(ImageSize.SIZE3, getAvatarUrl());
+        map.put(ImageSize.SIZE4, getAvatarUrlBig());
+        return map;
+    }
+
 }

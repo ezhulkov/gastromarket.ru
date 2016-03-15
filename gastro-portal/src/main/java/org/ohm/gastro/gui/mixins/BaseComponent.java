@@ -383,6 +383,16 @@ public abstract class BaseComponent {
         return getOrderPhotos().stream().filter(t -> id.equals(t.getId())).findFirst();
     }
 
+    public void purgeTenderPhotos() {
+        final Session session = getRequest().getSession(false);
+        session.getAttributeNames().stream().filter(t -> t.startsWith(FileType.TENDER.name())).forEach(t -> session.setAttribute(t, null));
+    }
+
+    public void purgeOrderPhotos() {
+        final Session session = getRequest().getSession(false);
+        session.getAttributeNames().stream().filter(t -> t.startsWith(FileType.PRODUCT.name())).forEach(t -> session.setAttribute(t, null));
+    }
+
     public boolean isProduction() {
         return Boolean.parseBoolean(properties.getProperty("production", "false"));
     }

@@ -20,6 +20,10 @@ public class Index extends AbstractPage {
     @Property
     private Block orderBlock;
 
+    public boolean onActivate(boolean b, Long orderId) {
+        return onActivate(orderId);
+    }
+
     public boolean onActivate(Long orderId) {
         this.order = getOrderService().findOrder(orderId);
         return true;

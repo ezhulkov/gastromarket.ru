@@ -210,10 +210,8 @@ public class ConversationServiceImpl implements ConversationService, Logging {
     @Override
     public void setLastSeenDate(ConversationEntity conversation, UserEntity user) {
         if (conversation.getAuthor().equals(user)) {
-            conversation.setLastActionDate(new Date());
             conversation.setAuthorLastSeenDate(new Date());
         } else if (conversation.getOpponent().equals(user)) {
-            conversation.setLastActionDate(new Date());
             conversation.setOpponentLastSeenDate(new Date());
         }
         conversationRepository.save(conversation);
@@ -294,6 +292,7 @@ public class ConversationServiceImpl implements ConversationService, Logging {
             final ConversationEntity conversation = (ConversationEntity) entity;
             final UserEntity opponent = conversation.getOpponent(author).get();
             setLastSeenDate(conversation, author);
+            conversation.setLastActionDate(new Date());
             conversationRepository.save(conversation);
             mailService.scheduleSend(opponent, MailService.MailType.NEW_MESSAGE, t -> {
                 final Map<String, Object> params = new HashMap<String, Object>() {

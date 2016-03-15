@@ -1,6 +1,7 @@
 package org.ohm.gastro.gui.components.comment;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.ValueEncoder;
 import org.apache.tapestry5.annotations.Cached;
@@ -29,7 +30,7 @@ import java.util.stream.Collectors;
  */
 public class InjectPhotos extends BaseComponent {
 
-    private static long counter = 0;
+    private final static Random RANDOM = new Random(System.currentTimeMillis());
 
     @Property
     @Parameter
@@ -67,10 +68,13 @@ public class InjectPhotos extends BaseComponent {
 
     private PhotoEntity photo;
 
-    private Random rnd = new Random(System.currentTimeMillis());
+    public void purgeSubmittedPhotos() {
+        this.submittedPhotos.clear();
+    }
 
     public List<PhotoEntity> getSubmittedPhotos() {
-        return submittedPhotos.stream().filter(t -> t.getId() != null).collect(Collectors.toList());
+        final List<PhotoEntity> photos = submittedPhotos.stream().filter(t -> t.getId() != null).collect(Collectors.toList());
+        return Lists.newArrayList(photos);
     }
 
     @Cached
@@ -88,19 +92,19 @@ public class InjectPhotos extends BaseComponent {
             @Override
             public PhotoEntity toValue(String id) {
                 long pid = Long.parseLong(id);
-                if (tender) return getTenderPhoto(pid).orElse(null);
-                if (directOrder) return getOrderPhoto(pid).orElse(null);
-                return getPhotoService().findPhoto(pid);
+                if (tender) return getTenderPhoto(pid).orElseGet(PhotoEntity::new);
+                if (directOrder) return getOrderPhoto(pid).orElseGet(PhotoEntity::new);
+                return ObjectUtils.defaultIfNull(getPhotoService().findPhoto(pid), new PhotoEntity());
             }
         };
     }
 
     public PhotoEntity onAddRow() {
-        if (tender || directOrder) {
-            final PhotoEntity photo = new PhotoEntity();
-            photo.setId(++counter);
-            return photo;
-        }
+//        if (tender || directOrder) {
+//            final PhotoEntity photo = new PhotoEntity();
+//            photo.setId(RANDOM.nextLong());
+//            return photo;
+//        }
         return getPhotoService().createPhoto(getType());
     }
 

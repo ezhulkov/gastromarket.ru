@@ -355,7 +355,7 @@ function initFineUploader(el) {
             },
             validation: {
                 allowedExtensions: ['jpeg', 'jpg', 'png'],
-                sizeLimit: 10485760,
+                sizeLimit: 20971520,
                 itemLimit: 1
             }
         }).on("submit", function (id, name) {

@@ -14,6 +14,7 @@ import org.ohm.gastro.service.ImageService.FileType;
 import org.ohm.gastro.service.ImageService.ImageSize;
 import org.ohm.gastro.service.ImageUploader;
 import org.ohm.gastro.service.PhotoService;
+import org.ohm.gastro.trait.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +31,7 @@ import static org.scribe.utils.Preconditions.checkNotNull;
 @Component("photoService")
 @Transactional
 @ImageUploader(FileType.PHOTO)
-public class PhotoServiceImpl implements PhotoService {
+public class PhotoServiceImpl implements PhotoService, Logging {
 
     private final PhotoRepository photoRepository;
     private final UserRepository userRepository;
@@ -95,7 +96,8 @@ public class PhotoServiceImpl implements PhotoService {
     }
 
     private void attachPhotos(final CommentEntity comment, final OrderEntity order, final OfferEntity offer, final List<PhotoEntity> submittedPhotos) {
-        submittedPhotos.forEach(photo -> {
+        submittedPhotos.stream().filter(p -> p != null).forEach(photo -> {
+            if (photo.getId() != null) photo = photoRepository.findOne(photo.getId());
             photo.setComment(comment);
             photo.setOrder(order);
             photo.setOffer(offer);
@@ -111,7 +113,7 @@ public class PhotoServiceImpl implements PhotoService {
         photo.setAvatarUrlSmall(imageUrls.get(ImageSize.SIZE1));
         photo.setAvatarUrl(imageUrls.get(ImageSize.SIZE2));
         photo.setAvatarUrlBig(imageUrls.get(ImageSize.SIZE3));
-        photoRepository.saveAndFlush(photo);
+        photoRepository.save(photo);
     }
 
     @Override
