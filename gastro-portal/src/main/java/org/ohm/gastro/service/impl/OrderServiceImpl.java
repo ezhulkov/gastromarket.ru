@@ -125,7 +125,6 @@ public class OrderServiceImpl implements Runnable, OrderService, Logging {
         order.getProducts().stream().forEach(p -> p.setOrder(order));
         orderProductRepository.save(order.getProducts());
         order.setOrderNumber(Long.toString(order.getId()));
-        photos.forEach(p -> p.setId(null));
         photService.attachPhotos(order, photos);
         logger.info("New private order received {}, customer {}, catalog {}, photos {}", order, order.getCustomer(), order.getCatalog(), order.getPhotos());
         try {
