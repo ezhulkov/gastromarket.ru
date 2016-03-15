@@ -13,18 +13,18 @@
                 </div>
             </div>
             <div class="col-sm-7 col-xs-12">
-                <t:if test="tender">
-                    <div class="form-group">
-                        <t:uploadfile type="TENDER" responseSize="SIZE2" objectId="${photo.id}" inputType="button" imageSelector="#photo-${photo.id}"/>
-                    </div>
-                </t:if>
-                <t:if test="directOrder">
-                    <div class="form-group">
-                        <t:uploadfile type="ORDER" responseSize="SIZE2" objectId="${photo.id}" inputType="button" imageSelector="#photo-${photo.id}"/>
-                    </div>
-                </t:if>
-                <t:unless test="tender">
-                    <t:unless test="directOrder">
+                <!--<t:if test="tender">-->
+                    <!--<div class="form-group">-->
+                        <!--<t:uploadfile type="TENDER" responseSize="SIZE2" objectId="${photo.id}" inputType="button" imageSelector="#photo-${photo.id}"/>-->
+                    <!--</div>-->
+                <!--</t:if>-->
+                <!--<t:if test="directOrder">-->
+                    <!--<div class="form-group">-->
+                        <!--<t:uploadfile type="ORDER" responseSize="SIZE2" objectId="${photo.id}" inputType="button" imageSelector="#photo-${photo.id}"/>-->
+                    <!--</div>-->
+                <!--</t:if>-->
+                <!--<t:unless test="tender">-->
+                    <!--<t:unless test="directOrder">-->
                         <div class="form-group">
                             <t:uploadfile type="PHOTO" objectId="${photo.id}" inputType="button" imageSelector="#photo-${photo.id}" withTools="true" imageHeight="101" imageWidth="140"/>
                         </div>
@@ -35,12 +35,10 @@
                         <t:select t:id="photoProduct" class="form-control chosen-select" data-placeholder="или блюдо из каталога"/>
                     </div>
                 </t:if>
-                <t:unless test="directOrder">
-                    <t:unless test="tender">
-                        <div class="form-group">
-                            <t:textfield t:id="photoText" class="form-control" placeholder="Текст к фотографии"/>
-                        </div>
-                    </t:unless>
+                <t:unless test="tender">
+                    <div class="form-group">
+                        <t:textfield t:id="photoText" class="form-control" placeholder="Текст к фотографии"/>
+                    </div>
                 </t:unless>
             </div>
             <div class="hidden-lg hidden-md hidden-sm col-xs-12">
