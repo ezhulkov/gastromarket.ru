@@ -38,7 +38,7 @@
                             <a data-target="#choose_cook_${commonComment.id}" href="#choose_cook" data-toggle="modal" class="attach">Выбрать исполнителем</a>
                         </t:if>
                         <span class="hidden-xs">Обсуждение заказа&nbsp;</span>
-                        <t:pagelink page="tender/index" t:context="commonOrder.id">"${commonOrder.orderName}"</t:pagelink>
+                        <a href="${commonOrder.orderUrl}">"${commonOrder.orderName}"</a>
                     </div>
                 </div>
             </div>

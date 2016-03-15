@@ -61,7 +61,7 @@ public class Attach extends AbstractOrder {
         tender.setAttachReason(attachReason);
         tender.setTotalPrice(tp);
         getOrderService().attachTender(catalog, tender, getAuthenticatedUser());
-        return getPageLinkSource().createPageRenderLinkWithContext(Index.class, true, tender.getId(), false);
+        return getPageLinkSource().createPageRenderLinkWithContext(Index.class, tender.getId(), false);
     }
 
 }

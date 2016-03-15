@@ -4,8 +4,10 @@
         <div class="container">
             <div class="title">
                 <h1><span>${catalog.name}</span></h1>
-                <t:if test="commonComments">
-                    <t:pagelink page="office/messages/index" t:context="context">Личное сообщение<span/></t:pagelink>
+                <t:if test="catalog.directOrder">
+                    <t:unless test="catalogOwner">
+                        <t:pagelink page="catalog/order" context="catalog.altId">Прямой заказ<span/></t:pagelink>
+                    </t:unless>
                 </t:if>
             </div>
             <t:if test="catalogOwner">

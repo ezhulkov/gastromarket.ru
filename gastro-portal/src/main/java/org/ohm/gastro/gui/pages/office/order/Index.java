@@ -17,28 +17,24 @@ public class Index extends AbstractPage {
     private OrderEntity order;
 
     @Property
-    private boolean privateOrders;
-
-    @Property
     private boolean newOrder;
 
     @Inject
     @Property
     private Block orderBlock;
 
-    public boolean onActivate(boolean privateOrders, Long orderId, boolean newOrder) {
+    public boolean onActivate(Long orderId, boolean newOrder) {
         this.order = getOrderService().findOrder(orderId);
         this.newOrder = !isCook() && newOrder;
-        this.privateOrders = privateOrders;
         return true;
     }
 
-    public boolean onActivate(boolean privateOrders, Long orderId) {
-        return onActivate(privateOrders, orderId, false);
+    public boolean onActivate(Long orderId) {
+        return onActivate(orderId, false);
     }
 
     public Object[] onPassivate() {
-        return newOrder ? new Object[]{privateOrders, order.getId(), newOrder} : new Object[]{privateOrders, order.getId()};
+        return newOrder ? new Object[]{order.getId(), newOrder} : new Object[]{order.getId()};
     }
 
     @Override

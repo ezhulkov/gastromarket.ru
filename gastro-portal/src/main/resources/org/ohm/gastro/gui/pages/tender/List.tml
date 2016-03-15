@@ -13,7 +13,7 @@
                 <t:delegate to="ordersBlock"/>
             </t:zone>
             <t:block t:id="ordersBlock">
-                <t:order.list status="prop:status" privateOrders="false" frontend="true"/>
+                <t:order.list status="prop:status" frontend="true"/>
             </t:block>
         </div>
     </section>

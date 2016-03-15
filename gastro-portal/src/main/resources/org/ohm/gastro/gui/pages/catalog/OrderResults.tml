@@ -12,7 +12,7 @@
                     <t:pagelink page="office/messages/index" t:context="context">личное сообщение</t:pagelink>
                 </p>
                 <p class="modal-text">
-                    Список своих активных заказов вы можете найти на <t:pagelink page="office/order/list" t:context="[true,'ACTIVE']">странице управления заказами</t:pagelink>.
+                    Список своих активных заказов вы можете найти на <t:pagelink page="office/order/list" t:context="'NEW'">странице управления заказами</t:pagelink>.
                 </p>
                 <p class="modal-text">Есть вопросы? Пишите на <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет заказы" class="red-text">contacts@gastromarket.ru</a>.</p>
                 <div class="gap3 text-center">

@@ -5,7 +5,7 @@
             <div class="title">
                 <h1><span>${order.orderName}</span></h1>
             </div>
-            <t:order.filter status="order.metaStatus" privateOrders="privateOrders"/>
+            <t:order.filter status="order.metaStatus"/>
             <t:zone t:id="orderZone">
                 <t:delegate to="orderBlock"/>
             </t:zone>
@@ -23,7 +23,7 @@
                             <t:yagoal goal="TENDER_ATTACH"/>
                             <t:fbgoal goal="Purchase"/>
                         </t:if>
-                        <t:order.order order="order" type="FULL" orderPage="true" privateOrders="privateOrders" replies="true"/>
+                        <t:order.order order="order" type="FULL" orderPage="true" replies="true"/>
                     </div>
                 </div>
             </t:block>

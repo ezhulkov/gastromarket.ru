@@ -362,7 +362,7 @@ public class OrderEntity extends SitemapBaseEntity implements CommentableEntity 
     public String getOrderUrl() {
         return getCatalog() == null ?
                 String.format("https://gastromarket.ru/tender/%s", getId()) :
-                String.format("https://gastromarket.ru/office/order/true/%s", getId());
+                String.format("https://gastromarket.ru/office/order/%s", getId());
     }
 
     @Override

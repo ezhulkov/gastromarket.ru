@@ -163,10 +163,6 @@ public class Index extends AbstractCatalogPage {
         );
     }
 
-    public java.util.List<CommentEntity> getCommonComments() {
-        return isAuthenticated() ? getOrderService().findCommonComments(getAuthenticatedUser(), catalog.getUser()) : Lists.newArrayList();
-    }
-
     public Object[] getContext() {
         return new Object[]{getAuthenticatedUser().getId(), catalog.getUser().getId()};
     }

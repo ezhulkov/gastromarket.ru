@@ -17,7 +17,7 @@ public class Cart extends AbstractPage {
     private CatalogEntity catalog;
 
     public Object onActivate() {
-        if (isAuthenticated()) return getPageLinkSource().createPageRenderLinkWithContext(List.class, true, Status.NEW);
+        if (isAuthenticated()) return getPageLinkSource().createPageRenderLinkWithContext(List.class, Status.NEW);
         return true;
     }
 

@@ -15,19 +15,11 @@ public class Filter extends BaseComponent {
     private OrderEntity.Status status;
 
     @Property
-    @Parameter(allowNull = false, required = true)
-    private boolean privateOrders;
-
-    @Property
     @Parameter(value = "false")
     private boolean frontend;
 
     public String getStatusName() {
         return status == null ? "all" : status.name().toLowerCase();
-    }
-
-    public String getTypeName() {
-        return privateOrders ? "orders" : "tenders";
     }
 
 }

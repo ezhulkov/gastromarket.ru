@@ -1,48 +1,28 @@
 <section xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
-    <t:if test="fromCart">
-        <t:loop source="catalogs" value="catalog" formState="NONE">
+    <t:grid t:source="orders" row="order" include="id" t:mixins="GridSortingDisabled" rowsPerPage="10" class="notable">
+        <t:parameter name="idHeader"></t:parameter>
+        <t:parameter name="idCell">
             <div class="row">
                 <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
-                    <t:order.order catalog="catalog" type="BASKET" privateOrders="true" frontend="false"/>
+                    <t:order.order order="order" type="FULL" frontend="frontend"/>
                 </div>
             </div>
-            <t:parameter name="empty">
-                <div class="row">
-                    <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
-                        <div class="empty">
-                            У вас нет открытых заказов в корзине<br/>
-                            Перейдите в
-                            <t:pagelink page="catalog/list">каталог</t:pagelink>
-                            и начните поиск.
-                        </div>
-                    </div>
-                </div>
-            </t:parameter>
-        </t:loop>
-    </t:if>
-    <t:unless test="fromCart">
-        <t:grid t:source="orders" row="order" include="id" t:mixins="GridSortingDisabled" rowsPerPage="10" class="notable">
-            <t:parameter name="idHeader"></t:parameter>
-            <t:parameter name="idCell">
-                <div class="row">
-                    <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
-                        <t:order.order order="order" type="FULL" privateOrders="privateOrders" frontend="frontend"/>
-                    </div>
-                </div>
-            </t:parameter>
-            <t:parameter name="empty">
-                <t:unless test="privateOrders">
+        </t:parameter>
+        <t:parameter name="empty">
+            <t:unless test="frontend">
+                <t:if test="user">
                     <div class="row">
                         <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
                             <div class="empty">
-                                У вас нет активных заявок<br/>
-                                Но вы всегда можете
-                                <t:pagelink page="tender/add">разместить новую заявку</t:pagelink>
+                                У вас пока нет заказов.<br/>
+                                Но вы всегда можете разместить
+                                <t:pagelink page="tender/add">новую заявку</t:pagelink>
+                                или прямой заказ у одного из кулинаров.
                             </div>
                         </div>
                     </div>
-                </t:unless>
-            </t:parameter>
-        </t:grid>
-    </t:unless>
+                </t:if>
+            </t:unless>
+        </t:parameter>
+    </t:grid>
 </section>

@@ -27,7 +27,7 @@ public class Edit extends BaseComponent {
     @Component(id = "name", parameters = {"value=order.name", "validate=required"})
     private TextField name;
 
-    @Component(id = "comment", parameters = {"value=order.comment", "validate=required"})
+    @Component(id = "comment", parameters = {"value=order.comment"})
     private TextArea comment;
 
     @Component(id = "dueDate", parameters = {"value=order.dueDateAsString", "validate=required"})
