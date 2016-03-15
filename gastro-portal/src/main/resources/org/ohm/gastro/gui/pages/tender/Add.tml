@@ -54,7 +54,7 @@
                                 </div>
                             </div>
                             <div class="text-left">
-                                <t:comment.injectPhotos tender="true"/>
+                                <t:comment.injectPhotos initialPhotos="photos"/>
                             </div>
                             <div class="col-xs-12 gap">
                                 <div class="form-buttons">

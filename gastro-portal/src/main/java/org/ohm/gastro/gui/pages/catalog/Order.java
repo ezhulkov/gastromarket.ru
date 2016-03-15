@@ -22,7 +22,6 @@ import org.ohm.gastro.domain.UserEntity;
 import org.ohm.gastro.gui.components.comment.InjectPhotos;
 import org.ohm.gastro.gui.dto.Breadcrumb;
 import org.ohm.gastro.gui.pages.AbstractPage;
-import org.ohm.gastro.service.ImageService.FileType;
 
 import java.util.stream.Collectors;
 
@@ -95,6 +94,10 @@ public class Order extends AbstractPage {
     @InjectComponent
     private InjectPhotos injectPhotos;
 
+    @Persist
+    @Property
+    private java.util.List<PhotoEntity> photos;
+
     public String getBudgetTitle() {
         int total = cartProducts.stream().mapToInt(ProductEntity::getPrice).sum();
         return total == 0 ? getMessages().get("direct.budget") : getMessages().format("direct.budget.n", total);
@@ -107,8 +110,6 @@ public class Order extends AbstractPage {
                 .filter(t -> t.getEntity() instanceof ProductEntity)
                 .map(t -> (ProductEntity) t.getEntity())
                 .collect(Collectors.toList());
-        final Session session = getRequest().getSession(false);
-        cartProducts.forEach(p -> session.setAttribute(FileType.PRODUCT + "_" + p.getId(), p.getImagesSet()));
         return null;
     }
 
@@ -122,16 +123,13 @@ public class Order extends AbstractPage {
 
     public void onPrepareFromOrderInfoForm() {
         final Session session = getRequest().getSession(false);
-        injectPhotos.getSubmittedPhotos().forEach(p -> {
-            logger.info("!!! " + p.getProduct());
-            session.setAttribute(FileType.PRODUCT + "_" + p.getId(), p.getImagesSet());
-        });
         if (order == null || order.getId() != null) order = new OrderEntity();
         if (mobile == null) mobile = getAuthenticatedUserOpt().map(UserEntity::getMobilePhone).orElse(null);
         order.setName(cartProducts.stream().findFirst().map(AltIdBaseEntity::getName).orElse(""));
     }
 
     public Object onSubmitFromOrderInfoForm() {
+        photos = injectPhotos.getSubmittedPhotos();
         if (orderInfoForm.getHasErrors() || mobile == null || order.getDueDate() == null) {
             error = true;
             return orderInfoBlock;
@@ -157,13 +155,9 @@ public class Order extends AbstractPage {
                 if (i > 0) order.setTotalPrice(i);
             }
         }
-        final java.util.List<PhotoEntity> photos = injectPhotos.getSubmittedPhotos();
-        injectPhotos.purgeSubmittedPhotos();
-        purgeOrderPhotos();
         getOrderService().placeOrder(order, photos, getAuthenticatedUser(), catalog);
-//        getOrderService().placeOrder(order, getOrderPhotos(), getAuthenticatedUser(), catalog);
-//        purgeOrderPhotos();
-//        injectPhotos.purgeSubmittedPhotos();
+        photos.clear();
+        injectPhotos.purgeSubmittedPhotos();
         return getPageLinkSource().createPageRenderLinkWithContext(OrderResults.class, order.getId());
     }
 

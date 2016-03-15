@@ -59,8 +59,8 @@
                             </t:if>
                             <div class="text-left">
                                 <t:comment.injectPhotos t:id="injectPhotos"
-                                                        directOrder="true"
                                                         products="allProducts"
+                                                        initialPhotos="photos"
                                                         caption="+ Добавить фото или блюдо из каталога кулинара"/>
                             </div>
                             <div class="col-xs-12 gap">

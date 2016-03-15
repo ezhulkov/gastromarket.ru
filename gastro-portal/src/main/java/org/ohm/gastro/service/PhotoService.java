@@ -31,4 +31,6 @@ public interface PhotoService extends ImageUploaderService {
 
     void attachPhotos(OfferEntity offer, List<PhotoEntity> submittedPhotos);
 
+    List<PhotoEntity> findAllPhotos(List<Long> ids);
+
 }

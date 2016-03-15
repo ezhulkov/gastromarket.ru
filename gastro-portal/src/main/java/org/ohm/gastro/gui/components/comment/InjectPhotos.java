@@ -1,7 +1,7 @@
 package org.ohm.gastro.gui.components.comment;
 
 import com.google.common.collect.Lists;
-import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.ValueEncoder;
 import org.apache.tapestry5.annotations.Cached;
@@ -20,15 +20,12 @@ import org.ohm.gastro.gui.misc.GenericSelectModel;
 import org.ohm.gastro.gui.mixins.BaseComponent;
 
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
  * Created by ezhulkov on 13.08.15.
  */
 public class InjectPhotos extends BaseComponent {
-
-    private final static Random RANDOM = new Random(System.currentTimeMillis());
 
     @Property
     @Parameter
@@ -46,11 +43,7 @@ public class InjectPhotos extends BaseComponent {
 
     @Parameter
     @Property
-    private boolean tender = false;
-
-//    @Parameter
-//    @Property
-//    private boolean directOrder = false;
+    private List<PhotoEntity> initialPhotos = Lists.newArrayList();
 
     @Property
     @Parameter(defaultPrefix = BindingConstants.LITERAL)
@@ -90,32 +83,18 @@ public class InjectPhotos extends BaseComponent {
             @Override
             public PhotoEntity toValue(String id) {
                 long pid = Long.parseLong(id);
-                if (tender) return getTenderPhoto(pid).orElseGet(PhotoEntity::new);
-//                if (directOrder) return getOrderPhoto(pid).orElseGet(PhotoEntity::new);
-                return ObjectUtils.defaultIfNull(getPhotoService().findPhoto(pid), new PhotoEntity());
+                return getPhotoService().findPhoto(pid);
             }
         };
     }
 
     public PhotoEntity onAddRow() {
-//        if (tender || directOrder) {
-//            final PhotoEntity photo = new PhotoEntity();
-//            photo.setId(RANDOM.nextLong());
-//            return photo;
-//        }
         return getPhotoService().createPhoto(getType());
     }
 
     public void onRemoveRow(final PhotoEntity photo) {
         submittedPhotos.remove(photo);
-//        if (tender) {
-//            getRequest().getSession(false).setAttribute(FileType.TENDER + "_" + photo.getId(), null);
-//        } else if (directOrder) {
-//            getRequest().getSession(false).setAttribute(FileType.PRODUCT + "_" + photo.getId(), null);
-//            getShoppingCart().removeItem(PurchaseEntity.Type.PRODUCT, photo.getId(), null);
-//        } else {
         getPhotoService().deletePhoto(photo.getId());
-//        }
     }
 
     public PhotoEntity getPhoto() {
@@ -137,11 +116,7 @@ public class InjectPhotos extends BaseComponent {
 
     @SuppressWarnings("unchecked")
     public java.util.List<PhotoEntity> getPhotos() {
-//        if (tender) {
-//            return getTenderPhotos();
-//        } else if (directOrder) {
-//            return getOrderPhotos();
-//        } else
+        if (CollectionUtils.isNotEmpty(initialPhotos)) return getPhotoService().findAllPhotos(initialPhotos.stream().map(t -> t.getId()).collect(Collectors.toList()));
         if (comment != null) {
             if (comment.getId() == null) return Lists.newArrayList();
             return getPhotoService().findAllPhotos(comment);

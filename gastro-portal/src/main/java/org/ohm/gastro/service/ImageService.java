@@ -15,7 +15,7 @@ public interface ImageService {
 
     enum ImageSize {SIZE1, SIZE2, SIZE3, SIZE4}
 
-    enum FileType {AVATAR, PRODUCT, CATALOG, PHOTO, TENDER, ORDER}
+    enum FileType {AVATAR, PRODUCT, CATALOG, PHOTO}
 
     String explicitlyGetObjectId(@Nonnull FileType fileType, @Nullable String objectIdStr, @Nullable String targetContext, @Nonnull UserEntity caller);
 

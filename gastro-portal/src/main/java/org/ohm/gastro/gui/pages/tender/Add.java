@@ -3,6 +3,7 @@ package org.ohm.gastro.gui.pages.tender;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Component;
+import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Form;
@@ -12,6 +13,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.ohm.gastro.domain.OrderEntity;
 import org.ohm.gastro.domain.PhotoEntity;
 import org.ohm.gastro.domain.UserEntity;
+import org.ohm.gastro.gui.components.comment.InjectPhotos;
 import org.ohm.gastro.gui.pages.AbstractPage;
 
 import java.util.stream.Collectors;
@@ -70,6 +72,13 @@ public class Add extends AbstractPage {
     @Property
     private boolean needLogin = false;
 
+    @InjectComponent
+    private InjectPhotos injectPhotos;
+
+    @Persist
+    @Property
+    private java.util.List<PhotoEntity> photos;
+
     public java.util.List<OrderEntity> getSamples() {
         return getOrderService().findAllTenders().stream().limit(5).collect(Collectors.toList());
     }
@@ -80,6 +89,7 @@ public class Add extends AbstractPage {
     }
 
     public Object onSubmitFromTenderInfoForm() {
+        photos = injectPhotos.getSubmittedPhotos();
         if (tenderInfoForm.getHasErrors() || mobile == null || tender.getDueDate() == null) {
             error = true;
             return tenderInfoBlock;
@@ -102,11 +112,10 @@ public class Add extends AbstractPage {
         }
         tender.setCustomer(getAuthenticatedUser());
         final OrderEntity newTender = getOrderService().saveOrder(tender);
-        java.util.List<PhotoEntity> photos = getTenderPhotos();
-        photos = photos.stream().peek(t -> t.setId(null)).collect(Collectors.toList());
         getPhotoService().attachPhotos(newTender, photos);
         getOrderService().placeTender(newTender, getAuthenticatedUser());
-        purgeTenderPhotos();
+        photos.clear();
+        injectPhotos.purgeSubmittedPhotos();
         return getPageLinkSource().createPageRenderLinkWithContext(AddResults.class, newTender.getId());
     }
 

@@ -95,6 +95,11 @@ public class PhotoServiceImpl implements PhotoService, Logging {
         attachPhotos(null, null, offer, submittedPhotos);
     }
 
+    @Override
+    public List<PhotoEntity> findAllPhotos(final List<Long> ids) {
+        return photoRepository.findAll(ids);
+    }
+
     private void attachPhotos(final CommentEntity comment, final OrderEntity order, final OfferEntity offer, final List<PhotoEntity> submittedPhotos) {
         submittedPhotos.stream().filter(p -> p != null).forEach(photo -> {
             if (photo.getId() != null) photo = photoRepository.findOne(photo.getId());
