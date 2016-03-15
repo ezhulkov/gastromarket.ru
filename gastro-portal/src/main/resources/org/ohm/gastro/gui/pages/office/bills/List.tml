@@ -36,7 +36,7 @@
                         <div class="col-lg-offset-1 col-lg-8 col-md-offset-1 col-md-8 col-sm-offset-0 col-sm-10 col-xs-9">
                             <t:loop source="orders" value="order">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 nopad">
-                                    <t:pagelink target="_blank" page="office/order/index" t:context="[order.order,order.id,false]">Заказ ${order.orderName}</t:pagelink>
+                                    <t:pagelink target="_blank" page="office/order/index" t:context="order.id">Заказ ${order.orderName}</t:pagelink>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 nopad">
                                     ${orderTotalPrice}

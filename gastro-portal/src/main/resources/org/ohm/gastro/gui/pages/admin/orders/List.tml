@@ -11,7 +11,7 @@
         <t:parameter name="statusHeader">Статус</t:parameter>
         <t:parameter name="totalPriceHeader">Стоимость</t:parameter>
         <t:parameter name="orderNumberCell">
-            <t:pagelink page="office/order/index" t:context="oneOrder.id,false"><b>${oneOrder.orderName}</b></t:pagelink>
+            <t:pagelink page="office/order/index" t:context="oneOrder.id"><b>${oneOrder.orderName}</b></t:pagelink>
             <br/>
             <div class="f14px">
                 ${oneOrder.customer.fullName}<br/>

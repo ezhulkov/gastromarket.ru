@@ -115,8 +115,8 @@ public abstract class AbstractOrder extends BaseComponent {
     public Object[] getOrderContext() {
         return getOrderUrlData(() -> new Object[]{Status.NEW},
                                () -> new Object[]{order.getId()},
-                               () -> new Object[]{order.getId(), false},
-                               () -> new Object[]{order.getId(), false});
+                               () -> new Object[]{order.getId()},
+                               () -> new Object[]{order.getId()});
     }
 
     public boolean isFull() {

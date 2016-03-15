@@ -22,7 +22,7 @@
                     </div>
                     <t:loop source="orders" value="order">
                         <div class="col-lg-offset-1 col-lg-4 col-md-offset-1 col-md-4 col-sm-offset-1 col-sm-4 col-xs-12">
-                            <t:pagelink target="_blank" page="office/order/index" t:context="[order.order,order.id,false]">${order.orderName}</t:pagelink>
+                            <t:pagelink target="_blank" page="office/order/index" t:context="order.id">${order.orderName}</t:pagelink>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             ${orderTotalPrice}
