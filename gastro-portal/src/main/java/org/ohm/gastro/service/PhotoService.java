@@ -33,4 +33,6 @@ public interface PhotoService extends ImageUploaderService {
 
     List<PhotoEntity> findAllPhotos(List<Long> ids);
 
+    void savePhoto(PhotoEntity photo);
+
 }

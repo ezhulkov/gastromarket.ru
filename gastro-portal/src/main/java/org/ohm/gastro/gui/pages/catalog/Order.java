@@ -12,7 +12,6 @@ import org.apache.tapestry5.corelib.components.TextArea;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.HttpError;
-import org.apache.tapestry5.services.Session;
 import org.ohm.gastro.domain.AltIdBaseEntity;
 import org.ohm.gastro.domain.CatalogEntity;
 import org.ohm.gastro.domain.OrderEntity;
@@ -106,10 +105,6 @@ public class Order extends AbstractPage {
     public Object onActivate(String altId) {
         catalog = getCatalogService().findCatalog(altId);
         if (catalog == null) return new HttpError(404, "Page not found.");
-        cartProducts = getShoppingCart().getItems(catalog).stream()
-                .filter(t -> t.getEntity() instanceof ProductEntity)
-                .map(t -> (ProductEntity) t.getEntity())
-                .collect(Collectors.toList());
         return null;
     }
 
@@ -122,9 +117,22 @@ public class Order extends AbstractPage {
     }
 
     public void onPrepareFromOrderInfoForm() {
-        final Session session = getRequest().getSession(false);
+        if (photos == null) photos = Lists.newArrayList();
         if (order == null || order.getId() != null) order = new OrderEntity();
         if (mobile == null) mobile = getAuthenticatedUserOpt().map(UserEntity::getMobilePhone).orElse(null);
+        cartProducts = getShoppingCart().getItems(catalog).stream()
+                .filter(t -> t.getEntity() instanceof ProductEntity)
+                .map(t -> (ProductEntity) t.getEntity())
+                .collect(Collectors.toList());
+        cartProducts.forEach(p -> {
+            boolean added = photos.stream().filter(t -> t.getProduct() != null && t.getProduct().equals(p)).findAny().isPresent();
+            if (!added) {
+                final PhotoEntity productPhoto = new PhotoEntity();
+                productPhoto.setProduct(p);
+                getPhotoService().savePhoto(productPhoto);
+                photos.add(productPhoto);
+            }
+        });
         order.setName(cartProducts.stream().findFirst().map(AltIdBaseEntity::getName).orElse(""));
     }
 
