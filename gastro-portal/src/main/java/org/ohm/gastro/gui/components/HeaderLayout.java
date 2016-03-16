@@ -49,7 +49,7 @@ public class HeaderLayout extends BaseComponent {
                 getCatalogService().findAllCatalogs(getAuthenticatedUser()).stream().flatMap(c -> getOrderService().findAllOrders(c).stream()).collect(Collectors.toList()) :
                 getOrderService().findAllOrders(getAuthenticatedUser()))
                 .stream()
-                .filter(o -> o.getMetaStatus() == Status.ACTIVE)
+                .filter(o -> o.getMetaStatus().getLevel() <= Status.ACTIVE.getLevel())
                 .count();
     }
 
