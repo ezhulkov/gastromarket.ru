@@ -1,0 +1,17 @@
+<t:if xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" test="orderWithNoReply">
+    <t:modal modalId="order_reply_invitation" caption="Отзыв">
+        <p class="modal-text">
+            Заказ "${orderWithNoReply.orderName}" был выполнен, но вы пока не оставили отзыв о работе кулинар. Мы собираем отзывы о выполненых заказах, так как это позволяет строить репутацию кулинаров и покупателей.
+        </p>
+        <p class="modal-text">
+            <t:unless test="cook">
+                Пожалуйста, перейдите на
+                <t:pagelink page="office/order/rate" t:context="[orderWithNoReply.id]">страницу закрытия заказа</t:pagelink>
+                и оставьте отзыв о работе кулинара.
+            </t:unless>
+        </p>
+    </t:modal>
+    <script>
+        jQuery("#order_reply_invitation").modal('show');
+    </script>
+</t:if>

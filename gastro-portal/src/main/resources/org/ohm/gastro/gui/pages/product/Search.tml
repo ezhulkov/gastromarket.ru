@@ -1,0 +1,29 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <t:searchSection searchString="searchString"/>
+
+    <section>
+        <div class="container flexible">
+            <div id="product-items" class="grid-block products">
+                <t:loop source="products" value="oneProduct">
+                    <t:product product="oneProduct"/>
+                    <t:parameter name="empty">
+                        <div class="row">
+                            <div class="text-center f20px">
+                                По запросу '${searchString}' ничего нет
+                            </div>
+                        </div>
+                    </t:parameter>
+                </t:loop>
+            </div>
+            <t:productModalTemplate/>
+        </div>
+    </section>
+
+    <t:fbgoal goal="Search"/>
+
+    <script>
+        jQuery(initProductCatalog());
+    </script>
+
+</t:layout>

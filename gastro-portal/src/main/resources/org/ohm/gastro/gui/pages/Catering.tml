@@ -1,0 +1,239 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <section>
+        <div class="container">
+            <div class="title">
+                <h1><span>Gastromarket.Event</span></h1>
+            </div>
+            <div class="row">
+                <div class="row gap3">
+                    <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-3 col-xs-12 text-center">
+                        <img src="/img/baloons-128x128.png" srcset="/img/baloons-256x256.png 2x" alt="праздник"/>
+                        <br/>
+                        <br/>
+                    </div>
+                    <div class="col-lg-7 col-lg-offset-0 col-md-8 col-md-offset-0 col-sm-7 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+                        <p>
+                            У вас или вашего близкого день рождения? Хотите собраться компанией или сделать что-то необычное? Планируете провести незабываемую свадьбу? Мы готовы помочь вам и организовать праздние "под ключ".
+                        </p>
+                        <p>
+                            Пишите на <a href="mailto:event@gastromarket.ru?subject=GastroMarket.Event">event@gastromarket.ru</a> или оставляйте заявку ниже и мы организуем веселый и интересный праздник с учётом всех ваших пожеланий.
+                        </p>
+                        <p>
+                            Чтобы сориентироваться по стоимости - ознакомьтесь с ценами предоставляемых услуг в примерной смете ниже:
+                        </p>
+                    </div>
+                </div>
+                <h2>Детский праздник</h2>
+                <div class="row gap3">
+                    <div class="col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10">
+                        <table class="table table-hover">
+                            <tr>
+                                <td><b>Услуга</b></td>
+                                <td><b>Стоимость/руб*</b></td>
+                            </tr>
+                            <tr>
+                                <td>Банкет (руб/чел)</td>
+                                <td><b>2500</b></td>
+                            </tr>
+                            <tr>
+                                <td>Фуршет (руб/чел)</td>
+                                <td><b>1500</b></td>
+                            </tr>
+                            <tr>
+                                <td>Аниматор (3 часа)</td>
+                                <td><b>12000</b></td>
+                            </tr>
+                            <tr>
+                                <td>DJ</td>
+                                <td><b>5000</b></td>
+                            </tr>
+                            <tr>
+                                <td>Фотограф</td>
+                                <td><b>15000</b></td>
+                            </tr>
+                            <tr>
+                                <td>Видеооператор</td>
+                                <td><b>15000</b></td>
+                            </tr>
+                            <tr>
+                                <td>Декор праздника</td>
+                                <td><b>От 10000</b></td>
+                            </tr>
+                            <tr>
+                                <td>Развлекательная шоу программа</td>
+                                <td><b>10000</b></td>
+                            </tr>
+                            <tr>
+                                <td>Гонорар за услуги организации</td>
+                                <td><b>10%</b></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <h2>Свадьба</h2>
+                <div class="row gap3">
+                    <div class="col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10">
+                        <table class="table table-hover">
+                            <tr>
+                                <td><b>Услуга</b></td>
+                                <td><b>Эконом</b></td>
+                                <td><b>Стандарт</b></td>
+                                <td><b>Премиум</b></td>
+                            </tr>
+                            <tr>
+                                <td>Свадебный банкет (руб/чел)</td>
+                                <td><b>3500</b></td>
+                                <td><b>5000</b></td>
+                                <td><b>7000</b></td>
+                            </tr>
+                            <tr>
+                                <td>Свадебный фуршет (руб/чел)</td>
+                                <td><b>1500</b></td>
+                                <td><b>3500</b></td>
+                                <td><b>5000</b></td>
+                            </tr>
+                            <tr>
+                                <td>Свадебный торт (за 1 кг)</td>
+                                <td><b>3500</b></td>
+                                <td><b>5000</b></td>
+                                <td><b>7000</b></td>
+                            </tr>
+                            <tr>
+                                <td>Ведущий</td>
+                                <td><b>35000</b></td>
+                                <td><b>60000</b></td>
+                                <td><b>80000</b></td>
+                            </tr>
+                            <tr>
+                                <td>Выездной регистратор</td>
+                                <td></td>
+                                <td></td>
+                                <td><b>15000</b></td>
+                            </tr>
+                            <tr>
+                                <td>DJ</td>
+                                <td><b>15000</b></td>
+                                <td><b>15000</b></td>
+                                <td><b>20000</b></td>
+                            </tr>
+                            <tr>
+                                <td>фотограф</td>
+                                <td><b>15000</b></td>
+                                <td><b>30000</b></td>
+                                <td><b>60000</b></td>
+                            </tr>
+                            <tr>
+                                <td>Лав стори (6 минут)</td>
+                                <td></td>
+                                <td></td>
+                                <td><b>30000</b></td>
+                            </tr>
+                            <tr>
+                                <td>Видеооператор</td>
+                                <td></td>
+                                <td></td>
+                                <td><b>60000</b></td>
+                            </tr>
+                            <tr>
+                                <td>Флористика и декор</td>
+                                <td><b>20000</b></td>
+                                <td><b>60000</b></td>
+                                <td><b>От 100000</b></td>
+                            </tr>
+                            <tr>
+                                <td>Транспорт жениха и невесты (4+1 час)</td>
+                                <td><b>10000</b></td>
+                                <td><b>20000</b></td>
+                                <td><b>50000</b></td>
+                            </tr>
+                            <tr>
+                                <td>Музыкальная программа (кавер группа)</td>
+                                <td><b>20000</b></td>
+                                <td><b>50000</b></td>
+                                <td><b>80000</b></td>
+                            </tr>
+                            <tr>
+                                <td>Шоу программа</td>
+                                <td><b>10000</b></td>
+                                <td><b>25000</b></td>
+                                <td><b>50000</b></td>
+                            </tr>
+                            <tr>
+                                <td>Профессиональный свет в зал</td>
+                                <td></td>
+                                <td></td>
+                                <td><b>40000</b></td>
+                            </tr>
+                            <tr>
+                                <td>Профессиональный живой звук в зал</td>
+                                <td></td>
+                                <td></td>
+                                <td><b>40000</b></td>
+                            </tr>
+                            <tr>
+                                <td>Гонорар за услуги организации</td>
+                                <td><b>10%</b></td>
+                                <td><b>10%</b></td>
+                                <td><b>10%</b></td>
+                            </tr>
+                        </table>
+                        <p>* &mdash; указана средняя стоимость. Стоимость зависит от места проведения праздника и ваших пожеланий.</p>
+                        <p>Перечень услуг может быть дополнен следующими опциями:</p>
+                        <ul>
+                            <li>Создание образа жениха и невесты.</li>
+                            <li>Приглашение звезд эстрады.</li>
+                            <li>Спецэффекты.</li>
+                        </ul>
+                    </div>
+                    <h2>Заинтересовались? Свяжитесь с нами!</h2>
+                    <div class="row gap3">
+                        <div class="col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10">
+                            <p>Пишите на <a href="mailto:event@gastromarket.ru?subject=GastroMarket.Event">event@gastromarket.ru</a> или оставляйте заявку ниже:</p>
+                            <t:form t:id="cateringForm" class="form edit" t:clientValidation="BLUR" role="form">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <t:label for="userName">Ваше имя:</t:label>
+                                        <input t:type="TextField" t:id="userName" t:value="userName" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <t:label for="eMail">Адрес почты:</t:label>
+                                        <input t:type="TextField" id="eMail" t:id="eMail" t:value="eMail" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <t:label for="mobile">Номер телефона:</t:label>
+                                        <input t:type="TextField" id="mobile" t:id="mobile" t:value="mobile" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <t:label for="comment">Описание заявки:</t:label>
+                                        <input t:type="TextArea" rows="10" id="comment" t:id="comment" t:value="comment" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 gap">
+                                    <div class="form-buttons" xml:space="preserve">
+                                        <input class="btn btn-lg btn-red" type="submit" value="Оставить заявку"/>
+                                    </div>
+                                </div>
+                            </t:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <t:parameter name="bottomBlock">
+        <t:if test="authenticated">
+            <div class="bottom-image">
+                <div></div>
+            </div>
+        </t:if>
+    </t:parameter>
+
+</t:layout>

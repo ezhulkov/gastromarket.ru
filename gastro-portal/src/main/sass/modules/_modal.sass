@@ -1,0 +1,82 @@
+@import "../include/var"
+@import "tools"
+
+body.modal-open
+  overflow: hidden
+
+.modal
+  overflow-y: scroll
+
+.modal-backdrop.in
+  opacity: 0.8
+
+.close
+  width: 40px
+  height: 40px
+  position: absolute
+  cursor: pointer
+  font-size: 40px
+  font-weight: normal
+  right: 14px
+  top: 10px
+  z-index: 12
+
+.modal-header
+  border: none
+  padding-top: 0
+  padding-bottom: 0
+
+.modal-header a
+  float: right
+
+.modal-dialog
+  position: relative
+  color: $blackTextColor
+  width: auto
+  margin: 40px 10px 40px 10px
+  +mobile-media
+    margin: 15px
+
+.modal-body
+  overflow: auto
+  padding-top: 0
+  padding-left: 20px
+  padding-right: 20px
+  +mobile-media
+    padding: 0
+
+.product-edit-modal
+  .modal-body
+    overflow: initial
+
++desktop-media
+  .modal-dialog
+    width: 600px
+    margin-left: auto
+    margin-right: auto
+  .modal-dialog.image-lg
+    width: 1030px
+    img
+      display: block
+      margin: 0 auto
+  .modal-dialog.modal-lg
+    width: 950px
+  .modal-dialog.modal-md
+    width: 800px
+  .modal-content.big-image
+    width: 1000px
+    height: 720px
+
++tablet-media
+  .modal-dialog.image-lg
+    width: auto
+    img
+      width: 100%
+      height: auto
+
++mobile-media
+  .modal-dialog.image-lg
+    width: auto
+    img
+      width: 100%
+      height: auto

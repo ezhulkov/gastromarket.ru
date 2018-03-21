@@ -1,0 +1,60 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="title">
+                    <h1><span>Регистрация</span></h1>
+                </div>
+                <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 col-xs-offset-0 col-xs-12">
+                    <p class="modal-text">Регистрация через аккаунт одной из социальных сетей</p>
+                    <ul class="social big">
+                        <li><a href="/social?social=vk" onclick="yaCounter29411415.reachGoal('SOCIAL_LOGIN'); return true;" title="vk.com" class="vk">vk.com</a></li>
+                        <li><a href="/social?social=fb" onclick="yaCounter29411415.reachGoal('SOCIAL_LOGIN'); return true;" title="facebook.com" class="fb">facebook.com</a></li>
+                    </ul>
+                    <p class="modal-text text-center">или через почтовый адрес и пароль</p>
+                    <t:form t:id="signupAjaxForm" t:clientValidation="BLUR" class="form" role="form">
+                        <t:if test="error">
+                            <div class="t-error">
+                                <ul>
+                                    <li>Такой пользователь уже существует, укажите другой адрес</li>
+                                </ul>
+                            </div>
+                            <t:errors/>
+                        </t:if>
+                        <div class="form-group">
+                            <t:label for="eMail">Адрес почты:</t:label>
+                            <input t:type="TextField" t:id="eMail" t:value="eMail" t:validate="required,email,maxlength=64" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <t:label for="fullName">Ваше имя:</t:label>
+                            <input t:type="TextField" t:id="fullName" t:value="fullName" t:validate="required,maxlength=64" class="form-control"/>
+                        </div>
+                        <div class="form-group clearfix">
+                            <t:label for="password">Пароль:</t:label>
+                            <input t:type="PasswordField" t:id="password" t:value="password" t:validate="required,maxlength=64" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <t:label for="mobilePhone">Контактный телефон: *</t:label>
+                            <input t:type="textfield" t:id="mobilePhone" t:value="mobilePhone" class="form-control mobile-phone" placeholder="+7 xxx xxx-xx-xx"/>
+                        </div>
+                        <div class="form-buttons" xml:space="preserve">
+                            <input class="btn btn-red" type="submit" value="Зарегистрироваться"/>
+                        </div>
+                    </t:form>
+                    <div class="row">
+                        <p class="modal-text f14px">
+                            * - контактный телефон не является обязательным полем.
+                        </p>
+                        <p class="modal-text f14px">
+                            Регистрируясь, вы соглашаетесь c условиями<br/>
+                            <a href="/agreement" target="_tab" class="red-text f14px">публичной оферты</a> и
+                            <a href="/confident" target="_tab" class="red-text f14px">политики конфиденциальности</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</t:layout>

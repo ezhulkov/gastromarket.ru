@@ -1,0 +1,200 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="modal fade" id="${modalId}" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <div class="modal-dialog login">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="title">
+                    <h1><span>Вход</span></h1>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <t:if test="addText">
+                    <t:delegate to="addText"/>
+                </t:if>
+                <div class="row">
+                    <p class="modal-text">Вход через аккаунт одной из социальных сетей</p>
+                </div>
+                <div class="row">
+                    <ul class="social big">
+                        <li><a href="/social?social=vk" onclick="yaCounter29411415.reachGoal('SOCIAL_LOGIN'); return true;" title="vk.com" class="vk">vk.com</a></li>
+                        <li><a href="/social?social=fb" onclick="yaCounter29411415.reachGoal('SOCIAL_LOGIN'); return true;" title="facebook.com" class="fb">facebook.com</a></li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <p class="modal-text text-center">или через почтовый адрес и пароль</p>
+                </div>
+
+                <form method="post" action="/j_security_check" class="form edit" role="form">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="username1">Адрес почты:</label>
+                            <input id="username1" name="j_username" type="email" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="password1">Пароль:</label>
+                            <input id="password1" name="j_password" type="password" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <a href="#" class="pull-left red-text forget-link">Забыли пароль?</a>
+                            <div class="label-checkbox-set pull-right">
+                                <label for="rememberme" class="red-text">Запомнить меня</label>
+                                <input type="checkbox" name="_spring_security_remember_me" id="rememberme" checked="checked"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-buttons" xml:space="preserve">
+                            <input class="btn btn-red" type="submit" value="Войти"/>
+                            <a href="#" class="btn btn-white signup-link">Регистрация</a>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <p class="modal-text f14px">
+                        Входя через социальную сеть, вы соглашаетесь c условиями<br/>
+                        <a href="/agreement" target="_tab" class="red-text f14px">публичной оферты</a> и
+                        <a href="/confident" target="_tab" class="red-text f14px">политики конфиденциальности</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-dialog remember">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="title">
+                    <h1><span>Забыли пароль?</span></h1>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+            </div>
+            <t:zone t:id="rememberZone" id="${rememberZone}"/>
+            <div class="modal-body data">
+                <t:if test="addText">
+                    <t:delegate to="addText"/>
+                </t:if>
+                <div class="row">
+                    <p class="modal-text">Укажите свой почтовый адрес для восстановления пароля.<br/> Новый пароль будет выслан на указанный адрес.</p>
+                </div>
+                <t:form t:zone="${rememberZone}" t:id="rememberAjaxForm" class="form edit" t:clientValidation="BLUR" role="form">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <t:label for="eMail">Адрес почты:</t:label>
+                            <input t:type="TextField" t:id="eMail" t:value="eMail" type="email" t:validate="required" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-buttons" xml:space="preserve">
+                            <input class="btn btn-red" type="submit" value="Восстановить"/>
+                        </div>
+                    </div>
+                </t:form>
+            </div>
+            <t:block t:id="rememberResultBlock">
+                <div class="modal-body result">
+                    <div class="row">
+                        <p class="modal-text"><b>Новый пароль был выслан на почтовый адрес ${eMail}</b></p>
+                        <p class="modal-text"><a data-dismiss="modal" href="#" class="red-text">Продолжить работу</a></p>
+                    </div>
+                </div>
+                <script>showModalResult(".remember");</script>
+            </t:block>
+        </div>
+    </div>
+
+    <div class="modal-dialog signup">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="title">
+                    <h1><span>Регистрация</span></h1>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <t:if test="addText">
+                    <t:delegate to="addText"/>
+                </t:if>
+                <div class="row">
+                    <p class="modal-text">Регистрация через аккаунт одной из социальных сетей</p>
+                </div>
+                <div class="row">
+                    <ul class="social big">
+                        <li><a href="/social?social=vk" onclick="yaCounter29411415.reachGoal('SOCIAL_LOGIN'); return true;" title="vk.com" class="vk">vk.com</a></li>
+                        <li><a href="/social?social=fb" onclick="yaCounter29411415.reachGoal('SOCIAL_LOGIN'); return true;" title="facebook.com" class="fb">facebook.com</a></li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <p class="modal-text">или через почтовый адрес</p>
+                </div>
+                <t:zone t:id="signupZone" id="${signupZone}">
+                    <t:delegate to="signupFormBlock"/>
+                </t:zone>
+                <t:block t:id="signupResultBlock">
+                    <script>location.reload();</script>
+                </t:block>
+                <t:block t:id="signupFormBlock">
+                    <t:form t:zone="${signupZone}" t:id="signupAjaxForm" t:clientValidation="BLUR" class="form edit" role="form">
+                        <t:if test="error">
+                            <div class="t-error">
+                                <ul>
+                                    <t:if test="passwordError">
+                                        <li>Введенные пароли не совпадают</li>
+                                    </t:if>
+                                    <t:if test="busyError">
+                                        <li>Такой пользователь уже существует, укажите другой адрес</li>
+                                    </t:if>
+                                </ul>
+                            </div>
+                            <t:errors/>
+                        </t:if>
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <t:label for="eMail2">Адрес почты:</t:label>
+                                <input t:type="TextField" t:id="eMail2" type="email" t:value="eMail" t:validate="required,email,maxlength=64" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <t:label for="fullName">Ваше имя:</t:label>
+                                <input t:type="TextField" t:id="fullName" t:value="fullName" t:validate="required,maxlength=64" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <t:label for="password">Пароль:</t:label>
+                                <input t:type="PasswordField" t:id="password" t:value="password" t:validate="required,maxlength=64" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <t:label for="mobilePhone">Контактный телефон: *</t:label>
+                                <input t:type="textfield" t:id="mobilePhone" t:value="mobilePhone" class="form-control mobile-phone" placeholder="+7 xxx xxx-xx-xx"/>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="form-buttons" xml:space="preserve">
+                                <input class="btn btn-red" type="submit" value="Зарегистрироваться"/>
+                            </div>
+                        </div>
+                    </t:form>
+                </t:block>
+                <div class="row">
+                    <p class="modal-text f14px">
+                        * - контактный телефон не является обязательным полем.
+                    </p>
+                    <p class="modal-text f14px">
+                        Регистрируясь, вы соглашаетесь c условиями<br/>
+                        <a href="/agreement" target="_tab" class="red-text f14px">публичной оферты</a> и
+                        <a href="/confident" target="_tab" class="red-text f14px">политики конфиденциальности</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

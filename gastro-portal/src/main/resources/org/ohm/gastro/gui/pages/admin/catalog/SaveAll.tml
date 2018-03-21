@@ -1,0 +1,15 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <section>
+        <div class="container">
+            <div class="title">
+                <h1><span>Сохранить все каталоги</span></h1>
+            </div>
+            <div class="row">
+                <p class="modal-text">
+                    Сохранено: ${count}
+                </p>
+            </div>
+        </div>
+    </section>
+</t:layout>

@@ -1,0 +1,42 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="ratings">
+    <t:if test="catalog">
+        Рейтинг: <a href="#ratings-modal-${catalog.id}" data-toggle="modal" data-target="#ratings-modal-${catalog.id}" class="rating">${catalog.level}</a>&nbsp;&nbsp;
+        <div class="modal fade" id="ratings-modal-${catalog.id}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="title">
+                            <h1><span>Рейтинг кулинара</span></h1>
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+                    </div>
+                    <div class="modal-body form">
+                        <div class="col-xs-12">
+                            <p class="modal-text f20px">
+                                ${catalog.name}: рейтинг ${catalog.level} (${catalog.rating}/${nextRating})
+                            </p>
+                            <p class="modal-text">
+                                У каждого кулинара есть персональный рейтинг. <br/>
+                                При его составлении учитывается множество параметров и, если вкратце, чем он выше, тем лучше.
+                            </p>
+                            <div class="form-buttons" xml:space="preserve">
+                                  <a class="btn btn-red btn-lg" href="/rating">Узнайте подробности</a>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t:if>
+    <t:if test="hasRatings">
+        Отзывы:
+        <t:pagelink page="catalog/index" context="catalog?.altId" anchor="replies"><span class="pos">+${posRatings}</span> / <span class="neg">-${negRatings}</span></t:pagelink>&nbsp;&nbsp;
+    </t:if>
+    <t:if test="catalog">
+        <t:if test="showCert">
+            <t:if test="catalog?.cert2">
+                <span>Проверенный кулинар - была контрольная закупка</span>
+            </t:if>
+        </t:if>
+    </t:if>
+</div>

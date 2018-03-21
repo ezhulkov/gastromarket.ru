@@ -1,0 +1,62 @@
+<configuration>
+
+    <property name="PATTERN" value="[%d{HH:mm:ss.SSS}][%X{ip}][%X{originRegion}/%X{gastroRegion}][%X{referer}][%X{uid}] - %msg%n"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="CONSOLE-PERF" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE-SYNC" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/var/log/gastro/gastro-manager.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/var/log/gastro/gastro-manager.%d.log</fileNamePattern>
+            <maxHistory>14</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="FILE-SYNC"/>
+    </appender>
+
+    <appender name="FILE-PERF-SYNC" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/var/log/gastro/gastro-manager-perf.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/var/log/gastro/gastro-manager-perf.%d.log</fileNamePattern>
+            <maxHistory>14</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE-PERF" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="FILE-PERF-SYNC"/>
+    </appender>
+
+    <logger name="org.perf4j" level="DEBUG" additivity="false">
+        <appender-ref ref="${mvn.logging.appender}-PERF"/>
+    </logger>
+
+    <logger name="org.ohm" level="${mvn.logging.level}" additivity="false">
+        <appender-ref ref="${mvn.logging.appender}"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="${mvn.logging.appender}"/>
+        <level value="INFO"/>
+    </root>
+
+</configuration>

@@ -1,0 +1,47 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <section class="s600px comments">
+        <div class="container">
+            <div class="title">
+                <h1><span>Личные сообщения</span></h1>
+            </div>
+        </div>
+        <t:loop source="conversations" value="conversation">
+            <section id="messages-block-${conversation.author.id}-${conversation.opponent.id}" class="zebra-row message-row" ng-controller="messagesCtrl" ng-init="init(${conversation.author.id},${conversation.opponent.id})">
+                <div class="container">
+                    <div class="row comment message ${unread}">
+                        <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-0 col-sm-3 col-xs-12 hidden-xs text-right pic">
+                            <a href="${opponentLink}">
+                                <img src="${opponentAvatar}"/>
+                            </a>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12">
+                            <div class="date">
+                                ${lastComment?.datePrintable}
+                            </div>
+                            <div class="name">
+                                <a href="${opponentLink}">
+                                    ${opponentName}
+                                </a>
+                            </div>
+                            <t:pagelink page="office/messages/index" t:context="context">
+                                <div class="text">
+                                    <t:if test="lastComment">
+                                        <t:outputraw value="lastComment.textRaw"/>
+                                        <t:parameter name="else">
+                                            Нет сообщений
+                                        </t:parameter>
+                                    </t:if>
+                                </div>
+                            </t:pagelink>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <t:parameter name="empty">
+                <div class="empty">Нет сообщений</div>
+            </t:parameter>
+        </t:loop>
+    </section>
+
+</t:layout>

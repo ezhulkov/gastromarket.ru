@@ -1,0 +1,11 @@
+#set($subject = "Отмена заказа на ГастроМаркет")
+#set($link = "${address}")
+#set($toadmin = true)
+#parse("email/header.vm")
+<p>
+    Заказ <a href="${address}">"${order.orderName}"</a> отменен.
+</p>
+<p>
+    Причина отмены: <br/>$reason<br/>
+</p>
+#parse("email/footer.vm")

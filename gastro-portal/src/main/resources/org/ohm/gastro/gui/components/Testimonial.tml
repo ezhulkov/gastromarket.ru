@@ -1,0 +1,70 @@
+<section class="testimonial  ${additionalClass}">
+    <div class="container">
+        <div class="title">
+            <h1><span>Отзывы покупателей</span></h1>
+        </div>
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-2 col-xs-12 text-center">
+                <a href="http://gastromarket.ru/user/122413"><img src="/img/avatar-testimonial-4.jpg" alt="Алена Коготкова"/></a>
+                <br/>
+                <br/>
+            </div>
+            <div class="col-lg-8 col-lg-offset-0 col-md-8 col-md-offset-0 col-sm-9 col-sm-offset-0 col-xs-12 f16px">
+                <p>
+                    "По итогу осталась очень довольна. С частными лицами у меня случаются накладки. А здесь все "без сучка, без задоринки": быстро, качественно, адекватно по цене. Торт обошелся мне в 2600 с доставкой.
+                    Знаю, что многие стоят перед такой же проблемой: кому-то нужен торт/десерт для работы, кому-то для личных целей. Если мой отзыв будет вам полезен, это лишь еще один плюсик к моей карме.
+                    Правда, люди сделали отличный сервис и я искренне выражаю свое восхищение и благодарю за помощь в подборе реквизита для работы!"
+                </p>
+                <p>
+                    <i>&mdash; отзыв <a href="http://gastromarket.ru/user/122413">Алены Коготковой</a> о
+                        <a href="http://gastromarket.ru/catalog/ulyana">Кондитере Ульяна</a></i>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-2 col-xs-12 text-center">
+                <a href="http://gastromarket.ru/user/131024"><img src="/img/avatar-testimonial-6.jpg" alt="Екатерина"/></a>
+                <br/>
+                <br/>
+            </div>
+            <div class="col-lg-8 col-lg-offset-0 col-md-8 col-md-offset-0 col-sm-9 col-sm-offset-0 col-xs-12 f16px">
+                <p>
+                    "Отличные тортики :) считаю, что самый лучший показатель когда отдали на съедение только половину заказа :) А остальное руководитель забрала домой (та для кого подарок предназначался). Вкусные, нежные и легкие. Как я и заказывала. Все привезли в срок. Спасибо, Вера!!! Все красиво запаковано и оформлено :)"
+                </p>
+                <p>
+                    <i>&mdash; отзыв <a href="http://gastromarket.ru/user/131024">Екатерины Львовой</a> о <a href="http://gastromarket.ru/catalog/vera-ru-cakes">"Vera Ru cakes"</a></i>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-2 col-xs-12 text-center">
+                <a href="http://gastromarket.ru/user/136159"><img src="/img/avatar-testimonial-5.jpg" alt="Лариса Суркова"/></a>
+                <br/>
+                <br/>
+            </div>
+            <div class="col-lg-8 col-lg-offset-0 col-md-8 col-md-offset-0 col-sm-9 col-sm-offset-0 col-xs-12 f16px">
+                <p>
+                    "Превосходные пирожные, всё очень вкусно и достойно, всем рекомендую!"
+                </p>
+                <p>
+                    <i>&mdash; отзыв <a href="http://gastromarket.ru/user/136159">Ларисы Сурковой</a> о <a href="http://gastromarket.ru/catalog/glacagemoscow">"Glacage.moscow"</a></i>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-2 col-xs-12 text-center">
+                <a href="http://gastromarket.ru/user/127764"><img src="/img/avatar-testimonial-7.jpg" alt="Лилия Кремнева"/></a>
+                <br/>
+                <br/>
+            </div>
+            <div class="col-lg-8 col-lg-offset-0 col-md-8 col-md-offset-0 col-sm-9 col-sm-offset-0 col-xs-12 f16px">
+                <p>
+                    "Очень вкусный торт. Заказ выполнен на отлично. Все как обговаривали и в срок. Что приятно, доставка до дома была бесплатной."
+                </p>
+                <p>
+                    <i>&mdash; отзыв <a href="http://gastromarket.ru/user/127764">Лилии Кремневой</a> о <a href="http://gastromarket.ru/catalog/konditerskaya-oh-my-cake">Кондитерской "Oh my cake!"</a></i>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>

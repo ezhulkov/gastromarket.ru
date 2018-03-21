@@ -1,0 +1,24 @@
+<ul xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="menu">
+    <t:unless test="frontend">
+        <li id="new-orders">
+            <t:pagelink page="office/order/list" t:context="'NEW'">Новые</t:pagelink>
+        </li>
+        <li id="active-orders">
+            <t:pagelink page="office/order/list" t:context="'ACTIVE'">Выполняются</t:pagelink>
+        </li>
+        <li id="closed-orders">
+            <t:pagelink page="office/order/list" t:context="'CLOSED'">Закрытые</t:pagelink>
+        </li>
+    </t:unless>
+    <t:if test="frontend">
+        <li id="new-orders">
+            <t:pagelink page="tender/list" t:context="'NEW'">Активные заявки</t:pagelink>
+        </li>
+        <li id="all-orders">
+            <t:pagelink page="tender/list" t:context="null">Все заявки</t:pagelink>
+        </li>
+    </t:if>
+    <script>
+        activate_menu("#${statusName}-orders");
+    </script>
+</ul>

@@ -1,0 +1,17 @@
+#set($subject = "Новый заказ на ГастроМаркет")
+#set($link = "${address}")
+#set($params = "ql=${quicklogin}&utm_source=internal&utm_medium=mail&utm_campaign=order&utm_content=${order.id}")
+#parse("email/header.vm")
+<p>
+    Вы разместили прямой заказ <a href="${address}?${params}">"${order.orderName}"</a>.
+</p>
+<p>
+    Заказ: "${order.orderName}"<br/>
+    Дата исполнения: $date<br/>
+    Исполнитель: <a href="http://gastromarket.ru/catalog/${catalog.altId}?${params}">${catalog.name}</a><br/>
+</p>
+<p>
+    В ближайшее время с вами свяжется кулинар и обсудит детали заявки.<br/>
+    На всякий случай оставляем его контактный телефон ${catalog.user.mobilePhone}
+</p>
+#parse("email/footer.vm")

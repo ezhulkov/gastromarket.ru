@@ -1,0 +1,55 @@
+@import "../include/var"
+
+=name-class
+  text-align: left
+  font-size: $f16px
+  line-height: 30px
+  color: $blackTextColor
+  text-overflow: ellipsis
+  overflow: hidden
+
+=price-class($fs:20px,$ta:left,$fw:normal)
+  font-size: $fs
+  color: $blackTextColor
+  text-align: $ta
+  font-weight: $fw
+
+=unit-class
+  font-weight: normal
+  font-size: $f14px
+  line-height: 14px
+  color: $blackTextColor
+
+=col-class
+  padding: 0 10px
+  display: inline-block
+  vertical-align: top
+
+.price-modifier
+  white-space: initial
+  .del-modifier
+    line-height: 35px
+  .modifier-row
+    margin-bottom: 3px
+
+.price-modifier-modal
+  z-index: 1100
+
+.basket-block
+  line-height: 30px
+  .price
+    text-align: left
+    line-height: 30px
+    color: $blackTextColor
+    font-size: $priceFontSize
+    font-weight: bold
+    .unit
+      +unit-class
+    .sign
+      width: 10px
+      display: inline-block
+  .basket-add
+    text-align: left
+    line-height: 30px
+    color: $redTextColor
+    font-size: $f16px

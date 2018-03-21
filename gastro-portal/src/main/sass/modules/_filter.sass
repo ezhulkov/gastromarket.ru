@@ -1,0 +1,102 @@
+@import "../include/var"
+@import "tools"
+
+.filter
+  text-align: center
+  .filter-group
+    list-style: none
+    position: relative
+    padding: 0
+    & > li
+      position: relative
+      font-size: $f18px
+      color: $blackTextColor
+      margin: 0 30px
+      display: inline-block
+      & > a
+        font-size: $f18px
+        color: $redTextColor
+        +mobile-media
+          display: block
+    .dropdown-menu
+      margin-top: 10px
+      li
+        display: block
+        a, span
+          padding: 3px 20px
+          font-size: $f14px
+          color: $redTextColor
+          display: block
+          width: 180px
+          text-align: left
+        span.disabled
+          color: lightgray
+        &.submenu:hover
+          .dropdown-menu
+            display: block
+    .submenu
+      .dropdown-menu
+        left: 175px
+        height: 298px
+        width: 182px
+        -webkit-border-radius: 0 8px 8px 8px
+        -moz-border-radius: 0 8px 8px
+        border-radius: 0 8px 8px 0
+        top: -1px
+        margin: 0
+        background-color: #eee
+      .dropdown-menu::after, & .dropdown-menu::before
+        display: none
+      & > a:after
+        display: block
+        content: " "
+        float: right
+        width: 0
+        height: 0
+        border: 5px solid transparent
+        border-right-width: 0
+        border-left-color: #ccc
+        margin-top: 5px
+        margin-right: -10px
+      &:hover > a:after
+        border-left-color: #bd0400
+  +mobile-media
+    .filter-group
+      & > li
+        width: 100%
+        margin: 0
+      .dropdown-menu
+        top: 0
+        position: relative
+        border: none
+        box-shadow: none
+        width: 100%
+        padding: 0
+        margin: 0
+        border-radius: 0
+        &:before
+          display: none
+        li > a, li > span
+          margin: 0 auto
+          text-align: center
+          &:after
+            display: none
+        li:nth-child(2n)
+          +zebra-row
+
+  .order
+    background: url("../img/order.png") no-repeat
+    height: 5px
+    width: 9px
+    display: inline-block
+    margin: 0 0 3px 3px
+
+  .order-ASC
+    @extend .order
+    background-position: 0 0
+
+  .order-DESC
+    @extend .order
+    background-position: 0 -5px
+  
+

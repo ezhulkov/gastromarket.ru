@@ -1,0 +1,189 @@
+<t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <div class="links-set" xml:space="preserve">
+        <a data-toggle="modal" data-target="#create" href="#create">Создать</a>
+        <a data-toggle="modal" data-target="#import" href="#create">Импорт</a>
+        <a data-toggle="modal" data-target="#search" href="#create">Искать</a>
+    </div>
+
+    <t:grid source="users" row="oneUser"
+            add="referrer,toggle,delete"
+            include="email,fullName,type"
+            reorder="email,fullName,type,referrer,toggle,delete"
+            t:mixins="GridSortingDisabled"
+            class="table table-hover">
+        <t:parameter name="referrerCell">
+            <t:if test="oneUser.referrer">
+                <t:pagelink page="admin/user/index" context="['UPDATE',oneUser.referrer.id]">${oneUser.referrer.email}</t:pagelink>
+                <t:parameter name="else">-</t:parameter>
+            </t:if>
+        </t:parameter>
+        <t:parameter name="emailCell">
+            <t:pagelink page="admin/user/index" context="['UPDATE',oneUser.id]">
+                <t:if test="oneUser.enabled">
+                    ${oneUser.email}
+                    <t:parameter name="else">
+                        <strike>${oneUser.email}</strike>
+                    </t:parameter>
+                </t:if>
+            </t:pagelink>
+        </t:parameter>
+        <t:parameter name="toggleCell">
+            <t:actionlink rel="nofollow" t:id="toggleState" context="oneUser.id">
+                <t:if test="oneUser.enabled">
+                    <span class="glyphicon glyphicon-minus-sign tip" title="Заблокировать"/>
+                    <t:parameter name="else">
+                        <span class="glyphicon glyphicon-plus-sign tip" title="Разблокировать"/>
+                    </t:parameter>
+                </t:if>
+            </t:actionlink>
+        </t:parameter>
+        <t:parameter name="deleteHeader"/>
+        <t:parameter name="deleteCell">
+            <t:actionlink rel="nofollow" t:id="deleteUser" context="oneUser.id">
+                <span class="glyphicon glyphicon-remove tip" title="Удалить"/>&nbsp;
+            </t:actionlink>
+        </t:parameter>
+        <t:parameter name="empty">
+            <div class="empty">Нет данных</div>
+        </t:parameter>
+    </t:grid>
+
+    <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="title">
+                        <h1><span>Новый пользователь</span></h1>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <t:editObject t:id="editObject" showAdd="literal:true" autoFocus="literal:true">
+                        <div class="form-group">
+                            <div class="col-sm-1"/>
+                            <div class="col-sm-10">
+                                <t:label for="region">Регион:</t:label>
+                                <input t:id="region" class="form-control"/>
+                            </div>
+                            <div class="col-sm-1"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-1"/>
+                            <div class="col-sm-10">
+                                <t:label for="email">Адрес почты:</t:label>
+                                <input t:id="email" class="form-control" type="email"/>
+                            </div>
+                            <div class="col-sm-1"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-1"/>
+                            <div class="col-sm-10">
+                                <t:label for="fullName">Полное имя:</t:label>
+                                <input t:id="fullName" class="form-control"/>
+                            </div>
+                            <div class="col-sm-1"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-1"/>
+                            <div class="col-sm-10">
+                                <t:label for="catalogName">Название каталога:</t:label>
+                                <input t:id="catalogName" class="form-control"/>
+                            </div>
+                            <div class="col-sm-1"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-1"/>
+                            <div class="col-sm-10">
+                                <t:label for="sourceUrl">Сайт-портфолио:</t:label>
+                                <input t:id="sourceUrl" class="form-control"/>
+                            </div>
+                            <div class="col-sm-1"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-1"/>
+                            <div class="col-sm-10">
+                                <t:label for="password">Пароль:</t:label>
+                                <input t:id="password" class="form-control" type="password"/>
+                            </div>
+                            <div class="col-sm-1"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-1"/>
+                            <div class="col-sm-10">
+                                <t:label for="sendEmail">Посылать eMail:</t:label>
+                                <input t:id="sendEmail" class="form-control"/>
+                            </div>
+                            <div class="col-sm-1"/>
+                        </div>
+                    </t:editObject>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="import" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" style="width:1200px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="title">
+                        <h1><span>Импорт CSV</span></h1>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <t:form t:id="importCsvForm" class="form form-horizontal edit" t:clientValidation="none" role="form">
+                        <t:errors/>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <t:label for="region2">Регион:</t:label>
+                                <input t:id="region2" t:value="region" t:type="select" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <t:label for="sendEmail2">Посылать eMail:</t:label>
+                                <input t:id="sendEmail2" t:value="sendEmail" t:type="checkbox" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <textarea t:type="textarea" t:id="csvUsers" t:value="csvUsers" rows="20" class="form-control"/>
+                            </div>
+                        </div>
+                        <input class="btn btn-red" type="submit" value="Импортировать"/>
+                    </t:form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="modal fade" id="import" tabindex="-1" role="dialog" aria-hidden="true">-->
+    <!--<div class="modal-dialog" style="width:1200px;">-->
+    <!--<div class="modal-content">-->
+    <!--<div class="modal-header">-->
+    <!--<div class="title">-->
+    <!--<h1><span>Искать</span></h1>-->
+    <!--</div>-->
+    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>-->
+    <!--</div>-->
+    <!--<div class="modal-body">-->
+    <!--<t:form t:id="searchForm" class="form form-horizontal edit" t:clientValidation="none" role="form">-->
+    <!--<t:errors/>-->
+    <!--<div class="form-group">-->
+    <!--<div class="col-sm-12">-->
+    <!--<t:textfield t:id="searchEmail" t:value="searchEMail" class="form-control"/>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<input class="btn btn-red" type="submit" value="Искать"/>-->
+    <!--</t:form>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <script>
+        activate_menu('#user');
+    </script>
+
+</t:adminlayout>

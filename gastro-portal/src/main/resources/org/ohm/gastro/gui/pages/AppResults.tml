@@ -1,0 +1,19 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <section>
+        <div class="container">
+            <div class="title">
+                <h1><span>Заявка на подключение</span></h1>
+            </div>
+            <div class="row">
+                <p class="modal-text">Спасибо, мы получили заявку и свяжемся с вами в ближайшее время по указанному адресу ${email}</p>
+
+                <p class="modal-text">Есть вопросы? Пишите на <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет подключение" class="red-text">contacts@gastromarket.ru</a>.</p>
+            </div>
+        </div>
+    </section>
+
+    <t:gagoal goal="COOK_REQUEST"/>
+    <t:yagoal goal="COOK_REQUEST"/>
+
+</t:layout>

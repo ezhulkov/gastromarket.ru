@@ -1,0 +1,31 @@
+<section xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="search darkgray-section">
+    <div class="container">
+        <t:form t:id="emailAjaxForm" t:autofocus="false" t:zone="resultZone" t:clientValidation="none" class="search-form">
+            <div class="row">
+                <div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">
+                    <div class="form-group">
+                        <input t:type="TextField" id="email" t:id="email" t:value="emailString" t:validate="email" placeholder="'Хочу заказать, но не сейчас!' - оставьте eMail и получайте специальные предложения" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 last">
+                    <div class="form-group">
+                        <input type="submit" class="form-control btn btn-red" value="Подписаться на рассылку"/>
+                    </div>
+                </div>
+            </div>
+        </t:form>
+        <t:modal modalId="email_result" caption="Спасибо за подписку!">
+            <div class="col-xs-12">
+                <p class="modal-text">
+                    На указанный адрес электронной почты мы будет присылать информацию о специальных акциях и скидках.
+                </p>
+            </div>
+        </t:modal>
+        <t:block t:id="resultBlock">
+            <script>
+                jQuery("#email_result").modal("show");
+            </script>
+        </t:block>
+        <t:zone t:id="resultZone"/>
+    </div>
+</section>

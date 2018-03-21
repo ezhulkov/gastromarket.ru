@@ -1,0 +1,17 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <section class="s600px">
+        <div class="container orders">
+            <div class="title">
+                <h1><span>Заказы</span></h1>
+            </div>
+            <t:zone t:id="ordersZone">
+                <t:delegate to="ordersBlock"/>
+            </t:zone>
+            <t:block t:id="ordersBlock">
+                <t:order.list frontend="false"/>
+            </t:block>
+        </div>
+    </section>
+
+</t:layout>

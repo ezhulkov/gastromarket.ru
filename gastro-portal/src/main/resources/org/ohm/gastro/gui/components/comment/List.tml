@@ -1,0 +1,11 @@
+<section xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="comments">
+    <t:loop source="comments" value="comment">
+        <section class="zebra-row">
+            <t:comment.comment comment="comment" entity="entity" reply="reply"/>
+        </section>
+        <t:parameter name="empty">
+            <div class="empty">Пока нет отзывов</div>
+        </t:parameter>
+    </t:loop>
+    <t:zone t:id="chatZone"/>
+</section>

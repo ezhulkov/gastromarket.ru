@@ -1,0 +1,108 @@
+@import "../include/var"
+@import "tools"
+
+.office
+  .discount-active
+    background-color: lightpink
+  .table
+    th
+      font-size: 20px
+      font-weight: normal
+      background-color: #dddddd
+      border: 2px solid #ffffff
+      padding: 10px 0 10px 20px !important
+    tr
+      border-bottom: 2px solid #dddddd
+    td
+      text-align: left
+      font-size: 16px
+      border-right: 2px solid #ffffff
+      padding: 10px 0 10px 20px
+      &.img
+        padding: 0
+        margin: 0
+        width: 102px
+        height: 102px
+        border: 1px solid white
+        overflow: hidden
+    td.del a,
+    td.toggle a
+      text-decoration: none
+    td.user,
+    td.rating,
+    td.products,
+    td.referrer,
+    td.type,
+    td.publish,
+    td.promote,
+    td.price,
+    td.date
+      width: 180px
+    td.del,
+    td.toggle
+      width: 50px
+    td.fullName
+      width: 300px
+    td.del,
+    td.toggle
+      text-align: center
+      padding: 10px 0 !important
+
+.bills
+  .bill
+    padding-top: 10px
+    padding-bottom: 10px
+    .status
+      font-family: 'PT Sans', sans-serif
+      font-size: 16px
+      padding: 0
+      margin: 0
+      color: green
+      font-weight: bold
+      &.unpaid
+        color: red
+    .name
+      font-size: 16px
+      font-weight: bold
+    .date
+      font-size: 12px
+      color: gray
+
+.notification-config
+  .all a
+    display: block
+    margin-top: 7px
+
+.table.moderation
+  th, td
+    padding: 5px !important
+  td, td a
+    font-size: 12px
+
+.bills-table
+  ul
+    list-style: none
+    padding: 0
+  .bill
+    padding: 0
+    height: 45px
+    .fee
+      display: inline-block
+      width: 60px
+      font-weight: bold
+      margin-top: 8px
+      color: $blackTextColor
+    .bill-status
+      float: right
+      border-radius: 5px
+      color: white
+      padding: 5px 20px
+      margin: 3px 15px 3px 0
+      font-size: 14px
+      width: 130px
+      display: inline-block
+      text-align: center
+      &.UNPAID
+        background-color: red
+      &.PAID
+        background-color: green

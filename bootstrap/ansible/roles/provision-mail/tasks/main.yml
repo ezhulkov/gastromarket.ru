@@ -1,0 +1,32 @@
+---
+#Postfix+stunnel4+dkim
+#http://estmnenie.com/postfix-send-mail-via-smtp-yandex.html
+#https://habrahabr.ru/post/151904/
+  - apt: name={{ item }} force=yes
+    with_items:
+      - "stunnel4"
+      - "postfix"
+      - "mailutils"
+      - "sasl2-bin"
+      - "opendkim"
+      - "opendkim-tools"
+  - file: path={{ item }} state=directory mode=0755 group=root owner=root
+    with_items:
+      - "/etc/opendkim"
+  - copy: src=yandex.conf dest=/etc/stunnel/yandex.conf
+  - copy: src=main.cf dest=/etc/postfix/main.cf
+  - copy: src=sender_relay dest=/etc/postfix/sender_relay
+  - copy: src=sasl_passwd dest=/etc/postfix/sasl_passwd
+  - copy: src=ca_yandex.pem dest=/etc/postfix/ca_yandex.pem
+  - copy: src=stunnel4 dest=/etc/default/stunnel4
+  - copy: src=gastromarket.ru.private dest=/etc/opendkim
+  - copy: src=gastromarket.ru.txt dest=/etc/opendkim
+  - copy: src=keytable dest=/etc/opendkim
+  - copy: src=signingtable dest=/etc/opendkim
+  - copy: src=opendkim dest=/etc/default/opendkim
+  - shell: postmap /etc/postfix/sender_relay
+  - shell: postmap /etc/postfix/sasl_passwd
+  - shell: postmap /etc/postfix/main.cf
+  - service: name=stunnel4 state=started enabled=yes
+  - service: name=opendkim state=started enabled=yes
+  - service: name=postfix state=started enabled=yes

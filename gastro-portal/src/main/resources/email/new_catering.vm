@@ -1,0 +1,14 @@
+#set($subject = "Запрос на кейтеринг")
+#set($toadmin = true)
+#parse("email/header.vm")
+<p>
+    У нас новый запрос на кейтеринг от ${name}<br/>
+</p>
+<p>
+    eMail: ${email}<br/>
+    Телефон: ${mobile}<br/>
+    Имя: ${fullName}<br/>
+    Комментарий: ${comment}<br/>
+</p>
+
+#parse("email/footer.vm")

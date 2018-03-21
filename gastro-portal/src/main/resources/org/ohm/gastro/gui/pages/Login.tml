@@ -1,0 +1,56 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <section>
+        <div class="container">
+            <div class="title">
+                <h1><span>Вход</span></h1>
+            </div>
+            <div class="row">
+                <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 col-xs-offset-0 col-xs-12">
+                    <p class="modal-text">Вход через аккаунт одной из социальных сетей</p>
+                    <ul class="social big">
+                        <li><a href="/social?social=vk" onclick="yaCounter29411415.reachGoal('SOCIAL_LOGIN'); return true;" title="vk.com" class="vk">vk.com</a></li>
+                        <li><a href="/social?social=fb" onclick="yaCounter29411415.reachGoal('SOCIAL_LOGIN'); return true;" title="facebook.com" class="fb">facebook.com</a></li>
+                    </ul>
+                    <p class="modal-text text-center">или через почтовый адрес и пароль</p>
+                    <t:if test="error">
+                        <div class="row">
+                            <div class="col-sm-12 text-center">
+                                <div class="error">Неправильно указан адрес почты или пароль</div>
+                            </div>
+                        </div>
+                    </t:if>
+                    <form method="post" action="/j_security_check" class="form" role="form">
+                        <div class="form-group">
+                            <label for="j_username">Адрес почты:</label>
+                            <input id="j_username" name="j_username" type="email" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="j_password">Пароль:</label>
+                            <input id="j_password" name="j_password" type="password" class="form-control"/>
+                        </div>
+                        <div class="form-group clearfix">
+                            <a href="#" class="pull-left red-text forget-link" data-toggle="modal" data-target="#login">Забыли пароль?</a>
+                            <div class="label-checkbox-set pull-right">
+                                <label for="rememberme2" class="red-text">Запомнить меня</label>
+                                <input type="checkbox" name="_spring_security_remember_me" id="rememberme2" checked="checked"/>
+                            </div>
+                        </div>
+                        <div class="form-buttons" xml:space="preserve">
+                            <input class="btn btn-red" type="submit" value="Войти"/>
+                            <t:pagelink class="btn btn-white signup-link" page="signup">Регистрация</t:pagelink>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <p class="modal-text f14px">
+                            Входя через социальную сеть, вы соглашаетесь c условиями<br/>
+                            <a href="/agreement" target="_tab" class="red-text f14px">публичной оферты</a> и
+                            <a href="/confident" target="_tab" class="red-text f14px">политики конфиденциальности</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</t:layout>

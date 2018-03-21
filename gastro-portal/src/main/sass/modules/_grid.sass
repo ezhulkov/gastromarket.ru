@@ -1,0 +1,72 @@
+@import "../include/var"
+@import "tools"
+
+.grid-block
+  width: 100%
+  margin: 0 auto 10px auto
+  font-size: 20px
+  font-family: 'PT Sans', sans-serif
+  overflow: hidden
+  text-align: center
+  .item
+    +border-class
+    margin: 9px
+    display: inline-block
+    white-space: nowrap
+    text-align: center
+    text-overflow: ellipsis
+    overflow: hidden
+    & img
+      opacity: 0.95
+      +mobile-media
+        opacity: 1
+    &:hover img
+      opacity: 1
+  &.albums .item
+    padding: 5px 15px
+    margin: 3px 10px
+    float: initial
+    display: inline-block
+  &.products .item
+    width: 270px
+    margin: 7px
+    .name
+      line-height: 60px
+    img
+      display: block
+  &.cooks .item
+    width: 210px
+    height: 250px
+    .name
+      line-height: 40px
+    img
+      height: 210px
+      width: 210px
+  &.promo .item
+    width: 270px
+    margin: 7px
+    img
+      width: 270px
+      height: 270px
+      display: block
+    .name
+      line-height: initial
+      margin-top: 15px
+    .btn-more
+      padding: 5px
+  .name
+    text-align: center
+    line-height: 25px
+    padding: 0 10px
+    overflow: hidden
+    text-overflow: ellipsis
+    color: $blackTextColor
+  a
+    display: block
+
+.ui-state-highlight
+  margin: 6px 8px
+  border: 1px dashed gray
+  width: 268px
+  height: 498px
+  display: inline-block

@@ -1,0 +1,63 @@
+@import "../include/var"
+@import "grid"
+@import "tools"
+
+$mainpics: main1 main2 main3 main4 main5 main6 main7 main8
+
+.main-page
+  margin-bottom: 0
+  .carousel-container
+    position: relative
+    .carousel-holder
+      position: absolute
+      bottom: 10px
+      right: 20px
+      a
+        color: white
+        font-size: 20px
+  .main-header
+    min-height: 600px
+    padding-top: 15px
+    padding-bottom: 15px
+    background: url(../img/main/mow/main3.jpg) center top no-repeat
+    transition: background 750ms ease-in-out 750ms
+    background-size: cover
+    +mobile-media
+      min-height: 425px
+      background: url(../img/main/landing-small6.jpg) center top no-repeat
+      background-size: initial
+    .info
+      color: white
+      +border-class(#000, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4))
+      padding: 15px 30px 30px 30px
+      margin-top: 150px
+      +tablet-media
+        margin-top: 50px
+      +mobile-media
+        margin: 10px 15px
+        padding: 10px
+        width: initial
+      h1
+        font-size: 50px
+        +mobile-media
+          font-size: 30px
+          line-height: initial
+      h2
+        font-family: 'PT Sans', sans-serif
+        line-height: 26px
+        font-size: 18px
+        +mobile-media
+          line-height: initial
+          font-size: 18px
+    .cta
+      margin-top: 40px
+      text-align: center
+      .btn
+        font-size: 26px
+        padding: 15px 60px
+      +mobile-media
+        margin-top: 10px
+        .btn
+          padding-top: 15px
+          padding-bottom: 15px
+          font-size: 22px

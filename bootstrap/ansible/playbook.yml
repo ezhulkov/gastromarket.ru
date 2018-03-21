@@ -1,0 +1,3 @@
+---
+- include: playbook-portal.yml
+- include: playbook-static.yml

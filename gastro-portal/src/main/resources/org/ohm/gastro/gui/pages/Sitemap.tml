@@ -1,0 +1,67 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" pageClass="sitemap" footer="false" >
+
+    <section>
+        <div class="container">
+            <div class="title">
+                <h1><span>Карта сайта</span></h1>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-ms-4 col-sm-4 col-xs-12">
+                    <h3>Информационные страницы</h3>
+                    <ul class="no-bullets">
+                        <li><a href="/about">О проекте</a></li>
+                        <li><a href="/contacts">Контакты</a></li>
+                        <li><a href="/categing">Gastromarket.Event</a></li>
+                        <li><a href="/cookinfo">Информация для кулинаров</a></li>
+                        <li><a href="/userinfo">Информация для покупателей</a></li>
+                        <li><a href="/rating">Рейтинги</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-ms-4 col-sm-4 col-xs-12">
+                    <h3>Действия</h3>
+                    <ul class="no-bullets">
+                        <t:unless test="authenticated">
+                            <li><a href="#login" class="login-link" data-toggle="modal" data-target="#login">Вход</a></li>
+                            <li><a data-toggle="modal" data-target="#application">Заявка на подключение</a></li>
+                            <t:parameter name="else">
+                                <li><a href="/logout">Выход</a></li>
+                            </t:parameter>
+                        </t:unless>
+                        <li><a href="#feedback" class="application-link" data-toggle="modal" data-target="#feedback">Оставить отзыв</a></li>
+                        <li><a href="/bonus">Пригласить друга</a></li>
+                        <li><a href="/tender/list/NEW/true">Разместить заявку</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-ms-4 col-sm-4 col-xs-12">
+                    <h3>Каталоги</h3>
+                    <ul class="no-bullets">
+                        <li><a href="/catalog/list">Все кулинары</a></li>
+                        <li><a href="/product/list">Каталог блюд</a></li>
+                        <li><a href="/tender/list">Заявки</a></li>
+                        <li><a href="/sitemap">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <h2>Категории блюд в каталоге</h2>
+                <t:loop source="categories" value="category">
+                    <div class="col-lg-3 col-ms-3 col-sm-3 col-xs-12" style="height: 320px;">
+                        <t:pagelink page="product/list" context="category.altId" class="category black-text">
+                            <h3>${category.name}</h3>
+                        </t:pagelink>
+                        <ul class="no-bullets">
+                            <t:loop source="category.children" value="subCategory">
+                                <li>
+                                    <t:pagelink page="product/list" context="[category.altId,subCategory.altId]" class="category">${subCategory.name}</t:pagelink>
+                                </li>
+                            </t:loop>
+                        </ul>
+                    </div>
+                </t:loop>
+            </div>
+        </div>
+    </section>
+
+    <t:feedback/>
+
+</t:layout>

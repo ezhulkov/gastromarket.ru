@@ -1,0 +1,15 @@
+#set($subject = "Оценка каталога на ГастроМаркет")
+#set($toadmin = true)
+#parse("email/header.vm")
+<p>
+    Каталог <a href="${address}">${catalog.name}</a> оценили.
+</p>
+<p>
+    Заказ: <a href="${address}">"${order.orderName}"</a><br/>
+    Стоимость: ${price} (была ${priceWas}) руб<br/>
+    Доставка: ${deliveryPrice} (была ${deliveryPriceWas}) руб<br/>
+    Оценка: ${text}<br/>
+    Советы ГастроМаркету: ${gmcomment}<br/>
+    Будут рекомендовать: ${gmrecommend}<br/>
+</p>
+#parse("email/footer.vm")

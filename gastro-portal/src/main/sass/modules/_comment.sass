@@ -1,0 +1,99 @@
+@import "../include/var"
+@import "tools"
+
+.comment
+  padding: 10px 0
+  .pic
+    margin-top: 25px
+    img
+      width: 100px
+      height: 100px
+  .date
+    color: $greyTextColor
+    min-height: 22px
+  .text
+    font-size: 16px
+    color: $blackTextColor
+  .name a
+    font-size: $f20px
+    color: $blackTextColor
+  .glyphicon-thumbs-0
+    display: none
+  .glyphicon-thumbs-1
+    margin-right: 5px
+    &:before
+      content: "\e125"
+  .glyphicon-thumbs--1
+    margin-right: 5px
+    &:before
+      content: "\e126"
+  .reply-block > a
+    margin: 0 5px 5px 0
+    padding: 3px 20px
+    +mobile-media
+      width: 100%
+      text-align: center
+  .moderate
+    font-size: 12px
+  &.unread
+    .name
+      margin-bottom: 5px
+    .text
+      background-color: #eaeaff
+      margin: -5px -15px
+      padding: 5px 15px
+  &.message
+    .text
+      cursor: pointer
+  .cert2
+    font-weight: bold
+  .ratings
+    margin: 0
+    font-size: initial
+    color: $blackTextColor
+    a
+      font-size: initial
+  &.expired-true
+    & *
+      color: #bbb
+    & img
+      opacity: 0.3
+
+.comment-edit
+  overflow: visible
+
+.photo-inject
+  .photo-item
+    margin-top: 20px
+    width: 100%
+    min-height: 100px
+  .img
+    width: 140px
+    height: 101px
+    overflow: hidden
+//img
+  width: 140px
+  height: 101px
+
+.photos
+  list-style: none
+  padding: 0
+  li
+    vertical-align: top
+    display: inline-block
+    width: 140px
+    height: 101px
+    margin-top: 10px
+    margin-right: 10px
+    overflow: hidden
+    a img
+      width: 140px
+      height: 101px
+
+.reply-denied
+  list-style: none
+  padding-left: 20px
+  li
+    margin-bottom: 10px
+    text-align: left
+    padding-right: 10px

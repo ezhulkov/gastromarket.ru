@@ -1,0 +1,75 @@
+@import "../include/var"
+@import "tools"
+
+.messages
+  min-height: 400px
+  .links-set
+    margin-top: 0
+    margin-bottom: 10px
+  .message
+    margin-bottom: 5px
+    .pic img
+      width: 50px
+      height: 50px
+    .name a
+      color: $blackTextColor
+      font-weight: bold
+    .date
+      color: gray
+      font-size: 14px
+    .photo
+      width: 140px
+      height: 101px
+      border: 1px solid $greyTextColor
+      cursor: pointer
+    &.unread
+      .text
+        background-color: #eaeaff
+        padding-top: 5px
+        padding-bottom: 5px
+
+.post
+  min-height: 100px
+  position: fixed
+  bottom: 0
+  left: 0
+  right: 0
+  background: white
+  z-index: 10
+  .attach
+    float: right !important
+    +mobile-media
+      height: 40px
+  .hr
+    border-bottom: 2px solid $lightGreyColor
+    margin-top: 10px
+    margin-bottom: 10px
+  .submit
+    height: 34px
+    padding: 4px 25px
+    width: 100%
+  .text
+    max-height: 80px
+  .upload-photo
+    float: right
+    width: 35px
+    height: 35px
+    background: url("../img/avatar-upload.png") no-repeat
+    background-position-x: -8px
+    background-position-y: -8px
+  .common-order
+    padding: 5px 15px
+    margin-bottom: 10px
+    background: #eaeaff
+    border: 1px solid $deepRedTextColor
+    +mobile-media
+      margin: 0 15px 10px 15px
+
+.modal-message
+  .messages
+    padding: 20px
+  .post
+    padding-left: 25px
+    padding-right: 25px
+    margin: 5px
+    width: initial

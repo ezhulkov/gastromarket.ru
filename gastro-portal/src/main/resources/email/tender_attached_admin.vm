@@ -1,0 +1,17 @@
+#set($subject = "Выбор исполнителя")
+#set($toadmin = true)
+#parse("email/header.vm")
+<p>
+    Клиент выбрал исполителя для заявки <a href="http://gastromarket.ru/tender/${tender.id}">"${tender.orderName}"</a>.
+</p>
+<p>
+    Заявка: "${tender.orderName}"<br/>
+    Имя заказчика: ${customer.fullName}<br/>
+    Контактный телефон: $customer.mobilePhone<br/>
+    Регион: ${tender.region}<br/>
+    Бюджет: ${tender.totalPrice} руб.<br/>
+    Дата исполнения: ${tender.dueDateAsString}<br/>
+    Исполнитель: ${tender.catalog.name}<br/>
+    Причина выбора: ${tender.attachReason}
+</p>
+#parse("email/footer.vm")

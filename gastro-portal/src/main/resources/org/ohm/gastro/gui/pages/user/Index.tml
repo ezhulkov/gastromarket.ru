@@ -1,0 +1,33 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <section class="catalog-item">
+        <div class="container">
+            <div class="title">
+                <h1><span>${customer.fullName}</span></h1>
+                <t:if test="commonComments">
+                    <t:pagelink page="office/messages/index" t:context="context">Личное сообщение<span/></t:pagelink>
+                </t:if>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pic-block user-pic">
+                    <img class="pic" style="background: url('${customer.avatarUrl}') 50% 50% no-repeat;"/>
+                    <div class="bottom">
+                        <div class="grey-text f16px">Последний вход на сайт:</div>
+                        <div class="grey-text f16px">${customer.loginDatePrintable}</div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">
+                    <t:ratings entity="customer"/>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="title">
+            <h1><span>Отзывы о пользователе</span></h1>
+        </div>
+        <t:comment.list entity="customer"/>
+    </section>
+
+</t:layout>

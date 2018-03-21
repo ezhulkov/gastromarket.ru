@@ -1,0 +1,22 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <section class="s600px">
+        <div class="container">
+            <div class="title">
+                <h1><span>Спасибо за заказ!</span></h1>
+            </div>
+            <div class="row">
+                <p class="modal-text">Мы отправили детали заказа Вам на адрес электронной почты и в ближайшее время с Вами свяжется кулинар для уточнения деталей.</p>
+
+                <p class="modal-text">Есть вопросы? Пишите на <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет заказы" class="red-text">contacts@gastromarket.ru</a>.</p>
+
+                <div class="gap3 text-center">
+                    <div class="col-xs-12">
+                        <t:pagelink page="index" class="btn btn-lg btn-red">Перейти на главную</t:pagelink>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</t:layout>

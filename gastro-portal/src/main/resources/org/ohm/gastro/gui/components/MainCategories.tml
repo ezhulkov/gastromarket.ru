@@ -1,0 +1,51 @@
+<section class="categories ${additionalClass}" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+    <div class="container">
+        <div class="title">
+            <h1><span>Поиск по категориям</span></h1>
+            <t:pagelink page="product/list">Весь каталог<span/></t:pagelink>
+        </div>
+        <p class="modal-text">
+            На ГастроМаркете вы также сможете найти самый полный каталог блюд, приготовленных домашними кулинарами и небольшими кейтеринговыми компаниями.
+            Если вам что-то понравилось, выберите блюдо и оформите заказ. Кулинар свяжется с вами в течение часа.
+        </p>
+    </div>
+    <div class="container categories">
+        <div class="row grid-block">
+            <t:loop source="categoryValues" value="onePropertyValue">
+                <div class="item enable-${showCategory}">
+                    <t:if test="showCategory">
+                        <t:pagelink page="product/list" context="onePropertyValue.altId" class="hidden-xs">
+                            <img alt="${onePropertyValue.name}" title="${onePropertyValue.name}" src="/img/category/category-${onePropertyValue.altId}-small.jpg"/>
+                        </t:pagelink>
+                        <t:pagelink page="product/list" context="onePropertyValue.altId" class="name">
+                            ${onePropertyValue.name}
+                        </t:pagelink>
+                        <t:parameter name="else">
+                            <img alt="${onePropertyValue.name}" title="${onePropertyValue.name}" src="/img/category/category-${onePropertyValue.altId}-small.jpg" class="hidden-xs"/>
+                            <span class="name">${onePropertyValue.name}</span>
+                        </t:parameter>
+                    </t:if>
+                </div>
+            </t:loop>
+        </div>
+    </div>
+    <div class="container">
+        <div class="title">
+            <h1><span>Поиск по событиям</span></h1>
+        </div>
+    </div>
+    <div class="container events">
+        <div class="row grid-block">
+            <t:loop source="eventValues" value="onePropertyValue">
+                <div class="item">
+                    <t:pagelink page="product/list" context="[null,null,onePropertyValue.altId]" class="hidden-xs">
+                        <img alt="${onePropertyValue.name}" title="${onePropertyValue.name}" src="/img/category/category-${onePropertyValue.altId}-small.jpg"/>
+                    </t:pagelink>
+                    <t:pagelink page="product/list" context="[null,null,onePropertyValue.altId]" class="name">
+                        ${onePropertyValue.name}
+                    </t:pagelink>
+                </div>
+            </t:loop>
+        </div>
+    </div>
+</section>

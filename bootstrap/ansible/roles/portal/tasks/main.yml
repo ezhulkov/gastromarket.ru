@@ -1,0 +1,26 @@
+---
+  - name: make sure that nessesary directories exists
+    file: path={{ item }} state=directory mode=0777 group=root owner=root
+    with_items:
+      - "/etc/gastro"
+      - "/var/log/gastromarket"
+      - "/var/lib/gastromarket/media"
+      - "/var/lib/gastromarket/sitemap"
+
+  - name: upload GeoLiteCity.dat
+    copy: src=GeoLiteCity.dat dest=/etc/gastro/GeoLiteCity.dat owner=tomcat7 group=tomcat7 mode=0644
+
+  - name: upload application
+    copy: src=../../gastro-portal/target/gastromarket.war dest=/tmp/ROOT.war owner=tomcat7 group=tomcat7 mode=0644
+
+  - name: cleanup tomcat7 work files
+    shell: rm -fr /var/lib/tomcat7/work/*
+
+  - name: cleanup tomcat7 war file
+    shell: rm -fr /var/lib/tomcat7/webapps/ROOT.war
+
+  - name: setup application
+    shell: mv /tmp/ROOT.war /var/lib/tomcat7/webapps/ROOT.war
+
+  - name: restart tomcat7
+    service: name=tomcat7 state=restarted

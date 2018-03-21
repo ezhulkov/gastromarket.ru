@@ -1,0 +1,96 @@
+<section xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="offer-item ${additionalClass} zebra-row">
+
+    <t:zone t:id="offerZone" id="${offerZoneId}" class="container">
+        <t:delegate to="offerBlock"/>
+    </t:zone>
+
+    <t:zone t:id="editZone" id="${editZoneId}"/>
+
+    <t:block t:id="editBlock">
+        <t:offerEdit modalId="of-${offer.id}" offer="offer" offerBlock="offerBlock" offerZoneId="${offerZoneId}" reloadPage="mainPage" catalog="offer.catalog"/>
+        <script>
+            var pe = jQuery("#of-${offer.id}");
+            pe.modal('show');
+        </script>
+    </t:block>
+
+    <t:block t:id="offerBlock">
+        <div class="row info">
+            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12  fluid-sm-block">
+                <t:pagelink page="catalog/offer" t:context="offer.altId">
+                    <img class="pic" src="${avatarUrl}"/>
+                </t:pagelink>
+            </div>
+            <div class="col-lg-9 col-md-8 col-sm-12 col-xs-12  info-block">
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 nopad ">
+                    <t:pagelink page="catalog/offer" t:context="offer.altId" class="name black-text f30px">${offer.name}</t:pagelink>
+                    <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="offer.catalog.altId">
+                        <span><img class="avatar-small" src="${offer.catalog.avatarUrlMedium}"/></span>${offer.catalog.name}
+                    </t:pageLink>
+                    <div class="persons bold">
+                        ${personsCountDecl}
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 nopad">
+                    <t:if test="editMode">
+                        <div class="edit" xml:space="preserve">
+                            <t:actionlink rel="nofollow" t:id="edit" t:context="offer.id" t:zone="${editZoneId}">Редактировать</t:actionlink>
+                            <t:unless test="mainPage">
+                                <a href="#delete" data-toggle="modal" class="delete" data-target="#deleteOffer${offer.id}">Удалить</a>
+                            </t:unless>
+                        </div>
+                        <div class="modal fade delete-offer" id="deleteOffer${offer.id}" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div class="title">
+                                            <h1><span>Удалить предложение?</span></h1>
+                                        </div>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+                                    </div>
+                                    <div class="modal-body" style="text-align: center;">
+                                        <br/>
+                                        <t:unless test="mainPage">
+                                            <t:actionlink rel="nofollow" t:id="delete" t:zone="offersZone" t:context="offer.id" class="btn btn-red deleteConfirm" style="display: inline;">Удалить</t:actionlink>
+                                        </t:unless>
+                                        <a href="#" class="btn btn-white" style="display: inline;" data-dismiss="modal">Отмена</a>
+                                        <br/>
+                                        <br/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t:if>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 nopad">
+                    <div class="description">
+                        <t:outputraw value="offer.descriptionRaw"/>
+                    </div>
+                    <t:photos offer="offer"/>
+                </div>
+            </div>
+        </div>
+        <div class="row price-modifier gap">
+            <t:loop source="priceModifiers" value="priceModifier">
+                <div class="col-lg-3 col-md-4 col-sm-3 col-xs-12 fluid-xs-block">
+                    <span class="modifier-price"><span class="sign">${priceModifier.signPrintable}</span>${priceModifier.price} <span class="rub"/></span>
+                </div>
+                <div class="col-lg-9 col-md-8 col-sm-9 col-xs-12">
+                    <span class="modifier-name">${priceModifier.description}</span>
+                </div>
+            </t:loop>
+        </div>
+        <t:if test="offer.catalog.directOrder">
+            <div class="row basket-block gap">
+                <div class="col-lg-3 col-md-4 col-sm-3 col-xs-12 fluid-xs-block">
+                    <span class="price">${offer.price} <span class="rub"/></span>
+                </div>
+                <div class="col-lg-9 col-md-8 col-sm-9 col-xs-12">
+                    <!--<t:order.add entity="offer"/>-->
+                </div>
+            </div>
+        </t:if>
+
+    </t:block>
+
+</section>

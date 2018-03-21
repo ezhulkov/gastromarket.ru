@@ -1,0 +1,27 @@
+#set($subject = "Предложение от кулинара '${catalog.name}'")
+#set($link = "${address}")
+#set($toadmin = true)
+#parse("email/header.vm")
+<p>
+    Новый комментарий к вашей заявке <a href="${address}">"${order.orderName}"</a>
+    от кулинара <a href="${catalog.fullUrl}">"${catalog.name}"</a>
+</p>
+<p>
+    <i style="margin-left: 10px;">&mdash; ${text}</i>
+</p>
+#if(!${photos.isEmpty()})
+    <p>
+    #foreach( $photo in $photos )
+        <a href="${address}"><img src="http://gastromarket.ru/${photo.linkAvatarSmall}" width="137px" height="98px"/></a>
+    #end
+    </p>
+#end
+<p>
+    #if(${price})
+        <div style="font-size: 24px;">Предложение стоимости: ${price} руб.</div>
+    #end
+    #if($time)
+        <div style="font-size: 12px;"><i>предложение кулинара действительно в течение ${time} часов</i></div>
+    #end
+</p>
+#parse("email/footer.vm")

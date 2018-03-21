@@ -1,0 +1,33 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <section>
+        <div class="container">
+            <div class="title">
+                <h1><span>Готовые предложения</span></h1>
+                <t:pagelink page="catalog/index" t:context="catalog.altId">На страницу кулинара<span/></t:pagelink>
+            </div>
+            <t:if test="catalogOwner">
+                <div class="links-set hidden-xs">
+                    <a data-toggle="modal" data-target="#of-new" href="#of-new">Добавить готовое предложение</a>
+                </div>
+                <t:offerEdit catalog="catalog" edit="false" offersBlock="offersBlock"/>
+            </t:if>
+        </div>
+    </section>
+
+    <section>
+        <t:zone t:id="offersZone">
+            <t:delegate to="offersBlock"/>
+        </t:zone>
+        <t:block t:id="offersBlock">
+            <t:loop source="allOffers" value="offer">
+                <t:offer offer="offer" type="LIST" editMode="catalogOwner" offersBlock="offersBlock"/>
+            </t:loop>
+        </t:block>
+    </section>
+
+    <script>
+        initBasket();
+    </script>
+
+</t:layout>

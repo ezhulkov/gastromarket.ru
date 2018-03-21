@@ -1,0 +1,31 @@
+<t:if xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" test="photos">
+    <ul class="photos">
+        <t:loop source="photos" value="photo">
+            <li>
+                <a data-toggle="modal" data-target="#img-big-${photo.id}" id="img-${photo.id}" href="#img-big-${photo.id}">
+                    <t:if test="photo.product">
+                        <t:lazyimage alt="photo.product.name" title="photo.product.name" source="photo.product.avatarUrlMedium" stub="/img/product-stub-374x270.png"/>
+                        <t:parameter name="else">
+                            <t:lazyimage alt="photo.text" title="photo.text" source="photo.avatarUrl" stub="/img/product-stub-374x270.png"/>
+                        </t:parameter>
+                    </t:if>
+                </a>
+                <t:modal modalId="img-big-${photo.id}" caption="Фотография" additionalClass="image-lg img-big-modal">
+                    <p class="modal-text">
+                        ${photo.text}
+                    </p>
+                    <t:if test="photo.product">
+                        <p class="modal-text prod-desc">
+                            Подробности на странице
+                            <t:pagelink page="product/index" t:context="photo.product.altId" target="_tab">${photo.product.name}</t:pagelink>
+                        </p>
+                        <t:lazyimage additionalClass="img-big" alt="photo.product.name" title="photo.product.name" source="photo.product.avatarUrlBig" stub="/img/product-stub-1000x720.png"/>
+                        <t:parameter name="else">
+                            <t:lazyimage additionalClass="img-big" alt="photo.text" title="photo.text" source="photo.avatarUrlBig" stub="/img/product-stub-1000x720.png"/>
+                        </t:parameter>
+                    </t:if>
+                </t:modal>
+            </li>
+        </t:loop>
+    </ul>
+</t:if>

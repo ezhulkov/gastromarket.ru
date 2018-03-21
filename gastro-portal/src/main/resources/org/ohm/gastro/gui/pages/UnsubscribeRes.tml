@@ -1,0 +1,21 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" >
+
+    <section>
+        <div class="container">
+            <div class="title">
+                <h1><span>Отписаться от рассылки</span></h1>
+            </div>
+            <div class="row">
+                <p class="modal-text">Вы только что отменили eMail оповещения для адреса ${email}, мы больше не будем вас беспокоить.</p>
+                <p class="modal-text">Настройки оповещений можно вернуть на странице
+                    <t:pagelink page="office/index" context="['UPDATE','0']">своего профиля</t:pagelink>
+                                      .
+                </p>
+                <p class="modal-text gap">
+                    <img src="/img/unsubscribe.jpg"/>
+                </p>
+            </div>
+        </div>
+    </section>
+
+</t:layout>

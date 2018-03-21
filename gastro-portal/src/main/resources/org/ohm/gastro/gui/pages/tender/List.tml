@@ -1,0 +1,21 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <section class="s600px">
+        <div class="container orders">
+            <div class="title">
+                <h1><span>Все заявки</span></h1>
+                <t:unless test="cook">
+                    <t:pagelink page="tender/add" class="round-link">Разместить заявку</t:pagelink>
+                </t:unless>
+            </div>
+            <t:order.filter status="status" privateOrders="false" frontend="true"/>
+            <t:zone t:id="ordersZone">
+                <t:delegate to="ordersBlock"/>
+            </t:zone>
+            <t:block t:id="ordersBlock">
+                <t:order.list status="prop:status" frontend="true"/>
+            </t:block>
+        </div>
+    </section>
+
+</t:layout>

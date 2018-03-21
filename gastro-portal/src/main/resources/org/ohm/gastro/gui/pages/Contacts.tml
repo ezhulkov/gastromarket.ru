@@ -1,0 +1,17 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <section class="s600px">
+        <div class="container">
+            <div class="title">
+                <h1><span>Контакты</span></h1>
+            </div>
+            <div class="row">
+                <p class="modal-text">
+                    По вопросам размещения рекламы и сотрудничества пишите на почту
+                    <a href="mailto:contacts@gastromarket.ru?subject=ГастроМаркет" class="red-text">contacts@gastromarket.ru</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+</t:layout>

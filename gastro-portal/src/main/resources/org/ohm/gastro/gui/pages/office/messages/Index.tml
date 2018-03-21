@@ -1,0 +1,14 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" footer="false" forceShow="false" breadcrumbs="false">
+
+    <section>
+        <div class="title fixed">
+            <div class="container">
+                <h1>${opponentUser.linkName}</h1>
+            </div>
+        </div>
+        <div class="container">
+            <t:message author="author" opponent="opponent"/>
+        </div>
+    </section>
+
+</t:layout>

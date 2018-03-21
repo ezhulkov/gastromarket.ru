@@ -1,0 +1,7 @@
+[all:vars]
+dns_postfix=-dev
+nginx_send_file=off
+tomcat_opts=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
+
+[portal]
+gastromarket-dev.ru ansible_ssh_user=vagrant ansible_ssh_private_key_file=./bootstrap/vagrant/.vagrant/machines/default/virtualbox/private_key ansible_sudo=true

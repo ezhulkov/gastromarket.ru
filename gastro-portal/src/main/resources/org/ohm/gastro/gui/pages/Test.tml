@@ -1,0 +1,161 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" breadcrumbs="false">
+
+    <section>
+        <div class="title fixed">
+            <div class="container">
+                <h1><span>Vestibulum ac diam</span></h1>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <p class="modal-text">
+                    Donec rutrum congue leo eget malesuada. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Nulla porttitor accumsan tincidunt. Donec sollicitudin molestie malesuada. Vivamus suscipit tortor eget felis porttitor volutpat. Donec rutrum congue leo eget malesuada. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section style="background-color: lightgray;">
+        <div class="container">
+            <div class="title">
+                <h1><span>Vestibulum ac diam</span></h1>
+                <a href="/">Главная страница<span/></a>
+            </div>
+            <div class="row">
+                <p class="modal-text">
+                    Donec rutrum congue leo eget malesuada. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Nulla porttitor accumsan tincidunt. Donec sollicitudin molestie malesuada. Vivamus suscipit tortor eget felis porttitor volutpat. Donec rutrum congue leo eget malesuada. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="s600px">
+        <div class="container">
+            <div class="title">
+                <h1><span>Vestibulum ac diam</span></h1>
+            </div>
+            <div class="title">
+                <h1><span>Vestibulum ac diam</span></h1>
+                <a href="/">Главная страница<span/></a>
+            </div>
+            <div class="title">
+                <h1><span>Vestibulum ac diam</span></h1>
+                <a href="/">Главная страница важного проекта<span/></a>
+            </div>
+            <div class="title">
+                <h1><span>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Quisque velit nisi, pretium ut lacinia in, elementum id enim.</span></h1>
+                <a class="back" href="/"><span/>Главная страница</a>
+            </div>
+            <div class="title">
+                <h1><span>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui dui dui.</span></h1>
+                <a href="/">Главная страница важного проекта<span/></a>
+            </div>
+            <div class="title">
+                <h2>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Quisque velit nisi, pretium ut lacinia in, elementum id enim.</h2>
+                <a href="/">Главная страница<span/></a>
+            </div>
+            <!--<div class="row">-->
+            <!--<p class="modal-text">-->
+            <!--Donec rutrum congue leo eget malesuada. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Nulla porttitor accumsan tincidunt. Donec sollicitudin molestie malesuada. Vivamus suscipit tortor eget felis porttitor volutpat. Donec rutrum congue leo eget malesuada. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.-->
+            <!--</p>-->
+            <!--</div>-->
+        </div>
+    </section>
+
+    <section class="hidden">
+        <div class="container">
+            <div class='frame'>
+                <img id='sample_picture'/>
+            </div>
+            <style>
+                .frame {
+                    width: 210px;
+                    height: 210px;
+                    border: 1px solid #ccc;
+                }
+
+                .frame > img {
+                    display: block;
+                    width: 100%
+                }
+            </style>
+            <div id="controls">
+                <a href="#" id="rotateLeft" title="Rotate left">Rotate left</a>&nbsp;
+                <a href="#" id="zoomOut" title="Zoom out">Zoom out</a>&nbsp;
+                <a href="#" id="fit" title="Fit image">Fit image</a>&nbsp;
+                <a href="#" id="zoomIn" title="Zoom in">Zoom in</a>&nbsp;
+                <a href="#" id="rotateRight" title="Rotate right">Rotate right</a>
+            </div>
+            <input type='file' id="imgInp"/>
+            <br/>
+            <script>
+                var picture = jQuery("#sample_picture");
+                picture.on("load", function () {
+                    picture.guillotine({
+                        width: 210,
+                        height: 210,
+                        eventOnChange: "guillotinechange"
+                    });
+                    picture.guillotine("fit");
+                    picture.guillotine('zoomIn');
+                    jQuery("#controls a").click(function (e) {
+                        e.preventDefault();
+                        picture.guillotine(this.id)
+                    });
+                    picture.on("guillotinechange", function (e, data, action) {
+
+                    })
+                });
+                jQuery("#imgInp").change(function () {
+                    var input = this;
+                    if (input.files) {
+                        if (input.files[0]) {
+                            var reader = new FileReader();
+                            reader.onload = function (e) {
+                                picture.attr("src", e.target.result);
+                            }
+                            reader.readAsDataURL(input.files[0]);
+                        }
+                    }
+                });
+            </script>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <t:uploadfile type="AVATAR" objectId="1" imageUrl="/img/avatar-stub-210x210.png"/>
+                </div>
+                <div class="col-sm-3">
+                    <t:uploadfile type="AVATAR" objectId="2" imageUrl="/img/avatar-stub-210x210.png" withTools="true"/>
+                </div>
+                <div class="col-sm-3">
+                    <t:uploadfile type="PHOTO" inputType="msg-icon"/>
+                </div>
+            </div>
+            <div class="row gap">
+                <div class="col-sm-12">
+                    <t:uploadfile type="PRODUCT" imageUrl="/img/product-stub-560x404.png" objectId="3" withTools="true" imageWidth="560" imageHeight="404"/>
+                </div>
+            </div>
+            <div class="row gap">
+                <div class="col-sm-2">
+                    <div style="width: 140px; height: 101px; overflow: hidden;">
+                        <img style="width: 140px; height: 101px;" id="photo-4" src="/img/product-stub-374x270.png"/>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <t:uploadfile type="TENDER" objectId="4" inputType="button" imageSelector="#photo-4" withTools="true" imageHeight="101" imageWidth="140"/>
+                </div>
+            </div>
+        </div>
+        <style>
+            .upload-file.PRODUCT {
+                margin: 0
+            }
+        </style>
+    </section>
+
+</t:layout>

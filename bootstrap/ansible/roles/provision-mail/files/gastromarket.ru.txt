@@ -1,0 +1,1 @@
+mail._domainkey IN TXT \"v=DKIM1; k=rsa; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCrEtvioMe/bL2i1rwPEZ6+t+an3L66H1AvkINeMTlGdmHOTZ3yFDbSXRPjGZv7/LBxHvsqDLU229eBFD+NodtFFD+v5o4HDdHUPzOjbst+Urvy8Ez4muESWPtDOSiiyhj/vTyYu6RbQlYGS+iGhtVpYsnxcA1j+e3tzz7rtjRr1QIDAQAB" ; ----- DKIM key mail for gastromarket.ru

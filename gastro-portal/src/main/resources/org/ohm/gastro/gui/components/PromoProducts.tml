@@ -1,0 +1,26 @@
+<section class="products ${additionalClass}" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+    <div class="container">
+        <div class="title">
+            <h1><span>Примеры блюд</span></h1>
+            <t:pagelink page="product/list">Каталог блюд<span/></t:pagelink>
+        </div>
+        <div class="row grid-block promo">
+            <t:loop source="products" value="oneProduct">
+                <div class="item">
+                    <t:pagelink page="product/index" context="oneProduct.altId">
+                        <img style="background: url('${oneProduct.avatarUrlMedium}') 50% 50% no-repeat;"/>
+                    </t:pagelink>
+                    <t:pagelink page="product/index" context="oneProduct.altId" class="name f20px">
+                        ${oneProduct.name}
+                    </t:pagelink>
+                    <t:pagelink page="product/index" context="oneProduct.altId" class="f24px black-text bold">
+                        ${oneProduct.price} <span class="rub"/>
+                    </t:pagelink>
+                    <div class="btn-more">
+                        <t:pagelink page="product" t:context="oneProduct.altId" class="btn btn-red btn-block">Узнать подробности</t:pagelink>
+                    </div>
+                </div>
+            </t:loop>
+        </div>
+    </div>
+</section>

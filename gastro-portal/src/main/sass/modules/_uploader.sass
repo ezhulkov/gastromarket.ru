@@ -1,0 +1,79 @@
+@import "../include/var"
+
+.upload-file
+  position: relative
+  overflow: hidden
+  border: 1px solid #aaa
+  img
+    display: block
+    width: 100%
+  .uploader-progress
+    position: absolute
+    top: 0
+    left: 0
+    height: 20px
+    width: 0
+    z-index: 100
+    background: $redTextColor
+    opacity: 0.8
+  &.upload-button, &.upload-msg-icon
+    border: none
+    .uploader-progress
+      display: none
+  &.upload-msg-icon
+    +mobile-media
+      height: 36px
+      width: 36px
+  &.AVATAR, &.CATALOG
+    width: 270px
+    height: 270px
+  &.PRODUCT
+    width: 560px
+    height: 404px
+    margin: 0 auto
+  &.upload-icon, &.upload-msg-icon
+    .uploader-button-container
+      position: absolute
+      right: 10px
+      bottom: 10px
+    .qq-upload-button-selector
+      width: 50px
+      height: 50px
+      border-radius: 25px
+      background: white url("../img/avatar-upload.png")
+    .btn-file
+      display: none
+  &.upload-msg-icon
+    height: 36px
+    .uploader-progress
+      display: none
+    .uploader-button-container
+      top: -8px
+      right: -10px
+  &.upload-button
+    .uploader-progress
+      display: none
+    .btn-file
+      width: 100%
+  .uploader-button-container.upload-progress
+    min-height: 50px
+    background: url("../img/spinner.gif") no-repeat center center
+    background-size: contain
+    .btn-file, .qq-upload-button-selector, .qq-upload-button-tools
+      background: none
+  .qq-upload-button-tools
+    display: none
+    background: white
+    border: 1px solid $redTextColor
+    padding: 12px 10px 10px 14px
+    border-radius: 40px
+    height: 50px
+    width: 100%
+    & > a
+      display: inline-block
+      span
+        margin: 0 5px
+        font-size: 12px
+      span.upload
+        margin: 0 5px 0 10px
+        font-size: 20px

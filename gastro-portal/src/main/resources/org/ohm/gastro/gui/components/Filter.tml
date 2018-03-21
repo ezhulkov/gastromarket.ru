@@ -1,0 +1,52 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="filter">
+    <ul class="filter-group">
+        <li>По категориям:
+            <a data-target="#" href="#categoryMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">${categoryPropertyName}</a>
+            <ul id="categoryMenu" class="dropdown-menu" role="menu">
+                <li>
+                    <a href="${pageContext}">Все меню</a>
+                </li>
+                <t:loop source="categoryValues" value="oneValue">
+                    <t:if test="showCategory">
+                        <t:if test="oneValue.children">
+                            <li class="submenu">
+                                <a href="${pageContext}/${oneValue.altId}">${oneValue.name}</a>
+                                <ul class="dropdown-menu hidden-xs">
+                                    <t:loop source="childrenValues" value="oneChildValue">
+                                        <t:if test="showSubCategory">
+                                            <li>
+                                                <a href="${pageContext}/${oneValue.altId}/${oneChildValue.altId}">${oneChildValue.name}</a>
+                                            </li>
+                                        </t:if>
+                                    </t:loop>
+                                </ul>
+                            </li>
+                            <t:parameter name="else">
+                                <li><a href="${pageContext}/${oneValue.altId}">${oneValue.name}</a></li>
+                            </t:parameter>
+                        </t:if>
+                        <t:parameter name="else">
+                            <li><span class="disabled">${oneValue.name}</span></li>
+                        </t:parameter>
+                    </t:if>
+                </t:loop>
+            </ul>
+        </li>
+        <li>По событиям:
+            <a data-target="#" href="#eventMenu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">${eventPropertyName}</a>
+            <ul id="eventMenu" class="dropdown-menu" role="menu">
+                <li>
+                    <a href="${pageContext}">Все меню</a>
+                </li>
+                <t:loop source="eventValues" value="oneValue">
+                    <t:if test="showCategory">
+                        <li><a href="${pageContext}/$N/$N/${oneValue.altId}">${oneValue.name}</a></li>
+                        <t:parameter name="else">
+                            <li><span class="disabled">${oneValue.name}</span></li>
+                        </t:parameter>
+                    </t:if>
+                </t:loop>
+            </ul>
+        </li>
+    </ul>
+</div>

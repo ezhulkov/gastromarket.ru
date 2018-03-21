@@ -1,0 +1,21 @@
+@import "../include/var"
+@import "price"
+@import "tools"
+
+.offer-item
+  padding-top: 10px
+  padding-bottom: 10px
+  &.short, &.list
+    .pic
+      width: 100px
+      +desktop-media
+        margin-top: 50px
+  &.full
+    .pic
+      width: 270px
+
+.offer-edit
+  .price
+    font-weight: bold
+    font-size: 20px
+    height: 50px

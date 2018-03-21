@@ -1,0 +1,92 @@
+<t:if xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" test="orderPage">
+    <t:if test="showControls">
+        <div class="links-set gap2" style="margin-bottom: 0">
+            <t:if test="waitApprove">
+                <t:pagelink page="tender/sendannonce" t:context="order.id">Подтвердить</t:pagelink>
+            </t:if>
+            <t:unless test="order.orderClosed">
+                &nbsp;
+                <a data-toggle="modal" data-target="#cancel_order_${order.id}" href="#of-new">Отменить заказ</a>
+                <t:if test="orderOwner">
+                    &nbsp;
+                    <t:actionlink rel="nofollow" t:id="editOrder" t:context="order.id" t:zone="${editZoneId}">Редактировать заказ</t:actionlink>
+                </t:if>
+                <t:if test="order.orderAttached">
+                    <t:if test="cook">
+                        <t:if test="orderConfirmed">
+                            &nbsp;
+                            <t:pagelink page="office/order/close" t:context="order.id">Завершить выполнение заказа<span/></t:pagelink>
+                        </t:if>
+                        <t:unless test="orderConfirmed">
+                            &nbsp;
+                            <a data-toggle="modal" data-target="#confirm_order_${order.id}" href="#of-confirm">Подтвердить заказ</a>
+                        </t:unless>
+                    </t:if>
+                    &nbsp;
+                    <t:pagelink page="office/messages/index" t:context="context">Личное сообщение<span/></t:pagelink>
+                </t:if>
+            </t:unless>
+            <t:if test="needRate">
+                &nbsp;
+                <t:pagelink page="office/order/rate" t:context="order.id">Оценить работу кулинара<span/></t:pagelink>
+            </t:if>
+        </div>
+        <t:modal modalId="cancel_order_${order.id}" caption="Отмена заказа" lock="true">
+            <t:form t:id="cancelTenderAjaxForm" t:context="[order.id]" class="form" style="padding-top:0;" clientValidation="BLUR" autofocus="false" role="form">
+                <p class="modal-text">
+                    Вы хотите отменить заказ. Пожалуйста, расскажите нам причину?<br/>
+                    Эта информация позволит нам улучшить сервис и работу кулинаров.
+                </p>
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <textarea t:type="TextArea" t:id="cancelReason" t:value="order.cancelReason" t:validate="required" rows="5" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-xs-12 gap">
+                    <div class="form-buttons" xml:space="preserve">
+                        <input class="btn btn-red" type="submit" value="Отменить заказ"/>
+                    </div>
+                </div>
+            </t:form>
+        </t:modal>
+        <t:if test="cook">
+            <t:modal modalId="confirm_order_${order.id}" caption="Подтверждение заказа" lock="true">
+                <t:form t:id="confirmOrderAjaxForm" t:context="[order.id]" class="form" style="padding-top:0;" clientValidation="BLUR" autofocus="false" role="form">
+                    <p class="modal-text">
+                        Вы подтверждаете выполнение заказа. <br/>Пожалуйста, укажите финальную стоимость заказа.
+                    </p>
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <t:label for="totalPrice">Стоимость, руб:</t:label>
+                            <div class="label-tip">
+                                Итоговая стоимость вашего предложения; можно скорректировать во время закрытия заказа
+                            </div>
+                            <input t:type="textfield" t:id="totalPrice" t:value="totalPrice" t:validate="required" type="number" class="form-control f20px h45px"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <t:label for="deliveryPrice">Стоимость доставки (если необходима), руб:</t:label>
+                            <input t:type="textfield" t:id="deliveryPrice" t:value="deliveryPrice" type="number" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 gap">
+                        <div class="form-buttons" xml:space="preserve">
+                                                        <input class="btn btn-red" type="submit" value="Подтвердить заказ"/>
+                                                    </div>
+                    </div>
+                </t:form>
+            </t:modal>
+        </t:if>
+        <t:if test="orderOwner">
+            <t:zone t:id="editZone" id="${editZoneId}"/>
+            <t:block t:id="editOrderBlock">
+                <t:order.edit modalId="order-${order.id}" order="order"/>
+                <script>
+                    var pe = jQuery("#order-${order.id}");
+                    pe.modal('show');
+                </script>
+            </t:block>
+        </t:if>
+    </t:if>
+</t:if>

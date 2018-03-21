@@ -1,0 +1,81 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <section>
+        <div class="container">
+            <div class="title">
+                <h1><span>Все блюда от ${catalog.name}</span></h1>
+            </div>
+            <t:if test="catalogOwner">
+                <div class="links-set">
+                    <a data-toggle="modal" data-target="#pr-new" href="#pr-new">Добавить блюдо</a>&nbsp;
+                    <t:pagelink page="office/import" context="catalog.altId">Импортировать меню <span/></t:pagelink>
+                </div>
+                <t:productEdit catalog="catalog" edit="false" productsBlock="newProductsBlock" productsZoneId="literal:newProductsZone"/>
+            </t:if>
+            <t:filter parentValue="parentPropertyValue"
+                      catalog="catalog"
+                      categoryValue="categoryPropertyValue"
+                      eventValue="eventPropertyValue"
+                      pageContext="/catalog/products/${catalog.altId}"/>
+        </div>
+    </section>
+
+    <section>
+        <div class="container flexible">
+            <t:if test="catalogOwner">
+                <t:zone t:id="newProductsZone">
+                    <t:delegate to="newProductsBlock"/>
+                </t:zone>
+            </t:if>
+            <t:block t:id="newProductsBlock">
+                <t:if test="newProducts">
+                    <div class="title">
+                        <h2><span>Новые блюда</span></h2>
+                    </div>
+                    <div id="product-items-new" class="grid-block products fixed">
+                        <t:loop source="newProducts" value="oneProduct">
+                            <t:product product="oneProduct" class="fixed" edit="${catalogOwner}"/>
+                        </t:loop>
+                    </div>
+                </t:if>
+            </t:block>
+
+            <t:loop source="rootProperties" value="propertyValue">
+                <div class="title">
+                    <h2><span>${categoryName}</span></h2>
+                </div>
+                <t:if test="categoryTip">
+                    <p class="modal-text">${categoryTip}</p>
+                </t:if>
+                <div id="product-items-${propertyValue.id}" class="grid-block products fixed">
+                    <t:delegate to="productsBlock"/>
+                </div>
+                <t:zone id="${productsFetchZoneId}" t:id="productsFetchZone">
+                    <t:delegate to="productsFetchBlock"/>
+                </t:zone>
+            </t:loop>
+
+            <t:block t:id="productsBlock">
+                <t:loop source="products" value="oneProduct">
+                    <t:product product="oneProduct" class="fixed" edit="${catalogOwner}"/>
+                </t:loop>
+                <t:zone t:id="productsZone" id="${productsZoneId}"/>
+            </t:block>
+            <t:block t:id="productsFetchBlock">
+                <t:if test="showFetch">
+                    <div class="more-products">
+                        <div class="links-set">
+                            <t:actionlink rel="nofollow" t:id="fetchProductsAjaxLink" t:context="[propertyValue.id,fetchFrom,fetchTo]" t:zone="${productsZoneId}">Показать еще...</t:actionlink>
+                        </div>
+                    </div>
+                </t:if>
+            </t:block>
+            <t:productModalTemplate/>
+        </div>
+    </section>
+
+    <script>
+        jQuery(document).ready(initProductCatalogFixed);
+    </script>
+
+</t:layout>

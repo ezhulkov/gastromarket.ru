@@ -1,0 +1,16 @@
+#set($subject = "Закрытие заказа на ГастроМаркет")
+#set($toadmin = true)
+#parse("email/header.vm")
+<p>
+    Заказ <a href="${address}">"${order.orderName}"</a> закрыт.
+</p>
+<p>
+    Заказчик: ${order.customer.fullName}<br/>
+    Кулинар: ${order.catalog.name}<br/>
+    Стоимость: ${price} (была ${priceWas}) руб<br/>
+    Доставка: ${deliveryPrice} (была ${deliveryPriceWas}) руб<br/>
+</p>
+<p>
+    Советы ГастроМаркету: ${survey}
+</p>
+#parse("email/footer.vm")

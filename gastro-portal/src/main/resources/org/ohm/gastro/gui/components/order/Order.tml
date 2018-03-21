@@ -1,0 +1,22 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <t:zone t:id="orderShowCatalogZone" id="${orderShowCatalogZoneId}">
+        <t:delegate to="orderMainBlock"/>
+    </t:zone>
+    <t:block t:id="orderMainBlock">
+        <div class="order-show-catalog ${type.name().toLowerCase()}">
+            <t:order.orderHeader order="order" catalog="catalog" frontend="frontend"/>
+            <t:order.info order="order" catalog="catalog" orderPage="orderPage" frontend="frontend"/>
+            <t:order.statusBadge order="order" orderPage="orderPage"/>
+            <t:order.editOrderControls order="order" orderPage="orderPage"/>
+        </div>
+    </t:block>
+
+    <t:if test="order?.tender">
+        <t:if test="orderPage">
+            <t:order.cooksviewed order="order"/>
+            <t:order.executor order="order" additionalClass="border-shadow pink"/>
+        </t:if>
+    </t:if>
+
+</div>

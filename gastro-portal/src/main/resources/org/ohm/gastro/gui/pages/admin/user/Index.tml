@@ -1,0 +1,102 @@
+<t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <t:editObject t:id="editObject" showUpdate="true" showDelete="true" autoFocus="literal:true">
+        <div class="form-group">
+            <t:label class="col-sm-2 control-label" for="region">Регион:</t:label>
+
+            <div class="col-sm-10">
+                <input t:id="region" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <t:label class="col-sm-2 control-label" for="email">Адрес почты:</t:label>
+
+            <div class="col-sm-10">
+                <input t:id="email" class="form-control" type="text" placeholder="eMail"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <t:label class="col-sm-2 control-label" for="fullName">Полное имя:</t:label>
+
+            <div class="col-sm-10">
+                <input t:id="fullName" class="form-control" type="text" placeholder="Полное имя"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <t:label class="col-sm-2 control-label" for="sourceUrl">Источник:</t:label>
+
+            <div class="col-sm-10">
+                <input t:id="sourceUrl" class="form-control" type="url" placeholder="Источник"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <t:label class="col-sm-2 control-label" for="password">Пароль:</t:label>
+
+            <div class="col-sm-10">
+                <input t:id="password" class="form-control" type="text"/>
+            </div>
+        </div>
+    </t:editObject>
+
+    <t:if test="userCook">
+        <div class="title-simple">
+            <h1>Каталоги</h1>
+            <a data-toggle="modal" data-target="#create" href="#create">Добавить каталог<span/></a>
+        </div>
+        <t:grid source="catalogs" row="oneCatalog"
+                reorder="name,type,date,user,rating,level,products,del"
+                add="user,del,products"
+                exclude="id,basketMin,wizardStep,maxWizardStep,wasSetup,description,delivery,avatarUrl,avatarUrlMedium,avatarUrlSmall,payment,altId,
+                rankBadge,productBadge,orderBadge,paymentRaw,deliveryRaw,descriptionRaw,lastModified,lastModifiedPrintable,
+                cancellation,cancellationRaw,prepayment,locationUrl,fullUrl"
+                t:mixins="GridSortingDisabled" class="table table-hover">
+            <t:parameter name="nameHeader">
+                Название
+            </t:parameter>
+            <t:parameter name="userCell">
+                <t:pagelink t:page="admin/user/index" t:context="['UPDATE',oneCatalog.user.id]">${oneCatalog.user.email}</t:pagelink>
+            </t:parameter>
+            <t:parameter name="delCell">
+                <t:actionlink rel="nofollow" t:id="delete" context="oneCatalog.id"><span class="glyphicon glyphicon-remove"/></t:actionlink>
+            </t:parameter>
+            <t:parameter name="productsCell">
+                ${oneCatalog.products.size()}
+            </t:parameter>
+            <t:parameter name="nameCell">
+                <t:pagelink page="admin/catalog/index" context="['UPDATE',oneCatalog.altId]">${oneCatalog.name}</t:pagelink>
+            </t:parameter>
+        </t:grid>
+        <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="title">
+                            <h1><span>Новый каталог</span></h1>
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <t:form t:id="catalogForm" t:autofocus="true" t:clientValidation="none" class="form form-horizontal edit" role="form">
+                            <div class="form-group">
+                                <div class="col-sm-1"/>
+                                <div class="col-sm-10">
+                                    <t:label for="catalogName">Название каталога:</t:label>
+                                    <input t:id="catalogName" type="text" class="form-control"/>
+                                </div>
+                                <div class="col-sm-1"/>
+                            </div>
+                            <div class="form-buttons" xml:space="preserve">
+                                <input class="btn btn-red" type="submit" value="Добавить"/>
+                            </div>
+                        </t:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t:if>
+
+    <script>
+        activate_menu('#user');
+    </script>
+
+</t:adminlayout>

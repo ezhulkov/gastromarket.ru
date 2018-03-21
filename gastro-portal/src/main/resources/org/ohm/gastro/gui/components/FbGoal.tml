@@ -1,0 +1,5 @@
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (typeof fbq != "undefined") fbq('track', '${goal}');
+    });
+</script>

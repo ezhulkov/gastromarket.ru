@@ -1,0 +1,84 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <section>
+        <div class="container">
+            <div class="title">
+                <h1><span>Рейтинговая система</span></h1>
+            </div>
+            <div class="row">
+                <h2>Рейтинг кулинаров</h2>
+                <div class="row gap3">
+                    <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-3 col-xs-12 text-center">
+                        <img src="/img/rating-128x128.png" srcset="/img/rating-256x256.png 2x" alt="рейтинг"/>
+                        <br/>
+                        <br/>
+                    </div>
+                    <div class="col-lg-7 col-lg-offset-0 col-md-8 col-md-offset-0 col-sm-7 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+                        <p>
+                            ГастроМаркет учитывает рейтинг каждого из кулинаров, который строится в режиме онлайн на основании нескольких важных параметров. Рейтинг позволяет кулинару строить свою репутацию,
+                            а покупателю помогает выбрать лучшего исполнителя своей заявки.
+                        </p>
+                        <p>
+                            Каждый параметр, на основании которого строится рейтинг, имеет свой собственный вес. Например, минимальный вес у количества входов на ГастроМаркет,
+                            а максимальный вес у положительных или отрицательных отзывов.
+                        </p>
+                        <p>
+                            Обычно для перехода с рейтинга 1 на 2 кулинару необходимо загрузить несколько блюд в каталог и получить один положительный отзыв. Помните, что негативные рейтинги имеют очень мощное
+                            отрицательное воздействие на репутацию.
+                        </p>
+                        <p>
+                            При подсчете рейтинга учитываются следующие параметры:
+                        </p>
+                        <ul>
+                            <li>положительные или отрицательные рейтинги покупателей;</li>
+                            <li>количество выполненных и отмененных заказов;</li>
+                            <li>оборот за последний год;</li>
+                            <li>количество блюд и услуг в каталоге кулинара;</li>
+                            <li>как часто кулинар заходит на ГастроМаркет.</li>
+                        </ul>
+                        <p>На что влияет рейтинг?</p>
+                        <ul>
+                            <li>Положение в общем списке кулинаров.</li>
+                            <li>Количество открытых заказов и возможность откликаться на заявки.</li>
+                            <li>Репутация в глазах покупателей.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <h2>Бейджи</h2>
+            <div class="row gap3">
+                <div class="col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10">
+                    <p>
+                        Кроме числового рейтинга, каждый покупатель также может получить несколько бейджиков:
+                    </p>
+                    <ul class="no-bullets">
+                        <li class="gap"><img src="/img/badge-rank-small.png" srcset="/img/badge-rank-smallx2.png 2x"/> &mdash; бейдж ТОП кулинаров</li>
+                        <li class="gap"><img src="/img/badge-product-small.png" srcset="/img/badge-product-smallx2.png 2x"/> &mdash; бейдж количества блюд в каталоге</li>
+                        <li class="gap"><img src="/img/badge-order-small.png" srcset="/img/badge-order-smallx2.png 2x"/> &mdash; бейдж выполненных заказов</li>
+                    </ul>
+                </div>
+            </div>
+            <h2>Рейтинг покупателей</h2>
+            <div class="row gap3">
+                <div class="col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10">
+                    <p>
+                        У каждого покупателя также есть свой рейтинг.
+                        После выполнения заказа кулинар оценивает покупателя и оставляет оценку и комментарий на персональной странице покупателя.
+                    </p>
+                    <p>
+                        Эти комментарии позволяют оценить добросовестность покупателя, если он уже размещал заявки или заказы ранее.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <t:parameter name="bottomBlock">
+        <t:if test="authenticated">
+            <div class="bottom-image">
+                <div></div>
+            </div>
+        </t:if>
+    </t:parameter>
+
+</t:layout>

@@ -1,0 +1,3 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="order-add">
+    <t:actionlink rel="nofollow" class="pic-holder basket-add" t:zone="orderShowZone" t:context="[entity.type,entity.id]" t:id="ajaxLinkPurchase"><span/>Заказать</t:actionlink>
+</div>

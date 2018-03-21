@@ -1,0 +1,11 @@
+#set($subject = "Счет №${bill.billNumber} оплачен")
+#set($toadmin = true)
+#parse("email/header.vm")
+<p>
+    Счет №${bill.billNumber} оплачен.
+</p>
+<p>
+    Сумма: ${bill.fee}<br/>
+    Каталог: <a href="http://gastromarket.ru/catalog/${catalog.altId}">${catalog.name}</a>
+</p>
+#parse("email/footer.vm")

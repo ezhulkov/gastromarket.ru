@@ -1,0 +1,23 @@
+<t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <t:grid source="conversations" row="oneConversation"
+            reorder="lastActionDatePrintable,sender,recipient"
+            add="sender,recipient"
+            include="lastActionDatePrintable"
+            t:mixins="GridSortingDisabled" class="table table-hover">
+        <t:parameter name="lastActionDatePrintableCell">
+            <t:pagelink t:page="office/messages/index" t:context="context">${oneConversation.lastActionDatePrintable}</t:pagelink>
+        </t:parameter>
+        <t:parameter name="senderCell">
+            <a href="${oneConversation.author.linkUrl}">${oneConversation.author.linkName}</a>
+        </t:parameter>
+        <t:parameter name="recipientCell">
+            <a href="${oneConversation.opponent.linkUrl}">${oneConversation.opponent.linkName}</a>
+        </t:parameter>
+    </t:grid>
+
+    <script>
+        activate_menu('#conversation');
+    </script>
+
+</t:adminlayout>

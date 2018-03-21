@@ -1,0 +1,13 @@
+#set($subject = "Подтверждение заказа на ГастроМаркет")
+#set($link = "${address}")
+#set($toadmin = true)
+#parse("email/header.vm")
+<p>
+    Заказ "$ordername" подтвержден.
+</p>
+<p>
+    Заказчик: ${order.customer.fullName}<br/>
+    Кулинар: ${order.catalog.name}<br/>
+    Стоимость: ${order.totalPrice}<br/>
+</p>
+#parse("email/footer.vm")

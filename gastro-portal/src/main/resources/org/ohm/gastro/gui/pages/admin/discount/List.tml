@@ -1,0 +1,67 @@
+<t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <div class="links-set" xml:space="preserve">
+        <a data-toggle="modal" data-target="#create" href="#create">Добавить скидку</a>
+    </div>
+
+    <t:grid source="catalogs" row="catalog" rowClass="rowClass"
+            include="name,discountText,discount,discountFromPrintable,discountToPrintable" add="del"
+            t:mixins="GridSortingDisabled" class="table table-hover">
+        <t:parameter name="nameCell">
+            <t:pagelink page="catalog/index" context="catalog.altId">${catalog.name}</t:pagelink>
+        </t:parameter>
+        <t:parameter name="delCell">
+            <t:actionlink rel="nofollow" t:id="delete" context="catalog.id" class="glyphicon glyphicon-remove"/>
+        </t:parameter>
+        <t:parameter name="empty">
+            <div class="empty">Нет данных</div>
+        </t:parameter>
+    </t:grid>
+
+    <t:modal modalId="create" caption="Добавить скидку" lock="true">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <t:form t:clientValidation="BLUR" class="form nopad" role="form">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <t:label t:for="catalogs">Каталог:</t:label>
+                        <input t:id="catalogs" class="chosen-select" data-placeholder="Каталог"/>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <t:label t:for="discountFrom">Начало:</t:label>
+                        <input t:id="discountFrom" t:type="TextField" t:value="discountFrom" t:validate="required" class="form-control date-picker"/>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <t:label t:for="discountTo">Окончание:</t:label>
+                        <input t:id="discountTo" t:type="TextField" t:value="discountTo" t:validate="required" class="form-control date-picker"/>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <t:label t:for="discount">Скидка:</t:label>
+                        <input t:id="discount" t:type="TextField" t:value="discount" t:validate="required" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <t:label t:for="discountText">Описание:</t:label>
+                        <input t:id="discountText" t:type="TextArea" rows="5" t:value="discountText" t:validate="required" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-xs-12 gap">
+                    <div class="form-buttons" xml:space="preserve">
+                        <input class="btn btn-red" t:type="submit" value="Добавить"/>
+                    </div>
+                </div>
+            </t:form>
+        </div>
+    </t:modal>
+
+    <script>
+        activate_menu('#discount');
+    </script>
+
+</t:adminlayout>

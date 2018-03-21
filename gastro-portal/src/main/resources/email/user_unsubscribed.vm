@@ -1,0 +1,15 @@
+#set($subject = "Пользователь отписался от рассылки")
+#set($toadmin = true)
+#parse("email/header.vm")
+<p>
+    У нас кто-то отписался.
+</p>
+<p>
+    eMail: ${email}<br/>
+    Причина: ${reason}<br/>
+    Не ищу клиентов: ${client}<br/>
+    Спам: ${spam}<br/>
+    Неактуально: ${wrong}<br/>
+    Слишком много: ${many}<br/>
+</p>
+#parse("email/footer.vm")

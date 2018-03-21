@@ -1,0 +1,29 @@
+#set($subject = "Новый заказ на ГастроМаркет")
+#set($toadmin = true)
+#set($params = "")
+#parse("email/header.vm")
+<p>
+    Новый заказ "${order.orderName}" от заказчика ${customer.fullName}
+</p>
+<p>
+    #if(${total}) Бюджет: ${total} руб. #else Открытый бюджет#end<br/>
+    Комментарий: $comment<br/>
+    Исполнитель: ${order.catalog.name}<br/>
+</p>
+<p>
+    Дата исполнения: $date<br/>
+    Телефон заказчика: $customer.mobilePhone<br/>
+    Адрес доставки: $customer.deliveryAddress<br/>
+</p>
+<p>
+    #foreach( $photo in $photos )
+    <a href="${address}?${params}">
+        #if(${photo.product})
+            <img src="http://gastromarket.ru/${photo.product.avatarUrlSmall}" width="137px" height="98px"/>
+        #else
+            <img src="http://gastromarket.ru/${photo.avatarUrlSmall}" width="137px" height="98px"/>
+        #end
+    </a>
+    #end
+</p>
+#parse("email/footer.vm")

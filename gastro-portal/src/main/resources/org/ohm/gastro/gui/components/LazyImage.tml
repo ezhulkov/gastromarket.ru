@@ -1,0 +1,3 @@
+<span>
+    <img class="lazy ${additionalClass}" alt="${alt}" title="${title}" data-original="${source}" src="${stub}"/>
+</span>

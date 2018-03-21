@@ -1,0 +1,20 @@
+<section class="cooks ${additionalClass}" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+    <div class="container">
+        <div class="title">
+            <h1><span>Лучшие кулинары</span></h1>
+            <t:pagelink page="catalog/list">Все кулинары<span/></t:pagelink>
+        </div>
+        <div class="row grid-block cooks">
+            <t:loop source="cooks" value="oneCook">
+                <div class="item">
+                    <t:pagelink page="catalog/index" context="oneCook.altId">
+                        <img alt="${oneCook.name}" title="${oneCook.name}" src="${oneCook.avatarUrlBig}"/>
+                    </t:pagelink>
+                    <t:pagelink page="catalog/index" context="oneCook.altId" class="name f18px">
+                        ${oneCook.name}
+                    </t:pagelink>
+                </div>
+            </t:loop>
+        </div>
+    </div>
+</section>

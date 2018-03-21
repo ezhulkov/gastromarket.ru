@@ -1,0 +1,18 @@
+---
+#Backup2l
+  - apt: name=backup2l
+  - name: make sure that nessesary directories exists
+    file: path={{ item }} state=directory mode=0777 group=root owner=root
+    with_items:
+      - "/var/backup.d/final"
+      - "/var/backup.d/preliminary"
+      - "/root/backup/"
+  - template: src=backup2l.conf dest=/etc/backup2l.conf owner=root group=root mode=0744
+  - copy: src=hotcopy-postgresql.sh dest=/root/backup/hotcopy-postgresql.sh owner=root group=root mode=0744
+  - copy: src=zz-backup2l dest=/etc/cron.daily/zz-backup2l owner=root group=root mode=0744
+  - shell: rm -fr /root/.ssh/id_rsa*
+  - shell: ssh-keygen -b 2048 -t rsa -f /root/.ssh/id_rsa -q -N ""
+  - shell: ssh-keygen -e -f /root/.ssh/id_rsa.pub | grep -v "Comment:" > /root/.ssh/id_rsa_rfc.pub
+  - shell: cat /root/.ssh/id_rsa_rfc.pub >> backup_authorized_keys
+  #- shell: echo mkdir .ssh | sftp u142356@u142356.your-backup.de
+  #- shell: scp backup_authorized_keys u142356@u142356.your-backup.de:.ssh/authorized_keys

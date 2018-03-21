@@ -1,0 +1,192 @@
+<t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <t:form t:id="filterForm" class="form" style="overflow: inherit;" role="form">
+        <div class="form-group">
+            <div class="col-xs-4">
+                <input t:id="catalogs" class="chosen-select" data-placeholder="Каталог"/>
+            </div>
+            <div class="col-xs-4">
+                <input t:id="show" t:value="show" t:type="select" class="chosen-select" validate="required"/>
+            </div>
+            <div class="col-xs-4">
+                <input type="submit" class="btn btn-red" value="Фильтровать"/>
+            </div>
+        </div>
+    </t:form>
+
+    <t:form t:id="productForm" class="form">
+        <div class="links-set" xml:space="preserve">
+            <a data-toggle="modal" data-target="#categories" href="#categories">Свойства</a>&nbsp;
+        </div>
+        <div class="modal fade" id="categories" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog image-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="title">
+                            <h1><span>Свойства</span></h1>
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h3>Удалить свойства</h3>
+                            </div>
+                            <div class="col-xs-6">
+                                <h3>Добавить свойства</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <ul class="no-bullets">
+                                    <t:loop source="categoryValues" value="value" formState="NONE">
+                                        <li>
+                                            <label>
+                                                <input type="checkbox" name="CA-DEL-${value.id}"/>&nbsp;${value.name}
+                                            </label>
+                                        </li>
+                                    </t:loop>
+                                </ul>
+                            </div>
+                            <div class="col-xs-3">
+                                <ul class="no-bullets">
+                                    <t:loop source="eventValues" value="value" formState="NONE">
+                                        <li>
+                                            <label>
+                                                <input type="checkbox" name="EV-DEL-${value.id}"/>&nbsp;${value.name}
+                                            </label>
+                                        </li>
+                                    </t:loop>
+                                </ul>
+                            </div>
+                            <div class="col-xs-3">
+                                <ul class="no-bullets">
+                                    <t:loop source="categoryValues" value="value" formState="NONE">
+                                        <li>
+                                            <label>
+                                                <input type="checkbox" name="CA-ADD-${value.id}"/>&nbsp;${value.name}
+                                            </label>
+                                        </li>
+                                    </t:loop>
+                                </ul>
+                            </div>
+                            <div class="col-xs-3">
+                                <ul class="no-bullets">
+                                    <t:loop source="eventValues" value="value" formState="NONE">
+                                        <li>
+                                            <label>
+                                                <input type="checkbox" name="EV-ADD-${value.id}"/>&nbsp;${value.name}
+                                            </label>
+                                        </li>
+                                    </t:loop>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-buttons" xml:space="preserve">
+                            <input type="submit" class="btn btn-red" value="Изменить свойства"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <t:grid source="products" row="oneProduct"
+                include="name"
+                reorder="check,img,name,categories,events,ingredients,actions"
+                add="check,img,categories,events,ingredients,actions"
+                t:mixins="GridSortingDisabled" class="table table-hover moderation gap">
+            <t:parameter name="nameHeader">Название</t:parameter>
+            <t:parameter name="catalogHeader">Каталог</t:parameter>
+            <t:parameter name="categoriesHeader">Категории</t:parameter>
+            <t:parameter name="eventsHeader">События</t:parameter>
+            <t:parameter name="ingredientsHeader">Ингредиенты</t:parameter>
+            <t:parameter name="checkHeader">
+                <input type="checkbox" id="ch-all"/>
+            </t:parameter>
+            <t:parameter name="actionsHeader"/>
+            <t:parameter name="checkCell">
+                <input type="checkbox" class="ch-box" name="PR-${oneProduct.id}"/>
+            </t:parameter>
+            <t:parameter name="imgCell">
+                <a data-toggle="modal" data-target="#img-big-${oneProduct.id}" href="#img-big-${oneProduct.id}">
+                    <img src="${oneProduct.avatarUrlSmall}"/>
+                </a>
+                <div class="modal fade img-big-modal" id="img-big-${oneProduct.id}" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog image-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="title">
+                                    <h1><span>Фотография</span></h1>
+                                </div>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <img class="img-big" src="${oneProduct.avatarUrlBig}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t:parameter>
+            <t:parameter name="categoriesCell">
+                <t:outputraw value="categories"/>
+            </t:parameter>
+            <t:parameter name="eventsCell">
+                <t:outputraw value="events"/>
+            </t:parameter>
+            <t:parameter name="ingredientsCell">
+                <t:outputraw value="ingredients"/>
+            </t:parameter>
+            <t:parameter name="nameCell">
+                <t:pagelink page="catalog/index" context="oneProduct.catalog.altId" class="bold">
+                    ${oneProduct.catalog.name}
+                </t:pagelink>
+                <br/>
+                <t:pagelink page="product/index" context="oneProduct.altId">
+                    ${oneProduct.name}
+                </t:pagelink>
+                <hr/>
+                ${oneProduct.description}
+            </t:parameter>
+            <t:parameter name="actionsCell">
+                <t:actionlink t:id="edit" t:context="oneProduct.id" t:zone="editZone"><span title="редактировать" class="glyphicon glyphicon-pencil f14px" aria-hidden="true"/>
+                </t:actionlink>
+                <br/>
+                <t:actionlink t:id="hide" t:context="oneProduct.id" t:zone="editZone">
+                    <t:if test="oneProduct.hidden">
+                        <span title="показать" class="glyphicon glyphicon-eye-open f14px" aria-hidden="true"/>
+                    </t:if>
+                    <t:unless test="oneProduct.hidden">
+                        <span title="спрятать" class="glyphicon glyphicon-eye-close f14px" aria-hidden="true"/>
+                    </t:unless>
+                </t:actionlink>
+                <br/>
+                <t:actionlink t:id="accept" context="oneProduct.id" t:zone="editZone"><span title="проверено" class="glyphicon glyphicon-ok f14px" aria-hidden="true"/></t:actionlink>
+            </t:parameter>
+            <t:parameter name="empty">
+                <div class="empty">Нет данных</div>
+            </t:parameter>
+        </t:grid>
+        <div class="links-set" xml:space="preserve">
+            <a data-toggle="modal" data-target="#categories" href="#categories">Свойства</a>&nbsp;
+        </div>
+    </t:form>
+
+    <t:zone t:id="editZone"/>
+
+    <t:block t:id="editBlock">
+        <t:productEdit modalId="pr-${oneProduct?.id}" product="oneProduct" catalog="oneProduct.catalog"/>
+        <script>
+            var pe = jQuery("#pr-${oneProduct.id}");
+            pe.modal('show');
+        </script>
+    </t:block>
+
+    <script>
+        activate_menu('#product');
+        jQuery("#ch-all").unbind("click").bind("click", function () {
+            jQuery(".ch-box").each(function (i, e) {
+                jQuery(e).prop("checked", !jQuery(e).prop("checked"))
+            });
+        });
+    </script>
+
+</t:adminlayout>

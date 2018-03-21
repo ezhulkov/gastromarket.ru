@@ -1,0 +1,53 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="photo-inject">
+    <!--noindex-->
+    <div class="clearfix"></div>
+    <t:ajaxformloop t:id="photos" value="photo" source="photos" encoder="formInjectorEncoder" show="none">
+        <div class="photo-item">
+            <div class="col-sm-4 col-xs-12 fluid-xs-block">
+                <div class="form-group img">
+                    <t:if test="photo.product">
+                        <img alt="${photo.product.name}" id="photo-${photo.id}" title="${photo.text}" style="width: 140px; height: 101px;" src="${photo.product.avatarUrlMedium}"/>
+                        <t:parameter name="else">
+                            <img alt="${photo.text}" id="photo-${photo.id}" title="${photo.text}" style="width: 140px; height: 101px;" src="${photo.avatarUrl}"/>
+                        </t:parameter>
+                    </t:if>
+                </div>
+            </div>
+            <div class="col-sm-7 col-xs-12">
+                <div class="form-group">
+                    <t:uploadfile type="PHOTO" objectId="${photo.id}" inputType="button" imageSelector="#photo-${photo.id}" withTools="true" imageHeight="101" imageWidth="140"/>
+                </div>
+                <t:if test="products">
+                    <div class="form-group">
+                        <t:select t:id="photoProduct" class="form-control chosen-select" data-placeholder="или блюдо из каталога"/>
+                    </div>
+                </t:if>
+                <div class="form-group">
+                    <t:textfield t:id="photoText" class="form-control" placeholder="Текст к фотографии"/>
+                </div>
+            </div>
+            <div class="hidden-lg hidden-md hidden-sm col-xs-12">
+                <t:removerowlink class="del-item">Удалить</t:removerowlink>
+            </div>
+            <div class="col-sm-1 hidden-xs">
+                <t:removerowlink class="glyphicon glyphicon-remove del-item"/>
+            </div>
+        </div>
+        <script>
+            initControls();
+        </script>
+        <t:parameter name="addRow">
+            <div class="col-xs-12">
+                <t:addrowlink class="add-photo" rel="nofollow">
+                    <t:if test="caption">
+                        ${caption}
+                        <t:parameter name="else">
+                            + Добавить фотографию
+                        </t:parameter>
+                    </t:if>
+                </t:addrowlink>
+            </div>
+        </t:parameter>
+    </t:ajaxformloop>
+    <!--/noindex-->
+</div>

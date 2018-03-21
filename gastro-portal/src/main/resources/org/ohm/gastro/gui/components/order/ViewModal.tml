@@ -1,0 +1,12 @@
+<t:modal xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+         modalId="order-new-modal"
+         additionalClass="modal-lg"
+         caption="Прямой заказ">
+    <t:order.directOrder catalog="catalog"/>
+    <div class="col-xs-12">
+        <div class="form-buttons" xml:space="preserve">
+            <a href="#" class="btn btn-white" data-dismiss="modal">Выбрать еще</a>
+            <t:pagelink class="btn btn-red" page="catalog/order" t:context="catalog.altId">Разместить прямой заказ</t:pagelink>
+        </div>
+    </div>
+</t:modal>

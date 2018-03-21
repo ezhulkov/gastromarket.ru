@@ -1,0 +1,13 @@
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        var t = jQuery("[id^='${target}']")
+        if (t != undefined) {
+            if (t.get(0) != undefined) {
+                Event.observe(t.get(0), "submit", function () {
+                    if (typeof yaCounter29411415 != "undefine")yaCounter29411415.reachGoal('${goal}');
+                    return true;
+                });
+            }
+        }
+    });
+</script>

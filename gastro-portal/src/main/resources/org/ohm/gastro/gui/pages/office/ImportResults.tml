@@ -1,0 +1,51 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <section class="s600px">
+        <div class="container">
+            <div class="title">
+                <h1><span>Завершение импорта</span></h1>
+            </div>
+            <p class="modal-text">
+                <a href="/catalog/${catalog.altId}" class="red-text">Вернуться к странице кулинара</a>
+            </p>
+            <div class="row">
+                <div class="row">
+                    <p class="modal-text">
+                        Для того чтобы эти товары попали в общий каталог<br/>
+                        и начали отображаться для всех посетителей сайта на Вашей странице,<br/>
+                        необходимо завершить импорт и отредактировать каждый товар.<br/>
+                    </p>
+
+                    <p class="modal-text">
+                        Не забудьте указать цену, категорию, свойства, описание каждого товара и, при необходимости, заменить фотографии.
+                    </p>
+                </div>
+            </div>
+
+            <t:zone t:id="productsZone">
+                <t:delegate to="productsBlock"/>
+            </t:zone>
+            <t:block t:id="productsBlock">
+                <div id="product-items" class="grid-block products">
+                    <t:loop source="products" value="oneProduct">
+                        <t:product product="oneProduct" class="fixed" edit="true"/>
+                    </t:loop>
+                </div>
+            </t:block>
+            <t:productModalTemplate/>
+        </div>
+    </section>
+
+    <script>
+        jQuery(document).ready(function () {
+            var init = function () {
+                initProductCatalogFixed();
+            }
+            init();
+            Event.observe(jQuery("#productsZone").get(0), Tapestry.ZONE_UPDATED_EVENT, function (event) {
+                init();
+            });
+        });
+    </script>
+
+</t:layout>

@@ -1,0 +1,132 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <section class="s600px">
+        <div class="container">
+            <div class="title">
+                <h1><span>Профиль пользователя</span></h1>
+            </div>
+            <t:editObject t:id="editObject" showUpdate="true" autoFocus="literal:true">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="email">Адрес почты:</label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" type="text" value="${authenticatedUser.email}" disabled="disabled"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <t:label class="col-sm-3 control-label" for="fullName">Полное имя:</t:label>
+
+                            <div class="col-sm-9">
+                                <input t:id="fullName" class="form-control" type="text" placeholder="Полное имя"/>
+                            </div>
+                        </div>
+                        <t:unless test="cook">
+                            <div class="form-group">
+                                <t:label class="col-sm-3 control-label" for="region">Мой регион:</t:label>
+
+                                <div class="col-sm-9">
+                                    <input t:id="region" class="form-control"/>
+                                </div>
+                            </div>
+                        </t:unless>
+                        <div class="form-group">
+                            <t:label class="col-sm-3 control-label" for="mobilePhone">Контактный телефон:</t:label>
+
+                            <div class="col-sm-9">
+                                <input t:id="mobilePhone" class="form-control mobile-phone" placeholder="+7 xxx xxx-xx-xx"/>
+                            </div>
+                        </div>
+                        <t:if test="user">
+                            <div class="form-group">
+                                <t:label class="col-sm-3 control-label" for="deliveryAddress">Адрес доставки:</t:label>
+
+                                <div class="col-sm-9">
+                                    <input t:id="deliveryAddress" class="form-control" type="text" placeholder="Адрес доставки"/>
+                                </div>
+                            </div>
+                        </t:if>
+                        <div class="row">
+                            <div class="col-sm-3"/>
+
+                            <div class="col-sm-8 text-left">
+                                <h3>Сменить пароль:</h3>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <t:label class="col-sm-3 control-label" for="password1">Пароль:</t:label>
+
+                            <div class="col-sm-9">
+                                <input t:id="password1" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <t:label class="col-sm-3 control-label" for="password2">Повторите пароль:</t:label>
+
+                            <div class="col-sm-9">
+                                <input t:id="password2" class="form-control"/>
+                            </div>
+                        </div>
+                        <t:if test="cook">
+                            <div class="row">
+                                <div class="col-sm-3"/>
+
+                                <div class="col-sm-8 text-left">
+                                    <h3>Настройки eMail уведомлений:</h3>
+                                </div>
+                            </div>
+                            <t:zone t:id="subscriptionZone" class="notification-config">
+                                <t:delegate to="subscriptionBlock"/>
+                            </t:zone>
+                            <t:block t:id="subscriptionBlock">
+                                <div class="form-group all">
+                                    <t:label class="col-sm-3 control-label" for="password2">Все уведомления:</t:label>
+                                    <div class="col-sm-9">
+                                        <t:if test="authenticatedUser.subscribeEmail">
+                                            <t:actionlink t:id="unsubscribe" t:zone="subscriptionZone">Отписаться от eMail уведомлений</t:actionlink>
+                                            <hr/>
+                                            <ul class="nopad no-bullets">
+                                                <t:loop source="notificationConfigs" value="notificationConfig" formState="NONE">
+                                                    <li>
+                                                        <t:if test="notificationEnabled">
+                                                            <input checked="checked" type="checkbox" id="${notificationConfig}" name="NOTIF-${notificationConfig}"/>
+                                                            <t:parameter name="else">
+                                                                <input type="checkbox" id="${notificationConfig}" name="NOTIF-${notificationConfig}"/>
+                                                            </t:parameter>
+                                                        </t:if>
+                                                        &nbsp;
+                                                        <label for="${notificationConfig}">${notificationConfigPrintable}</label>
+                                                    </li>
+                                                </t:loop>
+                                            </ul>
+                                        </t:if>
+                                        <t:unless test="authenticatedUser.subscribeEmail">
+                                            <t:actionlink t:id="subscribe" t:zone="subscriptionZone">Вернуть подписку на eMail уведомления</t:actionlink>
+                                        </t:unless>
+                                    </div>
+                                </div>
+                            </t:block>
+                        </t:if>
+                    </div>
+                    <div class="col-sm-2">
+                        <t:uploadfile type="AVATAR" imageUrl="${avatarUrl}" withTools="true" imageHeight="270" imageWidth="270"/>
+                    </div>
+                    <div class="col-sm-2"/>
+                </div>
+            </t:editObject>
+            <t:if test="childrenUsers">
+                <div class="row">
+                    <div class="col-sm-2 f16px text-right">Приглашенные пользователи:</div>
+                    <div class="col-sm-10">
+                        <t:loop source="childrenUsers" value="child">
+                            <t:pagelink page="user" t:context="child.id">${child.fullName}</t:pagelink>
+                            <br/>
+                        </t:loop>
+                    </div>
+                </div>
+            </t:if>
+        </div>
+    </section>
+
+</t:layout>

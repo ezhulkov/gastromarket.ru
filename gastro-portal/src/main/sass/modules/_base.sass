@@ -1,0 +1,58 @@
+@charset "UTF-8"
+@import "../include/var"
+@import "tools"
+
+html
+  position: relative
+
+body
+  font-family: 'PT Sans', sans-serif
+  font-size: 16px
+  margin-top: 55px
+  height: 100%
+
+a
+  cursor: pointer
+  font-size: $f16px
+  color: $redTextColor
+  &:hover
+    color: $redTextColor
+
+h1, h2, h3
+  font-family: 'PT Serif', serif
+  text-align: center
+  font-size: 30px
+
+h2
+  font-size: 25px
+
+h3
+  text-align: left
+  font-size: 20px
+
+hr
+  margin-top: 10px
+  margin-bottom: 10px
+
+*:focus
+  outline: 0 !important
+
+.page
+  min-height: 500px
+  & > section:last-of-type
+    padding-bottom: 50px
+
+.container.flexible
+  width: 1168px
+  @media (min-width: 310px)
+    width: 310px
+  @media (min-width: 600px)
+    width: 600px
+  @media (min-width: 885px)
+    width: 885px
+  @media (min-width: 1166px)
+    width: 1166px
+  @media (min-width: 1450px)
+    width: 1450px
+  @media (min-width: 1740px)
+    width: 1740px

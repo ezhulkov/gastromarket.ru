@@ -1,0 +1,87 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <section>
+        <div class="container">
+            <div class="title">
+                <h1><span>О проекте</span></h1>
+            </div>
+            <div class="row">
+                <div class="row gap3">
+                    <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-3 col-xs-12 text-center">
+                        <img src="/img/baloons-128x128.png" srcset="/img/baloons-256x256.png 2x" alt="праздник"/>
+                        <br/>
+                        <br/>
+                    </div>
+                    <div class="col-lg-7 col-lg-offset-0 col-md-8 col-md-offset-0 col-sm-7 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+                        <p>
+                            ГастроМаркет это Интернет площадка, которая объединяет всех увлечённых приготовлением еды людей с одной стороны, а с другой помогает найти интересные кулинарные решения тем, кому не хватает на это времени.
+                        </p>
+                        <p>
+                            Будь то детский день рождения или свадьба, пикник на природе или праздник в офисе – на ГастроМаркет вы всегда сможете найти соответствующие угощения на любой вкус: торты, капкейки, бургеры и многое другое.
+                        </p>
+                    </div>
+                </div>
+                <h2>Покупателям</h2>
+                <div class="row gap3">
+                    <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-3 col-xs-12 text-center">
+                        <img src="/img/friends-128x128.png" srcset="/img/friends-256x256.png 2x" alt="сервисы"/>
+                        <br/>
+                        <br/>
+                    </div>
+                    <div class="col-lg-7 col-lg-offset-0 col-md-8 col-md-offset-0 col-sm-7 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+                        <p>
+                            ГастроМаркет – это, прежде всего, помощник, который освободит вас от утомительной работы на кухне.
+                        </p>
+                        <p>
+                            Доверьте этот процесс людям, которые нашли свою страсть в приготовлении вкусной и разнообразной еды. А освободившееся время посвятите своим близким или тому, что вы действительно любите.
+                        </p>
+                        <p>
+                            Вы можете выбрать среди доступных на сайте предложений, разместив заявку или сделать индивидуальный заказ понравившемуся кулинару. Рекомендации других пользователей помогут вам сделать выбор.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="gap3 text-center">
+                    <div class="col-xs-12">
+                        <t:pagelink page="userinfo" class="btn btn-red btn-lg">Подробнее для покупателей</t:pagelink>
+                    </div>
+                </div>
+                <div class="gap5">&nbsp;</div>
+
+                <h2>Кулинарам</h2>
+                <div class="row gap3">
+                    <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-3 col-xs-12 text-center">
+                        <img src="/img/cook-128x128.png" srcset="/img/cook-256x256.png 2x" alt="сервисы"/>
+                        <br/>
+                        <br/>
+                    </div>
+                    <div class="col-lg-7 col-lg-offset-0 col-md-8 col-md-offset-0 col-sm-7 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+                        <p>
+                            Если же приготовление еды или выпечка &mdash; ваша страсть и все вокруг восхищаются вашим талантом, то ГастроМаркет создан специально для вас.
+                            Мы поможем познакомить большее количество людей с вашими кулинарными шедеврами и наладить свой собственный независимый бизнес.</p>
+                        <p>
+                            Выполняйте заказы, стройте свою репутацию на сайте и вы увидите как просто и быстро увеличится количество заказов.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="gap3 text-center">
+                    <div class="col-xs-12">
+                        <t:pagelink page="cookinfo" class="btn btn-red btn-lg">Подробнее для кулинаров</t:pagelink>
+                    </div>
+                </div>
+                <div class="gap">&nbsp;</div>
+
+            </div>
+        </div>
+    </section>
+
+    <t:parameter name="bottomBlock">
+        <t:if test="authenticated">
+            <div class="bottom-image">
+                <div></div>
+            </div>
+        </t:if>
+    </t:parameter>
+
+</t:layout>

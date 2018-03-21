@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+        xmlns:beans="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+    <http pattern="/favicon.ico" security="none"/>
+    <http pattern="/robots.txt" security="none"/>
+    <http pattern="/*.png" security="none"/>
+    <http pattern="/module/**" security="none"/>
+    <http pattern="/assets/**" security="none"/>
+    <http pattern="/css/**" security="none"/>
+    <http pattern="/sound/**" security="none"/>
+    <http pattern="/js/**" security="none"/>
+    <http pattern="/img/**" security="none"/>
+
+    <http access-denied-page="/e403" use-expressions="true" auto-config="false">
+        <intercept-url pattern="/office" access="hasAnyRole('COOK,ADMIN,USER')"/>
+        <intercept-url pattern="/office/**" access="hasAnyRole('COOK,ADMIN,USER')"/>
+        <intercept-url pattern="/admin" access="hasAnyRole('ADMIN')"/>
+        <intercept-url pattern="/admin/**" access="hasAnyRole('ADMIN')"/>
+        <intercept-url pattern="/cook" access="hasAnyRole('ADMIN,COOK')"/>
+        <intercept-url pattern="/cook/**" access="hasAnyRole('ADMIN,COOK')"/>
+        <intercept-url pattern="/" access="hasAnyRole('ROLE_ANONYMOUS,COOK,USER,ADMIN')"/>
+        <intercept-url pattern="/index" access="hasAnyRole('ROLE_ANONYMOUS,COOK,USER,ADMIN')"/>
+        <form-login login-page="/login" default-target-url="/index" always-use-default-target="true" authentication-failure-url="/login/error"
+                login-processing-url="/j_security_check" authentication-success-handler-ref="authenticationSuccessHandler"/>
+        <logout logout-url="/logout" invalidate-session="true" delete-cookies="true" success-handler-ref="logoutSuccessHandler"/>
+        <remember-me services-ref="rememberMeServices" key="b6cNMFz1W8BFNDQPmPg2cuXJamNgCmOc" authentication-success-handler-ref="authenticationSuccessHandler"/>
+    </http>
+
+    <beans:bean id="rememberMeServices" class="org.ohm.gastro.service.impl.GmTokenBasedRememberMeServices">
+        <beans:constructor-arg value="b6cNMFz1W8BFNDQPmPg2cuXJamNgCmOc"/>
+        <beans:constructor-arg ref="userService"/>
+    </beans:bean>
+
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider user-service-ref="userService">
+            <password-encoder ref="passwordEncoder"/>
+        </authentication-provider>
+    </authentication-manager>
+
+    <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>
+
+    <beans:bean id="authenticationSuccessHandler" class="org.ohm.gastro.service.impl.GmAuthSuccessfulHandler">
+        <beans:property name="useReferer" value="true"/>
+        <beans:property name="redirectStrategy" ref="redirectStrategy"/>
+    </beans:bean>
+
+    <beans:bean id="redirectStrategy" class="org.ohm.gastro.service.impl.GmRedirectStrategy"/>
+
+    <beans:bean id="logoutSuccessHandler" class="org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler">
+        <beans:property name="useReferer" value="true"/>
+    </beans:bean>
+
+</beans:beans>

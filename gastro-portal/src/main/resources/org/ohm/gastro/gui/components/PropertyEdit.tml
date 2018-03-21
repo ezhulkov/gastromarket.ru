@@ -1,0 +1,72 @@
+<div class="form-group prop-edit" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+    <t:delegate to="valueBlock"/>
+    <t:block t:id="listBlock">
+        <div class="col-xs-11 property-select nopad" id="edit-list-${property.id}">
+            <label for="prop-${property.id}">${property.name}:</label><br/>
+            <t:loop source="rootTags" value="rootTag" formState="NONE">
+                <div class="prop-edit-block">
+                    <select name="list-${property.id}-0" data-property="${property.id}" data-placeholder="Выберите значение" class="chosen-select parent-value">
+                        <option value=""/>
+                        <t:loop source="propertyValues" value="oneValue" formState="NONE">
+                            <t:if test="rootSelected">
+                                <option value="${oneValue.id}" selected="selected">${oneValue.name}</option>
+                                <t:parameter name="else">
+                                    <option value="${oneValue.id}">${oneValue.name}</option>
+                                </t:parameter>
+                            </t:if>
+                        </t:loop>
+                    </select>
+                    <t:loop source="rootValues" value="oneValue" formState="NONE">
+                        <select name="sublist-${oneValue.id}-0"
+                                data-placeholder="Выберите значение"
+                                class="child-value sublist-${property.id} show-${selectActive}">
+                            <option value=""/>
+                            <t:loop source="childrenValues" value="oneChildValue" formState="NONE">
+                                <t:if test="childSelected">
+                                    <option value="${oneChildValue.id}" selected="selected">${oneChildValue.name}</option>
+                                    <t:parameter name="else">
+                                        <option value="${oneChildValue.id}">${oneChildValue.name}</option>
+                                    </t:parameter>
+                                </t:if>
+                            </t:loop>
+                        </select>
+                    </t:loop>
+                </div>
+            </t:loop>
+        </div>
+        <div class="col-xs-1 more">
+            <a href="#" onclick="javascript:addMoreProperties('#edit-list-${property.id}')" class="glyphicon glyphicon-plus more-btn"/>
+        </div>
+    </t:block>
+    <t:block t:id="openBlock">
+        <div class="col-xs-11 property-select nopad" id="edit-open-${property.id}">
+            <label for="prop-${property.id}">${property.name}:</label><br/>
+            <t:loop source="rootTags" value="rootTag" formState="NONE">
+                <div class="prop-edit-block">
+                    <select name="list-${property.id}-0" data-property="${property.id}" data-no_results_text="Создать новое значение?" data-placeholder="Выберите значение" class="chosen-select parent-value open-value">
+                        <option value=""/>
+                        <t:loop source="propertyValues" value="oneValue" formState="NONE">
+                            <t:if test="rootSelected">
+                                <option value="${oneValue.id}" selected="selected">${oneValue.name}</option>
+                                <t:parameter name="else">
+                                    <option value="${oneValue.id}">${oneValue.name}</option>
+                                </t:parameter>
+                            </t:if>
+                        </t:loop>
+                    </select>
+                </div>
+            </t:loop>
+        </div>
+        <div class="col-xs-1 more">
+            <a href="#" onclick="javascript:addMoreProperties('#edit-open-${property.id}')" class="glyphicon glyphicon-plus more-btn"/>
+        </div>
+    </t:block>
+
+    <t:block t:id="textBlock">
+        <div class="col-xs-12 nopad">
+            <label for="prop-${property.id}">${property.name}:</label>
+            <input class="form-control" type="${valueType}" id="prop-${property.id}" name="prop-${property.id}" value="${tagValue?.data}"/>
+        </div>
+    </t:block>
+
+</div>

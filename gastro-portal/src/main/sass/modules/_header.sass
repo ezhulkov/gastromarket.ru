@@ -1,0 +1,105 @@
+@import "../include/var"
+@import "tools"
+
+.navbar
+  border: none
+  margin-bottom: 0
+  background: white
+  border-bottom: 1px solid #eee
+  .envelope
+    float: right
+    padding: 12px 0 0 0
+    li
+      list-style: none
+    span
+      color: #269398
+      vertical-align: middle
+      margin-right: 3px
+    a:hover, a, a:visited, a:active
+      text-decoration: none
+  .navbar-right .dropdown-menu
+    right: 0
+    top: 40px
+  .dropdown
+    display: block
+    padding: 15px
+    line-height: 20px
+  .navbar-nav
+    margin-top: 5px
+  .navbar-brand
+    height: 60px
+    padding-top: 10px
+    padding-bottom: 10px
+    +mobile-media
+      float: none
+      white-space: nowrap
+      .header-geo a
+        color: $navLinkColor
+        margin-left: 10px
+  .navbar-collapse
+    margin-top: 1px
+    border: none
+  .navbar-toggle, .navbar-toggle:hover
+    margin-top: 7px
+    background-color: white
+    border: none
+    .icon-bar
+      margin-top: 6px
+      height: 3px
+      width: 30px
+      background-color: #333
+  .navbar-toggle:hover
+    .icon-bar
+      background-color: $greyTextColor
+  &:after
+    pointer-events: none
+    margin-bottom: -55px
+    min-height: 55px
+    width: 100%
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(30, 30, 30, 0.1)), to(rgba(255, 255, 255, 0.0)))
+  &.navbar-inverse .navbar-nav > li
+    & > a, & > span
+      padding-left: 10px
+      padding-right: 10px
+    a
+      &, &:hover, &:active
+        color: $navLinkColor
+        background-color: transparent !important
+      &:hover
+        text-decoration: underline
+  //body.modal-open &
+    padding-right: 15px
+  +mobile-media
+    //body.modal-open &
+      padding-right: 0
+    li
+      text-align: center
+      a
+        text-overflow: ellipsis
+        overflow: hidden
+        padding-top: 5px
+        padding-bottom: 5px
+    .dropdown
+      padding-top: 10px
+      padding-bottom: 10px
+    .dropdown-menu:before
+      display: none
+    .navbar-right .dropdown-menu
+      right: 0
+    .navbar-nav .open .dropdown-menu > li > a
+      padding: 5px 20px
+
+ul.region
+  +no-bullets
+  text-align: center
+  li
+    display: inline-block
+    padding: 20px 30px
+    span
+      font-size: 20px
+  +mobile-media
+    li
+      display: block
+      padding: 5px 0
+      span
+        font-size: 18px

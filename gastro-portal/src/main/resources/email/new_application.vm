@@ -1,0 +1,20 @@
+#set($subject = "Запрос на подключение к ГастроМаркет")
+#set($toadmin = true)
+#parse("email/header.vm")
+<p>
+    У нас новый запрос на подключение от ${cookname}<br/>
+</p>
+<p>
+    eMail: ${email}<br/>
+    Регион: ${region}<br/>
+    Имя: ${cookname}<br/>
+    Каталог: ${catalogName}<br/>
+    Ссылка: ${catalogLink}<br/>
+    Откуда узнал: ${sourceInfo}<br/>
+    О кулинаре: ${about}
+</p>
+<p>
+    <a href="http://gastromarket.ru/admin/catalog/create/${email}/${region}/${cookname}/${catalogName}/${catalogLink}">Подключить кулинара</a>
+</p>
+
+#parse("email/footer.vm")

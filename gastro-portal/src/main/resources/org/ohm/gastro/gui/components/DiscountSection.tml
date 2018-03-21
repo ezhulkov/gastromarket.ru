@@ -1,0 +1,32 @@
+<t:if test="catalogs" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+    <section class="discount ${additionalClass}">
+        <div class="container">
+            <div class="title">
+                <h1><span>Горячее предложение</span></h1>
+            </div>
+            <ul class="row">
+                <t:loop source="catalogs" value="catalog">
+                    <li>
+                        <div class="col-lg-10 col-lg-offset-1 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 gap4 nopad">
+                            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12 nopad holder">
+                                <t:pagelink page="catalog/index" context="catalog.altId">
+                                    <img alt="${catalog.name}" title="${catalog.name}" src="${catalog.avatarUrlBig}"/>
+                                </t:pagelink>
+                                <div class="discount"> &mdash;${catalog.discount}%</div>
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12 nopad">
+                                <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 nopad">
+                                    <t:pagelink page="catalog/index" context="catalog.altId" class="catalog">${catalog.name}</t:pagelink>
+                                    <div class="text">${catalog.discountText}</div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 nopad">
+                                    <t:pagelink page="catalog/order" context="catalog.altId" class="order round-link">Воспользоваться скидкой<span/></t:pagelink>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </t:loop>
+            </ul>
+        </div>
+    </section>
+</t:if>

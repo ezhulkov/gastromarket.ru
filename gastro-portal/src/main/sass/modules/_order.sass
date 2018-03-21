@@ -1,0 +1,236 @@
+@import "../include/var"
+@import "price"
+@import "grid"
+@import "tools"
+
+.order-show-modal .attention
+  margin-top: 0
+
+.order-show-catalog
+  position: relative
+  padding: 20px 30px
+  +mobile-media
+    padding: 10px 15px 20px 15px
+  &.short
+    .register-order
+      display: none
+  &.basket, &.full, &.main_page
+    +border-class
+    width: 100%
+    margin: 0 auto 30px auto
+  .action-link
+    position: absolute
+    bottom: 20px
+    right: 30px
+    a
+      margin-right: 0
+    @media (max-width: 992px)
+      &
+        position: relative
+        bottom: 0
+        right: 0
+        margin-top: 10px
+        width: 100%
+        text-align: center
+  .tender-views
+    color: $greyTextColor
+    font-size: 12px
+    line-height: 35px
+  .tender-info
+    border-bottom: 1px solid #aaaaaa
+    margin-bottom: 15px
+    .price
+      +price-class(30px, right, normal)
+      line-height: 30px
+  .catalog
+    padding-bottom: 20px
+    border-bottom: 1px solid #aaaaaa
+    margin-bottom: 15px
+    .badges
+      margin-top: 3px
+    .order-info
+      .number
+        text-align: right
+        a
+          font-size: $f30px
+          color: $blackTextColor
+      .status
+        text-align: right
+        font-size: $f20px
+      @media (max-width: 992px)
+        .number, .status
+          text-align: left
+  .items
+    border-bottom: 1px solid #aaaaaa
+    margin-bottom: 20px
+    padding: 0 15px 15px 15px
+    .order-item
+      padding-top: 5px
+      padding-bottom: 5px
+      .name, .index
+        display: inline-block
+        vertical-align: top
+      .index
+        width: 30px
+        font-size: 20px
+        padding-top: 1px
+      .name a
+        +name-class
+        font-size: 20px
+      .modifier-name
+        font-size: 16px
+      .item-price
+        +price-class
+      .unit
+        +unit-class
+  .total
+    margin-bottom: 10px
+    .price
+      +price-class(30px, right, bold)
+    @media (max-width: 750px)
+      .price
+        +price-class(30px, left, bold)
+  .basket-submit
+    padding: 0
+    .last
+      margin-bottom: 0
+
+.tender-add
+  .tender
+    padding-bottom: 20px
+    h2
+      margin-top: 15px
+    .sample-zone
+      margin-bottom: 10px
+      .caption
+        font-size: 24px
+        margin: 20px 0 0 0
+        text-align: center
+      ul
+        padding: 0
+        list-style: none
+        li
+          padding: 5px 20px
+          .name
+            font-size: 20px
+            display: block
+            color: $blackTextColor
+    .tender-form
+      +border-class(rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.9), rgba(0, 0, 0, 0.4))
+      text-align: center
+      color: $blackTextColor
+      overflow: initial
+      div.t-error
+        display: none
+      .name, .price
+        font-size: 20px
+        height: 45px
+      .caption
+        font-size: 24px
+        margin: 10px 0 0 0
+      +desktop-media
+        padding: 10px 10px 0 10px
+
+.cooks-viewed
+  padding: 0
+  list-style: none
+  li
+    display: inline-block
+    margin: 5px
+    img
+      width: 50px
+      height: 50px
+
+.rate-form
+  .error
+    text-align: center
+
+.order-status
+  border-radius: 5px
+  color: white
+  padding: 5px 20px
+  font-size: 14px
+  min-width: 100px
+  display: block
+  text-align: center
+  &.NEW
+    background-color: yellow
+    color: #333
+    font-weight: bold
+  &.ACTIVE
+    background-color: blue
+  &.CLOSED
+    background-color: green
+  &.CANCELLED
+    background-color: red
+
+.discount
+  ul
+    list-style: none
+    padding: 0
+    margin: 20px 0 0 0
+  li
+    padding: 0
+    margin: 0
+  img
+    margin: 0 20px 0 0
+    width: 150px
+    height: 150px
+  .holder
+    position: relative
+    .discount
+      position: absolute
+      top: -20px
+      right: -20px
+      background: url("../img/discount-star.png") no-repeat center center
+      width: 80px
+      height: 80px
+      font-size: 20px
+      color: white
+      font-weight: bold
+      text-align: center
+      vertical-align: middle
+      line-height: 80px
+      +mobile-media
+        top: 0
+        right: 0
+  .text
+    padding-left: 40px
+    +mobile-media
+      padding-left: 5px
+      padding-bottom: 10px
+  .catalog
+    display: inline-block
+    font-size: 24px
+    padding: 0 10px 0 40px
+    +mobile-media
+      padding-left: 5px
+      margin-top: 10px
+  +mobile-media
+    .round-link
+      width: 100%
+      text-align: center
+
+.direct-order
+  .caption
+    font-size: 20px
+  .total
+    font-size: 20px
+  ul
+    list-style: none
+    padding: 0
+    li
+      vertical-align: top
+      display: inline-block
+      width: 140px
+      text-align: center
+      margin: 5px
+      img
+        width: 140px
+      .name
+        padding-top: 10px
+        width: 140px
+        overflow: hidden
+        text-overflow: ellipsis
+        line-height: normal
+        display: block

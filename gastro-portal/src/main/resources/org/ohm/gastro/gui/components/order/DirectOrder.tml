@@ -1,0 +1,29 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="container direct-order">
+
+    <div class="row">
+        <div class="caption">Прямой заказ кулинару ${catalog.name}</div>
+    </div>
+
+    <div class="row">
+        <ul>
+            <t:loop source="products" value="product">
+                <li>
+                    <t:pagelink page="product/index" t:context="product.altId">
+                        <img src="${product.avatarUrlMedium}" title="${product.name}" alt="${product.name}"/>
+                    </t:pagelink>
+                    <t:pagelink page="product/index" context="product.altId" class="name">
+                        ${product.name}
+                    </t:pagelink>
+                </li>
+            </t:loop>
+        </ul>
+    </div>
+
+    <div class="row">
+        <div class="total">Предполагаемая стоимость заказа *: ${total}<span class="rub"/></div>
+        <p class="f14px">
+            * - после уточнения деталей заказа стоимость заказа может измениться
+        </p>
+    </div>
+
+</div>

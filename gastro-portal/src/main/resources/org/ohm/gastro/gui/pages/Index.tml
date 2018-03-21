@@ -1,0 +1,51 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" pageClass="main-page" breadcrumbs="false" breadCrumbTitle="Главная">
+
+    <section class="main-header carousel-container" id="main-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12 info">
+                    <h1 id="main-title">Закажите персональный торт!</h1>
+
+                    <h2 id="main-text">
+                        Лучшие домашние кондитеры и кулинары готовы сделать блюдо по индивидуальному заказу. <br/>
+                        Торты, капкейки, пироги, первые блюда и салаты — любые кулинарные шедевры для вашего праздника!
+                    </h2>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cta">
+                    <t:pagelink page="tender/add" class="btn btn-red btn-white-border">Хочу заказать</t:pagelink>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-holder">
+            <a href="/"/>
+        </div>
+        <div id="carousel-info" class="hidden">
+            <t:loop source="carouselInfo" value="carousel" index="carouselIndex">
+                <div id="carousel_${carouselIndex}" data-name="${carousel.name}" data-url="${carousel.url}" data-image="${carousel.imageUrl}"></div>
+            </t:loop>
+        </div>
+        <script>
+            initMainPageMedia();
+            initMainPageCarousel(0, ${carouselInfo.size()});
+        </script>
+    </section>
+
+    <t:emailSection/>
+
+    <t:howToSection additionalClass="white-section"/>
+
+    <t:lastTendersSection additionalClass="gray-section"/>
+
+    <t:bestCooks additionalClass="white-section"/>
+
+    <t:lemonGrass additionalClass="gray-section"/>
+
+    <t:discountSection additionalClass="white-section"/>
+
+    <t:promoProducts additionalClass="gray-section"/>
+
+    <t:mainCategories additionalClass="white-section"/>
+
+    <t:testimonial additionalClass="gray-section"/>
+
+</t:layout>

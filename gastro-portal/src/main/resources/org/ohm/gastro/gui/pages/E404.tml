@@ -1,0 +1,22 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" header="false">
+
+    <section class="s600px">
+        <div class="container">
+            <div class="title">
+                <h1><span>Ошибка</span></h1>
+            </div>
+            <div class="row">
+                <p class="modal-text">
+                    Код 404 - страница не найдена.
+                </p>
+                <p class="modal-text">
+                    Мы не смогли найти такую страницу, возможно она была переименована.
+                </p>
+                <p class="modal-text">
+                    Посмотрите <t:pagelink page="catalog/list">каталоги лучших кулинаров</t:pagelink>, возможно то, что вы искали, находится у них
+                </p>
+            </div>
+        </div>
+    </section>
+
+</t:layout>

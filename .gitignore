@@ -1,0 +1,11 @@
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.next
+release.properties
+*style.css
+*style.css.map
+*.iml
+.idea/
+.vagrant/
+lib/

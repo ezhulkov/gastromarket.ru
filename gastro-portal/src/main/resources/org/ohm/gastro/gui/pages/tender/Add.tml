@@ -1,0 +1,127 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" pageClass="tender-add">
+
+    <section class="tender">
+        <div class="container">
+            <div class="title">
+                <h1><span>Новая заявка</span></h1>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-7 col-sm-12 col-xs-12">
+                    <t:zone t:id="tenderInfoZone">
+                        <t:delegate to="tenderInfoBlock"/>
+                    </t:zone>
+                    <t:block t:id="tenderInfoBlock">
+                        <t:form t:id="tenderInfoAjaxForm" t:zone="tenderInfoZone" t:clientValidation="none" t:autofocus="false" class="form tender-form" rel="nofollow" role="form">
+                            <div class="caption">Описание заявки</div>
+                            <div class="modal-text">лучшие кулинары готовы сделать для вас кулинарный шедевр</div>
+                            <t:if test="error">
+                                <div class="error">
+                                    Пожалуйста, заполните обязательные поля и исправьте ошибки
+                                </div>
+                                <t:errors/>
+                            </t:if>
+                            <div class="col-xs-12 gap">
+                                <div class="form-group">
+                                    <input t:id="name" type="text" class="form-control name" placeholder="Что вы хотите заказать?"
+                                           data-toggle="popover" data-container="body" data-content="Например, 'Торт на день рождения' или 'Набор капкейков для любимой'" data-trigger="focus" data-placement="right"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <textarea t:id="comment" rows="5" class="form-control" placeholder="Дополнительное описание заявки (необязательное поле)"
+                                              data-toggle="popover" data-container="body" data-content="Расскажите подробнее о своей заявке. В качестве подсказки можете обратиться к примерам заявок справа." data-trigger="focus" data-placement="right"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <input t:id="budget" class="form-control price" placeholder="Бюджет заявки (только цифры)"
+                                           data-toggle="popover" data-container="body" data-content="Сколько вы готовы потратить на исполнение заявки. Если не указать бюджет, то кулинары сами предложат свою цену." data-trigger="focus" data-placement="right"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="form-group">
+                                    <input t:id="dueDate" type="text" class="form-control date-picker" placeholder="Дата исполнения"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                <div class="form-group">
+                                    <input t:id="mobile" class="form-control mobile-phone" placeholder="Контактный телефон +7 xxx xxx-xx-xx"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <input t:id="promoCode" class="form-control" placeholder="Промо код"/>
+                                </div>
+                            </div>
+                            <div class="text-left">
+                                <t:comment.injectPhotos initialPhotos="photos"/>
+                            </div>
+                            <div class="col-xs-12 gap">
+                                <div class="form-buttons">
+                                    <t:if test="authenticated">
+                                        <input class="btn btn-red btn-lg btn-block" type="submit" value="Разместите заявку"/>
+                                        <t:parameter name="else">
+                                            <input class="btn btn-red btn-lg btn-block" type="submit" value="Зарегистрируйтесь и разместите заявку"/>
+                                        </t:parameter>
+                                    </t:if>
+                                </div>
+                            </div>
+                            <t:if test="authenticated">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        Размещая заявку, вы соглашаетесь c условиями<br/>
+                                        <a href="/agreement" target="_tab" class="red-text">публичной оферты</a> и
+                                        <a href="/confident" target="_tab" class="red-text">политики конфиденциальности</a>
+                                    </div>
+                                </div>
+                            </t:if>
+                            <div class="clearfix"></div>
+                        </t:form>
+                        <t:unless test="authenticated">
+                            <t:loginUserModal modalId="order-login">
+                                <t:parameter name="addText">
+                                    <div class="row">
+                                        <p class="modal-text red-text">Для оформления заявки необходимо войти или зарегистрироваться.</p>
+                                    </div>
+                                </t:parameter>
+                            </t:loginUserModal>
+                            <t:if test="needLogin">
+                                <script>
+                                    jQuery("#order-login").modal('show');
+                                    initLoginModal();
+                                </script>
+                            </t:if>
+                        </t:unless>
+                    </t:block>
+                </div>
+                <div class="col-lg-6 col-md-5 hidden-sm hidden-xs">
+                    <t:zone t:id="sampleZone" class="sample-zone">
+                        <t:delegate to="samplesBlock"/>
+                    </t:zone>
+                    <t:block t:id="samplesBlock">
+                        <div class="caption">Примеры заявок</div>
+                        <ul>
+                            <t:loop source="samples" value="oneSample">
+                                <li>
+                                    <t:pagelink page="tender/index" t:context="oneSample.id" class="name" target="_blank">
+                                        ${oneSample.name}
+                                    </t:pagelink>
+                                    ${oneSample.comment}
+                                </li>
+                            </t:loop>
+                        </ul>
+                    </t:block>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <t:howtosection additionalClass="hidden-xs gray-section hidden-credentials"/>
+
+    <t:lasttenderssection additionalClass="hidden-xs white-section"/>
+
+    <t:gagoal goal="TENDER_EDIT"/>
+    <t:yagoal goal="TENDER_EDIT"/>
+    <t:fbgoal goal="InitiateCheckout"/>
+
+</t:layout>

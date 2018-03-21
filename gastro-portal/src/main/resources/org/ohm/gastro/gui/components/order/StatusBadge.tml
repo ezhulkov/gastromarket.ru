@@ -1,0 +1,91 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+    <t:delegate to="orderActionLinkBlock"/>
+    <t:block t:id="confirmationWaitBlock">
+        <t:unless test="orderPage">
+            <t:if test="orderExecutor">
+                <div class="action-link">
+                    <t:pagelink page="office/order/index" t:context="order.id" class="round-link" anchor="reply">Подтвердите заказ<span/></t:pagelink>
+                </div>
+                <t:parameter name="else">
+                    <div class="action-link">
+                        <a data-toggle="modal" data-target="#order-confirmation-${order.id}" href="#order-confirmation-${order.id}" class="round-link">Ожидание подтверждения</a>
+                    </div>
+                    <t:modal modalId="order-confirmation-${order.id}" caption="Ожидание подтверждения" additionalClass="modal-md">
+                        <div class="order-show-catalog">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    Кулинар получил прямой заказ и рассматривает возможность его выполнить.
+                                    Вы можете связаться с кулинаром, написав ему
+                                    <t:pagelink page="office/messages/index" t:context="context">личное сообщение</t:pagelink>
+                                    .
+                                </div>
+                            </div>
+                        </div>
+                    </t:modal>
+                </t:parameter>
+            </t:if>
+        </t:unless>
+    </t:block>
+    <t:block t:id="catalogAttachedLinkBlock">
+        <t:unless test="orderPage">
+            <t:if test="orderExecutor">
+                <div class="action-link">
+                    <t:pagelink page="office/order/index" t:context="order.id" class="round-link" anchor="reply">Перейти к заказу<span/></t:pagelink>
+                </div>
+                <t:parameter name="else">
+                    <div class="action-link">
+                        <a data-toggle="modal" data-target="#tender-attached-${order.id}" href="#tender-attached-${order.id}" class="round-link">Исполнитель выбран</a>
+                    </div>
+                    <t:modal modalId="tender-attached-${order.id}" caption="Исполнитель выбран" additionalClass="modal-md">
+                        <t:order.executor order="order"/>
+                    </t:modal>
+                </t:parameter>
+            </t:if>
+        </t:unless>
+    </t:block>
+    <t:block t:id="orderCancelledLinkBlock">
+        <div class="action-link">
+            <a data-toggle="modal" data-target="#order-cancelled-${order.id}" href="#order-cancelled-${order.id}" class="round-link">Заказ отменен</a>
+        </div>
+        <t:modal modalId="order-cancelled-${order.id}" caption="Заказ отменен">
+            <t:if test="order.cancelReason">
+                <div class="order-show-catalog">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 f20px black-text">
+                            Причина отмены:
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            ${order.cancelReason}
+                        </div>
+                    </div>
+                </div>
+            </t:if>
+        </t:modal>
+    </t:block>
+    <t:block t:id="orderClosedLinkBlock">
+        <t:if test="showClosed">
+            <div class="action-link">
+                <a data-toggle="modal" data-target="#order-closed-${order.id}" href="#order-closed-${order.id}" class="round-link">Заказ выполнен</a>
+            </div>
+            <t:modal modalId="order-closed-${order.id}" caption="Заказ выполнен" additionalClass="modal-md">
+                <t:order.executor order="order"/>
+            </t:modal>
+        </t:if>
+    </t:block>
+    <t:block t:id="tenderReplyLinkBlock">
+        <t:unless test="orderPage">
+            <div class="action-link">
+                <t:pagelink page="tender/index" t:context="order.id" class="round-link" anchor="reply">Откликнуться<span/></t:pagelink>
+            </div>
+        </t:unless>
+    </t:block>
+    <t:block t:id="editOrderLinkBlock">
+        <t:unless test="orderPage">
+            <div class="action-link">
+                <t:pagelink page="${orderUrl}" t:context="orderContext" class="round-link">Редактировать<span/></t:pagelink>
+            </div>
+        </t:unless>
+    </t:block>
+</div>

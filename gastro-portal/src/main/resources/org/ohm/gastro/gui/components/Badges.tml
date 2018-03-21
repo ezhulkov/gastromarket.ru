@@ -1,0 +1,35 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="badges">
+    <t:if test="catalog.rankBadge">
+        <div class="gmbadge" data-content="Топ ${catalog.rankBadge} среди кулинаров" data-toggle="popover" data-trigger="hover" data-placement="bottom">
+            <img src="/img/badge-rank-small.png" srcset="/img/badge-rank-smallx2.png 2x"/>
+            <span>${catalog.rankBadge}</span>
+        </div>
+        <t:parameter name="else">
+            <div class="gmbadge" data-placement="bottom" data-content="Нет бейджа 'Топ кулинаров'" data-toggle="popover" data-trigger="hover">
+                <img src="/img/badge-rank-stub.png" srcset="/img/badge-rank-stubx2.png 2x"/>
+            </div>
+        </t:parameter>
+    </t:if>
+    <t:if test="catalog.productBadge">
+        <div class="gmbadge" data-placement="bottom" data-content="Блюд: больше ${catalog.productBadge}" data-toggle="popover" data-trigger="hover">
+            <img src="/img/badge-product-small.png" srcset="/img/badge-product-smallx2.png 2x"/>
+            <span>${catalog.productBadge}</span>
+        </div>
+        <t:parameter name="else">
+            <div class="gmbadge" data-placement="bottom" data-content="Загружено меньше 25 блюд" data-toggle="popover" data-trigger="hover">
+                <img src="/img/badge-product-stub.png" srcset="/img/badge-product-stubx2.png 2x"/>
+            </div>
+        </t:parameter>
+    </t:if>
+    <t:if test="catalog.orderBadge">
+        <div class="gmbadge" data-placement="bottom" data-content="Заказов: больше ${catalog.orderBadge}" data-toggle="popover" data-trigger="hover">
+            <img src="/img/badge-order-small.png" srcset="/img/badge-order-smallx2.png 2x"/>
+            <span>${catalog.orderBadge}</span>
+        </div>
+        <t:parameter name="else">
+            <div class="gmbadge" data-placement="bottom" data-content="Выполнено меньше 5 заказов" data-toggle="popover" data-trigger="hover">
+                <img src="/img/badge-order-stub.png" srcset="/img/badge-order-stubx2.png 2x"/>
+            </div>
+        </t:parameter>
+    </t:if>
+</div>

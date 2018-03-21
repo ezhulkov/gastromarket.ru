@@ -1,0 +1,5 @@
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (typeof ga != "undefined") ga('send', 'event', 'USER_EVENT', 'ACTION', '${goal}');
+    });
+</script>

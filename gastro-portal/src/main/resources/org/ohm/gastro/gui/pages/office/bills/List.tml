@@ -1,0 +1,55 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <section class="s600px bills">
+        <div class="container">
+            <div class="title">
+                <h1><span>Счета</span></h1>
+            </div>
+        </div>
+        <t:loop source="bills" value="bill">
+            <section class="zebra-row bill">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-offset-1 col-lg-8 col-md-offset-1 col-md-8 col-sm-offset-0 col-sm-10 col-xs-9">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 nopad">
+                                <div class="name">
+                                    <t:pagelink page="office/bills/index" t:context="bill.id">
+                                        Счёт №${bill.billNumber}
+                                    </t:pagelink>
+                                </div>
+                                <div class="date">${bill.datePrintable}-${bill.closingDatePrintable}</div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 nopad">
+                                Сумма заказов: <b>${billTotalOrdersSum}</b>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 nopad">
+                                Комиссия: <b>${billFee}</b>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                            <t:pagelink page="office/bills/index" t:context="bill.id">
+                                <span class="status ${bill.status.name().toLowerCase()}">${billStatus}</span>
+                            </t:pagelink>
+                        </div>
+                    </div>
+                    <div class="row order">
+                        <div class="col-lg-offset-1 col-lg-8 col-md-offset-1 col-md-8 col-sm-offset-0 col-sm-10 col-xs-9">
+                            <t:loop source="orders" value="order">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 nopad">
+                                    <t:pagelink target="_blank" page="office/order/index" t:context="order.id">Заказ ${order.orderName}</t:pagelink>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 nopad">
+                                    ${orderTotalPrice}
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 nopad">
+                                    ${orderStatus}
+                                </div>
+                            </t:loop>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </t:loop>
+    </section>
+
+</t:layout>

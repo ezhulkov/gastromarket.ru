@@ -1,0 +1,276 @@
+@import "../include/var"
+@import "tools"
+
+.btn
+  padding: 8px 25px
+  font-size: $f16px
+  -webkit-border-radius: 6px
+  -moz-border-radius: 6px
+  border-radius: 6px
+  white-space: inherit
+  +mobile-media
+    width: 100%
+    margin-bottom: 5px
+    padding: 8px 0
+  &.btn-red
+    background-image: -webkit-gradient(linear, left top, left bottom, from($redTextColor), to($deepRedTextColor))
+    background-image: -webkit-linear-gradient(top, $redTextColor, $deepRedTextColor)
+    background-image: -moz-linear-gradient(top, $redTextColor, $deepRedTextColor)
+    background-image: -ms-linear-gradient(top, $redTextColor, $deepRedTextColor)
+    background-image: -o-linear-gradient(top, $redTextColor, $deepRedTextColor)
+    background-image: linear-gradient(to bottom, $redTextColor, $deepRedTextColor)
+    color: #FFF !important
+    &:hover
+      background-image: -webkit-gradient(linear, left top, left bottom, from(#a00000), to(#900000))
+      background-image: -webkit-linear-gradient(top, #a00000, #900000)
+      background-image: -moz-linear-gradient(top, #a00000, #900000)
+      background-image: -ms-linear-gradient(top, #a00000, #900000)
+      background-image: -o-linear-gradient(top, #a00000, #900000)
+      background-image: linear-gradient(to bottom, #a00000, #900000)
+      color: #FFF
+    &:focus
+      color: #fff !important
+  &.btn-white
+    padding-top: 7px
+    padding-bottom: 7px
+    border: 2px solid $redTextColor
+    color: $redTextColor
+    background: white
+    &:hover
+      color: $deepRedTextColor
+      border: 2px solid $deepRedTextColor
+    &:focus
+      color: $deepRedTextColor !important
+  &.btn-lg
+    padding: 10px 45px
+    font-size: 20px
+    +mobile-media
+      padding: 10px 0
+  &.btn-white-border
+    +desktop-media
+      border: 1px solid white
+
+.round-link
+  background-color: white
+  border: 2px solid $deepRedTextColor
+  color: $deepRedTextColor
+  font-size: 16px
+  padding: 5px 20px 5px 20px
+  border-radius: 20px
+  display: inline-block
+  &:focus
+    color: $redTextColor
+  &:active
+    text-decoration: none
+  span
+    margin-bottom: -4px
+    margin-left: 5px
+    width: 10px
+    height: 18px
+    display: inline-block
+    background: url("../img/title-forward.png") center top no-repeat
+  &.back
+    span
+      background: url("../img/title-back.png") center top no-repeat
+      margin-right: 5px
+      margin-left: 0
+
+.links-set
+  width: 100%
+  text-align: center
+  margin: 10px auto 20px auto
+  +mobile-media
+    line-height: 0
+  a
+    @extend .round-link
+    margin-bottom: 5px
+    +mobile-media
+      width: 100%
+      line-height: initial
+
+.dotted-link, .dotted-link:hover, .dotted-link:active, .dotted-link:focus
+  color: $redTextColor
+  border-bottom: 1px dashed $redTextColor
+  cursor: pointer
+  text-decoration: none
+  &:active
+    border-bottom: none
+
+.label-tip
+  font-style: italic
+  font-size: 12px
+  color: $greyTextColor
+  margin-bottom: 3px
+  padding-right: 5px
+
+.form-buttons
+  text-align: center
+  margin-bottom: 15px
+  margin-left: 0
+  margin-right: 0
+  .btn
+    display: inline-block
+
+.t-error-popup
+  display: none !important
+
+input.t-error, textarea.t-error
+  border: 2px solid $redTextColor !important
+
+.t-error ul
+  list-style-type: none !important
+  margin-bottom: 3*$gap !important
+  padding: 0
+  li
+    text-align: center !important
+    font-size: 16px !important
+    font-weight: bold !important
+    margin: 0 !important
+    color: $redTextColor
+
+div.t-error
+  border: none !important
+
+label.t-error
+  font-weight: bold !important
+
+.t-banner, .t-error-icon
+  display: none !important
+
+.pic-holder
+  position: relative
+
+.pic-holder > span:first-child
+  display: inline-block
+  vertical-align: middle
+  margin-right: $gap
+
+.pic-holder.basket-add > span
+  width: 30px
+  height: 30px
+  background: url("../img/basket-add.png") no-repeat 0 0
+  display: inline-block
+
+.spinner
+  text-align: center
+  height: 50px
+  width: 50px
+  margin: 2px auto
+  background: url("../img/spinner.gif") no-repeat
+  background-size: 50px
+
+.popover-content
+  font-size: $f16px
+  padding: 5px 10px 10px 10px
+  color: $blackTextColor
+
+.empty
+  padding: 20px 0 40px 0
+  width: 100%
+  text-align: center
+  font-size: $f20px
+  font-family: 'PT Serif', serif
+  a
+    font-size: $f20px
+
+.modal-text
+  font-size: 16px
+  padding: 0 20px 0 20px
+  text-align: center
+  line-height: 22px
+  white-space: initial
+
+.attention
+  @extend .modal-text
+  display: block
+  margin-top: 10px
+  margin-bottom: 30px
+  border: 1px solid $deepRedTextColor
+  padding: 20px
+  width: 100%
+
+.error
+  font-size: 16px
+  margin-top: 5px
+  color: $redTextColor
+
+.chosen-container
+  display: inline-block
+  .search-choice-close
+    margin-top: 3px
+
+.form
+  padding: 10px
+  overflow: auto
+  +mobile-media
+    padding: 0
+
++tablet-media
+  .popover
+    display: none !important
+
++mobile-media
+  .form-group
+    margin-left: 0
+    margin-right: 0
+
+.form-control
+  height: 38px
+  border-radius: 5px
+
+.form label
+  font-size: 16px
+  font-weight: normal
+
+.intl-tel-input
+  display: block
+
+.t-data-grid
+  table
+    width: 100%
+  .t-data-grid-pager
+    margin-left: 20px
+    margin-bottom: 20px
+    a, span.current
+      border: none
+      color: red
+      font-size: 20px
+      background-color: transparent
+      margin: 5px
+      &:hover
+        color: black
+        border: none
+        background-color: transparent
+    span.current
+      color: $blackTextColor
+      font-weight: bold
+
+.simple-text
+  p
+    margin: 5px auto
+    width: 900px
+    font-size: 16px
+
+.breadcrumbs
+  padding: 30px 0 0 15px
+  list-style: none
+  min-height: 52px
+  li
+    max-width: 250px
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+    display: inline-block
+    float: left
+    margin-right: 8px
+    text-transform: uppercase
+    a
+      color: gray
+    &:before
+      content: "/"
+      margin-right: 8px
+      color: gray
+
+.form-horizontal
+  overflow-x: hidden
+

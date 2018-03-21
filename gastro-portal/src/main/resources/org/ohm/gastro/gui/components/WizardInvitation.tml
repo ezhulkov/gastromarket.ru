@@ -1,0 +1,31 @@
+<t:if xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" test="newCatalog">
+    <div class="modal fade" id="setup" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog bonus">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="title">
+                        <h1><span>Настройка страницы</span></h1>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-text">
+                        Здравствуйте, ${newCatalog.user.fullName}!
+                    </p>
+                    <p class="modal-text">
+                        Мы рады вас видеть на ГастроМаркет и уже создали персональную страницу, где можно разместить информацию о себе, блюдах и услугах.
+                    </p>
+                    <p class="modal-text">
+                        Как только вы завершите заполнять эту страницу, мы сразу подключим её в общий каталог и её увидят тысячи посетителей ГастроМаркет!
+                    </p>
+                    <p class="modal-text center">
+                        <t:pagelink page="catalog/wizard" context="newCatalog.altId" class="red-text">Перейти к настройке персональной страницы</t:pagelink>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        jQuery("#setup").modal('show');
+    </script>
+</t:if>

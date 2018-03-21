@@ -1,0 +1,29 @@
+User-agent: Yandex
+Disallow:/login
+Disallow:/signup
+Disallow:/admin
+Disallow:/office
+Disallow:/subscribe
+Disallow:/social
+Disallow:/tender/sendannonce
+Disallow:/*ajax
+Disallow:/*ajaxlink
+Disallow:/*ajaxform
+Disallow:/*wizard
+Clean-param: jsessionid /*
+
+User-agent: *
+Disallow:/login
+Disallow:/signup
+Disallow:/admin
+Disallow:/office
+Disallow:/subscribe
+Disallow:/social
+Disallow:/tender/sendannonce
+Disallow:/*ajax
+Disallow:/*ajaxlink
+Disallow:/*ajaxform
+Disallow:/*wizard
+
+Sitemap: http://gastromarket.ru/sitemap.xml
+Host: http://gastromarket.ru

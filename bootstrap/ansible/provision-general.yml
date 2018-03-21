@@ -1,0 +1,11 @@
+---
+  - hosts: portal
+    gather_facts: false
+    sudo: yes
+    pre_tasks:
+      - name: 'update aptget'
+        raw: sudo apt-get update
+      - name: 'install python2'
+        raw: sudo apt-get -y install python-simplejson
+    roles:
+      - provision-general

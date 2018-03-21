@@ -1,0 +1,6 @@
+---
+  - hosts: portal
+    gather_facts: false
+    sudo: yes
+    roles:
+      - provision-scala

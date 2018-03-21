@@ -1,0 +1,28 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <section class="s600px">
+        <div class="container orders">
+            <div class="title">
+                <h1><span>${order.orderName}</span></h1>
+            </div>
+            <t:zone t:id="orderZone">
+                <t:delegate to="orderBlock"/>
+            </t:zone>
+            <t:block t:id="orderBlock">
+                <div class="row">
+                    <div class="col-lg-offset-1 col-lg-10 col-md-offset-0 col-md-12 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
+                        <t:order.order order="order" type="FULL" orderPage="true" replies="true"/>
+                    </div>
+                </div>
+            </t:block>
+        </div>
+    </section>
+
+    <t:order.replies order="order" reply="true"/>
+
+    <t:if test="placed">
+        <t:gagoal goal="TENDER_ATTACHED"/>
+        <t:yagoal goal="TENDER_ATTACHED"/>
+    </t:if>
+
+</t:layout>

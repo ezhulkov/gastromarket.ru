@@ -1,0 +1,24 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <section>
+        <div class="container">
+            <div class="title">
+                <h1><span>О нас пишут</span></h1>
+            </div>
+            <div class="row">
+                <p class="modal-text">
+                    <a href="http://www.timeout.ru/msk/feature/459901">TimeOut.ru</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <t:parameter name="bottomBlock">
+        <t:if test="authenticated">
+            <div class="bottom-image">
+                <div></div>
+            </div>
+        </t:if>
+    </t:parameter>
+
+</t:layout>

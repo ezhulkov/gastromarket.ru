@@ -1,0 +1,36 @@
+@import "../include/var"
+
+.import > div
+  width: 210px
+  height: 250px
+  img
+    height: 210px
+    cursor: pointer
+    margin-bottom: 7px
+
+  .element-item
+    display: none
+    position: relative
+    .checked
+      position: absolute
+      top: 60px
+      left: 80px
+      width: 49px
+      height: 49px
+      background: transparent url("../img/product-edit.png") no-repeat -147px 0
+
+  ul.albums
+    list-style: none
+    text-align: center
+    padding: 0
+    li
+      display: inline-block
+      padding: 10px 20px
+      -webkit-box-shadow: 0 0 6px 2px $lightGreyColor
+      -moz-box-shadow: 0 0 6px 2px $lightGreyColor
+      box-shadow: 0 0 6px 2px $lightGreyColor
+      background-color: #fff
+      margin: 5px
+      border: 1px solid $greyTextColor
+
+

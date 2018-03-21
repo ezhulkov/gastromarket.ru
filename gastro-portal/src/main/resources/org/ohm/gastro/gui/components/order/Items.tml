@@ -1,0 +1,40 @@
+<t:if xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" test="items">
+    <div class="row items">
+        <t:loop source="items" index="index" value="item" formState="NONE">
+            <div class="row zebra-row order-item ${rowClass}">
+                <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                    <div class="name">
+                        <span class="f20px">${itemIndex}</span>&nbsp;
+                        <a href="${itemPage}" target="_blank">${item.entity.name}</a>
+                        <t:if test="item.modifier">
+                            <div class="modifier-name">(${item.modifier.description})</div>
+                        </t:if>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                    <div class="item-price pull-right-lg pull-right-md pull-left-sm pull-left-xs">
+                        <t:if test="item.modifier">
+                            <span class="sign">${item.modifier.signPrintable}</span>${item.modifier.price}&nbsp;<span class="rub"/> = ${item.price}&nbsp;<span class="rub"/>
+                            <t:parameter name="else">
+                                ${item.price}&nbsp;<span class="rub"/>
+                            </t:parameter>
+                        </t:if>
+                        <t:if test="productUnit">&nbsp;<span class="unit">${productUnit}</span></t:if>
+                        x ${item.count}
+                        <t:if test="canEdit">
+                            &nbsp;&nbsp;
+                            <t:actionlink rel="nofollow" t:id="deleteItem" class="delete" t:zone="${orderShowCatalogZoneId}" t:context="deleteContext">удалить</t:actionlink>
+                        </t:if>
+                    </div>
+                </div>
+            </div>
+        </t:loop>
+    </div>
+    <t:parameter name="else">
+        <t:if test="cartOrOrder">
+            <div class="empty">
+                В заказе нет элементов :(
+            </div>
+        </t:if>
+    </t:parameter>
+</t:if>

@@ -1,0 +1,65 @@
+<t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <t:form t:id="filterForm" class="form" style="overflow: inherit;" role="form">
+        <div class="form-group">
+            <div class="col-xs-4">
+                <input t:id="show" t:value="show" t:type="select" class="chosen-select" validate="required"/>
+            </div>
+            <div class="col-xs-4">
+                <input type="submit" class="btn btn-red" value="Фильтровать"/>
+            </div>
+        </div>
+    </t:form>
+
+    <t:grid source="orders" row="oneOrder"
+            add="catalog"
+            reorder="datePrintable,orderNumber,catalog,totalPrice,status"
+            include="datePrintable,orderNumber,totalPrice,status"
+            t:mixins="GridSortingDisabled" class="table table-hover gap5">
+        <t:parameter name="datePrintableHeader">Дата</t:parameter>
+        <t:parameter name="orderNumberHeader">Детали</t:parameter>
+        <t:parameter name="catalogHeader">Исполнитель</t:parameter>
+        <t:parameter name="statusHeader">Статус</t:parameter>
+        <t:parameter name="totalPriceHeader">Стоимость</t:parameter>
+        <t:parameter name="orderNumberCell">
+            <t:pagelink page="office/order/index" t:context="oneOrder.id"><b>${oneOrder.orderName}</b></t:pagelink>
+            <br/>
+            <div class="f14px">
+                ${oneOrder.customer.fullName}<br/>
+                ${oneOrder.customer.email}<br/>
+                ${oneOrder.customer.mobilePhone}<br/>
+                <b>Время исполнения: ${oneOrder.dueDateAsString}</b><br/>
+                <t:if test="oneOrder.promoCode"><b>Промо-код: ${oneOrder.promoCode}</b></t:if>
+            </div>
+        </t:parameter>
+        <t:parameter name="catalogCell">
+            <t:if test="oneOrder.catalog">
+                <t:pagelink page="catalog/index" t:context="oneOrder.catalog.altId">${oneOrder.catalog.name}</t:pagelink>
+                <t:parameter name="else">
+                    &mdash;
+                </t:parameter>
+            </t:if>
+        </t:parameter>
+        <t:parameter name="totalPriceCell">
+            <span class="f20px">
+                <t:if test="oneOrder.totalPrice">
+                    ${oneOrder.totalPrice} <span class="rub"/>
+                    <t:parameter name="else">
+                        Открытый бюджет
+                    </t:parameter>
+                </t:if>
+            </span>
+        </t:parameter>
+        <t:parameter name="statusCell">
+            <span class="order-status ${oneOrder.status}">${status}</span>
+            <t:unless test="oneOrder.wasSetup">
+                <span class="order-status CANCELLED gap">Проверка</span>
+            </t:unless>
+        </t:parameter>
+    </t:grid>
+
+    <script>
+        activate_menu('#orders');
+    </script>
+
+</t:adminlayout>

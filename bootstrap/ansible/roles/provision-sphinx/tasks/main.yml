@@ -1,0 +1,16 @@
+---
+  - group: name=sphinxsearch state=present
+  - user: name=sphinxsearch group=sphinxsearch home=/var/run/sphinxsearch shell=/bin/false state=present
+  - apt: name={{ item }} force=yes
+    with_items:
+      - "mysql-client"
+      - "unixodbc"
+      - "libpq5"
+  - file: path={{ item }} state=directory mode=0755 group=sphinxsearch owner=sphinxsearch
+    with_items:
+      - "/var/lib/sphinxsearch/data"
+      - "/var/log/sphinxsearch"
+  - get_url: url=http://sphinxsearch.com/files/sphinxsearch_2.2.10-release-1~wheezy_amd64.deb dest=~/sphinxsearch_2.2.10-release-1~wheezy_amd64.deb
+  #- shell: sudo dpkg -i sphinxsearch_2.2.10-release-1~wheezy_amd64.deb
+  - copy: src=sphinx.conf dest=/etc/sphinxsearch/sphinx.conf owner=sphinxsearch group=sphinxsearch mode=0644
+  - service: name=sphinxsearch state=started enabled=yes

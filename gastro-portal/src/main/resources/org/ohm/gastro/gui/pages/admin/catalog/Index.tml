@@ -1,0 +1,112 @@
+<t:adminlayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+    <t:editObject t:id="editObject" showUpdate="true" showDelete="true" autoFocus="literal:false">
+        <div class="form-group">
+            <t:label class="col-sm-2 control-label" for="name">Название:</t:label>
+
+            <div class="col-sm-10">
+                <input t:id="name" class="form-control" type="text"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <t:label class="col-sm-2 control-label" for="desc">Описание:</t:label>
+
+            <div class="col-sm-10">
+                <input t:id="desc" rows="5" class="form-control" type="text"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <t:label class="col-sm-2 control-label" for="delivery">Доставка:</t:label>
+
+            <div class="col-sm-10">
+                <input t:id="delivery" rows="5" class="form-control" type="text"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <t:label class="col-sm-2 control-label" for="payment">Оплата:</t:label>
+
+            <div class="col-sm-10">
+                <input t:id="payment" rows="5" class="form-control" type="text"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <t:label class="col-sm-2 control-label" for="freeMonths">Месяцев без оплаты:</t:label>
+
+            <div class="col-sm-10">
+                <input t:id="freeMonths" class="form-control" type="text"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <t:label class="col-sm-2 control-label" for="cert1">Медкнижка:</t:label>
+
+            <div class="col-sm-10">
+                <input t:id="cert1" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <t:label class="col-sm-2 control-label" for="cert2">Закупка:</t:label>
+
+            <div class="col-sm-10">
+                <input t:id="cert2" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <t:label class="col-sm-2 control-label" for="cert3">Адрес:</t:label>
+
+            <div class="col-sm-10">
+                <input t:id="cert3" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <t:label class="col-sm-2 control-label" for="contractSigned">Контракт подписан:</t:label>
+
+            <div class="col-sm-10">
+                <input t:id="contractSigned" class="form-control"/>
+            </div>
+        </div>
+    </t:editObject>
+
+    <t:grid source="products" row="oneProduct"
+            exclude="id,properties,date,description,promoted,avatarUrl,avatarUrlMedium,avatarUrlSmall,unit,altId,unitValue,wasSetup,descriptionRaw,position,type,lastModified,lastModifiedPrintable,locationUrl,avatarUrlBig"
+            reorder="img,name,price,promote,hideProduct"
+            add="img,properties,promote,hideProduct"
+            t:mixins="GridSortingDisabled" class="table table-hover">
+        <t:parameter name="imgCell">
+            <img src="${oneProduct.avatarUrlSmall}"/>
+        </t:parameter>
+        <t:parameter name="nameCell">
+            ${oneProduct.name}
+            <t:if test="oneProduct.promoted">
+                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            </t:if>
+        </t:parameter>
+        <t:parameter name="promoteCell">
+            <t:actionlink rel="nofollow" t:id="promoteProduct" context="oneProduct.id">
+                <t:if test="oneProduct.promoted">
+                    Убрать с главной
+                    <t:parameter name="else">
+                        На главную
+                    </t:parameter>
+                </t:if>
+            </t:actionlink>
+        </t:parameter>
+        <t:parameter name="hideProductCell">
+            <t:actionlink rel="nofollow" t:id="hideProduct" context="oneProduct.id">
+                <t:if test="oneProduct.hidden">
+                    Вернуть
+                    <t:parameter name="else">
+                        Скрыть
+                    </t:parameter>
+                </t:if>
+            </t:actionlink>
+        </t:parameter>
+        <t:parameter name="empty">
+            <div class="empty">Нет данных</div>
+        </t:parameter>
+    </t:grid>
+
+    <script>
+        activate_menu('#catalog');
+    </script>
+
+</t:adminlayout>

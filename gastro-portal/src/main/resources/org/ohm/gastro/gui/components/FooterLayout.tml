@@ -1,0 +1,114 @@
+<footer xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="footer">
+
+    <t:searchSection additionalClass="darkgray-section"/>
+
+    <section class="press hidden">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul>
+                        <li>О нас пишут:</li>
+                        <li><a href="http://www.timeout.ru/msk/feature/459901">TimeOut</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="info">
+        <div class="container gap">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 hidden-xs text-center">
+                    <img src="/img/logo-small.png" alt="logo" class="logo"/>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <ul>
+                        <li><a href="/about">О проекте</a></li>
+                        <li><a href="/contacts">Контакты</a></li>
+                        <li class="hidden-xs"><a href="/cookinfo">Информация для кулинаров</a></li>
+                        <li class="hidden-xs"><a href="/userinfo">Информация для покупателей</a></li>
+                        <li class="hidden-xs"><a href="/rating">Рейтинги</a></li>
+                        <li class="hidden-xs"><a href="http://blog.gastromarket.ru">Блог</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <ul>
+                        <t:unless test="authenticated">
+                            <li><a href="#login" class="login-link" data-toggle="modal" data-target="#login">Вход</a></li>
+                            <!--<li><a data-toggle="modal" data-target="#application">Заявка на подключение</a></li>-->
+                            <t:parameter name="else">
+                                <li><a href="/logout">Выход</a></li>
+                            </t:parameter>
+                        </t:unless>
+                        <li><a href="#feedback" class="application-link" data-toggle="modal" data-target="#feedback">Оставить отзыв</a></li>
+                        <!--<li><a href="/bonus" class="hidden-xs">Пригласить друга</a></li>-->
+                        <li><a href="/tender/add">Разместить заявку</a></li>
+                        <li><a href="/product/search">Поиск в каталоге</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="catalogs">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 hidden-xs text-center">
+                    Мы в социальных сетях
+                    <ul class="social">
+                        <li><a href="https://instagram.com/gastromarket.ru" title="instagram.com" class="in">instagram.com</a></li>
+                        <li><a href="http://vk.com/gastromarket" title="vk.com" class="vk">vk.com</a></li>
+                        <li><a href="https://www.facebook.com/gastromarket.ru" title="facebook.com" class="fb">facebook.com</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <ul>
+                        <li><a href="/catalog/list">Все кулинары</a></li>
+                        <li><a href="/product/list">Каталог блюд</a></li>
+                        <li><a href="/tender/list">Заявки</a></li>
+                        <li class="hidden-xs"><a href="/sitemap">Карта сайта</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 hidden-xs">
+                    <ul>
+                        <t:loop source="categories" value="category">
+                            <li>
+                                <t:pagelink page="product/list" context="category.altId" class="category">
+                                    ${category.name}
+                                </t:pagelink>
+                            </li>
+                        </t:loop>
+                    </ul>
+                </div>
+            </div>
+            <div class="row soc">
+                <div class="social-likes" data-url="http://gastromarket.ru" data-title="ГастроМаркет">
+                    <div class="facebook" title="Поделиться ссылкой на Фейсбуке">Facebook</div>
+                    <div class="vkontakte" title="Поделиться ссылкой во Вконтакте">Вконтакте</div>
+                    <div class="odnoklassniki" title="Поделиться ссылкой в Одноклассниках">Одноклассники</div>
+                    <div class="pinterest" title="Поделиться картинкой на Пинтересте" data-media="http://gastromarket.ru/img/logo.png">Pinterest</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="legal hidden-xs">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul>
+                        <li><a href="/confident">Политика конфиденциальности</a></li>
+                        <li><a href="/agreement">Публичная оферта</a></li>
+                        <li><a href="/contract">Договор оказания услуг</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row gap">
+                <div class="col-lg-12 text-center">&copy;&nbsp;Gastromarket.ru&nbsp;2014-2016 Все права защищены</div>
+            </div>
+        </div>
+    </section>
+
+    <t:feedback/>
+
+</footer>

@@ -1,0 +1,9 @@
+[all:vars]
+dns_postfix=
+nginx_send_file=on
+tomcat_opts=
+project=gopractice
+project_site=gopractice.ru
+
+[portal]
+gopractice.ru ansible_ssh_user=root

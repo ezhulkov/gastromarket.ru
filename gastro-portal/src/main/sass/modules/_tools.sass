@@ -1,0 +1,311 @@
+@import "../include/var"
+
+=fluid-block($width)
+  text-align: right
+  & > div
+    float: right
+  @media (max-width: $width)
+    text-align: left
+    & > div
+      float: none
+
+=desktop-media
+  @media (min-width: 750px)
+    @content
+
+=tablet-media
+  @media (max-width: 992px)
+    @content
+
+=mobile-media
+  @media (max-width: 749px)
+    @content
+
+=border
+  border: 1px solid $blackTextColor !important
+
+=zebra-row($bgc:#f5f5f5)
+  background-color: $bgc
+
+=no-bullets
+  list-style: none !important
+  padding-left: 0 !important
+
+=border-class($border:#aaa, $background:#fff, $shadow: #ddd)
+  -webkit-box-shadow: 0 0 6px 2px $shadow
+  -moz-box-shadow: 0 0 6px 2px $shadow
+  box-shadow: 0 0 6px 2px $shadow
+  background-color: $background
+  border: 1px solid $border
+
+.border-shadow
+  +border-class
+
+.rub
+  display: inline !important
+
+body.desktop .rub:after
+  content: "₽"
+
+body.mobile .rub:after
+  content: "руб"
+
+.bold
+  font-weight: bold !important
+
+.relative
+  position: relative !important
+
+.absolute
+  position: absolute !important
+
+.f12px
+  font-size: $f12px !important
+
+.f14px
+  font-size: $f14px !important
+
+.f16px
+  font-size: $f16px !important
+
+.f18px
+  font-size: $f18px !important
+
+.f20px
+  font-size: $f20px !important
+
+.f24px
+  font-size: $f24px !important
+
+.f28px
+  font-size: $f28px !important
+
+.f30px
+  font-size: $f30px !important
+
+.lh30
+  line-height: 30px !important
+
+.h45px
+  height: 45px !important
+
+.pink
+  background-color: #ffefef
+
+.black-text
+  color: $blackTextColor !important
+
+.black-text:hover
+  color: $blackTextColor
+
+.grey-text
+  color: $greyTextColor
+
+.vtop
+  vertical-align: top
+
+.grey-text:hover
+  color: $greyTextColor
+
+.red-text
+  color: $redTextColor !important
+
+.red-text:hover
+  color: $redTextColor !important
+
+.border
+  +border
+
+.gap
+  margin-top: $gap !important
+
+.gap2
+  margin-top: 2*$gap !important
+
+.gap3
+  margin-top: 3*$gap !important
+
+.gap4
+  margin-top: 4*$gap !important
+
+.gap5
+  margin-top: 5*$gap !important
+
+.gap10
+  margin-top: 10*$gap !important
+
+.ptop
+  padding-top: $gap !important
+
+.center
+  text-align: center !important
+
+.multiple
+  height: 150px !important
+
+.italic
+  font-style: italic !important
+
+//noinspection CssInvalidPropertyValue
+.wrapword
+  white-space: -moz-pre-wrap !important
+  /* Mozilla, since 1999 */
+  white-space: -pre-wrap
+  /* Opera 4-6 */
+  white-space: -o-pre-wrap
+  /* Opera 7 */
+  white-space: pre-wrap
+  /* css-3 */
+  word-wrap: normal
+  /* Internet Explorer 5.5+ */
+  white-space: -webkit-pre-wrap
+  /* Newer versions of Chrome/Safari*/
+  word-break: normal
+  white-space: normal
+
+.za
+  line-height: 50px
+  vertical-align: middle
+
+.text-right
+  text-align: right !important
+
+.text-left
+  text-align: left !important
+
+.text-center
+  text-align: center !important
+
+.no-bullets
+  +no-bullets
+
+.lhnormal
+  line-height: normal !important
+
+.ib
+  display: inline-block !important
+
+.nopad
+  padding: 0 !important
+
+.notable
+  border: none
+
+.nomargin
+  margin: 0 !important
+
+.fluid-xs-block
+  +fluid-block(750px)
+
+.fluid-sm-block
+  +fluid-block(992px)
+
+.fluid-md-block
+  +fluid-block(1200px)
+
+.avatar-medium
+  width: 100px
+  height: 100px
+
+.avatar-small
+  width: 23px
+  height: 23px
+  border-radius: 100%
+
+.label-checkbox-set input
+  margin-left: $gap
+
+.no-transition
+  -webkit-transition: height 0.01s
+  -moz-transition: height 0.01s
+  -ms-transition: height 0.01s
+  -o-transition: height 0.01s
+  transition: height 0.01s
+
+.del-item
+  margin-top: 10px
+  &:hover, &:active, &:visited
+    text-decoration: none
+
+.s600px
+  min-height: 600px
+  +mobile-media
+    min-height: initial
+
+.zebra-row:nth-child(2n)
+  +zebra-row
+
+.gray-section, .white-section
+  padding-bottom: 20px
+  border-top: 1px solid #aaa
+
+.darkgray-section
+  +zebra-row(#352525)
+  .container > .title, .container > .title *
+    +zebra-row
+
+.gray-section
+  +zebra-row
+  .container > .title, .container > .title *
+    +zebra-row
+
+.flipped
+  transform: scaleX(-1)
+  -moz-transform: scaleX(-1)
+  -webkit-transform: scaleX(-1)
+  -ms-transform: scaleX(-1)
+
+th.datePrintable
+  width: 150px
+
+@media (max-width: 750px)
+  .pull-left-xs
+    float: left
+  .pull-right-xs
+    float: right
+
+@media (min-width: 768px)
+  .pull-left-sm
+    float: left
+  .pull-right-sm
+    float: right
+
+@media (min-width: 992px)
+  .pull-left-md
+    float: left
+  .pull-right-md
+    float: right
+
+@media (min-width: 1200px)
+  .pull-left-lg
+    float: left
+  .pull-right-lg
+    float: right
+
+.soc
+  text-align: center
+  height: 35px
+  margin-top: 10px
+  +mobile-media
+    height: auto
+    .social-likes
+      width: 100%
+    .social-likes__widget
+      width: 80%
+      display: block
+      margin: 5px auto
+  .product-item &
+    height: auto
+  .modal-dialog &
+    height: auto
+    margin-bottom: 20px
+  .footer &
+    margin-top: 30px
+
+.fade
+  opacity: 0
+  -webkit-transition: opacity 0.1s linear
+  -moz-transition: opacity 0.1s linear
+  -ms-transition: opacity 0.1s linear
+  -o-transition: opacity 0.1s linear
+  transition: opacity 0.1s linear

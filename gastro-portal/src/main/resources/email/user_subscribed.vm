@@ -1,0 +1,10 @@
+#set($subject = "Пользователь подписался на рассылку")
+#set($toadmin = true)
+#parse("email/header.vm")
+<p>
+    У нас кто-то подписался.
+</p>
+<p>
+    eMail: ${email}<br/>
+</p>
+#parse("email/footer.vm")

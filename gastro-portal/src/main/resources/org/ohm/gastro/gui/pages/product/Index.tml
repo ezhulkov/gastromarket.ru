@@ -1,0 +1,109 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" socialImage="http://gastromarket.ru${product?.avatarUrl}">
+
+    <section class="product-item full">
+        <div class="container">
+            <div class="title">
+                <h1><span>${product.name}</span></h1>
+            </div>
+            <div class="row info">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 fluid-md-block">
+                    <div class="pic">
+                        <t:if test="catalogOwner">
+                            <div class="edit-block upload-file" data-objectid="${product.id}" data-type="PRODUCT" data-size="SIZE2">
+                                <a class="uploader-button"/>
+                                <a class="edit" data-toggle="modal" data-target="#pr-edit" href="#pr-edit"/>
+                            </div>
+                        </t:if>
+                        <a data-toggle="modal" data-target="#img-big" href="#img-big">
+                            <img alt="${product.name}" title="${product.name}" src="${product.avatarUrl}"/>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <t:pageLink class="pic-holder catalog-link" page="catalog/index" t:context="product.catalog.altId">
+                        <span><img class="avatar-small" src="${product.catalog.avatarUrlMedium}"/></span>${product.catalog.name}
+                    </t:pageLink>
+                    <t:if test="product.catalog.directOrder">
+                        <div class="basket-block">
+                            <div class="price pull-left">
+                                ${product.price} <span class="rub"/>
+
+                                <div class="unit">${productUnit}</div>
+                            </div>
+                            <div class="pull-right">
+                                <t:order.add entity="product"/>
+                            </div>
+                        </div>
+                    </t:if>
+                    <t:if test="priceModifiers">
+                        <div class="price-modifier">
+                            <t:loop source="priceModifiers" value="priceModifier">
+                                <div>
+                                    <span class="modifier-price"><span class="sign">${priceModifier.signPrintable}</span> ${priceModifier.price} <span class="rub"/></span>&nbsp;
+                                    <span class="modifier-name">${priceModifier.description}</span>
+                                </div>
+                            </t:loop>
+                        </div>
+                    </t:if>
+                    <t:if test="product.descriptionRaw">
+                        <div class="desc">
+                            <t:outputraw value="product.descriptionRaw"/>
+                        </div>
+                    </t:if>
+                    <div class="tags">
+                        <ul>
+                            <t:loop source="productTags" value="oneTag">
+                                <li><span class="tag">${oneTag.property.name}:</span> ${oneTag.data}</li>
+                            </t:loop>
+                        </ul>
+                    </div>
+                    <div class="social-likes social-likes_vertical soc" data-url="${currentPage}" data-title="ГастроМаркет - ${product.name}">
+                        <div class="facebook" title="Поделиться ссылкой на Фейсбуке">Facebook</div>
+                        <div class="vkontakte" title="Поделиться ссылкой во Вконтакте">Вконтакте</div>
+                        <div class="odnoklassniki" title="Поделиться ссылкой в Одноклассниках">Одноклассники</div>
+                        <div class="pinterest" title="Поделиться картинкой на Пинтересте" data-media="http://gastromarket.ru${product?.avatarUrlBig}">Pinterest</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <t:if test="catalogOwner">
+            <t:productEdit modalId="pr-edit" product="product" catalog="product.catalog" reloadPage="true"/>
+        </t:if>
+        <div class="modal fade img-big-modal" id="img-big" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog image-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="title">
+                            <h1><span>${product.name}</span></h1>
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <img class="img-big" alt="${product.name}" title="${product.name}" src="${product.avatarUrlBig}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <t:if test="recommendedProducts">
+        <section>
+            <div class="title">
+                <h1><span>Похожие блюда</span></h1>
+            </div>
+            <div id="product-items" class="grid-block products">
+                <t:loop source="recommendedProducts" value="oneProduct">
+                    <t:product product="oneProduct" class="fixed"/>
+                </t:loop>
+            </div>
+            <t:productModalTemplate/>
+        </section>
+    </t:if>
+
+    <script>
+        jQuery(document).ready(function () {
+            initProductCatalogFixed();
+        });
+    </script>
+
+</t:layout>
